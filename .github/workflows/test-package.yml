@@ -19,7 +19,7 @@ env:
 jobs:
   # Check code formatting and static analysis on a single OS (linux)
   # against Dart stable.
-  analyze:
+  analyze_jni_gen:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -43,7 +43,7 @@ jobs:
         run: dart analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
 
-  test:
+  test_jni_gen:
     needs: analyze
     runs-on: ${{ matrix.os }}
     defaults:
