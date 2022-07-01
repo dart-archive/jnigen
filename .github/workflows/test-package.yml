@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./jnigen
+        working-directory: ./jni_gen
     strategy:
       fail-fast: false
       matrix:
@@ -48,7 +48,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     defaults:
       run:
-        working-directory: ./jnigen
+        working-directory: ./jni_gen
     strategy:
       fail-fast: false
       matrix:
@@ -72,4 +72,4 @@ jobs:
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./jnigen/coverage/lcov.info
+          path-to-lcov: ./jni_gen/coverage/lcov.info
