@@ -32,12 +32,12 @@ android {
     // Bumping the plugin ndkVersion requires all clients of this plugin to bump
     // the version in their app and to download a newer version of the NDK.
 
-	// Note(MaheshH): Seems 22 is lowest one can get through SDKManager now?
-	//
-	// It's more of a logistic issue, I can't download NDK 21, so keeping it
-	// 22. You might get a warning to bump some versions.
+    // Note(MaheshH): Seems 22 is lowest one can get through SDKManager now?
+    //
+    // It's more of a logistic issue, I can't download NDK 21, so keeping it
+    // 22. You might get a warning to bump some versions.
     ndkVersion "22.1.7171670"
-	// ndkVersion "21.1.6352462"
+    // ndkVersion "21.1.6352462"
 
     // Invoke the shared CMake build with the Android Gradle Plugin.
     externalNativeBuild {
