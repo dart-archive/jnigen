@@ -44,7 +44,7 @@ jobs:
         if: always() && steps.install.outcome == 'success'
 
   test_jni_gen:
-    needs: analyze
+    needs: analyze_jni_gen
     runs-on: ${{ matrix.os }}
     defaults:
       run:
