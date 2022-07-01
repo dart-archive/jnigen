@@ -64,10 +64,12 @@ jobs:
         run: dart pub get
       - name: Run VM tests
         run: dart test --platform vm
+      - name: Install coverage
+        run: dart pub global activate coverage
       - name: Collect coverage
-        run: ./tool/coverage.sh
+        run: dart pub global run coverage:test_with_coverage
       - name: Upload coverage
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./jnigen/lcov.info
+          path-to-lcov: ./jnigen/coverage/lcov.info
