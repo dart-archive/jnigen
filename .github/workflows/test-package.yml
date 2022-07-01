@@ -21,6 +21,9 @@ jobs:
   # against Dart stable.
   analyze:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./jnigen
     strategy:
       fail-fast: false
       matrix:
@@ -43,6 +46,9 @@ jobs:
   test:
     needs: analyze
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: ./jnigen
     strategy:
       fail-fast: false
       matrix:
