@@ -2,7 +2,7 @@
 
 This project intends to provide
 
-* A code generator tools which generates Dart wrappers to Java libraries using FFI.
+* A code generator which generates Dart wrappers to Java libraries using FFI.
 
 * Ergonomic bindings to JNI's C API.
 
