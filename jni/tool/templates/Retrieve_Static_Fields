@@ -1,0 +1,20 @@
+  {TARGET_TYPE} retrieve{PTYPE}Field(String className, String fieldName, String signature) {
+	final arena = Arena();
+	final env = getEnv();
+    final classNameChars = className.toNativeChars(arena);
+	final fieldNameChars = fieldName.toNativeChars(arena);
+    final signatueChars = signature.toNativeChars(arena);
+	final cls = _bindings.LoadClass(classNameChars);
+	if (cls == nullptr) {
+		env.checkException();
+	}
+	final fieldID = env.GetStaticFieldID(cls, fieldNameChars, signatueChars);
+	if (fieldID == nullptr) {
+		env.checkException();
+	}
+	final result = env.GetStatic{TYPE}Field(cls, fieldID);
+	env.checkException();
+	{CLS_REF_DEL}arena.releaseAll();
+	{INVOKE_RESULT};
+  }
+

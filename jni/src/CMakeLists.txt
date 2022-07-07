@@ -6,12 +6,21 @@ cmake_minimum_required(VERSION 3.10)
 project(jni_library VERSION 0.0.1 LANGUAGES C)
 
 add_library(jni SHARED
-  "jni.c"
+  "dartjni.c"
 )
 
 set_target_properties(jni PROPERTIES
-  PUBLIC_HEADER jni.h
-  OUTPUT_NAME "jni"
+  PUBLIC_HEADER dartjni.h
+  OUTPUT_NAME "dartjni"
 )
 
 target_compile_definitions(jni PUBLIC DART_SHARED_LIB)
+
+if (NOT ANDROID)
+	find_package(Java REQUIRED)
+	find_package(JNI REQUIRED)
+	include_directories(${JNI_INCLUDE_DIRS})
+	target_link_libraries(jni ${JNI_LIBRARIES})
+else()
+	target_link_libraries(jni log)
+endif()

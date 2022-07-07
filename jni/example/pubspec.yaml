@@ -30,6 +30,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  ffi:
+
   jni:
     # When depending on this package from a real application you should use:
     #   jni: ^x.y.z
