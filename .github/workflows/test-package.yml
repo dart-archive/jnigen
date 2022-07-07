@@ -81,9 +81,9 @@ jobs:
         working-directory: ./jni
     steps:
       - uses: actions/checkout@v3
-      - uses: dart-lang/setup-dart@v1.0
+      - uses: subosito/flutter-action@v2
         with:
-          sdk: stable
+          channel: 'stable'
       - uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
