@@ -3,14 +3,15 @@
 #include "jni.h"
 #include <stdint.h>
 
-#if defined __linux__ || defined __ANDROID__
-#include <threads.h>
+#if defined _WIN32
+#define thread_local __declspec(thread)
+#else
+#define thread_local __thread
 #endif
 
 #ifdef __ANDROID__
 #include<android/log.h>
 #endif
-
 
 #define JNI_LOG_TAG "Dart-JNI"
 
