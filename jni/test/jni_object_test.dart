@@ -12,7 +12,7 @@ import 'package:jni/jni_object.dart';
 void main() {
   // Don't forget to initialize JNI.
   if (!Platform.isAndroid) {
-	var dir = Directory.current;
+    var dir = Directory.current;
     Jni.spawn(helperDir: path.join(dir.absolute.path, "src", "build"));
   }
 
