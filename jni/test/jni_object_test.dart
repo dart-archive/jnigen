@@ -4,13 +4,15 @@ import 'dart:isolate';
 
 import 'package:test/test.dart';
 
+import 'package:path/path.dart' as path;
+
 import 'package:jni/jni.dart';
 import 'package:jni/jni_object.dart';
 
 void main() {
   // Don't forget to initialize JNI.
   if (!Platform.isAndroid) {
-    Jni.spawn(helperDir: join(".", "src", "build"));
+    Jni.spawn(helperDir: path.join(".", "src", "build"));
   }
 
   var jni = Jni.getInstance();
