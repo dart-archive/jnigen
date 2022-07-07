@@ -83,7 +83,7 @@ jobs:
       fail-fast: false
       matrix:
         # Add macos-latest and/or windows-latest if relevant for this package.
-        os: [ubuntu-latest windows-latest]
+        os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
