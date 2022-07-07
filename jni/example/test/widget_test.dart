@@ -7,7 +7,6 @@ import 'package:jni/jni.dart';
 import 'package:jni/jni_object.dart';
 import 'package:jni_example/main.dart';
 
-
 // This test exists just to verify that
 // when everything is correct, JNI actually runs
 // However it's also kind of meaningless, because test environment
