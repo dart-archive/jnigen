@@ -12,7 +12,8 @@ import 'package:jni/jni_object.dart';
 void main() {
   // Don't forget to initialize JNI.
   if (!Platform.isAndroid) {
-    Jni.spawn(helperDir: path.join(".", "src", "build"));
+	var dir = Directory.current;
+    Jni.spawn(helperDir: path.join(dir.absolute.path, "src", "build"));
   }
 
   var jni = Jni.getInstance();
