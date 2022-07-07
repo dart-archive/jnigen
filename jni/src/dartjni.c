@@ -1,8 +1,13 @@
 #include "dartjni.h"
 
-#include <jni.h>
+#include "../third_party/jni.h"
 #include <stdint.h>
+
+#ifndef __WIN32
 #include <threads.h>
+#else
+#define thread_local __declspec(thread)
+#endif
 
 #ifdef __ANDROID__
 #include<android/log.h>
@@ -63,7 +68,7 @@ static inline void load_class(jclass *cls, const char *name) {
 
 static inline void attach_thread() {
 	if (jniEnv == NULL) {
-		(*jni.jvm)->AttachCurrentThread(jni.jvm, (void **)&jniEnv,
+		(*jni.jvm)->AttachCurrentThread(jni.jvm, &jniEnv,
 		                                NULL);
 	}
 }
@@ -178,7 +183,7 @@ SpawnJvm(JavaVMInitArgs *initArgs) {
 	}
 	jni_log(JNI_DEBUG, "JNI Version: %d\n", initArgs->version);
 	const long flag =
-	    JNI_CreateJavaVM(&jni.jvm, (void **)&jniEnv, initArgs);
+	    JNI_CreateJavaVM(&jni.jvm, &jniEnv, initArgs);
 	if (flag == JNI_ERR) {
 		return NULL;
 	}
