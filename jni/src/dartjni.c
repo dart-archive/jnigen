@@ -1,9 +1,9 @@
 #include "dartjni.h"
 
-#include "../third_party/jni.h"
+#include "jni.h"
 #include <stdint.h>
 
-#if !defined __WIN32 && !defined WIN32
+#if defined __linux__ || defined __ANDROID__
 #include <threads.h>
 #endif
 

@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
-#include "../third_party/jni.h"
+#include "jni.h"
 #include <stdlib.h>
 
 #if _WIN32
