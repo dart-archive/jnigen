@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ffi';
 
+import 'package:path/path.dart';
 import 'package:test/test.dart';
 import 'package:ffi/ffi.dart';
 import 'package:jni/jni.dart';
@@ -18,7 +19,7 @@ void main() {
   // You have to manually pass the path to the `dartjni` dynamic library.
 
   if (!Platform.isAndroid) {
-    Jni.spawn(helperDir: "src/build");
+    Jni.spawn(helperDir: join(".", "src", "build"));
   }
 
   var jni = Jni.getInstance();
