@@ -3,10 +3,8 @@
 #include "../third_party/jni.h"
 #include <stdint.h>
 
-#ifndef __WIN32
+#if !defined __WIN32 && !defined WIN32
 #include <threads.h>
-#else
-#define thread_local __declspec(thread)
 #endif
 
 #ifdef __ANDROID__
