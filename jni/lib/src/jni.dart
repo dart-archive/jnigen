@@ -17,7 +17,7 @@ String _getLibraryFileName(String base) {
   if (Platform.isLinux || Platform.isAndroid) {
     return "lib$base.so";
   } else if (Platform.isWindows) {
-    return "$base.dll";
+    return "Debug\\$base.dll";
   } else if (Platform.isMacOS) {
     // TODO: Is this correct?
     return "$base.framework/$base";
