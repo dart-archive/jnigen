@@ -167,8 +167,7 @@ JNIEXPORT void JNICALL Java_dev_dart_jni_JniPlugin_setJniActivity(JNIEnv *env, j
 // on Android NDK. So IFDEF is required.
 #else
 FFI_PLUGIN_EXPORT
-__attribute__((visibility("default"))) __attribute__((used)) JNIEnv *
-SpawnJvm(JavaVMInitArgs *initArgs) {
+JNIEnv *SpawnJvm(JavaVMInitArgs *initArgs) {
 	JavaVMOption jvmopt[1];
 	char class_path[] = "-Djava.class.path=.";
 	jvmopt[0].optionString = class_path;
