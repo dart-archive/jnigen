@@ -74,7 +74,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: package_jni_tests
           parallel: true
-          path-to-lcov: ./jni/coverage/lcov.info
+          path-to-lcov: ./jni_gen/coverage/lcov.info
 
   test_jni:
     runs-on: ubuntu-latest
@@ -118,7 +118,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: jni_gen_tests
           parallel: true
-          path-to-lcov: ./jni_gen/coverage/lcov.info
+          path-to-lcov: ./jni/coverage/lcov.info
 
   build_jni_example_linux:
     runs-on: ubuntu-latest
