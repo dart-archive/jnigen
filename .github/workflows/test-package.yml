@@ -184,3 +184,13 @@ jobs:
       - run: flutter build apk
       - run: flutter build appbundle
 
+  coveralls_finish:
+    needs: [test_jni_gen, test_jni]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true
+
