@@ -72,7 +72,9 @@ jobs:
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./jni_gen/coverage/lcov.info
+          flag-name: package_jni_tests
+          parallel: true
+          path-to-lcov: ./jni/coverage/lcov.info
 
   test_jni:
     runs-on: ubuntu-latest
@@ -98,10 +100,25 @@ jobs:
           cmake .. && cmake --build .
           cd ../..
       - run: flutter pub get
-      - run: flutter format --output=none --set-exit-if-changed .
-      - run: flutter analyze --fatal-infos
-      - run: dart pub get
-      - run: dart test
+      - name: Check formatting
+        run: flutter format --output=none --set-exit-if-changed .
+      - name: Run lints
+        run: flutter analyze --fatal-infos
+      - name: Get dependencies
+        run: dart pub get
+      - name: Run tests
+        run: dart test
+      - name: Install coverage
+        run: dart pub global activate coverage
+      - name: Collect coverage
+        run: dart pub global run coverage:test_with_coverage
+      - name: Upload coverage
+        uses: coverallsapp/github-action@v1.1.2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: jni_gen_tests
+          parallel: true
+          path-to-lcov: ./jni_gen/coverage/lcov.info
 
   build_jni_example_linux:
     runs-on: ubuntu-latest
