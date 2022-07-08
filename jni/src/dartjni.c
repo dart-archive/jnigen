@@ -2,12 +2,16 @@
 
 #include <jni.h>
 #include <stdint.h>
-#include <threads.h>
+
+#if defined _WIN32
+#define thread_local __declspec(thread)
+#else
+#define thread_local __thread
+#endif
 
 #ifdef __ANDROID__
 #include<android/log.h>
 #endif
-
 
 #define JNI_LOG_TAG "Dart-JNI"
 
@@ -63,7 +67,7 @@ static inline void load_class(jclass *cls, const char *name) {
 
 static inline void attach_thread() {
 	if (jniEnv == NULL) {
-		(*jni.jvm)->AttachCurrentThread(jni.jvm, (void **)&jniEnv,
+		(*jni.jvm)->AttachCurrentThread(jni.jvm, &jniEnv,
 		                                NULL);
 	}
 }
@@ -163,8 +167,7 @@ JNIEXPORT void JNICALL Java_dev_dart_jni_JniPlugin_setJniActivity(JNIEnv *env, j
 // on Android NDK. So IFDEF is required.
 #else
 FFI_PLUGIN_EXPORT
-__attribute__((visibility("default"))) __attribute__((used)) JNIEnv *
-SpawnJvm(JavaVMInitArgs *initArgs) {
+JNIEnv *SpawnJvm(JavaVMInitArgs *initArgs) {
 	JavaVMOption jvmopt[1];
 	char class_path[] = "-Djava.class.path=.";
 	jvmopt[0].optionString = class_path;
@@ -178,7 +181,7 @@ SpawnJvm(JavaVMInitArgs *initArgs) {
 	}
 	jni_log(JNI_DEBUG, "JNI Version: %d\n", initArgs->version);
 	const long flag =
-	    JNI_CreateJavaVM(&jni.jvm, (void **)&jniEnv, initArgs);
+	    JNI_CreateJavaVM(&jni.jvm, &jniEnv, initArgs);
 	if (flag == JNI_ERR) {
 		return NULL;
 	}
