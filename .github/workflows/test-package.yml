@@ -82,7 +82,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -129,6 +129,7 @@ jobs:
       - run: flutter config --enable-linux-desktop
       - run: flutter pub get
       - run: flutter test
+      - run: flutter test integration_test/integration_test.dart -d linux
       - run: flutter build linux
 
   build_jni_example_windows:
@@ -147,6 +148,7 @@ jobs:
           java-version: '11'
       - run: flutter config --enable-windows-desktop
       - run: flutter pub get
+      - run: flutter test integration_test/integration_test.dart -d windows
       - run: flutter build windows
 
   build_jni_example_macos:
