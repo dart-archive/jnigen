@@ -72,7 +72,7 @@ jobs:
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          flag-name: package_jni_tests
+          flag-name: jni_gen_tests
           parallel: true
           path-to-lcov: ./jni_gen/coverage/lcov.info
 
@@ -116,7 +116,7 @@ jobs:
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          flag-name: jni_gen_tests
+          flag-name: jni_tests
           parallel: true
           path-to-lcov: ./jni/coverage/lcov.info
 
