@@ -76,6 +76,32 @@ jobs:
           parallel: true
           path-to-lcov: ./jni_gen/coverage/lcov.info
 
+  test_jni_windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./jni
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1.0
+        with:
+          sdk: 'stable'
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - run: |
+          cd src/
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build .
+          cp Debug/dartjni.dll .
+      - name: Get dependencies
+        run: dart pub get
+      - name: Run tests
+        run: dart test
+
   test_jni:
     runs-on: ubuntu-latest
     defaults:
