@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
 
-import 'jni_bindings_generated.dart';
+import 'third_party/jni_bindings_generated.dart';
 
 extension StringMethodsForJni on String {
   /// Returns a Utf-8 encoded Pointer<Char> with contents same as this string.

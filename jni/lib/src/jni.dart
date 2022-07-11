@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:ffi/ffi.dart';
 import 'package:path/path.dart';
 
-import 'jni_bindings_generated.dart';
+import 'third_party/jni_bindings_generated.dart';
 import 'extensions.dart';
 import 'jvalues.dart';
 

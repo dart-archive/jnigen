@@ -63,4 +63,4 @@ export 'src/jni.dart';
 export 'src/jvalues.dart' hide JValueArgs, toJValues;
 export 'src/extensions.dart'
     show StringMethodsForJni, CharPtrMethodsForJni, AdditionalJniEnvMethods;
-export 'src/jni_bindings_generated.dart'; // currently just export all
+export 'src/third_party/jni_bindings_generated.dart'; // currently export all

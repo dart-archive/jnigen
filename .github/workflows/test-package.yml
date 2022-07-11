@@ -76,6 +76,9 @@ jobs:
           parallel: true
           path-to-lcov: ./jni_gen/coverage/lcov.info
 
+  ## TODO: More minimal test on windows after fixing dev dependency.
+  ## i.e do not rerun analyze and format steps, and do not require flutter.
+
   test_jni:
     runs-on: ubuntu-latest
     defaults:
@@ -83,6 +86,8 @@ jobs:
         working-directory: ./jni
     steps:
       - uses: actions/checkout@v3
+      ## Requires flutter to analyze example.
+      ## Using dart alone doesn't work.
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'

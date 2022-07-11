@@ -26,6 +26,8 @@ dev_dependencies:
   #
   ## After running `dart run ffigen --config ffigen.yaml` there
   ## should be no changes.
+  ##
+  ## TODO: vendor ffigen fork
   ffigen:
     git: https://github.com/mahesh-hegde/ffigen_patch_jni.git
     #path: third_party/ffigen_patch

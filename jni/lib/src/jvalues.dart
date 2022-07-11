@@ -1,7 +1,7 @@
 import 'dart:ffi';
 import 'package:ffi/ffi.dart';
 
-import 'jni_bindings_generated.dart';
+import 'third_party/jni_bindings_generated.dart';
 import 'extensions.dart';
 import 'jni_object.dart';
 
