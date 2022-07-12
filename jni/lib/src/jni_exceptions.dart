@@ -37,3 +37,13 @@ class JniException implements Exception {
 
   void deleteIn(Pointer<JniEnv> env) => env.DeleteLocalRef(err);
 }
+
+class HelperNotFoundException implements Exception {
+  HelperNotFoundException(this.path);
+  final String path;
+
+  @override
+  String toString() => "Lookup for helper library $path failed.\n"
+      "Please ensure that `dartjni` shared library is built.\n"
+      "If the library is already built, double check the path.";
+}

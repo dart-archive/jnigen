@@ -28,12 +28,12 @@
 /// the wrapper libraries with the executable. Thus it needs to be explicitly
 /// placed in a accessible directory and provided as an argument to Jni.spawn.
 ///
-/// This module depends on a shared library written in C, when using dart
-/// standalone, it's your responsibility to:
+/// This module depends on a shared library written in C. Therefore on dart
+/// standalone:
 ///
-///  * Build the library `libdartjni.so` in src/ directory of this plugin
-///  * Bundle it appropriately with dart application
-///  * Pass the path to library as a parameter to `Jni.spawn()`
+///  * Build the library `libdartjni.so` in src/ directory of this plugin.
+///  * Bundle it appropriately with dart application.
+///  * Pass the path to library as a parameter to `Jni.spawn()`.
 ///
 /// __JNIEnv:__
 /// The types `JNIEnv` and `JavaVM` in JNI are available as `JniEnv` and
@@ -47,16 +47,15 @@
 /// * On desktop platforms you can use JniEnv.ExceptionDescribe to print any
 /// pending exception to stdout.
 /// * On Android, things are slightly easier since CheckJNI is usually enabled
-/// in debug builds.
-/// * If you are not getting clear stack traces on JNI errors, check the
-/// Android NDK page on how to enable CheckJNI using ADB.
+/// in debug builds. If you are not getting clear stack traces on JNI errors,
+/// check the Android NDK page on how to enable CheckJNI using ADB.
 /// * As a rule of thumb, when there's a NoClassDefFound / NoMethodFound error,
 /// first check your class and method signatures for typos.
 ///
 
-/// This library exports the minimum foundations of JNI.
+/// This file exports the minimum foundations of JNI.
 ///
-/// For a higher level API, import jni_object.dart.
+/// For a higher level API, import `'package:jni/jni_object.dart'`.
 library jni;
 
 export 'src/third_party/jni_bindings_generated.dart'; // currently export all

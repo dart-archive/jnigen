@@ -7,6 +7,7 @@ import 'package:path/path.dart';
 import 'third_party/jni_bindings_generated.dart';
 import 'extensions.dart';
 import 'jvalues.dart';
+import 'jni_exceptions.dart';
 
 import 'jni_object.dart';
 import 'jni_class.dart';
@@ -34,6 +35,9 @@ DynamicLibrary _loadJniHelpersLibrary(
     {String? dir, String baseName = "dartjni"}) {
   final fileName = _getLibraryFileName(baseName);
   final libPath = (dir != null) ? join(dir, fileName) : fileName;
+  if (!File(libPath).existsSync()) {
+    throw HelperNotFoundException(libPath);
+  }
   final dylib = DynamicLibrary.open(libPath);
   return dylib;
 }

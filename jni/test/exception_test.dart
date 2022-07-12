@@ -7,7 +7,21 @@ import 'package:jni/jni_object.dart';
 
 void main() {
   if (!Platform.isAndroid) {
-    Jni.spawn(helperDir: "src/build");
+    bool caught = false;
+    try {
+      // If library does not exist, a helpful exception should be thrown.
+      // we can't test this directly because
+      // `test` schedules functions asynchronously
+      Jni.spawn(helperDir: "wrong_dir");
+    } on HelperNotFoundException catch (_) {
+      // stderr.write("\n$_\n");
+      Jni.spawn(helperDir: "src/build");
+      caught = true;
+    }
+    if (!caught) {
+      throw "Expected HelperNotFoundException\n"
+          "Read exception_test.dart for details.";
+    }
   }
   final jni = Jni.getInstance();
 
