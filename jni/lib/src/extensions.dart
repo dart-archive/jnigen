@@ -4,6 +4,8 @@ import 'package:ffi/ffi.dart';
 
 import 'third_party/jni_bindings_generated.dart';
 
+import 'jni_exceptions.dart';
+
 extension StringMethodsForJni on String {
   /// Returns a Utf-8 encoded Pointer<Char> with contents same as this string.
   Pointer<Char> toNativeChars([Allocator allocator = malloc]) {
@@ -60,7 +62,7 @@ extension AdditionalJniEnvMethods on Pointer<JniEnv> {
       final toStr = GetMethodID(ecls, _toString, _toStringSig);
       final jstr = CallObjectMethod(exc, toStr);
       final dstr = asDartString(jstr);
-      for (var i in [jstr, ecls, exc]) {
+      for (var i in [jstr, ecls]) {
         DeleteLocalRef(i);
       }
       if (describe) {
@@ -68,12 +70,22 @@ extension AdditionalJniEnvMethods on Pointer<JniEnv> {
       } else {
         ExceptionClear();
       }
-      throw Exception(dstr);
+      throw JniException(exc, dstr);
     }
+  }
+
+  /// Calls the printStackTrace on exception object
+  /// obtained by java
+  void printStackTrace(JniException je) {
+    final ecls = GetObjectClass(je.err);
+    final printStackTrace =
+        GetMethodID(ecls, _printStackTrace, _printStackTraceSig);
+    CallVoidMethod(je.err, printStackTrace);
+    DeleteLocalRef(ecls);
   }
 }
 
-// Better ways to allocate these?
-
 final _toString = "toString".toNativeChars();
 final _toStringSig = "()Ljava/lang/String;".toNativeChars();
+final _printStackTrace = "printStackTrace".toNativeChars();
+final _printStackTraceSig = "()V".toNativeChars();

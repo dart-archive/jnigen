@@ -1,5 +1,6 @@
   /// Retrieves the value of the field denoted by [fieldID]
   {TARGET_TYPE} get{STATIC}{PTYPE}Field(JFieldID fieldID) {
+    _checkDeleted();
 	final result = _env.Get{STATIC}{TYPE}Field({THIS}, fieldID);
 	_env.checkException();
 	{RESULT};

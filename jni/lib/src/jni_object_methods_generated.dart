@@ -5,6 +5,7 @@ part of 'jni_object.dart';
 extension JniObjectCallMethods on JniObject {
   /// Calls method pointed to by [methodID] with [args] as arguments
   String callStringMethod(JMethodID methodID, List<dynamic> args) {
+    _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallObjectMethodA(_obj, methodID, jvArgs.values);
     _env.checkException();
@@ -27,6 +28,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Retrieves the value of the field denoted by [fieldID]
   String getStringField(JFieldID fieldID) {
+    _checkDeleted();
     final result = _env.GetObjectField(_obj, fieldID);
     _env.checkException();
     final str = _env.asDartString(result);
@@ -43,6 +45,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Calls method pointed to by [methodID] with [args] as arguments
   JniObject callObjectMethod(JMethodID methodID, List<dynamic> args) {
+    _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallObjectMethodA(_obj, methodID, jvArgs.values);
     _env.checkException();
@@ -63,6 +66,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Retrieves the value of the field denoted by [fieldID]
   JniObject getObjectField(JFieldID fieldID) {
+    _checkDeleted();
     final result = _env.GetObjectField(_obj, fieldID);
     _env.checkException();
     return JniObject.of(_env, result, nullptr);
@@ -77,6 +81,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Calls method pointed to by [methodID] with [args] as arguments
   bool callBooleanMethod(JMethodID methodID, List<dynamic> args) {
+    _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallBooleanMethodA(_obj, methodID, jvArgs.values);
     _env.checkException();
@@ -97,6 +102,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Retrieves the value of the field denoted by [fieldID]
   bool getBooleanField(JFieldID fieldID) {
+    _checkDeleted();
     final result = _env.GetBooleanField(_obj, fieldID);
     _env.checkException();
     return result != 0;
@@ -111,6 +117,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Calls method pointed to by [methodID] with [args] as arguments
   int callByteMethod(JMethodID methodID, List<dynamic> args) {
+    _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallByteMethodA(_obj, methodID, jvArgs.values);
     _env.checkException();
@@ -130,6 +137,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Retrieves the value of the field denoted by [fieldID]
   int getByteField(JFieldID fieldID) {
+    _checkDeleted();
     final result = _env.GetByteField(_obj, fieldID);
     _env.checkException();
     return result;
@@ -144,6 +152,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Calls method pointed to by [methodID] with [args] as arguments
   int callCharMethod(JMethodID methodID, List<dynamic> args) {
+    _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallCharMethodA(_obj, methodID, jvArgs.values);
     _env.checkException();
@@ -163,6 +172,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Retrieves the value of the field denoted by [fieldID]
   int getCharField(JFieldID fieldID) {
+    _checkDeleted();
     final result = _env.GetCharField(_obj, fieldID);
     _env.checkException();
     return result;
@@ -177,6 +187,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Calls method pointed to by [methodID] with [args] as arguments
   int callShortMethod(JMethodID methodID, List<dynamic> args) {
+    _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallShortMethodA(_obj, methodID, jvArgs.values);
     _env.checkException();
@@ -196,6 +207,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Retrieves the value of the field denoted by [fieldID]
   int getShortField(JFieldID fieldID) {
+    _checkDeleted();
     final result = _env.GetShortField(_obj, fieldID);
     _env.checkException();
     return result;
@@ -210,6 +222,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Calls method pointed to by [methodID] with [args] as arguments
   int callIntMethod(JMethodID methodID, List<dynamic> args) {
+    _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallIntMethodA(_obj, methodID, jvArgs.values);
     _env.checkException();
@@ -229,6 +242,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Retrieves the value of the field denoted by [fieldID]
   int getIntField(JFieldID fieldID) {
+    _checkDeleted();
     final result = _env.GetIntField(_obj, fieldID);
     _env.checkException();
     return result;
@@ -243,6 +257,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Calls method pointed to by [methodID] with [args] as arguments
   int callLongMethod(JMethodID methodID, List<dynamic> args) {
+    _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallLongMethodA(_obj, methodID, jvArgs.values);
     _env.checkException();
@@ -262,6 +277,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Retrieves the value of the field denoted by [fieldID]
   int getLongField(JFieldID fieldID) {
+    _checkDeleted();
     final result = _env.GetLongField(_obj, fieldID);
     _env.checkException();
     return result;
@@ -276,6 +292,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Calls method pointed to by [methodID] with [args] as arguments
   double callFloatMethod(JMethodID methodID, List<dynamic> args) {
+    _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallFloatMethodA(_obj, methodID, jvArgs.values);
     _env.checkException();
@@ -296,6 +313,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Retrieves the value of the field denoted by [fieldID]
   double getFloatField(JFieldID fieldID) {
+    _checkDeleted();
     final result = _env.GetFloatField(_obj, fieldID);
     _env.checkException();
     return result;
@@ -310,6 +328,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Calls method pointed to by [methodID] with [args] as arguments
   double callDoubleMethod(JMethodID methodID, List<dynamic> args) {
+    _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallDoubleMethodA(_obj, methodID, jvArgs.values);
     _env.checkException();
@@ -330,6 +349,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Retrieves the value of the field denoted by [fieldID]
   double getDoubleField(JFieldID fieldID) {
+    _checkDeleted();
     final result = _env.GetDoubleField(_obj, fieldID);
     _env.checkException();
     return result;
@@ -344,6 +364,7 @@ extension JniObjectCallMethods on JniObject {
 
   /// Calls method pointed to by [methodID] with [args] as arguments
   void callVoidMethod(JMethodID methodID, List<dynamic> args) {
+    _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallVoidMethodA(_obj, methodID, jvArgs.values);
     _env.checkException();

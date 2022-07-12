@@ -59,8 +59,9 @@
 /// For a higher level API, import jni_object.dart.
 library jni;
 
+export 'src/third_party/jni_bindings_generated.dart'; // currently export all
 export 'src/jni.dart';
 export 'src/jvalues.dart' hide JValueArgs, toJValues;
 export 'src/extensions.dart'
     show StringMethodsForJni, CharPtrMethodsForJni, AdditionalJniEnvMethods;
-export 'src/third_party/jni_bindings_generated.dart'; // currently export all
+export 'src/jni_exceptions.dart';

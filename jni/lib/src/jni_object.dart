@@ -6,6 +6,7 @@ import 'third_party/jni_bindings_generated.dart';
 import 'extensions.dart';
 import 'jni_class.dart';
 import 'jvalues.dart';
+import 'jni_exceptions.dart';
 
 part 'jni_object_methods_generated.dart';
 
@@ -21,7 +22,15 @@ class JniObject {
   JClass _cls;
   final JObject _obj;
   final Pointer<JniEnv> _env;
+  bool _deleted = false;
   JniObject.of(this._env, this._obj, this._cls);
+
+  @pragma('vm:prefer-inline')
+  void _checkDeleted() {
+    if (_deleted) {
+      throw UseAfterFreeException(this, _obj);
+    }
+  }
 
   JniObject.fromJObject(Pointer<JniEnv> env, JObject obj)
       : _env = env,
@@ -35,23 +44,35 @@ class JniObject {
   JniObject.fromGlobalRef(Pointer<JniEnv> env, JniGlobalObjectRef r)
       : _env = env,
         _obj = env.NewLocalRef(r._obj),
-        _cls = env.NewLocalRef(r._cls);
+        _cls = env.NewLocalRef(r._cls) {
+    if (r._deleted) {
+      throw UseAfterFreeException(r, r._obj);
+    }
+  }
 
   /// Delete the local reference contained by this object.
   ///
   /// Do not use a JniObject after calling [delete].
   void delete() {
+    if (_deleted == true) {
+      throw DoubleFreeException(this, _obj);
+    }
     _env.DeleteLocalRef(_obj);
     if (_cls != nullptr) {
       _env.DeleteLocalRef(_cls);
     }
+    _deleted = true;
   }
 
   /// Returns underlying [JObject] of this [JniObject].
-  JObject get jobject => _obj;
+  JObject get jobject {
+    _checkDeleted();
+    return _obj;
+  }
 
   /// Returns underlying [JClass] of this [JniObject].
   JObject get jclass {
+    _checkDeleted();
     if (_cls == nullptr) {
       _cls = _env.GetObjectClass(_obj);
     }
@@ -60,6 +81,7 @@ class JniObject {
 
   /// Get a JniClass of this object's class.
   JniClass getClass() {
+    _checkDeleted();
     if (_cls == nullptr) {
       return JniClass.of(_env, _env.GetObjectClass(_obj));
     }
@@ -69,11 +91,13 @@ class JniObject {
   /// if the underlying JObject is string
   /// converts it to string representation.
   String asDartString() {
+    _checkDeleted();
     return _env.asDartString(_obj);
   }
 
   /// Returns method id for [name] on this object.
   JMethodID getMethodID(String name, String signature) {
+    _checkDeleted();
     if (_cls == nullptr) {
       _cls = _env.GetObjectClass(_obj);
     }
@@ -88,6 +112,7 @@ class JniObject {
 
   /// Returns field id for [name] on this object.
   JFieldID getFieldID(String name, String signature) {
+    _checkDeleted();
     if (_cls == nullptr) {
       _cls = _env.GetObjectClass(_obj);
     }
@@ -104,6 +129,7 @@ class JniObject {
   ///
   /// This is useful for passing a JniObject between threads.
   JniGlobalObjectRef getGlobalRef() {
+    _checkDeleted();
     return JniGlobalObjectRef._(
       _env.NewGlobalRef(_obj),
       _env.NewGlobalRef(_cls),
@@ -114,6 +140,7 @@ class JniObject {
   ///
   /// Useful in expression chains.
   T use<T>(T Function(JniObject) callback) {
+    _checkDeleted();
     var result = callback(this);
     delete();
     return result;
@@ -131,13 +158,18 @@ class JniObject {
 class JniGlobalObjectRef {
   final JObject _obj;
   final JClass _cls;
+  bool _deleted = false;
   JniGlobalObjectRef._(this._obj, this._cls);
 
   JObject get jobject => _obj;
   JObject get jclass => _cls;
 
   void deleteIn(Pointer<JniEnv> env) {
+    if (_deleted == true) {
+      throw DoubleFreeException(this, _obj);
+    }
     env.DeleteGlobalRef(_obj);
     env.DeleteGlobalRef(_cls);
+    _deleted = true;
   }
 }

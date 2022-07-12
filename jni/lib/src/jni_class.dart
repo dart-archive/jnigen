@@ -5,11 +5,11 @@ import 'package:ffi/ffi.dart';
 import 'third_party/jni_bindings_generated.dart';
 import 'extensions.dart';
 import 'jvalues.dart';
+import 'jni_exceptions.dart';
 import 'jni_object.dart';
 
 part 'jni_class_methods_generated.dart';
 
-// TODO: Any better way to allocate this?
 final ctorLookupChars = "<init>".toNativeChars();
 
 /// Convenience wrapper around a JNI local class reference.
@@ -18,6 +18,7 @@ final ctorLookupChars = "<init>".toNativeChars();
 class JniClass {
   final JClass _cls;
   final Pointer<JniEnv> _env;
+  bool _deleted = false;
   JniClass.of(this._env, this._cls);
 
   JniClass.fromJClass(Pointer<JniEnv> env, JClass cls)
@@ -26,9 +27,21 @@ class JniClass {
 
   JniClass.fromGlobalRef(Pointer<JniEnv> env, JniGlobalClassRef r)
       : _env = env,
-        _cls = env.NewLocalRef(r._cls);
+        _cls = env.NewLocalRef(r._cls) {
+    if (r._deleted) {
+      throw UseAfterFreeException(r, r._cls);
+    }
+  }
+
+  @pragma('vm:prefer-inline')
+  void _checkDeleted() {
+    if (_deleted) {
+      throw UseAfterFreeException(this, _cls);
+    }
+  }
 
   JMethodID getConstructorID(String signature) {
+    _checkDeleted();
     final methodSig = signature.toNativeChars();
     final methodID = _env.GetMethodID(_cls, ctorLookupChars, methodSig);
     _env.checkException();
@@ -38,6 +51,7 @@ class JniClass {
 
   /// Construct new object using [ctor].
   JniObject newObject(JMethodID ctor, List<dynamic> args) {
+    _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final newObj = _env.NewObjectA(_cls, ctor, jvArgs.values);
     _env.checkException();
@@ -47,6 +61,7 @@ class JniClass {
   }
 
   JMethodID _getMethodID(String name, String signature, bool isStatic) {
+    _checkDeleted();
     final methodName = name.toNativeChars();
     final methodSig = signature.toNativeChars();
     final result = isStatic
@@ -59,6 +74,7 @@ class JniClass {
   }
 
   JFieldID _getFieldID(String name, String signature, bool isStatic) {
+    _checkDeleted();
     final methodName = name.toNativeChars();
     final methodSig = signature.toNativeChars();
     final result = isStatic
@@ -91,12 +107,22 @@ class JniClass {
   }
 
   /// Returns the underlying [JClass].
-  JClass get jclass => _cls;
+  JClass get jclass {
+    _checkDeleted();
+    return _cls;
+  }
 
-  JniGlobalClassRef getGlobalRef() =>
-      JniGlobalClassRef._(_env.NewGlobalRef(_cls));
+  JniGlobalClassRef getGlobalRef() {
+    _checkDeleted();
+    return JniGlobalClassRef._(_env.NewGlobalRef(_cls));
+  }
+
   void delete() {
+    if (_deleted) {
+      throw DoubleFreeException(this, _cls);
+    }
     _env.DeleteLocalRef(_cls);
+    _deleted = true;
   }
 
   /// Use this [JniClass] to execute callback, then delete.
@@ -105,6 +131,7 @@ class JniClass {
   T use<T>(T Function(JniClass) callback) {
     // TODO: Maybe use a mixin or something?
     // JniClass and JniObject have some similar functionality.
+    _checkDeleted();
     var result = callback(this);
     delete();
     return result;
@@ -121,8 +148,13 @@ class JniGlobalClassRef {
   JniGlobalClassRef._(this._cls);
   final JClass _cls;
   JClass get jclass => _cls;
+  bool _deleted = false;
 
   void deleteIn(Pointer<JniEnv> env) {
+    if (_deleted) {
+      throw DoubleFreeException(this, _cls);
+    }
     env.DeleteGlobalRef(_cls);
+    _deleted = true;
   }
 }
