@@ -14,6 +14,7 @@ dependencies:
   plugin_platform_interface: ^2.0.2
   ffi: ^2.0.0
   path: ^1.8.0
+  args:
 
 dev_dependencies:
   ## Temporarily linking to a personal fork of ffigen
