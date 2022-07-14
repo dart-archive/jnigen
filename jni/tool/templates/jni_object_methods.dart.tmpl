@@ -3,9 +3,10 @@
     _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.Call{STATIC}{TYPE}MethodA({THIS}, methodID, jvArgs.values);
-    _env.checkException();
 	jvArgs.disposeIn(_env);
     calloc.free(jvArgs.values);
+	{STR_REF_DEL}
+    _env.checkException();
     {RESULT};
   }
 

@@ -18,19 +18,14 @@ final targetTypes = {
 };
 
 final resultConverters = {
-  "String": (String resultVar) => "final str = _env.asDartString($resultVar);"
-      "_env.DeleteLocalRef($resultVar);"
-      "return str",
+  "String": (String resultVar) => "return strRes",
   "Object": (String resultVar) =>
       "return JniObject.of(_env, $resultVar, nullptr)",
   "Boolean": (String resultVar) => "return $resultVar != 0",
 };
 
 final invokeResultConverters = {
-  "String": (String resultVar) => "final str = env.asDartString($resultVar);"
-      "env.DeleteLocalRef($resultVar);"
-      "env.DeleteLocalRef(cls);"
-      "return str",
+  "String": (String resultVar) => "return strRes",
   "Object": (String resultVar) =>
       "return JniObject.of(env, $resultVar, nullptr)",
   "Boolean": (String resultVar) => "return $resultVar != 0",
@@ -78,7 +73,13 @@ void main(List<String> args) {
           .replaceAll("{TYPE}", t == "String" ? "Object" : t)
           .replaceAll("{PTYPE}", t)
           .replaceAll("{TARGET_TYPE}", targetTypes[t]!)
-          .replaceAll("{RESULT}", resultConverter("result"));
+          .replaceAll("{RESULT}", resultConverter("result"))
+          .replaceAll(
+              "{STR_REF_DEL}",
+              t == "String"
+                  ? "final strRes = _env.asDartString(result, "
+                      "deleteOriginal: true);"
+                  : "");
       final inst_ =
           skel.replaceAll("{STATIC}", "").replaceAll("{THIS}", "_obj");
       final static_ =
@@ -98,11 +99,14 @@ void main(List<String> args) {
           .replaceAll("{TYPE}", t == "String" ? "Object" : t)
           .replaceAll("{PTYPE}", t)
           .replaceAll("{TARGET_TYPE}", targetTypes[t]!)
+          .replaceAll("{CLS_REF_DEL}",
+              t == "Object" || t == "String" ? "" : "env.DeleteLocalRef(cls);")
           .replaceAll(
-              "{CLS_REF_DEL}",
-              t == "Object" || t == "String"
-                  ? ""
-                  : "env.DeleteLocalRef(cls);\n")
+              "{STR_REF_DEL}",
+              t == "String"
+                  ? "final strRes = env.asDartString(result, "
+                      "deleteOriginal: true);"
+                  : "")
           .replaceAll("{INVOKE_RESULT}", invokeResultConverter("result"));
       sInvoke.write(replaced);
     }

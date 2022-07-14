@@ -19,14 +19,13 @@ This is intended for one-off / debugging uses of JNI, as well as providing a bas
 __To interface a complete java library, look forward for `jni_gen`.__
 
 ## Platform support
-The focus of this project is Android, since it already has a JVM and JNI allows interop with existing code and Platform APIs. Experimental desktop support exists for Linux using the JVM invocation API.
+The focus of this project is Flutter Android, since Flutter Android apps already have a JVM, and JNI enables interop with existing Java code and Android Platform APIs. This project also (partially) supports Linux desktop by spawning a JVM through JNI.
 
 ## Version note
-This library is at an early stage and the public API may rapidly change based on requirements of `jni_gen`.
+This library is at an early stage of development and we do not provide backwards compatibility of the API at this point.
 
 ## Documentation
-
-There are well-commented test files under `test/` directory and a flutter based example under `example/`.
+The test/ directory contains files with comments explaining the basics of this module, and the example/ directory contains a flutter example which also touches some Android-specifics.
 
 Using this library assumes some familiarity with JNI - it's threading model and object references, among other things.
 
@@ -34,5 +33,5 @@ Using this library assumes some familiarity with JNI - it's threading model and 
 
 This library is a part of `jni_gen` - a 2022 GSoC project.
 
-The broader aim of jni_gen is making Java APIs accessible from dart in an idiomatic way. The current focus is on the Android platform.
+The broader aim of jni_gen is making Java APIs accessible from dart in an idiomatic way.
 

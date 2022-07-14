@@ -13,7 +13,7 @@ void main() {
     Jni.spawn(helperDir: "src/build");
   }
 
-  var jni = Jni.getInstance();
+  final jni = Jni.getInstance();
 
   // The API based on JniEnv is intended to closely mimic C API
   // And thus can be too verbose for simple experimenting and one-off uses
@@ -92,7 +92,8 @@ void main() {
     for (int i = 0; i < 100; i++) {
       int r = random.callIntMethod(nextIntMethod, [256 * 256]);
       int bits = 0;
-      int jbc = longClass.callStaticIntMethod(bitCountMethod, [JValueLong(r)]);
+      final jbc =
+          longClass.callStaticIntMethod(bitCountMethod, [JValueLong(r)]);
       while (r != 0) {
         bits += r % 2;
         r = (r / 2).floor();
@@ -106,13 +107,13 @@ void main() {
 
   // Actually it's not even required to get a reference to class
   test("invoke_", () {
-    var m = jni.invokeLongMethod(
+    final m = jni.invokeLongMethod(
         "java/lang/Long", "min", "(JJ)J", [JValueLong(1234), JValueLong(1324)]);
     expect(m, equals(1234));
   });
 
   test("retrieve_", () {
-    var maxLong = jni.retrieveShortField("java/lang/Short", "MAX_VALUE", "S");
+    final maxLong = jni.retrieveShortField("java/lang/Short", "MAX_VALUE", "S");
     expect(maxLong, equals(32767));
   });
 
@@ -141,21 +142,21 @@ void main() {
   });
 
   test("Passing strings in arguments 2", () {
-    var twelve = jni.invokeByteMethod(
+    final twelve = jni.invokeByteMethod(
         "java/lang/Byte", "parseByte", "(Ljava/lang/String;)B", ["12"]);
     expect(twelve, equals(12));
   });
 
   // You can use() method on JniObject for using once and deleting
   test("use() method", () {
-    var randomInt = jni.newInstance("java/util/Random", "()V", []).use(
+    final randomInt = jni.newInstance("java/util/Random", "()V", []).use(
         (random) => random.callIntMethodByName("nextInt", "(I)I", [15]));
     expect(randomInt, lessThan(15));
   });
 
   test("enums", () {
     // Don't forget to escape $ in nested type names
-    var ordinal = jni
+    final ordinal = jni
         .retrieveObjectField(
             "java/net/Proxy\$Type", "HTTP", "Ljava/net/Proxy\$Type;")
         .use((f) => f.callIntMethodByName("ordinal", "()I", []));
@@ -177,14 +178,14 @@ void main() {
   // getGlobalRef() and reconstruct the object in use site using fromJniObject
   // constructor.
   test("JniGlobalRef", () async {
-    var uri = jni.invokeObjectMethod(
+    final uri = jni.invokeObjectMethod(
         "java/net/URI",
         "create",
         "(Ljava/lang/String;)Ljava/net/URI;",
         ["https://www.google.com/search"]);
-    var rg = uri.getGlobalRef();
+    final rg = uri.getGlobalRef();
     await Future.delayed(const Duration(seconds: 1), () {
-      var env = jni.getEnv();
+      final env = jni.getEnv();
       // Now comment this line & try to directly use uri local ref
       // in outer scope.
       //
@@ -193,8 +194,8 @@ void main() {
       //
       // Therefore, don't share JniObjects across functions that can be
       // scheduled across threads, including async callbacks.
-      var uri = JniObject.fromGlobalRef(env, rg);
-      var scheme =
+      final uri = JniObject.fromGlobalRef(env, rg);
+      final scheme =
           uri.callStringMethodByName("getScheme", "()Ljava/lang/String;", []);
       expect(scheme, "https");
       uri.delete();
@@ -210,9 +211,9 @@ void doSomeWorkInIsolate(Void? _) {
   //
   // otherwise getInstance will throw a "library not found" exception.
   Jni.load(helperDir: "src/build");
-  var jni = Jni.getInstance();
-  var random = jni.newInstance("java/util/Random", "()V", []);
-  // var r = random.callIntMethodByName("nextInt", "(I)I", [256]);
+  final jni = Jni.getInstance();
+  final random = jni.newInstance("java/util/Random", "()V", []);
+  // final r = random.callIntMethodByName("nextInt", "(I)I", [256]);
   // expect(r, lessThan(256));
   // Expect throws an OutsideTestException
   // but you can uncomment below print and see it works

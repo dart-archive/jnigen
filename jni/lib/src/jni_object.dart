@@ -104,9 +104,9 @@ class JniObject {
     final methodName = name.toNativeChars();
     final methodSig = signature.toNativeChars();
     final result = _env.GetMethodID(_cls, methodName, methodSig);
-    _env.checkException();
     calloc.free(methodName);
     calloc.free(methodSig);
+    _env.checkException();
     return result;
   }
 
@@ -119,9 +119,9 @@ class JniObject {
     final methodName = name.toNativeChars();
     final methodSig = signature.toNativeChars();
     final result = _env.GetFieldID(_cls, methodName, methodSig);
-    _env.checkException();
     calloc.free(methodName);
     calloc.free(methodSig);
+    _env.checkException();
     return result;
   }
 
@@ -141,9 +141,14 @@ class JniObject {
   /// Useful in expression chains.
   T use<T>(T Function(JniObject) callback) {
     _checkDeleted();
-    var result = callback(this);
-    delete();
-    return result;
+    try {
+      final result = callback(this);
+      delete();
+      return result;
+    } catch (e) {
+      delete();
+      rethrow;
+    }
   }
 }
 

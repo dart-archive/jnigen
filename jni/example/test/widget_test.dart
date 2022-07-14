@@ -16,7 +16,7 @@ void main() {
   if (!Platform.isAndroid) {
     Jni.spawn(helperDir: "../src/build");
   }
-  var jni = Jni.getInstance();
+  final jni = Jni.getInstance();
   testWidgets("simple toString example", (tester) async {
     await tester.pumpWidget(ExampleForTest(ExampleCard(Example(
         "toString",

@@ -2,6 +2,7 @@
   {TARGET_TYPE} get{STATIC}{PTYPE}Field(JFieldID fieldID) {
     _checkDeleted();
 	final result = _env.Get{STATIC}{TYPE}Field({THIS}, fieldID);
+	{STR_REF_DEL}
 	_env.checkException();
 	{RESULT};
   }

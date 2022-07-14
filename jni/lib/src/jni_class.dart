@@ -41,12 +41,7 @@ class JniClass {
   }
 
   JMethodID getConstructorID(String signature) {
-    _checkDeleted();
-    final methodSig = signature.toNativeChars();
-    final methodID = _env.GetMethodID(_cls, ctorLookupChars, methodSig);
-    _env.checkException();
-    calloc.free(methodSig);
-    return methodID;
+    return _getMethodID("<init>", signature, false);
   }
 
   /// Construct new object using [ctor].
@@ -54,9 +49,9 @@ class JniClass {
     _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final newObj = _env.NewObjectA(_cls, ctor, jvArgs.values);
-    _env.checkException();
     jvArgs.disposeIn(_env);
     calloc.free(jvArgs.values);
+    _env.checkException();
     return JniObject.of(_env, newObj, nullptr);
   }
 
@@ -67,9 +62,9 @@ class JniClass {
     final result = isStatic
         ? _env.GetStaticMethodID(_cls, methodName, methodSig)
         : _env.GetMethodID(_cls, methodName, methodSig);
-    _env.checkException();
     calloc.free(methodName);
     calloc.free(methodSig);
+    _env.checkException();
     return result;
   }
 
@@ -80,9 +75,9 @@ class JniClass {
     final result = isStatic
         ? _env.GetStaticFieldID(_cls, methodName, methodSig)
         : _env.GetFieldID(_cls, methodName, methodSig);
-    _env.checkException();
     calloc.free(methodName);
     calloc.free(methodSig);
+    _env.checkException();
     return result;
   }
 
@@ -132,7 +127,7 @@ class JniClass {
     // TODO: Maybe use a mixin or something?
     // JniClass and JniObject have some similar functionality.
     _checkDeleted();
-    var result = callback(this);
+    final result = callback(this);
     delete();
     return result;
   }

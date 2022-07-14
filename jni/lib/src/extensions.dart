@@ -23,19 +23,24 @@ extension CharPtrMethodsForJni on Pointer<Char> {
 extension AdditionalJniEnvMethods on Pointer<JniEnv> {
   /// Convenience method for converting a [JString]
   /// to dart string.
-  String asDartString(JString jstring) {
+  /// if [deleteOriginal] is specified, jstring passed will be deleted using
+  /// DeleteLocalRef.
+  String asDartString(JString jstring, {bool deleteOriginal = false}) {
     final chars = GetStringUTFChars(jstring, nullptr);
     if (chars == nullptr) {
       checkException();
     }
     final result = chars.cast<Utf8>().toDartString();
     ReleaseStringUTFChars(jstring, chars);
+    if (deleteOriginal) {
+      DeleteLocalRef(jstring);
+    }
     return result;
   }
 
   /// Return a new [JString] from contents of [s].
-  JString asJString(String s, [Allocator allocator = malloc]) {
-    final utf = s.toNativeUtf8(allocator: allocator).cast<Char>();
+  JString asJString(String s) {
+    final utf = s.toNativeUtf8().cast<Char>();
     final result = NewStringUTF(utf);
     malloc.free(utf);
     return result;
@@ -43,7 +48,7 @@ extension AdditionalJniEnvMethods on Pointer<JniEnv> {
 
   /// Deletes all local references in [refs].
   void deleteAllLocalRefs(List<JObject> refs) {
-    for (var ref in refs) {
+    for (final ref in refs) {
       DeleteLocalRef(ref);
     }
   }
@@ -53,7 +58,7 @@ extension AdditionalJniEnvMethods on Pointer<JniEnv> {
   /// If [describe] is true, a description is printed to screen.
   /// To access actual exception object, use `ExceptionOccurred`.
   void checkException({bool describe = false}) {
-    var exc = ExceptionOccurred();
+    final exc = ExceptionOccurred();
     if (exc != nullptr) {
       // TODO: Doing this every time is expensive
       // Should lookup and cache method reference
@@ -62,7 +67,7 @@ extension AdditionalJniEnvMethods on Pointer<JniEnv> {
       final toStr = GetMethodID(ecls, _toString, _toStringSig);
       final jstr = CallObjectMethod(exc, toStr);
       final dstr = asDartString(jstr);
-      for (var i in [jstr, ecls]) {
+      for (final i in [jstr, ecls]) {
         DeleteLocalRef(i);
       }
       if (describe) {

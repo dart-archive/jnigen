@@ -8,12 +8,11 @@ extension JniObjectCallMethods on JniObject {
     _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallObjectMethodA(_obj, methodID, jvArgs.values);
-    _env.checkException();
     jvArgs.disposeIn(_env);
     calloc.free(jvArgs.values);
-    final str = _env.asDartString(result);
-    _env.DeleteLocalRef(result);
-    return str;
+    final strRes = _env.asDartString(result, deleteOriginal: true);
+    _env.checkException();
+    return strRes;
   }
 
   /// Looks up method with [name] and [signature], calls it with [args] as arguments.
@@ -30,10 +29,9 @@ extension JniObjectCallMethods on JniObject {
   String getStringField(JFieldID fieldID) {
     _checkDeleted();
     final result = _env.GetObjectField(_obj, fieldID);
+    final strRes = _env.asDartString(result, deleteOriginal: true);
     _env.checkException();
-    final str = _env.asDartString(result);
-    _env.DeleteLocalRef(result);
-    return str;
+    return strRes;
   }
 
   /// Retrieve field of given [name] and [signature]
@@ -48,9 +46,10 @@ extension JniObjectCallMethods on JniObject {
     _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallObjectMethodA(_obj, methodID, jvArgs.values);
-    _env.checkException();
     jvArgs.disposeIn(_env);
     calloc.free(jvArgs.values);
+
+    _env.checkException();
     return JniObject.of(_env, result, nullptr);
   }
 
@@ -68,6 +67,7 @@ extension JniObjectCallMethods on JniObject {
   JniObject getObjectField(JFieldID fieldID) {
     _checkDeleted();
     final result = _env.GetObjectField(_obj, fieldID);
+
     _env.checkException();
     return JniObject.of(_env, result, nullptr);
   }
@@ -84,9 +84,10 @@ extension JniObjectCallMethods on JniObject {
     _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallBooleanMethodA(_obj, methodID, jvArgs.values);
-    _env.checkException();
     jvArgs.disposeIn(_env);
     calloc.free(jvArgs.values);
+
+    _env.checkException();
     return result != 0;
   }
 
@@ -104,6 +105,7 @@ extension JniObjectCallMethods on JniObject {
   bool getBooleanField(JFieldID fieldID) {
     _checkDeleted();
     final result = _env.GetBooleanField(_obj, fieldID);
+
     _env.checkException();
     return result != 0;
   }
@@ -120,9 +122,10 @@ extension JniObjectCallMethods on JniObject {
     _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallByteMethodA(_obj, methodID, jvArgs.values);
-    _env.checkException();
     jvArgs.disposeIn(_env);
     calloc.free(jvArgs.values);
+
+    _env.checkException();
     return result;
   }
 
@@ -139,6 +142,7 @@ extension JniObjectCallMethods on JniObject {
   int getByteField(JFieldID fieldID) {
     _checkDeleted();
     final result = _env.GetByteField(_obj, fieldID);
+
     _env.checkException();
     return result;
   }
@@ -155,9 +159,10 @@ extension JniObjectCallMethods on JniObject {
     _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallCharMethodA(_obj, methodID, jvArgs.values);
-    _env.checkException();
     jvArgs.disposeIn(_env);
     calloc.free(jvArgs.values);
+
+    _env.checkException();
     return result;
   }
 
@@ -174,6 +179,7 @@ extension JniObjectCallMethods on JniObject {
   int getCharField(JFieldID fieldID) {
     _checkDeleted();
     final result = _env.GetCharField(_obj, fieldID);
+
     _env.checkException();
     return result;
   }
@@ -190,9 +196,10 @@ extension JniObjectCallMethods on JniObject {
     _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallShortMethodA(_obj, methodID, jvArgs.values);
-    _env.checkException();
     jvArgs.disposeIn(_env);
     calloc.free(jvArgs.values);
+
+    _env.checkException();
     return result;
   }
 
@@ -209,6 +216,7 @@ extension JniObjectCallMethods on JniObject {
   int getShortField(JFieldID fieldID) {
     _checkDeleted();
     final result = _env.GetShortField(_obj, fieldID);
+
     _env.checkException();
     return result;
   }
@@ -225,9 +233,10 @@ extension JniObjectCallMethods on JniObject {
     _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallIntMethodA(_obj, methodID, jvArgs.values);
-    _env.checkException();
     jvArgs.disposeIn(_env);
     calloc.free(jvArgs.values);
+
+    _env.checkException();
     return result;
   }
 
@@ -244,6 +253,7 @@ extension JniObjectCallMethods on JniObject {
   int getIntField(JFieldID fieldID) {
     _checkDeleted();
     final result = _env.GetIntField(_obj, fieldID);
+
     _env.checkException();
     return result;
   }
@@ -260,9 +270,10 @@ extension JniObjectCallMethods on JniObject {
     _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallLongMethodA(_obj, methodID, jvArgs.values);
-    _env.checkException();
     jvArgs.disposeIn(_env);
     calloc.free(jvArgs.values);
+
+    _env.checkException();
     return result;
   }
 
@@ -279,6 +290,7 @@ extension JniObjectCallMethods on JniObject {
   int getLongField(JFieldID fieldID) {
     _checkDeleted();
     final result = _env.GetLongField(_obj, fieldID);
+
     _env.checkException();
     return result;
   }
@@ -295,9 +307,10 @@ extension JniObjectCallMethods on JniObject {
     _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallFloatMethodA(_obj, methodID, jvArgs.values);
-    _env.checkException();
     jvArgs.disposeIn(_env);
     calloc.free(jvArgs.values);
+
+    _env.checkException();
     return result;
   }
 
@@ -315,6 +328,7 @@ extension JniObjectCallMethods on JniObject {
   double getFloatField(JFieldID fieldID) {
     _checkDeleted();
     final result = _env.GetFloatField(_obj, fieldID);
+
     _env.checkException();
     return result;
   }
@@ -331,9 +345,10 @@ extension JniObjectCallMethods on JniObject {
     _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallDoubleMethodA(_obj, methodID, jvArgs.values);
-    _env.checkException();
     jvArgs.disposeIn(_env);
     calloc.free(jvArgs.values);
+
+    _env.checkException();
     return result;
   }
 
@@ -351,6 +366,7 @@ extension JniObjectCallMethods on JniObject {
   double getDoubleField(JFieldID fieldID) {
     _checkDeleted();
     final result = _env.GetDoubleField(_obj, fieldID);
+
     _env.checkException();
     return result;
   }
@@ -367,9 +383,10 @@ extension JniObjectCallMethods on JniObject {
     _checkDeleted();
     final jvArgs = JValueArgs(args, _env);
     final result = _env.CallVoidMethodA(_obj, methodID, jvArgs.values);
-    _env.checkException();
     jvArgs.disposeIn(_env);
     calloc.free(jvArgs.values);
+
+    _env.checkException();
     return result;
   }
 

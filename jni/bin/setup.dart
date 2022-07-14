@@ -19,11 +19,12 @@ class CommandRunner {
       String exec, List<String> args, String workingDir) async {
     if (printCmds) {
       final cmd = "$exec ${args.join(" ")}";
-      stderr.writeln("+ [$workingDir] $cmd");
+      stderr.writeln("\n+ [$workingDir] $cmd");
     }
-    final process =
-        await Process.start(exec, args, workingDirectory: workingDir);
-    // stdout.addStream(process.stdout);
+    final process = await Process.start(exec, args,
+        workingDirectory: workingDir,
+        runInShell: Platform.isWindows,
+        mode: ProcessStartMode.inheritStdio);
     final exitCode = await process.exitCode;
     if (exitCode != 0) {
       stderr.writeln("command exited with $exitCode");
@@ -107,7 +108,7 @@ void main(List<String> arguments) async {
 
 Future<void> build(Options options, String srcPath, String buildPath) async {
   final runner = CommandRunner(printCmds: true);
-  var cmakeArgs = [srcPath];
+  final cmakeArgs = [srcPath];
   if (options.cmakeArgs != null) {
     cmakeArgs.addAll(options.cmakeArgs!.split(" "));
   }

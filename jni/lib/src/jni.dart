@@ -20,7 +20,6 @@ String _getLibraryFileName(String base) {
   } else if (Platform.isWindows) {
     return "$base.dll";
   } else if (Platform.isMacOS) {
-    // TODO: Is this correct?
     return "$base.framework/$base";
   } else {
     throw Exception("cannot derive library name: unsupported platform");
@@ -35,11 +34,12 @@ DynamicLibrary _loadJniHelpersLibrary(
     {String? dir, String baseName = "dartjni"}) {
   final fileName = _getLibraryFileName(baseName);
   final libPath = (dir != null) ? join(dir, fileName) : fileName;
-  if (!File(libPath).existsSync()) {
+  try {
+    final dylib = DynamicLibrary.open(libPath);
+    return dylib;
+  } on Error {
     throw HelperNotFoundException(libPath);
   }
-  final dylib = DynamicLibrary.open(libPath);
-  return dylib;
 }
 
 /// Jni represents a single running JNI instance.
@@ -64,10 +64,6 @@ class Jni {
   /// On Dart standalone, when calling for the first time from
   /// a new isolate, make sure to pass the library path.
   static Jni getInstance() {
-    // TODO: Throw appropriate error on standalone target.
-    // if helpers aren't loaded using spawn() or load().
-
-    // TODO: There may be still some edge cases not handled here.
     if (_instance == null) {
       final inst = Jni._(JniBindings(_loadJniHelpersLibrary()));
       if (inst.getJavaVM() == nullptr) {
@@ -143,8 +139,7 @@ class Jni {
   }) {
     final args = calloc<JavaVMInitArgs>();
     if (options.isNotEmpty || classPath.isNotEmpty) {
-      var length = options.length;
-      var count = length + (classPath.isNotEmpty ? 1 : 0);
+      final count = options.length + (classPath.isNotEmpty ? 1 : 0);
 
       final optsPtr = (count != 0) ? calloc<JavaVMOption>(count) : nullptr;
       args.ref.options = optsPtr;
@@ -164,7 +159,12 @@ class Jni {
   }
 
   static void _freeVMArgs(Pointer<JavaVMInitArgs> argPtr) {
-    if (argPtr.ref.nOptions != 0) {
+    final nOptions = argPtr.ref.nOptions;
+    final options = argPtr.ref.options;
+    if (nOptions != 0) {
+      for (var i = 0; i < nOptions; i++) {
+        calloc.free(options.elementAt(i).ref.optionString);
+      }
       calloc.free(argPtr.ref.options);
     }
     calloc.free(argPtr);
@@ -208,24 +208,23 @@ class Jni {
 
   /// Returns class reference found through system-specific mechanism
   JClass findClass(String qualifiedName) {
-    var nameChars = qualifiedName.toNativeChars();
+    final nameChars = qualifiedName.toNativeChars();
     final cls = _bindings.LoadClass(nameChars);
     calloc.free(nameChars);
+    if (cls == nullptr) {
+      getEnv().checkException();
+    }
     return cls;
   }
 
-  /// Returns class for [qualifiedName] found by platform-specific mechanism.
-  ///
-  /// TODO: Determine when to use class loader, and when FindClass
-  /// TODO: This isn't consistent with other methods, eg: getCurrentActivity,
-  /// which do not wrap reference in JniObject. But the way it's used most of
-  /// the time, we need a direct method.
+  /// Returns class for [qualifiedName] found by platform-specific mechanism,
+  /// wrapped in a `JniClass`.
   JniClass findJniClass(String qualifiedName) {
-    var nameChars = qualifiedName.toNativeChars();
+    final nameChars = qualifiedName.toNativeChars();
     final cls = _bindings.LoadClass(nameChars);
     final env = getEnv();
-    env.checkException();
     calloc.free(nameChars);
+    env.checkException();
     return JniClass.of(env, cls);
   }
 
@@ -236,22 +235,37 @@ class Jni {
   JniObject newInstance(
       String qualifiedName, String ctorSignature, List<dynamic> args) {
     final nameChars = qualifiedName.toNativeChars();
-    final sigChars = ctorSignature.toNativeChars();
     final env = getEnv();
     final cls = _bindings.LoadClass(nameChars);
+    calloc.free(nameChars);
     if (cls == nullptr) {
       env.checkException();
     }
+
+    final sigChars = ctorSignature.toNativeChars();
     final ctor = env.GetMethodID(cls, ctorLookupChars, sigChars);
+    calloc.free(sigChars);
     if (ctor == nullptr) {
-      env.checkException();
+      try {
+        env.checkException();
+      } catch (e) {
+        env.DeleteLocalRef(cls);
+        rethrow;
+      }
     }
+
     final jvArgs = JValueArgs(args, env);
     final obj = env.NewObjectA(cls, ctor, jvArgs.values);
     calloc.free(jvArgs.values);
-    jvArgs.disposeIn(env);
-    calloc.free(nameChars);
-    calloc.free(sigChars);
+    jvArgs.disposeIn(env); // to delete JString temporaries
+    if (obj == nullptr) {
+      try {
+        env.checkException();
+      } catch (e) {
+        env.DeleteLocalRef(cls);
+        rethrow;
+      }
+    }
     return JniObject.of(env, obj, cls);
   }
 

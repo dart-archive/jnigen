@@ -48,7 +48,7 @@ void _fillJValue(Pointer<JValue> pos, dynamic arg) {
 /// wrap values in types such as [JValueLong]
 /// to convert to other primitive types instead.
 Pointer<JValue> toJValues(List<dynamic> args, {Allocator allocator = calloc}) {
-  Pointer<JValue> result = allocator<JValue>(args.length);
+  final result = allocator<JValue>(args.length);
   for (int i = 0; i < args.length; i++) {
     final arg = args[i];
     final pos = result.elementAt(i);

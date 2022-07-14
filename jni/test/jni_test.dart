@@ -21,7 +21,7 @@ void main() {
     Jni.spawn(helperDir: "src/build");
   }
 
-  var jni = Jni.getInstance();
+  final jni = Jni.getInstance();
 
   test('get JNI Version', () {
     // get a dart binding of JNIEnv object

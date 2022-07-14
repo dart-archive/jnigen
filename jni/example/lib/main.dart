@@ -180,7 +180,7 @@ class _ExampleCardState extends State<ExampleCard> {
 
   @override
   Widget build(BuildContext context) {
-    var eg = widget.example;
+    final eg = widget.example;
     var result = "";
     var hasError = false;
     if (_run) {
