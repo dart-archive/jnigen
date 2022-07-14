@@ -15,6 +15,12 @@
 
 #define JNI_LOG_TAG "Dart-JNI"
 
+#ifdef __ANDROID__
+#define __ENVP_CAST (JNIEnv **)
+#else
+#define __ENVP_CAST (void **)
+#endif
+
 static struct {
 	JavaVM *jvm;
 	jobject classLoader;
@@ -68,7 +74,7 @@ static inline void load_class(jclass *cls, const char *name) {
 
 static inline void attach_thread() {
 	if (jniEnv == NULL) {
-		(*jni.jvm)->AttachCurrentThread(jni.jvm, &jniEnv,
+		(*jni.jvm)->AttachCurrentThread(jni.jvm, __ENVP_CAST &jniEnv,
 		                                NULL);
 	}
 }
@@ -182,7 +188,7 @@ JNIEnv *SpawnJvm(JavaVMInitArgs *initArgs) {
 	}
 	jni_log(JNI_DEBUG, "JNI Version: %d\n", initArgs->version);
 	const long flag =
-	    JNI_CreateJavaVM(&jni.jvm, &jniEnv, initArgs);
+	    JNI_CreateJavaVM(&jni.jvm, __ENVP_CAST &jniEnv, initArgs);
 	if (flag == JNI_ERR) {
 		return NULL;
 	}
