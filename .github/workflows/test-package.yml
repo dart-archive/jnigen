@@ -78,6 +78,7 @@ jobs:
 
   ## TODO: More minimal test on windows after fixing dev dependency.
   ## i.e do not rerun analyze and format steps, and do not require flutter.
+  ## IssueRef: https://github.com/dart-lang/jni_gen/issues/15
 
   test_jni:
     runs-on: ubuntu-latest

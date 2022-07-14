@@ -124,8 +124,6 @@ class JniClass {
   ///
   /// Useful in expression chains.
   T use<T>(T Function(JniClass) callback) {
-    // TODO: Maybe use a mixin or something?
-    // JniClass and JniObject have some similar functionality.
     _checkDeleted();
     final result = callback(this);
     delete();

@@ -34,6 +34,7 @@ void SetJNILogging(int level) {
 
 void jni_log(int level, const char *format, ...) {
 	// TODO: Not working
+	// IssueRef: https://github.com/dart-lang/jni_gen/issues/16
 	if (level >= jni_log_level) {
 		va_list args;
         va_start(args, format);
