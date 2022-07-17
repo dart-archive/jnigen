@@ -32,7 +32,7 @@
 // ignore_for_file: constant_identifier_names
 // ignore_for_file: unused_field
 // ignore_for_file: unused_element
-// coverage: ignore-file
+// coverage:ignore-file
 
 // AUTO GENERATED FILE, DO NOT EDIT.
 //
