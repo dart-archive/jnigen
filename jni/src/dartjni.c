@@ -1,33 +1,9 @@
-#include "dartjni.h"
-
 #include <jni.h>
 #include <stdint.h>
 
-#if defined _WIN32
-#define thread_local __declspec(thread)
-#else
-#define thread_local __thread
-#endif
+#include "dartjni.h"
 
-#ifdef __ANDROID__
-#include<android/log.h>
-#endif
-
-#define JNI_LOG_TAG "Dart-JNI"
-
-#ifdef __ANDROID__
-#define __ENVP_CAST (JNIEnv **)
-#else
-#define __ENVP_CAST (void **)
-#endif
-
-static struct {
-	JavaVM *jvm;
-	jobject classLoader;
-	jmethodID loadClassMethod;
-	jobject currentActivity;
-	jobject appContext;
-} jni = {NULL, NULL, NULL, NULL, NULL};
+struct jni_context jni = {NULL, NULL, NULL, NULL, NULL};
 
 thread_local JNIEnv *jniEnv = NULL;
 
@@ -58,26 +34,6 @@ void jni_log(int level, const char *format, ...) {
 /// Returns NULL if no JVM is running.
 FFI_PLUGIN_EXPORT
 JavaVM *GetJavaVM() { return jni.jvm; }
-
-static inline void load_class(jclass *cls, const char *name) {
-	if (*cls == NULL) {
-#ifdef __ANDROID__
-		jstring className = (*jniEnv)->NewStringUTF(jniEnv, name);
-		*cls = (*jniEnv)->CallObjectMethod(
-		    jniEnv, jni.classLoader, jni.loadClassMethod, className);
-		(*jniEnv)->DeleteLocalRef(jniEnv, className);
-#else
-		*cls = (*jniEnv)->FindClass(jniEnv, name);
-#endif
-	}
-}
-
-static inline void attach_thread() {
-	if (jniEnv == NULL) {
-		(*jni.jvm)->AttachCurrentThread(jni.jvm, __ENVP_CAST &jniEnv,
-		                                NULL);
-	}
-}
 
 /// Returns Application classLoader (on Android), 
 /// which can be used to load application and platform classes.
@@ -128,21 +84,6 @@ FFI_PLUGIN_EXPORT
 jobject GetCurrentActivity() {
 	attach_thread();
 	return (*jniEnv)->NewLocalRef(jniEnv, jni.currentActivity);
-}
-
-
-static inline void load_method(jclass cls, jmethodID *res, const char *name,
-                               const char *sig) {
-	if (*res == NULL) {
-		*res = (*jniEnv)->GetMethodID(jniEnv, cls, name, sig);
-	}
-}
-
-static inline void load_static_method(jclass cls, jmethodID *res,
-                                      const char *name, const char *sig) {
-	if (*res == NULL) {
-		*res = (*jniEnv)->GetStaticMethodID(jniEnv, cls, name, sig);
-	}
 }
 
 #ifdef __ANDROID__

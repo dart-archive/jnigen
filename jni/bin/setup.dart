@@ -109,10 +109,11 @@ void main(List<String> arguments) async {
 
 Future<void> build(Options options, String srcPath, String buildPath) async {
   final runner = CommandRunner(printCmds: true);
-  final cmakeArgs = [srcPath];
+  final cmakeArgs = <String>[];
   if (options.cmakeArgs != null) {
     cmakeArgs.addAll(options.cmakeArgs!.split(" "));
   }
+  cmakeArgs.add(srcPath);
   await runner.run("cmake", cmakeArgs, buildPath);
   await runner.run("cmake", ["--build", "."], buildPath);
   if (Platform.isWindows) {

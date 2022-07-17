@@ -22,7 +22,7 @@ String _getLibraryFileName(String base) {
   } else if (Platform.isMacOS) {
     return "$base.framework/$base";
   } else {
-    throw Exception("cannot derive library name: unsupported platform");
+    throw UnsupportedError("cannot derive library name: unsupported platform");
   }
 }
 
@@ -67,7 +67,7 @@ class Jni {
     if (_instance == null) {
       final inst = Jni._(JniBindings(_loadJniHelpersLibrary()));
       if (inst.getJavaVM() == nullptr) {
-        throw Exception("Fatal: No JVM associated with this process!"
+        throw StateError("Fatal: No JVM associated with this process!"
             " Did you call Jni.spawn?");
       }
       // If no error, save this singleton.
@@ -86,11 +86,11 @@ class Jni {
   /// know the library path.)
   static void load({required String helperDir}) {
     if (_instance != null) {
-      throw Exception('Fatal: a JNI instance already exists in this isolate');
+      throw StateError('Fatal: a JNI instance already exists in this isolate');
     }
     final inst = Jni._(JniBindings(_loadJniHelpersLibrary(dir: helperDir)));
     if (inst.getJavaVM() == nullptr) {
-      throw Exception("Fatal: No JVM associated with this process");
+      throw StateError("Fatal: No JVM associated with this process");
     }
     _instance = inst;
   }
@@ -114,7 +114,7 @@ class Jni {
     int jniVersion = JNI_VERSION_1_6,
   }) {
     if (_instance != null) {
-      throw Exception("Currently only 1 VM is supported.");
+      throw UnsupportedError("Currently only 1 VM is supported.");
     }
     final dylib = _loadJniHelpersLibrary(dir: helperDir);
     final inst = Jni._(JniBindings(dylib));
@@ -220,12 +220,7 @@ class Jni {
   /// Returns class for [qualifiedName] found by platform-specific mechanism,
   /// wrapped in a `JniClass`.
   JniClass findJniClass(String qualifiedName) {
-    final nameChars = qualifiedName.toNativeChars();
-    final cls = _bindings.LoadClass(nameChars);
-    final env = getEnv();
-    calloc.free(nameChars);
-    env.checkException();
-    return JniClass.of(env, cls);
+    return JniClass.of(getEnv(), findClass(qualifiedName));
   }
 
   /// Constructs an instance of class with given args.
@@ -234,44 +229,22 @@ class Jni {
   /// nor any constructor / static methods.
   JniObject newInstance(
       String qualifiedName, String ctorSignature, List<dynamic> args) {
-    final nameChars = qualifiedName.toNativeChars();
-    final env = getEnv();
-    final cls = _bindings.LoadClass(nameChars);
-    calloc.free(nameChars);
-    if (cls == nullptr) {
-      env.checkException();
-    }
-
-    final sigChars = ctorSignature.toNativeChars();
-    final ctor = env.GetMethodID(cls, ctorLookupChars, sigChars);
-    calloc.free(sigChars);
-    if (ctor == nullptr) {
-      try {
-        env.checkException();
-      } catch (e) {
-        env.DeleteLocalRef(cls);
-        rethrow;
-      }
-    }
-
-    final jvArgs = JValueArgs(args, env);
-    final obj = env.NewObjectA(cls, ctor, jvArgs.values);
-    calloc.free(jvArgs.values);
-    jvArgs.disposeIn(env); // to delete JString temporaries
-    if (obj == nullptr) {
-      try {
-        env.checkException();
-      } catch (e) {
-        env.DeleteLocalRef(cls);
-        rethrow;
-      }
-    }
-    return JniObject.of(env, obj, cls);
+    final cls = findJniClass(qualifiedName);
+    final ctor = cls.getMethodID("<init>", ctorSignature);
+    final obj = cls.newObject(ctor, args);
+    cls.delete();
+    return obj;
   }
 
   /// Wraps a JObject ref in a JniObject.
   /// The original ref is stored in JniObject, and
   /// deleted with the latter's [delete] method.
+  ///
+  /// It takes the ownership of the jobject so that it can be used like this:
+  ///
+  /// ```dart
+  /// final result = jni.wrap(long_expr_returning_jobject)
+  /// ```
   JniObject wrap(JObject obj) {
     return JniObject.of(getEnv(), obj, nullptr);
   }
