@@ -24,6 +24,8 @@ functions:
     - 'JNI_OnLoad_L'
     - 'JNI_OnUnload_L'
 structs:
+  exclude:
+    - 'jni_context'
   rename:
     ## opaque struct definitions, base types of jfieldID and jmethodID
     '_jfieldID': 'jfieldID_'
@@ -35,6 +37,10 @@ unions:
 enums:
   rename:
     'DartJniLogLevel': 'JniLogLevel'
+globals:
+  exclude:
+    - 'jni'
+    - 'jniEnv'
 typedefs:
   rename:
     'JNI(.*)': 'Jni$1'
@@ -100,6 +106,7 @@ preamble: |
   // ignore_for_file: constant_identifier_names
   // ignore_for_file: unused_field
   // ignore_for_file: unused_element
+  // coverage: ignore-file
 comments:
   style: any
   length: full

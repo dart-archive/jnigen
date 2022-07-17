@@ -32,6 +32,7 @@
 // ignore_for_file: constant_identifier_names
 // ignore_for_file: unused_field
 // ignore_for_file: unused_element
+// coverage: ignore-file
 
 // AUTO GENERATED FILE, DO NOT EDIT.
 //
@@ -3081,3 +3082,5 @@ const int JNI_EINVAL = -6;
 const int JNI_COMMIT = 1;
 
 const int JNI_ABORT = 2;
+
+const String JNI_LOG_TAG = 'Dart-JNI';
