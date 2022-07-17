@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:package_config/package_config.dart';
 
 const _buildDir = "build-dir";
 const _srcDir = "source-dir";
@@ -53,6 +54,22 @@ void log(String msg) {
   }
 }
 
+/// tries to find package:jni's source folder in pub cache
+/// if not possible, returns null.
+Future<String?> findSources() async {
+  final packageConfig = await findPackageConfig(Directory.current);
+  if (packageConfig == null) {
+    return null;
+  }
+  final packages = packageConfig.packages;
+  for (var package in packages) {
+    if (package.name == 'jni') {
+      return package.root.resolve("src/").toFilePath();
+    }
+  }
+  return null;
+}
+
 void main(List<String> arguments) async {
   final parser = ArgParser()
     ..addOption(_buildDir,
@@ -79,13 +96,20 @@ void main(List<String> arguments) async {
     return;
   }
 
-  final scriptUri = Platform.script;
-  log("scriptUri: $scriptUri");
-  final srcPath = options.srcDir ?? scriptUri.resolve("../src").toFilePath();
+  final srcPath = options.srcDir ?? await findSources();
+
+  if (srcPath == null) {
+    stderr.writeln("No sources specified and current directory is not a "
+        "package root.");
+    exitCode = 1;
+    return;
+  }
+
   final srcDir = Directory(srcPath);
-  if (!await srcDir.exists()) {
+  if (!await srcDir.exists() && !options.clean) {
     throw 'Directory $srcPath does not exist';
   }
+
   log("srcPath: $srcPath");
 
   final currentDirUri = Uri.file(".");
@@ -103,7 +127,9 @@ void main(List<String> arguments) async {
   if (options.clean) {
     await cleanup(options, srcDir.absolute.path, buildDir.absolute.path);
   } else {
-    await build(options, srcDir.absolute.path, buildDir.absolute.path);
+    // pass srcDir absolute path because it will be passed to CMake as arg
+    // which will be running in different directory
+    await build(options, srcDir.absolute.path, buildDir.path);
   }
 }
 
@@ -121,8 +147,17 @@ Future<void> build(Options options, String srcPath, String buildPath) async {
   }
 }
 
-Future<FileSystemEntity> cleanup(
-    Options options, String srcPath, String buildPath) async {
+Future<void> cleanup(Options options, String srcPath, String buildPath) async {
+  if (srcPath == buildPath) {
+    stderr.writeln('Error: build path is same as source path.');
+  }
+
   stderr.writeln("deleting $buildPath");
-  return Directory(buildPath).delete(recursive: true);
+
+  try {
+    await Directory(buildPath).delete(recursive: true);
+  } catch (e) {
+    stderr.writeln("Error: cannot be deleted");
+    stderr.writeln(e);
+  }
 }
