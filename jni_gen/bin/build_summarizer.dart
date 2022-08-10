@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:path/path.dart';
 
 import 'package:jni_gen/src/util/find_package.dart';
-import 'package:jni_gen/src/util/command_output.dart';
 
 final toolPath = join('.', '.dart_tool', 'jni_gen');
 final mvnTargetDir = join(toolPath, 'target');
@@ -37,7 +36,8 @@ Future<void> buildApiSummarizer() async {
         pom.toFilePath(),
         'assembly:assembly'
       ],
-      workingDirectory: toolPath, mode: ProcessStartMode.inheritStdio);
+      workingDirectory: toolPath,
+      mode: ProcessStartMode.inheritStdio);
   await mvnProc.exitCode;
   // move ApiSummarizer.jar from target to current directory
   File(targetJarFile).renameSync(jarFile);
