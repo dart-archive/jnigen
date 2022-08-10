@@ -3,7 +3,8 @@ import 'package:jni_gen/jni_gen.dart';
 
 void main(List<String> arguments) async {
   final javaPath = 'java/';
-  await Process.run('javac', ['dev/dart/jni_gen_test/Example.java'], workingDirectory: javaPath);
+  await Process.run('javac', ['dev/dart/jni_gen_test/Example.java'],
+      workingDirectory: javaPath);
   try {
     await runTask(JniGenTask(
         summarySource: SummarizerCommand(

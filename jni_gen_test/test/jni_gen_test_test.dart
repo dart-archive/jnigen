@@ -10,7 +10,7 @@ void main() {
     Jni.spawn(helperDir: 'build/jni_libs', classPath: ['java/']);
   }
 
-  test('static final fields', (){
+  test('static final fields', () {
     expect(Example.ON, equals(1));
     expect(Example.OFF, equals(0));
   });

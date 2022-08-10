@@ -29,7 +29,14 @@ Future<void> buildApiSummarizer() async {
   final pom = pkg.resolve('third_party/ApiSummarizer/pom.xml');
   await Directory(toolPath).create(recursive: true);
   final mvnProc = await Process.start(
-      'mvn', ['-f', pom.toFilePath(), 'assembly:assembly'],
+      'mvn',
+      [
+        '--batch-mode',
+        '--update-snapshots',
+        '-f',
+        pom.toFilePath(),
+        'assembly:assembly'
+      ],
       workingDirectory: toolPath);
   await mvnProc.exitCode;
   final mvnOut =
