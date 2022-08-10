@@ -48,6 +48,6 @@ void main() async {
   if (!await isApiSummarizerBuilt()) {
     await buildApiSummarizer();
   } else {
-    stdout.writeln('ApiSummarizer.jar exists. Skipping build..');
+    stderr.writeln('ApiSummarizer.jar exists. Skipping build..');
   }
 }

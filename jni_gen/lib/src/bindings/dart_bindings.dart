@@ -12,18 +12,33 @@ final _indent = ' ' * 2;
 class DartBindingsGenerator {
   // Name for reference in base class
   static const _self = 'reference';
+  // symbol lookup function for generated code
+  static const _jlookup = 'jlookup';
+
+  // import prefixes
+  static const ffi = 'ffi.';
+  static const jni = 'jni.';
+
+  // methods / properties already defined by dart JlObject base class
+  static const Map<String, int> _definedSyms = {
+    'equals': 1,
+    'toString': 1,
+    'hashCode': 1,
+    'runtimeType': 1,
+    'noSuchMethod': 1,
+    'reference': 1,
+    'delete': 1,
+  };
 
   // ffi.Pointer<ffi.Void>
-  late final String _voidPtr =
-      '${dartOptions.ffi}Pointer<${dartOptions.ffi}Void>';
+  late final String _voidPtr = '${ffi}Pointer<${ffi}Void>';
 
-  late final String _void = '${dartOptions.ffi}Void';
+  late final String _void = '${ffi}Void';
 
-  late final String _jlObject = '${dartOptions.jni}JlObject';
+  late final String _jlObject = '${jni}JlObject';
 
-  DartBindingsGenerator(this.options, this.dartOptions, this.resolver);
+  DartBindingsGenerator(this.options, this.resolver);
   WrapperOptions options;
-  DartOptions dartOptions;
   SymbolResolver resolver;
 
   String generateBinding(ClassDecl decl) {
@@ -54,7 +69,7 @@ class DartBindingsGenerator {
     }
 
     final Map<String, int> nameCounts = {};
-    nameCounts.addAll(DartOptions.definedSyms);
+    nameCounts.addAll(_definedSyms);
 
     s.write('class $name extends $superName {\n');
     // fromRef constructor
@@ -107,8 +122,8 @@ class DartBindingsGenerator {
     final sym = '_$name';
     final ffiSig = dartSigForMethod(m, isFfiSig: true);
     final dartSig = dartSigForMethod(m, isFfiSig: false);
-    s.write('${_indent}static final $sym = ${dartOptions.lookupFunction}'
-        '<${dartOptions.ffi}NativeFunction<$ffiSig>>("$cName")\n'
+    s.write('${_indent}static final $sym = $_jlookup'
+        '<${ffi}NativeFunction<$ffiSig>>("$cName")\n'
         '.asFunction<$dartSig>();\n');
     // diferent logic for constructor and method
     final returnType = dartOuterType(m.returnType);
@@ -175,8 +190,8 @@ class DartBindingsGenerator {
       final sym = '_$symPrefix$name';
       final ffiSig = dartSigForField(f, isSetter: isSetter, isFfiSig: true);
       final dartSig = dartSigForField(f, isSetter: isSetter, isFfiSig: false);
-      s.write('${_indent}static final $sym = ${dartOptions.lookupFunction}'
-          '<${dartOptions.ffi}NativeFunction<$ffiSig>>("${symPrefix}_$cName")\n'
+      s.write('${_indent}static final $sym = $_jlookup'
+          '<${ffi}NativeFunction<$ffiSig>>("${symPrefix}_$cName")\n'
           '.asFunction<$dartSig>();\n');
       s.write(_indent);
       if (isStaticField(f)) s.write('static ');
@@ -218,10 +233,6 @@ class DartBindingsGenerator {
     return '${conv(f.type)} Function($ref)';
   }
 
-  String _ffiType(String typename) {
-    return dartOptions.ffi + typename;
-  }
-
   String dartSigForMethod(Method m, {required bool isFfiSig}) {
     final conv = isFfiSig ? dartFfiType : dartInnerType;
     final argTypes = [if (hasSelfParam(m)) _voidPtr];
@@ -247,7 +258,7 @@ class DartBindingsGenerator {
     };
     switch (t.kind) {
       case UsageKind.primitive:
-        return _ffiType(primitives[(t.type as PrimitiveType).name]!);
+        return ffi + primitives[(t.type as PrimitiveType).name]!;
       case UsageKind.typeVariable:
       case UsageKind.wildcard:
         throw SkipException(
@@ -259,6 +270,8 @@ class DartBindingsGenerator {
   }
 
   String _dartType(TypeUsage t, {SymbolResolver? resolver}) {
+    // if resolver == null, looking for inner fn type, type of fn reference
+    // else looking for outer fn type, that's what user of the library sees.
     const primitives = {
       'byte': 'int',
       'short': 'int',
@@ -293,10 +306,6 @@ class DartBindingsGenerator {
 
   String dartInnerType(TypeUsage t) => _dartType(t);
   String dartOuterType(TypeUsage t) => _dartType(t, resolver: resolver);
-
-  // Returns true if the original type is ffi.Pointer<ffi.Void>
-  // and this type has to be constructed using ResolvedTypeName.fromPtr()
-  bool isConstructedType(TypeUsage t) => !isPrimitive(t);
 
   String _literal(dynamic value) {
     if (value is String) {
@@ -338,30 +347,6 @@ class DartBindingsGenerator {
   }
 }
 
-class DartOptions {
-  DartOptions(
-      {required this.lookupFunction,
-      String ffiImport = 'ffi',
-      String jniImport = 'jni'})
-      : ffi = importPrefix(ffiImport),
-        jni = importPrefix(jniImport);
-  String lookupFunction;
-  String ffi, jni;
-
-  static const Map<String, int> definedSyms = {
-    'equals': 1,
-    'toString': 1,
-    'hashCode': 1,
-    'runtimeType': 1,
-    'noSuchMethod': 1,
-    'reference': 1,
-    'delete': 1,
-  };
-
-  static String importPrefix(String importName) =>
-      importName.isNotEmpty ? '$importName.' : '';
-}
-
 class DartPreludes {
   static String initFile(String libraryName) => 'import "dart:ffi";\n'
       'import "package:jni/jni.dart";\n'
@@ -369,9 +354,11 @@ class DartPreludes {
       'final Pointer<T> Function<T extends NativeType>(String sym) '
       'jlookup = Jni.getInstance().initGeneratedLibrary("$libraryName");\n'
       '\n';
-  static String defaultImports = 'import "dart:ffi" as ffi;\n\n'
-      'import "package:jni/jni.dart" as jni;\n';
-  static String defaultLintSuppressions =
+  static const autoGeneratedNotice = '// Autogenerated by jni_gen. '
+      'DO NOT EDIT!\n\n';
+  static const defaultImports = 'import "dart:ffi" as ffi;\n\n'
+      'import "package:jni/jni.dart" as jni;\n\n';
+  static const defaultLintSuppressions =
       '// ignore_for_file: camel_case_types\n'
       '// ignore_for_file: non_constant_identifier_names\n'
       '// ignore_for_file: constant_identifier_names\n'
@@ -379,4 +366,6 @@ class DartPreludes {
       '// ignore_for_file: no_leading_underscores_for_local_identifiers\n'
       '// ignore_for_file: unused_element\n'
       '\n';
+  static const bindingFileHeaders =
+      autoGeneratedNotice + defaultImports + defaultLintSuppressions;
 }

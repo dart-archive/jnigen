@@ -330,11 +330,12 @@ class CPreludes {
       'struct jni_context (*context_getter)(void);\n'
       'JNIEnv *(*env_getter)(void);\n'
       '\n';
-  static const inits = 'void setJniGetters(struct jni_context (*cg)(void),\n'
+  static const initializers =
+      'void setJniGetters(struct jni_context (*cg)(void),\n'
       '        JNIEnv *(*eg)(void)) {\n'
       '    context_getter = cg;\n'
       '    env_getter = eg;\n'
       '}\n'
       '\n';
-  static const prelude = includes + defines + inits;
+  static const prelude = includes + defines + initializers;
 }

@@ -1,20 +1,12 @@
 import 'package:jni_gen/src/elements/elements.dart';
 import 'dart:io';
 
-enum NestedClassRenameStrategy {
-  underscore,
-  concat,
-}
-
-enum OverloadRenameStrategy {
-  numbering,
-  numberingWithDefault,
-}
-
+/// A filter which tells if bindings for given [ClassDecl] are generated.
 abstract class ClassFilter {
   bool included(ClassDecl decl);
 }
 
+/// This filter includes the declarations for which [predicate] returns true.
 class CustomClassFilter implements ClassFilter {
   CustomClassFilter(this.predicate);
   final bool Function(ClassDecl) predicate;
@@ -29,6 +21,9 @@ bool _matchesCompletely(String string, Pattern pattern) {
   return match != null && match.group(0) == string;
 }
 
+/// Filter to include / exclude classes by matching on the binary name.
+/// A binary name is like qualified name but with a `$` used to indicate nested
+/// class instead of `.`, guaranteeing a unique name.
 class ClassNameFilter implements ClassFilter {
   ClassNameFilter.include(this.pattern) : onMatch = true;
   ClassNameFilter.exclude(this.pattern) : onMatch = false;
@@ -95,20 +90,30 @@ class CombinedMemberFilter<T extends ClassMember> implements MemberFilter<T> {
 typedef FieldFilter = MemberFilter<Field>;
 typedef MethodFilter = MemberFilter<Method>;
 
+/// Filter using binary name of the class and name of the field.
 typedef FieldNameFilter = MemberNameFilter<Field>;
+
+/// Filter using binary name of the class and name of the method.
 typedef MethodNameFilter = MemberNameFilter<Method>;
 
+/// Predicate based filter for field, which can access class declaration
+/// and the field.
 typedef CustomFieldFilter = CustomMemberFilter<Field>;
+
+/// Predicate based filter for method, which can access class declaration
+/// and the method.
 typedef CustomMethodFilter = CustomMemberFilter<Method>;
 
+/// This filter excludes fields if any one of sub-filters returns false.
 typedef CombinedFieldFilter = CombinedMemberFilter<Field>;
+
+/// This filter excludes methods if any one of sub-filters returns false.
 typedef CombinedMethodFilter = CombinedMemberFilter<Method>;
 
 class WrapperOptions {
   /// Options for jni_gen.
   /// Note: not all configuration options are now implemented.
   const WrapperOptions({
-    this.useGlobalReferences = true,
     this.classFilter,
     this.fieldFilter,
     this.methodFilter,
@@ -116,30 +121,26 @@ class WrapperOptions {
     this.methodTransformer,
     this.fieldTransformer,
     this.importPaths = const {},
-    this.nestedClassRenameStrategy = NestedClassRenameStrategy.underscore,
-    this.overloadRenameStrategy = OverloadRenameStrategy.numbering,
   });
 
-  // PackageName -> ImportPath mappings
-  // eg : 'org.apache.pdfbox' -> 'package:pdfbox/'
-  // for default package - +packagename.dart
-  // for nested packages - +path/packagename.dart
-  // for nested packages
+  /// Mapping from java package names to dart packages.
+  /// A mapping `a.b` -> `package:a_b/' means that
+  /// any import `a.b.C` will be resolved as `package:a_b/a/b.dart` in dart.
+  /// Note that dart bindings use the same hierarchy as the java packages.
   final Map<String, String> importPaths;
 
-  /// use JNI global references everywhere, default is true
-  final bool useGlobalReferences;
-
+  /// [ClassFilter] to decide if bindings for a class should be generated.
   final ClassFilter? classFilter;
+
+  /// [FieldFilter] to decide if bindings for a field should be generated.
   final FieldFilter? fieldFilter;
+
+  /// [MethodFilter] to decide if bindings for a method should be generated.
   final MethodFilter? methodFilter;
 
-  // If the transformer function returns null, nothing would be generated
+  // TODO: This allows us to implement flexible renaming and more customization
+  // via the dart API.
   final ClassDecl? Function(ClassDecl decl)? classTransformer;
   final Method? Function(Method method)? methodTransformer;
   final Field? Function(Field field)? fieldTransformer;
-
-  // these will be overridden if transformer functions are specified
-  final NestedClassRenameStrategy nestedClassRenameStrategy;
-  final OverloadRenameStrategy overloadRenameStrategy;
 }

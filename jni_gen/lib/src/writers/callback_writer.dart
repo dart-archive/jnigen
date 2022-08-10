@@ -3,8 +3,7 @@ import 'package:jni_gen/src/config/wrapper_options.dart';
 
 import 'bindings_writer.dart';
 
-// mostly for debugging purposes
-
+/// A writer for debugging purpose.
 class CallbackWriter extends BindingsWriter {
   CallbackWriter(this.callback);
   Future<void> Function(Iterable<ClassDecl>, WrapperOptions) callback;

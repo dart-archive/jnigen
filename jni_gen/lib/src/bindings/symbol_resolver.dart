@@ -11,6 +11,8 @@ abstract class SymbolResolver {
   String kwPkgRename(String name, {Set<String> outer});
 }
 
+// TODO: resolve all included classes without requiring import mappings.
+
 class PackagePathResolver implements SymbolResolver {
   PackagePathResolver(this.packages, this.currentPackage, this.inputs,
       {this.predefined = const {}});
@@ -119,9 +121,4 @@ class PackagePathResolver implements SymbolResolver {
     }
     return krn;
   }
-  // while renaming, consider:
-  // repeated names in same class
-  // repeated names in superclasses
-  // package names
-  // names of outer members (AVOID SHADOWING AT ALL COSTS)
 }

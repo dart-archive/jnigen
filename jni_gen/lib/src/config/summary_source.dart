@@ -5,6 +5,7 @@ abstract class SummarySource {
   Future<Stream<List<int>>> getInputStream();
 }
 
+/// A command based summary source.
 class SummarizerCommand extends SummarySource {
   SummarizerCommand({
     this.command = "java -jar .dart_tool/jni_gen/ApiSummarizer.jar",
@@ -57,10 +58,12 @@ class SummarizerCommand extends SummarySource {
   }
 }
 
+/// A JSON file based summary source.
+// (Did not test it yet)
 class SummaryFile extends SummarySource {
   Uri path;
   SummaryFile(this.path);
-  SummaryFile.fromPathString(String path) : path = Uri.file(path);
+  SummaryFile.fromPath(String path) : path = Uri.file(path);
 
   @override
   Future<Stream<List<int>>> getInputStream() async =>

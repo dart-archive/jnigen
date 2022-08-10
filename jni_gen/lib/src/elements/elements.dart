@@ -1,13 +1,14 @@
-import 'package:json_annotation/json_annotation.dart';
 // Types to describe java API elements
+
+import 'package:json_annotation/json_annotation.dart';
 
 part 'elements.g.dart';
 
-abstract class UniqueNameable {
-  String get uniqueName;
-}
-
 @JsonEnum()
+
+/// A kind describes the type of a declaration.
+// TODO: Rename it to DeclKind and UsageKind to Kind to reflect naming
+// on java side.
 enum Kind {
   @JsonValue('CLASS')
   classKind,
@@ -17,12 +18,12 @@ enum Kind {
   enumKind,
 }
 
-// Some notes on serialization
-// * Give default values in constructor, to what is nullable in JSON
-//  - this allows us to reduce JSON size by providing Include.NON_NULL in java
+// Note: We give default values in constructor, if the field is nullable in
+// JSON. this allows us to reduce JSON size by providing Include.NON_NULL
+// option in java.
 
 @JsonSerializable(explicitToJson: true)
-class ClassDecl implements UniqueNameable {
+class ClassDecl {
   ClassDecl({
     this.annotations = const [],
     this.javadoc,
@@ -54,8 +55,9 @@ class ClassDecl implements UniqueNameable {
   List<Field> fields;
   TypeUsage? superclass;
   List<TypeUsage> interfaces;
-  // enum values
   bool hasStaticInit, hasInstanceInit;
+
+  // if the declaration is an ENUM
   List<String>? values;
 
   factory ClassDecl.fromJson(Map<String, dynamic> json) =>
@@ -66,9 +68,6 @@ class ClassDecl implements UniqueNameable {
   String toString() {
     return "class: $binaryName";
   }
-
-  @override
-  String get uniqueName => binaryName;
 }
 
 @JsonEnum()
@@ -102,6 +101,9 @@ class TypeUsage {
 
   String get name => type.name;
 
+  // because json_serializable doesn't directly support union types.
+  // we have to temporarily store `type` in a JSON map, and switch on the
+  // enum value received.
   factory TypeUsage.fromJson(Map<String, dynamic> json) {
     final t = _$TypeUsageFromJson(json);
     switch (t.kind) {
