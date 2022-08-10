@@ -30,6 +30,8 @@ void jni_log(int level, const char *format, ...) {
 	}
 }
 
+FFI_PLUGIN_EXPORT struct jni_context GetJniContext() { return jni; }
+
 /// Get JVM associated with current process.
 /// Returns NULL if no JVM is running.
 FFI_PLUGIN_EXPORT
@@ -84,6 +86,26 @@ FFI_PLUGIN_EXPORT
 jobject GetCurrentActivity() {
 	attach_thread();
 	return (*jniEnv)->NewLocalRef(jniEnv, jni.currentActivity);
+}
+
+FFI_PLUGIN_EXPORT
+jstring ToJavaString(char *str) {
+	attach_thread();
+	jstring s = (*jniEnv)->NewStringUTF(jniEnv, str);
+	jstring g = (*jniEnv)->NewGlobalRef(jniEnv, s);
+	(*jniEnv)->DeleteLocalRef(jniEnv, s);
+	return g;
+}
+
+FFI_PLUGIN_EXPORT
+const char *GetJavaStringChars(jstring jstr) {
+	const char *buf = (*jniEnv)->GetStringUTFChars(jniEnv, jstr, NULL);
+	return buf;
+}
+
+FFI_PLUGIN_EXPORT
+void ReleaseJavaStringChars(jstring jstr, const char *buf) {
+	(*jniEnv)->ReleaseStringUTFChars(jniEnv, jstr, buf);
 }
 
 #ifdef __ANDROID__

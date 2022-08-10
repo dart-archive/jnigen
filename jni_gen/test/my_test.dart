@@ -3,11 +3,9 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:test/test.dart';
-import 'package:jni_gen/jni_gen.dart';
 
 void main() {
   test('dummy test', () {
-    final result = mySum(2, 40);
-    expect(result, 42);
+    expect(40 + 2, 42);
   });
 }

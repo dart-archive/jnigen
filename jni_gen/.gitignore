@@ -33,3 +33,7 @@ compile_commands.json
 
 # Mac
 .DS_Store
+
+# Vim
+.*.swp
+
