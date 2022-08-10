@@ -10,7 +10,7 @@ import 'package:jni/jni_object.dart';
 void main() {
   // Don't forget to initialize JNI.
   if (!Platform.isAndroid) {
-    Jni.spawn(helperDir: "src/build");
+    Jni.spawn(helperDir: "build/jni_libs");
   }
 
   final jni = Jni.getInstance();
