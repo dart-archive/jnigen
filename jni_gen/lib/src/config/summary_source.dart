@@ -50,8 +50,8 @@ class SummarizerCommand extends SummarySource {
     args.addAll(classes);
 
     final proc = await Process.start(exec, args,
-        workingDirectory: workingDirectory?.toFilePath() ?? ".");
-    commandOutputStream((s) => "[ApiSummarizer] $s", proc.stderr)
+        workingDirectory: workingDirectory?.toFilePath() ?? '.');
+    prefixedCommandOutputStream('[ApiSummarizer]', proc.stderr)
         .forEach(stderr.writeln);
     return proc.stdout;
   }

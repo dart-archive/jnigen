@@ -12,7 +12,9 @@ import java.util.zip.ZipEntry;
 
 import static org.objectweb.asm.Opcodes.ASM9;
 
-/** Class that summarizes Java APIs in compiled JARs using ASM */
+/** Class that summarizes Java APIs in compiled JARs using ASM
+ * not working yet.
+ */
 public class AsmSummarizer {
 
     private static class JarClass {

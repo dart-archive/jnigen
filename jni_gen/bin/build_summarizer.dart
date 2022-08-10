@@ -39,11 +39,9 @@ Future<void> buildApiSummarizer() async {
       ],
       workingDirectory: toolPath);
   await mvnProc.exitCode;
-  final mvnOut =
-      commandOutputStream((line) => '[mvn:stdout] $line', mvnProc.stdout);
+  final mvnOut = prefixedCommandOutputStream('[mvn:stdout]', mvnProc.stdout);
   mvnOut.forEach(stdout.writeln);
-  final mvnErr =
-      commandOutputStream((line) => '[mvn:stderr] $line', mvnProc.stderr);
+  final mvnErr = prefixedCommandOutputStream('[mvn:stderr]', mvnProc.stderr);
   mvnErr.forEach(stdout.writeln);
   // move ApiSummarizer.jar from target to current directory
   File(targetJarFile).renameSync(jarFile);

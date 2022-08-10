@@ -81,7 +81,7 @@ class FilesWriter extends BindingsWriter {
 
     await _copyFileFromPackage(
         'jni', 'src/dartjni.h', cWrapperDir.resolve('dartjni.h'));
-    await _copyFileFromPackage('jni_gen', 'cmake/CMakeLists.txt',
+    await _copyFileFromPackage('jni_gen', 'cmake/CMakeLists.txt.tmpl',
         cWrapperDir.resolve('CMakeLists.txt'),
         transform: (s) => s.replaceAll('{{LIBRARY_NAME}}', libraryName));
   }

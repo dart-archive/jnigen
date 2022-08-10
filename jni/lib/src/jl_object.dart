@@ -23,6 +23,8 @@ class JlObject {
       throw DoubleFreeException(this, reference);
     }
     _deleted = true;
+    // TODO: this should be done in jni-thread-safe way
+    // will be solved when #12 is implemented.
     Jni.getInstance().getEnv().DeleteGlobalRef(reference);
   }
 }
@@ -42,11 +44,16 @@ class JlString extends JlObject {
   String toDartString() {
     final jni = Jni.getInstance();
     if (reference == nullptr) {
-      throw NullThrownError();
+      throw NullJlStringException();
     }
     final chars = jni.getJavaStringChars(reference);
     final result = chars.cast<Utf8>().toDartString();
     jni.releaseJavaStringChars(reference, chars);
     return result;
   }
+
+  late final _dartString = toDartString();
+
+  @override
+  String toString() => _dartString;
 }

@@ -10,6 +10,7 @@ import 'jvalues.dart';
 
 import 'jni_object.dart';
 import 'jni_class.dart';
+import 'jni_exceptions.dart';
 
 part 'direct_methods_generated.dart';
 
@@ -37,8 +38,7 @@ DynamicLibrary _loadJniHelpersLibrary(
     final dylib = DynamicLibrary.open(libPath);
     return dylib;
   } on Error {
-    rethrow;
-    // throw HelperNotFoundException(libPath);
+    throw HelperNotFoundException(libPath);
   }
 }
 

@@ -21,8 +21,6 @@ void main() {
       'a.b',
       {'a.b.C', 'a.b.c.D', 'a.b.c.d.E'});
 
-  // class names are imaginary
-
   final tests = [
     // Simple example
     ResolverTest('org.apache.pdfbox.PDF',
