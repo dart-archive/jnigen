@@ -112,7 +112,7 @@ typedef CombinedMethodFilter = CombinedMemberFilter<Method>;
 
 MemberFilter<T> excludeAll<T extends ClassMember>(List<List<Pattern>> names) {
   return CombinedMemberFilter<T>(
-    names.map((p) => MemberNameFilter<T>.exclude(p[0], p[1])).toList());
+      names.map((p) => MemberNameFilter<T>.exclude(p[0], p[1])).toList());
 }
 
 class WrapperOptions {
