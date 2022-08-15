@@ -110,6 +110,11 @@ typedef CombinedFieldFilter = CombinedMemberFilter<Field>;
 /// This filter excludes methods if any one of sub-filters returns false.
 typedef CombinedMethodFilter = CombinedMemberFilter<Method>;
 
+MemberFilter<T> excludeAll<T extends ClassMember>(List<List<Pattern>> names) {
+  return CombinedMemberFilter<T>(
+    names.map((p) => MemberNameFilter<T>.exclude(p[0], p[1])).toList());
+}
+
 class WrapperOptions {
   /// Options for jni_gen.
   /// Note: not all configuration options are now implemented.

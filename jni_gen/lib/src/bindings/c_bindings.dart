@@ -25,23 +25,41 @@ class CBindingGenerator {
     // for method overload renaming
     final Map<String, int> nameCounts = {};
 
-    // create global variable to hold class reference
     final fullName = mangledClassName(c);
+
+    // global variable in C that holds the reference to class
     final classVar = '${_classVarPrefix}_$fullName';
     s.write('// ${c.binaryName}\n');
     s.write('jclass $classVar = NULL;\n\n');
 
     for (var m in c.methods) {
-      s.write(_method(c, m, nameCounts));
-      s.writeln();
+      if (options.methodFilter?.included(c, m) == false) {
+        // print excluded
+        continue;
+      }
+      try {
+        s.write(_method(c, m, nameCounts));
+        s.writeln();
+      } on SkipException {
+        // do nothing
+      }
     }
 
     for (var f in c.fields) {
-      final fieldBinding = _field(c, f, nameCounts);
-      s.write(fieldBinding);
-      if (fieldBinding.isNotEmpty) s.writeln();
+      if (options.fieldFilter?.included(c, f) == false) {
+        // print excluded
+        continue;
+      }
+      try {
+        final fieldBinding = _field(c, f, nameCounts);
+        s.write(fieldBinding);
+        // Fields are skipped if they're static final. In that case
+        // do not write too much whitespace.
+        if (fieldBinding.isNotEmpty) s.writeln();
+      } on SkipException {
+        // do nothing
+      }
     }
-
     return s.toString();
   }
 
@@ -60,15 +78,16 @@ class CBindingGenerator {
 
     final returnType = isCtor(m) ? 'jobject' : m.returnType.name;
     final cReturnType = cType(returnType);
-    final formalArgs = _formalArgs(m);
+    final cMethodName = '${cClassName}_$name';
+    final cParams = _formalArgs(m);
     s.write('FFI_PLUGIN_EXPORT\n');
-    s.write('$cReturnType ${cClassName}_$name($formalArgs) {\n');
+    s.write('$cReturnType $cMethodName($cParams) {\n');
 
     final classVar = '${_classVarPrefix}_$cClassName';
     final signature = _signature(m);
 
-    s.write(_loadEnv);
-    s.write(_loadClass(classVar, _internalName(c.binaryName)));
+    s.write(_loadEnvCall);
+    s.write(_loadClassCall(classVar, _internalName(c.binaryName)));
 
     final ifStatic = isStatic ? 'static_' : '';
     s.write('${_indent}load_${ifStatic}method($classVar, '
@@ -125,17 +144,14 @@ class CBindingGenerator {
       // Getter
       final prefix = isSetter ? 'set' : 'get';
       s.write('$ct ${prefix}_${memberNameInC(c, fieldName)}(');
-      final formalArgs = <String>[];
-      if (!isStatic) {
-        formalArgs.add('jobject self_');
-      }
-      if (isSetter) {
-        formalArgs.add('${cType(f.type.name)} value');
-      }
+      final formalArgs = <String>[
+        if (!isStatic) 'jobject self_',
+        if (isSetter) '${cType(f.type.name)} value',
+      ];
       s.write(formalArgs.join(', '));
       s.write(') {\n');
-      s.write(_loadEnv);
-      s.write(_loadClass(classVar, _internalName(c.binaryName)));
+      s.write(_loadEnvCall);
+      s.write(_loadClassCall(classVar, _internalName(c.binaryName)));
 
       var ifStatic = isStatic ? 'static_' : '';
       s.write(
@@ -159,7 +175,7 @@ class CBindingGenerator {
     }
 
     writeAccessor(isSetter: false);
-    if (f.modifiers.contains('final')) {
+    if (isFinalField(f)) {
       return s.toString();
     }
     writeAccessor(isSetter: true);
@@ -170,9 +186,9 @@ class CBindingGenerator {
     return m.modifiers.contains('static');
   }
 
-  final String _loadEnv = '${_indent}load_env();\n';
+  final String _loadEnvCall = '${_indent}load_env();\n';
 
-  String _loadClass(String classVar, String internalName) {
+  String _loadClassCall(String classVar, String internalName) {
     return '${_indent}load_class_gr(&$classVar, '
         '"$internalName");\n';
   }
@@ -299,6 +315,7 @@ class CBindingGenerator {
     }
   }
 
+  /// returns the JNI signature of the method
   String _signature(Method m) {
     final s = StringBuffer();
     s.write('(');
