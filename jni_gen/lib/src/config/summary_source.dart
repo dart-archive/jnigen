@@ -5,7 +5,18 @@ abstract class SummarySource {
   Future<Stream<List<int>>> getInputStream();
 }
 
-/// A command based summary source.
+/// A command based summary source which calls the ApiSummarizer command.
+/// [sourcePaths] and [classPaths] can be provided for the summarizer to find
+/// required dependencies. The [classes] argument specifies the fully qualified
+/// names of classes or packages included in the generated summary. when a
+/// package is specified, its contents are included recursively.
+///
+/// When the default summarizer scans the [sourcePaths], it assumes that
+/// the directory names reflect actual package paths. For example, a class name
+/// com.example.pkg.Cls will be mapped to com/example/pkg/Cls.java.
+///
+/// The default summarizer needs to be built with `jni_gen:build_summarizer`
+/// script before this API is used.
 class SummarizerCommand extends SummarySource {
   SummarizerCommand({
     this.command = "java -jar .dart_tool/jni_gen/ApiSummarizer.jar",

@@ -58,6 +58,6 @@ class SkipException implements Exception {
 
   @override
   String toString() {
-    return 'skip: $message;\nelement: $element';
+    return '$message;';
   }
 }

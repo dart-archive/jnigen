@@ -59,7 +59,8 @@ class DartBindingsGenerator {
     final s = StringBuffer();
 
     // class <SimpleName> [extends super] { .. }
-    s.write(_breakDocComment(decl.javadoc?.comment, depth: ''));
+    s.write('/// from: ${decl.binaryName}\n');
+    s.write(_breakDocComment(decl.javadoc, depth: ''));
     final name = _getSimpleName(decl.binaryName);
 
     var superName = _jlObject;
@@ -80,11 +81,9 @@ class DartBindingsGenerator {
     s.writeln();
 
     void printSkipped(SkipException e, String member) {
-      stderr.writeln('skip: ${decl.qualifiedName}#$member\n${e.toString()}\n');
+      stderr.writeln('skip ${decl.qualifiedName}#$member ($e)');
     }
 
-    // fields & methods
-    // TODO: Write javadoc
     for (var field in decl.fields) {
       if (options.fieldFilter?.included(decl, field) == false) {
         stderr.writeln('exclude: ${field.name}');
@@ -113,6 +112,10 @@ class DartBindingsGenerator {
     return s.toString();
   }
 
+  static final _deleteInstruction =
+      '$_indent/// The returned object must be deleted after use, '
+      'by calling the `delete` method.\n';
+
   String _method(ClassDecl c, Method m, Map<String, int> nameCounts) {
     final validCName = isCtor(m) ? 'new' : m.name;
     final validDartName = isCtor(m) ? 'ctor' : resolver.kwPkgRename(m.name);
@@ -129,7 +132,10 @@ class DartBindingsGenerator {
     // diferent logic for constructor and method
     final returnType = dartOuterType(m.returnType);
     s.write('$_indent/// from: ${_originalMethodHeader(m)}\n');
-    s.write(_breakDocComment(m.javadoc?.comment));
+    if (!isPrimitive(m.returnType)) {
+      s.write(_deleteInstruction);
+    }
+    s.write(_breakDocComment(m.javadoc));
     s.write(_indent);
 
     if (isStaticMethod(m)) {
@@ -177,11 +183,16 @@ class DartBindingsGenerator {
     final name = renameConflict(nameCounts, f.name);
     final s = StringBuffer();
 
-    // write original type
-    s.write('$_indent/// from: ${_originalFieldDecl(f)}\n');
-    s.write(_breakDocComment(f.javadoc?.comment));
+    void _writeDocs() {
+      s.write('$_indent/// from: ${_originalFieldDecl(f)}\n');
+      if (!isPrimitive(f.type)) {
+        s.write(_deleteInstruction);
+      }
+      s.write(_breakDocComment(f.javadoc));
+    }
 
     if (isStaticField(f) && isFinalField(f) && f.defaultValue != null) {
+      _writeDocs();
       s.write('${_indent}static const $name = ${_literal(f.defaultValue)};\n');
       return s.toString();
     }
@@ -195,6 +206,8 @@ class DartBindingsGenerator {
       s.write('${_indent}static final $sym = $_jlookup'
           '<${ffi}NativeFunction<$ffiSig>>("${symPrefix}_$cName")\n'
           '.asFunction<$dartSig>();\n');
+      // write original type
+      _writeDocs();
       s.write(_indent);
       if (isStaticField(f)) s.write('static ');
       if (isSetter) {
@@ -225,7 +238,7 @@ class DartBindingsGenerator {
   }
 
   String dartSigForField(Field f,
-      {bool isSetter = false, required bool isFfiSig, String ffi = "ffi"}) {
+      {bool isSetter = false, required bool isFfiSig}) {
     final conv = isFfiSig ? dartFfiType : dartInnerType;
     final voidType = isFfiSig ? _void : 'void';
     final ref = f.modifiers.contains('static') ? '' : '$_voidPtr, ';
@@ -348,10 +361,11 @@ class DartBindingsGenerator {
     return '$dartType.fromRef($expr)';
   }
 
-  static String _breakDocComment(String? comment, {String depth = '    '}) {
+  static String _breakDocComment(JavaDocComment? javadoc,
+      {String depth = '    '}) {
     final link = RegExp('{@link ([^{}]+)}');
-    if (comment == null) return '';
-    comment = comment
+    if (javadoc == null) return '';
+    final comment = javadoc.comment
         .replaceAllMapped(link, (match) => match.group(1) ?? '')
         .replaceAll('#', '\\#')
         .replaceAll('<p>', '')
@@ -360,7 +374,8 @@ class DartBindingsGenerator {
         .replaceAll('</b>', '__')
         .replaceAll('<em>', '_')
         .replaceAll('</em>', '_');
-    return '$depth/// ${comment.replaceAll('\n', '\n$depth///')}\n';
+    return '$depth///\n'
+        '$depth/// ${comment.replaceAll('\n', '\n$depth///')}\n';
   }
 }
 

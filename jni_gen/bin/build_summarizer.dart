@@ -1,5 +1,4 @@
-// this script takes a vendored ApiSummarizer and builds with maven.
-
+// This script takes a vendored ApiSummarizer and builds with maven.
 import 'dart:io';
 
 import 'package:path/path.dart';

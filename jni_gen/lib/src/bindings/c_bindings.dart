@@ -4,7 +4,8 @@ import 'package:jni_gen/src/util/rename_conflict.dart';
 
 import 'common.dart';
 
-// fullName = binaryName with replace('.', '_'), replace('$', '__');
+// fullName / mangled name =
+// binaryName with replace('.', '_'), replace('$', '__');
 
 class CBindingGenerator {
   static const _classVarPrefix = '_c';

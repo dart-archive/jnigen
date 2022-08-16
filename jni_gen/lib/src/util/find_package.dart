@@ -8,13 +8,7 @@ Future<Uri?> findPackage(String packageName) async {
     return null;
   }
 
-  final packages = packageConfig.packages;
-  for (var candidate in packages) {
-    if (candidate.name == packageName) {
-      return candidate.root;
-    }
-  }
-  return null;
+  return packageConfig[packageName]?.root;
 }
 
 Future<Uri?> findPackageJni() => findPackage('jni');

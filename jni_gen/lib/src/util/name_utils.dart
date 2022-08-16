@@ -11,17 +11,15 @@ List<String> cutFromLast(String str, String sep) {
   return [str.substring(0, li), str.substring(li + 1)];
 }
 
-String getSimpleName(String binaryName) => binaryName.split('.').last;
+String getLastName(String binaryName) => binaryName.split('.').last;
 
 String getSimpleNameOf(ClassDecl cls) => cls.simpleName;
 
 /// Returns class name as useful in dart.
 /// Eg -> a.b.X.Y -> X_Y
 String simplifiedClassName(String binaryName) =>
-    getSimpleName(binaryName).replaceAll('\$', '_');
+    getLastName(binaryName).replaceAll('\$', '_');
 
 // Utilities to operate on package names
 
 List<String> getComponents(String packageName) => packageName.split('.');
-
-String getLastName(String packageName) => cutFromLast(packageName, '.')[1];

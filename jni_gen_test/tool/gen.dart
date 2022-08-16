@@ -16,9 +16,7 @@ void main(List<String> arguments) async {
             cWrapperDir: Uri.directory('src/'),
             dartWrappersRoot: Uri.directory('lib/'),
             libraryName: 'jni_gen_test')));
-  } on Error catch (e) {
-    stderr.writeln(e);
-  } on Exception catch (e) {
+  } on JniGenException catch (e) {
     stderr.writeln(e);
   }
 }

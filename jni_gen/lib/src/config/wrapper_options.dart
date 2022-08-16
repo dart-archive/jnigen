@@ -66,14 +66,9 @@ class CustomMemberFilter<T extends ClassMember> implements MemberFilter<T> {
 
 class CombinedClassFilter implements ClassFilter {
   CombinedClassFilter.all(this.filters);
-
   final List<ClassFilter> filters;
   @override
-  bool included(ClassDecl decl) {
-    final res = filters.every((f) => f.included(decl));
-    stderr.writeln(res);
-    return res;
-  }
+  bool included(ClassDecl decl) => filters.every((f) => f.included(decl));
 }
 
 class CombinedMemberFilter<T extends ClassMember> implements MemberFilter<T> {
@@ -115,9 +110,8 @@ MemberFilter<T> excludeAll<T extends ClassMember>(List<List<Pattern>> names) {
       names.map((p) => MemberNameFilter<T>.exclude(p[0], p[1])).toList());
 }
 
+/// Options that affect the semantics of the generated code.
 class WrapperOptions {
-  /// Options for jni_gen.
-  /// Note: not all configuration options are now implemented.
   const WrapperOptions({
     this.classFilter,
     this.fieldFilter,

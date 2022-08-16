@@ -17,8 +17,14 @@ env:
   PUB_ENVIRONMENT: bot.github
 
 jobs:
-  # Check code formatting and static analysis on a single OS (linux)
-  # against Dart stable.
+  #check_java_format:
+    #runs-on: ubuntu-latest
+    #steps:
+      #- uses: actions/checkout@v2 # v2 minimum required
+      #- uses: axel-op/googlejavaformat-action@v3
+        #with:
+          #args: "--set-exit-if-changed"
+
   analyze_jni_gen:
     runs-on: ubuntu-latest
     defaults:
