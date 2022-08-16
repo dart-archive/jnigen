@@ -7,6 +7,7 @@ final samplePath = join('test', 'sample');
 final javaPath = join(samplePath, 'java');
 
 Future<void> generateSources() async {
+  await Process.run('dart', ['run', 'jni_gen:setup']);
   await Process.run('javac', ['dev/dart/sample/Example.java'],
       workingDirectory: javaPath);
   try {
