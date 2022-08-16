@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Set;
 
 public class Field {
-    public Set<String> modifiers = new HashSet<>();
-    public String name;
-    public TypeUsage type;
-    public Object defaultValue;
+  public Set<String> modifiers = new HashSet<>();
+  public String name;
+  public TypeUsage type;
+  public Object defaultValue;
 
-    public JavaDocComment javadoc;
-    public List<JavaAnnotation> annotations = new ArrayList<>();
+  public JavaDocComment javadoc;
+  public List<JavaAnnotation> annotations = new ArrayList<>();
 }

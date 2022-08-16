@@ -7,14 +7,14 @@ import org.objectweb.asm.Type;
 // This interface removes some repetitive code using default methods
 
 public interface AsmAnnotatedElementVisitor {
-    void addAnnotation(JavaAnnotation annotation);
+  void addAnnotation(JavaAnnotation annotation);
 
-    default AnnotationVisitor visitAnnotationDefault(String descriptor, boolean visible) {
-        var annotation = new JavaAnnotation();
-        var aType = Type.getType(descriptor);
-        annotation.binaryName = aType.getClassName();
-        annotation.simpleName = TypeUtils.simpleName(aType);
-        addAnnotation(annotation);
-        return new AsmAnnotationVisitor(annotation);
-    }
+  default AnnotationVisitor visitAnnotationDefault(String descriptor, boolean visible) {
+    var annotation = new JavaAnnotation();
+    var aType = Type.getType(descriptor);
+    annotation.binaryName = aType.getClassName();
+    annotation.simpleName = TypeUtils.simpleName(aType);
+    addAnnotation(annotation);
+    return new AsmAnnotationVisitor(annotation);
+  }
 }

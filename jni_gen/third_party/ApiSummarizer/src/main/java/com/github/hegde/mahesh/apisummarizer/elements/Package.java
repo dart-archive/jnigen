@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Package {
-    public JavaDocComment packageDoc;
-    public String name;
-    public String fullName;
-    public String parent;
+  public JavaDocComment packageDoc;
+  public String name;
+  public String fullName;
+  public String parent;
 
-    public List<Package> packages = new ArrayList<>();
-    public List<ClassDecl> classes = new ArrayList<>();
+  public List<Package> packages = new ArrayList<>();
+  public List<ClassDecl> classes = new ArrayList<>();
 }

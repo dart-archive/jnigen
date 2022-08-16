@@ -6,20 +6,20 @@ import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.FieldVisitor;
 
 public class AsmFieldVisitor extends FieldVisitor implements AsmAnnotatedElementVisitor {
-    Field field;
+  Field field;
 
-    public AsmFieldVisitor(Field field) {
-        super(AsmConstants.API);
-        this.field = field;
-    }
+  public AsmFieldVisitor(Field field) {
+    super(AsmConstants.API);
+    this.field = field;
+  }
 
-    @Override
-    public void addAnnotation(JavaAnnotation annotation) {
-        field.annotations.add(annotation);
-    }
+  @Override
+  public void addAnnotation(JavaAnnotation annotation) {
+    field.annotations.add(annotation);
+  }
 
-    @Override
-    public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
-        return AsmAnnotatedElementVisitor.super.visitAnnotationDefault(descriptor, visible);
-    }
+  @Override
+  public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
+    return AsmAnnotatedElementVisitor.super.visitAnnotationDefault(descriptor, visible);
+  }
 }
