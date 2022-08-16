@@ -1,14 +1,29 @@
+// Tests on generated code.
 import 'dart:io';
 
 import 'package:jni/jni.dart';
+import 'package:path/path.dart' hide equals;
 
-import 'package:jni_gen_test/dev/dart/jni_gen_test.dart';
+// ignore_for_file: avoid_relative_lib_imports
+import 'sample/lib/dev/dart/sample.dart';
 import 'package:test/test.dart';
 
-void main() {
+final samplePath = join('test', 'sample');
+final javaPath = join(samplePath, 'java');
+
+void setupDylibsAndClasses() {
+  Process.runSync('dart', ['run', 'jni:setup']);
+  Process.runSync('dart', ['run', 'jni:setup', '-S', 'test/sample/src']);
+  Process.runSync('javac', ['dev/dart/sample/Example.java'],
+      workingDirectory: javaPath);
+
   if (!Platform.isAndroid) {
-    Jni.spawn(helperDir: 'build/jni_libs', classPath: ['java/']);
+    Jni.spawn(helperDir: 'build/jni_libs', classPath: ['test/sample/java/']);
   }
+}
+
+void main() {
+  setupDylibsAndClasses();
 
   test('static final fields', () {
     expect(Example.ON, equals(1));

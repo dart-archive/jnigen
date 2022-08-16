@@ -15,7 +15,7 @@ abstract class SummarySource {
 /// the directory names reflect actual package paths. For example, a class name
 /// com.example.pkg.Cls will be mapped to com/example/pkg/Cls.java.
 ///
-/// The default summarizer needs to be built with `jni_gen:build_summarizer`
+/// The default summarizer needs to be built with `jni_gen:setup`
 /// script before this API is used.
 class SummarizerCommand extends SummarySource {
   SummarizerCommand({

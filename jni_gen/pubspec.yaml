@@ -17,6 +17,8 @@ dependencies:
 
 dev_dependencies:
   lints: ^2.0.0
+  jni:
+    path: ../jni
   test: ^1.17.5
   build_runner: ^2.2.0
   json_serializable: ^6.3.1

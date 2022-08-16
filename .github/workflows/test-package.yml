@@ -17,13 +17,13 @@ env:
   PUB_ENVIRONMENT: bot.github
 
 jobs:
-  #check_java_format:
-    #runs-on: ubuntu-latest
-    #steps:
-      #- uses: actions/checkout@v2 # v2 minimum required
-      #- uses: axel-op/googlejavaformat-action@v3
-        #with:
-          #args: "--set-exit-if-changed"
+  check_java_format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 # v2 minimum required
+      - uses: axel-op/googlejavaformat-action@v3
+        with:
+          args: "--set-exit-if-changed"
 
   analyze_jni_gen:
     runs-on: ubuntu-latest
@@ -81,39 +81,6 @@ jobs:
           flag-name: jni_gen_tests
           parallel: true
           path-to-lcov: ./jni_gen/coverage/lcov.info
-
-  test_jni_gen_test_plugin:
-    needs: test_jni_gen
-    runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        working-directory: ./jni_gen_test
-    strategy:
-      fail-fast: false
-      matrix:
-        # Add macos-latest and/or windows-latest if relevant for this package.
-        os: [ubuntu-latest]
-        sdk: [2.17.0, dev]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v2
-        with:
-          distribution: 'zulu'
-          java-version: '11'
-          cache: maven
-      - uses: dart-lang/setup-dart@v1.0
-        with:
-          sdk: stable
-      - name: Install dependencies
-        run: dart pub get
-      - name: Setup jni_gen
-        run: dart run jni_gen:build_summarizer
-      - name: Generate bindings
-        run: dart run tool/gen.dart
-      - name: Build native libraries for tests
-        run: dart run jni:setup && dart run jni:setup -p jni_gen_test
-      - name: run tests
-        run: dart test
 
   ## TODO: More minimal test on windows after fixing dev dependency.
   ## i.e do not rerun analyze and format steps, and do not require flutter.

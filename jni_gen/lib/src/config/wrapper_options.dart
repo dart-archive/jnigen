@@ -1,5 +1,4 @@
 import 'package:jni_gen/src/elements/elements.dart';
-import 'dart:io';
 
 /// A filter which tells if bindings for given [ClassDecl] are generated.
 abstract class ClassFilter {

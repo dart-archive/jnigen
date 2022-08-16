@@ -1,4 +1,4 @@
-package dev.dart.jni_gen_test;
+package dev.dart.sample;
 
 public class Example {
   // static final fields

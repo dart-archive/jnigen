@@ -13,6 +13,6 @@ Future<void> runTask(JniGenTask task) async {
     return;
   }
   final list = json as List;
-  task.outputWriter
+  await task.outputWriter
       .writeBindings(list.map((c) => ClassDecl.fromJson(c)), task.options);
 }
