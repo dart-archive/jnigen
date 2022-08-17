@@ -5,20 +5,23 @@ import 'package:jni/jni.dart';
 import 'package:path/path.dart' hide equals;
 
 // ignore_for_file: avoid_relative_lib_imports
-import 'sample/lib/dev/dart/sample.dart';
+import 'simple_package/lib/dev/dart/simple_package.dart';
+import 'simple_package//lib/dev/dart/pkg2.dart';
+
 import 'package:test/test.dart';
 
-final samplePath = join('test', 'sample');
-final javaPath = join(samplePath, 'java');
+final simplePackagePath = join('test', 'simple_package');
+final javaPath = join(simplePackagePath, 'java');
 
 void setupDylibsAndClasses() {
   Process.runSync('dart', ['run', 'jni:setup']);
-  Process.runSync('dart', ['run', 'jni:setup', '-S', 'test/sample/src']);
-  Process.runSync('javac', ['dev/dart/sample/Example.java'],
+  Process.runSync(
+      'dart', ['run', 'jni:setup', '-S', join(simplePackagePath, 'src')]);
+  Process.runSync('javac', ['dev/dart/simple_package/Example.java'],
       workingDirectory: javaPath);
 
   if (!Platform.isAndroid) {
-    Jni.spawn(helperDir: 'build/jni_libs', classPath: ['test/sample/java/']);
+    Jni.spawn(helperDir: 'build/jni_libs', classPath: [javaPath]);
   }
 }
 
@@ -32,10 +35,10 @@ void main() {
 
   test('static & instance fields', () {
     expect(Example.num, equals(121));
-
     final aux = Example.aux;
     expect(aux.value, equals(true));
     aux.delete();
+    expect(C2.CONSTANT, equals(12));
   });
 
   test('static methods', () {

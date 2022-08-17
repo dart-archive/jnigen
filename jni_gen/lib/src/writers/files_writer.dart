@@ -91,7 +91,7 @@ class FilesWriter extends BindingsWriter {
 
   Future<void> _copyFileFromPackage(String package, String relPath, Uri target,
       {String Function(String)? transform}) async {
-    final packagePath = await findPackage(package);
+    final packagePath = await findPackageRoot(package);
     if (packagePath != null) {
       final sourceFile = File.fromUri(packagePath.resolve(relPath));
       final targetFile = await File.fromUri(target).create();

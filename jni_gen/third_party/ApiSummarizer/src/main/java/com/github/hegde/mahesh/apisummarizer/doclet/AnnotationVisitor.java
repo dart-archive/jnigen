@@ -1,13 +1,16 @@
 package com.github.hegde.mahesh.apisummarizer.doclet;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.AnnotationValueVisitor;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
+import java.util.List;
+import java.util.stream.Collectors;
 
+// AnnotationVisitor mechanism is not perfect right now. There are edge cases which need to be handled but
+// this is not an immediate priority, since the utility of annotations other than Override and NonNull in
+// jni_gen is perhaps limited to custom exclusion filters and rename configuration.
 public class AnnotationVisitor implements AnnotationValueVisitor<Object, Void> {
 
   private final ElementBuilders builders;
@@ -75,7 +78,7 @@ public class AnnotationVisitor implements AnnotationValueVisitor<Object, Void> {
 
   @Override
   public Object visitEnumConstant(VariableElement variableElement, Void unused) {
-    // TODO: Do this properly
+    // TODO: Perhaps simple name is not enough. We need to return qualified name + enum constant name for completeness.
     return variableElement.getSimpleName();
   }
 

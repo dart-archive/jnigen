@@ -28,10 +28,8 @@ class ClassDecl {
     this.annotations = const [],
     this.javadoc,
     this.modifiers = const {},
-    required this.qualifiedName,
     required this.simpleName,
     required this.binaryName,
-    required this.internalName,
     this.parentName,
     this.packageName,
     this.typeParams = const [],
@@ -48,7 +46,7 @@ class ClassDecl {
   JavaDocComment? javadoc;
 
   Set<String> modifiers;
-  String qualifiedName, simpleName, binaryName, internalName;
+  String simpleName, binaryName;
   String? parentName, packageName;
   List<TypeParam> typeParams;
   List<Method> methods;
@@ -149,7 +147,7 @@ class DeclaredType implements ReferredType {
   DeclaredType({
     required this.binaryName,
     required this.simpleName,
-    required this.params,
+    this.params = const [],
   });
   String binaryName, simpleName;
   List<TypeUsage> params;

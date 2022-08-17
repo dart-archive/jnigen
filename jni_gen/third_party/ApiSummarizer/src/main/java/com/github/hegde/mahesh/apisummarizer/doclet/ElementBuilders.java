@@ -3,19 +3,15 @@ package com.github.hegde.mahesh.apisummarizer.doclet;
 import com.github.hegde.mahesh.apisummarizer.elements.*;
 import com.github.hegde.mahesh.apisummarizer.util.StreamUtil;
 import com.sun.source.doctree.DocCommentTree;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+
 import javax.lang.model.element.*;
 import javax.lang.model.type.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ElementBuilders {
   AstEnv env;
-
-  private static <T, R> List<R> collect(List<T> elements, Function<T, R> mapper) {
-    return elements.stream().map(mapper).collect(Collectors.toList());
-  }
 
   public ElementBuilders(AstEnv env) {
     this.env = env;
@@ -38,10 +34,7 @@ public class ElementBuilders {
         break;
     }
     c.simpleName = e.getSimpleName().toString();
-    c.qualifiedName = e.getQualifiedName().toString();
     c.binaryName = env.elements.getBinaryName(e).toString();
-    // is this correct?
-    c.internalName = c.binaryName.replaceAll("\\.", "/");
     var parent = e.getEnclosingElement();
     if (parent instanceof TypeElement) {
       c.parentName = env.elements.getBinaryName((TypeElement) parent).toString();

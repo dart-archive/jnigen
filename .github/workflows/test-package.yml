@@ -86,6 +86,19 @@ jobs:
   ## i.e do not rerun analyze and format steps, and do not require flutter.
   ## IssueRef: https://github.com/dart-lang/jni_gen/issues/15
 
+  test_summarizer:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./jni_gen/third_party/ApiSummarizer
+    steps:
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - name: run tests using maven surefire
+        run: mvn surefire:test
+
   test_jni:
     runs-on: ubuntu-latest
     defaults:

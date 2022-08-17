@@ -81,7 +81,7 @@ class DartBindingsGenerator {
     s.writeln();
 
     void printSkipped(SkipException e, String member) {
-      stderr.writeln('skip ${decl.qualifiedName}#$member ($e)');
+      stderr.writeln('skip ${decl.binaryName}#$member ($e)');
     }
 
     for (var field in decl.fields) {
@@ -183,16 +183,16 @@ class DartBindingsGenerator {
     final name = renameConflict(nameCounts, f.name);
     final s = StringBuffer();
 
-    void _writeDocs() {
+    void _writeDocs({bool writeDeleteInstruction = true}) {
       s.write('$_indent/// from: ${_originalFieldDecl(f)}\n');
-      if (!isPrimitive(f.type)) {
+      if (!isPrimitive(f.type) && writeDeleteInstruction) {
         s.write(_deleteInstruction);
       }
       s.write(_breakDocComment(f.javadoc));
     }
 
     if (isStaticField(f) && isFinalField(f) && f.defaultValue != null) {
-      _writeDocs();
+      _writeDocs(writeDeleteInstruction: false);
       s.write('${_indent}static const $name = ${_literal(f.defaultValue)};\n');
       return s.toString();
     }

@@ -1,22 +1,21 @@
 package com.github.hegde.mahesh.apisummarizer.doclet;
 
-import static com.github.hegde.mahesh.apisummarizer.Main.writeAll;
-
+import com.github.hegde.mahesh.apisummarizer.Main;
 import com.github.hegde.mahesh.apisummarizer.elements.ClassDecl;
 import com.github.hegde.mahesh.apisummarizer.elements.Method;
 import com.github.hegde.mahesh.apisummarizer.elements.Package;
 import com.github.hegde.mahesh.apisummarizer.util.Log;
-import com.github.hegde.mahesh.apisummarizer.util.SkipMethodException;
-import com.github.hegde.mahesh.apisummarizer.util.SkipTypeException;
-import java.util.*;
-import javax.lang.model.SourceVersion;
-import javax.lang.model.element.*;
-import javax.lang.model.util.ElementScanner9;
+import com.github.hegde.mahesh.apisummarizer.util.SkipException;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.Reporter;
 
-public class SummarizerDoclet implements Doclet {
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.*;
+import javax.lang.model.util.ElementScanner9;
+import java.util.*;
+
+class SummarizerDocletBase implements Doclet {
   private AstEnv utils;
 
   @Override
@@ -37,13 +36,15 @@ public class SummarizerDoclet implements Doclet {
     return SourceVersion.RELEASE_11;
   }
 
+  public static List<ClassDecl> types;
+
   @Override
   public boolean run(DocletEnvironment docletEnvironment) {
     Log.timed("Initializing doclet");
     utils = AstEnv.fromEnvironment(docletEnvironment);
     SummarizingScanner p = new SummarizingScanner();
     docletEnvironment.getSpecifiedElements().forEach(e -> p.scan(e, new SummaryCollector()));
-    writeAll(p.types);
+    types = p.types;
     return true;
   }
 
@@ -100,7 +101,7 @@ public class SummarizerDoclet implements Doclet {
             collector.types.push(cls);
             super.visitType(e, collector);
             types.add(collector.types.pop());
-          } catch (SkipTypeException skip) {
+          } catch (SkipException skip) {
             Log.always("Skip type: %s", e.getQualifiedName());
           }
           break;
@@ -136,19 +137,19 @@ public class SummarizerDoclet implements Doclet {
     }
 
     @Override
-    public Void visitExecutable(ExecutableElement e, SummaryCollector collector) {
+    public Void visitExecutable(ExecutableElement element, SummaryCollector collector) {
       var cls = collector.types.peek();
-      switch (e.getKind()) {
+      switch (element.getKind()) {
         case METHOD:
         case CONSTRUCTOR:
           try {
-            var method = builders.method(e);
+            var method = builders.method(element);
             collector.method = method;
-            super.visitExecutable(e, collector);
+            super.visitExecutable(element, collector);
             collector.method = null;
             cls.methods.add(method);
-          } catch (SkipMethodException skip) {
-            Log.always("Skip method: %s", e.getSimpleName());
+          } catch (SkipException skip) {
+            Log.always("Skip method: %s", element.getSimpleName());
           }
           break;
         case STATIC_INIT:
@@ -159,6 +160,24 @@ public class SummarizerDoclet implements Doclet {
           break;
       }
       return null;
+    }
+  }
+}
+
+public class SummarizerDoclet extends SummarizerDocletBase {
+  @Override
+  public boolean run(DocletEnvironment docletEnvironment) {
+    var result = super.run(docletEnvironment);
+    Main.writeAll(types);
+    return result;
+  }
+  public static class TestDoclet extends SummarizerDocletBase {
+    @Override
+    public boolean run(DocletEnvironment docletEnvironment) {
+      return super.run(docletEnvironment);
+    }
+    public static List<ClassDecl> getClassDecls() {
+      return types;
     }
   }
 }

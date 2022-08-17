@@ -1,4 +1,4 @@
-package dev.dart.sample;
+package dev.dart.simple_package;
 
 public class Example {
   // static final fields

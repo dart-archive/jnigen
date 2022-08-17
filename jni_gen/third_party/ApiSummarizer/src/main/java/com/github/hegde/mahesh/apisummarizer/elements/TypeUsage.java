@@ -12,8 +12,8 @@ public class TypeUsage {
     PRIMITIVE,
   }
 
-  // Could've made made it just a type hierarchy
-  // But client code parsing JSON often needs to know the type beforehand.
+  // Could've made it just a type hierarchy, but client code parsing JSON
+  // needs to know the type beforehand, before it can deserialize the `type` field.
   public String shorthand;
   public Kind kind;
   public ReferredType type;
@@ -23,7 +23,6 @@ public class TypeUsage {
   public static class PrimitiveType extends ReferredType {
     public String name;
 
-    // TODO: Is this required? The shorthand will be always same as name for a primitive type.
     public PrimitiveType(String name) {
       this.name = name;
     }

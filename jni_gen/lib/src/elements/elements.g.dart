@@ -18,10 +18,8 @@ ClassDecl _$ClassDeclFromJson(Map<String, dynamic> json) => ClassDecl(
               ?.map((e) => e as String)
               .toSet() ??
           const {},
-      qualifiedName: json['qualifiedName'] as String,
       simpleName: json['simpleName'] as String,
       binaryName: json['binaryName'] as String,
-      internalName: json['internalName'] as String,
       parentName: json['parentName'] as String?,
       packageName: json['packageName'] as String?,
       typeParams: (json['typeParams'] as List<dynamic>?)
@@ -53,10 +51,8 @@ Map<String, dynamic> _$ClassDeclToJson(ClassDecl instance) => <String, dynamic>{
       'annotations': instance.annotations.map((e) => e.toJson()).toList(),
       'javadoc': instance.javadoc?.toJson(),
       'modifiers': instance.modifiers.toList(),
-      'qualifiedName': instance.qualifiedName,
       'simpleName': instance.simpleName,
       'binaryName': instance.binaryName,
-      'internalName': instance.internalName,
       'parentName': instance.parentName,
       'packageName': instance.packageName,
       'typeParams': instance.typeParams.map((e) => e.toJson()).toList(),
@@ -102,9 +98,10 @@ Map<String, dynamic> _$PrimitiveTypeToJson(PrimitiveType instance) =>
 DeclaredType _$DeclaredTypeFromJson(Map<String, dynamic> json) => DeclaredType(
       binaryName: json['binaryName'] as String,
       simpleName: json['simpleName'] as String,
-      params: (json['params'] as List<dynamic>)
-          .map((e) => TypeUsage.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      params: (json['params'] as List<dynamic>?)
+              ?.map((e) => TypeUsage.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$DeclaredTypeToJson(DeclaredType instance) =>

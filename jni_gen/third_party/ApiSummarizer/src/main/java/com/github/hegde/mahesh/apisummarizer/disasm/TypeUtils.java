@@ -1,23 +1,20 @@
 package com.github.hegde.mahesh.apisummarizer.disasm;
 
-import static org.objectweb.asm.Opcodes.*;
-import static org.objectweb.asm.Type.ARRAY;
-import static org.objectweb.asm.Type.OBJECT;
-
 import com.github.hegde.mahesh.apisummarizer.elements.DeclKind;
 import com.github.hegde.mahesh.apisummarizer.elements.TypeUsage;
-import com.github.hegde.mahesh.apisummarizer.util.SkipMethodException;
-import com.github.hegde.mahesh.apisummarizer.util.SkipTypeException;
+import com.github.hegde.mahesh.apisummarizer.util.SkipException;
+import org.objectweb.asm.Type;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import org.objectweb.asm.Type;
+
+import static org.objectweb.asm.Opcodes.*;
+import static org.objectweb.asm.Type.ARRAY;
+import static org.objectweb.asm.Type.OBJECT;
 
 class TypeUtils {
-  public static String binaryName(String internalName) {
-    return Type.getObjectType(internalName).getClassName();
-  }
 
   public static String parentName(Type type) {
     return type.getClassName().split("\\$")[0];
@@ -32,23 +29,19 @@ class TypeUtils {
     return null;
   }
 
-  public static String qualifiedName(Type type) {
-    return type.getClassName().replace('$', '.');
-  }
-
   public static String simpleName(Type type) {
-    var internalName = type.getClassName();
+    var internalName = type.getInternalName();
     if (type.getInternalName().length() == 1) {
       return type.getClassName();
     }
     var components = internalName.split("[/$]");
     if (components.length == 0) {
-      throw new SkipTypeException("Cannot derive simple name: " + internalName);
+      throw new SkipException("Cannot derive simple name: " + internalName);
     }
     return components[components.length - 1];
   }
 
-  public static TypeUsage typeUsage(Type type, String signature) {
+  public static TypeUsage typeUsage(Type type, @SuppressWarnings("unused") String signature) {
     var usage = new TypeUsage();
     usage.shorthand = type.getClassName();
     switch (type.getSort()) {
@@ -104,12 +97,20 @@ class TypeUtils {
       case ARRAY:
         return defaultParamName(type.getElementType()) + 's';
       case OBJECT:
-        return simpleName(type);
+        return unCapitalize(simpleName(type));
       case Type.METHOD:
-        throw new SkipMethodException("unexpected method type" + type);
+        throw new SkipException("unexpected method type" + type);
       default: // Primitive type
         var typeCh = type.getInternalName().charAt(0);
         return String.valueOf(Character.toLowerCase(typeCh));
     }
+  }
+
+  private static String unCapitalize(String s) {
+    var first = Character.toLowerCase(s.charAt(0));
+    if (s.length() == 1) {
+      return String.valueOf(first);
+    }
+    return first + s.substring(1);
   }
 }

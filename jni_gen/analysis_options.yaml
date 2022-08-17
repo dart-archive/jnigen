@@ -5,7 +5,7 @@
 include: package:lints/recommended.yaml
 
 analyzer:
-  exclude: [build/**, test/sample/**.dart]
+  exclude: [build/**, test/simple_package/**.dart]
   language:
     strict-raw-types: true
     strict-inference: true

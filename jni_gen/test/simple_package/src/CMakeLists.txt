@@ -3,17 +3,17 @@
 # the plugin to fail to compile for some customers of the plugin.
 cmake_minimum_required(VERSION 3.10)
 
-project(jni_gen_sample VERSION 0.0.1 LANGUAGES C)
+project(simple_package VERSION 0.0.1 LANGUAGES C)
 
-add_library(jni_gen_sample SHARED
-  "jni_gen_sample.c"
+add_library(simple_package SHARED
+  "simple_package.c"
 )
 
-set_target_properties(jni_gen_sample PROPERTIES
-  OUTPUT_NAME "jni_gen_sample"
+set_target_properties(simple_package PROPERTIES
+  OUTPUT_NAME "simple_package"
 )
 
-target_compile_definitions(jni_gen_sample PUBLIC DART_SHARED_LIB)
+target_compile_definitions(simple_package PUBLIC DART_SHARED_LIB)
 
 if(WIN32)
 	set_target_properties(${TARGET_NAME} PROPERTIES
@@ -21,10 +21,10 @@ if(WIN32)
 endif()
 
 if (ANDROID)
-	target_link_libraries(jni_gen_sample log)
+	target_link_libraries(simple_package log)
 else()
 	find_package(Java REQUIRED)
 	find_package(JNI REQUIRED)
 	include_directories(${JNI_INCLUDE_DIRS})
-	target_link_libraries(jni_gen_sample ${JNI_LIBRARIES})
+	target_link_libraries(simple_package ${JNI_LIBRARIES})
 endif()

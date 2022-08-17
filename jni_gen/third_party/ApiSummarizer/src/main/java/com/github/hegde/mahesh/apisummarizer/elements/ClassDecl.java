@@ -11,10 +11,8 @@ import java.util.Set;
 public class ClassDecl {
   public DeclKind declKind;
   public Set<String> modifiers;
-  public String qualifiedName;
   public String simpleName;
   public String binaryName;
-  public String internalName;
   public String parentName;
   public String packageName;
   public List<TypeParam> typeParams;

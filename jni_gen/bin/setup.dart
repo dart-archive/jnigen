@@ -10,15 +10,12 @@ final mvnTargetDir = join(toolPath, 'target');
 final jarFile = join(toolPath, 'ApiSummarizer.jar');
 final targetJarFile = join(mvnTargetDir, 'ApiSummarizer.jar');
 
-// check if there's a ApiSummarizer.jar under ./dart_tool/jni_gen/
-Future<bool> isApiSummarizerBuilt() => File(jarFile).exists();
-
 // This script gets the vendored sources for ApiSummarizer from pub cache
 // clones them to jarPath/mvn_build, and runs mvn build, then moves the target
 // jar back to jarPath, and deletes mvn_build.
 
 Future<void> buildApiSummarizer() async {
-  final pkg = await findPackage('jni_gen');
+  final pkg = await findPackageRoot('jni_gen');
   if (pkg == null) {
     stderr.writeln('package jni_gen not found!');
     exitCode = 2;
@@ -43,8 +40,26 @@ Future<void> buildApiSummarizer() async {
   Directory(mvnTargetDir).deleteSync(recursive: true);
 }
 
-void main() async {
-  if (!await isApiSummarizerBuilt()) {
+void main(List<String> args) async {
+  bool force = false;
+  if (args.isNotEmpty) {
+    if (args.length != 1 || args[0] != '-f') {
+      stderr.writeln('usage: dart run jni_gen:setup [-f]');
+      stderr.writeln('use -f option to rebuild ApiSummarizer jar '
+          'even if it already exists.');
+    } else {
+      force = true;
+    }
+  }
+  final jarExists = await File(jarFile).exists();
+  final isJarStale = jarExists &&
+      await isPackageModifiedAfter('jni_gen',
+          await File(jarFile).lastModified(), 'third_party/ApiSummarizer/');
+  if (isJarStale) {
+    stderr.writeln('Rebuilding ApiSummarizer component since sources '
+        'have changed. This might take some time.');
+  }
+  if (!jarExists || isJarStale || force) {
     await buildApiSummarizer();
   } else {
     stderr.writeln('ApiSummarizer.jar exists. Skipping build..');
