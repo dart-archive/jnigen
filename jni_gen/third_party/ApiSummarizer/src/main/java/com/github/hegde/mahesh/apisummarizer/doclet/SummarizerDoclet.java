@@ -6,14 +6,13 @@ import com.github.hegde.mahesh.apisummarizer.elements.Method;
 import com.github.hegde.mahesh.apisummarizer.elements.Package;
 import com.github.hegde.mahesh.apisummarizer.util.Log;
 import com.github.hegde.mahesh.apisummarizer.util.SkipException;
-import jdk.javadoc.doclet.Doclet;
-import jdk.javadoc.doclet.DocletEnvironment;
-import jdk.javadoc.doclet.Reporter;
-
+import java.util.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
 import javax.lang.model.util.ElementScanner9;
-import java.util.*;
+import jdk.javadoc.doclet.Doclet;
+import jdk.javadoc.doclet.DocletEnvironment;
+import jdk.javadoc.doclet.Reporter;
 
 class SummarizerDocletBase implements Doclet {
   private AstEnv utils;
@@ -171,11 +170,13 @@ public class SummarizerDoclet extends SummarizerDocletBase {
     Main.writeAll(types);
     return result;
   }
+
   public static class TestDoclet extends SummarizerDocletBase {
     @Override
     public boolean run(DocletEnvironment docletEnvironment) {
       return super.run(docletEnvironment);
     }
+
     public static List<ClassDecl> getClassDecls() {
       return types;
     }

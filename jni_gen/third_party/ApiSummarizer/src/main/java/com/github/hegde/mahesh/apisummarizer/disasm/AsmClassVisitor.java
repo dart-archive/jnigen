@@ -1,14 +1,13 @@
 package com.github.hegde.mahesh.apisummarizer.disasm;
 
+import static org.objectweb.asm.Opcodes.ACC_PROTECTED;
+import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
+
 import com.github.hegde.mahesh.apisummarizer.elements.*;
 import com.github.hegde.mahesh.apisummarizer.util.SkipException;
 import com.github.hegde.mahesh.apisummarizer.util.StreamUtil;
-import org.objectweb.asm.*;
-
 import java.util.*;
-
-import static org.objectweb.asm.Opcodes.ACC_PROTECTED;
-import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
+import org.objectweb.asm.*;
 
 public class AsmClassVisitor extends ClassVisitor implements AsmAnnotatedElementVisitor {
   private static Param param(

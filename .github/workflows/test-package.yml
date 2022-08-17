@@ -92,6 +92,7 @@ jobs:
       run:
         working-directory: ./jni_gen/third_party/ApiSummarizer
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/setup-java@v2
         with:
           distribution: 'zulu'

@@ -7,11 +7,6 @@ import com.github.hegde.mahesh.apisummarizer.disasm.AsmSummarizer;
 import com.github.hegde.mahesh.apisummarizer.doclet.SummarizerDoclet;
 import com.github.hegde.mahesh.apisummarizer.elements.ClassDecl;
 import com.github.hegde.mahesh.apisummarizer.util.Log;
-import jdk.javadoc.doclet.Doclet;
-import org.apache.commons.cli.*;
-
-import javax.tools.DocumentationTool;
-import javax.tools.ToolProvider;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -19,6 +14,10 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.tools.DocumentationTool;
+import javax.tools.ToolProvider;
+import jdk.javadoc.doclet.Doclet;
+import org.apache.commons.cli.*;
 
 public class Main {
   private static final CommandLineParser parser = new DefaultParser();
@@ -41,7 +40,8 @@ public class Main {
     runDocletWithClass(SummarizerDoclet.class, qualifiedNames, options);
   }
 
-  public static void runDocletWithClass(Class<? extends Doclet> docletClass, List<String> qualifiedNames, SummarizerOptions options) {
+  public static void runDocletWithClass(
+      Class<? extends Doclet> docletClass, List<String> qualifiedNames, SummarizerOptions options) {
     List<File> javaFilePaths =
         qualifiedNames.stream()
             .map(s -> findSourceLocation(s, options.sourcePaths.split(File.pathSeparator)))
@@ -71,9 +71,7 @@ public class Main {
       cli.addAll(List.of(options.toolOptions.split(" ")));
     }
 
-    javadoc
-        .getTask(null, fileManager, System.err::println, docletClass, cli, fileObjects)
-        .call();
+    javadoc.getTask(null, fileManager, System.err::println, docletClass, cli, fileObjects).call();
   }
 
   public static void main(String[] args) {
@@ -163,8 +161,10 @@ public class Main {
     } catch (ParseException e) {
       System.out.println(e.getMessage());
       help.printHelp(
-          "java -jar <JAR> [-s <SOURCE_DIR=.>] " + "[-c <CLASSES_JAR>] <CLASS_OR_PACKAGE_NAMES>\n"
-                  + "Class or package names should be fully qualified.\n\n", options);
+          "java -jar <JAR> [-s <SOURCE_DIR=.>] "
+              + "[-c <CLASSES_JAR>] <CLASS_OR_PACKAGE_NAMES>\n"
+              + "Class or package names should be fully qualified.\n\n",
+          options);
       System.exit(1);
       return null;
     }

@@ -1,18 +1,17 @@
 package com.github.hegde.mahesh.apisummarizer.disasm;
 
+import static org.objectweb.asm.Opcodes.*;
+import static org.objectweb.asm.Type.ARRAY;
+import static org.objectweb.asm.Type.OBJECT;
+
 import com.github.hegde.mahesh.apisummarizer.elements.DeclKind;
 import com.github.hegde.mahesh.apisummarizer.elements.TypeUsage;
 import com.github.hegde.mahesh.apisummarizer.util.SkipException;
-import org.objectweb.asm.Type;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import static org.objectweb.asm.Opcodes.*;
-import static org.objectweb.asm.Type.ARRAY;
-import static org.objectweb.asm.Type.OBJECT;
+import org.objectweb.asm.Type;
 
 class TypeUtils {
 

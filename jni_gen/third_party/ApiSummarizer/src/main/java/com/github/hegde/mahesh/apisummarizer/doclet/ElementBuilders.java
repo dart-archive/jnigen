@@ -3,12 +3,11 @@ package com.github.hegde.mahesh.apisummarizer.doclet;
 import com.github.hegde.mahesh.apisummarizer.elements.*;
 import com.github.hegde.mahesh.apisummarizer.util.StreamUtil;
 import com.sun.source.doctree.DocCommentTree;
-
-import javax.lang.model.element.*;
-import javax.lang.model.type.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.lang.model.element.*;
+import javax.lang.model.type.*;
 
 public class ElementBuilders {
   AstEnv env;

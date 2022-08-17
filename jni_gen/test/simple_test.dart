@@ -17,7 +17,8 @@ void setupDylibsAndClasses() {
   Process.runSync('dart', ['run', 'jni:setup']);
   Process.runSync(
       'dart', ['run', 'jni:setup', '-S', join(simplePackagePath, 'src')]);
-  Process.runSync('javac', ['dev/dart/simple_package/Example.java'],
+  Process.runSync('javac',
+      ['dev/dart/simple_package/Example.java', 'dev/dart/pkg2/C2.java'],
       workingDirectory: javaPath);
 
   if (!Platform.isAndroid) {
