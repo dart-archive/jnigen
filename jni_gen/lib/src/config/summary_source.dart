@@ -20,8 +20,6 @@ abstract class SummarySource {
 class SummarizerCommand extends SummarySource {
   SummarizerCommand({
     this.command = "java -jar .dart_tool/jni_gen/ApiSummarizer.jar",
-    this.sourcePathsOption = '-s',
-    this.classPathsOption = '-c',
     required this.sourcePaths,
     this.classPaths = const [],
     this.extraArgs = const [],
@@ -29,8 +27,10 @@ class SummarizerCommand extends SummarySource {
     this.workingDirectory,
   });
 
+  static const sourcePathsOption = '-s';
+  static const classPathsOption = '-c';
+
   String command;
-  String sourcePathsOption, classPathsOption;
   List<Uri> sourcePaths, classPaths;
   List<String> extraArgs;
   List<String> classes;
