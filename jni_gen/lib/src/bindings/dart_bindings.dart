@@ -272,14 +272,14 @@ class DartBindingsGenerator {
       'boolean': 'Uint8',
     };
     switch (t.kind) {
-      case UsageKind.primitive:
+      case Kind.primitive:
         return ffi + primitives[(t.type as PrimitiveType).name]!;
-      case UsageKind.typeVariable:
-      case UsageKind.wildcard:
+      case Kind.typeVariable:
+      case Kind.wildcard:
         throw SkipException(
             'Generic type parameters are not supported', t.toJson());
-      case UsageKind.array:
-      case UsageKind.declared:
+      case Kind.array:
+      case Kind.declared:
         return _voidPtr;
     }
   }
@@ -299,18 +299,18 @@ class DartBindingsGenerator {
       'boolean': 'bool',
     };
     switch (t.kind) {
-      case UsageKind.primitive:
+      case Kind.primitive:
         if (t.name == 'boolean' && resolver == null) return 'int';
         return primitives[(t.type as PrimitiveType).name]!;
-      case UsageKind.typeVariable:
-      case UsageKind.wildcard:
+      case Kind.typeVariable:
+      case Kind.wildcard:
         throw SkipException('Not supported: generics');
-      case UsageKind.array:
+      case Kind.array:
         if (resolver != null) {
           return _jlObject;
         }
         return _voidPtr;
-      case UsageKind.declared:
+      case Kind.declared:
         if (resolver != null) {
           return resolver.resolve((t.type as DeclaredType).binaryName) ??
               _jlObject;

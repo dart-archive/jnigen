@@ -11,7 +11,7 @@ abstract class SymbolResolver {
   String kwPkgRename(String name, {Set<String> outer});
 }
 
-// TODO: resolve all included classes without requiring import mappings.
+// TODO(#24): resolve all included classes without requiring import mappings.
 
 class PackagePathResolver implements SymbolResolver {
   PackagePathResolver(this.packages, this.currentPackage, this.inputs,

@@ -17,8 +17,6 @@ String kwRename(String name) {
   return name;
 }
 
-// TODO: Add keywords(C) - keyword(Java)
-// TODO: change C constructor naming from 'new' to something else?
 const Set<String> _keywords = {
   'abstract',
   'as',

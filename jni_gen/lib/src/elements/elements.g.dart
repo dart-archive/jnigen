@@ -67,22 +67,22 @@ Map<String, dynamic> _$ClassDeclToJson(ClassDecl instance) => <String, dynamic>{
 
 TypeUsage _$TypeUsageFromJson(Map<String, dynamic> json) => TypeUsage(
       shorthand: json['shorthand'] as String,
-      kind: $enumDecode(_$UsageKindEnumMap, json['kind']),
+      kind: $enumDecode(_$KindEnumMap, json['kind']),
       typeJson: json['type'] as Map<String, dynamic>,
     );
 
 Map<String, dynamic> _$TypeUsageToJson(TypeUsage instance) => <String, dynamic>{
       'shorthand': instance.shorthand,
-      'kind': _$UsageKindEnumMap[instance.kind]!,
+      'kind': _$KindEnumMap[instance.kind]!,
       'type': instance.typeJson,
     };
 
-const _$UsageKindEnumMap = {
-  UsageKind.primitive: 'PRIMITIVE',
-  UsageKind.typeVariable: 'TYPE_VARIABLE',
-  UsageKind.wildcard: 'WILDCARD',
-  UsageKind.declared: 'DECLARED',
-  UsageKind.array: 'ARRAY',
+const _$KindEnumMap = {
+  Kind.primitive: 'PRIMITIVE',
+  Kind.typeVariable: 'TYPE_VARIABLE',
+  Kind.wildcard: 'WILDCARD',
+  Kind.declared: 'DECLARED',
+  Kind.array: 'ARRAY',
 };
 
 PrimitiveType _$PrimitiveTypeFromJson(Map<String, dynamic> json) =>

@@ -136,7 +136,7 @@ class WrapperOptions {
   /// [MethodFilter] to decide if bindings for a method should be generated.
   final MethodFilter? methodFilter;
 
-  // TODO: This allows us to implement flexible renaming and more customization
+  // TODO(#26): This allows us to implement flexible renaming and more customization
   // via the dart API.
   final ClassDecl? Function(ClassDecl decl)? classTransformer;
   final Method? Function(Method method)? methodTransformer;

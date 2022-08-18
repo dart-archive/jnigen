@@ -171,7 +171,7 @@ class CBindingGenerator {
         s.write(', value');
       }
       s.write('));\n');
-      // TODO: Check Exceptions
+      // TODO(#25): Check Exceptions
       s.write('}\n\n');
     }
 
@@ -294,20 +294,20 @@ class CBindingGenerator {
 
   String _internalNameOf(TypeUsage usage) {
     switch (usage.kind) {
-      case UsageKind.declared:
+      case Kind.declared:
         return _internalName((usage.type as DeclaredType).binaryName);
-      case UsageKind.primitive:
+      case Kind.primitive:
         return _internalName((usage.type as PrimitiveType).name);
-      case UsageKind.typeVariable:
+      case Kind.typeVariable:
         // It should be possible to compute the erasure of a type
         // in parser itself.
-        // TODO: Use erasure of the type variable here.
+        // TODO(#23): Use erasure of the type variable here.
         // This is just a (wrong) placeholder
         return "java/lang/Object";
-      case UsageKind.array:
+      case Kind.array:
         final inner = _internalNameOf((usage.type as ArrayType).type);
         return "[$inner";
-      case UsageKind.wildcard:
+      case Kind.wildcard:
         final extendsBound = (usage.type as Wildcard).extendsBound;
         if (extendsBound != null) {
           return _internalNameOf(extendsBound);

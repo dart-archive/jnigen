@@ -7,9 +7,7 @@ part 'elements.g.dart';
 @JsonEnum()
 
 /// A kind describes the type of a declaration.
-// TODO: Rename it to DeclKind and UsageKind to Kind to reflect naming
-// on java side.
-enum Kind {
+enum DeclKind {
   @JsonValue('CLASS')
   classKind,
   @JsonValue('INTERFACE')
@@ -69,7 +67,7 @@ class ClassDecl {
 }
 
 @JsonEnum()
-enum UsageKind {
+enum Kind {
   @JsonValue('PRIMITIVE')
   primitive,
   @JsonValue('TYPE_VARIABLE')
@@ -91,7 +89,7 @@ class TypeUsage {
   });
 
   String shorthand;
-  UsageKind kind;
+  Kind kind;
   @JsonKey(ignore: true)
   late ReferredType type;
   @JsonKey(name: "type")
@@ -105,19 +103,19 @@ class TypeUsage {
   factory TypeUsage.fromJson(Map<String, dynamic> json) {
     final t = _$TypeUsageFromJson(json);
     switch (t.kind) {
-      case UsageKind.primitive:
+      case Kind.primitive:
         t.type = PrimitiveType.fromJson(t.typeJson);
         break;
-      case UsageKind.typeVariable:
+      case Kind.typeVariable:
         t.type = TypeVar.fromJson(t.typeJson);
         break;
-      case UsageKind.wildcard:
+      case Kind.wildcard:
         t.type = Wildcard.fromJson(t.typeJson);
         break;
-      case UsageKind.declared:
+      case Kind.declared:
         t.type = DeclaredType.fromJson(t.typeJson);
         break;
-      case UsageKind.array:
+      case Kind.array:
         t.type = ArrayType.fromJson(t.typeJson);
         break;
     }

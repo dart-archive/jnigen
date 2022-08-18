@@ -31,7 +31,7 @@ String cType(String binaryName) {
   }
 }
 
-bool isPrimitive(TypeUsage t) => t.kind == UsageKind.primitive;
+bool isPrimitive(TypeUsage t) => t.kind == Kind.primitive;
 
 bool isStaticField(Field f) => f.modifiers.contains('static');
 bool isStaticMethod(Method m) => m.modifiers.contains('static');
