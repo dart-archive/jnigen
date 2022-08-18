@@ -1,0 +1,5 @@
+*.jar
+jar/**
+java/**
+test_lib/
+test_src/
