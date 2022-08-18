@@ -66,6 +66,11 @@ jobs:
       - uses: dart-lang/setup-dart@v1.0
         with:
           sdk: stable
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+          cache: maven
       - name: Install dependencies
         run: dart pub get
       - name: Run VM tests
