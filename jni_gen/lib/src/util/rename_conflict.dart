@@ -1,21 +1,16 @@
 String renameConflict(Map<String, int> counts, String name) {
-  name = kwRename(name);
   if (counts.containsKey(name)) {
     final count = counts[name]!;
-    final renamed = '${name}_$count';
+    final renamed = '$name$count';
     counts[name] = count + 1;
     return renamed;
   }
   counts[name] = 1;
-  return name;
+  return kwRename(name);
 }
 
-String kwRename(String name) {
-  if (_keywords.contains(name)) {
-    return '${name}_';
-  }
-  return name;
-}
+// Concats 0 to name if name is a keyword
+String kwRename(String name) => _keywords.contains(name) ? '${name}0' : name;
 
 const Set<String> _keywords = {
   'abstract',

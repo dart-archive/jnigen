@@ -17,53 +17,53 @@ void setJniGetters(struct jni_context (*cg)(void),
 // com.fasterxml.jackson.core.JsonFactory
 jclass _c_com_fasterxml_jackson_core_JsonFactory = NULL;
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_new_ = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_ctor = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_new_() {
+jobject com_fasterxml_jackson_core_JsonFactory_ctor() {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_new_, "<init>", "()V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonFactory, _m_com_fasterxml_jackson_core_JsonFactory_new_);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_ctor, "<init>", "()V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonFactory, _m_com_fasterxml_jackson_core_JsonFactory_ctor);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_new__1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_ctor1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_new__1(jobject oc) {
+jobject com_fasterxml_jackson_core_JsonFactory_ctor1(jobject oc) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_new__1, "<init>", "(Lcom/fasterxml/jackson/core/ObjectCodec;)V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonFactory, _m_com_fasterxml_jackson_core_JsonFactory_new__1, oc);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_ctor1, "<init>", "(Lcom/fasterxml/jackson/core/ObjectCodec;)V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonFactory, _m_com_fasterxml_jackson_core_JsonFactory_ctor1, oc);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_new__2 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_ctor2 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_new__2(jobject src, jobject codec) {
+jobject com_fasterxml_jackson_core_JsonFactory_ctor2(jobject src, jobject codec) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_new__2, "<init>", "(Lcom/fasterxml/jackson/core/JsonFactory;Lcom/fasterxml/jackson/core/ObjectCodec;)V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonFactory, _m_com_fasterxml_jackson_core_JsonFactory_new__2, src, codec);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_ctor2, "<init>", "(Lcom/fasterxml/jackson/core/JsonFactory;Lcom/fasterxml/jackson/core/ObjectCodec;)V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonFactory, _m_com_fasterxml_jackson_core_JsonFactory_ctor2, src, codec);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_new__3 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_ctor3 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_new__3(jobject b) {
+jobject com_fasterxml_jackson_core_JsonFactory_ctor3(jobject b) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_new__3, "<init>", "(Lcom/fasterxml/jackson/core/JsonFactoryBuilder;)V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonFactory, _m_com_fasterxml_jackson_core_JsonFactory_new__3, b);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_ctor3, "<init>", "(Lcom/fasterxml/jackson/core/JsonFactoryBuilder;)V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonFactory, _m_com_fasterxml_jackson_core_JsonFactory_ctor3, b);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_new__4 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_ctor4 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_new__4(jobject b, uint8_t bogus) {
+jobject com_fasterxml_jackson_core_JsonFactory_ctor4(jobject b, uint8_t bogus) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_new__4, "<init>", "(Lcom/fasterxml/jackson/core/TSFBuilder;Z)V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonFactory, _m_com_fasterxml_jackson_core_JsonFactory_new__4, b, bogus);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_ctor4, "<init>", "(Lcom/fasterxml/jackson/core/TSFBuilder;Z)V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonFactory, _m_com_fasterxml_jackson_core_JsonFactory_ctor4, b, bogus);
     return to_global_ref(_result);
 }
 
@@ -307,53 +307,53 @@ int32_t com_fasterxml_jackson_core_JsonFactory_getFormatGeneratorFeatures(jobjec
     return _result;
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_configure_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_configure1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_configure_1(jobject self_, jobject f, uint8_t state) {
+jobject com_fasterxml_jackson_core_JsonFactory_configure1(jobject self_, jobject f, uint8_t state) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_configure_1, "configure", "(Lcom/fasterxml/jackson/core/JsonParser$Feature;Z)Lcom/fasterxml/jackson/core/JsonFactory;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_configure_1, f, state);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_configure1, "configure", "(Lcom/fasterxml/jackson/core/JsonParser$Feature;Z)Lcom/fasterxml/jackson/core/JsonFactory;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_configure1, f, state);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_enable_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_enable1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_enable_1(jobject self_, jobject f) {
+jobject com_fasterxml_jackson_core_JsonFactory_enable1(jobject self_, jobject f) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_enable_1, "enable", "(Lcom/fasterxml/jackson/core/JsonParser$Feature;)Lcom/fasterxml/jackson/core/JsonFactory;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_enable_1, f);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_enable1, "enable", "(Lcom/fasterxml/jackson/core/JsonParser$Feature;)Lcom/fasterxml/jackson/core/JsonFactory;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_enable1, f);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_disable_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_disable1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_disable_1(jobject self_, jobject f) {
+jobject com_fasterxml_jackson_core_JsonFactory_disable1(jobject self_, jobject f) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_disable_1, "disable", "(Lcom/fasterxml/jackson/core/JsonParser$Feature;)Lcom/fasterxml/jackson/core/JsonFactory;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_disable_1, f);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_disable1, "disable", "(Lcom/fasterxml/jackson/core/JsonParser$Feature;)Lcom/fasterxml/jackson/core/JsonFactory;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_disable1, f);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_isEnabled_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_isEnabled1 = NULL;
 FFI_PLUGIN_EXPORT
-uint8_t com_fasterxml_jackson_core_JsonFactory_isEnabled_1(jobject self_, jobject f) {
+uint8_t com_fasterxml_jackson_core_JsonFactory_isEnabled1(jobject self_, jobject f) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_isEnabled_1, "isEnabled", "(Lcom/fasterxml/jackson/core/JsonParser$Feature;)Z");
-    uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_isEnabled_1, f);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_isEnabled1, "isEnabled", "(Lcom/fasterxml/jackson/core/JsonParser$Feature;)Z");
+    uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_isEnabled1, f);
     return _result;
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_isEnabled_2 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_isEnabled2 = NULL;
 FFI_PLUGIN_EXPORT
-uint8_t com_fasterxml_jackson_core_JsonFactory_isEnabled_2(jobject self_, jobject f) {
+uint8_t com_fasterxml_jackson_core_JsonFactory_isEnabled2(jobject self_, jobject f) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_isEnabled_2, "isEnabled", "(Lcom/fasterxml/jackson/core/StreamReadFeature;)Z");
-    uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_isEnabled_2, f);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_isEnabled2, "isEnabled", "(Lcom/fasterxml/jackson/core/StreamReadFeature;)Z");
+    uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_isEnabled2, f);
     return _result;
 }
 
@@ -377,53 +377,53 @@ jobject com_fasterxml_jackson_core_JsonFactory_setInputDecorator(jobject self_, 
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_configure_2 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_configure2 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_configure_2(jobject self_, jobject f, uint8_t state) {
+jobject com_fasterxml_jackson_core_JsonFactory_configure2(jobject self_, jobject f, uint8_t state) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_configure_2, "configure", "(Lcom/fasterxml/jackson/core/JsonGenerator$Feature;Z)Lcom/fasterxml/jackson/core/JsonFactory;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_configure_2, f, state);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_configure2, "configure", "(Lcom/fasterxml/jackson/core/JsonGenerator$Feature;Z)Lcom/fasterxml/jackson/core/JsonFactory;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_configure2, f, state);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_enable_2 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_enable2 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_enable_2(jobject self_, jobject f) {
+jobject com_fasterxml_jackson_core_JsonFactory_enable2(jobject self_, jobject f) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_enable_2, "enable", "(Lcom/fasterxml/jackson/core/JsonGenerator$Feature;)Lcom/fasterxml/jackson/core/JsonFactory;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_enable_2, f);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_enable2, "enable", "(Lcom/fasterxml/jackson/core/JsonGenerator$Feature;)Lcom/fasterxml/jackson/core/JsonFactory;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_enable2, f);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_disable_2 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_disable2 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_disable_2(jobject self_, jobject f) {
+jobject com_fasterxml_jackson_core_JsonFactory_disable2(jobject self_, jobject f) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_disable_2, "disable", "(Lcom/fasterxml/jackson/core/JsonGenerator$Feature;)Lcom/fasterxml/jackson/core/JsonFactory;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_disable_2, f);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_disable2, "disable", "(Lcom/fasterxml/jackson/core/JsonGenerator$Feature;)Lcom/fasterxml/jackson/core/JsonFactory;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_disable2, f);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_isEnabled_3 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_isEnabled3 = NULL;
 FFI_PLUGIN_EXPORT
-uint8_t com_fasterxml_jackson_core_JsonFactory_isEnabled_3(jobject self_, jobject f) {
+uint8_t com_fasterxml_jackson_core_JsonFactory_isEnabled3(jobject self_, jobject f) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_isEnabled_3, "isEnabled", "(Lcom/fasterxml/jackson/core/JsonGenerator$Feature;)Z");
-    uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_isEnabled_3, f);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_isEnabled3, "isEnabled", "(Lcom/fasterxml/jackson/core/JsonGenerator$Feature;)Z");
+    uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_isEnabled3, f);
     return _result;
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_isEnabled_4 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_isEnabled4 = NULL;
 FFI_PLUGIN_EXPORT
-uint8_t com_fasterxml_jackson_core_JsonFactory_isEnabled_4(jobject self_, jobject f) {
+uint8_t com_fasterxml_jackson_core_JsonFactory_isEnabled4(jobject self_, jobject f) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_isEnabled_4, "isEnabled", "(Lcom/fasterxml/jackson/core/StreamWriteFeature;)Z");
-    uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_isEnabled_4, f);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_isEnabled4, "isEnabled", "(Lcom/fasterxml/jackson/core/StreamWriteFeature;)Z");
+    uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_isEnabled4, f);
     return _result;
 }
 
@@ -517,93 +517,93 @@ jobject com_fasterxml_jackson_core_JsonFactory_createParser(jobject self_, jobje
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createParser_1(jobject self_, jobject url) {
+jobject com_fasterxml_jackson_core_JsonFactory_createParser1(jobject self_, jobject url) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser_1, "createParser", "(Ljava/net/URL;)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser_1, url);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser1, "createParser", "(Ljava/net/URL;)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser1, url);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser_2 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser2 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createParser_2(jobject self_, jobject in) {
+jobject com_fasterxml_jackson_core_JsonFactory_createParser2(jobject self_, jobject in) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser_2, "createParser", "(Ljava/io/InputStream;)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser_2, in);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser2, "createParser", "(Ljava/io/InputStream;)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser2, in);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser_3 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser3 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createParser_3(jobject self_, jobject r) {
+jobject com_fasterxml_jackson_core_JsonFactory_createParser3(jobject self_, jobject r) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser_3, "createParser", "(Ljava/io/Reader;)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser_3, r);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser3, "createParser", "(Ljava/io/Reader;)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser3, r);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser_4 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser4 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createParser_4(jobject self_, jobject data) {
+jobject com_fasterxml_jackson_core_JsonFactory_createParser4(jobject self_, jobject data) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser_4, "createParser", "(L[B;)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser_4, data);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser4, "createParser", "(L[B;)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser4, data);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser_5 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser5 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createParser_5(jobject self_, jobject data, int32_t offset, int32_t len) {
+jobject com_fasterxml_jackson_core_JsonFactory_createParser5(jobject self_, jobject data, int32_t offset, int32_t len) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser_5, "createParser", "(L[B;II)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser_5, data, offset, len);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser5, "createParser", "(L[B;II)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser5, data, offset, len);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser_6 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser6 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createParser_6(jobject self_, jobject content) {
+jobject com_fasterxml_jackson_core_JsonFactory_createParser6(jobject self_, jobject content) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser_6, "createParser", "(Ljava/lang/String;)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser_6, content);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser6, "createParser", "(Ljava/lang/String;)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser6, content);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser_7 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser7 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createParser_7(jobject self_, jobject content) {
+jobject com_fasterxml_jackson_core_JsonFactory_createParser7(jobject self_, jobject content) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser_7, "createParser", "(L[C;)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser_7, content);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser7, "createParser", "(L[C;)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser7, content);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser_8 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser8 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createParser_8(jobject self_, jobject content, int32_t offset, int32_t len) {
+jobject com_fasterxml_jackson_core_JsonFactory_createParser8(jobject self_, jobject content, int32_t offset, int32_t len) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser_8, "createParser", "(L[C;II)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser_8, content, offset, len);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser8, "createParser", "(L[C;II)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser8, content, offset, len);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser_9 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createParser9 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createParser_9(jobject self_, jobject in) {
+jobject com_fasterxml_jackson_core_JsonFactory_createParser9(jobject self_, jobject in) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser_9, "createParser", "(Ljava/io/DataInput;)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser_9, in);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createParser9, "createParser", "(Ljava/io/DataInput;)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createParser9, in);
     return to_global_ref(_result);
 }
 
@@ -627,53 +627,53 @@ jobject com_fasterxml_jackson_core_JsonFactory_createGenerator(jobject self_, jo
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createGenerator_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createGenerator1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createGenerator_1(jobject self_, jobject out) {
+jobject com_fasterxml_jackson_core_JsonFactory_createGenerator1(jobject self_, jobject out) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createGenerator_1, "createGenerator", "(Ljava/io/OutputStream;)Lcom/fasterxml/jackson/core/JsonGenerator;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createGenerator_1, out);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createGenerator1, "createGenerator", "(Ljava/io/OutputStream;)Lcom/fasterxml/jackson/core/JsonGenerator;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createGenerator1, out);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createGenerator_2 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createGenerator2 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createGenerator_2(jobject self_, jobject w) {
+jobject com_fasterxml_jackson_core_JsonFactory_createGenerator2(jobject self_, jobject w) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createGenerator_2, "createGenerator", "(Ljava/io/Writer;)Lcom/fasterxml/jackson/core/JsonGenerator;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createGenerator_2, w);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createGenerator2, "createGenerator", "(Ljava/io/Writer;)Lcom/fasterxml/jackson/core/JsonGenerator;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createGenerator2, w);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createGenerator_3 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createGenerator3 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createGenerator_3(jobject self_, jobject f, jobject enc) {
+jobject com_fasterxml_jackson_core_JsonFactory_createGenerator3(jobject self_, jobject f, jobject enc) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createGenerator_3, "createGenerator", "(Ljava/io/File;Lcom/fasterxml/jackson/core/JsonEncoding;)Lcom/fasterxml/jackson/core/JsonGenerator;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createGenerator_3, f, enc);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createGenerator3, "createGenerator", "(Ljava/io/File;Lcom/fasterxml/jackson/core/JsonEncoding;)Lcom/fasterxml/jackson/core/JsonGenerator;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createGenerator3, f, enc);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createGenerator_4 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createGenerator4 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createGenerator_4(jobject self_, jobject out, jobject enc) {
+jobject com_fasterxml_jackson_core_JsonFactory_createGenerator4(jobject self_, jobject out, jobject enc) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createGenerator_4, "createGenerator", "(Ljava/io/DataOutput;Lcom/fasterxml/jackson/core/JsonEncoding;)Lcom/fasterxml/jackson/core/JsonGenerator;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createGenerator_4, out, enc);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createGenerator4, "createGenerator", "(Ljava/io/DataOutput;Lcom/fasterxml/jackson/core/JsonEncoding;)Lcom/fasterxml/jackson/core/JsonGenerator;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createGenerator4, out, enc);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createGenerator_5 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createGenerator5 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createGenerator_5(jobject self_, jobject out) {
+jobject com_fasterxml_jackson_core_JsonFactory_createGenerator5(jobject self_, jobject out) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createGenerator_5, "createGenerator", "(Ljava/io/DataOutput;)Lcom/fasterxml/jackson/core/JsonGenerator;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createGenerator_5, out);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createGenerator5, "createGenerator", "(Ljava/io/DataOutput;)Lcom/fasterxml/jackson/core/JsonGenerator;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createGenerator5, out);
     return to_global_ref(_result);
 }
 
@@ -687,63 +687,63 @@ jobject com_fasterxml_jackson_core_JsonFactory_createJsonParser(jobject self_, j
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createJsonParser_1(jobject self_, jobject url) {
+jobject com_fasterxml_jackson_core_JsonFactory_createJsonParser1(jobject self_, jobject url) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_1, "createJsonParser", "(Ljava/net/URL;)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_1, url);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonParser1, "createJsonParser", "(Ljava/net/URL;)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser1, url);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_2 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser2 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createJsonParser_2(jobject self_, jobject in) {
+jobject com_fasterxml_jackson_core_JsonFactory_createJsonParser2(jobject self_, jobject in) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_2, "createJsonParser", "(Ljava/io/InputStream;)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_2, in);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonParser2, "createJsonParser", "(Ljava/io/InputStream;)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser2, in);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_3 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser3 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createJsonParser_3(jobject self_, jobject r) {
+jobject com_fasterxml_jackson_core_JsonFactory_createJsonParser3(jobject self_, jobject r) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_3, "createJsonParser", "(Ljava/io/Reader;)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_3, r);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonParser3, "createJsonParser", "(Ljava/io/Reader;)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser3, r);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_4 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser4 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createJsonParser_4(jobject self_, jobject data) {
+jobject com_fasterxml_jackson_core_JsonFactory_createJsonParser4(jobject self_, jobject data) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_4, "createJsonParser", "(L[B;)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_4, data);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonParser4, "createJsonParser", "(L[B;)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser4, data);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_5 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser5 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createJsonParser_5(jobject self_, jobject data, int32_t offset, int32_t len) {
+jobject com_fasterxml_jackson_core_JsonFactory_createJsonParser5(jobject self_, jobject data, int32_t offset, int32_t len) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_5, "createJsonParser", "(L[B;II)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_5, data, offset, len);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonParser5, "createJsonParser", "(L[B;II)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser5, data, offset, len);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_6 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser6 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createJsonParser_6(jobject self_, jobject content) {
+jobject com_fasterxml_jackson_core_JsonFactory_createJsonParser6(jobject self_, jobject content) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_6, "createJsonParser", "(Ljava/lang/String;)Lcom/fasterxml/jackson/core/JsonParser;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser_6, content);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonParser6, "createJsonParser", "(Ljava/lang/String;)Lcom/fasterxml/jackson/core/JsonParser;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonParser6, content);
     return to_global_ref(_result);
 }
 
@@ -757,23 +757,23 @@ jobject com_fasterxml_jackson_core_JsonFactory_createJsonGenerator(jobject self_
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonGenerator_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonGenerator1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createJsonGenerator_1(jobject self_, jobject out) {
+jobject com_fasterxml_jackson_core_JsonFactory_createJsonGenerator1(jobject self_, jobject out) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonGenerator_1, "createJsonGenerator", "(Ljava/io/Writer;)Lcom/fasterxml/jackson/core/JsonGenerator;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonGenerator_1, out);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonGenerator1, "createJsonGenerator", "(Ljava/io/Writer;)Lcom/fasterxml/jackson/core/JsonGenerator;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonGenerator1, out);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonGenerator_2 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory_createJsonGenerator2 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory_createJsonGenerator_2(jobject self_, jobject out) {
+jobject com_fasterxml_jackson_core_JsonFactory_createJsonGenerator2(jobject self_, jobject out) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory, "com/fasterxml/jackson/core/JsonFactory");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonGenerator_2, "createJsonGenerator", "(Ljava/io/OutputStream;)Lcom/fasterxml/jackson/core/JsonGenerator;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonGenerator_2, out);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory, &_m_com_fasterxml_jackson_core_JsonFactory_createJsonGenerator2, "createJsonGenerator", "(Ljava/io/OutputStream;)Lcom/fasterxml/jackson/core/JsonGenerator;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonFactory_createJsonGenerator2, out);
     return to_global_ref(_result);
 }
 
@@ -846,13 +846,13 @@ int32_t com_fasterxml_jackson_core_JsonFactory__Feature_collectDefaults() {
     return _result;
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonFactory__Feature_new_ = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonFactory__Feature_ctor = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonFactory__Feature_new_(uint8_t defaultState) {
+jobject com_fasterxml_jackson_core_JsonFactory__Feature_ctor(uint8_t defaultState) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonFactory__Feature, "com/fasterxml/jackson/core/JsonFactory$Feature");
-    load_method(_c_com_fasterxml_jackson_core_JsonFactory__Feature, &_m_com_fasterxml_jackson_core_JsonFactory__Feature_new_, "<init>", "(Z)V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonFactory__Feature, _m_com_fasterxml_jackson_core_JsonFactory__Feature_new_, defaultState);
+    load_method(_c_com_fasterxml_jackson_core_JsonFactory__Feature, &_m_com_fasterxml_jackson_core_JsonFactory__Feature_ctor, "<init>", "(Z)V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonFactory__Feature, _m_com_fasterxml_jackson_core_JsonFactory__Feature_ctor, defaultState);
     return to_global_ref(_result);
 }
 
@@ -889,23 +889,23 @@ int32_t com_fasterxml_jackson_core_JsonFactory__Feature_getMask(jobject self_) {
 // com.fasterxml.jackson.core.JsonParser
 jclass _c_com_fasterxml_jackson_core_JsonParser = NULL;
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_new_ = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_ctor = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonParser_new_() {
+jobject com_fasterxml_jackson_core_JsonParser_ctor() {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_new_, "<init>", "()V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonParser, _m_com_fasterxml_jackson_core_JsonParser_new_);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_ctor, "<init>", "()V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonParser, _m_com_fasterxml_jackson_core_JsonParser_ctor);
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_new__1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_ctor1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonParser_new__1(int32_t features) {
+jobject com_fasterxml_jackson_core_JsonParser_ctor1(int32_t features) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_new__1, "<init>", "(I)V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonParser, _m_com_fasterxml_jackson_core_JsonParser_new__1, features);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_ctor1, "<init>", "(I)V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonParser, _m_com_fasterxml_jackson_core_JsonParser_ctor1, features);
     return to_global_ref(_result);
 }
 
@@ -947,22 +947,22 @@ void com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError(jobject self
     (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError, payload);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError1 = NULL;
 FFI_PLUGIN_EXPORT
-void com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError_1(jobject self_, jobject payload, jobject charset) {
+void com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError1(jobject self_, jobject payload, jobject charset) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError_1, "setRequestPayloadOnError", "(L[B;Ljava/lang/String;)V");
-    (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError_1, payload, charset);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError1, "setRequestPayloadOnError", "(L[B;Ljava/lang/String;)V");
+    (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError1, payload, charset);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError_2 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError2 = NULL;
 FFI_PLUGIN_EXPORT
-void com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError_2(jobject self_, jobject payload) {
+void com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError2(jobject self_, jobject payload) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError_2, "setRequestPayloadOnError", "(Ljava/lang/String;)V");
-    (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError_2, payload);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError2, "setRequestPayloadOnError", "(Ljava/lang/String;)V");
+    (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError2, payload);
 }
 
 jmethodID _m_com_fasterxml_jackson_core_JsonParser_setSchema = NULL;
@@ -1161,13 +1161,13 @@ int32_t com_fasterxml_jackson_core_JsonParser_releaseBuffered(jobject self_, job
     return _result;
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_releaseBuffered_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_releaseBuffered1 = NULL;
 FFI_PLUGIN_EXPORT
-int32_t com_fasterxml_jackson_core_JsonParser_releaseBuffered_1(jobject self_, jobject w) {
+int32_t com_fasterxml_jackson_core_JsonParser_releaseBuffered1(jobject self_, jobject w) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_releaseBuffered_1, "releaseBuffered", "(Ljava/io/Writer;)I");
-    int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_releaseBuffered_1, w);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_releaseBuffered1, "releaseBuffered", "(Ljava/io/Writer;)I");
+    int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_releaseBuffered1, w);
     return _result;
 }
 
@@ -1211,13 +1211,13 @@ uint8_t com_fasterxml_jackson_core_JsonParser_isEnabled(jobject self_, jobject f
     return _result;
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_isEnabled_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_isEnabled1 = NULL;
 FFI_PLUGIN_EXPORT
-uint8_t com_fasterxml_jackson_core_JsonParser_isEnabled_1(jobject self_, jobject f) {
+uint8_t com_fasterxml_jackson_core_JsonParser_isEnabled1(jobject self_, jobject f) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_isEnabled_1, "isEnabled", "(Lcom/fasterxml/jackson/core/StreamReadFeature;)Z");
-    uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_isEnabled_1, f);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_isEnabled1, "isEnabled", "(Lcom/fasterxml/jackson/core/StreamReadFeature;)Z");
+    uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_isEnabled1, f);
     return _result;
 }
 
@@ -1301,13 +1301,13 @@ uint8_t com_fasterxml_jackson_core_JsonParser_nextFieldName(jobject self_, jobje
     return _result;
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_nextFieldName_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_nextFieldName1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonParser_nextFieldName_1(jobject self_) {
+jobject com_fasterxml_jackson_core_JsonParser_nextFieldName1(jobject self_) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_nextFieldName_1, "nextFieldName", "()Ljava/lang/String;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_nextFieldName_1);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_nextFieldName1, "nextFieldName", "()Ljava/lang/String;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_nextFieldName1);
     return to_global_ref(_result);
 }
 
@@ -1538,13 +1538,13 @@ jobject com_fasterxml_jackson_core_JsonParser_getText(jobject self_) {
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_getText_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_getText1 = NULL;
 FFI_PLUGIN_EXPORT
-int32_t com_fasterxml_jackson_core_JsonParser_getText_1(jobject self_, jobject writer) {
+int32_t com_fasterxml_jackson_core_JsonParser_getText1(jobject self_, jobject writer) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getText_1, "getText", "(Ljava/io/Writer;)I");
-    int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getText_1, writer);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getText1, "getText", "(Ljava/io/Writer;)I");
+    int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getText1, writer);
     return _result;
 }
 
@@ -1728,13 +1728,13 @@ jobject com_fasterxml_jackson_core_JsonParser_getBinaryValue(jobject self_, jobj
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_getBinaryValue_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_getBinaryValue1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonParser_getBinaryValue_1(jobject self_) {
+jobject com_fasterxml_jackson_core_JsonParser_getBinaryValue1(jobject self_) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getBinaryValue_1, "getBinaryValue", "()L[B;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getBinaryValue_1);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getBinaryValue1, "getBinaryValue", "()L[B;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getBinaryValue1);
     return to_global_ref(_result);
 }
 
@@ -1748,13 +1748,13 @@ int32_t com_fasterxml_jackson_core_JsonParser_readBinaryValue(jobject self_, job
     return _result;
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_readBinaryValue_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_readBinaryValue1 = NULL;
 FFI_PLUGIN_EXPORT
-int32_t com_fasterxml_jackson_core_JsonParser_readBinaryValue_1(jobject self_, jobject bv, jobject out) {
+int32_t com_fasterxml_jackson_core_JsonParser_readBinaryValue1(jobject self_, jobject bv, jobject out) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_readBinaryValue_1, "readBinaryValue", "(Lcom/fasterxml/jackson/core/Base64Variant;Ljava/io/OutputStream;)I");
-    int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_readBinaryValue_1, bv, out);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_readBinaryValue1, "readBinaryValue", "(Lcom/fasterxml/jackson/core/Base64Variant;Ljava/io/OutputStream;)I");
+    int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_readBinaryValue1, bv, out);
     return _result;
 }
 
@@ -1768,13 +1768,13 @@ int32_t com_fasterxml_jackson_core_JsonParser_getValueAsInt(jobject self_) {
     return _result;
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_getValueAsInt_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_getValueAsInt1 = NULL;
 FFI_PLUGIN_EXPORT
-int32_t com_fasterxml_jackson_core_JsonParser_getValueAsInt_1(jobject self_, int32_t def) {
+int32_t com_fasterxml_jackson_core_JsonParser_getValueAsInt1(jobject self_, int32_t def) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getValueAsInt_1, "getValueAsInt", "(I)I");
-    int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getValueAsInt_1, def);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getValueAsInt1, "getValueAsInt", "(I)I");
+    int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getValueAsInt1, def);
     return _result;
 }
 
@@ -1788,13 +1788,13 @@ int64_t com_fasterxml_jackson_core_JsonParser_getValueAsLong(jobject self_) {
     return _result;
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_getValueAsLong_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_getValueAsLong1 = NULL;
 FFI_PLUGIN_EXPORT
-int64_t com_fasterxml_jackson_core_JsonParser_getValueAsLong_1(jobject self_, int64_t def) {
+int64_t com_fasterxml_jackson_core_JsonParser_getValueAsLong1(jobject self_, int64_t def) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getValueAsLong_1, "getValueAsLong", "(J)J");
-    int64_t _result = (*jniEnv)->CallLongMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getValueAsLong_1, def);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getValueAsLong1, "getValueAsLong", "(J)J");
+    int64_t _result = (*jniEnv)->CallLongMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getValueAsLong1, def);
     return _result;
 }
 
@@ -1808,13 +1808,13 @@ double com_fasterxml_jackson_core_JsonParser_getValueAsDouble(jobject self_) {
     return _result;
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_getValueAsDouble_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_getValueAsDouble1 = NULL;
 FFI_PLUGIN_EXPORT
-double com_fasterxml_jackson_core_JsonParser_getValueAsDouble_1(jobject self_, double def) {
+double com_fasterxml_jackson_core_JsonParser_getValueAsDouble1(jobject self_, double def) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getValueAsDouble_1, "getValueAsDouble", "(D)D");
-    double _result = (*jniEnv)->CallDoubleMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getValueAsDouble_1, def);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getValueAsDouble1, "getValueAsDouble", "(D)D");
+    double _result = (*jniEnv)->CallDoubleMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getValueAsDouble1, def);
     return _result;
 }
 
@@ -1828,13 +1828,13 @@ uint8_t com_fasterxml_jackson_core_JsonParser_getValueAsBoolean(jobject self_) {
     return _result;
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_getValueAsBoolean_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_getValueAsBoolean1 = NULL;
 FFI_PLUGIN_EXPORT
-uint8_t com_fasterxml_jackson_core_JsonParser_getValueAsBoolean_1(jobject self_, uint8_t def) {
+uint8_t com_fasterxml_jackson_core_JsonParser_getValueAsBoolean1(jobject self_, uint8_t def) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getValueAsBoolean_1, "getValueAsBoolean", "(Z)Z");
-    uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getValueAsBoolean_1, def);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getValueAsBoolean1, "getValueAsBoolean", "(Z)Z");
+    uint8_t _result = (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getValueAsBoolean1, def);
     return _result;
 }
 
@@ -1848,13 +1848,13 @@ jobject com_fasterxml_jackson_core_JsonParser_getValueAsString(jobject self_) {
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_getValueAsString_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_getValueAsString1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonParser_getValueAsString_1(jobject self_, jobject def) {
+jobject com_fasterxml_jackson_core_JsonParser_getValueAsString1(jobject self_, jobject def) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getValueAsString_1, "getValueAsString", "(Ljava/lang/String;)Ljava/lang/String;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getValueAsString_1, def);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_getValueAsString1, "getValueAsString", "(Ljava/lang/String;)Ljava/lang/String;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_getValueAsString1, def);
     return to_global_ref(_result);
 }
 
@@ -1908,13 +1908,13 @@ jobject com_fasterxml_jackson_core_JsonParser_readValueAs(jobject self_, jobject
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_readValueAs_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_readValueAs1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonParser_readValueAs_1(jobject self_, jobject valueTypeRef) {
+jobject com_fasterxml_jackson_core_JsonParser_readValueAs1(jobject self_, jobject valueTypeRef) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_readValueAs_1, "readValueAs", "(Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_readValueAs_1, valueTypeRef);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_readValueAs1, "readValueAs", "(Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/lang/Object;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_readValueAs1, valueTypeRef);
     return to_global_ref(_result);
 }
 
@@ -1928,13 +1928,13 @@ jobject com_fasterxml_jackson_core_JsonParser_readValuesAs(jobject self_, jobjec
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser_readValuesAs_1 = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser_readValuesAs1 = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonParser_readValuesAs_1(jobject self_, jobject valueTypeRef) {
+jobject com_fasterxml_jackson_core_JsonParser_readValuesAs1(jobject self_, jobject valueTypeRef) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser, "com/fasterxml/jackson/core/JsonParser");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_readValuesAs_1, "readValuesAs", "(Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/util/Iterator;");
-    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_readValuesAs_1, valueTypeRef);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser, &_m_com_fasterxml_jackson_core_JsonParser_readValuesAs1, "readValuesAs", "(Lcom/fasterxml/jackson/core/type/TypeReference;)Ljava/util/Iterator;");
+    jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_com_fasterxml_jackson_core_JsonParser_readValuesAs1, valueTypeRef);
     return to_global_ref(_result);
 }
 
@@ -1990,13 +1990,13 @@ int32_t com_fasterxml_jackson_core_JsonParser__Feature_collectDefaults() {
     return _result;
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser__Feature_new_ = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser__Feature_ctor = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonParser__Feature_new_(uint8_t defaultState) {
+jobject com_fasterxml_jackson_core_JsonParser__Feature_ctor(uint8_t defaultState) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser__Feature, "com/fasterxml/jackson/core/JsonParser$Feature");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser__Feature, &_m_com_fasterxml_jackson_core_JsonParser__Feature_new_, "<init>", "(Z)V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonParser__Feature, _m_com_fasterxml_jackson_core_JsonParser__Feature_new_, defaultState);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser__Feature, &_m_com_fasterxml_jackson_core_JsonParser__Feature_ctor, "<init>", "(Z)V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonParser__Feature, _m_com_fasterxml_jackson_core_JsonParser__Feature_ctor, defaultState);
     return to_global_ref(_result);
 }
 
@@ -2053,13 +2053,13 @@ jobject com_fasterxml_jackson_core_JsonParser__NumberType_valueOf(jobject name) 
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonParser__NumberType_new_ = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonParser__NumberType_ctor = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonParser__NumberType_new_() {
+jobject com_fasterxml_jackson_core_JsonParser__NumberType_ctor() {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonParser__NumberType, "com/fasterxml/jackson/core/JsonParser$NumberType");
-    load_method(_c_com_fasterxml_jackson_core_JsonParser__NumberType, &_m_com_fasterxml_jackson_core_JsonParser__NumberType_new_, "<init>", "()V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonParser__NumberType, _m_com_fasterxml_jackson_core_JsonParser__NumberType_new_);
+    load_method(_c_com_fasterxml_jackson_core_JsonParser__NumberType, &_m_com_fasterxml_jackson_core_JsonParser__NumberType_ctor, "<init>", "()V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonParser__NumberType, _m_com_fasterxml_jackson_core_JsonParser__NumberType_ctor);
     return to_global_ref(_result);
 }
 
@@ -2086,13 +2086,13 @@ jobject com_fasterxml_jackson_core_JsonToken_valueOf(jobject name) {
     return to_global_ref(_result);
 }
 
-jmethodID _m_com_fasterxml_jackson_core_JsonToken_new_ = NULL;
+jmethodID _m_com_fasterxml_jackson_core_JsonToken_ctor = NULL;
 FFI_PLUGIN_EXPORT
-jobject com_fasterxml_jackson_core_JsonToken_new_(jobject token, int32_t id) {
+jobject com_fasterxml_jackson_core_JsonToken_ctor(jobject token, int32_t id) {
     load_env();
     load_class_gr(&_c_com_fasterxml_jackson_core_JsonToken, "com/fasterxml/jackson/core/JsonToken");
-    load_method(_c_com_fasterxml_jackson_core_JsonToken, &_m_com_fasterxml_jackson_core_JsonToken_new_, "<init>", "(Ljava/lang/String;I)V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonToken, _m_com_fasterxml_jackson_core_JsonToken_new_, token, id);
+    load_method(_c_com_fasterxml_jackson_core_JsonToken, &_m_com_fasterxml_jackson_core_JsonToken_ctor, "<init>", "(Ljava/lang/String;I)V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_fasterxml_jackson_core_JsonToken, _m_com_fasterxml_jackson_core_JsonToken_ctor, token, id);
     return to_global_ref(_result);
 }
 

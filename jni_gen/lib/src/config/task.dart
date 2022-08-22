@@ -1,6 +1,9 @@
+import 'dart:io';
+import 'dart:convert';
+
 import 'package:jni_gen/src/writers/bindings_writer.dart';
-import 'summary_source.dart';
-import 'wrapper_options.dart';
+import 'package:jni_gen/src/config/config.dart';
+import 'package:jni_gen/src/elements/elements.dart';
 
 /// Represents a complete jni_gen binding generation configuration.
 /// * [summarySource] handles the API summary generation.
@@ -15,4 +18,33 @@ class JniGenTask {
   BindingsWriter outputWriter;
   SummarySource summarySource;
   WrapperOptions options;
+  Future<void> run() async {
+    Stream<List<int>> input;
+    try {
+      input = await summarySource.getInputStream();
+    } on Exception catch (e) {
+      stderr.writeln('error obtaining API summary: $e');
+      return;
+    }
+    final stream = JsonDecoder().bind(Utf8Decoder().bind(input));
+    dynamic json;
+    try {
+      json = await stream.single;
+    } on Exception catch (e) {
+      stderr.writeln('error parsing summary: $e');
+      return;
+    }
+    if (json == null) {
+      stderr.writeln('error: expected JSON element from summarizer.');
+      return;
+    }
+    final list = json as List;
+    try {
+      await outputWriter
+          .writeBindings(list.map((c) => ClassDecl.fromJson(c)), options);
+    } on Exception catch (e, trace) {
+      stderr.writeln(trace);
+      stderr.writeln('error writing bindings: $e');
+    }
+  }
 }

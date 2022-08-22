@@ -1,6 +1,5 @@
 import 'package:jni_gen/src/elements/elements.dart';
 import 'package:jni_gen/src/config/wrapper_options.dart';
-import 'package:jni_gen/src/util/rename_conflict.dart';
 
 import 'common.dart';
 
@@ -23,9 +22,6 @@ class CBindingGenerator {
   String _class(ClassDecl c) {
     final s = StringBuffer();
 
-    // for method overload renaming
-    final Map<String, int> nameCounts = {};
-
     final fullName = mangledClassName(c);
 
     // global variable in C that holds the reference to class
@@ -34,45 +30,33 @@ class CBindingGenerator {
     s.write('jclass $classVar = NULL;\n\n');
 
     for (var m in c.methods) {
-      if (options.methodFilter?.included(c, m) == false) {
-        // print excluded
+      if (!m.isIncluded) {
         continue;
       }
-      try {
-        s.write(_method(c, m, nameCounts));
-        s.writeln();
-      } on SkipException {
-        // do nothing
-      }
+      s.write(_method(c, m));
+      s.writeln();
     }
 
     for (var f in c.fields) {
-      if (options.fieldFilter?.included(c, f) == false) {
-        // print excluded
+      if (!f.isIncluded) {
         continue;
       }
-      try {
-        final fieldBinding = _field(c, f, nameCounts);
-        s.write(fieldBinding);
-        // Fields are skipped if they're static final. In that case
-        // do not write too much whitespace.
-        if (fieldBinding.isNotEmpty) s.writeln();
-      } on SkipException {
-        // do nothing
-      }
+      final fieldBinding = _field(c, f);
+      s.write(fieldBinding);
+      // Fields are skipped if they're static final. In that case
+      // do not write too much whitespace.
+      if (fieldBinding.isNotEmpty) s.writeln();
     }
     return s.toString();
   }
 
-  String _method(ClassDecl c, Method m, Map<String, int> nameCounts) {
+  String _method(ClassDecl c, Method m) {
     final cClassName = mangledClassName(c);
     final isACtor = isCtor(m);
     final isStatic = isStaticMethod(m);
 
     final s = StringBuffer();
-
-    final origName = isACtor ? ctorNameC : m.name;
-    final name = renameConflict(nameCounts, origName);
+    final name = m.finalName;
 
     final methodVar = '${_methodVarPrefix}_${cClassName}_$name';
     s.write('jmethodID $methodVar = NULL;\n');
@@ -122,7 +106,7 @@ class CBindingGenerator {
     return s.toString();
   }
 
-  String _field(ClassDecl c, Field f, Map<String, int> nameCounts) {
+  String _field(ClassDecl c, Field f) {
     final cClassName = mangledClassName(c);
     final isStatic = isStaticField(f);
 
@@ -134,7 +118,7 @@ class CBindingGenerator {
 
     final s = StringBuffer();
 
-    final fieldName = renameConflict(nameCounts, f.name);
+    final fieldName = f.finalName;
     final fieldVar = "${_fieldVarPrefix}_${cClassName}_$fieldName";
 
     s.write('jfieldID $fieldVar = NULL;\n');
@@ -183,10 +167,6 @@ class CBindingGenerator {
     return s.toString();
   }
 
-  bool _isStatic(Method m) {
-    return m.modifiers.contains('static');
-  }
-
   final String _loadEnvCall = '${_indent}load_env();\n';
 
   String _loadClassCall(String classVar, String internalName) {
@@ -218,7 +198,7 @@ class CBindingGenerator {
   // arguments at call site
   String _callArgs(Method m, String classVar, String methodVar) {
     final args = ['jniEnv'];
-    if (!_isStatic(m) && m.name != '<init>') {
+    if (hasSelfParam(m)) {
       args.add('self_');
     } else {
       args.add(classVar);
@@ -330,6 +310,7 @@ class CBindingGenerator {
     return s.toString();
   }
 
+  // For call<type>Method or get<type>field calls in JNI.
   String _typeNameAtCallSite(TypeUsage t) {
     if (isPrimitive(t)) {
       return t.name.substring(0, 1).toUpperCase() + t.name.substring(1);

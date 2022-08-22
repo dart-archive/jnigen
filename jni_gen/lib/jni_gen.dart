@@ -10,4 +10,3 @@ library jni_gen;
 export 'src/elements/elements.dart';
 export 'src/config/config.dart';
 export 'src/writers/writers.dart';
-export 'src/run_task.dart';

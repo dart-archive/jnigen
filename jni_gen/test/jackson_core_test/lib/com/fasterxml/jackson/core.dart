@@ -91,7 +91,7 @@ class JsonFactory extends jni.JlObject {
 
   static final _ctor =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
-              "com_fasterxml_jackson_core_JsonFactory_new_")
+              "com_fasterxml_jackson_core_JsonFactory_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
   /// from: public void <init>()
@@ -106,20 +106,20 @@ class JsonFactory extends jni.JlObject {
   /// factory instance.
   JsonFactory() : super.fromRef(_ctor());
 
-  static final _ctor_1 = jlookup<
+  static final _ctor1 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_new__1")
+          "com_fasterxml_jackson_core_JsonFactory_ctor1")
       .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public void <init>(com.fasterxml.jackson.core.ObjectCodec oc)
-  JsonFactory.ctor_1(jni.JlObject oc) : super.fromRef(_ctor_1(oc.reference));
+  JsonFactory.ctor1(jni.JlObject oc) : super.fromRef(_ctor1(oc.reference));
 
-  static final _ctor_2 = jlookup<
+  static final _ctor2 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_new__2")
+          "com_fasterxml_jackson_core_JsonFactory_ctor2")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -130,13 +130,13 @@ class JsonFactory extends jni.JlObject {
   ///@param src Original factory to copy settings from
   ///@param codec Databinding-level codec to use, if any
   ///@since 2.2.1
-  JsonFactory.ctor_2(JsonFactory src, jni.JlObject codec)
-      : super.fromRef(_ctor_2(src.reference, codec.reference));
+  JsonFactory.ctor2(JsonFactory src, jni.JlObject codec)
+      : super.fromRef(_ctor2(src.reference, codec.reference));
 
-  static final _ctor_3 = jlookup<
+  static final _ctor3 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_new__3")
+          "com_fasterxml_jackson_core_JsonFactory_ctor3")
       .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public void <init>(com.fasterxml.jackson.core.JsonFactoryBuilder b)
@@ -144,12 +144,12 @@ class JsonFactory extends jni.JlObject {
   /// Constructor used by JsonFactoryBuilder for instantiation.
   ///@param b Builder that contains settings to use
   ///@since 2.10
-  JsonFactory.ctor_3(jni.JlObject b) : super.fromRef(_ctor_3(b.reference));
+  JsonFactory.ctor3(jni.JlObject b) : super.fromRef(_ctor3(b.reference));
 
-  static final _ctor_4 = jlookup<
+  static final _ctor4 = jlookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
-                  ffi.Uint8)>>("com_fasterxml_jackson_core_JsonFactory_new__4")
+                  ffi.Uint8)>>("com_fasterxml_jackson_core_JsonFactory_ctor4")
       .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: protected void <init>(com.fasterxml.jackson.core.TSFBuilder<?,?> b, boolean bogus)
@@ -159,8 +159,8 @@ class JsonFactory extends jni.JlObject {
   /// implementation for json.
   ///@param b Builder that contains settings to use
   ///@param bogus Argument only needed to separate constructor signature; ignored
-  JsonFactory.ctor_4(jni.JlObject b, bool bogus)
-      : super.fromRef(_ctor_4(b.reference, bogus ? 1 : 0));
+  JsonFactory.ctor4(jni.JlObject b, bool bogus)
+      : super.fromRef(_ctor4(b.reference, bogus ? 1 : 0));
 
   static final _rebuild = jlookup<
               ffi.NativeFunction<
@@ -539,11 +539,11 @@ class JsonFactory extends jni.JlObject {
   /// from: public int getFormatGeneratorFeatures()
   int getFormatGeneratorFeatures() => _getFormatGeneratorFeatures(reference);
 
-  static final _configure_1 = jlookup<
+  static final _configure1 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
-          "com_fasterxml_jackson_core_JsonFactory_configure_1")
+          "com_fasterxml_jackson_core_JsonFactory_configure1")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
@@ -556,14 +556,14 @@ class JsonFactory extends jni.JlObject {
   ///@param f Feature to enable/disable
   ///@param state Whether to enable or disable the feature
   ///@return This factory instance (to allow call chaining)
-  JsonFactory configure_1(JsonParser_Feature f, bool state) =>
-      JsonFactory.fromRef(_configure_1(reference, f.reference, state ? 1 : 0));
+  JsonFactory configure1(JsonParser_Feature f, bool state) =>
+      JsonFactory.fromRef(_configure1(reference, f.reference, state ? 1 : 0));
 
-  static final _enable_1 = jlookup<
+  static final _enable1 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_enable_1")
+          "com_fasterxml_jackson_core_JsonFactory_enable1")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -575,14 +575,14 @@ class JsonFactory extends jni.JlObject {
   /// (check JsonParser.Feature for list of features)
   ///@param f Feature to enable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory enable_1(JsonParser_Feature f) =>
-      JsonFactory.fromRef(_enable_1(reference, f.reference));
+  JsonFactory enable1(JsonParser_Feature f) =>
+      JsonFactory.fromRef(_enable1(reference, f.reference));
 
-  static final _disable_1 = jlookup<
+  static final _disable1 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_disable_1")
+          "com_fasterxml_jackson_core_JsonFactory_disable1")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -594,14 +594,14 @@ class JsonFactory extends jni.JlObject {
   /// (check JsonParser.Feature for list of features)
   ///@param f Feature to disable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory disable_1(JsonParser_Feature f) =>
-      JsonFactory.fromRef(_disable_1(reference, f.reference));
+  JsonFactory disable1(JsonParser_Feature f) =>
+      JsonFactory.fromRef(_disable1(reference, f.reference));
 
-  static final _isEnabled_1 = jlookup<
+  static final _isEnabled1 = jlookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_isEnabled_1")
+          "com_fasterxml_jackson_core_JsonFactory_isEnabled1")
       .asFunction<int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: public final boolean isEnabled(com.fasterxml.jackson.core.JsonParser.Feature f)
@@ -609,14 +609,14 @@ class JsonFactory extends jni.JlObject {
   /// Method for checking if the specified parser feature is enabled.
   ///@param f Feature to check
   ///@return True if specified feature is enabled
-  bool isEnabled_1(JsonParser_Feature f) =>
-      _isEnabled_1(reference, f.reference) != 0;
+  bool isEnabled1(JsonParser_Feature f) =>
+      _isEnabled1(reference, f.reference) != 0;
 
-  static final _isEnabled_2 = jlookup<
+  static final _isEnabled2 = jlookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_isEnabled_2")
+          "com_fasterxml_jackson_core_JsonFactory_isEnabled2")
       .asFunction<int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: public final boolean isEnabled(com.fasterxml.jackson.core.StreamReadFeature f)
@@ -625,7 +625,7 @@ class JsonFactory extends jni.JlObject {
   ///@param f Feature to check
   ///@return True if specified feature is enabled
   ///@since 2.10
-  bool isEnabled_2(jni.JlObject f) => _isEnabled_2(reference, f.reference) != 0;
+  bool isEnabled2(jni.JlObject f) => _isEnabled2(reference, f.reference) != 0;
 
   static final _getInputDecorator = jlookup<
               ffi.NativeFunction<
@@ -661,11 +661,11 @@ class JsonFactory extends jni.JlObject {
   JsonFactory setInputDecorator(jni.JlObject d) =>
       JsonFactory.fromRef(_setInputDecorator(reference, d.reference));
 
-  static final _configure_2 = jlookup<
+  static final _configure2 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
-          "com_fasterxml_jackson_core_JsonFactory_configure_2")
+          "com_fasterxml_jackson_core_JsonFactory_configure2")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
@@ -678,14 +678,14 @@ class JsonFactory extends jni.JlObject {
   ///@param f Feature to enable/disable
   ///@param state Whether to enable or disable the feature
   ///@return This factory instance (to allow call chaining)
-  JsonFactory configure_2(jni.JlObject f, bool state) =>
-      JsonFactory.fromRef(_configure_2(reference, f.reference, state ? 1 : 0));
+  JsonFactory configure2(jni.JlObject f, bool state) =>
+      JsonFactory.fromRef(_configure2(reference, f.reference, state ? 1 : 0));
 
-  static final _enable_2 = jlookup<
+  static final _enable2 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_enable_2")
+          "com_fasterxml_jackson_core_JsonFactory_enable2")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -697,14 +697,14 @@ class JsonFactory extends jni.JlObject {
   /// (check JsonGenerator.Feature for list of features)
   ///@param f Feature to enable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory enable_2(jni.JlObject f) =>
-      JsonFactory.fromRef(_enable_2(reference, f.reference));
+  JsonFactory enable2(jni.JlObject f) =>
+      JsonFactory.fromRef(_enable2(reference, f.reference));
 
-  static final _disable_2 = jlookup<
+  static final _disable2 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_disable_2")
+          "com_fasterxml_jackson_core_JsonFactory_disable2")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -716,14 +716,14 @@ class JsonFactory extends jni.JlObject {
   /// (check JsonGenerator.Feature for list of features)
   ///@param f Feature to disable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory disable_2(jni.JlObject f) =>
-      JsonFactory.fromRef(_disable_2(reference, f.reference));
+  JsonFactory disable2(jni.JlObject f) =>
+      JsonFactory.fromRef(_disable2(reference, f.reference));
 
-  static final _isEnabled_3 = jlookup<
+  static final _isEnabled3 = jlookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_isEnabled_3")
+          "com_fasterxml_jackson_core_JsonFactory_isEnabled3")
       .asFunction<int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: public final boolean isEnabled(com.fasterxml.jackson.core.JsonGenerator.Feature f)
@@ -731,13 +731,13 @@ class JsonFactory extends jni.JlObject {
   /// Check whether specified generator feature is enabled.
   ///@param f Feature to check
   ///@return Whether specified feature is enabled
-  bool isEnabled_3(jni.JlObject f) => _isEnabled_3(reference, f.reference) != 0;
+  bool isEnabled3(jni.JlObject f) => _isEnabled3(reference, f.reference) != 0;
 
-  static final _isEnabled_4 = jlookup<
+  static final _isEnabled4 = jlookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_isEnabled_4")
+          "com_fasterxml_jackson_core_JsonFactory_isEnabled4")
       .asFunction<int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: public final boolean isEnabled(com.fasterxml.jackson.core.StreamWriteFeature f)
@@ -746,7 +746,7 @@ class JsonFactory extends jni.JlObject {
   ///@param f Feature to check
   ///@return Whether specified feature is enabled
   ///@since 2.10
-  bool isEnabled_4(jni.JlObject f) => _isEnabled_4(reference, f.reference) != 0;
+  bool isEnabled4(jni.JlObject f) => _isEnabled4(reference, f.reference) != 0;
 
   static final _getCharacterEscapes = jlookup<
               ffi.NativeFunction<
@@ -913,11 +913,11 @@ class JsonFactory extends jni.JlObject {
   JsonParser createParser(jni.JlObject f) =>
       JsonParser.fromRef(_createParser(reference, f.reference));
 
-  static final _createParser_1 = jlookup<
+  static final _createParser1 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createParser_1")
+          "com_fasterxml_jackson_core_JsonFactory_createParser1")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -939,14 +939,14 @@ class JsonFactory extends jni.JlObject {
   /// the parser, since caller has no access to it.
   ///@param url URL pointing to resource that contains JSON content to parse
   ///@since 2.1
-  JsonParser createParser_1(jni.JlObject url) =>
-      JsonParser.fromRef(_createParser_1(reference, url.reference));
+  JsonParser createParser1(jni.JlObject url) =>
+      JsonParser.fromRef(_createParser1(reference, url.reference));
 
-  static final _createParser_2 = jlookup<
+  static final _createParser2 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createParser_2")
+          "com_fasterxml_jackson_core_JsonFactory_createParser2")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -971,14 +971,14 @@ class JsonFactory extends jni.JlObject {
   /// For other charsets use \#createParser(java.io.Reader).
   ///@param in InputStream to use for reading JSON content to parse
   ///@since 2.1
-  JsonParser createParser_2(jni.JlObject in_) =>
-      JsonParser.fromRef(_createParser_2(reference, in_.reference));
+  JsonParser createParser2(jni.JlObject in0) =>
+      JsonParser.fromRef(_createParser2(reference, in0.reference));
 
-  static final _createParser_3 = jlookup<
+  static final _createParser3 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createParser_3")
+          "com_fasterxml_jackson_core_JsonFactory_createParser3")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -996,14 +996,14 @@ class JsonFactory extends jni.JlObject {
   /// is enabled.
   ///@param r Reader to use for reading JSON content to parse
   ///@since 2.1
-  JsonParser createParser_3(jni.JlObject r) =>
-      JsonParser.fromRef(_createParser_3(reference, r.reference));
+  JsonParser createParser3(jni.JlObject r) =>
+      JsonParser.fromRef(_createParser3(reference, r.reference));
 
-  static final _createParser_4 = jlookup<
+  static final _createParser4 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createParser_4")
+          "com_fasterxml_jackson_core_JsonFactory_createParser4")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1014,14 +1014,14 @@ class JsonFactory extends jni.JlObject {
   /// Method for constructing parser for parsing
   /// the contents of given byte array.
   ///@since 2.1
-  JsonParser createParser_4(jni.JlObject data) =>
-      JsonParser.fromRef(_createParser_4(reference, data.reference));
+  JsonParser createParser4(jni.JlObject data) =>
+      JsonParser.fromRef(_createParser4(reference, data.reference));
 
-  static final _createParser_5 = jlookup<
+  static final _createParser5 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Int32, ffi.Int32)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createParser_5")
+          "com_fasterxml_jackson_core_JsonFactory_createParser5")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
@@ -1035,15 +1035,15 @@ class JsonFactory extends jni.JlObject {
   ///@param offset Offset of the first data byte within buffer
   ///@param len Length of contents to parse within buffer
   ///@since 2.1
-  JsonParser createParser_5(jni.JlObject data, int offset, int len) =>
+  JsonParser createParser5(jni.JlObject data, int offset, int len) =>
       JsonParser.fromRef(
-          _createParser_5(reference, data.reference, offset, len));
+          _createParser5(reference, data.reference, offset, len));
 
-  static final _createParser_6 = jlookup<
+  static final _createParser6 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createParser_6")
+          "com_fasterxml_jackson_core_JsonFactory_createParser6")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1054,14 +1054,14 @@ class JsonFactory extends jni.JlObject {
   /// Method for constructing parser for parsing
   /// contents of given String.
   ///@since 2.1
-  JsonParser createParser_6(jni.JlString content) =>
-      JsonParser.fromRef(_createParser_6(reference, content.reference));
+  JsonParser createParser6(jni.JlString content) =>
+      JsonParser.fromRef(_createParser6(reference, content.reference));
 
-  static final _createParser_7 = jlookup<
+  static final _createParser7 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createParser_7")
+          "com_fasterxml_jackson_core_JsonFactory_createParser7")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1072,14 +1072,14 @@ class JsonFactory extends jni.JlObject {
   /// Method for constructing parser for parsing
   /// contents of given char array.
   ///@since 2.4
-  JsonParser createParser_7(jni.JlObject content) =>
-      JsonParser.fromRef(_createParser_7(reference, content.reference));
+  JsonParser createParser7(jni.JlObject content) =>
+      JsonParser.fromRef(_createParser7(reference, content.reference));
 
-  static final _createParser_8 = jlookup<
+  static final _createParser8 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Int32, ffi.Int32)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createParser_8")
+          "com_fasterxml_jackson_core_JsonFactory_createParser8")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
@@ -1089,15 +1089,15 @@ class JsonFactory extends jni.JlObject {
   ///
   /// Method for constructing parser for parsing contents of given char array.
   ///@since 2.4
-  JsonParser createParser_8(jni.JlObject content, int offset, int len) =>
+  JsonParser createParser8(jni.JlObject content, int offset, int len) =>
       JsonParser.fromRef(
-          _createParser_8(reference, content.reference, offset, len));
+          _createParser8(reference, content.reference, offset, len));
 
-  static final _createParser_9 = jlookup<
+  static final _createParser9 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createParser_9")
+          "com_fasterxml_jackson_core_JsonFactory_createParser9")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1111,8 +1111,8 @@ class JsonFactory extends jni.JlObject {
   /// If this factory does not support DataInput as source,
   /// will throw UnsupportedOperationException
   ///@since 2.8
-  JsonParser createParser_9(jni.JlObject in_) =>
-      JsonParser.fromRef(_createParser_9(reference, in_.reference));
+  JsonParser createParser9(jni.JlObject in0) =>
+      JsonParser.fromRef(_createParser9(reference, in0.reference));
 
   static final _createNonBlockingByteArrayParser = jlookup<
               ffi.NativeFunction<
@@ -1173,11 +1173,11 @@ class JsonFactory extends jni.JlObject {
       jni.JlObject.fromRef(
           _createGenerator(reference, out.reference, enc.reference));
 
-  static final _createGenerator_1 = jlookup<
+  static final _createGenerator1 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createGenerator_1")
+          "com_fasterxml_jackson_core_JsonFactory_createGenerator1")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1190,14 +1190,14 @@ class JsonFactory extends jni.JlObject {
   ///
   /// Note: there are formats that use fixed encoding (like most binary data formats).
   ///@since 2.1
-  jni.JlObject createGenerator_1(jni.JlObject out) =>
-      jni.JlObject.fromRef(_createGenerator_1(reference, out.reference));
+  jni.JlObject createGenerator1(jni.JlObject out) =>
+      jni.JlObject.fromRef(_createGenerator1(reference, out.reference));
 
-  static final _createGenerator_2 = jlookup<
+  static final _createGenerator2 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createGenerator_2")
+          "com_fasterxml_jackson_core_JsonFactory_createGenerator2")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1216,14 +1216,14 @@ class JsonFactory extends jni.JlObject {
   /// Using application needs to close it explicitly.
   ///@since 2.1
   ///@param w Writer to use for writing JSON content
-  jni.JlObject createGenerator_2(jni.JlObject w) =>
-      jni.JlObject.fromRef(_createGenerator_2(reference, w.reference));
+  jni.JlObject createGenerator2(jni.JlObject w) =>
+      jni.JlObject.fromRef(_createGenerator2(reference, w.reference));
 
-  static final _createGenerator_3 = jlookup<
+  static final _createGenerator3 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createGenerator_3")
+          "com_fasterxml_jackson_core_JsonFactory_createGenerator3")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1243,15 +1243,15 @@ class JsonFactory extends jni.JlObject {
   ///@param f File to write contents to
   ///@param enc Character encoding to use
   ///@since 2.1
-  jni.JlObject createGenerator_3(jni.JlObject f, jni.JlObject enc) =>
+  jni.JlObject createGenerator3(jni.JlObject f, jni.JlObject enc) =>
       jni.JlObject.fromRef(
-          _createGenerator_3(reference, f.reference, enc.reference));
+          _createGenerator3(reference, f.reference, enc.reference));
 
-  static final _createGenerator_4 = jlookup<
+  static final _createGenerator4 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createGenerator_4")
+          "com_fasterxml_jackson_core_JsonFactory_createGenerator4")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1262,15 +1262,15 @@ class JsonFactory extends jni.JlObject {
   /// Method for constructing generator for writing content using specified
   /// DataOutput instance.
   ///@since 2.8
-  jni.JlObject createGenerator_4(jni.JlObject out, jni.JlObject enc) =>
+  jni.JlObject createGenerator4(jni.JlObject out, jni.JlObject enc) =>
       jni.JlObject.fromRef(
-          _createGenerator_4(reference, out.reference, enc.reference));
+          _createGenerator4(reference, out.reference, enc.reference));
 
-  static final _createGenerator_5 = jlookup<
+  static final _createGenerator5 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createGenerator_5")
+          "com_fasterxml_jackson_core_JsonFactory_createGenerator5")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1283,8 +1283,8 @@ class JsonFactory extends jni.JlObject {
   ///
   /// Note: there are formats that use fixed encoding (like most binary data formats).
   ///@since 2.8
-  jni.JlObject createGenerator_5(jni.JlObject out) =>
-      jni.JlObject.fromRef(_createGenerator_5(reference, out.reference));
+  jni.JlObject createGenerator5(jni.JlObject out) =>
+      jni.JlObject.fromRef(_createGenerator5(reference, out.reference));
 
   static final _createJsonParser = jlookup<
               ffi.NativeFunction<
@@ -1319,11 +1319,11 @@ class JsonFactory extends jni.JlObject {
   JsonParser createJsonParser(jni.JlObject f) =>
       JsonParser.fromRef(_createJsonParser(reference, f.reference));
 
-  static final _createJsonParser_1 = jlookup<
+  static final _createJsonParser1 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createJsonParser_1")
+          "com_fasterxml_jackson_core_JsonFactory_createJsonParser1")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1348,14 +1348,14 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(URL) instead.
-  JsonParser createJsonParser_1(jni.JlObject url) =>
-      JsonParser.fromRef(_createJsonParser_1(reference, url.reference));
+  JsonParser createJsonParser1(jni.JlObject url) =>
+      JsonParser.fromRef(_createJsonParser1(reference, url.reference));
 
-  static final _createJsonParser_2 = jlookup<
+  static final _createJsonParser2 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createJsonParser_2")
+          "com_fasterxml_jackson_core_JsonFactory_createJsonParser2")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1383,14 +1383,14 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(InputStream) instead.
-  JsonParser createJsonParser_2(jni.JlObject in_) =>
-      JsonParser.fromRef(_createJsonParser_2(reference, in_.reference));
+  JsonParser createJsonParser2(jni.JlObject in0) =>
+      JsonParser.fromRef(_createJsonParser2(reference, in0.reference));
 
-  static final _createJsonParser_3 = jlookup<
+  static final _createJsonParser3 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createJsonParser_3")
+          "com_fasterxml_jackson_core_JsonFactory_createJsonParser3")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1411,14 +1411,14 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(Reader) instead.
-  JsonParser createJsonParser_3(jni.JlObject r) =>
-      JsonParser.fromRef(_createJsonParser_3(reference, r.reference));
+  JsonParser createJsonParser3(jni.JlObject r) =>
+      JsonParser.fromRef(_createJsonParser3(reference, r.reference));
 
-  static final _createJsonParser_4 = jlookup<
+  static final _createJsonParser4 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createJsonParser_4")
+          "com_fasterxml_jackson_core_JsonFactory_createJsonParser4")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1432,14 +1432,14 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[]) instead.
-  JsonParser createJsonParser_4(jni.JlObject data) =>
-      JsonParser.fromRef(_createJsonParser_4(reference, data.reference));
+  JsonParser createJsonParser4(jni.JlObject data) =>
+      JsonParser.fromRef(_createJsonParser4(reference, data.reference));
 
-  static final _createJsonParser_5 = jlookup<
+  static final _createJsonParser5 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Int32, ffi.Int32)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createJsonParser_5")
+          "com_fasterxml_jackson_core_JsonFactory_createJsonParser5")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
@@ -1456,15 +1456,15 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[],int,int) instead.
-  JsonParser createJsonParser_5(jni.JlObject data, int offset, int len) =>
+  JsonParser createJsonParser5(jni.JlObject data, int offset, int len) =>
       JsonParser.fromRef(
-          _createJsonParser_5(reference, data.reference, offset, len));
+          _createJsonParser5(reference, data.reference, offset, len));
 
-  static final _createJsonParser_6 = jlookup<
+  static final _createJsonParser6 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createJsonParser_6")
+          "com_fasterxml_jackson_core_JsonFactory_createJsonParser6")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1479,8 +1479,8 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(String) instead.
-  JsonParser createJsonParser_6(jni.JlString content) =>
-      JsonParser.fromRef(_createJsonParser_6(reference, content.reference));
+  JsonParser createJsonParser6(jni.JlString content) =>
+      JsonParser.fromRef(_createJsonParser6(reference, content.reference));
 
   static final _createJsonGenerator = jlookup<
               ffi.NativeFunction<
@@ -1518,11 +1518,11 @@ class JsonFactory extends jni.JlObject {
       jni.JlObject.fromRef(
           _createJsonGenerator(reference, out.reference, enc.reference));
 
-  static final _createJsonGenerator_1 = jlookup<
+  static final _createJsonGenerator1 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createJsonGenerator_1")
+          "com_fasterxml_jackson_core_JsonFactory_createJsonGenerator1")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1543,14 +1543,14 @@ class JsonFactory extends jni.JlObject {
   ///@return Generator constructed
   ///@throws IOException if parser initialization fails due to I/O (write) problem
   ///@deprecated Since 2.2, use \#createGenerator(Writer) instead.
-  jni.JlObject createJsonGenerator_1(jni.JlObject out) =>
-      jni.JlObject.fromRef(_createJsonGenerator_1(reference, out.reference));
+  jni.JlObject createJsonGenerator1(jni.JlObject out) =>
+      jni.JlObject.fromRef(_createJsonGenerator1(reference, out.reference));
 
-  static final _createJsonGenerator_2 = jlookup<
+  static final _createJsonGenerator2 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonFactory_createJsonGenerator_2")
+          "com_fasterxml_jackson_core_JsonFactory_createJsonGenerator2")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -1566,8 +1566,8 @@ class JsonFactory extends jni.JlObject {
   ///@return Generator constructed
   ///@throws IOException if parser initialization fails due to I/O (write) problem
   ///@deprecated Since 2.2, use \#createGenerator(OutputStream) instead.
-  jni.JlObject createJsonGenerator_2(jni.JlObject out) =>
-      jni.JlObject.fromRef(_createJsonGenerator_2(reference, out.reference));
+  jni.JlObject createJsonGenerator2(jni.JlObject out) =>
+      jni.JlObject.fromRef(_createJsonGenerator2(reference, out.reference));
 }
 
 /// from: com.fasterxml.jackson.core.JsonFactory$Feature
@@ -1611,7 +1611,7 @@ class JsonFactory_Feature extends jni.JlObject {
 
   static final _ctor =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Uint8)>>(
-              "com_fasterxml_jackson_core_JsonFactory__Feature_new_")
+              "com_fasterxml_jackson_core_JsonFactory__Feature_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
   /// from: private void <init>(boolean defaultState)
@@ -1682,19 +1682,19 @@ class JsonParser extends jni.JlObject {
 
   static final _ctor =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
-              "com_fasterxml_jackson_core_JsonParser_new_")
+              "com_fasterxml_jackson_core_JsonParser_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
   /// from: protected void <init>()
   JsonParser() : super.fromRef(_ctor());
 
-  static final _ctor_1 =
+  static final _ctor1 =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Int32)>>(
-              "com_fasterxml_jackson_core_JsonParser_new__1")
+              "com_fasterxml_jackson_core_JsonParser_ctor1")
           .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
   /// from: protected void <init>(int features)
-  JsonParser.ctor_1(int features) : super.fromRef(_ctor_1(features));
+  JsonParser.ctor1(int features) : super.fromRef(_ctor1(features));
 
   static final _getCodec = jlookup<
               ffi.NativeFunction<
@@ -1769,11 +1769,11 @@ class JsonParser extends jni.JlObject {
   void setRequestPayloadOnError(jni.JlObject payload) =>
       _setRequestPayloadOnError(reference, payload.reference);
 
-  static final _setRequestPayloadOnError_1 = jlookup<
+  static final _setRequestPayloadOnError1 = jlookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError_1")
+          "com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError1")
       .asFunction<
           void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
               ffi.Pointer<ffi.Void>)>();
@@ -1784,15 +1784,15 @@ class JsonParser extends jni.JlObject {
   ///@param payload Payload to pass
   ///@param charset Character encoding for (lazily) decoding payload
   ///@since 2.8
-  void setRequestPayloadOnError_1(jni.JlObject payload, jni.JlString charset) =>
-      _setRequestPayloadOnError_1(
+  void setRequestPayloadOnError1(jni.JlObject payload, jni.JlString charset) =>
+      _setRequestPayloadOnError1(
           reference, payload.reference, charset.reference);
 
-  static final _setRequestPayloadOnError_2 = jlookup<
+  static final _setRequestPayloadOnError2 = jlookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError_2")
+          "com_fasterxml_jackson_core_JsonParser_setRequestPayloadOnError2")
       .asFunction<
           void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
@@ -1801,8 +1801,8 @@ class JsonParser extends jni.JlObject {
   /// Sets the String request payload
   ///@param payload Payload to pass
   ///@since 2.8
-  void setRequestPayloadOnError_2(jni.JlString payload) =>
-      _setRequestPayloadOnError_2(reference, payload.reference);
+  void setRequestPayloadOnError2(jni.JlString payload) =>
+      _setRequestPayloadOnError2(reference, payload.reference);
 
   static final _setSchema = jlookup<
               ffi.NativeFunction<
@@ -2176,11 +2176,11 @@ class JsonParser extends jni.JlObject {
   int releaseBuffered(jni.JlObject out) =>
       _releaseBuffered(reference, out.reference);
 
-  static final _releaseBuffered_1 = jlookup<
+  static final _releaseBuffered1 = jlookup<
               ffi.NativeFunction<
                   ffi.Int32 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonParser_releaseBuffered_1")
+          "com_fasterxml_jackson_core_JsonParser_releaseBuffered1")
       .asFunction<int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: public int releaseBuffered(java.io.Writer w)
@@ -2197,8 +2197,8 @@ class JsonParser extends jni.JlObject {
   ///    (that is, input can not be sent to Writer;
   ///    otherwise number of chars released (0 if there was nothing to release)
   ///@throws IOException if write using Writer threw exception
-  int releaseBuffered_1(jni.JlObject w) =>
-      _releaseBuffered_1(reference, w.reference);
+  int releaseBuffered1(jni.JlObject w) =>
+      _releaseBuffered1(reference, w.reference);
 
   static final _enable = jlookup<
               ffi.NativeFunction<
@@ -2273,11 +2273,11 @@ class JsonParser extends jni.JlObject {
   bool isEnabled(JsonParser_Feature f) =>
       _isEnabled(reference, f.reference) != 0;
 
-  static final _isEnabled_1 = jlookup<
+  static final _isEnabled1 = jlookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonParser_isEnabled_1")
+          "com_fasterxml_jackson_core_JsonParser_isEnabled1")
       .asFunction<int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: public boolean isEnabled(com.fasterxml.jackson.core.StreamReadFeature f)
@@ -2286,7 +2286,7 @@ class JsonParser extends jni.JlObject {
   ///@param f Feature to check
   ///@return {@code True} if feature is enabled; {@code false} otherwise
   ///@since 2.10
-  bool isEnabled_1(jni.JlObject f) => _isEnabled_1(reference, f.reference) != 0;
+  bool isEnabled1(jni.JlObject f) => _isEnabled1(reference, f.reference) != 0;
 
   static final _getFeatureMask =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -2454,10 +2454,10 @@ class JsonParser extends jni.JlObject {
   bool nextFieldName(jni.JlObject str) =>
       _nextFieldName(reference, str.reference) != 0;
 
-  static final _nextFieldName_1 = jlookup<
+  static final _nextFieldName1 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonParser_nextFieldName_1")
+          "com_fasterxml_jackson_core_JsonParser_nextFieldName1")
       .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public java.lang.String nextFieldName()
@@ -2471,8 +2471,8 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.5
-  jni.JlString nextFieldName_1() =>
-      jni.JlString.fromRef(_nextFieldName_1(reference));
+  jni.JlString nextFieldName1() =>
+      jni.JlString.fromRef(_nextFieldName1(reference));
 
   static final _nextTextValue = jlookup<
               ffi.NativeFunction<
@@ -2951,11 +2951,11 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   jni.JlString getText() => jni.JlString.fromRef(_getText(reference));
 
-  static final _getText_1 = jlookup<
+  static final _getText1 = jlookup<
               ffi.NativeFunction<
                   ffi.Int32 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonParser_getText_1")
+          "com_fasterxml_jackson_core_JsonParser_getText1")
       .asFunction<int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: public int getText(java.io.Writer writer)
@@ -2975,7 +2975,7 @@ class JsonParser extends jni.JlObject {
   ///   {@code writer}, or
   ///   JsonParseException for decoding problems
   ///@since 2.8
-  int getText_1(jni.JlObject writer) => _getText_1(reference, writer.reference);
+  int getText1(jni.JlObject writer) => _getText1(reference, writer.reference);
 
   static final _getTextCharacters = jlookup<
               ffi.NativeFunction<
@@ -3412,10 +3412,10 @@ class JsonParser extends jni.JlObject {
   jni.JlObject getBinaryValue(jni.JlObject bv) =>
       jni.JlObject.fromRef(_getBinaryValue(reference, bv.reference));
 
-  static final _getBinaryValue_1 = jlookup<
+  static final _getBinaryValue1 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonParser_getBinaryValue_1")
+          "com_fasterxml_jackson_core_JsonParser_getBinaryValue1")
       .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public byte[] getBinaryValue()
@@ -3427,8 +3427,8 @@ class JsonParser extends jni.JlObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject getBinaryValue_1() =>
-      jni.JlObject.fromRef(_getBinaryValue_1(reference));
+  jni.JlObject getBinaryValue1() =>
+      jni.JlObject.fromRef(_getBinaryValue1(reference));
 
   static final _readBinaryValue = jlookup<
               ffi.NativeFunction<
@@ -3453,11 +3453,11 @@ class JsonParser extends jni.JlObject {
   int readBinaryValue(jni.JlObject out) =>
       _readBinaryValue(reference, out.reference);
 
-  static final _readBinaryValue_1 = jlookup<
+  static final _readBinaryValue1 = jlookup<
               ffi.NativeFunction<
                   ffi.Int32 Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonParser_readBinaryValue_1")
+          "com_fasterxml_jackson_core_JsonParser_readBinaryValue1")
       .asFunction<
           int Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
               ffi.Pointer<ffi.Void>)>();
@@ -3472,8 +3472,8 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.1
-  int readBinaryValue_1(jni.JlObject bv, jni.JlObject out) =>
-      _readBinaryValue_1(reference, bv.reference, out.reference);
+  int readBinaryValue1(jni.JlObject bv, jni.JlObject out) =>
+      _readBinaryValue1(reference, bv.reference, out.reference);
 
   static final _getValueAsInt =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3497,10 +3497,10 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   int getValueAsInt() => _getValueAsInt(reference);
 
-  static final _getValueAsInt_1 = jlookup<
+  static final _getValueAsInt1 = jlookup<
               ffi.NativeFunction<
                   ffi.Int32 Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
-          "com_fasterxml_jackson_core_JsonParser_getValueAsInt_1")
+          "com_fasterxml_jackson_core_JsonParser_getValueAsInt1")
       .asFunction<int Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public int getValueAsInt(int def)
@@ -3518,7 +3518,7 @@ class JsonParser extends jni.JlObject {
   ///@return {@code int} value current token is converted to, if possible; {@code def} otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getValueAsInt_1(int def) => _getValueAsInt_1(reference, def);
+  int getValueAsInt1(int def) => _getValueAsInt1(reference, def);
 
   static final _getValueAsLong =
       jlookup<ffi.NativeFunction<ffi.Int64 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3542,10 +3542,10 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   int getValueAsLong() => _getValueAsLong(reference);
 
-  static final _getValueAsLong_1 = jlookup<
+  static final _getValueAsLong1 = jlookup<
               ffi.NativeFunction<
                   ffi.Int64 Function(ffi.Pointer<ffi.Void>, ffi.Int64)>>(
-          "com_fasterxml_jackson_core_JsonParser_getValueAsLong_1")
+          "com_fasterxml_jackson_core_JsonParser_getValueAsLong1")
       .asFunction<int Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public long getValueAsLong(long def)
@@ -3563,7 +3563,7 @@ class JsonParser extends jni.JlObject {
   ///@return {@code long} value current token is converted to, if possible; {@code def} otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getValueAsLong_1(int def) => _getValueAsLong_1(reference, def);
+  int getValueAsLong1(int def) => _getValueAsLong1(reference, def);
 
   static final _getValueAsDouble =
       jlookup<ffi.NativeFunction<ffi.Double Function(ffi.Pointer<ffi.Void>)>>(
@@ -3587,10 +3587,10 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   double getValueAsDouble() => _getValueAsDouble(reference);
 
-  static final _getValueAsDouble_1 = jlookup<
+  static final _getValueAsDouble1 = jlookup<
               ffi.NativeFunction<
                   ffi.Double Function(ffi.Pointer<ffi.Void>, ffi.Double)>>(
-          "com_fasterxml_jackson_core_JsonParser_getValueAsDouble_1")
+          "com_fasterxml_jackson_core_JsonParser_getValueAsDouble1")
       .asFunction<double Function(ffi.Pointer<ffi.Void>, double)>();
 
   /// from: public double getValueAsDouble(double def)
@@ -3608,7 +3608,7 @@ class JsonParser extends jni.JlObject {
   ///@return {@code double} value current token is converted to, if possible; {@code def} otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  double getValueAsDouble_1(double def) => _getValueAsDouble_1(reference, def);
+  double getValueAsDouble1(double def) => _getValueAsDouble1(reference, def);
 
   static final _getValueAsBoolean =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3632,10 +3632,10 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   bool getValueAsBoolean() => _getValueAsBoolean(reference) != 0;
 
-  static final _getValueAsBoolean_1 = jlookup<
+  static final _getValueAsBoolean1 = jlookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
-          "com_fasterxml_jackson_core_JsonParser_getValueAsBoolean_1")
+          "com_fasterxml_jackson_core_JsonParser_getValueAsBoolean1")
       .asFunction<int Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public boolean getValueAsBoolean(boolean def)
@@ -3653,8 +3653,8 @@ class JsonParser extends jni.JlObject {
   ///@return {@code boolean} value current token is converted to, if possible; {@code def} otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  bool getValueAsBoolean_1(bool def) =>
-      _getValueAsBoolean_1(reference, def ? 1 : 0) != 0;
+  bool getValueAsBoolean1(bool def) =>
+      _getValueAsBoolean1(reference, def ? 1 : 0) != 0;
 
   static final _getValueAsString = jlookup<
               ffi.NativeFunction<
@@ -3679,11 +3679,11 @@ class JsonParser extends jni.JlObject {
   jni.JlString getValueAsString() =>
       jni.JlString.fromRef(_getValueAsString(reference));
 
-  static final _getValueAsString_1 = jlookup<
+  static final _getValueAsString1 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonParser_getValueAsString_1")
+          "com_fasterxml_jackson_core_JsonParser_getValueAsString1")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -3703,8 +3703,8 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.1
-  jni.JlString getValueAsString_1(jni.JlString def) =>
-      jni.JlString.fromRef(_getValueAsString_1(reference, def.reference));
+  jni.JlString getValueAsString1(jni.JlString def) =>
+      jni.JlString.fromRef(_getValueAsString1(reference, def.reference));
 
   static final _canReadObjectId =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3817,11 +3817,11 @@ class JsonParser extends jni.JlObject {
   jni.JlObject readValuesAs(jni.JlObject valueType) =>
       jni.JlObject.fromRef(_readValuesAs(reference, valueType.reference));
 
-  static final _readValuesAs_1 = jlookup<
+  static final _readValuesAs1 = jlookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "com_fasterxml_jackson_core_JsonParser_readValuesAs_1")
+          "com_fasterxml_jackson_core_JsonParser_readValuesAs1")
       .asFunction<
           ffi.Pointer<ffi.Void> Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
@@ -3837,8 +3837,8 @@ class JsonParser extends jni.JlObject {
   ///@return Iterator for reading multiple Java values from content
   ///@throws IOException if there is either an underlying I/O problem or decoding
   ///    issue at format layer
-  jni.JlObject readValuesAs_1(jni.JlObject valueTypeRef) =>
-      jni.JlObject.fromRef(_readValuesAs_1(reference, valueTypeRef.reference));
+  jni.JlObject readValuesAs1(jni.JlObject valueTypeRef) =>
+      jni.JlObject.fromRef(_readValuesAs1(reference, valueTypeRef.reference));
 }
 
 /// from: com.fasterxml.jackson.core.JsonParser$Feature
@@ -3881,7 +3881,7 @@ class JsonParser_Feature extends jni.JlObject {
 
   static final _ctor =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Uint8)>>(
-              "com_fasterxml_jackson_core_JsonParser__Feature_new_")
+              "com_fasterxml_jackson_core_JsonParser__Feature_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
   /// from: private void <init>(boolean defaultState)
@@ -3943,7 +3943,7 @@ class JsonParser_NumberType extends jni.JlObject {
 
   static final _ctor =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
-              "com_fasterxml_jackson_core_JsonParser__NumberType_new_")
+              "com_fasterxml_jackson_core_JsonParser__NumberType_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
   /// from: private void <init>()
@@ -3980,7 +3980,7 @@ class JsonToken extends jni.JlObject {
   static final _ctor = jlookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
-                  ffi.Int32)>>("com_fasterxml_jackson_core_JsonToken_new_")
+                  ffi.Int32)>>("com_fasterxml_jackson_core_JsonToken_ctor")
       .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: private void <init>(java.lang.String token, int id)

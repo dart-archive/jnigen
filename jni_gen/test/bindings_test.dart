@@ -74,7 +74,7 @@ void main() async {
   test('simple json parsing test', () {
     final json = JlString.fromString('[1, true, false, 2, 4]');
     final factory = JsonFactory();
-    final parser = factory.createParser_6(json);
+    final parser = factory.createParser6(json);
     final values = <bool>[];
     while (!parser.isClosed()) {
       final next = parser.nextToken();
@@ -83,5 +83,8 @@ void main() async {
     }
     expect(
         values, equals([false, true, false, false, true, true, false, false]));
+    parser.delete();
+    factory.delete();
+    json.delete();
   });
 }

@@ -22,6 +22,18 @@ enum DeclKind {
 
 @JsonSerializable(explicitToJson: true)
 class ClassDecl {
+
+  // methods / properties already defined by dart JlObject base class
+  static const Map<String, int> _definedSyms = {
+    'equals': 1,
+    'toString': 1,
+    'hashCode': 1,
+    'runtimeType': 1,
+    'noSuchMethod': 1,
+    'reference': 1,
+    'delete': 1,
+  };
+
   ClassDecl({
     this.annotations = const [],
     this.javadoc,
@@ -60,9 +72,27 @@ class ClassDecl {
       _$ClassDeclFromJson(json);
   Map<String, dynamic> toJson() => _$ClassDeclToJson(this);
 
+  // synthesized attributes
+  @JsonKey(ignore: true)
+  late String finalName;
+
+  @JsonKey(ignore: true)
+  bool isPreprocessed = false;
+  @JsonKey(ignore: true)
+  bool isIncluded = true;
+
+  // maps signature to number for proper overriding
+  @JsonKey(ignore: true)
+  Map<String, int> methodNumsAfterRenaming = {};
+
+  // maps names to numbers, will be useful for renaming non-overridden fields.
+  // A subclass will merge its superclass' nameCounts
+  @JsonKey(ignore: true)
+  Map<String, int> nameCounts = {..._definedSyms};
+
   @override
   String toString() {
-    return "class: $binaryName";
+    return 'Java class declaration for $binaryName';
   }
 }
 
@@ -220,6 +250,21 @@ class Method implements ClassMember {
   List<Param> params;
   TypeUsage returnType;
 
+  @JsonKey(ignore: true)
+  late String finalName;
+  @JsonKey(ignore: true)
+  late bool isOverridden;
+  @JsonKey(ignore: true)
+  bool isIncluded = true;
+
+  @JsonKey(ignore: true)
+  late String javaSig = _javaSig();
+
+  String _javaSig() {
+    final paramNames = params.map((p) => p.type.name).join(', ');
+    return '$name($paramNames)';
+  }
+
   factory Method.fromJson(Map<String, dynamic> json) => _$MethodFromJson(json);
   Map<String, dynamic> toJson() => _$MethodToJson(this);
 }
@@ -262,6 +307,11 @@ class Field implements ClassMember {
   TypeUsage type;
   Object? defaultValue;
 
+  @JsonKey(ignore: true)
+  late String finalName;
+  @JsonKey(ignore: true)
+  bool isIncluded = true;
+
   factory Field.fromJson(Map<String, dynamic> json) => _$FieldFromJson(json);
   Map<String, dynamic> toJson() => _$FieldToJson(this);
 }
@@ -272,6 +322,9 @@ class TypeParam {
   String name;
   List<TypeUsage> bounds;
 
+  @JsonKey(ignore: true)
+  late String erasure;
+
   factory TypeParam.fromJson(Map<String, dynamic> json) =>
       _$TypeParamFromJson(json);
   Map<String, dynamic> toJson() => _$TypeParamToJson(this);
@@ -281,6 +334,9 @@ class TypeParam {
 class JavaDocComment {
   JavaDocComment({required this.comment});
   String comment;
+
+  @JsonKey(ignore: true)
+  late String dartDoc;
 
   factory JavaDocComment.fromJson(Map<String, dynamic> json) =>
       _$JavaDocCommentFromJson(json);

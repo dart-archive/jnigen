@@ -56,7 +56,7 @@ class Example extends jni.JlObject {
 
   static final _ctor =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
-              "dev_dart_simple_package_Example_new_")
+              "dev_dart_simple_package_Example_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
   /// from: public void <init>()
@@ -134,7 +134,7 @@ class Example_Aux extends jni.JlObject {
 
   static final _ctor =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Uint8)>>(
-              "dev_dart_simple_package_Example__Aux_new_")
+              "dev_dart_simple_package_Example__Aux_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
   /// from: public void <init>(boolean value)

@@ -27,14 +27,14 @@ class FilesWriter extends BindingsWriter {
     // If the file already exists, show warning.
     // sort classes so that all classes get written at once.
     final Map<String, List<ClassDecl>> packages = {};
-    final inputClasses = <String>{};
+    final Map<String, ClassDecl> classesByName = {};
     for (var c in classes) {
+      classesByName.putIfAbsent(c.binaryName, () => c);
       packages.putIfAbsent(c.packageName!, () => <ClassDecl>[]);
       packages[c.packageName!]!.add(c);
-      inputClasses.add(c.binaryName);
     }
+    final classNames = classesByName.keys.toSet();
 
-    // create dart init file
     stderr.writeln('Creating dart init file ...');
     final initFileUri = dartWrappersRoot.resolve(_initFileName);
     final initFile = await File.fromUri(initFileUri).create(recursive: true);
@@ -44,14 +44,15 @@ class FilesWriter extends BindingsWriter {
         .create(recursive: true);
     final cFileStream = cFile.openWrite();
     cFileStream.write(CPreludes.prelude);
-
+    final preprocessor = ApiPreprocessor(classesByName, options);
+    preprocessor.preprocessAll();
     for (var packageName in packages.keys) {
       final relativeFileName = '${packageName.replaceAll('.', '/')}.dart';
       final dartFileUri = dartWrappersRoot.resolve(relativeFileName);
       stderr.writeln('Writing bindings for $packageName...');
       final dartFile = await File.fromUri(dartFileUri).create(recursive: true);
       final resolver = PackagePathResolver(
-          options.importPaths, packageName, inputClasses,
+          options.importPaths, packageName, classNames,
           predefined: {'java.lang.String': 'jni.JlString'});
       final cgen = CBindingGenerator(options);
       final dgen = DartBindingsGenerator(options, resolver);

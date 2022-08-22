@@ -24,20 +24,20 @@ void main() {
   final tests = [
     // Simple example
     ResolverTest('org.apache.pdfbox.PDF',
-        'package:pdfbox/org/apache/pdfbox.dart', 'pdfbox.PDF'),
+        'package:pdfbox/org/apache/pdfbox.dart', 'pdfbox_.PDF'),
     // Nested classes
     ResolverTest('org.apache.fontbox.Font\$FontFile',
-        'package:fontbox/org/apache/fontbox.dart', 'fontbox.Font_FontFile'),
+        'package:fontbox/org/apache/fontbox.dart', 'fontbox_.Font_FontFile'),
     // slightly deeper package
     ResolverTest('java.lang.ref.WeakReference',
-        'package:java_lang/java/lang/ref.dart', 'ref.WeakReference'),
+        'package:java_lang/java/lang/ref.dart', 'ref_.WeakReference'),
     // Renaming
-    ResolverTest('java.util.U', 'package:java_util/java/util.dart', 'util.U'),
+    ResolverTest('java.util.U', 'package:java_util/java/util.dart', 'util_.U'),
     ResolverTest('org.me.package.util.U',
-        'package:my_package/src/org/me/package/util.dart', 'util1.U'),
+        'package:my_package/src/org/me/package/util.dart', 'util1_.U'),
     // Relative imports
-    ResolverTest('a.b.c.D', 'b/c.dart', 'c.D'),
-    ResolverTest('a.b.c.d.E', 'b/c/d.dart', 'd.E'),
+    ResolverTest('a.b.c.D', 'b/c.dart', 'c_.D'),
+    ResolverTest('a.b.c.d.E', 'b/c/d.dart', 'd_.E'),
   ];
 
   for (var testCase in tests) {

@@ -33,7 +33,7 @@ class C2 extends jni.JlObject {
 
   static final _ctor =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
-              "dev_dart_pkg2_C2_new_")
+              "dev_dart_pkg2_C2_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
   /// from: public void <init>()

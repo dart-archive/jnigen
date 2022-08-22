@@ -2,13 +2,11 @@
 // a locally meaningful name, when creating dart bindings
 
 import 'package:jni_gen/src/util/name_utils.dart';
-import 'package:jni_gen/src/util/rename_conflict.dart';
 
 abstract class SymbolResolver {
   /// Resolve the binary name to a String which can be used in dart code.
   String? resolve(String binaryName);
   List<String> getImportStrings();
-  String kwPkgRename(String name, {Set<String> outer});
 }
 
 // TODO(#24): resolve all included classes without requiring import mappings.
@@ -60,11 +58,11 @@ class PackagePathResolver implements SymbolResolver {
           'qualified binaryName');
     }
 
-    var importedName = pkgName;
+    var importedName = '${pkgName}_';
     int suffix = 0;
     while (_importedNameToPackage.containsKey(importedName)) {
       suffix++;
-      importedName = '$pkgName$suffix';
+      importedName = '$pkgName${suffix}_';
     }
 
     _importedNameToPackage[importedName] = package;
@@ -110,15 +108,5 @@ class PackagePathResolver implements SymbolResolver {
   @override
   List<String> getImportStrings() {
     return importStrings;
-  }
-
-  @override
-  String kwPkgRename(String name, {Set<String> outer = const {}}) {
-    final krn = kwRename(name);
-    // sum members, package names map, outer
-    if (_importedNameToPackage.containsKey(krn) || outer.contains(krn)) {
-      return kwPkgRename('${krn}_', outer: outer);
-    }
-    return krn;
   }
 }

@@ -19,17 +19,6 @@ class DartBindingsGenerator {
   static const ffi = 'ffi.';
   static const jni = 'jni.';
 
-  // methods / properties already defined by dart JlObject base class
-  static const Map<String, int> _definedSyms = {
-    'equals': 1,
-    'toString': 1,
-    'hashCode': 1,
-    'runtimeType': 1,
-    'noSuchMethod': 1,
-    'reference': 1,
-    'delete': 1,
-  };
-
   // ffi.Pointer<ffi.Void>
   late final String _voidPtr = '${ffi}Pointer<${ffi}Void>';
 
@@ -42,23 +31,19 @@ class DartBindingsGenerator {
   SymbolResolver resolver;
 
   String generateBinding(ClassDecl decl) {
-    if (options.classFilter?.included(decl) == false) {
-      // print skipped
+    if (!decl.isPreprocessed) {
+      throw StateError('Java class declaration must be preprocessed before'
+          'being passed to bindings generator');
+    }
+    if (!decl.isIncluded) {
       return '';
     }
-    try {
-      return _class(decl);
-    } on SkipException catch (s) {
-      stderr.writeln('skip class ${decl.binaryName}');
-      stderr.writeln(s);
-      return '';
-    }
+    return _class(decl);
   }
 
   String _class(ClassDecl decl) {
     final s = StringBuffer();
 
-    // class <SimpleName> [extends super] { .. }
     s.write('/// from: ${decl.binaryName}\n');
     s.write(_breakDocComment(decl.javadoc, depth: ''));
     final name = _getSimpleName(decl.binaryName);
@@ -70,9 +55,6 @@ class DartBindingsGenerator {
           _jlObject;
     }
 
-    final Map<String, int> nameCounts = {};
-    nameCounts.addAll(_definedSyms);
-
     s.write('class $name extends $superName {\n');
     // fromRef constructor
     s.write('$_indent$name.fromRef($_voidPtr ref) : '
@@ -80,32 +62,29 @@ class DartBindingsGenerator {
 
     s.writeln();
 
-    void printSkipped(SkipException e, String member) {
-      stderr.writeln('skip ${decl.binaryName}#$member ($e)');
-    }
-
     for (var field in decl.fields) {
-      if (options.fieldFilter?.included(decl, field) == false) {
-        stderr.writeln('exclude: ${field.name}');
+      if (!field.isIncluded) {
         continue;
       }
       try {
-        s.write(_field(decl, field, nameCounts));
+        s.write(_field(decl, field));
         s.writeln();
       } on SkipException catch (e) {
-        printSkipped(e, field.name);
+        stderr.writeln('skip field ${decl.binaryName}#${field.name}: '
+            '${e.message}');
       }
     }
 
     for (var method in decl.methods) {
-      if (options.methodFilter?.included(decl, method) == false) {
+      if (!method.isIncluded) {
         continue;
       }
       try {
-        s.write(_method(decl, method, nameCounts));
+        s.write(_method(decl, method));
         s.writeln();
       } on SkipException catch (e) {
-        printSkipped(e, method.name);
+        stderr.writeln('skip field ${decl.binaryName}#${method.name}: '
+            '${e.message}');
       }
     }
     s.write("}\n");
@@ -116,12 +95,9 @@ class DartBindingsGenerator {
       '$_indent/// The returned object must be deleted after use, '
       'by calling the `delete` method.\n';
 
-  String _method(ClassDecl c, Method m, Map<String, int> nameCounts) {
-    final validCName = isCtor(m) ? 'new' : m.name;
-    final validDartName = isCtor(m) ? 'ctor' : resolver.kwPkgRename(m.name);
-    final name = renameConflict(nameCounts, validDartName);
-    final cName = memberNameInC(
-        c, isCtor(m) ? renameConflict(nameCounts, validCName) : name);
+  String _method(ClassDecl c, Method m) {
+    final name = m.finalName;
+    final cName = memberNameInC(c, name);
     final s = StringBuffer();
     final sym = '_$name';
     final ffiSig = dartSigForMethod(m, isFfiSig: true);
@@ -162,10 +138,7 @@ class DartBindingsGenerator {
   String _formalArgs(Method m) {
     final List<String> args = [];
     for (var param in m.params) {
-      args.add(
-          '${dartOuterType(param.type)} ${resolver.kwPkgRename(param.name, outer: {
-            m.name
-          })}');
+      args.add('${dartOuterType(param.type)} ${kwRename(param.name)}');
     }
     return args.join(', ');
   }
@@ -173,14 +146,14 @@ class DartBindingsGenerator {
   String _actualArgs(Method m) {
     final List<String> args = [if (hasSelfParam(m)) _self];
     for (var param in m.params) {
-      final paramName = resolver.kwPkgRename(param.name, outer: {m.name});
+      final paramName = kwRename(param.name);
       args.add(_toCArg(paramName, param.type));
     }
     return args.join(', ');
   }
 
-  String _field(ClassDecl c, Field f, Map<String, int> nameCounts) {
-    final name = renameConflict(nameCounts, f.name);
+  String _field(ClassDecl c, Field f) {
+    final name = f.finalName;
     final s = StringBuffer();
 
     void _writeDocs({bool writeDeleteInstruction = true}) {

@@ -27,7 +27,7 @@ Future<void> generateSources(String lib, String src) async {
       await dir.delete(recursive: true);
     }
   }
-  await runTask(
+  await
     JniGenTask(
       summarySource: SummarizerCommand(
         sourcePaths: [Uri.directory(javaPath)],
@@ -38,8 +38,7 @@ Future<void> generateSources(String lib, String src) async {
           cWrapperDir: cWrapperDir,
           dartWrappersRoot: dartWrappersRoot,
           libraryName: 'simple_package'),
-    ),
-  );
+    ).run();
 }
 
 void main() async => await generateSources('lib', 'src');

@@ -17,13 +17,13 @@ void setJniGetters(struct jni_context (*cg)(void),
 // dev.dart.simple_package.Example
 jclass _c_dev_dart_simple_package_Example = NULL;
 
-jmethodID _m_dev_dart_simple_package_Example_new_ = NULL;
+jmethodID _m_dev_dart_simple_package_Example_ctor = NULL;
 FFI_PLUGIN_EXPORT
-jobject dev_dart_simple_package_Example_new_() {
+jobject dev_dart_simple_package_Example_ctor() {
     load_env();
     load_class_gr(&_c_dev_dart_simple_package_Example, "dev/dart/simple_package/Example");
-    load_method(_c_dev_dart_simple_package_Example, &_m_dev_dart_simple_package_Example_new_, "<init>", "()V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_dev_dart_simple_package_Example, _m_dev_dart_simple_package_Example_new_);
+    load_method(_c_dev_dart_simple_package_Example, &_m_dev_dart_simple_package_Example_ctor, "<init>", "()V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_dev_dart_simple_package_Example, _m_dev_dart_simple_package_Example_ctor);
     return to_global_ref(_result);
 }
 
@@ -111,13 +111,13 @@ void set_dev_dart_simple_package_Example_num(int32_t value) {
 // dev.dart.simple_package.Example$Aux
 jclass _c_dev_dart_simple_package_Example__Aux = NULL;
 
-jmethodID _m_dev_dart_simple_package_Example__Aux_new_ = NULL;
+jmethodID _m_dev_dart_simple_package_Example__Aux_ctor = NULL;
 FFI_PLUGIN_EXPORT
-jobject dev_dart_simple_package_Example__Aux_new_(uint8_t value) {
+jobject dev_dart_simple_package_Example__Aux_ctor(uint8_t value) {
     load_env();
     load_class_gr(&_c_dev_dart_simple_package_Example__Aux, "dev/dart/simple_package/Example$Aux");
-    load_method(_c_dev_dart_simple_package_Example__Aux, &_m_dev_dart_simple_package_Example__Aux_new_, "<init>", "(Z)V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_dev_dart_simple_package_Example__Aux, _m_dev_dart_simple_package_Example__Aux_new_, value);
+    load_method(_c_dev_dart_simple_package_Example__Aux, &_m_dev_dart_simple_package_Example__Aux_ctor, "<init>", "(Z)V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_dev_dart_simple_package_Example__Aux, _m_dev_dart_simple_package_Example__Aux_ctor, value);
     return to_global_ref(_result);
 }
 
@@ -159,13 +159,13 @@ void set_dev_dart_simple_package_Example__Aux_value(jobject self_, uint8_t value
 // dev.dart.pkg2.C2
 jclass _c_dev_dart_pkg2_C2 = NULL;
 
-jmethodID _m_dev_dart_pkg2_C2_new_ = NULL;
+jmethodID _m_dev_dart_pkg2_C2_ctor = NULL;
 FFI_PLUGIN_EXPORT
-jobject dev_dart_pkg2_C2_new_() {
+jobject dev_dart_pkg2_C2_ctor() {
     load_env();
     load_class_gr(&_c_dev_dart_pkg2_C2, "dev/dart/pkg2/C2");
-    load_method(_c_dev_dart_pkg2_C2, &_m_dev_dart_pkg2_C2_new_, "<init>", "()V");
-    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_dev_dart_pkg2_C2, _m_dev_dart_pkg2_C2_new_);
+    load_method(_c_dev_dart_pkg2_C2, &_m_dev_dart_pkg2_C2_ctor, "<init>", "()V");
+    jobject _result = (*jniEnv)->NewObject(jniEnv, _c_dev_dart_pkg2_C2, _m_dev_dart_pkg2_C2_ctor);
     return to_global_ref(_result);
 }
 

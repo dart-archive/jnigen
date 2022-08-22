@@ -69,18 +69,19 @@ Future<void> generateBindings({
   }
   final jars = await getJarPaths(testName);
   stderr.writeln('using classpath: $jars');
-  await runTask(JniGenTask(
-      summarySource: SummarizerCommand(
-        sourcePaths: [Uri.directory(javaPath)],
-        classPaths: jars.map(Uri.file).toList(),
-        classes: classes,
-        extraArgs: useAsmBackend ? ['--backend', 'asm'] : [],
-      ),
-      options: options,
-      outputWriter: FilesWriter(
-          cWrapperDir: Uri.directory(src),
-          dartWrappersRoot: Uri.directory(lib),
-          libraryName: testName)));
+  await JniGenTask(
+          summarySource: SummarizerCommand(
+            sourcePaths: [Uri.directory(javaPath)],
+            classPaths: jars.map(Uri.file).toList(),
+            classes: classes,
+            extraArgs: useAsmBackend ? ['--backend', 'asm'] : [],
+          ),
+          options: options,
+          outputWriter: FilesWriter(
+              cWrapperDir: Uri.directory(src),
+              dartWrappersRoot: Uri.directory(lib),
+              libraryName: testName))
+      .run();
 }
 
 // compare 2 hierarchies, with and without prefix 'test_'
