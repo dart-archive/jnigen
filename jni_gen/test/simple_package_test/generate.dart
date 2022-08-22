@@ -27,18 +27,17 @@ Future<void> generateSources(String lib, String src) async {
       await dir.delete(recursive: true);
     }
   }
-  await
-    JniGenTask(
-      summarySource: SummarizerCommand(
-        sourcePaths: [Uri.directory(javaPath)],
-        classPaths: [Uri.directory(javaPath)],
-        classes: ['dev.dart.simple_package', 'dev.dart.pkg2'],
-      ),
-      outputWriter: FilesWriter(
-          cWrapperDir: cWrapperDir,
-          dartWrappersRoot: dartWrappersRoot,
-          libraryName: 'simple_package'),
-    ).run();
+  await JniGenTask(
+    summarySource: SummarizerCommand(
+      sourcePaths: [Uri.directory(javaPath)],
+      classPaths: [Uri.directory(javaPath)],
+      classes: ['dev.dart.simple_package', 'dev.dart.pkg2'],
+    ),
+    outputWriter: FilesWriter(
+        cWrapperDir: cWrapperDir,
+        dartWrappersRoot: dartWrappersRoot,
+        libraryName: 'simple_package'),
+  ).run();
 }
 
 void main() async => await generateSources('lib', 'src');

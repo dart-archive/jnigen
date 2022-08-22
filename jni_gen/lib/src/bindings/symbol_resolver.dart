@@ -1,6 +1,7 @@
 // A symbol resolver is useful mainly to convert a fully qualified name to
 // a locally meaningful name, when creating dart bindings
 
+import 'dart:math';
 import 'package:jni_gen/src/util/name_utils.dart';
 
 abstract class SymbolResolver {
@@ -12,13 +13,13 @@ abstract class SymbolResolver {
 // TODO(#24): resolve all included classes without requiring import mappings.
 
 class PackagePathResolver implements SymbolResolver {
-  PackagePathResolver(this.packages, this.currentPackage, this.inputs,
+  PackagePathResolver(this.packages, this.currentPackage, this.inputClassNames,
       {this.predefined = const {}});
 
   final String currentPackage;
   final Map<String, String> packages;
   final Map<String, String> predefined;
-  final Set<String> inputs;
+  final Set<String> inputClassNames;
 
   final List<String> importStrings = [];
 
@@ -37,7 +38,7 @@ class PackagePathResolver implements SymbolResolver {
     final typename = parts[1];
     final simpleTypeName = typename.replaceAll('\$', '_');
 
-    if (package == currentPackage && inputs.contains(binaryName)) {
+    if (package == currentPackage && inputClassNames.contains(binaryName)) {
       return simpleTypeName;
     }
 
@@ -75,18 +76,37 @@ class PackagePathResolver implements SymbolResolver {
   String? getImport(String packageToResolve, String binaryName) {
     final right = <String>[];
     var prefix = packageToResolve;
+
     if (prefix.isEmpty) {
       throw UnsupportedError('unexpected: empty package name.');
     }
+
+    final dest = packageToResolve.split('.');
+    final src = currentPackage.split('.');
+    if (inputClassNames.contains(binaryName)) {
+      int common = 0;
+      for (int i = 0; i < src.length && i < dest.length; i++) {
+        if (src[i] == dest[i]) {
+          common++;
+        }
+      }
+      // a.b.c => a/b/c.dart
+      // from there
+      // a/b.dart => ../b.dart
+      // a.b.d => d.dart
+      // a.b.c.d => c/d.dart
+      var pathToCommon = '';
+      if (common < src.length) {
+        pathToCommon = '../' * (src.length - common);
+      }
+      final pathToPackage = dest.skip(max(common - 1, 0)).join('/');
+      return '$pathToCommon$pathToPackage.dart';
+    }
+
     while (prefix.isNotEmpty) {
       final split = cutFromLast(prefix, '.');
       final left = split[0];
       right.add(split[1]);
-      if (prefix == currentPackage && inputs.contains(binaryName)) {
-        final sub = right.reversed.join('/');
-        // relative import
-        return '$sub.dart';
-      }
       // eg: packages[org.apache.pdfbox]/org/apache/pdfbox.dart
       if (packages.containsKey(prefix)) {
         final sub = packageToResolve.replaceAll('.', '/');

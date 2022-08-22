@@ -18,7 +18,9 @@ class JniGenTask {
   BindingsWriter outputWriter;
   SummarySource summarySource;
   WrapperOptions options;
-  Future<void> run() async {
+
+  // execute this task
+  Future<void> run({bool dumpJson = false}) async {
     Stream<List<int>> input;
     try {
       input = await summarySource.getInputStream();
@@ -31,17 +33,20 @@ class JniGenTask {
     try {
       json = await stream.single;
     } on Exception catch (e) {
-      stderr.writeln('error parsing summary: $e');
+      stderr.writeln('error while parsing summary: $e');
       return;
     }
     if (json == null) {
       stderr.writeln('error: expected JSON element from summarizer.');
       return;
     }
+    if (dumpJson) {
+      stderr.writeln(json);
+    }
     final list = json as List;
     try {
-      await outputWriter
-          .writeBindings(list.map((c) => ClassDecl.fromJson(c)), options);
+      await outputWriter.writeBindings(
+          list.map((c) => ClassDecl.fromJson(c)), options);
     } on Exception catch (e, trace) {
       stderr.writeln(trace);
       stderr.writeln('error writing bindings: $e');

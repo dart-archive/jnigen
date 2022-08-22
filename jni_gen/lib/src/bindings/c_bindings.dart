@@ -12,6 +12,18 @@ class CBindingGenerator {
   static const _fieldVarPrefix = '_f';
   static const _indent = '    ';
 
+  static const _cTypeKeywords = {
+    'short',
+    'char',
+    'int',
+    'long',
+    'float',
+    'double',
+  };
+
+  String _cParamRename(String paramName) =>
+      _cTypeKeywords.contains(paramName) ? '${paramName}0' : paramName;
+
   CBindingGenerator(this.options);
   WrapperOptions options;
 
@@ -184,7 +196,8 @@ class CBindingGenerator {
     }
 
     for (var param in m.params) {
-      args.add('${cType(param.type.name)} ${param.name}');
+      final paramName = _cParamRename(param.name);
+      args.add('${cType(param.type.name)} $paramName');
     }
 
     return args.join(", ");
@@ -205,10 +218,11 @@ class CBindingGenerator {
     }
     args.add(methodVar);
     for (var param in m.params) {
+      final paramName = _cParamRename(param.name);
       if (_needsTemporaries(param.type.name)) {
-        args.add('_${param.name}');
+        args.add('_$paramName');
       } else {
-        args.add(param.name);
+        args.add(paramName);
       }
     }
     return args.join(', ');
@@ -223,8 +237,9 @@ class CBindingGenerator {
   String _destroyParams(Method m) {
     final s = StringBuffer();
     for (var param in m.params) {
+      final paramName = _cParamRename(param.name);
       if (_needsTemporaries(param.type.name)) {
-        s.write('$_indent(*jniEnv)->DeleteLocalRef(jniEnv, _${param.name});\n');
+        s.write('$_indent(*jniEnv)->DeleteLocalRef(jniEnv, _$paramName);\n');
       }
     }
     return s.toString();

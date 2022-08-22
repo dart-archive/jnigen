@@ -75,11 +75,15 @@ class FilesWriter extends BindingsWriter {
       dartBindings.forEach(dartFileStream.write);
       cBindings.forEach(cFileStream.write);
       await dartFileStream.close();
-      // format dart file
     }
     await cFileStream.close();
     stderr.writeln('Running dart format...');
-    await Process.run('dart', ['format', dartWrappersRoot.toFilePath()]);
+    final formatRes =
+        await Process.run('dart', ['format', dartWrappersRoot.toFilePath()]);
+    if (formatRes.exitCode != 0) {
+      stderr.writeln('ERROR: dart format completed with '
+          'exit code ${formatRes.exitCode}');
+    }
 
     stderr.writeln('Copying auxiliary files...');
     await _copyFileFromPackage(

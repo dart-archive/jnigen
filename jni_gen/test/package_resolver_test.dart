@@ -19,7 +19,7 @@ void main() {
         'org.me.package': 'package:my_package/src/',
       },
       'a.b',
-      {'a.b.C', 'a.b.c.D', 'a.b.c.d.E'});
+      {'a.b.C', 'a.b.c.D', 'a.b.c.d.E', 'a.X', 'a.g.Y'});
 
   final tests = [
     // Simple example
@@ -38,6 +38,8 @@ void main() {
     // Relative imports
     ResolverTest('a.b.c.D', 'b/c.dart', 'c_.D'),
     ResolverTest('a.b.c.d.E', 'b/c/d.dart', 'd_.E'),
+    ResolverTest('a.X', '../a.dart', 'a_.X'),
+    ResolverTest('a.g.Y', '../a/g.dart', 'g_.Y'),
   ];
 
   for (var testCase in tests) {

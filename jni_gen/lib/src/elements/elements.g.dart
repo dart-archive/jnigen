@@ -236,7 +236,7 @@ Map<String, dynamic> _$TypeParamToJson(TypeParam instance) => <String, dynamic>{
 
 JavaDocComment _$JavaDocCommentFromJson(Map<String, dynamic> json) =>
     JavaDocComment(
-      comment: json['comment'] as String,
+      comment: json['comment'] as String?,
     );
 
 Map<String, dynamic> _$JavaDocCommentToJson(JavaDocComment instance) =>

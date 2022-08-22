@@ -22,7 +22,6 @@ enum DeclKind {
 
 @JsonSerializable(explicitToJson: true)
 class ClassDecl {
-
   // methods / properties already defined by dart JlObject base class
   static const Map<String, int> _definedSyms = {
     'equals': 1,
@@ -218,7 +217,7 @@ class ArrayType implements ReferredType {
   TypeUsage type;
 
   @override
-  String get name => "[";
+  String get name => "[${type.name}";
 
   factory ArrayType.fromJson(Map<String, dynamic> json) =>
       _$ArrayTypeFromJson(json);
@@ -262,7 +261,7 @@ class Method implements ClassMember {
 
   String _javaSig() {
     final paramNames = params.map((p) => p.type.name).join(', ');
-    return '$name($paramNames)';
+    return '${returnType.name} $name($paramNames)';
   }
 
   factory Method.fromJson(Map<String, dynamic> json) => _$MethodFromJson(json);
@@ -332,7 +331,7 @@ class TypeParam {
 
 @JsonSerializable(explicitToJson: true)
 class JavaDocComment {
-  JavaDocComment({required this.comment});
+  JavaDocComment({String? comment}) : comment = comment ?? '';
   String comment;
 
   @JsonKey(ignore: true)
