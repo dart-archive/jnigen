@@ -21,7 +21,7 @@ Future<void> buildApiSummarizer() async {
     exitCode = 2;
     return;
   }
-  final pom = pkg.resolve('third_party/ApiSummarizer/pom.xml');
+  final pom = pkg.resolve('java/pom.xml');
   await Directory(toolPath).create(recursive: true);
   final mvnProc = await Process.start(
       'mvn',
@@ -54,7 +54,7 @@ void main(List<String> args) async {
   final jarExists = await File(jarFile).exists();
   final isJarStale = jarExists &&
       await isPackageModifiedAfter('jni_gen',
-          await File(jarFile).lastModified(), 'third_party/ApiSummarizer/');
+          await File(jarFile).lastModified(), 'java/');
   if (isJarStale) {
     stderr.writeln('Rebuilding ApiSummarizer component since sources '
         'have changed. This might take some time.');
