@@ -57,8 +57,8 @@ void main(List<String> args) async {
   }
   final jarExists = await File(jarFile).exists();
   final isJarStale = jarExists &&
-      await isPackageModifiedAfter('jni_gen',
-          await File(jarFile).lastModified(), 'java/');
+      await isPackageModifiedAfter(
+          'jni_gen', await File(jarFile).lastModified(), 'java/');
   if (isJarStale) {
     stderr.writeln('Rebuilding ApiSummarizer component since sources '
         'have changed. This might take some time.');

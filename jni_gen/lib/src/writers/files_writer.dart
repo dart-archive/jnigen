@@ -42,7 +42,8 @@ class FilesWriter extends BindingsWriter {
     stderr.writeln('Creating dart init file ...');
     final initFileUri = dartWrappersRoot.resolve(_initFileName);
     final initFile = await File.fromUri(initFileUri).create(recursive: true);
-    await initFile.writeAsString(DartPreludes.initFile(libraryName), flush: true);
+    await initFile.writeAsString(DartPreludes.initFile(libraryName),
+        flush: true);
 
     final cFile = await File.fromUri(cWrapperDir.resolve('$libraryName.c'))
         .create(recursive: true);
