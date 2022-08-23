@@ -5,12 +5,9 @@
 package com.github.dart_lang.jni_gen.apisummarizer.elements;
 
 public class JavaDocComment {
-  public String comment;
-
-  // TODO: Escape HTML tags, and optionally convert the familiar ones to markdown.
-
-  // TODO: Build a detailed tree representation of JavaDocComment
+  // TODO(#28): Build a detailed tree representation of JavaDocComment
   // which can be processed by tools in other languages as well.
+  public String comment;
 
   public JavaDocComment(String comment) {
     this.comment = comment;

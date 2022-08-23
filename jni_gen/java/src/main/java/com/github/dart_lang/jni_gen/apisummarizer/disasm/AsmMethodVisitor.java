@@ -39,14 +39,14 @@ public class AsmMethodVisitor extends MethodVisitor implements AsmAnnotatedEleme
   @Override
   public AnnotationVisitor visitTypeAnnotation(
       int typeRef, TypePath typePath, String descriptor, boolean visible) {
-    // TODO: Collect annotation on type parameter
+    // TODO(#23): Collect annotation on type parameter
     return super.visitTypeAnnotation(typeRef, typePath, descriptor, visible);
   }
 
   @Override
   public AnnotationVisitor visitParameterAnnotation(
       int parameter, String descriptor, boolean visible) {
-    // TODO: collect and attach it to parameters
+    // TODO(#23): collect and attach it to parameters
     return super.visitParameterAnnotation(parameter, descriptor, visible);
   }
 

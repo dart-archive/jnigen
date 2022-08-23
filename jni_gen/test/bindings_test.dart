@@ -18,7 +18,7 @@ import 'package:test/test.dart';
 // ignore_for_file: avoid_relative_lib_imports
 import 'simple_package_test/lib/dev/dart/simple_package.dart';
 import 'simple_package_test/lib/dev/dart/pkg2.dart';
-import 'jackson_core_test/lib/com/fasterxml/jackson/core.dart';
+import 'jackson_core_test/third_party/lib/com/fasterxml/jackson/core.dart';
 
 import 'test_util/test_util.dart';
 
@@ -31,12 +31,12 @@ Future<void> setupDylibsAndClasses() async {
   await runCmd(
       'dart', ['run', 'jni:setup', '-S', join(simplePackagePath, 'src')]);
   await runCmd(
-      'dart', ['run', 'jni:setup', '-S', join(jacksonCorePath, 'src')]);
+      'dart', ['run', 'jni:setup', '-S', join(jacksonCorePath, 'third_party', 'src')]);
   await runCmd('javac',
       ['dev/dart/simple_package/Example.java', 'dev/dart/pkg2/C2.java'],
       workingDirectory: simplePackageJavaPath);
 
-  final jacksonJars = await getJarPaths('jackson_core_test');
+  final jacksonJars = await getJarPaths(join(jacksonCorePath, 'third_party'));
 
   if (!Platform.isAndroid) {
     Jni.spawn(

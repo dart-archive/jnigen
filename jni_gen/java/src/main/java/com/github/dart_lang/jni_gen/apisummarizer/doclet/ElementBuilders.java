@@ -22,6 +22,8 @@ public class ElementBuilders {
 
   private void fillInFromTypeElement(TypeElement e, ClassDecl c) {
     c.modifiers = e.getModifiers().stream().map(Modifier::toString).collect(Collectors.toSet());
+    c.simpleName = e.getSimpleName().toString();
+    c.binaryName = env.elements.getBinaryName(e).toString();
     switch (e.getKind()) {
       case INTERFACE:
         c.declKind = DeclKind.INTERFACE;
@@ -35,9 +37,10 @@ public class ElementBuilders {
       case ANNOTATION_TYPE:
         c.declKind = DeclKind.ANNOTATION_TYPE;
         break;
+      default:
+        throw new RuntimeException(
+            "Unexpected element kind " + e.getKind() + " on " + c.binaryName);
     }
-    c.simpleName = e.getSimpleName().toString();
-    c.binaryName = env.elements.getBinaryName(e).toString();
     var parent = e.getEnclosingElement();
     if (parent instanceof TypeElement) {
       c.parentName = env.elements.getBinaryName((TypeElement) parent).toString();
@@ -91,7 +94,7 @@ public class ElementBuilders {
     for (var key : values.keySet()) {
       var val = values.get(key);
       var obj = val.getValue();
-      // TODO: Accurately represent more complex annotation values
+      // TODO(#23): Accurately represent more complex annotation values
       if (obj instanceof String || obj instanceof Number) {
         annotation.properties.put(key.getSimpleName().toString(), obj);
       } else {
@@ -151,13 +154,10 @@ public class ElementBuilders {
         break;
       case TYPEVAR:
         u.kind = TypeUsage.Kind.TYPE_VARIABLE;
-        // TODO: Encode bounds of type variable.
-        // But somehow skip self referencing or mutually referencing
-        // bounds which will cause a stack overflow.
-        // Alternatively, the consumer can keep a context to find the type variable by itself
-        // but dealing with shadowing etc.. will be tougher.
-        // Also consider: encoding the erasure of the type, which doesn't seem to cause
-        // infinite recursion.
+        // TODO(#23): Encode bounds of type variable.
+        // A straightforward approach will cause infinite recursion very
+        // easily. Another approach I can think of is only encoding the
+        // erasure of the type variable per JLS.
         u.type = new TypeUsage.TypeVar(element.getSimpleName().toString());
         break;
       case ARRAY:

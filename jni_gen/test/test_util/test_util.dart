@@ -28,8 +28,8 @@ Future<void> buildNativeLibs(String testName) async {
   await runCmd('dart', ['run', 'jni:setup', '-S', join(testRoot, 'src')]);
 }
 
-Future<List<String>> getJarPaths(String testName) {
-  final jarPath = join(packageTestsDir, testName, 'jar');
+Future<List<String>> getJarPaths(String testRoot) {
+  final jarPath = join(testRoot, 'jar');
   return Directory(jarPath)
       .list()
       .map((entry) => entry.path)
@@ -46,8 +46,11 @@ Future<void> generateBindings({
   required WrapperOptions options,
   required bool isGeneratedFileTest,
   bool useAsmBackend = false,
+  bool isThirdParty = false,
+  String? preamble,
 }) async {
-  final testRoot = join(packageTestsDir, testName);
+  final testRoot = join(packageTestsDir, testName,
+    isThirdParty ? 'third_party' : '');
   final jarPath = join(testRoot, 'jar');
   final javaPath = join(testRoot, 'java');
   final src = join(testRoot, isGeneratedFileTest ? 'test_src' : 'src');
@@ -67,7 +70,7 @@ Future<void> generateBindings({
     await Directory(javaPath).create(recursive: true);
     await MvnTools.downloadMavenSources(sourceDeps, javaPath);
   }
-  final jars = await getJarPaths(testName);
+  final jars = await getJarPaths(testRoot);
   stderr.writeln('using classpath: $jars');
   await JniGenTask(
           summarySource: SummarizerCommand(
@@ -80,22 +83,25 @@ Future<void> generateBindings({
           outputWriter: FilesWriter(
               cWrapperDir: Uri.directory(src),
               dartWrappersRoot: Uri.directory(lib),
+              preamble: preamble,
               libraryName: testName))
       .run();
 }
 
-// compare 2 hierarchies, with and without prefix 'test_'
-void compareFiles(String testName, String path) {
-  final testRoot = join(packageTestsDir, testName);
-  final realPath = join(testRoot, path);
-  final dir = Directory(realPath);
-  for (var f in dir.listSync(recursive: true)) {
-    if (f.statSync().type != FileSystemEntityType.file) {
+/// compares 2 hierarchies, with and without prefix 'test_'
+void compareDirs(String path1, String path2) {
+  final list1 = Directory(path1).listSync(recursive: true);
+  final list2 = Directory(path2).listSync(recursive: true);
+  expect(list1.length, equals(list2.length));
+  for (var list in [list1, list2]) {
+    list.sort((a, b) => a.path.compareTo(b.path));
+  }
+  for (int i = 0; i < list1.length; i++) {
+    if (list1[i].statSync().type != FileSystemEntityType.file) {
       continue;
     }
-    final relativePath = f.path.replaceFirst('$testRoot/', '');
-    final origFile = File(join(testRoot, relativePath));
-    final genFile = File(join(testRoot, 'test_$relativePath'));
-    expect(genFile.readAsStringSync(), equals(origFile.readAsStringSync()));
+    final a = File(list1[i].path);
+    final b = File(list2[i].path);
+    expect(a.readAsStringSync(), equals(b.readAsStringSync()));
   }
 }

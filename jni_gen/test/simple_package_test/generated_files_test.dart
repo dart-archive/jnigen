@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:test/test.dart';
+import 'package:path/path.dart' hide equals;
 
 import 'generate.dart';
 import '../test_util/test_util.dart';
@@ -11,7 +12,9 @@ void main() async {
   await generateSources('test_lib', 'test_src');
   // test if generated file == expected file
   test('compare generated files', () {
-    compareFiles(testName, 'lib');
-    compareFiles(testName, 'src');
+    compareDirs(join(testRoot, 'lib'),
+      join(testRoot, 'test_lib'));
+    compareDirs(join(testRoot, 'src'),
+      join(testRoot, 'test_src'));
   });
 }

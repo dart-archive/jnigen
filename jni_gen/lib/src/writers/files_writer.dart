@@ -21,9 +21,11 @@ class FilesWriter extends BindingsWriter {
       {required this.cWrapperDir,
       required this.dartWrappersRoot,
       this.javaWrappersRoot,
+      this.preamble,
       required this.libraryName});
   Uri cWrapperDir, dartWrappersRoot;
   Uri? javaWrappersRoot;
+  String? preamble;
   String libraryName;
   @override
   Future<void> writeBindings(
@@ -48,6 +50,9 @@ class FilesWriter extends BindingsWriter {
     final cFile = await File.fromUri(cWrapperDir.resolve('$libraryName.c'))
         .create(recursive: true);
     final cFileStream = cFile.openWrite();
+    if (preamble != null) {
+      cFileStream.writeln(preamble);
+    }
     cFileStream.write(CPreludes.prelude);
     final preprocessor = ApiPreprocessor(classesByName, options);
     preprocessor.preprocessAll();
@@ -72,6 +77,9 @@ class FilesWriter extends BindingsWriter {
                   .where((cu) => '/'.codeUnitAt(0) == cu)
                   .length) +
           _initFileName;
+      if (preamble != null) {
+        dartFileStream.writeln(preamble);
+      }
       dartFileStream
         ..write(DartPreludes.bindingFileHeaders)
         ..write(resolver.getImportStrings().join('\n'))

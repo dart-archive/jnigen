@@ -84,13 +84,6 @@ public class SummarizerDocletBase implements Doclet {
 
     @Override
     public Void visitType(TypeElement e, SummaryCollector collector) {
-      // Supposedly it should visit every type only once.
-      // super.visitType visits the enclosed types and it should do that once.
-      // but its visiting nested classes twice.
-      // This could be a bug in my code, or something related to traversal order.
-      //
-      // Btw, the stack is useless now
-      // TODO: remove stack
       if (!collector.types.isEmpty()) {
         return null;
       }

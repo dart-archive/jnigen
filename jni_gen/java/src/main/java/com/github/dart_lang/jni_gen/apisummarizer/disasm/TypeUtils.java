@@ -61,7 +61,7 @@ class TypeUtils {
         usage.kind = TypeUsage.Kind.PRIMITIVE;
         usage.type = new TypeUsage.PrimitiveType(type.getClassName());
     }
-    // TODO: generics
+    // TODO(#23): generics
     return usage;
   }
 
@@ -85,7 +85,6 @@ class TypeUtils {
     acc.put("abstract", ACC_ABSTRACT);
     acc.put("final", ACC_FINAL);
     acc.put("native", ACC_NATIVE);
-    // TODO: Add rest of them which matter;
   }
 
   static DeclKind declKind(int access) {

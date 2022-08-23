@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Denotes a class or interface declaration. Here's an example for various kinds of names stored in
- * this structure: simpleName : "Example", binaryName : "dev.dart.sample.Example", parentName :
- * null, packageName : "dev.dart.sample",
+ * A class or interface declaration.
+ *
+ * <p>Here's an example for various kinds of names stored in this structure: { simpleName :
+ * "Example", binaryName : "dev.dart.sample.Example", parentName : null, packageName :
+ * "dev.dart.sample", }
  */
 public class ClassDecl {
   public DeclKind declKind;

@@ -1,5 +1,5 @@
 *.jar
-jar/**
-java/**
-test_lib/
-test_src/
+third_party/jar/**
+third_party/java/**
+third_party/test_lib/
+third_party/test_src/

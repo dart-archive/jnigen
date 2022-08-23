@@ -9,7 +9,7 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import jdk.javadoc.doclet.DocletEnvironment;
 
-/** Class to hold Utility classes initialized from DocletEnvironment */
+/** Class to hold utility classes initialized from DocletEnvironment. */
 public class AstEnv {
   public final Types types;
   public final Elements elements;
