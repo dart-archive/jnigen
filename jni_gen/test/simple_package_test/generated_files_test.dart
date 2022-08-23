@@ -12,9 +12,7 @@ void main() async {
   await generateSources('test_lib', 'test_src');
   // test if generated file == expected file
   test('compare generated files', () {
-    compareDirs(join(testRoot, 'lib'),
-      join(testRoot, 'test_lib'));
-    compareDirs(join(testRoot, 'src'),
-      join(testRoot, 'test_src'));
+    compareDirs(join(testRoot, 'lib'), join(testRoot, 'test_lib'));
+    compareDirs(join(testRoot, 'src'), join(testRoot, 'test_src'));
   });
 }

@@ -49,8 +49,8 @@ Future<void> generateBindings({
   bool isThirdParty = false,
   String? preamble,
 }) async {
-  final testRoot = join(packageTestsDir, testName,
-    isThirdParty ? 'third_party' : '');
+  final testRoot =
+      join(packageTestsDir, testName, isThirdParty ? 'third_party' : '');
   final jarPath = join(testRoot, 'jar');
   final javaPath = join(testRoot, 'java');
   final src = join(testRoot, isGeneratedFileTest ? 'test_src' : 'src');

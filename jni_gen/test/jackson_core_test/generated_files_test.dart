@@ -18,10 +18,10 @@ void main() async {
   final generatedFilesRoot = join(packageTestsDir, testName, 'third_party');
   await generate(isTest: true);
   test("compare generated bindings for jackson_core", () {
-    compareDirs(join(generatedFilesRoot, 'lib'),
-      join(generatedFilesRoot, 'test_lib'));
-    compareDirs(join(generatedFilesRoot, 'src'),
-      join(generatedFilesRoot, 'test_src'));
+    compareDirs(
+        join(generatedFilesRoot, 'lib'), join(generatedFilesRoot, 'test_lib'));
+    compareDirs(
+        join(generatedFilesRoot, 'src'), join(generatedFilesRoot, 'test_src'));
   });
   test(
       'generate and analyze bindings for complete library, '

@@ -30,8 +30,8 @@ Future<void> setupDylibsAndClasses() async {
   await runCmd('dart', ['run', 'jni:setup']);
   await runCmd(
       'dart', ['run', 'jni:setup', '-S', join(simplePackagePath, 'src')]);
-  await runCmd(
-      'dart', ['run', 'jni:setup', '-S', join(jacksonCorePath, 'third_party', 'src')]);
+  await runCmd('dart',
+      ['run', 'jni:setup', '-S', join(jacksonCorePath, 'third_party', 'src')]);
   await runCmd('javac',
       ['dev/dart/simple_package/Example.java', 'dev/dart/pkg2/C2.java'],
       workingDirectory: simplePackageJavaPath);
