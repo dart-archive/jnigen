@@ -68,13 +68,13 @@ class ApiPreprocessor {
         // don't rename if superNum == 0
         final superNumText = superNum == 0 ? '' : '$superNum';
         // well, unless the method name is a keyword & superNum == 0.
-        // TODO: this logic would better live in a dedicated renamer class.
+        // TODO(#29): this logic would better live in a dedicated renamer class.
         final methodName = superNum == 0 ? kwRename(realName) : realName;
         method.finalName = '$methodName$superNumText';
         decl.methodNumsAfterRenaming[sig] = superNum;
       } else {
         method.finalName = renameConflict(decl.nameCounts, realName);
-        // TODO: This is too much coupled with renameConflict impl.
+        // TODO(#29): This is too much coupled with renameConflict impl.
         // see the above todo.
         decl.methodNumsAfterRenaming[sig] = decl.nameCounts[realName]! - 1;
       }
