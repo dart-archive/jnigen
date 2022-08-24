@@ -26,7 +26,7 @@ enum DeclKind {
 
 @JsonSerializable(explicitToJson: true)
 class ClassDecl {
-  // methods / properties already defined by dart JlObject base class
+  /// Methods & properties already defined by dart JlObject base class.
   static const Map<String, int> _definedSyms = {
     'equals': 1,
     'toString': 1,
@@ -68,7 +68,8 @@ class ClassDecl {
   List<TypeUsage> interfaces;
   bool hasStaticInit, hasInstanceInit;
 
-  // if the declaration is an ENUM
+  // Contains enum constant names if class is an enum,
+  // as obtained by `.values()` method in Java.
   List<String>? values;
 
   factory ClassDecl.fromJson(Map<String, dynamic> json) =>
@@ -84,12 +85,12 @@ class ClassDecl {
   @JsonKey(ignore: true)
   bool isIncluded = true;
 
-  // maps signature to number for proper overriding
+  /// Contains number with which certain overload of a method is renamed to,
+  /// so the overriding method in subclass can be renamed to same final name.
   @JsonKey(ignore: true)
   Map<String, int> methodNumsAfterRenaming = {};
 
-  // maps names to numbers, will be useful for renaming non-overridden fields.
-  // A subclass will merge its superclass' nameCounts
+  /// Name counts map, it's a field so that it can be later used by subclasses.
   @JsonKey(ignore: true)
   Map<String, int> nameCounts = {..._definedSyms};
 
@@ -130,7 +131,7 @@ class TypeUsage {
 
   String get name => type.name;
 
-  // because json_serializable doesn't directly support union types.
+  // Since json_serializable doesn't directly support union types,
   // we have to temporarily store `type` in a JSON map, and switch on the
   // enum value received.
   factory TypeUsage.fromJson(Map<String, dynamic> json) {

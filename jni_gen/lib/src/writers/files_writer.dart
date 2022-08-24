@@ -12,8 +12,14 @@ import 'package:jni_gen/src/util/find_package.dart';
 
 import 'bindings_writer.dart';
 
-// Writes dart files to specified directory
-// The name of the files themselves is decided by package name
+/// Writer which takes writes C and Dart bindings to specified directories.
+///
+/// The structure of dart files is determined by package structure of java.
+/// One dart file corresponds to one java package, and it's path is decided by
+/// fully qualified name of the package.
+///
+/// Example:
+/// `android.os` -> `$dartWrappersRoot`/`android/os.dart`
 class FilesWriter extends BindingsWriter {
   static const _initFileName = 'init.dart';
 

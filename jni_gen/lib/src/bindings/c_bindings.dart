@@ -126,7 +126,7 @@ class CBindingGenerator {
     final cClassName = mangledClassName(c);
     final isStatic = isStaticField(f);
 
-    // if the field is final and default is assigned, then no need to wrap
+    // If the field is final and default is assigned, then no need to wrap
     // this field. It should then be a constant in dart code.
     if (isStatic && isFinalField(f) && f.defaultValue != null) {
       return "";
@@ -171,7 +171,7 @@ class CBindingGenerator {
         s.write(', value');
       }
       s.write('));\n');
-      // TODO(#25): Check Exceptions
+      // TODO(#25): Check Exceptions.
       s.write('}\n\n');
     }
 
@@ -192,10 +192,9 @@ class CBindingGenerator {
 
   String _formalArgs(Method m) {
     final args = <String>[];
-    // if normal instance method, jobject self
     if (hasSelfParam(m)) {
-      // self is suffixed underscore, to avoid possible conflicts with
-      // java params named self
+      // The underscore-suffixed name prevents accidental collision with
+      // parameter named self, if any.
       args.add('jobject self_');
     }
 
@@ -207,8 +206,8 @@ class CBindingGenerator {
     return args.join(", ");
   }
 
-  // currently no type needs temporaries
   bool _needsTemporaries(String binaryName) {
+    // currently no type needs temporaries.
     return false;
   }
 
@@ -233,8 +232,8 @@ class CBindingGenerator {
   }
 
   String _initParams(Method m) {
-    // currently no type needs temporaries, but
-    // in future we may add something like that.
+    // currently no type needs temporaries, but in future we may add
+    // some options that require temporaries.
     return '';
   }
 
@@ -315,7 +314,7 @@ class CBindingGenerator {
     }
   }
 
-  /// returns the JNI signature of the method
+  /// Returns the JNI signature of the method.
   String _signature(Method m) {
     final s = StringBuffer();
     s.write('(');

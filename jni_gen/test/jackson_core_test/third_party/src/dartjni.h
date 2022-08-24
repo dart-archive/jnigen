@@ -78,15 +78,17 @@ FFI_PLUGIN_EXPORT const char *GetJavaStringChars(jstring jstr);
 
 FFI_PLUGIN_EXPORT void ReleaseJavaStringChars(jstring jstr, const char *buf);
 
-/// For use by jni_gen's generated code
-/// don't use these.
-
-// these 2 fn ptr vars will be defined by generated code library
+// These 2 are the function pointer variables defined and exported by
+// the generated C files.
+//
+// initGeneratedLibrary function in Jni class will set these to
+// corresponding functions to the implementations from `dartjni` base library
+// which initializes and manages the JNI.
 extern struct jni_context (*context_getter)(void);
 extern JNIEnv *(*env_getter)(void);
 
-// this function will be exported by generated code library
-// it will set above 2 variables.
+// This function will be exported by generated code library and will set the
+// above 2 variables.
 FFI_PLUGIN_EXPORT void setJniGetters(struct jni_context (*cg)(void),
 		JNIEnv *(*eg)(void));
 
@@ -95,7 +97,6 @@ FFI_PLUGIN_EXPORT void setJniGetters(struct jni_context (*cg)(void),
 //
 // There has to be a better way to do this. Either to force inlining on target
 // platforms, or just leave it as normal function.
-
 static inline void __load_class_into(jclass *cls, const char *name) {
 #ifdef __ANDROID__
 	jstring className = (*jniEnv)->NewStringUTF(jniEnv, name);

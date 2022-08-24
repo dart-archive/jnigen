@@ -59,7 +59,7 @@ class Jni {
 
   static Jni? _instance;
 
-  // store HelperDir if any was used.
+  /// Stores helperDir if any was used.
   final String? _helperDir;
 
   /// Returns the existing Jni object.
@@ -291,10 +291,9 @@ class Jni {
     return toJValues(args, allocator: allocator);
   }
 
-  // Temporarily for JlObject
+  // Temporarily for JlString.
   // A future idea is to unify JlObject and JniObject, and use global refs
   // everywhere for simplicity.
-
   late final toJavaString = _bindings.ToJavaString;
   late final getJavaStringChars = _bindings.GetJavaStringChars;
   late final releaseJavaStringChars = _bindings.ReleaseJavaStringChars;

@@ -14,21 +14,20 @@ import 'common.dart';
 final _indent = ' ' * 2;
 
 class DartBindingsGenerator {
-  // Name for reference in base class
+  // Name for reference in base class.
   static const _self = 'reference';
-  // symbol lookup function for generated code
+  // symbol lookup function for generated code.
   static const _jlookup = 'jlookup';
 
   // import prefixes
   static const ffi = 'ffi.';
   static const jni = 'jni.';
 
-  // ffi.Pointer<ffi.Void>
-  late final String _voidPtr = '${ffi}Pointer<${ffi}Void>';
+  static const String _voidPtr = '${ffi}Pointer<${ffi}Void>';
 
-  late final String _void = '${ffi}Void';
+  static const String _void = '${ffi}Void';
 
-  late final String _jlObject = '${jni}JlObject';
+  static const String _jlObject = '${jni}JlObject';
 
   DartBindingsGenerator(this.options, this.resolver);
   WrapperOptions options;
@@ -60,7 +59,6 @@ class DartBindingsGenerator {
     }
 
     s.write('class $name extends $superName {\n');
-    // fromRef constructor
     s.write('$_indent$name.fromRef($_voidPtr ref) : '
         'super.fromRef(ref);\n');
 
@@ -109,7 +107,8 @@ class DartBindingsGenerator {
     s.write('${_indent}static final $sym = $_jlookup'
         '<${ffi}NativeFunction<$ffiSig>>("$cName")\n'
         '.asFunction<$dartSig>();\n');
-    // diferent logic for constructor and method
+    // Different logic for constructor and method;
+    // For constructor, we want return type to be new object.
     final returnType = dartOuterType(m.returnType);
     s.write('$_indent/// from: ${_originalMethodHeader(m)}\n');
     if (!isPrimitive(m.returnType)) {

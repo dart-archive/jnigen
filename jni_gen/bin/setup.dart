@@ -2,7 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// This script takes a vendored ApiSummarizer and builds with maven.
+// This script gets the java sources using the copy of this package, and builds
+// ApiSummarizer jar using Maven.
 import 'dart:io';
 
 import 'package:path/path.dart';
@@ -13,10 +14,6 @@ final toolPath = join('.', '.dart_tool', 'jni_gen');
 final mvnTargetDir = join(toolPath, 'target');
 final jarFile = join(toolPath, 'ApiSummarizer.jar');
 final targetJarFile = join(mvnTargetDir, 'ApiSummarizer.jar');
-
-// This script gets the vendored sources for ApiSummarizer from pub cache
-// clones them to jarPath/mvn_build, and runs mvn build, then moves the target
-// jar back to jarPath, and deletes mvn_build.
 
 Future<void> buildApiSummarizer() async {
   final pkg = await findPackageRoot('jni_gen');

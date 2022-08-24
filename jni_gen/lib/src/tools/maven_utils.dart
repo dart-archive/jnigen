@@ -20,7 +20,7 @@ class MvnTools {
     }
   }
 
-  // Helper method since we can't provide inheritStdio to Process.run
+  /// Helper method since we can't pass inheritStdio option to [Process.run].
   static Future<int> _runCmd(String exec, List<String> args,
       [String? workingDirectory]) async {
     _verboseLog('[exec] $exec ${args.join(" ")}');
@@ -118,7 +118,7 @@ class MvnTools {
   }
 }
 
-/// Represents a maven dependency with group ID, artifact ID and version.
+/// Maven dependency with group ID, artifact ID, and version.
 class MvnDep {
   MvnDep(this.groupID, this.artifactID, this.version,
       {this.otherTags = const {}});

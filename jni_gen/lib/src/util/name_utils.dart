@@ -20,10 +20,11 @@ String getLastName(String binaryName) => binaryName.split('.').last;
 String getSimpleNameOf(ClassDecl cls) => cls.simpleName;
 
 /// Returns class name as useful in dart.
+///
 /// Eg -> a.b.X.Y -> X_Y
 String simplifiedClassName(String binaryName) =>
     getLastName(binaryName).replaceAll('\$', '_');
 
-// Utilities to operate on package names
+// Utilities to operate on package names.
 
 List<String> getComponents(String packageName) => packageName.split('.');

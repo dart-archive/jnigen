@@ -13,7 +13,11 @@ String renameConflict(Map<String, int> counts, String name) {
   return kwRename(name);
 }
 
-// Concats 0 to name if name is a keyword
+/// Appends 0 to [name] if [name] is a keyword.
+///
+/// Examples:
+/// * `int` -> `int0`
+/// * `i` -> `i`
 String kwRename(String name) => _keywords.contains(name) ? '${name}0' : name;
 
 const Set<String> _keywords = {

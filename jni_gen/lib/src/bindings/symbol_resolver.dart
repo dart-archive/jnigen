@@ -76,7 +76,7 @@ class PackagePathResolver implements SymbolResolver {
     return '$importedName.$simpleTypeName';
   }
 
-  // returns import string, or null if package not found
+  /// Returns import string, or `null` if package not found.
   String? getImport(String packageToResolve, String binaryName) {
     final right = <String>[];
     var prefix = packageToResolve;

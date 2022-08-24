@@ -9,8 +9,7 @@ import 'package:jni_gen/src/config/wrapper_options.dart';
 import 'package:jni_gen/src/util/rename_conflict.dart';
 import 'common.dart';
 
-/// preprocessing tasks common to both generators, such as renaming
-/// and exclusion of methods / fields.
+/// Preprocessor which fills information needed by both Dart and C generators.
 class ApiPreprocessor {
   ApiPreprocessor(this.classes, this.options);
   final Map<String, ClassDecl> classes;

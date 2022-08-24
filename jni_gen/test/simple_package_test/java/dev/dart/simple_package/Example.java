@@ -1,11 +1,9 @@
 package dev.dart.simple_package;
 
 public class Example {
-  // static final fields
   public static final int ON = 1;
   public static final int OFF = 0;
 
-  // static fields
   public static Aux aux;
   public static int num;
 
@@ -14,7 +12,6 @@ public class Example {
     num = 121;
   }
 
-  // static methods
   public static Aux getAux() {
     return aux;
   }
@@ -23,7 +20,6 @@ public class Example {
     return a + b;
   }
 
-  // instance methods
   public Example getSelf() {
     return this;
   }
@@ -36,7 +32,6 @@ public class Example {
     this.num = num;
   }
 
-  // Nested class
   public static class Aux {
     public boolean value;
 
