@@ -24,12 +24,15 @@ const jacksonPreamble = '// Generated from jackson-core which is licensed under'
     '// limitations under the License.\n';
 
 Future<void> generate(
-    {bool isTest = false, bool generateFullVersion = false}) async {
+    {bool isTest = false,
+    bool generateFullVersion = false,
+    bool useAsm = false}) async {
   final deps = ['com.fasterxml.jackson.core:jackson-core:2.13.3'];
   await generateBindings(
     testName: 'jackson_core_test',
     sourceDepNames: deps,
     jarDepNames: deps,
+    useAsmBackend: useAsm,
     preamble: jacksonPreamble,
     isThirdParty: true,
     classes: (generateFullVersion)

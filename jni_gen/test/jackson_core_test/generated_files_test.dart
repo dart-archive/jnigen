@@ -23,17 +23,25 @@ void main() async {
     compareDirs(
         join(generatedFilesRoot, 'src'), join(generatedFilesRoot, 'test_src'));
   });
-  test(
-      'generate and analyze bindings for complete library, '
-      'not just required classes', () async {
-    await generate(isTest: true, generateFullVersion: true);
+  Future<void> analyze() async {
     final analyzeProc = await Process.start(
         'dart', ['analyze', join('test', testName, 'third_party', 'test_lib')],
         mode: ProcessStartMode.inheritStdio);
     final exitCode = await analyzeProc.exitCode;
     expect(exitCode, 0);
+  }
+
+  test(
+      'generate and analyze bindings for complete library, '
+      'not just required classes', () async {
+    await generate(isTest: true, generateFullVersion: true);
+    await analyze();
   }, timeout: Timeout(Duration(minutes: 2)));
-  tearDownAll(() async {
+  test('generate and analyze bindings using ASM', () async {
+    await generate(isTest: true, generateFullVersion: true, useAsm: true);
+    await analyze();
+  }, timeout: Timeout(Duration(minutes: 2)));
+  tearDown(() async {
     for (var dirName in ['test_lib', 'test_src']) {
       final dir = Directory(join('test', testName, 'third_party', dirName));
       if (await dir.exists()) {
