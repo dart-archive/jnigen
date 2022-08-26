@@ -176,7 +176,7 @@ class DartBindingsGenerator {
 
     void writeAccessor({bool isSetter = false}) {
       final symPrefix = isSetter ? 'set' : 'get';
-      final sym = '_$symPrefix$name';
+      final sym = '_${symPrefix}_$name';
       final ffiSig = dartSigForField(f, isSetter: isSetter, isFfiSig: true);
       final dartSig = dartSigForField(f, isSetter: isSetter, isFfiSig: false);
       s.write('${_indent}static final $sym = $_jlookup'
@@ -300,6 +300,7 @@ class DartBindingsGenerator {
 
   String _literal(dynamic value) {
     if (value is String) {
+      // TODO(#31): escape string literal.
       return '"$value"';
     }
     if (value is int || value is double || value is bool) {

@@ -56,24 +56,22 @@ Future<void> generateBindings({
   final src = join(testRoot, isGeneratedFileTest ? 'test_src' : 'src');
   final lib = join(testRoot, isGeneratedFileTest ? 'test_lib' : 'lib');
 
-  final sourceDeps = MvnTools.makeDependencyList(sourceDepNames);
-  final jarDeps = MvnTools.makeDependencyList(jarDepNames);
+  final sourceDeps = MavenTools.deps(sourceDepNames);
+  final jarDeps = MavenTools.deps(jarDepNames);
 
-  await runCmd('dart', ['run', 'jni_gen:setup']);
-
-  MvnTools.setVerbose(true);
+  MavenTools.setVerbose(true);
   if (await isEmptyDir(jarPath)) {
     await Directory(jarPath).create(recursive: true);
-    await MvnTools.downloadMavenJars(jarDeps, jarPath);
+    await MavenTools.downloadMavenJars(jarDeps, jarPath);
   }
   if (await isEmptyDir(javaPath)) {
     await Directory(javaPath).create(recursive: true);
-    await MvnTools.downloadMavenSources(sourceDeps, javaPath);
+    await MavenTools.downloadMavenSources(sourceDeps, javaPath);
   }
   final jars = await getJarPaths(testRoot);
   stderr.writeln('using classpath: $jars');
-  await JniGenTask(
-          summarySource: SummarizerCommand(
+  await JniGenTask.ofComponents(
+          summarizer: SummarizerCommand(
             sourcePaths: [Uri.directory(javaPath)],
             classPaths: jars.map(Uri.file).toList(),
             classes: classes,

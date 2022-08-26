@@ -20,7 +20,6 @@ Future<void> compileJavaSources(String workingDir, List<String> files) async {
 }
 
 Future<void> generateSources(String lib, String src) async {
-  await runCmd('dart', ['run', 'jni_gen:setup']);
   await compileJavaSources(javaPath, javaFiles);
   final cWrapperDir = Uri.directory(join(testRoot, src));
   final dartWrappersRoot = Uri.directory(join(testRoot, lib));
@@ -31,8 +30,8 @@ Future<void> generateSources(String lib, String src) async {
       await dir.delete(recursive: true);
     }
   }
-  await JniGenTask(
-    summarySource: SummarizerCommand(
+  await JniGenTask.ofComponents(
+    summarizer: SummarizerCommand(
       sourcePaths: [Uri.directory(javaPath)],
       classPaths: [Uri.directory(javaPath)],
       classes: ['dev.dart.simple_package', 'dev.dart.pkg2'],

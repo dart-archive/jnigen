@@ -82,8 +82,10 @@ class ApiPreprocessor {
   }
 
   bool _isFieldIncluded(ClassDecl decl, Field field) =>
+      !field.name.startsWith('_') &&
       options.fieldFilter?.included(decl, field) != false;
   bool _isMethodIncluded(ClassDecl decl, Method method) =>
+      !method.name.startsWith('_') &&
       options.methodFilter?.included(decl, method) != false;
   bool _isClassIncluded(ClassDecl decl) =>
       options.classFilter?.included(decl) != false;

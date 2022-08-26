@@ -6,7 +6,7 @@ import 'dart:io';
 
 /// This class provides some utility methods to download a sources / jars
 /// using maven along with transitive dependencies.
-class MvnTools {
+class MavenTools {
   static const _tempPom = '__temp_pom.xml';
   static const _tempClassPath = '__temp_classpath.xml';
   static const _tempTarget = '__mvn_target';
@@ -43,7 +43,7 @@ class MvnTools {
   }
 
   /// Create a list of [MvnDep] objects from maven coordinates in string form.
-  static List<MvnDep> makeDependencyList(List<String> depNames) =>
+  static List<MvnDep> deps(List<String> depNames) =>
       depNames.map(MvnDep.fromString).toList();
 
   /// Downloads and unpacks source files of [deps] into [targetDir].

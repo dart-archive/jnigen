@@ -24,22 +24,38 @@ abstract class SummarySource {
 class SummarizerCommand extends SummarySource {
   SummarizerCommand({
     this.command = "java -jar .dart_tool/jni_gen/ApiSummarizer.jar",
-    required this.sourcePaths,
-    this.classPaths = const [],
+    List<Uri>? sourcePaths,
+    List<Uri>? classPaths,
     this.extraArgs = const [],
     required this.classes,
     this.workingDirectory,
-  });
+    this.backend,
+  })  : sourcePaths = sourcePaths ?? [],
+        classPaths = classPaths ?? [] {
+    if (backend != null && !{'asm', 'doclet'}.contains(backend)) {
+      throw ArgumentError('Supported backends: asm, doclet');
+    }
+  }
 
   static const sourcePathsOption = '-s';
   static const classPathsOption = '-c';
 
   String command;
   List<Uri> sourcePaths, classPaths;
+
   List<String> extraArgs;
   List<String> classes;
 
   Uri? workingDirectory;
+  String? backend;
+
+  void addSourcePaths(List<Uri> paths) {
+    sourcePaths.addAll(paths);
+  }
+
+  void addClassPaths(List<Uri> paths) {
+    classPaths.addAll(paths);
+  }
 
   void _addPathParam(List<String> args, String option, List<Uri> paths) {
     if (paths.isNotEmpty) {
@@ -62,6 +78,9 @@ class SummarizerCommand extends SummarySource {
 
     _addPathParam(args, sourcePathsOption, sourcePaths);
     _addPathParam(args, classPathsOption, classPaths);
+    if (backend != null) {
+      args.addAll(['--backend', backend!]);
+    }
     args.addAll(extraArgs);
     args.addAll(classes);
 
@@ -72,16 +91,4 @@ class SummarizerCommand extends SummarySource {
         .forEach(stderr.writeln);
     return proc.stdout;
   }
-}
-
-/// A JSON file based summary source.
-// (Did not test it yet)
-class SummaryFile extends SummarySource {
-  Uri path;
-  SummaryFile(this.path);
-  SummaryFile.fromPath(String path) : path = Uri.file(path);
-
-  @override
-  Future<Stream<List<int>>> getInputStream() async =>
-      File.fromUri(path).openRead();
 }

@@ -26,11 +26,9 @@ class FilesWriter extends BindingsWriter {
   FilesWriter(
       {required this.cWrapperDir,
       required this.dartWrappersRoot,
-      this.javaWrappersRoot,
       this.preamble,
       required this.libraryName});
   Uri cWrapperDir, dartWrappersRoot;
-  Uri? javaWrappersRoot;
   String? preamble;
   String libraryName;
   @override
