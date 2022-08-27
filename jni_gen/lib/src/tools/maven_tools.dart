@@ -51,8 +51,9 @@ class MavenTools {
       List<MavenDependency> deps, String targetDir) async {
     await _runMavenCommand(deps, [
       'dependency:unpack-dependencies',
+      '-DexcludeTransitive=true',
       '-DoutputDirectory=$targetDir',
-      '-Dclassifier=sources'
+      '-Dclassifier=sources',
     ]);
   }
 

@@ -23,9 +23,9 @@ Future<void> generateJniBindings(Config config) async {
     backend: config.summarizerOptions?.backend,
   );
 
-  final mavenDl = config.mavenDownloads;
   final extraSources = <Uri>[];
   final extraJars = <Uri>[];
+  final mavenDl = config.mavenDownloads;
   if (mavenDl != null) {
     final sourcePath = mavenDl.sourceDir;
     Directory(sourcePath).create(recursive: true);
@@ -45,13 +45,13 @@ Future<void> generateJniBindings(Config config) async {
 
   final androidConfig = config.androidSdkConfig;
   if (androidConfig != null) {
-    final androidJar = await AndroidSdkUtils.getAndroidJarPath(
+    final androidJar = await AndroidSdkTools.getAndroidJarPath(
         sdkRoot: androidConfig.sdkRoot, versionOrder: androidConfig.versions);
     if (androidJar != null) {
       extraJars.add(Uri.directory(androidJar));
     }
     if (androidConfig.includeSources) {
-      final androidSources = await AndroidSdkUtils.getAndroidSourcesPath(
+      final androidSources = await AndroidSdkTools.getAndroidSourcesPath(
           sdkRoot: androidConfig.sdkRoot, versionOrder: androidConfig.versions);
       if (androidSources != null) {
         extraSources.add(Uri.directory(androidSources));

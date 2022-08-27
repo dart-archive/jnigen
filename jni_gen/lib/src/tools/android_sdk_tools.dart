@@ -5,7 +5,7 @@
 import 'dart:io';
 import 'package:path/path.dart';
 
-class AndroidSdkUtils {
+class AndroidSdkTools {
   /// get path for android API sources
   static Future<String?> _getVersionDir(
       String relative, String? sdkRoot, List<int> versionOrder) async {

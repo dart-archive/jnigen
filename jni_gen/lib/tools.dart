@@ -4,6 +4,4 @@
 
 library jni_gen_tools;
 
-export 'src/tools/maven_utils.dart';
-export 'src/tools/build_summarizer.dart';
-export 'src/tools/android_sdk_utils.dart';
+export 'src/tools/tools.dart';

@@ -20,11 +20,15 @@ import 'filters.dart';
 /// JAR files will be automatically added to source path and class path
 /// respectively.
 class MavenDownloads {
+  static const defaultMavenSourceDir = 'mvn_java';
+  static const defaultMavenJarDir = 'mvn_jar';
+
   MavenDownloads({
     this.sourceDeps = const [],
-    this.sourceDir = 'java',
+    // ASK: Should this be changed to a gitignore'd directory like build ?
+    this.sourceDir = defaultMavenSourceDir,
     this.jarOnlyDeps = const [],
-    this.jarDir = 'jar',
+    this.jarDir = defaultMavenJarDir,
   });
   List<String> sourceDeps;
   String sourceDir;
@@ -216,9 +220,12 @@ class Config {
       mavenDownloads: prov.hasValue(_Props.mavenDownloads)
           ? MavenDownloads(
               sourceDeps: prov.getStringList(_Props.sourceDeps) ?? const [],
-              sourceDir: prov.getString(_Props.mavenSourceDir) ?? 'java',
+              sourceDir: prov.getString(_Props.mavenSourceDir) ??
+                  MavenDownloads.defaultMavenSourceDir,
               jarOnlyDeps: prov.getStringList(_Props.jarOnlyDeps) ?? const [],
-              jarDir: prov.getString(_Props.mavenJarDir) ?? 'jar')
+              jarDir: prov.getString(_Props.mavenJarDir) ??
+                  MavenDownloads.defaultMavenJarDir,
+            )
           : null,
       androidSdkConfig: prov.hasValue(_Props.androidSdkConfig)
           ? AndroidSdkConfig(

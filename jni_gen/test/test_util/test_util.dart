@@ -23,7 +23,7 @@ Future<List<String>> getJarPaths(String testRoot) {
   return Directory(jarPath)
       .list()
       .map((entry) => entry.path)
-      .where((path) => path.endsWith('jar'))
+      .where((path) => path.endsWith('.jar'))
       .toList();
 }
 
