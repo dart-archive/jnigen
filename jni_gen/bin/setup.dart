@@ -4,15 +4,15 @@
 
 import 'dart:io';
 
-import 'package:jni_gen/src/tools/build_summarizer.dart';
+import 'package:jni_gen/src/tools/tools.dart';
 
 void main(List<String> args) async {
   bool force = false;
   if (args.isNotEmpty) {
     if (args.length != 1 || args[0] != '-f') {
       stderr.writeln('usage: dart run jni_gen:setup [-f]');
-      stderr.writeln('use -f option to rebuild ApiSummarizer jar '
-          'even if it already exists.');
+      stderr.writeln('* -f\trebuild ApiSummarizer jar even if it already '
+          'exists.');
     } else {
       force = true;
     }

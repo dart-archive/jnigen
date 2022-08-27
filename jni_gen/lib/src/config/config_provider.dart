@@ -16,9 +16,16 @@ class ConfigError extends Error {
 
 class ConfigProvider {
   ConfigProvider.of(this.cli, this.yaml);
+  ConfigProvider.fromYaml(this.yaml) : cli = const {};
+  ConfigProvider.fromMap(this.cli) : yaml = const {};
   Map<String, String> cli;
   Map<dynamic, dynamic> yaml;
 
+  /// Parses the provided command line arguments and returns a [ConfigProvider].
+  ///
+  /// This is a utility function which does all things a program would do when
+  /// parsing command line arguments, including exiting from the program when
+  /// arguments are invalid.
   static ConfigProvider parseArgs(List<String> args,
       {bool allowYamlConfig = true}) {
     final parser = ArgParser();
@@ -27,6 +34,7 @@ class ConfigProvider {
     // Sometimes it's required to change a config value for a single invocation,
     // then this option can be used. Conventionally in -D switch is used in
     // C to set preprocessor variable & in java to override a config property.
+
     parser.addMultiOption('override',
         abbr: 'D',
         help: 'Override or assign a config property from command line.');

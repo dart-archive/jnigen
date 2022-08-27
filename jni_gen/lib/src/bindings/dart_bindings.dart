@@ -5,7 +5,7 @@
 import 'dart:io';
 
 import 'package:jni_gen/src/elements/elements.dart';
-import 'package:jni_gen/src/config/wrapper_options.dart';
+import 'package:jni_gen/src/config/config.dart';
 import 'package:jni_gen/src/util/rename_conflict.dart';
 
 import 'symbol_resolver.dart';
@@ -29,8 +29,8 @@ class DartBindingsGenerator {
 
   static const String _jlObject = '${jni}JlObject';
 
-  DartBindingsGenerator(this.options, this.resolver);
-  WrapperOptions options;
+  DartBindingsGenerator(this.config, this.resolver);
+  Config config;
   SymbolResolver resolver;
 
   String generateBinding(ClassDecl decl) {

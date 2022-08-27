@@ -31,7 +31,7 @@ class MavenTools {
   }
 
   static Future<void> _runMavenCommand(
-      List<MvnDep> deps, List<String> mvnArgs) async {
+      List<MavenDependency> deps, List<String> mvnArgs) async {
     final pom = _getStubPom(deps);
     _verboseLog('using POM stub:\n$pom');
     await File(_tempPom).writeAsString(pom);
@@ -42,13 +42,13 @@ class MavenTools {
     await Directory(_tempTarget).delete(recursive: true);
   }
 
-  /// Create a list of [MvnDep] objects from maven coordinates in string form.
-  static List<MvnDep> deps(List<String> depNames) =>
-      depNames.map(MvnDep.fromString).toList();
+  /// Create a list of [MavenDependency] objects from maven coordinates in string form.
+  static List<MavenDependency> deps(List<String> depNames) =>
+      depNames.map(MavenDependency.fromString).toList();
 
   /// Downloads and unpacks source files of [deps] into [targetDir].
   static Future<void> downloadMavenSources(
-      List<MvnDep> deps, String targetDir) async {
+      List<MavenDependency> deps, String targetDir) async {
     await _runMavenCommand(deps, [
       'dependency:unpack-dependencies',
       '-DoutputDirectory=$targetDir',
@@ -58,7 +58,7 @@ class MavenTools {
 
   /// Downloads JAR files of all [deps] transitively into [targetDir].
   static Future<void> downloadMavenJars(
-      List<MvnDep> deps, String targetDir) async {
+      List<MavenDependency> deps, String targetDir) async {
     await _runMavenCommand(deps, [
       'dependency:copy-dependencies',
       '-DoutputDirectory=$targetDir',
@@ -66,7 +66,7 @@ class MavenTools {
   }
 
   /// Get classpath string using JARs in maven's local repository.
-  static Future<String> getMavenClassPath(List<MvnDep> deps) async {
+  static Future<String> getMavenClassPath(List<MavenDependency> deps) async {
     await _runMavenCommand(deps, [
       'dependency:build-classpath',
       '-Dmdep.outputFile=$_tempClassPath',
@@ -77,7 +77,8 @@ class MavenTools {
     return classpath;
   }
 
-  static String _getStubPom(List<MvnDep> deps, {String javaVersion = '11'}) {
+  static String _getStubPom(List<MavenDependency> deps,
+      {String javaVersion = '11'}) {
     final i2 = ' ' * 2;
     final i4 = ' ' * 4;
     final i6 = ' ' * 6;
@@ -119,15 +120,15 @@ class MavenTools {
 }
 
 /// Maven dependency with group ID, artifact ID, and version.
-class MvnDep {
-  MvnDep(this.groupID, this.artifactID, this.version,
+class MavenDependency {
+  MavenDependency(this.groupID, this.artifactID, this.version,
       {this.otherTags = const {}});
-  factory MvnDep.fromString(String fullName) {
+  factory MavenDependency.fromString(String fullName) {
     final components = fullName.split(':');
     if (components.length != 3) {
       throw ArgumentError('invalid name for maven dependency: $fullName');
     }
-    return MvnDep(components[0], components[1], components[2]);
+    return MavenDependency(components[0], components[1], components[2]);
   }
   String groupID, artifactID, version;
   Map<String, String> otherTags;

@@ -4,6 +4,11 @@
 
 import 'package:jni_gen/src/elements/elements.dart';
 
+bool _matchesCompletely(String string, Pattern pattern) {
+  final match = pattern.matchAsPrefix(string);
+  return match != null && match.group(0) == string;
+}
+
 /// A filter which tells if bindings for given [ClassDecl] are generated.
 abstract class ClassFilter {
   bool included(ClassDecl decl);
@@ -17,11 +22,6 @@ class CustomClassFilter implements ClassFilter {
   bool included(ClassDecl decl) {
     return predicate(decl);
   }
-}
-
-bool _matchesCompletely(String string, Pattern pattern) {
-  final match = pattern.matchAsPrefix(string);
-  return match != null && match.group(0) == string;
 }
 
 /// Filter to include / exclude classes by matching on the binary name.
@@ -45,6 +45,7 @@ abstract class MemberFilter<T extends ClassMember> {
   bool included(ClassDecl classDecl, T member);
 }
 
+/// Filter that excludes or includes members based on class and member name.
 class MemberNameFilter<T extends ClassMember> implements MemberFilter<T> {
   MemberNameFilter.include(this.classPattern, this.namePattern)
       : onMatch = true;
@@ -60,6 +61,7 @@ class MemberNameFilter<T extends ClassMember> implements MemberFilter<T> {
   }
 }
 
+/// Filter that includes or excludes a member based on a custom callback.
 class CustomMemberFilter<T extends ClassMember> implements MemberFilter<T> {
   CustomMemberFilter(this.predicate);
   bool Function(ClassDecl, T) predicate;
@@ -67,6 +69,7 @@ class CustomMemberFilter<T extends ClassMember> implements MemberFilter<T> {
   bool included(ClassDecl classDecl, T member) => predicate(classDecl, member);
 }
 
+/// Filter which excludes classes excluded by any one filter in [filters].
 class CombinedClassFilter implements ClassFilter {
   CombinedClassFilter.all(this.filters);
   final List<ClassFilter> filters;
@@ -74,6 +77,7 @@ class CombinedClassFilter implements ClassFilter {
   bool included(ClassDecl decl) => filters.every((f) => f.included(decl));
 }
 
+/// Filter which excludes members excluded by any one filter in [filters].
 class CombinedMemberFilter<T extends ClassMember> implements MemberFilter<T> {
   CombinedMemberFilter(this.filters);
 
