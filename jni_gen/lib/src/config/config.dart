@@ -148,6 +148,11 @@ class Config {
 
   String? dumpJsonTo;
 
+  static Uri? _toDirUri(String? path) =>
+      path != null ? Uri.directory(path) : null;
+  static List<Uri>? _toUris(List<String>? paths) =>
+      paths?.map(Uri.file).toList();
+
   static Config parseArgs(List<String> args) {
     final prov = ConfigProvider.parseArgs(args);
 
@@ -160,8 +165,6 @@ class Config {
       }
       return res;
     }
-
-    List<Uri>? toUris(List<String>? paths) => paths?.map(Uri.file).toList();
 
     MemberFilter<T>? regexFilter<T extends ClassMember>(String property) {
       final exclusions = prov.getStringList(property);
@@ -192,14 +195,14 @@ class Config {
     }
 
     final config = Config(
-      sourcePath: toUris(prov.getStringList(_Props.sourcePath)),
-      classPath: toUris(prov.getStringList(_Props.classPath)),
+      sourcePath: _toUris(prov.getStringList(_Props.sourcePath)),
+      classPath: _toUris(prov.getStringList(_Props.classPath)),
       classes: must(prov.getStringList, [], _Props.classes),
       summarizerOptions: SummarizerOptions(
-        extraArgs: prov.getStringList(_Props.summarizerArgs) ?? [],
+        extraArgs: prov.getStringList(_Props.summarizerArgs) ?? const [],
         backend: prov.getString(_Props.backend),
         workingDirectory:
-            Uri.directory(prov.getString(_Props.summarizerWorkingDir) ?? '.'),
+            _toDirUri(prov.getString(_Props.summarizerWorkingDir)),
       ),
       exclude: BindingExclusions(
         methods: regexFilter<Method>(_Props.excludeMethods),
@@ -207,9 +210,9 @@ class Config {
       ),
       cRoot: Uri.directory(must(prov.getString, '', _Props.cRoot)),
       dartRoot: Uri.directory(must(prov.getString, '', _Props.dartRoot)),
-      preamble: prov.getString(_Props.preamble) ?? '',
+      preamble: prov.getString(_Props.preamble),
       libraryName: must(prov.getString, '', _Props.libraryName),
-      importMap: prov.getStringMap(_Props.importMap) ?? const {},
+      importMap: prov.getStringMap(_Props.importMap),
       mavenDownloads: prov.hasValue(_Props.mavenDownloads)
           ? MavenDownloads(
               sourceDeps: prov.getStringList(_Props.sourceDeps) ?? const [],

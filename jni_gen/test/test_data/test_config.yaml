@@ -1,6 +1,5 @@
 summarizer:
   use_asm: false
-  log_level: 'warn'
   classes:
     - 'a.b.c'
     - 'x.y.z'

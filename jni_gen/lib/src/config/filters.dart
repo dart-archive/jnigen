@@ -116,37 +116,3 @@ MemberFilter<T> excludeAll<T extends ClassMember>(List<List<Pattern>> names) {
   return CombinedMemberFilter<T>(
       names.map((p) => MemberNameFilter<T>.exclude(p[0], p[1])).toList());
 }
-
-/// Options that affect the semantics of the generated code.
-class WrapperOptions {
-  const WrapperOptions({
-    this.classFilter,
-    this.fieldFilter,
-    this.methodFilter,
-    this.classTransformer,
-    this.methodTransformer,
-    this.fieldTransformer,
-    this.importPaths = const {},
-  });
-
-  /// Mapping from java package names to dart packages.
-  /// A mapping `a.b` -> `package:a_b/' means that
-  /// any import `a.b.C` will be resolved as `package:a_b/a/b.dart` in dart.
-  /// Note that dart bindings use the same hierarchy as the java packages.
-  final Map<String, String> importPaths;
-
-  /// [ClassFilter] to decide if bindings for a class should be generated.
-  final ClassFilter? classFilter;
-
-  /// [FieldFilter] to decide if bindings for a field should be generated.
-  final FieldFilter? fieldFilter;
-
-  /// [MethodFilter] to decide if bindings for a method should be generated.
-  final MethodFilter? methodFilter;
-
-  // TODO(#26): This allows us to implement flexible renaming and more customization
-  // via the dart API.
-  final ClassDecl? Function(ClassDecl decl)? classTransformer;
-  final Method? Function(Method method)? methodTransformer;
-  final Field? Function(Field field)? fieldTransformer;
-}

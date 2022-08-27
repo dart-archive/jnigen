@@ -25,13 +25,13 @@ const jacksonPreamble = '// Generated from jackson-core which is licensed under'
 
 const testName = 'jackson_core_test';
 final thirdParty = join('test', testName, 'third_party');
+const deps = ['com.fasterxml.jackson.core:jackson-core:2.13.3'];
 
-Future<void> generate(
+Config getConfig(
     {bool isTest = false,
     bool generateFullVersion = false,
-    bool useAsm = false}) async {
-  final deps = ['com.fasterxml.jackson.core:jackson-core:2.13.3'];
-  await generateJniBindings(Config(
+    bool useAsm = false}) {
+  final config = Config(
     mavenDownloads: MavenDownloads(
       sourceDeps: deps,
       sourceDir: join(thirdParty, 'java'),
@@ -59,7 +59,17 @@ Future<void> generate(
         ['com.fasterxml.jackson.core.io.UTF32Reader', 'NC'],
       ]),
     ),
-  ));
+  );
+  return config;
+}
+
+Future<void> generate(
+    {bool isTest = false,
+    bool generateFullVersion = false,
+    bool useAsm = false}) async {
+  final config = getConfig(
+      isTest: isTest, generateFullVersion: generateFullVersion, useAsm: useAsm);
+  await generateJniBindings(config);
 }
 
 void main() => generate(isTest: false);
