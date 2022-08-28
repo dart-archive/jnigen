@@ -36,8 +36,7 @@ class MavenTools {
     _verboseLog('using POM stub:\n$pom');
     await File(_tempPom).writeAsString(pom);
     await Directory(_tempTarget).create();
-    await _runCmd(
-        'mvn', ['-f', _tempPom, '-DbuildDirectory=$_tempTarget', ...mvnArgs]);
+    await _runCmd('mvn', ['-f', _tempPom, ...mvnArgs]);
     await File(_tempPom).delete();
     await Directory(_tempTarget).delete(recursive: true);
   }
@@ -116,6 +115,9 @@ class MavenTools {
         '$i4<dependencies>\n'
         '${depDecls.join("\n")}'
         '$i2</dependencies>\n'
+        '$i2<build>\n'
+        '$i4<directory>$_tempTarget</directory>'
+        '$i2</build>\n'
         '</project>';
   }
 }
