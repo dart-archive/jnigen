@@ -1,0 +1,11 @@
+android_sdk_config:
+  versions: ['28', '31']
+
+library_name: android_utils
+source_path:
+  - 'android/app/src/main/java'
+classes:
+  - 'com.example.in_app_java.AndroidUtils'
+c_root: src/android_utils
+dart_root: lib/android_utils
+

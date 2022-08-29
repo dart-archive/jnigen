@@ -159,7 +159,6 @@ class Config {
 
   static Config parseArgs(List<String> args) {
     final prov = YamlReader.parseArgs(args);
-
     final List<String> missingValues = [];
     T must<T>(T? Function(String) f, T ifNull, String property) {
       final res = f(property);
