@@ -16,7 +16,7 @@ abstract class BindingsWriter {
 
 /// Writer which executes custom callback on passed class elements.
 ///
-/// This class is provided for debugging purpose.
+/// This class is provided for debugging purposes.
 class CallbackWriter implements BindingsWriter {
   CallbackWriter(this.callback);
   Future<void> Function(Iterable<ClassDecl>) callback;

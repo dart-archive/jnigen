@@ -16,6 +16,8 @@ final src = join(thirdParty, 'src');
 final testLib = join(thirdParty, 'test_lib');
 final testSrc = join(thirdParty, 'test_src');
 
+/// Compares 2 [Config] objects using [expect] to give useful errors when
+/// two fields are not equal.
 void assertConfigsAreEqual(Config a, Config b) {
   expect(a.classes, equals(b.classes));
   expect(a.libraryName, equals(b.libraryName));

@@ -14,19 +14,20 @@ class ConfigError extends Error {
   String toString() => message;
 }
 
-class ConfigProvider {
-  ConfigProvider.of(this.cli, this.yaml);
-  ConfigProvider.fromYaml(this.yaml) : cli = const {};
-  ConfigProvider.fromMap(this.cli) : yaml = const {};
+/// YAML Reader which allows to override specific values from command line.
+class YamlReader {
+  YamlReader.of(this.cli, this.yaml);
+  YamlReader.fromYaml(this.yaml) : cli = const {};
+  YamlReader.fromMap(this.cli) : yaml = const {};
   Map<String, String> cli;
   Map<dynamic, dynamic> yaml;
 
-  /// Parses the provided command line arguments and returns a [ConfigProvider].
+  /// Parses the provided command line arguments and returns a [YamlReader].
   ///
   /// This is a utility function which does all things a program would do when
   /// parsing command line arguments, including exiting from the program when
   /// arguments are invalid.
-  static ConfigProvider parseArgs(List<String> args,
+  static YamlReader parseArgs(List<String> args,
       {bool allowYamlConfig = true}) {
     final parser = ArgParser();
     parser.addFlag('help', abbr: 'h', help: 'Show this help.');
@@ -74,7 +75,7 @@ class ConfigProvider {
         throw ConfigError('override does not match expected pattern');
       }
     }
-    return ConfigProvider.of(properties, yamlMap);
+    return YamlReader.of(properties, yamlMap);
   }
 
   bool? getBool(String property) {

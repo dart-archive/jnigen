@@ -6,7 +6,7 @@ import 'dart:io';
 
 import 'package:jni_gen/src/elements/elements.dart';
 
-import 'config_provider.dart';
+import 'yaml_reader.dart';
 import 'filters.dart';
 
 /// Configuration for dependencies to be downloaded using maven.
@@ -80,7 +80,7 @@ class BindingExclusions {
   ClassFilter? classes;
 }
 
-/// Represents a complete jni_gen binding generation configuration.
+/// Configuration for jni_gen binding generation.
 class Config {
   Config({
     required this.classes,
@@ -158,7 +158,7 @@ class Config {
       paths?.map(Uri.file).toList();
 
   static Config parseArgs(List<String> args) {
-    final prov = ConfigProvider.parseArgs(args);
+    final prov = YamlReader.parseArgs(args);
 
     final List<String> missingValues = [];
     T must<T>(T? Function(String) f, T ifNull, String property) {

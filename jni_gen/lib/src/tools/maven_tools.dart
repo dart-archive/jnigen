@@ -79,46 +79,45 @@ class MavenTools {
 
   static String _getStubPom(List<MavenDependency> deps,
       {String javaVersion = '11'}) {
-    final i2 = ' ' * 2;
-    final i4 = ' ' * 4;
-    final i6 = ' ' * 6;
-    final i8 = ' ' * 8;
     final depDecls = <String>[];
-
     for (var dep in deps) {
       final otherTags = StringBuffer();
       for (var entry in dep.otherTags.entries) {
-        otherTags.write('$i6<${entry.key}>\n'
-            '$i8${entry.value}\n'
-            '$i6</${entry.key}>\n');
+        otherTags.write('''
+      <${entry.key}>
+        ${entry.value}
+      </${entry.key}>
+      ''');
       }
-      depDecls.add('$i4<dependency>\n'
-          '$i6<groupId>${dep.groupID}</groupId>\n'
-          '$i6<artifactId>${dep.artifactID}</artifactId>\n'
-          '$i6<version>${dep.version}</version>\n'
-          '${otherTags.toString()}\n'
-          '$i4</dependency>\n');
+      depDecls.add('''
+      <dependency>
+        <groupId>${dep.groupID}</groupId>
+        <artifactId>${dep.artifactID}</artifactId>
+        <version>${dep.version}</version>
+        ${otherTags.toString()}
+      </dependency>''');
     }
 
-    return '<project xmlns="http://maven.apache.org/POM/4.0.0" '
-        'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
-        'xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 '
-        'http://maven.apache.org/xsd/maven-4.0.0.xsd">\n'
-        '$i2<modelVersion>4.0.0</modelVersion>\n'
-        '$i2<groupId>com.mycompany.app</groupId>\n'
-        '$i2<artifactId>my-app</artifactId>\n'
-        '$i2<version>1.0-SNAPSHOT</version>\n'
-        '$i2<properties>\n'
-        '$i4<maven.compiler.source>$javaVersion</maven.compiler.source>\n'
-        '$i4<maven.compiler.target>$javaVersion</maven.compiler.target>\n'
-        '$i2</properties>\n'
-        '$i4<dependencies>\n'
-        '${depDecls.join("\n")}'
-        '$i2</dependencies>\n'
-        '$i2<build>\n'
-        '$i4<directory>$_tempTarget</directory>'
-        '$i2</build>\n'
-        '</project>';
+    return '''
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+  http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mycompany.app</groupId>
+    <artifactId>jnigen_maven_stub</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <properties>
+      <maven.compiler.source>$javaVersion</maven.compiler.source>
+      <maven.compiler.target>$javaVersion</maven.compiler.target>
+    </properties>
+    <dependencies>
+${depDecls.join("\n")}
+    </dependencies>
+    <build>
+      <directory>$_tempTarget</directory>
+    </build>
+</project>''';
   }
 }
 
