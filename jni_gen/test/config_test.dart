@@ -18,7 +18,7 @@ final testSrc = join(thirdParty, 'test_src');
 
 /// Compares 2 [Config] objects using [expect] to give useful errors when
 /// two fields are not equal.
-void assertConfigsAreEqual(Config a, Config b) {
+void expectConfigsAreEqual(Config a, Config b) {
   expect(a.classes, equals(b.classes));
   expect(a.libraryName, equals(b.libraryName));
   expect(a.cRoot, equals(b.cRoot));
@@ -69,6 +69,6 @@ void main() {
   ]);
 
   test('compare configuration values', () {
-    assertConfigsAreEqual(config, getConfig(isTest: true));
+    expectConfigsAreEqual(config, getConfig(isTest: true));
   });
 }
