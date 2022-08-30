@@ -230,9 +230,10 @@ jobs:
           cache: true
           cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
       - run: flutter pub get
+      - run: flutter analyze
       - run: flutter build apk
       - name: re-generate bindings
-        run: flutter pub run jni_gen -Ddart_root=_dart -Dc_root=_c --config jni_gen.yaml
+        run: flutter pub run jni_gen -Ddart_root=_dart -Dc_root=_c --config jnigen.yaml
       - name: compare generated dart bindings
         run: diff -qr lib/android_utils _dart
       - name: compare generated C bindings
