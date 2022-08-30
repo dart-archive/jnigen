@@ -1,1 +1,0 @@
--keep public class com.example.in_app_java.** { *; }

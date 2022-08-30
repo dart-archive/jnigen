@@ -1,13 +1,15 @@
-# in_app_java
+# In-App Java Example
 
-Minimal example on how to integrate java and dart code in flutter project using `jni_gen`.
+This example shows how to write custom java code in `android/app/src` and call it using `jni_gen` generated bindings.
 
 #### How to run this example:
-* Run `dart run jni_gen --config jnigen.yaml`
+* Run `flutter run` to run the app.
 
-* `flutter run`
+* To regenerate bindings after changing Java code, run `flutter pub run jni_gen --config jnigen.yaml`. This requires at least one APK build to have been run before, so that it's possible for `jni_gen` to obtain classpaths of Android Gradle libraries. Therefore, once run `flutter build apk` before generating bindings for the first time, or after a `flutter clean`.
 
-#### General steps:
+#### General steps
+These are general steps to integrate Java code into a flutter project using `jni_gen`.
+
 * Write Java code in suitable package folder, under `android/` subproject of the flutter app.
 
 * Create A jnigen config like `jnigen.yaml` in this example.
@@ -19,7 +21,4 @@ Minimal example on how to integrate java and dart code in flutter project using 
 * Add proguard rules to exclude your custom classes from tree shaking, since they are always accessed reflectively in JNI.
 
 * Build and run the app.
-
-#### Caveats
-It's possible to use only android core libraries in the Java code. See [#33](https://github.com/dart-lang/jni_gen/issues/33) for more details. We have plans to add some tooling to make working with android gradle dependencies easier.
 
