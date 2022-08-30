@@ -117,6 +117,8 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
       - uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
@@ -157,6 +159,8 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
       - uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
@@ -180,6 +184,8 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
       - uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
@@ -202,9 +208,35 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
       - run: flutter pub get
       - run: flutter build apk
-      - run: flutter build appbundle
+
+  build_in_app_java_example:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./jni_gen/examples/in_app_java
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+          cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
+      - run: flutter pub get
+      - run: flutter build apk
+      - name: re-generate bindings
+        run: flutter pub run jni_gen -Ddart_root=_dart -Dc_root=_c --config jni_gen.yaml
+      - name: compare generated dart bindings
+        run: diff -qr lib/android_utils _dart
+      - name: compare generated C bindings
+        run: diff -qr src/android_utils _c
 
   coveralls_finish:
     needs: [test_jni_gen, test_jni]
