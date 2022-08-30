@@ -47,12 +47,30 @@ class MavenDownloads {
 ///
 /// If [includeSources] is true, `jni_gen` searches for Android SDK sources
 /// as well in the SDK directory and adds them to the source path.
+///
+/// If [addGradleDeps] is true, a gradle stub is run in order to collect the
+/// actual compile classpath of the `android/` subproject.
+/// This will fail if there was no previous build of the project, or if a
+/// `clean` task was run either through flutter or gradle wrapper. In such case,
+/// it's required to run `flutter build apk` & retry running `jni_gen`.
+///
+/// A configuration is invalid if [versions] is unspecified or empty, and
+/// [addGradleDeps] is also false.
 class AndroidSdkConfig {
   AndroidSdkConfig(
-      {required this.versions, this.sdkRoot, this.includeSources = false});
-  List<int> versions;
+      {this.versions,
+      this.sdkRoot,
+      this.includeSources = false,
+      this.addGradleDeps = false}) {
+    if (versions == null && !addGradleDeps) {
+      throw ArgumentError('Neither any SDK versions nor `addGradleDeps` '
+          'is specified. Unable to find Android libraries.');
+    }
+  }
+  List<int>? versions;
   String? sdkRoot;
   bool includeSources;
+  bool addGradleDeps;
 }
 
 /// Additional options to pass to the summary generator component.
@@ -228,13 +246,14 @@ class Config {
           : null,
       androidSdkConfig: prov.hasValue(_Props.androidSdkConfig)
           ? AndroidSdkConfig(
-              versions: must<List<String>>(
-                      prov.getStringList, [], _Props.androidSdkVersions)
-                  .map(int.parse)
+              versions: prov
+                  .getStringList(_Props.androidSdkVersions)
+                  ?.map(int.parse)
                   .toList(),
               sdkRoot: getSdkRoot(),
               includeSources:
                   prov.getBool(_Props.includeAndroidSources) ?? false,
+              addGradleDeps: prov.getBool(_Props.addGradleDeps) ?? false,
             )
           : null,
     );
@@ -285,4 +304,5 @@ class _Props {
   static const androidSdkRoot = '$androidSdkConfig.sdk_root';
   static const androidSdkVersions = '$androidSdkConfig.versions';
   static const includeAndroidSources = '$androidSdkConfig.include_sources';
+  static const addGradleDeps = '$androidSdkConfig.add_gradle_deps';
 }

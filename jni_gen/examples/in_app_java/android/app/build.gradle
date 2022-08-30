@@ -66,20 +66,11 @@ externalNativeBuild {
 			path "../../src/android_utils/CMakeLists.txt"
 		}
 	}
-
-	project.afterEvaluate {
-	  def cp = [android.getBootClasspath()[0]]
-	  android.applicationVariants.each {
-	  	cp += it.javaCompile.classpath.getFiles()
-	  }
-	  cp.each { println it }
-	}
 }
 
 flutter {
     source '../..'
 }
-
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
