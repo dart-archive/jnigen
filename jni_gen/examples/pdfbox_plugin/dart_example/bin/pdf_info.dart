@@ -9,12 +9,10 @@ import 'package:pdfbox_plugin/org/apache/pdfbox/pdmodel.dart';
 void writeInfo(String file) {
   var jni = Jni.getInstance();
 
-  // var inputFile = new FileInputStream(file)
   var inputFile = jni
       .newInstance("java/io/FileInputStream", "(Ljava/lang/String;)V", [file]);
   var inputJl = JlObject.fromRef(inputFile.jobject);
 
-  // pdDoc = PDDocument.load(inputFile)
   var pdDoc = PDDocument.load7(inputJl);
   int pages = pdDoc.getNumberOfPages();
   final info = pdDoc.getDocumentInformation();
