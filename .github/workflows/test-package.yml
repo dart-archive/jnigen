@@ -253,7 +253,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./jni_gen/examples/pdfbox_plugin
+        working-directory: ./jni_gen/examples/pdfbox_example
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -272,16 +272,17 @@ jobs:
       - run: flutter pub get
       - name: Generate bindings
         run: |
-          dart run jni_gen --config jnigen.yaml
+          flutter pub get
+          flutter pub run jni_gen --config jnigen.yaml
+        working-directory: ./jni_gen/examples/pdfbox_example/pdfbox_plugin
       - name: Analyze generated bindings
-        run: dart analyze
-      - name: Run standalone example
-        run: |
-          dart run jni:setup && dart run jni:setup -p pdfbox_plugin
-          wget 'https://dart.dev/guides/language/specifications/DartLangSpec-v2.2.pdf'
-          dart run bin/pdf_info.dart DartLangSpec-v2.2.pdf
-        working-directory: ./jni_gen/examples/pdfbox_plugin/dart_example
+        run: flutter analyze
       - name: Build flutter example for pdfbox_plugin
         run: flutter build linux
-        working-directory: ./jni_gen/examples/pdfbox_plugin/example
+      - name: Run standalone example
+        run: |
+          dart pub get
+          dart run jni:setup && dart run jni:setup -p pdfbox_plugin
+          wget 'https://dart.dev/guides/language/specifications/DartLangSpec-v2.2.pdf'
+          dart run pdfbox_example:pdf_info DartLangSpec-v2.2.pdf
 
