@@ -32,9 +32,6 @@ migrate_working_dir/
 .pub/
 /build/
 
-# compiled standalone executable
-*.exe
-
 # Web related
 lib/generated_plugin_registrant.dart
 

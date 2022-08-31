@@ -40,7 +40,8 @@ void writeInfo(String file) {
 final jniLibsDir = join('build', 'jni_libs');
 
 void main(List<String> arguments) {
-  final jarPath = join('pdfbox_plugin', 'mvn_jar');
+  final libPath = dirname(dirname(Platform.script.toFilePath()));
+  final jarPath = join(dirname(libPath), 'mvn_jar');
   final jars = Directory(jarPath)
       .listSync()
       .map((entry) => entry.path)
