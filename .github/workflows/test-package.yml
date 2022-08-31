@@ -171,7 +171,6 @@ jobs:
       - run: flutter config --enable-linux-desktop
       - run: flutter pub get
       - run: dart run jni:setup
-      - run: flutter test
       - run: flutter build linux
 
   build_jni_example_windows:
