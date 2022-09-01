@@ -41,11 +41,22 @@ final jniLibsDir = join('build', 'jni_libs');
 
 void main(List<String> arguments) {
   final jarPath = join('..', 'mvn_jar');
-  final jars = Directory(jarPath)
-      .listSync()
-      .map((entry) => entry.path)
-      .where((path) => path.endsWith('.jar'))
-      .toList();
+  List<String> jars;
+  try {
+    jars = Directory(jarPath)
+        .listSync()
+        .map((entry) => entry.path)
+        .where((path) => path.endsWith('.jar'))
+        .toList();
+  } on OSError catch (e) {
+    stderr.writeln(e);
+    stderr.writeln('Please download JAR files in plugin directory.');
+    stderr.writeln('`dart run jni_gen:download_maven_jars --config '
+        'jni_gen.yaml`');
+    stderr.writeln('or alternatively regenerate bindings so that '
+        'JARs will be automatically downloaded');
+    return;
+  }
   Jni.spawn(helperDir: jniLibsDir, classPath: jars);
   if (arguments.length != 1) {
     stderr.writeln('usage: dart run pdf_info:pdf_info <Path_to_PDF>');

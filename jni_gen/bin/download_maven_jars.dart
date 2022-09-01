@@ -12,11 +12,12 @@ import 'package:jni_gen/tools.dart';
 /// Useful for running standalone examples on already generated sources.
 void main(List<String> args) async {
   final config = Config.parseArgs(args);
-  final mvnDl = config.mavenDownloads;
-  if (mvnDl != null) {
+  final mavenDownloads = config.mavenDownloads;
+  if (mavenDownloads != null) {
     await MavenTools.downloadMavenJars(
-        MavenTools.deps(mvnDl.jarOnlyDeps + mvnDl.sourceDeps), mvnDl.jarDir);
-    await Directory(mvnDl.jarDir)
+        MavenTools.deps(mavenDownloads.jarOnlyDeps + mavenDownloads.sourceDeps),
+        mavenDownloads.jarDir);
+    await Directory(mavenDownloads.jarDir)
         .list()
         .map((entry) => entry.path)
         .where((path) => path.endsWith('.jar'))
