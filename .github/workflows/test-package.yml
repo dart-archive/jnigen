@@ -279,9 +279,12 @@ jobs:
       - name: Generate full bindings
         run: dart run jni_gen --config jnigen_full.yaml
       - name: Analyze generated bindings
-        run: dart analyze
+        run: |
+          flutter pub get # dart-analyze errors on flutter example
+          flutter analyze
       - name: Run standalone example
         run: |
+          dart pub get
           dart run jni:setup && dart run jni:setup -p pdfbox_plugin
           wget 'https://dart.dev/guides/language/specifications/DartLangSpec-v2.2.pdf'
           dart run bin/pdf_info.dart DartLangSpec-v2.2.pdf
