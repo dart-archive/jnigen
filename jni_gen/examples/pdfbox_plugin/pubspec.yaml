@@ -20,9 +20,8 @@ dev_dependencies:
   ## Path dependency for sake of the example
   jni_gen:
     path: ../../
-  #flutter_test:
-    #sdk: flutter
-  flutter_lints: ^2.0.0
+  test: any
+  lints: ^2.0.0
 
 flutter:
   # A JNI plugin uses FFI for calling into C code. Thus the relevant shared
