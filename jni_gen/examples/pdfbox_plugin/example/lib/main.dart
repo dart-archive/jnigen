@@ -10,7 +10,7 @@ import 'package:path/path.dart';
 // Note: the structure generated bindings corresponds to Java package's
 // structure. Therefore, `org.apache.pdfbox.pdmodel` package becomes
 // `org/apache/pdfbox/pdmodel.dart`
-import 'package:pdfbox_plugin/org/apache/pdfbox/pdmodel.dart';
+import 'package:pdfbox_plugin/third_party/org/apache/pdfbox/pdmodel.dart';
 
 Stream<String> files(String dir) => Directory(dir).list().map((e) => e.path);
 
@@ -187,7 +187,7 @@ Padding _pad(Widget w) => Padding(
 TableRow _pdfInfo(PDFFileInfo info) {
   return TableRow(children: [
     TableCell(
-        child: _pad(Text(info.filename,
+        child: _pad(Text(basename(info.filename),
             style: const TextStyle(fontWeight: FontWeight.bold)))),
     TableCell(child: _pad(Text(info.title))),
     TableCell(

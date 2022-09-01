@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 import 'package:jni/jni.dart';
 import 'dart:ffi';
 
-import 'package:pdfbox_plugin/org/apache/pdfbox/pdmodel.dart';
+import 'package:pdfbox_plugin/third_party/org/apache/pdfbox/pdmodel.dart';
 
 void writeInfo(String file) {
   var jni = Jni.getInstance();
@@ -40,8 +40,7 @@ void writeInfo(String file) {
 final jniLibsDir = join('build', 'jni_libs');
 
 void main(List<String> arguments) {
-  final libPath = dirname(dirname(Platform.script.toFilePath()));
-  final jarPath = join(dirname(libPath), 'mvn_jar');
+  final jarPath = join('..', 'mvn_jar');
   final jars = Directory(jarPath)
       .listSync()
       .map((entry) => entry.path)
@@ -49,7 +48,7 @@ void main(List<String> arguments) {
       .toList();
   Jni.spawn(helperDir: jniLibsDir, classPath: jars);
   if (arguments.length != 1) {
-    stderr.writeln('usage: dart run bin/dart_example.dart <Path_to_PDF>');
+    stderr.writeln('usage: dart run pdf_info:pdf_info <Path_to_PDF>');
     exitCode = 1;
     return;
   }

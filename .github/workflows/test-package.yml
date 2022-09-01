@@ -271,7 +271,13 @@ jobs:
       - run: flutter pub get
       - name: Generate bindings
         run: |
-          dart run jni_gen --config jnigen.yaml
+          dart run jni_gen -Dc_root=_c -Ddart_root=_dart --config jnigen.yaml
+      - name: Compare generated bindings
+        run: |
+          diff -qr _c src/
+          diff -qr _dart lib/third_party
+      - name: Generate full bindings
+        run: dart run jni_gen --config jnigen_full.yaml
       - name: Analyze generated bindings
         run: dart analyze
       - name: Run standalone example

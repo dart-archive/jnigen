@@ -37,9 +37,8 @@ dart_root: 'lib/third_party/'
 
 ## Classes / packages for which bindings need to be generated.
 classes:
-  - 'org.apache.pdfbox.pdmodel.PDDocument'
-  - 'org.apache.pdfbox.pdmodel.PDDocumentInformation'
-  - 'org.apache.pdfbox.text.PDFTextStripper'
+  - 'org.apache.pdfbox.pdmodel'
+  - 'org.apache.pdfbox.text'
 
 ## Dependencies to be downloaded using Maven (Invokes `mvn` command). These
 ## dependencies are always downloaded along with their transitive dependencies.

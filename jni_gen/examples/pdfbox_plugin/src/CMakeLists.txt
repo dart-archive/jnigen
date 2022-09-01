@@ -3,17 +3,17 @@
 # the plugin to fail to compile for some customers of the plugin.
 cmake_minimum_required(VERSION 3.10)
 
-project(jackson_core_test VERSION 0.0.1 LANGUAGES C)
+project(pdfbox_plugin VERSION 0.0.1 LANGUAGES C)
 
-add_library(jackson_core_test SHARED
-  "./jackson_core_test.c"
+add_library(pdfbox_plugin SHARED
+  "third_party//pdfbox_plugin.c"
 )
 
-set_target_properties(jackson_core_test PROPERTIES
-  OUTPUT_NAME "jackson_core_test"
+set_target_properties(pdfbox_plugin PROPERTIES
+  OUTPUT_NAME "pdfbox_plugin"
 )
 
-target_compile_definitions(jackson_core_test PUBLIC DART_SHARED_LIB)
+target_compile_definitions(pdfbox_plugin PUBLIC DART_SHARED_LIB)
 
 if(WIN32)
 	set_target_properties(${TARGET_NAME} PROPERTIES
@@ -21,10 +21,10 @@ if(WIN32)
 endif()
 
 if (ANDROID)
-	target_link_libraries(jackson_core_test log)
+	target_link_libraries(pdfbox_plugin log)
 else()
 	find_package(Java REQUIRED)
 	find_package(JNI REQUIRED)
 	include_directories(${JNI_INCLUDE_DIRS})
-	target_link_libraries(jackson_core_test ${JNI_LIBRARIES})
+	target_link_libraries(pdfbox_plugin ${JNI_LIBRARIES})
 endif()

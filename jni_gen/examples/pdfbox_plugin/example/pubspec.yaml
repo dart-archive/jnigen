@@ -1,4 +1,4 @@
-name: pdfbox_plugin_example
+name: pdfbox_example
 description: Demonstrates how to use the pdfbox_plugin plugin.
 
 # The following line prevents the package from being accidentally published to

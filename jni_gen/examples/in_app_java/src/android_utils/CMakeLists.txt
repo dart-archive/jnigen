@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.10)
 project(android_utils VERSION 0.0.1 LANGUAGES C)
 
 add_library(android_utils SHARED
-  "android_utils.c"
+  "./android_utils.c"
 )
 
 set_target_properties(android_utils PROPERTIES
