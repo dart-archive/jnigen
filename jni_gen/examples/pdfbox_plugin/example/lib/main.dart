@@ -15,12 +15,11 @@ import 'package:pdfbox_plugin/third_party/org/apache/pdfbox/pdmodel.dart';
 Stream<String> files(String dir) => Directory(dir).list().map((e) => e.path);
 
 late Jni jni;
-const jarError =
-'No JAR files were found.\n'
-'Run `dart run jni_gen:download_maven_jars --config jnigen.yaml` '
-'in plugin directory.\n'
-'Alternatively, regenerate JNI bindings in plugin directory, which will '
-'automatically download the JAR files.';
+const jarError = 'No JAR files were found.\n'
+    'Run `dart run jni_gen:download_maven_jars --config jnigen.yaml` '
+    'in plugin directory.\n'
+    'Alternatively, regenerate JNI bindings in plugin directory, which will '
+    'automatically download the JAR files.';
 
 void main() {
   if (!Platform.isAndroid) {
