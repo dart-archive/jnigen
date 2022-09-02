@@ -15,19 +15,35 @@ import 'package:pdfbox_plugin/third_party/org/apache/pdfbox/pdmodel.dart';
 Stream<String> files(String dir) => Directory(dir).list().map((e) => e.path);
 
 late Jni jni;
+const jarError =
+'No JAR files were found.\n'
+'Run `dart run jni_gen:download_maven_jars --config jnigen.yaml` '
+'in plugin directory.\n'
+'Alternatively, regenerate JNI bindings in plugin directory, which will '
+'automatically download the JAR files.';
 
 void main() {
   if (!Platform.isAndroid) {
     // Assuming application is run from example/ folder
     // It's required to manually provide the JAR files as classpath when
     // spawning the JVM.
-    const jars = '../mvn_jar/';
-    Jni.spawn(
-        classPath: Directory(jars)
-            .listSync()
-            .map((e) => e.path)
-            .where((path) => path.endsWith('.jar'))
-            .toList());
+    const jarDir = '../mvn_jar/';
+    List<String> jars;
+    try {
+      jars = Directory(jarDir)
+          .listSync()
+          .map((e) => e.path)
+          .where((path) => path.endsWith('.jar'))
+          .toList();
+    } on OSError catch (_) {
+      stderr.writeln(jarError);
+      return;
+    }
+    if (jars.isEmpty) {
+      stderr.writeln(jarError);
+      return;
+    }
+    Jni.spawn(classPath: jars);
   }
   jni = Jni.getInstance();
   runApp(const PDFInfoApp());
