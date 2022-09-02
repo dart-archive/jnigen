@@ -50,7 +50,7 @@ class MyHomePage extends StatelessWidget {
           children: [
             ElevatedButton(
               child: const Text('Show toast'),
-              onPressed: () => showToast(':-|'),
+              onPressed: () => showToast('😀'),
             ),
           ],
         ),
