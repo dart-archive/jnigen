@@ -63,10 +63,13 @@ task listDependencies(type: Copy) {
   ///
   /// This function temporarily overwrites the build.gradle file by a stub with
   /// function to list all dependency paths for release variant.
-  /// This function fails if no gradle build is attempted
-  static List<String> getGradleClasspaths() {
-    stderr.writeln('trying to obtain gradle classpaths');
-    const android = 'android';
+  /// This function fails if no gradle build is attempted before.
+  ///
+  /// if current project is not directly buildable by gradle, eg: a plugin,
+  /// a relative path to other project can be specified using [androidProject].
+  static List<String> getGradleClasspaths([String androidProject = '.']) {
+    stderr.writeln('trying to obtain gradle classpaths...');
+    final android = join(androidProject, 'android');
     final buildGradle = join(android, 'build.gradle');
     final buildGradleOld = join(android, 'build.gradle.old');
     final origBuild = File(buildGradle);
