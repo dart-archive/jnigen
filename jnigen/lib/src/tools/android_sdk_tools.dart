@@ -96,9 +96,7 @@ task listDependencies(type: Copy) {
           'This can be related to a known issue with gradle. Please run '
           '`flutter build apk`$inAndroidProject and try again\n');
     }
-    final classpaths = (procRes.stdout as String)
-        .trim()
-        .split('\n');
+    final classpaths = (procRes.stdout as String).trim().split('\n');
     log.info('Found release build classpath with ${classpaths.length} entries');
     return classpaths;
   }
