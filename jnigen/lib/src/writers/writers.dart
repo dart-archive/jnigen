@@ -59,7 +59,7 @@ class FilesWriter extends BindingsWriter {
     }
     final classNames = classesByName.keys.toSet();
 
-    Log.info('Creating dart init file ...');
+    log.info('Creating dart init file ...');
     final initFileUri = dartRoot.resolve(_initFileName);
     final initFile = await File.fromUri(initFileUri).create(recursive: true);
     await initFile.writeAsString(DartPreludes.initFile(config.libraryName),
@@ -77,7 +77,7 @@ class FilesWriter extends BindingsWriter {
     for (var packageName in packages.keys) {
       final relativeFileName = '${packageName.replaceAll('.', '/')}.dart';
       final dartFileUri = dartRoot.resolve(relativeFileName);
-      Log.info('Writing bindings for $packageName...');
+      log.info('Writing bindings for $packageName...');
       final dartFile = await File.fromUri(dartFileUri).create(recursive: true);
       final resolver = PackagePathResolver(
           config.importMap ?? const {}, packageName, classNames,
@@ -108,16 +108,17 @@ class FilesWriter extends BindingsWriter {
       await dartFileStream.close();
     }
     await cFileStream.close();
-    Log.info('Running dart format...');
+    log.info('Running dart format...');
     final formatRes =
         await Process.run('dart', ['format', dartRoot.toFilePath()]);
-    if (formatRes.exitCode != 0) {
-      Log.fatal('Dart format completed with exit code ${formatRes.exitCode} '
+    // if negative exit code, likely due to an interrupt.
+    if (formatRes.exitCode > 0) {
+      log.fatal('Dart format completed with exit code ${formatRes.exitCode} '
           'This usually means there\'s a syntax error in bindings.\n'
           'Please look at the generated files and report a bug.');
     }
 
-    Log.info('Copying auxiliary files...');
+    log.info('Copying auxiliary files...');
     await _copyFileFromPackage(
         'jni', 'src/dartjni.h', cRoot.resolve('$subdir/dartjni.h'));
     await _copyFileFromPackage(
@@ -127,7 +128,7 @@ class FilesWriter extends BindingsWriter {
           .replaceAll('{{LIBRARY_NAME}}', libraryName)
           .replaceAll('{{SUBDIR}}', subdir);
     });
-    Log.info('Completed.');
+    log.info('Completed.');
   }
 
   Future<void> _copyFileFromPackage(String package, String relPath, Uri target,
@@ -142,7 +143,7 @@ class FilesWriter extends BindingsWriter {
       }
       await targetFile.writeAsString(source);
     } else {
-      Log.warning('package $package not found! '
+      log.warning('package $package not found! '
           'skipped copying ${target.toFilePath()}');
     }
   }

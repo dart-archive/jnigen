@@ -28,7 +28,7 @@ class AndroidSdkTools {
   static Future<String?> getAndroidSourcesPath(
       {String? sdkRoot, required List<int> versionOrder}) async {
     final dir = _getVersionDir('sources', sdkRoot, versionOrder);
-    Log.info('Found sources at $dir');
+    log.info('Found sources at $dir');
     return dir;
   }
 
@@ -38,7 +38,7 @@ class AndroidSdkTools {
     if (platform == null) return null;
     final filePath = join(platform, file);
     if (await File(filePath).exists()) {
-      Log.info('Found $filePath');
+      log.info('Found $filePath');
       return filePath;
     }
     return null;
@@ -73,7 +73,7 @@ task listDependencies(type: Copy) {
   /// If current project is not directly buildable by gradle, eg: a plugin,
   /// a relative path to other project can be specified using [androidProject].
   static List<String> getGradleClasspaths([String androidProject = '.']) {
-    Log.info('trying to obtain gradle classpaths...');
+    log.info('trying to obtain gradle classpaths...');
     final android = join(androidProject, 'android');
     final buildGradle = join(android, 'build.gradle');
     final buildGradleOld = join(android, 'build.gradle.old');
@@ -81,12 +81,12 @@ task listDependencies(type: Copy) {
     final script = origBuild.readAsStringSync();
     origBuild.renameSync(buildGradleOld);
     origBuild.createSync();
-    Log.verbose('Writing temporary gradle script with stub function...');
+    log.finer('Writing temporary gradle script with stub function...');
     origBuild.writeAsStringSync('$script\n$_gradleListDepsFunction\n');
-    Log.verbose('Running gradle wrapper...');
+    log.finer('Running gradle wrapper...');
     final procRes = Process.runSync('./gradlew', ['-q', 'listDependencies'],
         workingDirectory: android);
-    Log.verbose('Restoring build scripts');
+    log.finer('Restoring build scripts');
     origBuild.writeAsStringSync(script);
     File(buildGradleOld).deleteSync();
     if (procRes.exitCode != 0) {
@@ -100,7 +100,7 @@ task listDependencies(type: Copy) {
     if (classpath.last.isEmpty) {
       classpath.removeLast();
     }
-    Log.info('Found release build classpath with ${classpath.length} entries');
+    log.info('Found release build classpath with ${classpath.length} entries');
     return classpath;
   }
 }

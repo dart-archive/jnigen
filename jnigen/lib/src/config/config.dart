@@ -9,7 +9,7 @@ import 'package:jnigen/src/elements/elements.dart';
 import 'yaml_reader.dart';
 import 'filters.dart';
 
-import 'package:jnigen/src/logging/logging.dart';
+import 'package:logging/logging.dart';
 
 /// Configuration for dependencies to be downloaded using maven.
 ///
@@ -144,7 +144,7 @@ class Config {
     this.androidSdkConfig,
     this.mavenDownloads,
     this.summarizerOptions,
-    this.logLevel = LogLevel.info,
+    this.logLevel = Level.INFO,
     this.dumpJsonTo,
   });
 
@@ -210,7 +210,7 @@ class Config {
 
   /// Log verbosity. The possible values in decreasing order of verbosity
   /// are verbose > debug > info > warning > error. Defaults to [LogLevel.info]
-  LogLevel logLevel = LogLevel.info;
+  Level logLevel = Level.INFO;
 
   /// File to which JSON summary is written before binding generation.
   String? dumpJsonTo;
@@ -260,16 +260,19 @@ class Config {
       return root;
     }
 
-    LogLevel logLevelFromString(String? levelName) {
-      const Map<String, LogLevel> levels = {
-        'fatal': LogLevel.fatal,
-        'warning': LogLevel.warning,
-        'info': LogLevel.info,
-        'debug': LogLevel.debug,
-        'verbose': LogLevel.verbose,
+    Level logLevelFromString(String? levelName) {
+      const Map<String, Level> levels = {
+        'shout': Level.SHOUT,
+        'severe': Level.SEVERE,
+        'warning': Level.WARNING,
+        'info': Level.INFO,
+        'config': Level.CONFIG,
+        'fine': Level.FINE,
+        'finer': Level.FINER,
+        'finest': Level.FINEST,
       };
-      if (levelName == null) return LogLevel.info;
-      final level = levels[levelName];
+      if (levelName == null) return Level.INFO;
+      final level = levels[levelName.toLowerCase()];
       if (level == null) {
         throw ConfigError('Not a valid logging level: $levelName');
       }

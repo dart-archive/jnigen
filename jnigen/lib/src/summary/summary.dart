@@ -80,7 +80,7 @@ class SummarizerCommand {
     args.addAll(extraArgs);
     args.addAll(classes);
 
-    Log.info('execute $exec ${args.join(' ')}');
+    log.info('execute $exec ${args.join(' ')}');
     final proc = await Process.start(exec, args,
         workingDirectory: workingDirectory?.toFilePath() ?? '.');
     prefixedCommandOutputStream('[ApiSummarizer]', proc.stderr)

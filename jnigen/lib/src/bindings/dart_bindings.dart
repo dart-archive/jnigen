@@ -41,7 +41,7 @@ class DartBindingsGenerator {
       return '';
     }
     final bindings = _class(decl);
-    Log.verbose('generated bindings for class ${decl.binaryName}');
+    log.finest('generated bindings for class ${decl.binaryName}');
     return bindings;
   }
 
@@ -73,7 +73,7 @@ class DartBindingsGenerator {
         s.write(_field(decl, field));
         s.writeln();
       } on SkipException catch (e) {
-        Log.info('skip field ${decl.binaryName}#${field.name}: '
+        log.info('skip field ${decl.binaryName}#${field.name}: '
             '${e.message}');
       }
     }
@@ -86,7 +86,7 @@ class DartBindingsGenerator {
         s.write(_method(decl, method));
         s.writeln();
       } on SkipException catch (e) {
-        Log.info('skip field ${decl.binaryName}#${method.name}: '
+        log.info('skip field ${decl.binaryName}#${method.name}: '
             '${e.message}');
       }
     }

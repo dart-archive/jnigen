@@ -61,7 +61,7 @@ class PackagePathResolver implements SymbolResolver {
     }
 
     final packageImport = getImport(package, binaryName);
-    Log.verbose('$package resolved to $packageImport for $binaryName');
+    log.finest('$package resolved to $packageImport for $binaryName');
     if (packageImport == null) {
       return null;
     }

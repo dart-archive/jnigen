@@ -16,7 +16,7 @@ class MavenTools {
   /// Helper method since we can't pass inheritStdio option to [Process.run].
   static Future<int> _runCmd(String exec, List<String> args,
       [String? workingDirectory]) async {
-    Log.info('execute $exec ${args.join(" ")}');
+    log.info('execute $exec ${args.join(" ")}');
     final proc = await Process.start(exec, args,
         workingDirectory: workingDirectory,
         mode: ProcessStartMode.inheritStdio);
@@ -26,7 +26,7 @@ class MavenTools {
   static Future<void> _runMavenCommand(
       List<MavenDependency> deps, List<String> mvnArgs) async {
     final pom = _getStubPom(deps);
-    Log.verbose('using POM stub:\n$pom');
+    log.finer('using POM stub:\n$pom');
     await File(_tempPom).writeAsString(pom);
     await Directory(_tempTarget).create();
     await _runCmd('mvn', ['-f', _tempPom, ...mvnArgs]);

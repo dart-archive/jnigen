@@ -3,51 +3,29 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:io';
+import 'package:logging/logging.dart';
 
-enum LogLevel {
-  fatal,
-  warning,
-  info,
-  debug,
-  verbose,
+const _ansiRed = '\x1b[31m';
+const _ansiDefault = '\x1b[39;49m';
+
+Logger log = Logger('jnigen');
+
+void setLoggingLevel(Level level) {
+  Logger.root.level = level;
+  Logger.root.onRecord.listen((r) {
+    var message = '(${r.loggerName}) ${r.level.name}: ${r.message}';
+    if (level == Level.SHOUT || level == Level.SEVERE) {
+      message = '$_ansiRed$message$_ansiDefault';
+    }
+    stderr.writeln(message);
+  });
 }
 
-class Log {
-  static LogLevel _level = LogLevel.info;
-  static DateTime _began = DateTime.now();
-
-  static String _levelString(LogLevel level) => level.name.toUpperCase();
-
-  static void begin(LogLevel level) {
-    _level = level;
-    _began = DateTime.now();
-  }
-
-  static void _log(LogLevel level, Object? value, {String? color}) {
-    if (level.index <= _level.index) {
-      final duration = DateTime.now().difference(_began);
-      final seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
-      final minutes = duration.inMinutes.toString().padLeft(2, '0');
-      final levelString = _levelString(level);
-      var message = '[jnigen] [$minutes:$seconds $levelString] $value';
-      if (color != null) {
-        message = '$color$message$_ansiDefault';
-      }
-      stderr.writeln(message);
-    }
-  }
-
-  static const _ansiRed = '\x1b[31m';
-  static const _ansiDefault = '\x1b[39;49m';
-
-  static void fatal(Object? value, {int exitCode = 2}) {
-    _log(LogLevel.fatal, value,
-        color: stderr.supportsAnsiEscapes ? _ansiRed : null);
+extension FatalErrors on Logger {
+  void fatal(Object? message, {int exitCode = 2}) {
+    message = '${_ansiRed}Fatal: $message$_ansiDefault';
+    stderr.writeln(message);
     exit(exitCode);
   }
-
-  static void warning(Object? value) => _log(LogLevel.warning, value);
-  static void info(Object? value) => _log(LogLevel.info, value);
-  static void debug(Object? value) => _log(LogLevel.debug, value);
-  static void verbose(Object? value) => _log(LogLevel.verbose, value);
 }
+

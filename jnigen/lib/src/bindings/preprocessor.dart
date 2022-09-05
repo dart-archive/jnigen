@@ -22,7 +22,7 @@ class ApiPreprocessor {
     if (decl.isPreprocessed) return;
     if (!_isClassIncluded(decl, config)) {
       decl.isIncluded = false;
-      Log.info('exclude class ${decl.binaryName}');
+      log.info('exclude class ${decl.binaryName}');
       decl.isPreprocessed = true;
       return;
     }
@@ -37,12 +37,12 @@ class ApiPreprocessor {
         decl.nameCounts.addAll(superclass.nameCounts);
       }
     }
-    Log.verbose('Superclass of ${decl.binaryName} resolved to '
+    log.finest('Superclass of ${decl.binaryName} resolved to '
         '${superclass?.binaryName}');
     for (var field in decl.fields) {
       if (!_isFieldIncluded(decl, field, config)) {
         field.isIncluded = false;
-        Log.info('exclude ${decl.binaryName}#${field.name}');
+        log.info('exclude ${decl.binaryName}#${field.name}');
         continue;
       }
       field.finalName = renameConflict(decl.nameCounts, field.name);
@@ -51,7 +51,7 @@ class ApiPreprocessor {
     for (var method in decl.methods) {
       if (!_isMethodIncluded(decl, method, config)) {
         method.isIncluded = false;
-        Log.info('exclude method ${decl.binaryName}#${method.name}');
+        log.info('exclude method ${decl.binaryName}#${method.name}');
         continue;
       }
       var realName = method.name;
@@ -77,7 +77,7 @@ class ApiPreprocessor {
       }
     }
     decl.isPreprocessed = true;
-    Log.verbose('preprocessed ${decl.binaryName}');
+    log.finest('preprocessed ${decl.binaryName}');
   }
 
   static bool _isFieldIncluded(ClassDecl decl, Field field, Config config) =>

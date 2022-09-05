@@ -17,7 +17,7 @@ final targetJarFile = join(mvnTargetDir, 'ApiSummarizer.jar');
 Future<void> buildApiSummarizer() async {
   final pkg = await findPackageRoot('jnigen');
   if (pkg == null) {
-    Log.fatal('package jnigen not found!');
+    log.fatal('package jnigen not found!');
     return;
   }
   final pom = pkg.resolve('java/pom.xml');
@@ -29,7 +29,7 @@ Future<void> buildApiSummarizer() async {
     pom.toFilePath(),
     'assembly:assembly'
   ];
-  Log.info('execute mvn $mvnArgs');
+  log.info('execute mvn $mvnArgs');
   final mvnProc = await Process.start('mvn', mvnArgs,
       workingDirectory: toolPath, mode: ProcessStartMode.inheritStdio);
   await mvnProc.exitCode;
@@ -43,17 +43,17 @@ Future<void> buildSummarizerIfNotExists({bool force = false}) async {
       await isPackageModifiedAfter(
           'jnigen', await File(jarFile).lastModified(), 'java/');
   if (isJarStale) {
-    Log.info('Rebuilding ApiSummarizer component since sources '
+    log.info('Rebuilding ApiSummarizer component since sources '
         'have changed. This might take some time.');
   }
   if (!jarExists) {
-    Log.info('Building ApiSummarizer component. '
+    log.info('Building ApiSummarizer component. '
         'This might take some time. \n'
         'The build will be cached for subsequent runs\n');
   }
   if (!jarExists || isJarStale || force) {
     await buildApiSummarizer();
   } else {
-    Log.info('ApiSummarizer.jar exists. Skipping build..');
+    log.info('ApiSummarizer.jar exists. Skipping build..');
   }
 }
