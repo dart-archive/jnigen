@@ -5,6 +5,8 @@
 import 'dart:io';
 import 'package:path/path.dart';
 
+import 'package:jnigen/src/logging/logging.dart';
+
 class AndroidSdkTools {
   /// get path for android API sources
   static Future<String?> _getVersionDir(
@@ -25,7 +27,9 @@ class AndroidSdkTools {
 
   static Future<String?> getAndroidSourcesPath(
       {String? sdkRoot, required List<int> versionOrder}) async {
-    return _getVersionDir('sources', sdkRoot, versionOrder);
+    final dir = _getVersionDir('sources', sdkRoot, versionOrder);
+    Log.info('Found sources at $dir');
+    return dir;
   }
 
   static Future<String?> _getFile(String relative, String file, String? sdkRoot,
@@ -34,6 +38,7 @@ class AndroidSdkTools {
     if (platform == null) return null;
     final filePath = join(platform, file);
     if (await File(filePath).exists()) {
+      Log.info('Found $filePath');
       return filePath;
     }
     return null;
@@ -65,10 +70,10 @@ task listDependencies(type: Copy) {
   /// function to list all dependency paths for release variant.
   /// This function fails if no gradle build is attempted before.
   ///
-  /// If current project is not directly buildable by gradle, eg: a plugin,
+  /// if current project is not directly buildable by gradle, eg: a plugin,
   /// a relative path to other project can be specified using [androidProject].
   static List<String> getGradleClasspaths([String androidProject = '.']) {
-    stderr.writeln('trying to obtain gradle classpaths...');
+    Log.info('trying to obtain gradle classpaths...');
     final android = join(androidProject, 'android');
     final buildGradle = join(android, 'build.gradle');
     final buildGradleOld = join(android, 'build.gradle.old');
@@ -76,20 +81,24 @@ task listDependencies(type: Copy) {
     final script = origBuild.readAsStringSync();
     origBuild.renameSync(buildGradleOld);
     origBuild.createSync();
+    Log.verbose('Writing temporary gradle script with stub function...');
     origBuild.writeAsStringSync('$script\n$_gradleListDepsFunction\n');
+    Log.verbose('Running gradle wrapper...');
     final procRes = Process.runSync('./gradlew', ['-q', 'listDependencies'],
         workingDirectory: android);
+    Log.verbose('Restoring build scripts');
     origBuild.writeAsStringSync(script);
     File(buildGradleOld).deleteSync();
     if (procRes.exitCode != 0) {
       throw Exception('\n\ngradle exited with exit code ${procRes.exitCode}\n'
-          'This can be related to a known issue with gradle. Please run '
-          '`flutter build apk` in $androidProject and try again\n');
+          'This can be related to a known issue with gradle. '
+          'Please run `flutter build apk` and try again\n');
     }
-    final gradleClassPaths = (procRes.stdout as String).split('\n');
-    if (gradleClassPaths.last.isEmpty) {
-      gradleClassPaths.removeLast();
+    final classpath = (procRes.stdout as String).split('\n');
+    if (classpath.last.isEmpty) {
+      classpath.removeLast();
     }
-    return gradleClassPaths;
+    Log.info('Found release build classpath with ${classpath.length} entries');
+    return classpath;
   }
 }
