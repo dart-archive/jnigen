@@ -84,7 +84,7 @@ task listDependencies(type: Copy) {
     if (procRes.exitCode != 0) {
       throw Exception('\n\ngradle exited with exit code ${procRes.exitCode}\n'
           'This can be related to a known issue with gradle. Please run '
-          '`flutter build apk` in ${androidProject} and try again\n');
+          '`flutter build apk` in $androidProject and try again\n');
     }
     final gradleClassPaths = (procRes.stdout as String).split('\n');
     if (gradleClassPaths.last.isEmpty) {
