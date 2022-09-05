@@ -28,4 +28,3 @@ extension FatalErrors on Logger {
     exit(exitCode);
   }
 }
-
