@@ -70,7 +70,7 @@ task listDependencies(type: Copy) {
   /// function to list all dependency paths for release variant.
   /// This function fails if no gradle build is attempted before.
   ///
-  /// if current project is not directly buildable by gradle, eg: a plugin,
+  /// If current project is not directly buildable by gradle, eg: a plugin,
   /// a relative path to other project can be specified using [androidProject].
   static List<String> getGradleClasspaths([String androidProject = '.']) {
     Log.info('trying to obtain gradle classpaths...');
@@ -90,9 +90,11 @@ task listDependencies(type: Copy) {
     origBuild.writeAsStringSync(script);
     File(buildGradleOld).deleteSync();
     if (procRes.exitCode != 0) {
+      final inAndroidProject =
+          (androidProject == '.') ? '' : ' in $androidProject';
       throw Exception('\n\ngradle exited with exit code ${procRes.exitCode}\n'
-          'This can be related to a known issue with gradle. '
-          'Please run `flutter build apk` and try again\n');
+          'This can be related to a known issue with gradle. Please run '
+          '`flutter build apk`$inAndroidProject and try again\n');
     }
     final classpath = (procRes.stdout as String).split('\n');
     if (classpath.last.isEmpty) {
