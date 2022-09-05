@@ -4,10 +4,10 @@
 
 import 'dart:io';
 
-import 'package:jni_gen/jni_gen.dart';
-import 'package:jni_gen/tools.dart';
+import 'package:jnigen/jnigen.dart';
+import 'package:jnigen/tools.dart';
 
-/// Downloads maven dependencies downloaded by equivalent jni_gen invocation.
+/// Downloads maven dependencies downloaded by equivalent jnigen invocation.
 ///
 /// Useful for running standalone examples on already generated sources.
 void main(List<String> args) async {

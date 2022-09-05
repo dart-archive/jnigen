@@ -16,8 +16,8 @@ import 'package:path/path.dart' hide equals;
 import 'package:test/test.dart';
 
 // ignore_for_file: avoid_relative_lib_imports
-import 'simple_package_test/lib/com/github/dart_lang/jni_gen/simple_package.dart';
-import 'simple_package_test/lib/com/github/dart_lang/jni_gen/pkg2.dart';
+import 'simple_package_test/lib/com/github/dart_lang/jnigen/simple_package.dart';
+import 'simple_package_test/lib/com/github/dart_lang/jnigen/pkg2.dart';
 import 'jackson_core_test/third_party/lib/com/fasterxml/jackson/core.dart';
 
 import 'test_util/test_util.dart';
@@ -37,7 +37,7 @@ Future<void> setupDylibsAndClasses() async {
       workingDirectory: simplePackageJavaPath);
   await runCmd('dart', [
     'run',
-    'jni_gen:download_maven_jars',
+    'jnigen:download_maven_jars',
     '--config',
     join(jacksonCorePath, 'jnigen.yaml')
   ]);

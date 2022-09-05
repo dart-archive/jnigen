@@ -5,7 +5,7 @@
 import 'dart:io';
 
 import 'package:path/path.dart';
-import 'package:jni_gen/jni_gen.dart';
+import 'package:jnigen/jnigen.dart';
 
 import '../test_util/test_util.dart';
 
@@ -13,7 +13,7 @@ const testName = 'simple_package_test';
 final testRoot = join('test', testName);
 final javaPath = join(testRoot, 'java');
 
-var javaPrefix = join('com', 'github', 'dart_lang', 'jni_gen');
+var javaPrefix = join('com', 'github', 'dart_lang', 'jnigen');
 
 var javaFiles = [
   join(javaPrefix, 'simple_package', 'Example.java'),
@@ -39,8 +39,8 @@ Future<void> generateSources(String lib, String src) async {
     sourcePath: [Uri.directory(javaPath)],
     classPath: [Uri.directory(javaPath)],
     classes: [
-      'com.github.dart_lang.jni_gen.simple_package',
-      'com.github.dart_lang.jni_gen.pkg2',
+      'com.github.dart_lang.jnigen.simple_package',
+      'com.github.dart_lang.jnigen.pkg2',
     ],
     cRoot: cWrapperDir,
     dartRoot: dartWrappersRoot,

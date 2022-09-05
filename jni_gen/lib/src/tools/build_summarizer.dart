@@ -6,17 +6,17 @@ import 'dart:io';
 
 import 'package:path/path.dart';
 
-import 'package:jni_gen/src/util/find_package.dart';
+import 'package:jnigen/src/util/find_package.dart';
 
-final toolPath = join('.', '.dart_tool', 'jni_gen');
+final toolPath = join('.', '.dart_tool', 'jnigen');
 final mvnTargetDir = join(toolPath, 'target');
 final jarFile = join(toolPath, 'ApiSummarizer.jar');
 final targetJarFile = join(mvnTargetDir, 'ApiSummarizer.jar');
 
 Future<void> buildApiSummarizer() async {
-  final pkg = await findPackageRoot('jni_gen');
+  final pkg = await findPackageRoot('jnigen');
   if (pkg == null) {
-    stderr.writeln('package jni_gen not found!');
+    stderr.writeln('package jnigen not found!');
     exitCode = 2;
     return;
   }
@@ -42,7 +42,7 @@ Future<void> buildSummarizerIfNotExists({bool force = false}) async {
   final jarExists = await File(jarFile).exists();
   final isJarStale = jarExists &&
       await isPackageModifiedAfter(
-          'jni_gen', await File(jarFile).lastModified(), 'java/');
+          'jnigen', await File(jarFile).lastModified(), 'java/');
   if (isJarStale) {
     stderr.writeln('Rebuilding ApiSummarizer component since sources '
         'have changed. This might take some time.');

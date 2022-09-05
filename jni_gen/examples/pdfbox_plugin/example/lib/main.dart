@@ -20,7 +20,7 @@ Stream<String> files(String dir) => Directory(dir).list().map((e) => e.path);
 
 late Jni jni;
 const jarError = 'No JAR files were found.\n'
-    'Run `dart run jni_gen:download_maven_jars --config jnigen.yaml` '
+    'Run `dart run jnigen:download_maven_jars --config jnigen.yaml` '
     'in plugin directory.\n'
     'Alternatively, regenerate JNI bindings in plugin directory, which will '
     'automatically download the JAR files.';

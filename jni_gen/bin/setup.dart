@@ -4,13 +4,13 @@
 
 import 'dart:io';
 
-import 'package:jni_gen/src/tools/tools.dart';
+import 'package:jnigen/src/tools/tools.dart';
 
 void main(List<String> args) async {
   bool force = false;
   if (args.isNotEmpty) {
     if (args.length != 1 || args[0] != '-f') {
-      stderr.writeln('usage: dart run jni_gen:setup [-f]');
+      stderr.writeln('usage: dart run jnigen:setup [-f]');
       stderr.writeln('* -f\trebuild ApiSummarizer jar even if it already '
           'exists.');
     } else {

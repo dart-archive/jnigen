@@ -21,7 +21,7 @@ void main() {
   test('generate and compare bindings using YAML config', () {
     final jnigenProc = Process.runSync('dart', [
       'run',
-      'jni_gen',
+      'jnigen',
       '--config',
       config,
       '-Dc_root=$testSrc',

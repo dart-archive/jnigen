@@ -2,8 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:jni_gen/src/bindings/symbol_resolver.dart';
-import 'package:jni_gen/src/util/name_utils.dart';
+import 'package:jnigen/src/bindings/symbol_resolver.dart';
+import 'package:jnigen/src/util/name_utils.dart';
 import 'package:test/test.dart';
 
 class ResolverTest {

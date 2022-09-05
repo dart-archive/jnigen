@@ -23,7 +23,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  jni_gen:
+  jnigen:
     path: ../../
 
   flutter_lints: ^2.0.0

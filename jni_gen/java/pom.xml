@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.dart_lang.jni_gen</groupId>
+    <groupId>com.github.dart_lang.jnigen</groupId>
     <artifactId>ApiSummarizer</artifactId>
     <description>Summarize public APIs of java packages in JSON or protobuf.</description>
     <version>0.0.1-SNAPSHOT</version>
@@ -58,7 +58,7 @@
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
-                            <mainClass>com.github.dart_lang.jni_gen.apisummarizer.Main</mainClass>
+                            <mainClass>com.github.dart_lang.jnigen.apisummarizer.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -1,9 +1,9 @@
 name: pdfbox_plugin
 description: |
-  Example of using jni_gen to generate bindings for a non-trivial library
+  Example of using jnigen to generate bindings for a non-trivial library
 version: 0.0.1
 publish_to: none
-homepage: https://github.com/dart-lang/jni_gen
+homepage: https://github.com/dart-lang/jnigen
 
 environment:
   sdk: ">=2.17.6 <3.0.0"
@@ -18,7 +18,7 @@ dependencies:
 
 dev_dependencies:
   ## Path dependency for sake of the example
-  jni_gen:
+  jnigen:
     path: ../../
   test: any
   lints: ^2.0.0

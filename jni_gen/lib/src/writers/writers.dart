@@ -4,11 +4,11 @@
 
 import 'dart:io';
 
-import 'package:jni_gen/src/bindings/bindings.dart';
+import 'package:jnigen/src/bindings/bindings.dart';
 
-import 'package:jni_gen/src/elements/elements.dart';
-import 'package:jni_gen/src/config/config.dart';
-import 'package:jni_gen/src/util/find_package.dart';
+import 'package:jnigen/src/elements/elements.dart';
+import 'package:jnigen/src/config/config.dart';
+import 'package:jnigen/src/util/find_package.dart';
 
 abstract class BindingsWriter {
   Future<void> writeBindings(Iterable<ClassDecl> classes);
@@ -119,7 +119,7 @@ class FilesWriter extends BindingsWriter {
     await _copyFileFromPackage(
         'jni', 'src/dartjni.h', cRoot.resolve('$subdir/dartjni.h'));
     await _copyFileFromPackage(
-        'jni_gen', 'cmake/CMakeLists.txt.tmpl', cRoot.resolve('CMakeLists.txt'),
+        'jnigen', 'cmake/CMakeLists.txt.tmpl', cRoot.resolve('CMakeLists.txt'),
         transform: (s) {
       return s
           .replaceAll('{{LIBRARY_NAME}}', libraryName)

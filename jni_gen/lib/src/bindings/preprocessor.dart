@@ -4,9 +4,9 @@
 
 import 'dart:io';
 
-import 'package:jni_gen/src/elements/elements.dart';
-import 'package:jni_gen/src/config/config.dart';
-import 'package:jni_gen/src/util/rename_conflict.dart';
+import 'package:jnigen/src/elements/elements.dart';
+import 'package:jnigen/src/config/config.dart';
+import 'package:jnigen/src/util/rename_conflict.dart';
 import 'common.dart';
 
 /// Preprocessor which fills information needed by both Dart and C generators.

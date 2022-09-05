@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:io';
-import 'package:jni_gen/src/util/command_output.dart';
+import 'package:jnigen/src/util/command_output.dart';
 
 /// A command based summary source which calls the ApiSummarizer command.
 /// [sourcePaths] and [classPaths] can be provided for the summarizer to find
@@ -15,11 +15,11 @@ import 'package:jni_gen/src/util/command_output.dart';
 /// the directory names reflect actual package paths. For example, a class name
 /// com.example.pkg.Cls will be mapped to com/example/pkg/Cls.java.
 ///
-/// The default summarizer needs to be built with `jni_gen:setup`
+/// The default summarizer needs to be built with `jnigen:setup`
 /// script before this API is used.
 class SummarizerCommand {
   SummarizerCommand({
-    this.command = "java -jar .dart_tool/jni_gen/ApiSummarizer.jar",
+    this.command = "java -jar .dart_tool/jnigen/ApiSummarizer.jar",
     List<Uri>? sourcePath,
     List<Uri>? classPath,
     this.extraArgs = const [],

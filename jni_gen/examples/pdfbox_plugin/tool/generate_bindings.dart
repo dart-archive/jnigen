@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:jni_gen/jni_gen.dart';
+import 'package:jnigen/jnigen.dart';
 
 const preamble = '''
 // Generated from Apache PDFBox library which is licensed under the Apache License 2.0.

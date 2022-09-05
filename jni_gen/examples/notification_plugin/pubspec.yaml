@@ -2,7 +2,7 @@ name: notification_plugin
 description: A new Flutter FFI plugin project.
 version: 0.0.1
 publish_to: none
-homepage: https://github.com/dart-lang/jni_gen
+homepage: https://github.com/dart-lang/jnigen
 
 environment:
   sdk: '>=2.18.0 <3.0.0'
@@ -16,7 +16,7 @@ dependencies:
   plugin_platform_interface: ^2.0.2
 
 dev_dependencies:
-  jni_gen:
+  jnigen:
     path: ../../
   flutter_test:
     sdk: flutter

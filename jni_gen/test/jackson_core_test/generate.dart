@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:jni_gen/jni_gen.dart';
+import 'package:jnigen/jnigen.dart';
 import 'package:path/path.dart' hide equals;
 
 const jacksonPreamble = '// Generated from jackson-core which is licensed under'

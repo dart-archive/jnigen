@@ -4,7 +4,7 @@
 
 import 'dart:io';
 
-import 'package:jni_gen/src/elements/elements.dart';
+import 'package:jnigen/src/elements/elements.dart';
 
 import 'yaml_reader.dart';
 import 'filters.dart';
@@ -41,14 +41,14 @@ class MavenDownloads {
 /// The SDK directories for platform stub JARs and sources are searched in the
 /// same order in which [versions] are specified.
 ///
-/// If [includeSources] is true, `jni_gen` searches for Android SDK sources
+/// If [includeSources] is true, `jnigen` searches for Android SDK sources
 /// as well in the SDK directory and adds them to the source path.
 ///
 /// If [addGradleDeps] is true, a gradle stub is run in order to collect the
 /// actual compile classpath of the `android/` subproject.
 /// This will fail if there was no previous build of the project, or if a
 /// `clean` task was run either through flutter or gradle wrapper. In such case,
-/// it's required to run `flutter build apk` & retry running `jni_gen`.
+/// it's required to run `flutter build apk` & retry running `jnigen`.
 ///
 /// A configuration is invalid if [versions] is unspecified or empty, and
 /// [addGradleDeps] is also false. If [sdkRoot] is not specified but versions is
@@ -84,7 +84,7 @@ class AndroidSdkConfig {
   /// stub in android subproject of this project.
   ///
   /// An Android build must have happened before we are able to obtain classpath
-  /// of Gradle dependencies. Run `flutter build apk` before running a jni_gen
+  /// of Gradle dependencies. Run `flutter build apk` before running a jnigen
   /// script with this option.
   ///
   /// For the same reason, if the flutter project is a plugin instead of
@@ -126,7 +126,7 @@ class BindingExclusions {
   ClassFilter? classes;
 }
 
-/// Configuration for jni_gen binding generation.
+/// Configuration for jnigen binding generation.
 class Config {
   Config({
     required this.classes,

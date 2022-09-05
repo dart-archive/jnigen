@@ -8,10 +8,10 @@ This is a GSoC 2022 project.
 Currently this package is highly experimental and proof-of-concept. See `test/jackson_core_test` for an example of generating bindings for a library. It is possible to specify some dependencies to be downloaded automatically through `maven`.
 
 ## Basics
-### Running `jni_gen`
-There are 2 ways to use `jni_gen`:
+### Running `jnigen`
+There are 2 ways to use `jnigen`:
 
-* Import `package:jni_gen/jni_gen.dart` from a script in `tool/` directory of your project.
+* Import `package:jnigen/jnigen.dart` from a script in `tool/` directory of your project.
 * Run as command line tool with a YAML config.
 
 Both approaches are almost identical. If using YAML, it's possible to selectively override configuration properties with command line, using `-Dproperty.name=value` syntax.
@@ -28,5 +28,5 @@ The following properties must be specified in yaml.
 The generated C file has to be linked to JNI libraries. Therefore a CMake configuration is always generated which builds the generated code as shared library. The `init.dart` in generated dart code loads the library on first time a method is accessed. On dart standalone, it will be loaded from the same directory specified in `Jni.spawn` call.
 
 ## Examples
-Few runnable examples are provided in [examples/](examples/) directory. These directories do not include generated code. Generate the bindings by running `dart run jni_gen --config jnigen.yaml` in the example project root. See the respective READMEs for more details.
+Few runnable examples are provided in [examples/](examples/) directory. These directories do not include generated code. Generate the bindings by running `dart run jnigen --config jnigen.yaml` in the example project root. See the respective READMEs for more details.
 

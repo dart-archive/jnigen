@@ -6,7 +6,7 @@
 // a locally meaningful name, when creating dart bindings
 
 import 'dart:math';
-import 'package:jni_gen/src/util/name_utils.dart';
+import 'package:jnigen/src/util/name_utils.dart';
 
 abstract class SymbolResolver {
   /// Resolve the binary name to a String which can be used in dart code.
