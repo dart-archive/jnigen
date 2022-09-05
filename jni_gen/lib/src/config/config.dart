@@ -69,11 +69,11 @@ class AndroidSdkConfig {
     }
   }
 
-  /// Versions of android SDK to search for, in decreasing order of preference
+  /// Versions of android SDK to search for, in decreasing order of preference.
   List<int>? versions;
 
   /// Root of Android SDK installation, this should be normally given on
-  /// command line or by setting ANDROID_SDK_ROOT, since this varies from
+  /// command line or by setting `ANDROID_SDK_ROOT`, since this varies from
   /// system to system.
   String? sdkRoot;
 
