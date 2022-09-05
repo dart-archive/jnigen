@@ -215,6 +215,8 @@ class Config {
   /// File to which JSON summary is written before binding generation.
   String? dumpJsonTo;
 
+  static final _levels = Map.fromEntries(
+      Level.LEVELS.map((l) => MapEntry(l.name.toLowerCase(), l)));
   static Uri? _toDirUri(String? path) =>
       path != null ? Uri.directory(path) : null;
   static List<Uri>? _toUris(List<String>? paths) =>
@@ -261,18 +263,8 @@ class Config {
     }
 
     Level logLevelFromString(String? levelName) {
-      const Map<String, Level> levels = {
-        'shout': Level.SHOUT,
-        'severe': Level.SEVERE,
-        'warning': Level.WARNING,
-        'info': Level.INFO,
-        'config': Level.CONFIG,
-        'fine': Level.FINE,
-        'finer': Level.FINER,
-        'finest': Level.FINEST,
-      };
       if (levelName == null) return Level.INFO;
-      final level = levels[levelName.toLowerCase()];
+      final level = _levels[levelName.toLowerCase()];
       if (level == null) {
         throw ConfigError('Not a valid logging level: $levelName');
       }
