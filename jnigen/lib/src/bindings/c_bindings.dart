@@ -191,7 +191,7 @@ class CBindingGenerator {
   String _loadClassCall(String classVar, String internalName, String ifError) {
     return '${_indent}load_class_gr(&$classVar, '
         '"$internalName");\n'
-        'if ($classVar == NULL) return $ifError;\n';
+        '${_indent}if ($classVar == NULL) return $ifError;\n';
   }
 
   String _formalArgs(Method m) {

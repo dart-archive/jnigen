@@ -22,7 +22,9 @@ class AndroidUtils extends jni.JlObject {
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
   /// from: public void <init>()
-  AndroidUtils() : super.fromRef(_ctor());
+  AndroidUtils() : super.fromRef(_ctor()) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _showToast = jlookup<
           ffi.NativeFunction<
@@ -33,6 +35,10 @@ class AndroidUtils extends jni.JlObject {
 
   /// from: static void showToast(android.app.Activity mainActivity, java.lang.CharSequence text, int duration)
   static void showToast(
-          jni.JlObject mainActivity, jni.JlObject text, int duration) =>
-      _showToast(mainActivity.reference, text.reference, duration);
+      jni.JlObject mainActivity, jni.JlObject text, int duration) {
+    final result__ =
+        _showToast(mainActivity.reference, text.reference, duration);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 }

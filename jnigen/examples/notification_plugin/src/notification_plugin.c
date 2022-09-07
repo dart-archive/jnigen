@@ -28,7 +28,9 @@ FFI_PLUGIN_EXPORT
 jobject com_example_notification_plugin_Notifications_ctor() {
     load_env();
     load_class_gr(&_c_com_example_notification_plugin_Notifications, "com/example/notification_plugin/Notifications");
+    if (_c_com_example_notification_plugin_Notifications == NULL) return (jobject)0;
     load_method(_c_com_example_notification_plugin_Notifications, &_m_com_example_notification_plugin_Notifications_ctor, "<init>", "()V");
+    if (_m_com_example_notification_plugin_Notifications_ctor == NULL) return (jobject)0;
     jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_example_notification_plugin_Notifications, _m_com_example_notification_plugin_Notifications_ctor);
     return to_global_ref(_result);
 }
@@ -38,7 +40,9 @@ FFI_PLUGIN_EXPORT
 void com_example_notification_plugin_Notifications_showNotification(jobject context, int32_t notificationID, jobject title, jobject text) {
     load_env();
     load_class_gr(&_c_com_example_notification_plugin_Notifications, "com/example/notification_plugin/Notifications");
+    if (_c_com_example_notification_plugin_Notifications == NULL) return (void)0;
     load_static_method(_c_com_example_notification_plugin_Notifications, &_m_com_example_notification_plugin_Notifications_showNotification, "showNotification", "(Landroid/content/Context;ILjava/lang/String;Ljava/lang/String;)V");
+    if (_m_com_example_notification_plugin_Notifications_showNotification == NULL) return (void)0;
     (*jniEnv)->CallStaticVoidMethod(jniEnv, _c_com_example_notification_plugin_Notifications, _m_com_example_notification_plugin_Notifications_showNotification, context, notificationID, title, text);
 }
 

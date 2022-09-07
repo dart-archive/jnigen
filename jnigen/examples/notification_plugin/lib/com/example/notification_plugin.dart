@@ -26,7 +26,9 @@ class Notifications extends jni.JlObject {
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
   /// from: public void <init>()
-  Notifications() : super.fromRef(_ctor());
+  Notifications() : super.fromRef(_ctor()) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _showNotification = jlookup<
               ffi.NativeFunction<
@@ -39,7 +41,10 @@ class Notifications extends jni.JlObject {
 
   /// from: static public void showNotification(android.content.Context context, int notificationID, java.lang.String title, java.lang.String text)
   static void showNotification(jni.JlObject context, int notificationID,
-          jni.JlString title, jni.JlString text) =>
-      _showNotification(
-          context.reference, notificationID, title.reference, text.reference);
+      jni.JlString title, jni.JlString text) {
+    final result__ = _showNotification(
+        context.reference, notificationID, title.reference, text.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 }

@@ -392,7 +392,9 @@ class PDDocument extends jni.JlObject {
   ///
   /// Creates an empty PDF document.
   /// You need to add at least one page for the document to be valid.
-  PDDocument() : super.fromRef(_ctor());
+  PDDocument() : super.fromRef(_ctor()) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _ctor1 = jlookup<
               ffi.NativeFunction<
@@ -406,7 +408,9 @@ class PDDocument extends jni.JlObject {
   /// You need to add at least one page for the document to be valid.
   ///@param memUsageSetting defines how memory is used for buffering PDF streams
   PDDocument.ctor1(jni.JlObject memUsageSetting)
-      : super.fromRef(_ctor1(memUsageSetting.reference));
+      : super.fromRef(_ctor1(memUsageSetting.reference)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _ctor2 = jlookup<
               ffi.NativeFunction<
@@ -418,7 +422,9 @@ class PDDocument extends jni.JlObject {
   ///
   /// Constructor that uses an existing document. The COSDocument that is passed in must be valid.
   ///@param doc The COSDocument that this document wraps.
-  PDDocument.ctor2(jni.JlObject doc) : super.fromRef(_ctor2(doc.reference));
+  PDDocument.ctor2(jni.JlObject doc) : super.fromRef(_ctor2(doc.reference)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _ctor3 = jlookup<
               ffi.NativeFunction<
@@ -435,7 +441,9 @@ class PDDocument extends jni.JlObject {
   ///@param doc The COSDocument that this document wraps.
   ///@param source the parser which is used to read the pdf
   PDDocument.ctor3(jni.JlObject doc, jni.JlObject source)
-      : super.fromRef(_ctor3(doc.reference, source.reference));
+      : super.fromRef(_ctor3(doc.reference, source.reference)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _ctor4 = jlookup<
               ffi.NativeFunction<
@@ -455,7 +463,9 @@ class PDDocument extends jni.JlObject {
   PDDocument.ctor4(
       jni.JlObject doc, jni.JlObject source, jni.JlObject permission)
       : super.fromRef(
-            _ctor4(doc.reference, source.reference, permission.reference));
+            _ctor4(doc.reference, source.reference, permission.reference)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _addPage = jlookup<
               ffi.NativeFunction<
@@ -470,7 +480,11 @@ class PDDocument extends jni.JlObject {
   /// This will add a page to the document. This is a convenience method, that will add the page to the root of the
   /// hierarchy and set the parent of the page to the root.
   ///@param page The page to add to the document.
-  void addPage(jni.JlObject page) => _addPage(reference, page.reference);
+  void addPage(jni.JlObject page) {
+    final result__ = _addPage(reference, page.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _addSignature = jlookup<
               ffi.NativeFunction<
@@ -492,8 +506,11 @@ class PDDocument extends jni.JlObject {
   ///@throws IOException if there is an error creating required fields
   ///@throws IllegalStateException if one attempts to add several signature
   /// fields.
-  void addSignature(jni.JlObject sigObject) =>
-      _addSignature(reference, sigObject.reference);
+  void addSignature(jni.JlObject sigObject) {
+    final result__ = _addSignature(reference, sigObject.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _addSignature1 = jlookup<
               ffi.NativeFunction<
@@ -517,8 +534,12 @@ class PDDocument extends jni.JlObject {
   ///@throws IOException if there is an error creating required fields
   ///@throws IllegalStateException if one attempts to add several signature
   /// fields.
-  void addSignature1(jni.JlObject sigObject, jni.JlObject options) =>
-      _addSignature1(reference, sigObject.reference, options.reference);
+  void addSignature1(jni.JlObject sigObject, jni.JlObject options) {
+    final result__ =
+        _addSignature1(reference, sigObject.reference, options.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _addSignature2 = jlookup<
               ffi.NativeFunction<
@@ -541,9 +562,12 @@ class PDDocument extends jni.JlObject {
   ///@throws IOException if there is an error creating required fields
   ///@throws IllegalStateException if one attempts to add several signature
   /// fields.
-  void addSignature2(jni.JlObject sigObject, jni.JlObject signatureInterface) =>
-      _addSignature2(
-          reference, sigObject.reference, signatureInterface.reference);
+  void addSignature2(jni.JlObject sigObject, jni.JlObject signatureInterface) {
+    final result__ = _addSignature2(
+        reference, sigObject.reference, signatureInterface.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _addSignature3 = jlookup<
               ffi.NativeFunction<
@@ -573,9 +597,12 @@ class PDDocument extends jni.JlObject {
   ///@throws IllegalStateException if one attempts to add several signature
   /// fields.
   void addSignature3(jni.JlObject sigObject, jni.JlObject signatureInterface,
-          jni.JlObject options) =>
-      _addSignature3(reference, sigObject.reference,
-          signatureInterface.reference, options.reference);
+      jni.JlObject options) {
+    final result__ = _addSignature3(reference, sigObject.reference,
+        signatureInterface.reference, options.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _findSignatureField = jlookup<
               ffi.NativeFunction<
@@ -594,9 +621,12 @@ class PDDocument extends jni.JlObject {
   ///@param sigObject signature object (the /V part).
   ///@return a signature field if found, or null if none was found.
   jni.JlObject findSignatureField(
-          jni.JlObject fieldIterator, jni.JlObject sigObject) =>
-      jni.JlObject.fromRef(_findSignatureField(
-          reference, fieldIterator.reference, sigObject.reference));
+      jni.JlObject fieldIterator, jni.JlObject sigObject) {
+    final result__ = jni.JlObject.fromRef(_findSignatureField(
+        reference, fieldIterator.reference, sigObject.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _checkSignatureField = jlookup<
               ffi.NativeFunction<
@@ -614,10 +644,13 @@ class PDDocument extends jni.JlObject {
   ///@param signatureField the signature field.
   ///@return true if the field already existed in the field list, false if not.
   bool checkSignatureField(
-          jni.JlObject fieldIterator, jni.JlObject signatureField) =>
-      _checkSignatureField(
-          reference, fieldIterator.reference, signatureField.reference) !=
-      0;
+      jni.JlObject fieldIterator, jni.JlObject signatureField) {
+    final result__ = _checkSignatureField(
+            reference, fieldIterator.reference, signatureField.reference) !=
+        0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _checkSignatureAnnotation = jlookup<
               ffi.NativeFunction<
@@ -634,11 +667,13 @@ class PDDocument extends jni.JlObject {
   ///@param annotations the list of PDAnnotation fields.
   ///@param widget the annotation widget.
   ///@return true if the widget already existed in the annotation list, false if not.
-  bool checkSignatureAnnotation(
-          jni.JlObject annotations, jni.JlObject widget) =>
-      _checkSignatureAnnotation(
-          reference, annotations.reference, widget.reference) !=
-      0;
+  bool checkSignatureAnnotation(jni.JlObject annotations, jni.JlObject widget) {
+    final result__ = _checkSignatureAnnotation(
+            reference, annotations.reference, widget.reference) !=
+        0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _prepareVisibleSignature = jlookup<
               ffi.NativeFunction<
@@ -654,9 +689,15 @@ class PDDocument extends jni.JlObject {
 
   /// from: private void prepareVisibleSignature(org.apache.pdfbox.pdmodel.interactive.form.PDSignatureField signatureField, org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm acroForm, org.apache.pdfbox.cos.COSDocument visualSignature)
   void prepareVisibleSignature(jni.JlObject signatureField,
-          jni.JlObject acroForm, jni.JlObject visualSignature) =>
-      _prepareVisibleSignature(reference, signatureField.reference,
-          acroForm.reference, visualSignature.reference);
+      jni.JlObject acroForm, jni.JlObject visualSignature) {
+    final result__ = _prepareVisibleSignature(
+        reference,
+        signatureField.reference,
+        acroForm.reference,
+        visualSignature.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _assignSignatureRectangle = jlookup<
               ffi.NativeFunction<
@@ -669,9 +710,12 @@ class PDDocument extends jni.JlObject {
 
   /// from: private void assignSignatureRectangle(org.apache.pdfbox.pdmodel.interactive.form.PDSignatureField signatureField, org.apache.pdfbox.cos.COSDictionary annotDict)
   void assignSignatureRectangle(
-          jni.JlObject signatureField, jni.JlObject annotDict) =>
-      _assignSignatureRectangle(
-          reference, signatureField.reference, annotDict.reference);
+      jni.JlObject signatureField, jni.JlObject annotDict) {
+    final result__ = _assignSignatureRectangle(
+        reference, signatureField.reference, annotDict.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _assignAppearanceDictionary = jlookup<
               ffi.NativeFunction<
@@ -684,9 +728,12 @@ class PDDocument extends jni.JlObject {
 
   /// from: private void assignAppearanceDictionary(org.apache.pdfbox.pdmodel.interactive.form.PDSignatureField signatureField, org.apache.pdfbox.cos.COSDictionary apDict)
   void assignAppearanceDictionary(
-          jni.JlObject signatureField, jni.JlObject apDict) =>
-      _assignAppearanceDictionary(
-          reference, signatureField.reference, apDict.reference);
+      jni.JlObject signatureField, jni.JlObject apDict) {
+    final result__ = _assignAppearanceDictionary(
+        reference, signatureField.reference, apDict.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _assignAcroFormDefaultResource = jlookup<
               ffi.NativeFunction<
@@ -699,9 +746,12 @@ class PDDocument extends jni.JlObject {
 
   /// from: private void assignAcroFormDefaultResource(org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm acroForm, org.apache.pdfbox.cos.COSDictionary newDict)
   void assignAcroFormDefaultResource(
-          jni.JlObject acroForm, jni.JlObject newDict) =>
-      _assignAcroFormDefaultResource(
-          reference, acroForm.reference, newDict.reference);
+      jni.JlObject acroForm, jni.JlObject newDict) {
+    final result__ = _assignAcroFormDefaultResource(
+        reference, acroForm.reference, newDict.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _prepareNonVisibleSignature = jlookup<
               ffi.NativeFunction<
@@ -712,8 +762,12 @@ class PDDocument extends jni.JlObject {
           void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: private void prepareNonVisibleSignature(org.apache.pdfbox.pdmodel.interactive.form.PDSignatureField signatureField)
-  void prepareNonVisibleSignature(jni.JlObject signatureField) =>
-      _prepareNonVisibleSignature(reference, signatureField.reference);
+  void prepareNonVisibleSignature(jni.JlObject signatureField) {
+    final result__ =
+        _prepareNonVisibleSignature(reference, signatureField.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _addSignatureField = jlookup<
               ffi.NativeFunction<
@@ -738,9 +792,12 @@ class PDDocument extends jni.JlObject {
   ///@deprecated The method is misleading, because only one signature may be
   /// added in a document. The method will be removed in the future.
   void addSignatureField(jni.JlObject sigFields,
-          jni.JlObject signatureInterface, jni.JlObject options) =>
-      _addSignatureField(reference, sigFields.reference,
-          signatureInterface.reference, options.reference);
+      jni.JlObject signatureInterface, jni.JlObject options) {
+    final result__ = _addSignatureField(reference, sigFields.reference,
+        signatureInterface.reference, options.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _removePage = jlookup<
               ffi.NativeFunction<
@@ -754,7 +811,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// Remove the page from the document.
   ///@param page The page to remove from the document.
-  void removePage(jni.JlObject page) => _removePage(reference, page.reference);
+  void removePage(jni.JlObject page) {
+    final result__ = _removePage(reference, page.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _removePage1 = jlookup<
               ffi.NativeFunction<
@@ -766,7 +827,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// Remove the page from the document.
   ///@param pageNumber 0 based index to page number.
-  void removePage1(int pageNumber) => _removePage1(reference, pageNumber);
+  void removePage1(int pageNumber) {
+    final result__ = _removePage1(reference, pageNumber);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _importPage = jlookup<
               ffi.NativeFunction<
@@ -801,8 +866,12 @@ class PDDocument extends jni.JlObject {
   ///@param page The page to import.
   ///@return The page that was imported.
   ///@throws IOException If there is an error copying the page.
-  jni.JlObject importPage(jni.JlObject page) =>
-      jni.JlObject.fromRef(_importPage(reference, page.reference));
+  jni.JlObject importPage(jni.JlObject page) {
+    final result__ =
+        jni.JlObject.fromRef(_importPage(reference, page.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getDocument = jlookup<
               ffi.NativeFunction<
@@ -815,7 +884,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// This will get the low level document.
   ///@return The document that this layer sits on top of.
-  jni.JlObject getDocument() => jni.JlObject.fromRef(_getDocument(reference));
+  jni.JlObject getDocument() {
+    final result__ = jni.JlObject.fromRef(_getDocument(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getDocumentInformation = jlookup<
               ffi.NativeFunction<
@@ -833,8 +906,12 @@ class PDDocument extends jni.JlObject {
   /// document level metadata, a metadata stream should be used instead, see
   /// PDDocumentCatalog\#getMetadata().
   ///@return The documents /Info dictionary, never null.
-  PDDocumentInformation getDocumentInformation() =>
-      PDDocumentInformation.fromRef(_getDocumentInformation(reference));
+  PDDocumentInformation getDocumentInformation() {
+    final result__ =
+        PDDocumentInformation.fromRef(_getDocumentInformation(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setDocumentInformation = jlookup<
               ffi.NativeFunction<
@@ -852,8 +929,11 @@ class PDDocument extends jni.JlObject {
   /// document level metadata, a metadata stream should be used instead, see
   /// PDDocumentCatalog\#setMetadata(org.apache.pdfbox.pdmodel.common.PDMetadata) PDDocumentCatalog\#setMetadata(PDMetadata).
   ///@param info The updated document information.
-  void setDocumentInformation(PDDocumentInformation info) =>
-      _setDocumentInformation(reference, info.reference);
+  void setDocumentInformation(PDDocumentInformation info) {
+    final result__ = _setDocumentInformation(reference, info.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getDocumentCatalog = jlookup<
               ffi.NativeFunction<
@@ -866,8 +946,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// This will get the document CATALOG. This is guaranteed to not return null.
   ///@return The documents /Root dictionary
-  jni.JlObject getDocumentCatalog() =>
-      jni.JlObject.fromRef(_getDocumentCatalog(reference));
+  jni.JlObject getDocumentCatalog() {
+    final result__ = jni.JlObject.fromRef(_getDocumentCatalog(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isEncrypted =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -878,7 +961,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// This will tell if this document is encrypted or not.
   ///@return true If this document is encrypted.
-  bool isEncrypted() => _isEncrypted(reference) != 0;
+  bool isEncrypted() {
+    final result__ = _isEncrypted(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getEncryption = jlookup<
               ffi.NativeFunction<
@@ -894,8 +981,11 @@ class PDDocument extends jni.JlObject {
   /// but the only supported subclass at this time is a
   /// PDStandardEncryption object.
   ///@return The encryption dictionary(most likely a PDStandardEncryption object)
-  jni.JlObject getEncryption() =>
-      jni.JlObject.fromRef(_getEncryption(reference));
+  jni.JlObject getEncryption() {
+    final result__ = jni.JlObject.fromRef(_getEncryption(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setEncryptionDictionary = jlookup<
               ffi.NativeFunction<
@@ -910,8 +1000,11 @@ class PDDocument extends jni.JlObject {
   /// This will set the encryption dictionary for this document.
   ///@param encryption The encryption dictionary(most likely a PDStandardEncryption object)
   ///@throws IOException If there is an error determining which security handler to use.
-  void setEncryptionDictionary(jni.JlObject encryption) =>
-      _setEncryptionDictionary(reference, encryption.reference);
+  void setEncryptionDictionary(jni.JlObject encryption) {
+    final result__ = _setEncryptionDictionary(reference, encryption.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getLastSignatureDictionary = jlookup<
               ffi.NativeFunction<
@@ -926,8 +1019,12 @@ class PDDocument extends jni.JlObject {
   /// last in time when empty signature fields are created first but signed after other fields.
   ///@return the last signature as <code>PDSignatureField</code>.
   ///@throws IOException if no document catalog can be found.
-  jni.JlObject getLastSignatureDictionary() =>
-      jni.JlObject.fromRef(_getLastSignatureDictionary(reference));
+  jni.JlObject getLastSignatureDictionary() {
+    final result__ =
+        jni.JlObject.fromRef(_getLastSignatureDictionary(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getSignatureFields = jlookup<
               ffi.NativeFunction<
@@ -941,8 +1038,11 @@ class PDDocument extends jni.JlObject {
   /// Retrieve all signature fields from the document.
   ///@return a <code>List</code> of <code>PDSignatureField</code>s
   ///@throws IOException if no document catalog can be found.
-  jni.JlObject getSignatureFields() =>
-      jni.JlObject.fromRef(_getSignatureFields(reference));
+  jni.JlObject getSignatureFields() {
+    final result__ = jni.JlObject.fromRef(_getSignatureFields(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getSignatureDictionaries = jlookup<
               ffi.NativeFunction<
@@ -956,8 +1056,11 @@ class PDDocument extends jni.JlObject {
   /// Retrieve all signature dictionaries from the document.
   ///@return a <code>List</code> of <code>PDSignatureField</code>s
   ///@throws IOException if no document catalog can be found.
-  jni.JlObject getSignatureDictionaries() =>
-      jni.JlObject.fromRef(_getSignatureDictionaries(reference));
+  jni.JlObject getSignatureDictionaries() {
+    final result__ = jni.JlObject.fromRef(_getSignatureDictionaries(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _registerTrueTypeFontForClosing = jlookup<
               ffi.NativeFunction<
@@ -973,8 +1076,11 @@ class PDDocument extends jni.JlObject {
   /// is closed when the PDDocument is closed to avoid memory leaks. Users don't have to call this
   /// method, it is done by the appropriate PDFont classes.
   ///@param ttf
-  void registerTrueTypeFontForClosing(jni.JlObject ttf) =>
-      _registerTrueTypeFontForClosing(reference, ttf.reference);
+  void registerTrueTypeFontForClosing(jni.JlObject ttf) {
+    final result__ = _registerTrueTypeFontForClosing(reference, ttf.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getFontsToSubset = jlookup<
               ffi.NativeFunction<
@@ -986,8 +1092,11 @@ class PDDocument extends jni.JlObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// Returns the list of fonts which will be subset before the document is saved.
-  jni.JlObject getFontsToSubset() =>
-      jni.JlObject.fromRef(_getFontsToSubset(reference));
+  jni.JlObject getFontsToSubset() {
+    final result__ = jni.JlObject.fromRef(_getFontsToSubset(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load = jlookup<
               ffi.NativeFunction<
@@ -1003,8 +1112,11 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the file required a non-empty password.
   ///@throws IOException in case of a file reading or parsing error
-  static PDDocument load(jni.JlObject file) =>
-      PDDocument.fromRef(_load(file.reference));
+  static PDDocument load(jni.JlObject file) {
+    final result__ = PDDocument.fromRef(_load(file.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load1 = jlookup<
               ffi.NativeFunction<
@@ -1024,8 +1136,12 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the file required a non-empty password.
   ///@throws IOException in case of a file reading or parsing error
-  static PDDocument load1(jni.JlObject file, jni.JlObject memUsageSetting) =>
-      PDDocument.fromRef(_load1(file.reference, memUsageSetting.reference));
+  static PDDocument load1(jni.JlObject file, jni.JlObject memUsageSetting) {
+    final result__ =
+        PDDocument.fromRef(_load1(file.reference, memUsageSetting.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load2 = jlookup<
               ffi.NativeFunction<
@@ -1045,8 +1161,12 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException in case of a file reading or parsing error
-  static PDDocument load2(jni.JlObject file, jni.JlString password) =>
-      PDDocument.fromRef(_load2(file.reference, password.reference));
+  static PDDocument load2(jni.JlObject file, jni.JlString password) {
+    final result__ =
+        PDDocument.fromRef(_load2(file.reference, password.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load3 = jlookup<
               ffi.NativeFunction<
@@ -1067,10 +1187,13 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException in case of a file reading or parsing error
-  static PDDocument load3(jni.JlObject file, jni.JlString password,
-          jni.JlObject memUsageSetting) =>
-      PDDocument.fromRef(_load3(
-          file.reference, password.reference, memUsageSetting.reference));
+  static PDDocument load3(
+      jni.JlObject file, jni.JlString password, jni.JlObject memUsageSetting) {
+    final result__ = PDDocument.fromRef(
+        _load3(file.reference, password.reference, memUsageSetting.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load4 = jlookup<
               ffi.NativeFunction<
@@ -1098,9 +1221,12 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws IOException in case of a file reading or parsing error
   static PDDocument load4(jni.JlObject file, jni.JlString password,
-          jni.JlObject keyStore, jni.JlString alias) =>
-      PDDocument.fromRef(_load4(file.reference, password.reference,
-          keyStore.reference, alias.reference));
+      jni.JlObject keyStore, jni.JlString alias) {
+    final result__ = PDDocument.fromRef(_load4(file.reference,
+        password.reference, keyStore.reference, alias.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load5 = jlookup<
               ffi.NativeFunction<
@@ -1130,14 +1256,17 @@ class PDDocument extends jni.JlObject {
   ///@param memUsageSetting defines how memory is used for buffering PDF streams
   ///@return loaded document
   ///@throws IOException in case of a file reading or parsing error
-  static PDDocument load5(
-          jni.JlObject file,
-          jni.JlString password,
-          jni.JlObject keyStore,
-          jni.JlString alias,
-          jni.JlObject memUsageSetting) =>
-      PDDocument.fromRef(_load5(file.reference, password.reference,
-          keyStore.reference, alias.reference, memUsageSetting.reference));
+  static PDDocument load5(jni.JlObject file, jni.JlString password,
+      jni.JlObject keyStore, jni.JlString alias, jni.JlObject memUsageSetting) {
+    final result__ = PDDocument.fromRef(_load5(
+        file.reference,
+        password.reference,
+        keyStore.reference,
+        alias.reference,
+        memUsageSetting.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load6 = jlookup<
               ffi.NativeFunction<
@@ -1158,14 +1287,17 @@ class PDDocument extends jni.JlObject {
 
   /// from: private static org.apache.pdfbox.pdmodel.PDDocument load(org.apache.pdfbox.io.RandomAccessBufferedFileInputStream raFile, java.lang.String password, java.io.InputStream keyStore, java.lang.String alias, org.apache.pdfbox.io.MemoryUsageSetting memUsageSetting)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static PDDocument load6(
-          jni.JlObject raFile,
-          jni.JlString password,
-          jni.JlObject keyStore,
-          jni.JlString alias,
-          jni.JlObject memUsageSetting) =>
-      PDDocument.fromRef(_load6(raFile.reference, password.reference,
-          keyStore.reference, alias.reference, memUsageSetting.reference));
+  static PDDocument load6(jni.JlObject raFile, jni.JlString password,
+      jni.JlObject keyStore, jni.JlString alias, jni.JlObject memUsageSetting) {
+    final result__ = PDDocument.fromRef(_load6(
+        raFile.reference,
+        password.reference,
+        keyStore.reference,
+        alias.reference,
+        memUsageSetting.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load7 = jlookup<
               ffi.NativeFunction<
@@ -1182,8 +1314,11 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the PDF required a non-empty password.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load7(jni.JlObject input) =>
-      PDDocument.fromRef(_load7(input.reference));
+  static PDDocument load7(jni.JlObject input) {
+    final result__ = PDDocument.fromRef(_load7(input.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load8 = jlookup<
               ffi.NativeFunction<
@@ -1204,8 +1339,12 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the PDF required a non-empty password.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load8(jni.JlObject input, jni.JlObject memUsageSetting) =>
-      PDDocument.fromRef(_load8(input.reference, memUsageSetting.reference));
+  static PDDocument load8(jni.JlObject input, jni.JlObject memUsageSetting) {
+    final result__ =
+        PDDocument.fromRef(_load8(input.reference, memUsageSetting.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load9 = jlookup<
               ffi.NativeFunction<
@@ -1226,8 +1365,12 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load9(jni.JlObject input, jni.JlString password) =>
-      PDDocument.fromRef(_load9(input.reference, password.reference));
+  static PDDocument load9(jni.JlObject input, jni.JlString password) {
+    final result__ =
+        PDDocument.fromRef(_load9(input.reference, password.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load10 = jlookup<
               ffi.NativeFunction<
@@ -1256,9 +1399,12 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws IOException In case of a reading or parsing error.
   static PDDocument load10(jni.JlObject input, jni.JlString password,
-          jni.JlObject keyStore, jni.JlString alias) =>
-      PDDocument.fromRef(_load10(input.reference, password.reference,
-          keyStore.reference, alias.reference));
+      jni.JlObject keyStore, jni.JlString alias) {
+    final result__ = PDDocument.fromRef(_load10(input.reference,
+        password.reference, keyStore.reference, alias.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load11 = jlookup<
               ffi.NativeFunction<
@@ -1280,10 +1426,13 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load11(jni.JlObject input, jni.JlString password,
-          jni.JlObject memUsageSetting) =>
-      PDDocument.fromRef(_load11(
-          input.reference, password.reference, memUsageSetting.reference));
+  static PDDocument load11(
+      jni.JlObject input, jni.JlString password, jni.JlObject memUsageSetting) {
+    final result__ = PDDocument.fromRef(_load11(
+        input.reference, password.reference, memUsageSetting.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load12 = jlookup<
               ffi.NativeFunction<
@@ -1315,14 +1464,17 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load12(
-          jni.JlObject input,
-          jni.JlString password,
-          jni.JlObject keyStore,
-          jni.JlString alias,
-          jni.JlObject memUsageSetting) =>
-      PDDocument.fromRef(_load12(input.reference, password.reference,
-          keyStore.reference, alias.reference, memUsageSetting.reference));
+  static PDDocument load12(jni.JlObject input, jni.JlString password,
+      jni.JlObject keyStore, jni.JlString alias, jni.JlObject memUsageSetting) {
+    final result__ = PDDocument.fromRef(_load12(
+        input.reference,
+        password.reference,
+        keyStore.reference,
+        alias.reference,
+        memUsageSetting.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load13 = jlookup<
               ffi.NativeFunction<
@@ -1338,8 +1490,11 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the PDF required a non-empty password.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load13(jni.JlObject input) =>
-      PDDocument.fromRef(_load13(input.reference));
+  static PDDocument load13(jni.JlObject input) {
+    final result__ = PDDocument.fromRef(_load13(input.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load14 = jlookup<
               ffi.NativeFunction<
@@ -1359,8 +1514,12 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load14(jni.JlObject input, jni.JlString password) =>
-      PDDocument.fromRef(_load14(input.reference, password.reference));
+  static PDDocument load14(jni.JlObject input, jni.JlString password) {
+    final result__ =
+        PDDocument.fromRef(_load14(input.reference, password.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load15 = jlookup<
               ffi.NativeFunction<
@@ -1389,9 +1548,12 @@ class PDDocument extends jni.JlObject {
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
   static PDDocument load15(jni.JlObject input, jni.JlString password,
-          jni.JlObject keyStore, jni.JlString alias) =>
-      PDDocument.fromRef(_load15(input.reference, password.reference,
-          keyStore.reference, alias.reference));
+      jni.JlObject keyStore, jni.JlString alias) {
+    final result__ = PDDocument.fromRef(_load15(input.reference,
+        password.reference, keyStore.reference, alias.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _load16 = jlookup<
               ffi.NativeFunction<
@@ -1422,14 +1584,17 @@ class PDDocument extends jni.JlObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load16(
-          jni.JlObject input,
-          jni.JlString password,
-          jni.JlObject keyStore,
-          jni.JlString alias,
-          jni.JlObject memUsageSetting) =>
-      PDDocument.fromRef(_load16(input.reference, password.reference,
-          keyStore.reference, alias.reference, memUsageSetting.reference));
+  static PDDocument load16(jni.JlObject input, jni.JlString password,
+      jni.JlObject keyStore, jni.JlString alias, jni.JlObject memUsageSetting) {
+    final result__ = PDDocument.fromRef(_load16(
+        input.reference,
+        password.reference,
+        keyStore.reference,
+        alias.reference,
+        memUsageSetting.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _save = jlookup<
               ffi.NativeFunction<
@@ -1448,7 +1613,11 @@ class PDDocument extends jni.JlObject {
   /// do not use the document after saving because the contents are now encrypted.
   ///@param fileName The file to save as.
   ///@throws IOException if the output could not be written
-  void save(jni.JlString fileName) => _save(reference, fileName.reference);
+  void save(jni.JlString fileName) {
+    final result__ = _save(reference, fileName.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _save1 = jlookup<
               ffi.NativeFunction<
@@ -1467,7 +1636,11 @@ class PDDocument extends jni.JlObject {
   /// do not use the document after saving because the contents are now encrypted.
   ///@param file The file to save as.
   ///@throws IOException if the output could not be written
-  void save1(jni.JlObject file) => _save1(reference, file.reference);
+  void save1(jni.JlObject file) {
+    final result__ = _save1(reference, file.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _save2 = jlookup<
               ffi.NativeFunction<
@@ -1487,7 +1660,11 @@ class PDDocument extends jni.JlObject {
   ///@param output The stream to write to. It will be closed when done. It is recommended to wrap
   /// it in a java.io.BufferedOutputStream, unless it is already buffered.
   ///@throws IOException if the output could not be written
-  void save2(jni.JlObject output) => _save2(reference, output.reference);
+  void save2(jni.JlObject output) {
+    final result__ = _save2(reference, output.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _saveIncremental = jlookup<
               ffi.NativeFunction<
@@ -1512,8 +1689,11 @@ class PDDocument extends jni.JlObject {
   /// harmed!
   ///@throws IOException if the output could not be written
   ///@throws IllegalStateException if the document was not loaded from a file or a stream.
-  void saveIncremental(jni.JlObject output) =>
-      _saveIncremental(reference, output.reference);
+  void saveIncremental(jni.JlObject output) {
+    final result__ = _saveIncremental(reference, output.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _saveIncremental1 = jlookup<
               ffi.NativeFunction<
@@ -1544,8 +1724,12 @@ class PDDocument extends jni.JlObject {
   ///@param objectsToWrite objects that __must__ be part of the incremental saving.
   ///@throws IOException if the output could not be written
   ///@throws IllegalStateException if the document was not loaded from a file or a stream.
-  void saveIncremental1(jni.JlObject output, jni.JlObject objectsToWrite) =>
-      _saveIncremental1(reference, output.reference, objectsToWrite.reference);
+  void saveIncremental1(jni.JlObject output, jni.JlObject objectsToWrite) {
+    final result__ = _saveIncremental1(
+        reference, output.reference, objectsToWrite.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _saveIncrementalForExternalSigning = jlookup<
               ffi.NativeFunction<
@@ -1596,9 +1780,12 @@ class PDDocument extends jni.JlObject {
   ///@throws IOException if the output could not be written
   ///@throws IllegalStateException if the document was not loaded from a file or a stream or
   /// signature options were not set.
-  jni.JlObject saveIncrementalForExternalSigning(jni.JlObject output) =>
-      jni.JlObject.fromRef(
-          _saveIncrementalForExternalSigning(reference, output.reference));
+  jni.JlObject saveIncrementalForExternalSigning(jni.JlObject output) {
+    final result__ = jni.JlObject.fromRef(
+        _saveIncrementalForExternalSigning(reference, output.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getPage = jlookup<
           ffi.NativeFunction<
@@ -1616,8 +1803,11 @@ class PDDocument extends jni.JlObject {
   /// PDDocument\#getPages() instead.
   ///@param pageIndex the 0-based page index
   ///@return the page at the given index.
-  jni.JlObject getPage(int pageIndex) =>
-      jni.JlObject.fromRef(_getPage(reference, pageIndex));
+  jni.JlObject getPage(int pageIndex) {
+    final result__ = jni.JlObject.fromRef(_getPage(reference, pageIndex));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getPages = jlookup<
               ffi.NativeFunction<
@@ -1630,7 +1820,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// Returns the page tree.
   ///@return the page tree
-  jni.JlObject getPages() => jni.JlObject.fromRef(_getPages(reference));
+  jni.JlObject getPages() {
+    final result__ = jni.JlObject.fromRef(_getPages(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getNumberOfPages =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -1641,7 +1835,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// This will return the total page count of the PDF document.
   ///@return The total number of pages in the PDF document.
-  int getNumberOfPages() => _getNumberOfPages(reference);
+  int getNumberOfPages() {
+    final result__ = _getNumberOfPages(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _close =
       jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
@@ -1652,7 +1850,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// This will close the underlying COSDocument object.
   ///@throws IOException If there is an error releasing resources.
-  void close() => _close(reference);
+  void close() {
+    final result__ = _close(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _protect = jlookup<
               ffi.NativeFunction<
@@ -1674,7 +1876,11 @@ class PDDocument extends jni.JlObject {
   ///@see org.apache.pdfbox.pdmodel.encryption.PublicKeyProtectionPolicy
   ///@param policy The protection policy.
   ///@throws IOException if there isn't any suitable security handler.
-  void protect(jni.JlObject policy) => _protect(reference, policy.reference);
+  void protect(jni.JlObject policy) {
+    final result__ = _protect(reference, policy.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getCurrentAccessPermission = jlookup<
               ffi.NativeFunction<
@@ -1690,8 +1896,12 @@ class PDDocument extends jni.JlObject {
   /// only mode so that permissions cannot be changed. Methods providing access to content should rely on this object
   /// to verify if the current user is allowed to proceed.
   ///@return the access permissions for the current user on the document.
-  jni.JlObject getCurrentAccessPermission() =>
-      jni.JlObject.fromRef(_getCurrentAccessPermission(reference));
+  jni.JlObject getCurrentAccessPermission() {
+    final result__ =
+        jni.JlObject.fromRef(_getCurrentAccessPermission(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isAllSecurityToBeRemoved =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -1702,7 +1912,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// Indicates if all security is removed or not when writing the pdf.
   ///@return returns true if all security shall be removed otherwise false
-  bool isAllSecurityToBeRemoved() => _isAllSecurityToBeRemoved(reference) != 0;
+  bool isAllSecurityToBeRemoved() {
+    final result__ = _isAllSecurityToBeRemoved(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setAllSecurityToBeRemoved = jlookup<
               ffi.NativeFunction<
@@ -1714,8 +1928,12 @@ class PDDocument extends jni.JlObject {
   ///
   /// Activates/Deactivates the removal of all security when writing the pdf.
   ///@param removeAllSecurity remove all security if set to true
-  void setAllSecurityToBeRemoved(bool removeAllSecurity) =>
-      _setAllSecurityToBeRemoved(reference, removeAllSecurity ? 1 : 0);
+  void setAllSecurityToBeRemoved(bool removeAllSecurity) {
+    final result__ =
+        _setAllSecurityToBeRemoved(reference, removeAllSecurity ? 1 : 0);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getDocumentId = jlookup<
               ffi.NativeFunction<
@@ -1728,8 +1946,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// Provides the document ID.
   ///@return the document ID
-  jni.JlObject getDocumentId() =>
-      jni.JlObject.fromRef(_getDocumentId(reference));
+  jni.JlObject getDocumentId() {
+    final result__ = jni.JlObject.fromRef(_getDocumentId(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setDocumentId = jlookup<
               ffi.NativeFunction<
@@ -1743,8 +1964,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// Sets the document ID to the given value.
   ///@param docId the new document ID
-  void setDocumentId(jni.JlObject docId) =>
-      _setDocumentId(reference, docId.reference);
+  void setDocumentId(jni.JlObject docId) {
+    final result__ = _setDocumentId(reference, docId.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getVersion =
       jlookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
@@ -1755,7 +1979,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// Returns the PDF specification version this document conforms to.
   ///@return the PDF version (e.g. 1.4f)
-  double getVersion() => _getVersion(reference);
+  double getVersion() {
+    final result__ = _getVersion(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setVersion = jlookup<
               ffi.NativeFunction<
@@ -1767,7 +1995,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// Sets the PDF specification version for this document.
   ///@param newVersion the new PDF version (e.g. 1.4f)
-  void setVersion(double newVersion) => _setVersion(reference, newVersion);
+  void setVersion(double newVersion) {
+    final result__ = _setVersion(reference, newVersion);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getResourceCache = jlookup<
               ffi.NativeFunction<
@@ -1780,8 +2012,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// Returns the resource cache associated with this document, or null if there is none.
   ///@return the resource cache or null.
-  jni.JlObject getResourceCache() =>
-      jni.JlObject.fromRef(_getResourceCache(reference));
+  jni.JlObject getResourceCache() {
+    final result__ = jni.JlObject.fromRef(_getResourceCache(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setResourceCache = jlookup<
               ffi.NativeFunction<
@@ -1795,8 +2030,11 @@ class PDDocument extends jni.JlObject {
   ///
   /// Sets the resource cache associated with this document.
   ///@param resourceCache A resource cache, or null.
-  void setResourceCache(jni.JlObject resourceCache) =>
-      _setResourceCache(reference, resourceCache.reference);
+  void setResourceCache(jni.JlObject resourceCache) {
+    final result__ = _setResourceCache(reference, resourceCache.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 }
 
 /// from: org.apache.pdfbox.pdmodel.PDDocumentInformation
@@ -1831,7 +2069,9 @@ class PDDocumentInformation extends jni.JlObject {
   /// from: public void <init>()
   ///
   /// Default Constructor.
-  PDDocumentInformation() : super.fromRef(_ctor());
+  PDDocumentInformation() : super.fromRef(_ctor()) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _ctor1 = jlookup<
               ffi.NativeFunction<
@@ -1844,7 +2084,9 @@ class PDDocumentInformation extends jni.JlObject {
   /// Constructor that is used for a preexisting dictionary.
   ///@param dic The underlying dictionary.
   PDDocumentInformation.ctor1(jni.JlObject dic)
-      : super.fromRef(_ctor1(dic.reference));
+      : super.fromRef(_ctor1(dic.reference)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _getCOSObject = jlookup<
               ffi.NativeFunction<
@@ -1857,7 +2099,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will get the underlying dictionary that this object wraps.
   ///@return The underlying info dictionary.
-  jni.JlObject getCOSObject() => jni.JlObject.fromRef(_getCOSObject(reference));
+  jni.JlObject getCOSObject() {
+    final result__ = jni.JlObject.fromRef(_getCOSObject(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getPropertyStringValue = jlookup<
               ffi.NativeFunction<
@@ -1879,9 +2125,12 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   ///@param propertyKey the dictionaries key
   ///@return the properties value
-  jni.JlObject getPropertyStringValue(jni.JlString propertyKey) =>
-      jni.JlObject.fromRef(
-          _getPropertyStringValue(reference, propertyKey.reference));
+  jni.JlObject getPropertyStringValue(jni.JlString propertyKey) {
+    final result__ = jni.JlObject.fromRef(
+        _getPropertyStringValue(reference, propertyKey.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getTitle = jlookup<
               ffi.NativeFunction<
@@ -1894,7 +2143,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will get the title of the document.  This will return null if no title exists.
   ///@return The title of the document.
-  jni.JlString getTitle() => jni.JlString.fromRef(_getTitle(reference));
+  jni.JlString getTitle() {
+    final result__ = jni.JlString.fromRef(_getTitle(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setTitle = jlookup<
               ffi.NativeFunction<
@@ -1908,7 +2161,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will set the title of the document.
   ///@param title The new title for the document.
-  void setTitle(jni.JlString title) => _setTitle(reference, title.reference);
+  void setTitle(jni.JlString title) {
+    final result__ = _setTitle(reference, title.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getAuthor = jlookup<
               ffi.NativeFunction<
@@ -1921,7 +2178,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will get the author of the document.  This will return null if no author exists.
   ///@return The author of the document.
-  jni.JlString getAuthor() => jni.JlString.fromRef(_getAuthor(reference));
+  jni.JlString getAuthor() {
+    final result__ = jni.JlString.fromRef(_getAuthor(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setAuthor = jlookup<
               ffi.NativeFunction<
@@ -1935,8 +2196,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will set the author of the document.
   ///@param author The new author for the document.
-  void setAuthor(jni.JlString author) =>
-      _setAuthor(reference, author.reference);
+  void setAuthor(jni.JlString author) {
+    final result__ = _setAuthor(reference, author.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getSubject = jlookup<
               ffi.NativeFunction<
@@ -1949,7 +2213,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will get the subject of the document.  This will return null if no subject exists.
   ///@return The subject of the document.
-  jni.JlString getSubject() => jni.JlString.fromRef(_getSubject(reference));
+  jni.JlString getSubject() {
+    final result__ = jni.JlString.fromRef(_getSubject(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setSubject = jlookup<
               ffi.NativeFunction<
@@ -1963,8 +2231,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will set the subject of the document.
   ///@param subject The new subject for the document.
-  void setSubject(jni.JlString subject) =>
-      _setSubject(reference, subject.reference);
+  void setSubject(jni.JlString subject) {
+    final result__ = _setSubject(reference, subject.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getKeywords = jlookup<
               ffi.NativeFunction<
@@ -1977,7 +2248,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will get the keywords of the document.  This will return null if no keywords exists.
   ///@return The keywords of the document.
-  jni.JlString getKeywords() => jni.JlString.fromRef(_getKeywords(reference));
+  jni.JlString getKeywords() {
+    final result__ = jni.JlString.fromRef(_getKeywords(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setKeywords = jlookup<
               ffi.NativeFunction<
@@ -1991,8 +2266,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will set the keywords of the document.
   ///@param keywords The new keywords for the document.
-  void setKeywords(jni.JlString keywords) =>
-      _setKeywords(reference, keywords.reference);
+  void setKeywords(jni.JlString keywords) {
+    final result__ = _setKeywords(reference, keywords.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getCreator = jlookup<
               ffi.NativeFunction<
@@ -2005,7 +2283,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will get the creator of the document.  This will return null if no creator exists.
   ///@return The creator of the document.
-  jni.JlString getCreator() => jni.JlString.fromRef(_getCreator(reference));
+  jni.JlString getCreator() {
+    final result__ = jni.JlString.fromRef(_getCreator(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setCreator = jlookup<
               ffi.NativeFunction<
@@ -2019,8 +2301,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will set the creator of the document.
   ///@param creator The new creator for the document.
-  void setCreator(jni.JlString creator) =>
-      _setCreator(reference, creator.reference);
+  void setCreator(jni.JlString creator) {
+    final result__ = _setCreator(reference, creator.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getProducer = jlookup<
               ffi.NativeFunction<
@@ -2033,7 +2318,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will get the producer of the document.  This will return null if no producer exists.
   ///@return The producer of the document.
-  jni.JlString getProducer() => jni.JlString.fromRef(_getProducer(reference));
+  jni.JlString getProducer() {
+    final result__ = jni.JlString.fromRef(_getProducer(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setProducer = jlookup<
               ffi.NativeFunction<
@@ -2047,8 +2336,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will set the producer of the document.
   ///@param producer The new producer for the document.
-  void setProducer(jni.JlString producer) =>
-      _setProducer(reference, producer.reference);
+  void setProducer(jni.JlString producer) {
+    final result__ = _setProducer(reference, producer.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getCreationDate = jlookup<
               ffi.NativeFunction<
@@ -2061,8 +2353,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will get the creation date of the document.  This will return null if no creation date exists.
   ///@return The creation date of the document.
-  jni.JlObject getCreationDate() =>
-      jni.JlObject.fromRef(_getCreationDate(reference));
+  jni.JlObject getCreationDate() {
+    final result__ = jni.JlObject.fromRef(_getCreationDate(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setCreationDate = jlookup<
               ffi.NativeFunction<
@@ -2076,8 +2371,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will set the creation date of the document.
   ///@param date The new creation date for the document.
-  void setCreationDate(jni.JlObject date) =>
-      _setCreationDate(reference, date.reference);
+  void setCreationDate(jni.JlObject date) {
+    final result__ = _setCreationDate(reference, date.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getModificationDate = jlookup<
               ffi.NativeFunction<
@@ -2090,8 +2388,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will get the modification date of the document.  This will return null if no modification date exists.
   ///@return The modification date of the document.
-  jni.JlObject getModificationDate() =>
-      jni.JlObject.fromRef(_getModificationDate(reference));
+  jni.JlObject getModificationDate() {
+    final result__ = jni.JlObject.fromRef(_getModificationDate(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setModificationDate = jlookup<
               ffi.NativeFunction<
@@ -2105,8 +2406,11 @@ class PDDocumentInformation extends jni.JlObject {
   ///
   /// This will set the modification date of the document.
   ///@param date The new modification date for the document.
-  void setModificationDate(jni.JlObject date) =>
-      _setModificationDate(reference, date.reference);
+  void setModificationDate(jni.JlObject date) {
+    final result__ = _setModificationDate(reference, date.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getTrapped = jlookup<
               ffi.NativeFunction<
@@ -2120,7 +2424,11 @@ class PDDocumentInformation extends jni.JlObject {
   /// This will get the trapped value for the document.
   /// This will return null if one is not found.
   ///@return The trapped value for the document.
-  jni.JlString getTrapped() => jni.JlString.fromRef(_getTrapped(reference));
+  jni.JlString getTrapped() {
+    final result__ = jni.JlString.fromRef(_getTrapped(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getMetadataKeys = jlookup<
               ffi.NativeFunction<
@@ -2134,8 +2442,11 @@ class PDDocumentInformation extends jni.JlObject {
   /// This will get the keys of all metadata information fields for the document.
   ///@return all metadata key strings.
   ///@since Apache PDFBox 1.3.0
-  jni.JlObject getMetadataKeys() =>
-      jni.JlObject.fromRef(_getMetadataKeys(reference));
+  jni.JlObject getMetadataKeys() {
+    final result__ = jni.JlObject.fromRef(_getMetadataKeys(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getCustomMetadataValue = jlookup<
               ffi.NativeFunction<
@@ -2153,9 +2464,12 @@ class PDDocumentInformation extends jni.JlObject {
   ///  This will return null if one is not found.
   ///@param fieldName Name of custom metadata field from pdf document.
   ///@return String Value of metadata field
-  jni.JlString getCustomMetadataValue(jni.JlString fieldName) =>
-      jni.JlString.fromRef(
-          _getCustomMetadataValue(reference, fieldName.reference));
+  jni.JlString getCustomMetadataValue(jni.JlString fieldName) {
+    final result__ = jni.JlString.fromRef(
+        _getCustomMetadataValue(reference, fieldName.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setCustomMetadataValue = jlookup<
               ffi.NativeFunction<
@@ -2171,10 +2485,12 @@ class PDDocumentInformation extends jni.JlObject {
   /// Set the custom metadata value.
   ///@param fieldName The name of the custom metadata field.
   ///@param fieldValue The value to the custom metadata field.
-  void setCustomMetadataValue(
-          jni.JlString fieldName, jni.JlString fieldValue) =>
-      _setCustomMetadataValue(
-          reference, fieldName.reference, fieldValue.reference);
+  void setCustomMetadataValue(jni.JlString fieldName, jni.JlString fieldValue) {
+    final result__ = _setCustomMetadataValue(
+        reference, fieldName.reference, fieldValue.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setTrapped = jlookup<
               ffi.NativeFunction<
@@ -2190,6 +2506,9 @@ class PDDocumentInformation extends jni.JlObject {
   /// 'True', 'False', or 'Unknown'.
   ///@param value The new trapped value for the document.
   ///@throws IllegalArgumentException if the parameter is invalid.
-  void setTrapped(jni.JlString value) =>
-      _setTrapped(reference, value.reference);
+  void setTrapped(jni.JlString value) {
+    final result__ = _setTrapped(reference, value.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 }

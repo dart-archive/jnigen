@@ -24,7 +24,9 @@ FFI_PLUGIN_EXPORT
 jobject com_example_in_app_java_AndroidUtils_ctor() {
     load_env();
     load_class_gr(&_c_com_example_in_app_java_AndroidUtils, "com/example/in_app_java/AndroidUtils");
+    if (_c_com_example_in_app_java_AndroidUtils == NULL) return (jobject)0;
     load_method(_c_com_example_in_app_java_AndroidUtils, &_m_com_example_in_app_java_AndroidUtils_ctor, "<init>", "()V");
+    if (_m_com_example_in_app_java_AndroidUtils_ctor == NULL) return (jobject)0;
     jobject _result = (*jniEnv)->NewObject(jniEnv, _c_com_example_in_app_java_AndroidUtils, _m_com_example_in_app_java_AndroidUtils_ctor);
     return to_global_ref(_result);
 }
@@ -34,7 +36,9 @@ FFI_PLUGIN_EXPORT
 void com_example_in_app_java_AndroidUtils_showToast(jobject mainActivity, jobject text, int32_t duration) {
     load_env();
     load_class_gr(&_c_com_example_in_app_java_AndroidUtils, "com/example/in_app_java/AndroidUtils");
+    if (_c_com_example_in_app_java_AndroidUtils == NULL) return (void)0;
     load_static_method(_c_com_example_in_app_java_AndroidUtils, &_m_com_example_in_app_java_AndroidUtils_showToast, "showToast", "(Landroid/app/Activity;Ljava/lang/CharSequence;I)V");
+    if (_m_com_example_in_app_java_AndroidUtils_showToast == NULL) return (void)0;
     (*jniEnv)->CallStaticVoidMethod(jniEnv, _c_com_example_in_app_java_AndroidUtils, _m_com_example_in_app_java_AndroidUtils_showToast, mainActivity, text, duration);
 }
 
