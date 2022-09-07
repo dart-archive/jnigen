@@ -18,6 +18,7 @@ linter:
     # Enabled.
     directives_ordering: true
     prefer_final_locals: true
+    duplicate_import: false
     prefer_final_in_for_each: true
     # Disabled.
     constant_identifier_names: false
