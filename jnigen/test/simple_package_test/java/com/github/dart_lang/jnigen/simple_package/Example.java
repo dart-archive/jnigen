@@ -33,7 +33,7 @@ public class Example {
   }
 
   public static void throwException() {
-	throw new RuntimeException("Hello");
+    throw new RuntimeException("Hello");
   }
 
   public static class Aux {
