@@ -48,7 +48,6 @@ void main() {
     }
     Jni.spawn(classPath: jars);
   }
-  jni = Jni.getInstance();
   runApp(const PDFInfoApp());
 }
 
@@ -176,11 +175,9 @@ class PDFFileInfo {
     // Since java.io is not directly available, use package:jni API to
     // create a java.io.File object.
     final inputFile =
-        jni.newInstance("java/io/File", "(Ljava/lang/String;)V", [filename]);
-    final inputJl = JlObject.fromRef(inputFile.jobject);
-
+        Jni.newInstance("java/io/File", "(Ljava/lang/String;)V", [filename]);
     // Static method call PDDocument.load -> PDDocument
-    final pdf = PDDocument.load(inputJl);
+    final pdf = PDDocument.load(inputFile);
     // Instance method call getNumberOfPages() -> int
     numPages = pdf.getNumberOfPages();
     // Instance method that returns an object
@@ -193,10 +190,8 @@ class PDFFileInfo {
     subject = _fromJavaStr(info.getSubject());
 
     /// Delete objects after done.
-    info.delete();
     pdf.close();
-    pdf.delete();
-    inputFile.delete();
+    Jni.deleteAll([info, pdf, inputFile]);
   }
 }
 

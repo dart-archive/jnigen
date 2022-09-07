@@ -11,13 +11,11 @@ import 'dart:ffi';
 import 'package:pdfbox_plugin/third_party/org/apache/pdfbox/pdmodel.dart';
 
 void writeInfo(String file) {
-  var jni = Jni.getInstance();
 
-  var inputFile = jni
+  final inputFile = Jni
       .newInstance("java/io/FileInputStream", "(Ljava/lang/String;)V", [file]);
-  var inputJl = JlObject.fromRef(inputFile.jobject);
 
-  var pdDoc = PDDocument.load7(inputJl);
+  final pdDoc = PDDocument.load7(inputFile);
   int pages = pdDoc.getNumberOfPages();
   final info = pdDoc.getDocumentInformation();
   final title = info.getTitle();
@@ -66,7 +64,7 @@ void main(List<String> arguments) {
     stderr.writeln(jarError);
     return;
   }
-  Jni.spawn(helperDir: jniLibsDir, classPath: jars);
+  Jni.spawn(dylibDir: jniLibsDir, classPath: jars);
   if (arguments.length != 1) {
     stderr.writeln('usage: dart run pdf_info:pdf_info <Path_to_PDF>');
     exitCode = 1;

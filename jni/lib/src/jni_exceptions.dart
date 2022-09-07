@@ -1,7 +1,3 @@
-// Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 import 'dart:ffi';
 
 import 'third_party/jni_bindings_generated.dart';
@@ -29,8 +25,43 @@ class DoubleFreeException implements Exception {
 
   @override
   String toString() {
-    return "double on $ptr through $object";
+    return "double free on $ptr through $object";
   }
+}
+
+class JvmExistsException implements Exception {
+  @override
+  String toString() => 'A JVM already exists';
+}
+
+class NoJvmInstanceException implements Exception {
+  @override
+  String toString() => 'No JNI instance is available';
+}
+
+extension JniTypeNames on int {
+  static const _names = {
+    JniType.boolType: 'bool',
+    JniType.byteType: 'byte',
+    JniType.shortType: 'short',
+    JniType.charType: 'char',
+    JniType.intType: 'int',
+    JniType.longType: 'long',
+    JniType.floatType: 'float',
+    JniType.doubleType: 'double',
+    JniType.objectType: 'object',
+    JniType.voidType: 'void',
+  };
+  String str() => _names[this]!;
+}
+
+class InvalidCallTypeException implements Exception {
+  int type;
+  Set<int> allowed;
+  InvalidCallTypeException(this.type, this.allowed);
+  @override
+  String toString() => 'Invalid type for call ${type.str()}. '
+      'Allowed types are ${allowed.map((t) => t.str()).toSet()}';
 }
 
 class JniException implements Exception {
@@ -43,8 +74,6 @@ class JniException implements Exception {
 
   @override
   String toString() => msg;
-
-  void deleteIn(Pointer<JniEnv> env) => env.DeleteLocalRef(err);
 }
 
 class HelperNotFoundException implements Exception {
@@ -54,5 +83,6 @@ class HelperNotFoundException implements Exception {
   @override
   String toString() => "Lookup for helper library $path failed.\n"
       "Please ensure that `dartjni` shared library is built.\n"
+      "Provided jni:setup script can be used to build the shared library."
       "If the library is already built, double check the path.";
 }

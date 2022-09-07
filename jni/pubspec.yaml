@@ -18,21 +18,10 @@ dependencies:
   args: ^2.3.1
 
 dev_dependencies:
-  ## Temporarily linking to a personal fork of ffigen
-  ## so that changes in FFIGen can be reviewed.
-  #
-  ## If this is vendored directly, it will not be possible to
-  ## review changes in ffigen.
-  #
-  ## Will be removed in a later PR by vendoring the patched ffigen.
-  #
   ## After running `dart run ffigen --config ffigen.yaml` there
   ## should be no changes.
-  ##
-  ## TODO: vendor ffigen fork
   ffigen:
-    git: https://github.com/mahesh-hegde/ffigen_patch_jni.git
-    #path: third_party/ffigen_patch
+    path: third_party/ffigen_patch_jni
   flutter_lints: ^2.0.0
   test: ^1.21.1
 

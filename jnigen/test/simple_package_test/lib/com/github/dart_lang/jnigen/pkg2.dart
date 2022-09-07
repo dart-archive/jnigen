@@ -8,10 +8,9 @@
 // ignore_for_file: unused_element
 
 import "dart:ffi" as ffi;
-
 import "package:jni/jni.dart" as jni;
 
-import "../../../../init.dart" show jlookup;
+import "../../../../_init.dart" show jlookup;
 
 /// from: com.github.dart_lang.jnigen.pkg2.C2
 class C2 extends jni.JlObject {

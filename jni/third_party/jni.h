@@ -155,6 +155,20 @@ struct JNINativeInterface {
     void*       reserved3;
 
     jint        (*GetVersion)(JNIEnv *env);
+	/* 1. jint Je_<MatchFName>() {
+	 *        attach_thread();
+	 *        (*jniEnv)->MatchFName(<MatchPNames - First>)
+	 *    }
+	 *
+	 * 2. struct JeIndir {
+	 *        jint (*GetVersion)(MatchPNames - First);
+	 *    }
+	 *
+	 * 3. struct JeIndir jei = {
+	 *		.MatchFName = Je_MatchFName
+	 *    }
+	 *
+	 * */
 
     jclass      (*DefineClass)(JNIEnv *env, const char* name, jobject loader, const jbyte* buf,
                         jsize bufLen);

@@ -36,7 +36,7 @@ class CallbackWriter implements BindingsWriter {
 /// Example:
 /// `android.os` -> `$dartWrappersRoot`/`android/os.dart`
 class FilesWriter extends BindingsWriter {
-  static const _initFileName = 'init.dart';
+  static const _initFileName = '_init.dart';
 
   FilesWriter(this.config);
   Config config;

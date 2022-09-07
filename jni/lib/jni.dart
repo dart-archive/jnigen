@@ -58,10 +58,12 @@
 /// For a higher level API, import `'package:jni/jni_object.dart'`.
 library jni;
 
-export 'src/third_party/jni_bindings_generated.dart' hide JNI_LOG_TAG;
-export 'src/jni.dart';
+export 'src/third_party/jni_bindings_generated.dart'
+    hide JNI_LOG_TAG, JniBindings, JniEnv, JniEnv1;
+export 'src/jni.dart' hide ProtectedJniExtensions;
 export 'src/jvalues.dart' hide JValueArgs, toJValues;
-export 'src/extensions.dart'
-    show StringMethodsForJni, CharPtrMethodsForJni, AdditionalJniEnvMethods;
+export 'src/indir_extensions.dart'
+    show StringMethodsForJni, CharPtrMethodsForJni, AdditionalIndirMethods;
 export 'src/jni_exceptions.dart';
-export 'src/jl_object.dart';
+export 'src/jl_object.dart' hide JniReference;
+export 'package:ffi/ffi.dart' show using, Arena;

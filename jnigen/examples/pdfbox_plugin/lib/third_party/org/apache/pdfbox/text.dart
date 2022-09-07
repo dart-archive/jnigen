@@ -26,11 +26,10 @@
 // ignore_for_file: unused_element
 
 import "dart:ffi" as ffi;
-
 import "package:jni/jni.dart" as jni;
 
 import "../pdfbox/pdmodel.dart" as pdmodel_;
-import "../../../init.dart" show jlookup;
+import "../../../_init.dart" show jlookup;
 
 /// from: org.apache.pdfbox.text.PDFTextStripper
 ///

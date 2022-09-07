@@ -10,7 +10,7 @@ import 'package:jni/jni.dart';
 // more customization in future.
 import 'package:notification_plugin/com/example/notification_plugin.dart';
 
-JlObject activity = JlObject.fromRef(Jni.getInstance().getCurrentActivity());
+JlObject activity = JlObject.fromRef(Jni.getCurrentActivity());
 
 int i = 0;
 

@@ -1,7 +1,3 @@
-// Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
@@ -10,21 +6,7 @@ import 'third_party/jni_bindings_generated.dart';
 
 import 'jni_exceptions.dart';
 
-extension StringMethodsForJni on String {
-  /// Returns a Utf-8 encoded Pointer<Char> with contents same as this string.
-  Pointer<Char> toNativeChars([Allocator allocator = malloc]) {
-    return toNativeUtf8(allocator: allocator).cast<Char>();
-  }
-}
-
-extension CharPtrMethodsForJni on Pointer<Char> {
-  /// Same as calling `cast<Utf8>` followed by `toDartString`.
-  String toDartString() {
-    return cast<Utf8>().toDartString();
-  }
-}
-
-extension AdditionalJniEnvMethods on Pointer<JniEnv> {
+extension AdditionalIndirMethods on Pointer<JniEnvIndir> {
   /// Convenience method for converting a [JString]
   /// to dart string.
   /// if [deleteOriginal] is specified, jstring passed will be deleted using
@@ -37,7 +19,7 @@ extension AdditionalJniEnvMethods on Pointer<JniEnv> {
     final result = chars.cast<Utf8>().toDartString();
     ReleaseStringUTFChars(jstring, chars);
     if (deleteOriginal) {
-      DeleteLocalRef(jstring);
+      DeleteGlobalRef(jstring);
     }
     return result;
   }
@@ -50,10 +32,10 @@ extension AdditionalJniEnvMethods on Pointer<JniEnv> {
     return result;
   }
 
-  /// Deletes all local references in [refs].
-  void deleteAllLocalRefs(List<JObject> refs) {
+  /// Deletes all references in [refs].
+  void deleteAllRefs(List<JObject> refs) {
     for (final ref in refs) {
-      DeleteLocalRef(ref);
+      DeleteGlobalRef(ref);
     }
   }
 
@@ -67,13 +49,13 @@ extension AdditionalJniEnvMethods on Pointer<JniEnv> {
       // TODO: Doing this every time is expensive.
       // Should lookup and cache method reference,
       // and keep it alive by keeping a reference to Exception class.
-      // IssueRef: https://github.com/dart-lang/jnigen/issues/13
+      // IssueRef: https://github.com/dart-lang/jni_gen/issues/13
       final ecls = GetObjectClass(exc);
       final toStr = GetMethodID(ecls, _toString, _toStringSig);
       final jstr = CallObjectMethod(exc, toStr);
       final dstr = asDartString(jstr);
       for (final i in [jstr, ecls]) {
-        DeleteLocalRef(i);
+        DeleteGlobalRef(i);
       }
       if (describe) {
         ExceptionDescribe();
@@ -91,7 +73,21 @@ extension AdditionalJniEnvMethods on Pointer<JniEnv> {
     final printStackTrace =
         GetMethodID(ecls, _printStackTrace, _printStackTraceSig);
     CallVoidMethod(je.err, printStackTrace);
-    DeleteLocalRef(ecls);
+    DeleteGlobalRef(ecls);
+  }
+}
+
+extension StringMethodsForJni on String {
+  /// Returns a Utf-8 encoded Pointer<Char> with contents same as this string.
+  Pointer<Char> toNativeChars([Allocator allocator = malloc]) {
+    return toNativeUtf8(allocator: allocator).cast<Char>();
+  }
+}
+
+extension CharPtrMethodsForJni on Pointer<Char> {
+  /// Same as calling `cast<Utf8>` followed by `toDartString`.
+  String toDartString() {
+    return cast<Utf8>().toDartString();
   }
 }
 

@@ -1,15 +1,17 @@
-// Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 import 'dart:ffi';
 import 'package:ffi/ffi.dart';
 
 import 'third_party/jni_bindings_generated.dart';
-import 'extensions.dart';
-import 'jni_object.dart';
+import 'jni.dart';
+import 'jl_object.dart';
+import 'indir_extensions.dart';
 
 void _fillJValue(Pointer<JValue> pos, dynamic arg) {
+  if (arg is JlObject) {
+    pos.ref.l = arg.reference;
+    return;
+  }
+
   // switch on runtimeType is not guaranteed to work?
   switch (arg.runtimeType) {
     case int:
@@ -19,7 +21,7 @@ void _fillJValue(Pointer<JValue> pos, dynamic arg) {
       pos.ref.z = arg ? 1 : 0;
       break;
     case Pointer<Void>:
-    case Pointer<Never>:
+    case Pointer<Never>: // for nullptr
       pos.ref.l = arg;
       break;
     case double:
@@ -41,7 +43,7 @@ void _fillJValue(Pointer<JValue> pos, dynamic arg) {
       pos.ref.b = (arg as JValueByte).value;
       break;
     default:
-      throw "cannot convert ${arg.runtimeType} to jvalue";
+      throw UnsupportedError("cannot convert ${arg.runtimeType} to jvalue");
   }
 }
 
@@ -114,28 +116,26 @@ class JValueChar {
 class JValueArgs {
   late Pointer<JValue> values;
   final List<JObject> createdRefs = [];
+  final _indir = Jni.indir;
 
-  JValueArgs(List<dynamic> args, Pointer<JniEnv> env,
-      [Allocator allocator = malloc]) {
+  JValueArgs(List<dynamic> args, [Allocator allocator = malloc]) {
     values = allocator<JValue>(args.length);
     for (int i = 0; i < args.length; i++) {
       final arg = args[i];
       final ptr = values.elementAt(i);
       if (arg is String) {
-        final jstr = env.asJString(arg);
+        final jstr = _indir.asJString(arg);
         ptr.ref.l = jstr;
         createdRefs.add(jstr);
-      } else if (arg is JniObject) {
-        ptr.ref.l = arg.jobject;
       } else {
         _fillJValue(ptr, arg);
       }
     }
   }
 
-  void disposeIn(Pointer<JniEnv> env) {
+  void dispose() {
     for (var ref in createdRefs) {
-      env.DeleteLocalRef(ref);
+      _indir.DeleteGlobalRef(ref);
     }
   }
 }

@@ -10,7 +10,7 @@ import 'package:jni/jni.dart';
 // more customization in future.
 import 'android_utils/com/example/in_app_java.dart';
 
-JlObject activity = JlObject.fromRef(Jni.getInstance().getCurrentActivity());
+JlObject activity = JlObject.fromRef(Jni.getCurrentActivity());
 
 void showToast(String text) {
   final jstr = JlString.fromString(text);

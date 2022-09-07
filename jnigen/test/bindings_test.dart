@@ -46,7 +46,7 @@ Future<void> setupDylibsAndClasses() async {
 
   if (!Platform.isAndroid) {
     Jni.spawn(
-        helperDir: 'build/jni_libs',
+        dylibDir: 'build/jni_libs',
         classPath: [simplePackageJavaPath, ...jacksonJars]);
   }
 }

@@ -26,10 +26,9 @@
 // ignore_for_file: unused_element
 
 import "dart:ffi" as ffi;
-
 import "package:jni/jni.dart" as jni;
 
-import "../../../init.dart" show jlookup;
+import "../../../_init.dart" show jlookup;
 
 /// from: org.apache.pdfbox.pdmodel.PDDocument
 ///

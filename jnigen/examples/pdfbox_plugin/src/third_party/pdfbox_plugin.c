@@ -23,12 +23,12 @@
 #include "dartjni.h"
 
 thread_local JNIEnv *jniEnv;
-struct jni_context jni;
+struct JniContext jni;
 
-struct jni_context (*context_getter)(void);
+struct JniContext (*context_getter)(void);
 JNIEnv *(*env_getter)(void);
 
-void setJniGetters(struct jni_context (*cg)(void),
+void setJniGetters(struct JniContext (*cg)(void),
         JNIEnv *(*eg)(void)) {
     context_getter = cg;
     env_getter = eg;
