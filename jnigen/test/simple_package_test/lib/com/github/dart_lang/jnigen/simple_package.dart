@@ -59,7 +59,9 @@ class Example extends jni.JlObject {
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
   /// from: public void <init>()
-  Example() : super.fromRef(_ctor());
+  Example() : super.fromRef(_ctor()) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _getAux =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
@@ -68,7 +70,11 @@ class Example extends jni.JlObject {
 
   /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux getAux()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static Example_Aux getAux() => Example_Aux.fromRef(_getAux());
+  static Example_Aux getAux() {
+    final result__ = Example_Aux.fromRef(_getAux());
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _addInts =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Int32, ffi.Int32)>>(
@@ -76,7 +82,11 @@ class Example extends jni.JlObject {
           .asFunction<int Function(int, int)>();
 
   /// from: static public int addInts(int a, int b)
-  static int addInts(int a, int b) => _addInts(a, b);
+  static int addInts(int a, int b) {
+    final result__ = _addInts(a, b);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getSelf = jlookup<
               ffi.NativeFunction<
@@ -86,7 +96,11 @@ class Example extends jni.JlObject {
 
   /// from: public com.github.dart_lang.jnigen.simple_package.Example getSelf()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Example getSelf() => Example.fromRef(_getSelf(reference));
+  Example getSelf() {
+    final result__ = Example.fromRef(_getSelf(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getNum =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -94,7 +108,11 @@ class Example extends jni.JlObject {
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public int getNum()
-  int getNum() => _getNum(reference);
+  int getNum() {
+    final result__ = _getNum(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setNum = jlookup<
               ffi.NativeFunction<
@@ -103,7 +121,23 @@ class Example extends jni.JlObject {
       .asFunction<void Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public void setNum(int num)
-  void setNum(int num) => _setNum(reference, num);
+  void setNum(int num) {
+    final result__ = _setNum(reference, num);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
+
+  static final _throwException = jlookup<
+              ffi.NativeFunction<ffi.Void Function()>>(
+          "com_github_dart_lang_jnigen_simple_package_Example_throwException")
+      .asFunction<void Function()>();
+
+  /// from: static public void throwException()
+  static void throwException() {
+    final result__ = _throwException();
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.simple_package.Example$Aux
@@ -137,7 +171,9 @@ class Example_Aux extends jni.JlObject {
           .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
   /// from: public void <init>(boolean value)
-  Example_Aux(bool value) : super.fromRef(_ctor(value ? 1 : 0));
+  Example_Aux(bool value) : super.fromRef(_ctor(value ? 1 : 0)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _getValue = jlookup<
               ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -145,7 +181,11 @@ class Example_Aux extends jni.JlObject {
       .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public boolean getValue()
-  bool getValue() => _getValue(reference) != 0;
+  bool getValue() {
+    final result__ = _getValue(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setValue = jlookup<
               ffi.NativeFunction<
@@ -154,5 +194,9 @@ class Example_Aux extends jni.JlObject {
       .asFunction<void Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public void setValue(boolean value)
-  void setValue(bool value) => _setValue(reference, value ? 1 : 0);
+  void setValue(bool value) {
+    final result__ = _setValue(reference, value ? 1 : 0);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 }

@@ -37,5 +37,7 @@ class C2 extends jni.JlObject {
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
   /// from: public void <init>()
-  C2() : super.fromRef(_ctor());
+  C2() : super.fromRef(_ctor()) {
+    jni.Jni.indir.checkException();
+  }
 }

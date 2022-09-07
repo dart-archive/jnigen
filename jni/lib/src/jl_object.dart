@@ -220,6 +220,8 @@ class JlObject implements JniReference {
   @override
   bool get isDeleted => _deleted;
 
+  bool get isNull => reference == nullptr;
+
   /// The underlying JNI global reference of this object.
   final JObject reference;
 

@@ -120,7 +120,9 @@ class JsonFactory extends jni.JlObject {
   /// processing objects (such as symbol tables parsers use)
   /// and this reuse only works within context of a single
   /// factory instance.
-  JsonFactory() : super.fromRef(_ctor());
+  JsonFactory() : super.fromRef(_ctor()) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _ctor1 = jlookup<
               ffi.NativeFunction<
@@ -129,7 +131,9 @@ class JsonFactory extends jni.JlObject {
       .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public void <init>(com.fasterxml.jackson.core.ObjectCodec oc)
-  JsonFactory.ctor1(jni.JlObject oc) : super.fromRef(_ctor1(oc.reference));
+  JsonFactory.ctor1(jni.JlObject oc) : super.fromRef(_ctor1(oc.reference)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _ctor2 = jlookup<
               ffi.NativeFunction<
@@ -147,7 +151,9 @@ class JsonFactory extends jni.JlObject {
   ///@param codec Databinding-level codec to use, if any
   ///@since 2.2.1
   JsonFactory.ctor2(JsonFactory src, jni.JlObject codec)
-      : super.fromRef(_ctor2(src.reference, codec.reference));
+      : super.fromRef(_ctor2(src.reference, codec.reference)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _ctor3 = jlookup<
               ffi.NativeFunction<
@@ -160,7 +166,9 @@ class JsonFactory extends jni.JlObject {
   /// Constructor used by JsonFactoryBuilder for instantiation.
   ///@param b Builder that contains settings to use
   ///@since 2.10
-  JsonFactory.ctor3(jni.JlObject b) : super.fromRef(_ctor3(b.reference));
+  JsonFactory.ctor3(jni.JlObject b) : super.fromRef(_ctor3(b.reference)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _ctor4 = jlookup<
           ffi.NativeFunction<
@@ -176,7 +184,9 @@ class JsonFactory extends jni.JlObject {
   ///@param b Builder that contains settings to use
   ///@param bogus Argument only needed to separate constructor signature; ignored
   JsonFactory.ctor4(jni.JlObject b, bool bogus)
-      : super.fromRef(_ctor4(b.reference, bogus ? 1 : 0));
+      : super.fromRef(_ctor4(b.reference, bogus ? 1 : 0)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _rebuild = jlookup<
               ffi.NativeFunction<
@@ -191,7 +201,11 @@ class JsonFactory extends jni.JlObject {
   /// with settings of this factory.
   ///@return Builder instance to use
   ///@since 2.10
-  jni.JlObject rebuild() => jni.JlObject.fromRef(_rebuild(reference));
+  jni.JlObject rebuild() {
+    final result__ = jni.JlObject.fromRef(_rebuild(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _builder =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
@@ -209,7 +223,11 @@ class JsonFactory extends jni.JlObject {
   /// NOTE: signature unfortunately does not expose true implementation type; this
   /// will be fixed in 3.0.
   ///@return Builder instance to use
-  static jni.JlObject builder() => jni.JlObject.fromRef(_builder());
+  static jni.JlObject builder() {
+    final result__ = jni.JlObject.fromRef(_builder());
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _copy = jlookup<
               ffi.NativeFunction<
@@ -232,7 +250,11 @@ class JsonFactory extends jni.JlObject {
   /// set codec after making the copy.
   ///@return Copy of this factory instance
   ///@since 2.1
-  JsonFactory copy() => JsonFactory.fromRef(_copy(reference));
+  JsonFactory copy() {
+    final result__ = JsonFactory.fromRef(_copy(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _readResolve = jlookup<
               ffi.NativeFunction<
@@ -249,7 +271,11 @@ class JsonFactory extends jni.JlObject {
   ///
   /// Note: must be overridden by sub-classes as well.
   ///@return Newly constructed instance
-  jni.JlObject readResolve() => jni.JlObject.fromRef(_readResolve(reference));
+  jni.JlObject readResolve() {
+    final result__ = jni.JlObject.fromRef(_readResolve(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _requiresPropertyOrdering =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -272,7 +298,11 @@ class JsonFactory extends jni.JlObject {
   ///@return Whether format supported by this factory
   ///   requires Object properties to be ordered.
   ///@since 2.3
-  bool requiresPropertyOrdering() => _requiresPropertyOrdering(reference) != 0;
+  bool requiresPropertyOrdering() {
+    final result__ = _requiresPropertyOrdering(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _canHandleBinaryNatively =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -292,7 +322,11 @@ class JsonFactory extends jni.JlObject {
   ///@return Whether format supported by this factory
   ///    supports native binary content
   ///@since 2.3
-  bool canHandleBinaryNatively() => _canHandleBinaryNatively(reference) != 0;
+  bool canHandleBinaryNatively() {
+    final result__ = _canHandleBinaryNatively(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _canUseCharArrays =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -312,7 +346,11 @@ class JsonFactory extends jni.JlObject {
   ///@return Whether access to decoded textual content can be efficiently
   ///   accessed using parser method {@code getTextCharacters()}.
   ///@since 2.4
-  bool canUseCharArrays() => _canUseCharArrays(reference) != 0;
+  bool canUseCharArrays() {
+    final result__ = _canUseCharArrays(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _canParseAsync =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -328,7 +366,11 @@ class JsonFactory extends jni.JlObject {
   ///@return Whether this factory supports non-blocking ("async") parsing or
   ///    not (and consequently whether {@code createNonBlockingXxx()} method(s) work)
   ///@since 2.9
-  bool canParseAsync() => _canParseAsync(reference) != 0;
+  bool canParseAsync() {
+    final result__ = _canParseAsync(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getFormatReadFeatureType = jlookup<
               ffi.NativeFunction<
@@ -338,8 +380,11 @@ class JsonFactory extends jni.JlObject {
 
   /// from: public java.lang.Class<? extends com.fasterxml.jackson.core.FormatFeature> getFormatReadFeatureType()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject getFormatReadFeatureType() =>
-      jni.JlObject.fromRef(_getFormatReadFeatureType(reference));
+  jni.JlObject getFormatReadFeatureType() {
+    final result__ = jni.JlObject.fromRef(_getFormatReadFeatureType(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getFormatWriteFeatureType = jlookup<
               ffi.NativeFunction<
@@ -349,8 +394,12 @@ class JsonFactory extends jni.JlObject {
 
   /// from: public java.lang.Class<? extends com.fasterxml.jackson.core.FormatFeature> getFormatWriteFeatureType()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject getFormatWriteFeatureType() =>
-      jni.JlObject.fromRef(_getFormatWriteFeatureType(reference));
+  jni.JlObject getFormatWriteFeatureType() {
+    final result__ =
+        jni.JlObject.fromRef(_getFormatWriteFeatureType(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _canUseSchema = jlookup<
               ffi.NativeFunction<
@@ -370,8 +419,11 @@ class JsonFactory extends jni.JlObject {
   ///@param schema Schema instance to check
   ///@return Whether parsers and generators constructed by this factory
   ///   can use specified format schema instance
-  bool canUseSchema(jni.JlObject schema) =>
-      _canUseSchema(reference, schema.reference) != 0;
+  bool canUseSchema(jni.JlObject schema) {
+    final result__ = _canUseSchema(reference, schema.reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getFormatName = jlookup<
               ffi.NativeFunction<
@@ -388,8 +440,11 @@ class JsonFactory extends jni.JlObject {
   /// Note: sub-classes should override this method; default
   /// implementation will return null for all sub-classes
   ///@return Name of the format handled by parsers, generators this factory creates
-  jni.JlString getFormatName() =>
-      jni.JlString.fromRef(_getFormatName(reference));
+  jni.JlString getFormatName() {
+    final result__ = jni.JlString.fromRef(_getFormatName(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _hasFormat = jlookup<
               ffi.NativeFunction<
@@ -402,8 +457,11 @@ class JsonFactory extends jni.JlObject {
 
   /// from: public com.fasterxml.jackson.core.format.MatchStrength hasFormat(com.fasterxml.jackson.core.format.InputAccessor acc)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject hasFormat(jni.JlObject acc) =>
-      jni.JlObject.fromRef(_hasFormat(reference, acc.reference));
+  jni.JlObject hasFormat(jni.JlObject acc) {
+    final result__ = jni.JlObject.fromRef(_hasFormat(reference, acc.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _requiresCustomCodec =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -421,7 +479,11 @@ class JsonFactory extends jni.JlObject {
   ///   generators created by this factory; false if a general
   ///   ObjectCodec is enough
   ///@since 2.1
-  bool requiresCustomCodec() => _requiresCustomCodec(reference) != 0;
+  bool requiresCustomCodec() {
+    final result__ = _requiresCustomCodec(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _hasJSONFormat = jlookup<
               ffi.NativeFunction<
@@ -434,8 +496,12 @@ class JsonFactory extends jni.JlObject {
 
   /// from: protected com.fasterxml.jackson.core.format.MatchStrength hasJSONFormat(com.fasterxml.jackson.core.format.InputAccessor acc)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject hasJSONFormat(jni.JlObject acc) =>
-      jni.JlObject.fromRef(_hasJSONFormat(reference, acc.reference));
+  jni.JlObject hasJSONFormat(jni.JlObject acc) {
+    final result__ =
+        jni.JlObject.fromRef(_hasJSONFormat(reference, acc.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _version = jlookup<
               ffi.NativeFunction<
@@ -445,7 +511,11 @@ class JsonFactory extends jni.JlObject {
 
   /// from: public com.fasterxml.jackson.core.Version version()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject version() => jni.JlObject.fromRef(_version(reference));
+  jni.JlObject version() {
+    final result__ = jni.JlObject.fromRef(_version(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _configure = jlookup<
               ffi.NativeFunction<
@@ -465,8 +535,12 @@ class JsonFactory extends jni.JlObject {
   ///@param state Whether to enable or disable the feature
   ///@return This factory instance (to allow call chaining)
   ///@deprecated since 2.10 use JsonFactoryBuilder\#configure(JsonFactory.Feature, boolean) instead
-  JsonFactory configure(JsonFactory_Feature f, bool state) =>
-      JsonFactory.fromRef(_configure(reference, f.reference, state ? 1 : 0));
+  JsonFactory configure(JsonFactory_Feature f, bool state) {
+    final result__ =
+        JsonFactory.fromRef(_configure(reference, f.reference, state ? 1 : 0));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _enable = jlookup<
               ffi.NativeFunction<
@@ -485,8 +559,11 @@ class JsonFactory extends jni.JlObject {
   ///@param f Feature to enable
   ///@return This factory instance (to allow call chaining)
   ///@deprecated since 2.10 use JsonFactoryBuilder\#configure(JsonFactory.Feature, boolean) instead
-  JsonFactory enable(JsonFactory_Feature f) =>
-      JsonFactory.fromRef(_enable(reference, f.reference));
+  JsonFactory enable(JsonFactory_Feature f) {
+    final result__ = JsonFactory.fromRef(_enable(reference, f.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _disable = jlookup<
               ffi.NativeFunction<
@@ -505,8 +582,11 @@ class JsonFactory extends jni.JlObject {
   ///@param f Feature to disable
   ///@return This factory instance (to allow call chaining)
   ///@deprecated since 2.10 use JsonFactoryBuilder\#configure(JsonFactory.Feature, boolean) instead
-  JsonFactory disable(JsonFactory_Feature f) =>
-      JsonFactory.fromRef(_disable(reference, f.reference));
+  JsonFactory disable(JsonFactory_Feature f) {
+    final result__ = JsonFactory.fromRef(_disable(reference, f.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isEnabled = jlookup<
               ffi.NativeFunction<
@@ -520,8 +600,11 @@ class JsonFactory extends jni.JlObject {
   /// Checked whether specified parser feature is enabled.
   ///@param f Feature to check
   ///@return True if the specified feature is enabled
-  bool isEnabled(JsonFactory_Feature f) =>
-      _isEnabled(reference, f.reference) != 0;
+  bool isEnabled(JsonFactory_Feature f) {
+    final result__ = _isEnabled(reference, f.reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getParserFeatures =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -529,7 +612,11 @@ class JsonFactory extends jni.JlObject {
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public final int getParserFeatures()
-  int getParserFeatures() => _getParserFeatures(reference);
+  int getParserFeatures() {
+    final result__ = _getParserFeatures(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getGeneratorFeatures =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -537,7 +624,11 @@ class JsonFactory extends jni.JlObject {
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public final int getGeneratorFeatures()
-  int getGeneratorFeatures() => _getGeneratorFeatures(reference);
+  int getGeneratorFeatures() {
+    final result__ = _getGeneratorFeatures(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getFormatParserFeatures =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -545,7 +636,11 @@ class JsonFactory extends jni.JlObject {
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public int getFormatParserFeatures()
-  int getFormatParserFeatures() => _getFormatParserFeatures(reference);
+  int getFormatParserFeatures() {
+    final result__ = _getFormatParserFeatures(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getFormatGeneratorFeatures = jlookup<
               ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -553,7 +648,11 @@ class JsonFactory extends jni.JlObject {
       .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public int getFormatGeneratorFeatures()
-  int getFormatGeneratorFeatures() => _getFormatGeneratorFeatures(reference);
+  int getFormatGeneratorFeatures() {
+    final result__ = _getFormatGeneratorFeatures(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _configure1 = jlookup<
               ffi.NativeFunction<
@@ -572,8 +671,12 @@ class JsonFactory extends jni.JlObject {
   ///@param f Feature to enable/disable
   ///@param state Whether to enable or disable the feature
   ///@return This factory instance (to allow call chaining)
-  JsonFactory configure1(JsonParser_Feature f, bool state) =>
-      JsonFactory.fromRef(_configure1(reference, f.reference, state ? 1 : 0));
+  JsonFactory configure1(JsonParser_Feature f, bool state) {
+    final result__ =
+        JsonFactory.fromRef(_configure1(reference, f.reference, state ? 1 : 0));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _enable1 = jlookup<
               ffi.NativeFunction<
@@ -591,8 +694,11 @@ class JsonFactory extends jni.JlObject {
   /// (check JsonParser.Feature for list of features)
   ///@param f Feature to enable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory enable1(JsonParser_Feature f) =>
-      JsonFactory.fromRef(_enable1(reference, f.reference));
+  JsonFactory enable1(JsonParser_Feature f) {
+    final result__ = JsonFactory.fromRef(_enable1(reference, f.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _disable1 = jlookup<
               ffi.NativeFunction<
@@ -610,8 +716,11 @@ class JsonFactory extends jni.JlObject {
   /// (check JsonParser.Feature for list of features)
   ///@param f Feature to disable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory disable1(JsonParser_Feature f) =>
-      JsonFactory.fromRef(_disable1(reference, f.reference));
+  JsonFactory disable1(JsonParser_Feature f) {
+    final result__ = JsonFactory.fromRef(_disable1(reference, f.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isEnabled1 = jlookup<
               ffi.NativeFunction<
@@ -625,8 +734,11 @@ class JsonFactory extends jni.JlObject {
   /// Method for checking if the specified parser feature is enabled.
   ///@param f Feature to check
   ///@return True if specified feature is enabled
-  bool isEnabled1(JsonParser_Feature f) =>
-      _isEnabled1(reference, f.reference) != 0;
+  bool isEnabled1(JsonParser_Feature f) {
+    final result__ = _isEnabled1(reference, f.reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isEnabled2 = jlookup<
               ffi.NativeFunction<
@@ -641,7 +753,11 @@ class JsonFactory extends jni.JlObject {
   ///@param f Feature to check
   ///@return True if specified feature is enabled
   ///@since 2.10
-  bool isEnabled2(jni.JlObject f) => _isEnabled2(reference, f.reference) != 0;
+  bool isEnabled2(jni.JlObject f) {
+    final result__ = _isEnabled2(reference, f.reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getInputDecorator = jlookup<
               ffi.NativeFunction<
@@ -655,8 +771,11 @@ class JsonFactory extends jni.JlObject {
   /// Method for getting currently configured input decorator (if any;
   /// there is no default decorator).
   ///@return InputDecorator configured, if any
-  jni.JlObject getInputDecorator() =>
-      jni.JlObject.fromRef(_getInputDecorator(reference));
+  jni.JlObject getInputDecorator() {
+    final result__ = jni.JlObject.fromRef(_getInputDecorator(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setInputDecorator = jlookup<
               ffi.NativeFunction<
@@ -674,8 +793,12 @@ class JsonFactory extends jni.JlObject {
   ///@param d Decorator to configure for this factory, if any ({@code null} if none)
   ///@return This factory instance (to allow call chaining)
   ///@deprecated Since 2.10 use JsonFactoryBuilder\#inputDecorator(InputDecorator) instead
-  JsonFactory setInputDecorator(jni.JlObject d) =>
-      JsonFactory.fromRef(_setInputDecorator(reference, d.reference));
+  JsonFactory setInputDecorator(jni.JlObject d) {
+    final result__ =
+        JsonFactory.fromRef(_setInputDecorator(reference, d.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _configure2 = jlookup<
               ffi.NativeFunction<
@@ -694,8 +817,12 @@ class JsonFactory extends jni.JlObject {
   ///@param f Feature to enable/disable
   ///@param state Whether to enable or disable the feature
   ///@return This factory instance (to allow call chaining)
-  JsonFactory configure2(jni.JlObject f, bool state) =>
-      JsonFactory.fromRef(_configure2(reference, f.reference, state ? 1 : 0));
+  JsonFactory configure2(jni.JlObject f, bool state) {
+    final result__ =
+        JsonFactory.fromRef(_configure2(reference, f.reference, state ? 1 : 0));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _enable2 = jlookup<
               ffi.NativeFunction<
@@ -713,8 +840,11 @@ class JsonFactory extends jni.JlObject {
   /// (check JsonGenerator.Feature for list of features)
   ///@param f Feature to enable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory enable2(jni.JlObject f) =>
-      JsonFactory.fromRef(_enable2(reference, f.reference));
+  JsonFactory enable2(jni.JlObject f) {
+    final result__ = JsonFactory.fromRef(_enable2(reference, f.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _disable2 = jlookup<
               ffi.NativeFunction<
@@ -732,8 +862,11 @@ class JsonFactory extends jni.JlObject {
   /// (check JsonGenerator.Feature for list of features)
   ///@param f Feature to disable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory disable2(jni.JlObject f) =>
-      JsonFactory.fromRef(_disable2(reference, f.reference));
+  JsonFactory disable2(jni.JlObject f) {
+    final result__ = JsonFactory.fromRef(_disable2(reference, f.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isEnabled3 = jlookup<
               ffi.NativeFunction<
@@ -747,7 +880,11 @@ class JsonFactory extends jni.JlObject {
   /// Check whether specified generator feature is enabled.
   ///@param f Feature to check
   ///@return Whether specified feature is enabled
-  bool isEnabled3(jni.JlObject f) => _isEnabled3(reference, f.reference) != 0;
+  bool isEnabled3(jni.JlObject f) {
+    final result__ = _isEnabled3(reference, f.reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isEnabled4 = jlookup<
               ffi.NativeFunction<
@@ -762,7 +899,11 @@ class JsonFactory extends jni.JlObject {
   ///@param f Feature to check
   ///@return Whether specified feature is enabled
   ///@since 2.10
-  bool isEnabled4(jni.JlObject f) => _isEnabled4(reference, f.reference) != 0;
+  bool isEnabled4(jni.JlObject f) {
+    final result__ = _isEnabled4(reference, f.reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getCharacterEscapes = jlookup<
               ffi.NativeFunction<
@@ -776,8 +917,11 @@ class JsonFactory extends jni.JlObject {
   /// Method for accessing custom escapes factory uses for JsonGenerators
   /// it creates.
   ///@return Configured {@code CharacterEscapes}, if any; {@code null} if none
-  jni.JlObject getCharacterEscapes() =>
-      jni.JlObject.fromRef(_getCharacterEscapes(reference));
+  jni.JlObject getCharacterEscapes() {
+    final result__ = jni.JlObject.fromRef(_getCharacterEscapes(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setCharacterEscapes = jlookup<
               ffi.NativeFunction<
@@ -795,8 +939,12 @@ class JsonFactory extends jni.JlObject {
   /// it creates.
   ///@param esc CharaterEscapes to set (or {@code null} for "none")
   ///@return This factory instance (to allow call chaining)
-  JsonFactory setCharacterEscapes(jni.JlObject esc) =>
-      JsonFactory.fromRef(_setCharacterEscapes(reference, esc.reference));
+  JsonFactory setCharacterEscapes(jni.JlObject esc) {
+    final result__ =
+        JsonFactory.fromRef(_setCharacterEscapes(reference, esc.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getOutputDecorator = jlookup<
               ffi.NativeFunction<
@@ -811,8 +959,11 @@ class JsonFactory extends jni.JlObject {
   /// there is no default decorator).
   ///@return OutputDecorator configured for generators factory creates, if any;
   ///    {@code null} if none.
-  jni.JlObject getOutputDecorator() =>
-      jni.JlObject.fromRef(_getOutputDecorator(reference));
+  jni.JlObject getOutputDecorator() {
+    final result__ = jni.JlObject.fromRef(_getOutputDecorator(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setOutputDecorator = jlookup<
               ffi.NativeFunction<
@@ -830,8 +981,12 @@ class JsonFactory extends jni.JlObject {
   ///@return This factory instance (to allow call chaining)
   ///@param d Output decorator to use, if any
   ///@deprecated Since 2.10 use JsonFactoryBuilder\#outputDecorator(OutputDecorator) instead
-  JsonFactory setOutputDecorator(jni.JlObject d) =>
-      JsonFactory.fromRef(_setOutputDecorator(reference, d.reference));
+  JsonFactory setOutputDecorator(jni.JlObject d) {
+    final result__ =
+        JsonFactory.fromRef(_setOutputDecorator(reference, d.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setRootValueSeparator = jlookup<
               ffi.NativeFunction<
@@ -850,8 +1005,12 @@ class JsonFactory extends jni.JlObject {
   ///@param sep Separator to use, if any; null means that no separator is
   ///   automatically added
   ///@return This factory instance (to allow call chaining)
-  JsonFactory setRootValueSeparator(jni.JlString sep) =>
-      JsonFactory.fromRef(_setRootValueSeparator(reference, sep.reference));
+  JsonFactory setRootValueSeparator(jni.JlString sep) {
+    final result__ =
+        JsonFactory.fromRef(_setRootValueSeparator(reference, sep.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getRootValueSeparator = jlookup<
               ffi.NativeFunction<
@@ -863,8 +1022,11 @@ class JsonFactory extends jni.JlObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// @return Root value separator configured, if any
-  jni.JlString getRootValueSeparator() =>
-      jni.JlString.fromRef(_getRootValueSeparator(reference));
+  jni.JlString getRootValueSeparator() {
+    final result__ = jni.JlString.fromRef(_getRootValueSeparator(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setCodec = jlookup<
               ffi.NativeFunction<
@@ -885,8 +1047,11 @@ class JsonFactory extends jni.JlObject {
   /// of JsonParser and JsonGenerator instances.
   ///@param oc Codec to use
   ///@return This factory instance (to allow call chaining)
-  JsonFactory setCodec(jni.JlObject oc) =>
-      JsonFactory.fromRef(_setCodec(reference, oc.reference));
+  JsonFactory setCodec(jni.JlObject oc) {
+    final result__ = JsonFactory.fromRef(_setCodec(reference, oc.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getCodec = jlookup<
               ffi.NativeFunction<
@@ -896,7 +1061,11 @@ class JsonFactory extends jni.JlObject {
 
   /// from: public com.fasterxml.jackson.core.ObjectCodec getCodec()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject getCodec() => jni.JlObject.fromRef(_getCodec(reference));
+  jni.JlObject getCodec() {
+    final result__ = jni.JlObject.fromRef(_getCodec(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createParser = jlookup<
               ffi.NativeFunction<
@@ -926,8 +1095,11 @@ class JsonFactory extends jni.JlObject {
   /// the parser, since caller has no access to it.
   ///@param f File that contains JSON content to parse
   ///@since 2.1
-  JsonParser createParser(jni.JlObject f) =>
-      JsonParser.fromRef(_createParser(reference, f.reference));
+  JsonParser createParser(jni.JlObject f) {
+    final result__ = JsonParser.fromRef(_createParser(reference, f.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createParser1 = jlookup<
               ffi.NativeFunction<
@@ -955,8 +1127,12 @@ class JsonFactory extends jni.JlObject {
   /// the parser, since caller has no access to it.
   ///@param url URL pointing to resource that contains JSON content to parse
   ///@since 2.1
-  JsonParser createParser1(jni.JlObject url) =>
-      JsonParser.fromRef(_createParser1(reference, url.reference));
+  JsonParser createParser1(jni.JlObject url) {
+    final result__ =
+        JsonParser.fromRef(_createParser1(reference, url.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createParser2 = jlookup<
               ffi.NativeFunction<
@@ -987,8 +1163,12 @@ class JsonFactory extends jni.JlObject {
   /// For other charsets use \#createParser(java.io.Reader).
   ///@param in InputStream to use for reading JSON content to parse
   ///@since 2.1
-  JsonParser createParser2(jni.JlObject in0) =>
-      JsonParser.fromRef(_createParser2(reference, in0.reference));
+  JsonParser createParser2(jni.JlObject in0) {
+    final result__ =
+        JsonParser.fromRef(_createParser2(reference, in0.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createParser3 = jlookup<
               ffi.NativeFunction<
@@ -1012,8 +1192,11 @@ class JsonFactory extends jni.JlObject {
   /// is enabled.
   ///@param r Reader to use for reading JSON content to parse
   ///@since 2.1
-  JsonParser createParser3(jni.JlObject r) =>
-      JsonParser.fromRef(_createParser3(reference, r.reference));
+  JsonParser createParser3(jni.JlObject r) {
+    final result__ = JsonParser.fromRef(_createParser3(reference, r.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createParser4 = jlookup<
               ffi.NativeFunction<
@@ -1030,8 +1213,12 @@ class JsonFactory extends jni.JlObject {
   /// Method for constructing parser for parsing
   /// the contents of given byte array.
   ///@since 2.1
-  JsonParser createParser4(jni.JlObject data) =>
-      JsonParser.fromRef(_createParser4(reference, data.reference));
+  JsonParser createParser4(jni.JlObject data) {
+    final result__ =
+        JsonParser.fromRef(_createParser4(reference, data.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createParser5 = jlookup<
               ffi.NativeFunction<
@@ -1051,9 +1238,12 @@ class JsonFactory extends jni.JlObject {
   ///@param offset Offset of the first data byte within buffer
   ///@param len Length of contents to parse within buffer
   ///@since 2.1
-  JsonParser createParser5(jni.JlObject data, int offset, int len) =>
-      JsonParser.fromRef(
-          _createParser5(reference, data.reference, offset, len));
+  JsonParser createParser5(jni.JlObject data, int offset, int len) {
+    final result__ = JsonParser.fromRef(
+        _createParser5(reference, data.reference, offset, len));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createParser6 = jlookup<
               ffi.NativeFunction<
@@ -1070,8 +1260,12 @@ class JsonFactory extends jni.JlObject {
   /// Method for constructing parser for parsing
   /// contents of given String.
   ///@since 2.1
-  JsonParser createParser6(jni.JlString content) =>
-      JsonParser.fromRef(_createParser6(reference, content.reference));
+  JsonParser createParser6(jni.JlString content) {
+    final result__ =
+        JsonParser.fromRef(_createParser6(reference, content.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createParser7 = jlookup<
               ffi.NativeFunction<
@@ -1088,8 +1282,12 @@ class JsonFactory extends jni.JlObject {
   /// Method for constructing parser for parsing
   /// contents of given char array.
   ///@since 2.4
-  JsonParser createParser7(jni.JlObject content) =>
-      JsonParser.fromRef(_createParser7(reference, content.reference));
+  JsonParser createParser7(jni.JlObject content) {
+    final result__ =
+        JsonParser.fromRef(_createParser7(reference, content.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createParser8 = jlookup<
               ffi.NativeFunction<
@@ -1105,9 +1303,12 @@ class JsonFactory extends jni.JlObject {
   ///
   /// Method for constructing parser for parsing contents of given char array.
   ///@since 2.4
-  JsonParser createParser8(jni.JlObject content, int offset, int len) =>
-      JsonParser.fromRef(
-          _createParser8(reference, content.reference, offset, len));
+  JsonParser createParser8(jni.JlObject content, int offset, int len) {
+    final result__ = JsonParser.fromRef(
+        _createParser8(reference, content.reference, offset, len));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createParser9 = jlookup<
               ffi.NativeFunction<
@@ -1127,8 +1328,12 @@ class JsonFactory extends jni.JlObject {
   /// If this factory does not support DataInput as source,
   /// will throw UnsupportedOperationException
   ///@since 2.8
-  JsonParser createParser9(jni.JlObject in0) =>
-      JsonParser.fromRef(_createParser9(reference, in0.reference));
+  JsonParser createParser9(jni.JlObject in0) {
+    final result__ =
+        JsonParser.fromRef(_createParser9(reference, in0.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createNonBlockingByteArrayParser = jlookup<
               ffi.NativeFunction<
@@ -1152,8 +1357,12 @@ class JsonFactory extends jni.JlObject {
   /// (and US-ASCII since it is proper subset); other encodings are not supported
   /// at this point.
   ///@since 2.9
-  JsonParser createNonBlockingByteArrayParser() =>
-      JsonParser.fromRef(_createNonBlockingByteArrayParser(reference));
+  JsonParser createNonBlockingByteArrayParser() {
+    final result__ =
+        JsonParser.fromRef(_createNonBlockingByteArrayParser(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createGenerator = jlookup<
               ffi.NativeFunction<
@@ -1185,9 +1394,12 @@ class JsonFactory extends jni.JlObject {
   ///@param out OutputStream to use for writing JSON content
   ///@param enc Character encoding to use
   ///@since 2.1
-  jni.JlObject createGenerator(jni.JlObject out, jni.JlObject enc) =>
-      jni.JlObject.fromRef(
-          _createGenerator(reference, out.reference, enc.reference));
+  jni.JlObject createGenerator(jni.JlObject out, jni.JlObject enc) {
+    final result__ = jni.JlObject.fromRef(
+        _createGenerator(reference, out.reference, enc.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createGenerator1 = jlookup<
               ffi.NativeFunction<
@@ -1206,8 +1418,12 @@ class JsonFactory extends jni.JlObject {
   ///
   /// Note: there are formats that use fixed encoding (like most binary data formats).
   ///@since 2.1
-  jni.JlObject createGenerator1(jni.JlObject out) =>
-      jni.JlObject.fromRef(_createGenerator1(reference, out.reference));
+  jni.JlObject createGenerator1(jni.JlObject out) {
+    final result__ =
+        jni.JlObject.fromRef(_createGenerator1(reference, out.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createGenerator2 = jlookup<
               ffi.NativeFunction<
@@ -1232,8 +1448,12 @@ class JsonFactory extends jni.JlObject {
   /// Using application needs to close it explicitly.
   ///@since 2.1
   ///@param w Writer to use for writing JSON content
-  jni.JlObject createGenerator2(jni.JlObject w) =>
-      jni.JlObject.fromRef(_createGenerator2(reference, w.reference));
+  jni.JlObject createGenerator2(jni.JlObject w) {
+    final result__ =
+        jni.JlObject.fromRef(_createGenerator2(reference, w.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createGenerator3 = jlookup<
               ffi.NativeFunction<
@@ -1259,9 +1479,12 @@ class JsonFactory extends jni.JlObject {
   ///@param f File to write contents to
   ///@param enc Character encoding to use
   ///@since 2.1
-  jni.JlObject createGenerator3(jni.JlObject f, jni.JlObject enc) =>
-      jni.JlObject.fromRef(
-          _createGenerator3(reference, f.reference, enc.reference));
+  jni.JlObject createGenerator3(jni.JlObject f, jni.JlObject enc) {
+    final result__ = jni.JlObject.fromRef(
+        _createGenerator3(reference, f.reference, enc.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createGenerator4 = jlookup<
               ffi.NativeFunction<
@@ -1278,9 +1501,12 @@ class JsonFactory extends jni.JlObject {
   /// Method for constructing generator for writing content using specified
   /// DataOutput instance.
   ///@since 2.8
-  jni.JlObject createGenerator4(jni.JlObject out, jni.JlObject enc) =>
-      jni.JlObject.fromRef(
-          _createGenerator4(reference, out.reference, enc.reference));
+  jni.JlObject createGenerator4(jni.JlObject out, jni.JlObject enc) {
+    final result__ = jni.JlObject.fromRef(
+        _createGenerator4(reference, out.reference, enc.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createGenerator5 = jlookup<
               ffi.NativeFunction<
@@ -1299,8 +1525,12 @@ class JsonFactory extends jni.JlObject {
   ///
   /// Note: there are formats that use fixed encoding (like most binary data formats).
   ///@since 2.8
-  jni.JlObject createGenerator5(jni.JlObject out) =>
-      jni.JlObject.fromRef(_createGenerator5(reference, out.reference));
+  jni.JlObject createGenerator5(jni.JlObject out) {
+    final result__ =
+        jni.JlObject.fromRef(_createGenerator5(reference, out.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createJsonParser = jlookup<
               ffi.NativeFunction<
@@ -1332,8 +1562,12 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(File) instead.
-  JsonParser createJsonParser(jni.JlObject f) =>
-      JsonParser.fromRef(_createJsonParser(reference, f.reference));
+  JsonParser createJsonParser(jni.JlObject f) {
+    final result__ =
+        JsonParser.fromRef(_createJsonParser(reference, f.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createJsonParser1 = jlookup<
               ffi.NativeFunction<
@@ -1364,8 +1598,12 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(URL) instead.
-  JsonParser createJsonParser1(jni.JlObject url) =>
-      JsonParser.fromRef(_createJsonParser1(reference, url.reference));
+  JsonParser createJsonParser1(jni.JlObject url) {
+    final result__ =
+        JsonParser.fromRef(_createJsonParser1(reference, url.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createJsonParser2 = jlookup<
               ffi.NativeFunction<
@@ -1399,8 +1637,12 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(InputStream) instead.
-  JsonParser createJsonParser2(jni.JlObject in0) =>
-      JsonParser.fromRef(_createJsonParser2(reference, in0.reference));
+  JsonParser createJsonParser2(jni.JlObject in0) {
+    final result__ =
+        JsonParser.fromRef(_createJsonParser2(reference, in0.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createJsonParser3 = jlookup<
               ffi.NativeFunction<
@@ -1427,8 +1669,12 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(Reader) instead.
-  JsonParser createJsonParser3(jni.JlObject r) =>
-      JsonParser.fromRef(_createJsonParser3(reference, r.reference));
+  JsonParser createJsonParser3(jni.JlObject r) {
+    final result__ =
+        JsonParser.fromRef(_createJsonParser3(reference, r.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createJsonParser4 = jlookup<
               ffi.NativeFunction<
@@ -1448,8 +1694,12 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[]) instead.
-  JsonParser createJsonParser4(jni.JlObject data) =>
-      JsonParser.fromRef(_createJsonParser4(reference, data.reference));
+  JsonParser createJsonParser4(jni.JlObject data) {
+    final result__ =
+        JsonParser.fromRef(_createJsonParser4(reference, data.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createJsonParser5 = jlookup<
               ffi.NativeFunction<
@@ -1472,9 +1722,12 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[],int,int) instead.
-  JsonParser createJsonParser5(jni.JlObject data, int offset, int len) =>
-      JsonParser.fromRef(
-          _createJsonParser5(reference, data.reference, offset, len));
+  JsonParser createJsonParser5(jni.JlObject data, int offset, int len) {
+    final result__ = JsonParser.fromRef(
+        _createJsonParser5(reference, data.reference, offset, len));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createJsonParser6 = jlookup<
               ffi.NativeFunction<
@@ -1495,8 +1748,12 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(String) instead.
-  JsonParser createJsonParser6(jni.JlString content) =>
-      JsonParser.fromRef(_createJsonParser6(reference, content.reference));
+  JsonParser createJsonParser6(jni.JlString content) {
+    final result__ =
+        JsonParser.fromRef(_createJsonParser6(reference, content.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createJsonGenerator = jlookup<
               ffi.NativeFunction<
@@ -1530,9 +1787,12 @@ class JsonFactory extends jni.JlObject {
   ///@return Generator constructed
   ///@throws IOException if parser initialization fails due to I/O (write) problem
   ///@deprecated Since 2.2, use \#createGenerator(OutputStream, JsonEncoding) instead.
-  jni.JlObject createJsonGenerator(jni.JlObject out, jni.JlObject enc) =>
-      jni.JlObject.fromRef(
-          _createJsonGenerator(reference, out.reference, enc.reference));
+  jni.JlObject createJsonGenerator(jni.JlObject out, jni.JlObject enc) {
+    final result__ = jni.JlObject.fromRef(
+        _createJsonGenerator(reference, out.reference, enc.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createJsonGenerator1 = jlookup<
               ffi.NativeFunction<
@@ -1559,8 +1819,12 @@ class JsonFactory extends jni.JlObject {
   ///@return Generator constructed
   ///@throws IOException if parser initialization fails due to I/O (write) problem
   ///@deprecated Since 2.2, use \#createGenerator(Writer) instead.
-  jni.JlObject createJsonGenerator1(jni.JlObject out) =>
-      jni.JlObject.fromRef(_createJsonGenerator1(reference, out.reference));
+  jni.JlObject createJsonGenerator1(jni.JlObject out) {
+    final result__ =
+        jni.JlObject.fromRef(_createJsonGenerator1(reference, out.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _createJsonGenerator2 = jlookup<
               ffi.NativeFunction<
@@ -1582,8 +1846,12 @@ class JsonFactory extends jni.JlObject {
   ///@return Generator constructed
   ///@throws IOException if parser initialization fails due to I/O (write) problem
   ///@deprecated Since 2.2, use \#createGenerator(OutputStream) instead.
-  jni.JlObject createJsonGenerator2(jni.JlObject out) =>
-      jni.JlObject.fromRef(_createJsonGenerator2(reference, out.reference));
+  jni.JlObject createJsonGenerator2(jni.JlObject out) {
+    final result__ =
+        jni.JlObject.fromRef(_createJsonGenerator2(reference, out.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 }
 
 /// from: com.fasterxml.jackson.core.JsonFactory$Feature
@@ -1600,7 +1868,11 @@ class JsonFactory_Feature extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonFactory.Feature[] values()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JlObject values() => jni.JlObject.fromRef(_values());
+  static jni.JlObject values() {
+    final result__ = jni.JlObject.fromRef(_values());
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _valueOf = jlookup<
               ffi.NativeFunction<
@@ -1610,8 +1882,11 @@ class JsonFactory_Feature extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonFactory.Feature valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonFactory_Feature valueOf(jni.JlString name) =>
-      JsonFactory_Feature.fromRef(_valueOf(name.reference));
+  static JsonFactory_Feature valueOf(jni.JlString name) {
+    final result__ = JsonFactory_Feature.fromRef(_valueOf(name.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _collectDefaults =
       jlookup<ffi.NativeFunction<ffi.Int32 Function()>>(
@@ -1623,7 +1898,11 @@ class JsonFactory_Feature extends jni.JlObject {
   /// Method that calculates bit set (flags) of all features that
   /// are enabled by default.
   ///@return Bit field of features enabled by default
-  static int collectDefaults() => _collectDefaults();
+  static int collectDefaults() {
+    final result__ = _collectDefaults();
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _ctor =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Uint8)>>(
@@ -1632,7 +1911,9 @@ class JsonFactory_Feature extends jni.JlObject {
 
   /// from: private void <init>(boolean defaultState)
   JsonFactory_Feature(bool defaultState)
-      : super.fromRef(_ctor(defaultState ? 1 : 0));
+      : super.fromRef(_ctor(defaultState ? 1 : 0)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _enabledByDefault = jlookup<
               ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -1640,7 +1921,11 @@ class JsonFactory_Feature extends jni.JlObject {
       .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public boolean enabledByDefault()
-  bool enabledByDefault() => _enabledByDefault(reference) != 0;
+  bool enabledByDefault() {
+    final result__ = _enabledByDefault(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _enabledIn = jlookup<
               ffi.NativeFunction<
@@ -1649,7 +1934,11 @@ class JsonFactory_Feature extends jni.JlObject {
       .asFunction<int Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public boolean enabledIn(int flags)
-  bool enabledIn(int flags) => _enabledIn(reference, flags) != 0;
+  bool enabledIn(int flags) {
+    final result__ = _enabledIn(reference, flags) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getMask =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -1657,7 +1946,11 @@ class JsonFactory_Feature extends jni.JlObject {
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public int getMask()
-  int getMask() => _getMask(reference);
+  int getMask() {
+    final result__ = _getMask(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 }
 
 /// from: com.fasterxml.jackson.core.JsonParser
@@ -1702,7 +1995,9 @@ class JsonParser extends jni.JlObject {
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
   /// from: protected void <init>()
-  JsonParser() : super.fromRef(_ctor());
+  JsonParser() : super.fromRef(_ctor()) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _ctor1 =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Int32)>>(
@@ -1710,7 +2005,9 @@ class JsonParser extends jni.JlObject {
           .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
   /// from: protected void <init>(int features)
-  JsonParser.ctor1(int features) : super.fromRef(_ctor1(features));
+  JsonParser.ctor1(int features) : super.fromRef(_ctor1(features)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _getCodec = jlookup<
               ffi.NativeFunction<
@@ -1725,7 +2022,11 @@ class JsonParser extends jni.JlObject {
   /// parser, if any. Codec is used by \#readValueAs(Class)
   /// method (and its variants).
   ///@return Codec assigned to this parser, if any; {@code null} if none
-  jni.JlObject getCodec() => jni.JlObject.fromRef(_getCodec(reference));
+  jni.JlObject getCodec() {
+    final result__ = jni.JlObject.fromRef(_getCodec(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setCodec = jlookup<
               ffi.NativeFunction<
@@ -1741,7 +2042,11 @@ class JsonParser extends jni.JlObject {
   /// parser, if any. Codec is used by \#readValueAs(Class)
   /// method (and its variants).
   ///@param oc Codec to assign, if any; {@code null} if none
-  void setCodec(jni.JlObject oc) => _setCodec(reference, oc.reference);
+  void setCodec(jni.JlObject oc) {
+    final result__ = _setCodec(reference, oc.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getInputSource = jlookup<
               ffi.NativeFunction<
@@ -1766,8 +2071,11 @@ class JsonParser extends jni.JlObject {
   /// In general use of this accessor should be considered as
   /// "last effort", i.e. only used if no other mechanism is applicable.
   ///@return Input source this parser was configured with
-  jni.JlObject getInputSource() =>
-      jni.JlObject.fromRef(_getInputSource(reference));
+  jni.JlObject getInputSource() {
+    final result__ = jni.JlObject.fromRef(_getInputSource(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setRequestPayloadOnError = jlookup<
               ffi.NativeFunction<
@@ -1782,8 +2090,11 @@ class JsonParser extends jni.JlObject {
   /// Sets the payload to be passed if JsonParseException is thrown.
   ///@param payload Payload to pass
   ///@since 2.8
-  void setRequestPayloadOnError(jni.JlObject payload) =>
-      _setRequestPayloadOnError(reference, payload.reference);
+  void setRequestPayloadOnError(jni.JlObject payload) {
+    final result__ = _setRequestPayloadOnError(reference, payload.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setRequestPayloadOnError1 = jlookup<
               ffi.NativeFunction<
@@ -1800,9 +2111,12 @@ class JsonParser extends jni.JlObject {
   ///@param payload Payload to pass
   ///@param charset Character encoding for (lazily) decoding payload
   ///@since 2.8
-  void setRequestPayloadOnError1(jni.JlObject payload, jni.JlString charset) =>
-      _setRequestPayloadOnError1(
-          reference, payload.reference, charset.reference);
+  void setRequestPayloadOnError1(jni.JlObject payload, jni.JlString charset) {
+    final result__ = _setRequestPayloadOnError1(
+        reference, payload.reference, charset.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setRequestPayloadOnError2 = jlookup<
               ffi.NativeFunction<
@@ -1817,8 +2131,11 @@ class JsonParser extends jni.JlObject {
   /// Sets the String request payload
   ///@param payload Payload to pass
   ///@since 2.8
-  void setRequestPayloadOnError2(jni.JlString payload) =>
-      _setRequestPayloadOnError2(reference, payload.reference);
+  void setRequestPayloadOnError2(jni.JlString payload) {
+    final result__ = _setRequestPayloadOnError2(reference, payload.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setSchema = jlookup<
               ffi.NativeFunction<
@@ -1840,8 +2157,11 @@ class JsonParser extends jni.JlObject {
   /// is thrown.
   ///@param schema Schema to use
   ///@throws UnsupportedOperationException if parser does not support schema
-  void setSchema(jni.JlObject schema) =>
-      _setSchema(reference, schema.reference);
+  void setSchema(jni.JlObject schema) {
+    final result__ = _setSchema(reference, schema.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getSchema = jlookup<
               ffi.NativeFunction<
@@ -1856,7 +2176,11 @@ class JsonParser extends jni.JlObject {
   /// Default implementation returns null.
   ///@return Schema in use by this parser, if any; {@code null} if none
   ///@since 2.1
-  jni.JlObject getSchema() => jni.JlObject.fromRef(_getSchema(reference));
+  jni.JlObject getSchema() {
+    final result__ = jni.JlObject.fromRef(_getSchema(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _canUseSchema = jlookup<
               ffi.NativeFunction<
@@ -1871,8 +2195,11 @@ class JsonParser extends jni.JlObject {
   /// this parser (using \#setSchema).
   ///@param schema Schema to check
   ///@return True if this parser can use given schema; false if not
-  bool canUseSchema(jni.JlObject schema) =>
-      _canUseSchema(reference, schema.reference) != 0;
+  bool canUseSchema(jni.JlObject schema) {
+    final result__ = _canUseSchema(reference, schema.reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _requiresCustomCodec =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -1889,7 +2216,11 @@ class JsonParser extends jni.JlObject {
   ///@return True if format-specific codec is needed with this parser; false if a general
   ///   ObjectCodec is enough
   ///@since 2.1
-  bool requiresCustomCodec() => _requiresCustomCodec(reference) != 0;
+  bool requiresCustomCodec() {
+    final result__ = _requiresCustomCodec(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _canParseAsync =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -1909,7 +2240,11 @@ class JsonParser extends jni.JlObject {
   /// input is read by blocking
   ///@return True if this is a non-blocking ("asynchronous") parser
   ///@since 2.9
-  bool canParseAsync() => _canParseAsync(reference) != 0;
+  bool canParseAsync() {
+    final result__ = _canParseAsync(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getNonBlockingInputFeeder = jlookup<
               ffi.NativeFunction<
@@ -1925,8 +2260,12 @@ class JsonParser extends jni.JlObject {
   /// parsers that use blocking I/O.
   ///@return Input feeder to use with non-blocking (async) parsing
   ///@since 2.9
-  jni.JlObject getNonBlockingInputFeeder() =>
-      jni.JlObject.fromRef(_getNonBlockingInputFeeder(reference));
+  jni.JlObject getNonBlockingInputFeeder() {
+    final result__ =
+        jni.JlObject.fromRef(_getNonBlockingInputFeeder(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getReadCapabilities = jlookup<
               ffi.NativeFunction<
@@ -1941,8 +2280,11 @@ class JsonParser extends jni.JlObject {
   /// underlying data format being read (directly or indirectly).
   ///@return Set of read capabilities for content to read via this parser
   ///@since 2.12
-  jni.JlObject getReadCapabilities() =>
-      jni.JlObject.fromRef(_getReadCapabilities(reference));
+  jni.JlObject getReadCapabilities() {
+    final result__ = jni.JlObject.fromRef(_getReadCapabilities(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _version = jlookup<
               ffi.NativeFunction<
@@ -1957,7 +2299,11 @@ class JsonParser extends jni.JlObject {
   /// Left for sub-classes to implement.
   ///@return Version of this generator (derived from version declared for
   ///   {@code jackson-core} jar that contains the class
-  jni.JlObject version() => jni.JlObject.fromRef(_version(reference));
+  jni.JlObject version() {
+    final result__ = jni.JlObject.fromRef(_version(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _close =
       jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
@@ -1980,7 +2326,11 @@ class JsonParser extends jni.JlObject {
   /// java.io.File or java.net.URL and creates
   /// stream or reader it does own them.
   ///@throws IOException if there is either an underlying I/O problem
-  void close() => _close(reference);
+  void close() {
+    final result__ = _close(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isClosed =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -1996,7 +2346,11 @@ class JsonParser extends jni.JlObject {
   /// call to \#close or because parser has encountered
   /// end of input.
   ///@return {@code True} if this parser instance has been closed
-  bool isClosed() => _isClosed(reference) != 0;
+  bool isClosed() {
+    final result__ = _isClosed(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getParsingContext = jlookup<
               ffi.NativeFunction<
@@ -2016,8 +2370,11 @@ class JsonParser extends jni.JlObject {
   /// Contexts can also be used for simple xpath-like matching of
   /// input, if so desired.
   ///@return Stream input context (JsonStreamContext) associated with this parser
-  jni.JlObject getParsingContext() =>
-      jni.JlObject.fromRef(_getParsingContext(reference));
+  jni.JlObject getParsingContext() {
+    final result__ = jni.JlObject.fromRef(_getParsingContext(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _currentLocation = jlookup<
               ffi.NativeFunction<
@@ -2040,8 +2397,11 @@ class JsonParser extends jni.JlObject {
   /// to other library)
   ///@return Location of the last processed input unit (byte or character)
   ///@since 2.13
-  jni.JlObject currentLocation() =>
-      jni.JlObject.fromRef(_currentLocation(reference));
+  jni.JlObject currentLocation() {
+    final result__ = jni.JlObject.fromRef(_currentLocation(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _currentTokenLocation = jlookup<
               ffi.NativeFunction<
@@ -2064,8 +2424,11 @@ class JsonParser extends jni.JlObject {
   /// to other library)
   ///@return Starting location of the token parser currently points to
   ///@since 2.13 (will eventually replace \#getTokenLocation)
-  jni.JlObject currentTokenLocation() =>
-      jni.JlObject.fromRef(_currentTokenLocation(reference));
+  jni.JlObject currentTokenLocation() {
+    final result__ = jni.JlObject.fromRef(_currentTokenLocation(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getCurrentLocation = jlookup<
               ffi.NativeFunction<
@@ -2079,8 +2442,11 @@ class JsonParser extends jni.JlObject {
   /// Alias for \#currentLocation(), to be deprecated in later
   /// Jackson 2.x versions (and removed from Jackson 3.0).
   ///@return Location of the last processed input unit (byte or character)
-  jni.JlObject getCurrentLocation() =>
-      jni.JlObject.fromRef(_getCurrentLocation(reference));
+  jni.JlObject getCurrentLocation() {
+    final result__ = jni.JlObject.fromRef(_getCurrentLocation(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getTokenLocation = jlookup<
               ffi.NativeFunction<
@@ -2094,8 +2460,11 @@ class JsonParser extends jni.JlObject {
   /// Alias for \#currentTokenLocation(), to be deprecated in later
   /// Jackson 2.x versions (and removed from Jackson 3.0).
   ///@return Starting location of the token parser currently points to
-  jni.JlObject getTokenLocation() =>
-      jni.JlObject.fromRef(_getTokenLocation(reference));
+  jni.JlObject getTokenLocation() {
+    final result__ = jni.JlObject.fromRef(_getTokenLocation(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _currentValue = jlookup<
               ffi.NativeFunction<
@@ -2117,7 +2486,11 @@ class JsonParser extends jni.JlObject {
   /// and gets passed through data-binding.
   ///@return "Current value" associated with the current input context (state) of this parser
   ///@since 2.13 (added as replacement for older \#getCurrentValue()
-  jni.JlObject currentValue() => jni.JlObject.fromRef(_currentValue(reference));
+  jni.JlObject currentValue() {
+    final result__ = jni.JlObject.fromRef(_currentValue(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _assignCurrentValue = jlookup<
               ffi.NativeFunction<
@@ -2135,8 +2508,11 @@ class JsonParser extends jni.JlObject {
   ///</code>
   ///@param v Current value to assign for the current input context of this parser
   ///@since 2.13 (added as replacement for older \#setCurrentValue
-  void assignCurrentValue(jni.JlObject v) =>
-      _assignCurrentValue(reference, v.reference);
+  void assignCurrentValue(jni.JlObject v) {
+    final result__ = _assignCurrentValue(reference, v.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getCurrentValue = jlookup<
               ffi.NativeFunction<
@@ -2150,8 +2526,11 @@ class JsonParser extends jni.JlObject {
   /// Alias for \#currentValue(), to be deprecated in later
   /// Jackson 2.x versions (and removed from Jackson 3.0).
   ///@return Location of the last processed input unit (byte or character)
-  jni.JlObject getCurrentValue() =>
-      jni.JlObject.fromRef(_getCurrentValue(reference));
+  jni.JlObject getCurrentValue() {
+    final result__ = jni.JlObject.fromRef(_getCurrentValue(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setCurrentValue = jlookup<
               ffi.NativeFunction<
@@ -2166,8 +2545,11 @@ class JsonParser extends jni.JlObject {
   /// Alias for \#assignCurrentValue, to be deprecated in later
   /// Jackson 2.x versions (and removed from Jackson 3.0).
   ///@param v Current value to assign for the current input context of this parser
-  void setCurrentValue(jni.JlObject v) =>
-      _setCurrentValue(reference, v.reference);
+  void setCurrentValue(jni.JlObject v) {
+    final result__ = _setCurrentValue(reference, v.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _releaseBuffered = jlookup<
               ffi.NativeFunction<
@@ -2189,8 +2571,11 @@ class JsonParser extends jni.JlObject {
   ///    (that is, input can not be sent to OutputStream;
   ///    otherwise number of bytes released (0 if there was nothing to release)
   ///@throws IOException if write to stream threw exception
-  int releaseBuffered(jni.JlObject out) =>
-      _releaseBuffered(reference, out.reference);
+  int releaseBuffered(jni.JlObject out) {
+    final result__ = _releaseBuffered(reference, out.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _releaseBuffered1 = jlookup<
               ffi.NativeFunction<
@@ -2213,8 +2598,11 @@ class JsonParser extends jni.JlObject {
   ///    (that is, input can not be sent to Writer;
   ///    otherwise number of chars released (0 if there was nothing to release)
   ///@throws IOException if write using Writer threw exception
-  int releaseBuffered1(jni.JlObject w) =>
-      _releaseBuffered1(reference, w.reference);
+  int releaseBuffered1(jni.JlObject w) {
+    final result__ = _releaseBuffered1(reference, w.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _enable = jlookup<
               ffi.NativeFunction<
@@ -2232,8 +2620,11 @@ class JsonParser extends jni.JlObject {
   /// (check Feature for list of features)
   ///@param f Feature to enable
   ///@return This parser, to allow call chaining
-  JsonParser enable(JsonParser_Feature f) =>
-      JsonParser.fromRef(_enable(reference, f.reference));
+  JsonParser enable(JsonParser_Feature f) {
+    final result__ = JsonParser.fromRef(_enable(reference, f.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _disable = jlookup<
               ffi.NativeFunction<
@@ -2251,8 +2642,11 @@ class JsonParser extends jni.JlObject {
   /// (check Feature for list of features)
   ///@param f Feature to disable
   ///@return This parser, to allow call chaining
-  JsonParser disable(JsonParser_Feature f) =>
-      JsonParser.fromRef(_disable(reference, f.reference));
+  JsonParser disable(JsonParser_Feature f) {
+    final result__ = JsonParser.fromRef(_disable(reference, f.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _configure = jlookup<
               ffi.NativeFunction<
@@ -2271,8 +2665,12 @@ class JsonParser extends jni.JlObject {
   ///@param f Feature to enable or disable
   ///@param state Whether to enable feature ({@code true}) or disable ({@code false})
   ///@return This parser, to allow call chaining
-  JsonParser configure(JsonParser_Feature f, bool state) =>
-      JsonParser.fromRef(_configure(reference, f.reference, state ? 1 : 0));
+  JsonParser configure(JsonParser_Feature f, bool state) {
+    final result__ =
+        JsonParser.fromRef(_configure(reference, f.reference, state ? 1 : 0));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isEnabled = jlookup<
               ffi.NativeFunction<
@@ -2286,8 +2684,11 @@ class JsonParser extends jni.JlObject {
   /// Method for checking whether specified Feature is enabled.
   ///@param f Feature to check
   ///@return {@code True} if feature is enabled; {@code false} otherwise
-  bool isEnabled(JsonParser_Feature f) =>
-      _isEnabled(reference, f.reference) != 0;
+  bool isEnabled(JsonParser_Feature f) {
+    final result__ = _isEnabled(reference, f.reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isEnabled1 = jlookup<
               ffi.NativeFunction<
@@ -2302,7 +2703,11 @@ class JsonParser extends jni.JlObject {
   ///@param f Feature to check
   ///@return {@code True} if feature is enabled; {@code false} otherwise
   ///@since 2.10
-  bool isEnabled1(jni.JlObject f) => _isEnabled1(reference, f.reference) != 0;
+  bool isEnabled1(jni.JlObject f) {
+    final result__ = _isEnabled1(reference, f.reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getFeatureMask =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -2314,7 +2719,11 @@ class JsonParser extends jni.JlObject {
   /// Bulk access method for getting state of all standard Features.
   ///@return Bit mask that defines current states of all standard Features.
   ///@since 2.3
-  int getFeatureMask() => _getFeatureMask(reference);
+  int getFeatureMask() {
+    final result__ = _getFeatureMask(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _setFeatureMask = jlookup<
               ffi.NativeFunction<
@@ -2331,8 +2740,11 @@ class JsonParser extends jni.JlObject {
   ///@return This parser, to allow call chaining
   ///@since 2.3
   ///@deprecated Since 2.7, use \#overrideStdFeatures(int, int) instead
-  JsonParser setFeatureMask(int mask) =>
-      JsonParser.fromRef(_setFeatureMask(reference, mask));
+  JsonParser setFeatureMask(int mask) {
+    final result__ = JsonParser.fromRef(_setFeatureMask(reference, mask));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _overrideStdFeatures = jlookup<
               ffi.NativeFunction<
@@ -2357,8 +2769,12 @@ class JsonParser extends jni.JlObject {
   ///@param mask Bit mask of features to change
   ///@return This parser, to allow call chaining
   ///@since 2.6
-  JsonParser overrideStdFeatures(int values, int mask) =>
-      JsonParser.fromRef(_overrideStdFeatures(reference, values, mask));
+  JsonParser overrideStdFeatures(int values, int mask) {
+    final result__ =
+        JsonParser.fromRef(_overrideStdFeatures(reference, values, mask));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getFormatFeatures =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -2371,7 +2787,11 @@ class JsonParser extends jni.JlObject {
   /// on/off configuration settings.
   ///@return Bit mask that defines current states of all standard FormatFeatures.
   ///@since 2.6
-  int getFormatFeatures() => _getFormatFeatures(reference);
+  int getFormatFeatures() {
+    final result__ = _getFormatFeatures(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _overrideFormatFeatures = jlookup<
               ffi.NativeFunction<
@@ -2394,8 +2814,12 @@ class JsonParser extends jni.JlObject {
   ///@param mask Bit mask of features to change
   ///@return This parser, to allow call chaining
   ///@since 2.6
-  JsonParser overrideFormatFeatures(int values, int mask) =>
-      JsonParser.fromRef(_overrideFormatFeatures(reference, values, mask));
+  JsonParser overrideFormatFeatures(int values, int mask) {
+    final result__ =
+        JsonParser.fromRef(_overrideFormatFeatures(reference, values, mask));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _nextToken = jlookup<
               ffi.NativeFunction<
@@ -2414,7 +2838,11 @@ class JsonParser extends jni.JlObject {
   ///   to indicate end-of-input
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  JsonToken nextToken() => JsonToken.fromRef(_nextToken(reference));
+  JsonToken nextToken() {
+    final result__ = JsonToken.fromRef(_nextToken(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _nextValue = jlookup<
               ffi.NativeFunction<
@@ -2441,7 +2869,11 @@ class JsonParser extends jni.JlObject {
   ///   available yet)
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  JsonToken nextValue() => JsonToken.fromRef(_nextValue(reference));
+  JsonToken nextValue() {
+    final result__ = JsonToken.fromRef(_nextValue(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _nextFieldName = jlookup<
               ffi.NativeFunction<
@@ -2467,8 +2899,11 @@ class JsonParser extends jni.JlObject {
   ///    specified name; {@code false} otherwise (different token or non-matching name)
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  bool nextFieldName(jni.JlObject str) =>
-      _nextFieldName(reference, str.reference) != 0;
+  bool nextFieldName(jni.JlObject str) {
+    final result__ = _nextFieldName(reference, str.reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _nextFieldName1 = jlookup<
               ffi.NativeFunction<
@@ -2487,8 +2922,11 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.5
-  jni.JlString nextFieldName1() =>
-      jni.JlString.fromRef(_nextFieldName1(reference));
+  jni.JlString nextFieldName1() {
+    final result__ = jni.JlString.fromRef(_nextFieldName1(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _nextTextValue = jlookup<
               ffi.NativeFunction<
@@ -2512,8 +2950,11 @@ class JsonParser extends jni.JlObject {
   ///   to; or {@code null} if next token is of some other type
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlString nextTextValue() =>
-      jni.JlString.fromRef(_nextTextValue(reference));
+  jni.JlString nextTextValue() {
+    final result__ = jni.JlString.fromRef(_nextTextValue(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _nextIntValue = jlookup<
               ffi.NativeFunction<
@@ -2540,7 +2981,11 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@throws InputCoercionException if integer number does not fit in Java {@code int}
-  int nextIntValue(int defaultValue) => _nextIntValue(reference, defaultValue);
+  int nextIntValue(int defaultValue) {
+    final result__ = _nextIntValue(reference, defaultValue);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _nextLongValue = jlookup<
               ffi.NativeFunction<
@@ -2567,8 +3012,11 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@throws InputCoercionException if integer number does not fit in Java {@code long}
-  int nextLongValue(int defaultValue) =>
-      _nextLongValue(reference, defaultValue);
+  int nextLongValue(int defaultValue) {
+    final result__ = _nextLongValue(reference, defaultValue);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _nextBooleanValue = jlookup<
               ffi.NativeFunction<
@@ -2595,8 +3043,11 @@ class JsonParser extends jni.JlObject {
   ///   token parser advanced to; or {@code null} if next token is of some other type
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject nextBooleanValue() =>
-      jni.JlObject.fromRef(_nextBooleanValue(reference));
+  jni.JlObject nextBooleanValue() {
+    final result__ = jni.JlObject.fromRef(_nextBooleanValue(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _skipChildren = jlookup<
               ffi.NativeFunction<
@@ -2622,7 +3073,11 @@ class JsonParser extends jni.JlObject {
   ///@return This parser, to allow call chaining
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  JsonParser skipChildren() => JsonParser.fromRef(_skipChildren(reference));
+  JsonParser skipChildren() {
+    final result__ = JsonParser.fromRef(_skipChildren(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _finishToken =
       jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
@@ -2644,7 +3099,11 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.8
-  void finishToken() => _finishToken(reference);
+  void finishToken() {
+    final result__ = _finishToken(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _currentToken = jlookup<
               ffi.NativeFunction<
@@ -2664,7 +3123,11 @@ class JsonParser extends jni.JlObject {
   ///   after end-of-input has been encountered, as well as
   ///   if the current token has been explicitly cleared.
   ///@since 2.8
-  JsonToken currentToken() => JsonToken.fromRef(_currentToken(reference));
+  JsonToken currentToken() {
+    final result__ = JsonToken.fromRef(_currentToken(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _currentTokenId =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -2682,7 +3145,11 @@ class JsonParser extends jni.JlObject {
   /// to profile performance before deciding to use this method.
   ///@since 2.8
   ///@return {@code int} matching one of constants from JsonTokenId.
-  int currentTokenId() => _currentTokenId(reference);
+  int currentTokenId() {
+    final result__ = _currentTokenId(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getCurrentToken = jlookup<
               ffi.NativeFunction<
@@ -2697,7 +3164,11 @@ class JsonParser extends jni.JlObject {
   /// Jackson 2.13 (will be removed from 3.0).
   ///@return Type of the token this parser currently points to,
   ///   if any: null before any tokens have been read, and
-  JsonToken getCurrentToken() => JsonToken.fromRef(_getCurrentToken(reference));
+  JsonToken getCurrentToken() {
+    final result__ = JsonToken.fromRef(_getCurrentToken(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getCurrentTokenId =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -2709,7 +3180,11 @@ class JsonParser extends jni.JlObject {
   /// Deprecated alias for \#currentTokenId().
   ///@return {@code int} matching one of constants from JsonTokenId.
   ///@deprecated Since 2.12 use \#currentTokenId instead
-  int getCurrentTokenId() => _getCurrentTokenId(reference);
+  int getCurrentTokenId() {
+    final result__ = _getCurrentTokenId(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _hasCurrentToken =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -2726,7 +3201,11 @@ class JsonParser extends jni.JlObject {
   ///   was just constructed, encountered end-of-input
   ///   and returned null from \#nextToken, or the token
   ///   has been consumed)
-  bool hasCurrentToken() => _hasCurrentToken(reference) != 0;
+  bool hasCurrentToken() {
+    final result__ = _hasCurrentToken(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _hasTokenId = jlookup<
               ffi.NativeFunction<
@@ -2748,7 +3227,11 @@ class JsonParser extends jni.JlObject {
   ///@param id Token id to match (from (@link JsonTokenId})
   ///@return {@code True} if the parser current points to specified token
   ///@since 2.5
-  bool hasTokenId(int id) => _hasTokenId(reference, id) != 0;
+  bool hasTokenId(int id) {
+    final result__ = _hasTokenId(reference, id) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _hasToken = jlookup<
               ffi.NativeFunction<
@@ -2771,7 +3254,11 @@ class JsonParser extends jni.JlObject {
   ///@param t Token to match
   ///@return {@code True} if the parser current points to specified token
   ///@since 2.6
-  bool hasToken(JsonToken t) => _hasToken(reference, t.reference) != 0;
+  bool hasToken(JsonToken t) {
+    final result__ = _hasToken(reference, t.reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isExpectedStartArrayToken =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -2796,8 +3283,11 @@ class JsonParser extends jni.JlObject {
   ///@return True if the current token can be considered as a
   ///   start-array marker (such JsonToken\#START_ARRAY);
   ///   {@code false} if not
-  bool isExpectedStartArrayToken() =>
-      _isExpectedStartArrayToken(reference) != 0;
+  bool isExpectedStartArrayToken() {
+    final result__ = _isExpectedStartArrayToken(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isExpectedStartObjectToken = jlookup<
               ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -2812,8 +3302,11 @@ class JsonParser extends jni.JlObject {
   ///   start-array marker (such JsonToken\#START_OBJECT);
   ///   {@code false} if not
   ///@since 2.5
-  bool isExpectedStartObjectToken() =>
-      _isExpectedStartObjectToken(reference) != 0;
+  bool isExpectedStartObjectToken() {
+    final result__ = _isExpectedStartObjectToken(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isExpectedNumberIntToken =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -2831,7 +3324,11 @@ class JsonParser extends jni.JlObject {
   ///   start-array marker (such JsonToken\#VALUE_NUMBER_INT);
   ///   {@code false} if not
   ///@since 2.12
-  bool isExpectedNumberIntToken() => _isExpectedNumberIntToken(reference) != 0;
+  bool isExpectedNumberIntToken() {
+    final result__ = _isExpectedNumberIntToken(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isNaN =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -2852,7 +3349,11 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.9
-  bool isNaN() => _isNaN(reference) != 0;
+  bool isNaN() {
+    final result__ = _isNaN(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _clearCurrentToken =
       jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
@@ -2871,7 +3372,11 @@ class JsonParser extends jni.JlObject {
   /// Method was added to be used by the optional data binder, since
   /// it has to be able to consume last token used for binding (so that
   /// it will not be used again).
-  void clearCurrentToken() => _clearCurrentToken(reference);
+  void clearCurrentToken() {
+    final result__ = _clearCurrentToken(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getLastClearedToken = jlookup<
               ffi.NativeFunction<
@@ -2888,8 +3393,11 @@ class JsonParser extends jni.JlObject {
   /// Will return null if no tokens have been cleared,
   /// or if parser has been closed.
   ///@return Last cleared token, if any; {@code null} otherwise
-  JsonToken getLastClearedToken() =>
-      JsonToken.fromRef(_getLastClearedToken(reference));
+  JsonToken getLastClearedToken() {
+    final result__ = JsonToken.fromRef(_getLastClearedToken(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _overrideCurrentName = jlookup<
               ffi.NativeFunction<
@@ -2909,8 +3417,11 @@ class JsonParser extends jni.JlObject {
   /// Note that use of this method should only be done as sort of last
   /// resort, as it is a work-around for regular operation.
   ///@param name Name to use as the current name; may be null.
-  void overrideCurrentName(jni.JlString name) =>
-      _overrideCurrentName(reference, name.reference);
+  void overrideCurrentName(jni.JlString name) {
+    final result__ = _overrideCurrentName(reference, name.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getCurrentName = jlookup<
               ffi.NativeFunction<
@@ -2925,8 +3436,11 @@ class JsonParser extends jni.JlObject {
   ///@return Name of the current field in the parsing context
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlString getCurrentName() =>
-      jni.JlString.fromRef(_getCurrentName(reference));
+  jni.JlString getCurrentName() {
+    final result__ = jni.JlString.fromRef(_getCurrentName(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _currentName = jlookup<
               ffi.NativeFunction<
@@ -2946,7 +3460,11 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.10
-  jni.JlString currentName() => jni.JlString.fromRef(_currentName(reference));
+  jni.JlString currentName() {
+    final result__ = jni.JlString.fromRef(_currentName(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getText = jlookup<
               ffi.NativeFunction<
@@ -2965,7 +3483,11 @@ class JsonParser extends jni.JlObject {
   ///   by \#nextToken() or other iteration methods)
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlString getText() => jni.JlString.fromRef(_getText(reference));
+  jni.JlString getText() {
+    final result__ = jni.JlString.fromRef(_getText(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getText1 = jlookup<
               ffi.NativeFunction<
@@ -2991,7 +3513,11 @@ class JsonParser extends jni.JlObject {
   ///   {@code writer}, or
   ///   JsonParseException for decoding problems
   ///@since 2.8
-  int getText1(jni.JlObject writer) => _getText1(reference, writer.reference);
+  int getText1(jni.JlObject writer) {
+    final result__ = _getText1(reference, writer.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getTextCharacters = jlookup<
               ffi.NativeFunction<
@@ -3029,8 +3555,11 @@ class JsonParser extends jni.JlObject {
   ///    at offset 0, and not necessarily until the end of buffer)
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject getTextCharacters() =>
-      jni.JlObject.fromRef(_getTextCharacters(reference));
+  jni.JlObject getTextCharacters() {
+    final result__ = jni.JlObject.fromRef(_getTextCharacters(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getTextLength =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3046,7 +3575,11 @@ class JsonParser extends jni.JlObject {
   ///   textual content of the current token.
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getTextLength() => _getTextLength(reference);
+  int getTextLength() {
+    final result__ = _getTextLength(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getTextOffset =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3062,7 +3595,11 @@ class JsonParser extends jni.JlObject {
   ///   textual content of the current token.
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getTextOffset() => _getTextOffset(reference);
+  int getTextOffset() {
+    final result__ = _getTextOffset(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _hasTextCharacters =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3085,7 +3622,11 @@ class JsonParser extends jni.JlObject {
   ///@return True if parser currently has character array that can
   ///   be efficiently returned via \#getTextCharacters; false
   ///   means that it may or may not exist
-  bool hasTextCharacters() => _hasTextCharacters(reference) != 0;
+  bool hasTextCharacters() {
+    final result__ = _hasTextCharacters(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getNumberValue = jlookup<
               ffi.NativeFunction<
@@ -3106,8 +3647,11 @@ class JsonParser extends jni.JlObject {
   ///    the current token is not numeric, or if decoding of the value fails
   ///    (invalid format for numbers); plain IOException if underlying
   ///    content read fails (possible if values are extracted lazily)
-  jni.JlObject getNumberValue() =>
-      jni.JlObject.fromRef(_getNumberValue(reference));
+  jni.JlObject getNumberValue() {
+    final result__ = jni.JlObject.fromRef(_getNumberValue(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getNumberValueExact = jlookup<
               ffi.NativeFunction<
@@ -3132,8 +3676,11 @@ class JsonParser extends jni.JlObject {
   ///    (invalid format for numbers); plain IOException if underlying
   ///    content read fails (possible if values are extracted lazily)
   ///@since 2.12
-  jni.JlObject getNumberValueExact() =>
-      jni.JlObject.fromRef(_getNumberValueExact(reference));
+  jni.JlObject getNumberValueExact() {
+    final result__ = jni.JlObject.fromRef(_getNumberValueExact(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getNumberType = jlookup<
               ffi.NativeFunction<
@@ -3151,8 +3698,11 @@ class JsonParser extends jni.JlObject {
   ///@return Type of current number, if parser points to numeric token; {@code null} otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  JsonParser_NumberType getNumberType() =>
-      JsonParser_NumberType.fromRef(_getNumberType(reference));
+  JsonParser_NumberType getNumberType() {
+    final result__ = JsonParser_NumberType.fromRef(_getNumberType(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getByteValue =
       jlookup<ffi.NativeFunction<ffi.Int8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3182,7 +3732,11 @@ class JsonParser extends jni.JlObject {
   ///   range of {@code [-128, 255]}); otherwise exception thrown
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getByteValue() => _getByteValue(reference);
+  int getByteValue() {
+    final result__ = _getByteValue(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getShortValue =
       jlookup<ffi.NativeFunction<ffi.Int16 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3206,7 +3760,11 @@ class JsonParser extends jni.JlObject {
   ///   Java 16-bit signed {@code short} range); otherwise exception thrown
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getShortValue() => _getShortValue(reference);
+  int getShortValue() {
+    final result__ = _getShortValue(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getIntValue =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3230,7 +3788,11 @@ class JsonParser extends jni.JlObject {
   ///   Java 32-bit signed {@code int} range); otherwise exception thrown
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getIntValue() => _getIntValue(reference);
+  int getIntValue() {
+    final result__ = _getIntValue(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getLongValue =
       jlookup<ffi.NativeFunction<ffi.Int64 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3254,7 +3816,11 @@ class JsonParser extends jni.JlObject {
   ///   Java 32-bit signed {@code long} range); otherwise exception thrown
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getLongValue() => _getLongValue(reference);
+  int getLongValue() {
+    final result__ = _getLongValue(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getBigIntegerValue = jlookup<
               ffi.NativeFunction<
@@ -3276,8 +3842,11 @@ class JsonParser extends jni.JlObject {
   ///     otherwise exception thrown
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject getBigIntegerValue() =>
-      jni.JlObject.fromRef(_getBigIntegerValue(reference));
+  jni.JlObject getBigIntegerValue() {
+    final result__ = jni.JlObject.fromRef(_getBigIntegerValue(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getFloatValue =
       jlookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
@@ -3301,7 +3870,11 @@ class JsonParser extends jni.JlObject {
   ///   Java {@code float} range); otherwise exception thrown
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  double getFloatValue() => _getFloatValue(reference);
+  double getFloatValue() {
+    final result__ = _getFloatValue(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getDoubleValue =
       jlookup<ffi.NativeFunction<ffi.Double Function(ffi.Pointer<ffi.Void>)>>(
@@ -3325,7 +3898,11 @@ class JsonParser extends jni.JlObject {
   ///   Java {@code double} range); otherwise exception thrown
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  double getDoubleValue() => _getDoubleValue(reference);
+  double getDoubleValue() {
+    final result__ = _getDoubleValue(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getDecimalValue = jlookup<
               ffi.NativeFunction<
@@ -3344,8 +3921,11 @@ class JsonParser extends jni.JlObject {
   ///   otherwise exception thrown
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject getDecimalValue() =>
-      jni.JlObject.fromRef(_getDecimalValue(reference));
+  jni.JlObject getDecimalValue() {
+    final result__ = jni.JlObject.fromRef(_getDecimalValue(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getBooleanValue =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3365,7 +3945,11 @@ class JsonParser extends jni.JlObject {
   ///   otherwise throws JsonParseException
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  bool getBooleanValue() => _getBooleanValue(reference) != 0;
+  bool getBooleanValue() {
+    final result__ = _getBooleanValue(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getEmbeddedObject = jlookup<
               ffi.NativeFunction<
@@ -3390,8 +3974,11 @@ class JsonParser extends jni.JlObject {
   ///   for the current token, if any; {@code null otherwise}
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject getEmbeddedObject() =>
-      jni.JlObject.fromRef(_getEmbeddedObject(reference));
+  jni.JlObject getEmbeddedObject() {
+    final result__ = jni.JlObject.fromRef(_getEmbeddedObject(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getBinaryValue = jlookup<
               ffi.NativeFunction<
@@ -3425,8 +4012,12 @@ class JsonParser extends jni.JlObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject getBinaryValue(jni.JlObject bv) =>
-      jni.JlObject.fromRef(_getBinaryValue(reference, bv.reference));
+  jni.JlObject getBinaryValue(jni.JlObject bv) {
+    final result__ =
+        jni.JlObject.fromRef(_getBinaryValue(reference, bv.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getBinaryValue1 = jlookup<
               ffi.NativeFunction<
@@ -3443,8 +4034,11 @@ class JsonParser extends jni.JlObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject getBinaryValue1() =>
-      jni.JlObject.fromRef(_getBinaryValue1(reference));
+  jni.JlObject getBinaryValue1() {
+    final result__ = jni.JlObject.fromRef(_getBinaryValue1(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _readBinaryValue = jlookup<
               ffi.NativeFunction<
@@ -3466,8 +4060,11 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.1
-  int readBinaryValue(jni.JlObject out) =>
-      _readBinaryValue(reference, out.reference);
+  int readBinaryValue(jni.JlObject out) {
+    final result__ = _readBinaryValue(reference, out.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _readBinaryValue1 = jlookup<
               ffi.NativeFunction<
@@ -3488,8 +4085,11 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.1
-  int readBinaryValue1(jni.JlObject bv, jni.JlObject out) =>
-      _readBinaryValue1(reference, bv.reference, out.reference);
+  int readBinaryValue1(jni.JlObject bv, jni.JlObject out) {
+    final result__ = _readBinaryValue1(reference, bv.reference, out.reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getValueAsInt =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3511,7 +4111,11 @@ class JsonParser extends jni.JlObject {
   ///    otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getValueAsInt() => _getValueAsInt(reference);
+  int getValueAsInt() {
+    final result__ = _getValueAsInt(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getValueAsInt1 = jlookup<
               ffi.NativeFunction<
@@ -3534,7 +4138,11 @@ class JsonParser extends jni.JlObject {
   ///@return {@code int} value current token is converted to, if possible; {@code def} otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getValueAsInt1(int def) => _getValueAsInt1(reference, def);
+  int getValueAsInt1(int def) {
+    final result__ = _getValueAsInt1(reference, def);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getValueAsLong =
       jlookup<ffi.NativeFunction<ffi.Int64 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3556,7 +4164,11 @@ class JsonParser extends jni.JlObject {
   ///    otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getValueAsLong() => _getValueAsLong(reference);
+  int getValueAsLong() {
+    final result__ = _getValueAsLong(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getValueAsLong1 = jlookup<
               ffi.NativeFunction<
@@ -3579,7 +4191,11 @@ class JsonParser extends jni.JlObject {
   ///@return {@code long} value current token is converted to, if possible; {@code def} otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getValueAsLong1(int def) => _getValueAsLong1(reference, def);
+  int getValueAsLong1(int def) {
+    final result__ = _getValueAsLong1(reference, def);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getValueAsDouble =
       jlookup<ffi.NativeFunction<ffi.Double Function(ffi.Pointer<ffi.Void>)>>(
@@ -3601,7 +4217,11 @@ class JsonParser extends jni.JlObject {
   ///    otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  double getValueAsDouble() => _getValueAsDouble(reference);
+  double getValueAsDouble() {
+    final result__ = _getValueAsDouble(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getValueAsDouble1 = jlookup<
               ffi.NativeFunction<
@@ -3624,7 +4244,11 @@ class JsonParser extends jni.JlObject {
   ///@return {@code double} value current token is converted to, if possible; {@code def} otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  double getValueAsDouble1(double def) => _getValueAsDouble1(reference, def);
+  double getValueAsDouble1(double def) {
+    final result__ = _getValueAsDouble1(reference, def);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getValueAsBoolean =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3646,7 +4270,11 @@ class JsonParser extends jni.JlObject {
   ///    otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  bool getValueAsBoolean() => _getValueAsBoolean(reference) != 0;
+  bool getValueAsBoolean() {
+    final result__ = _getValueAsBoolean(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getValueAsBoolean1 = jlookup<
               ffi.NativeFunction<
@@ -3669,8 +4297,11 @@ class JsonParser extends jni.JlObject {
   ///@return {@code boolean} value current token is converted to, if possible; {@code def} otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  bool getValueAsBoolean1(bool def) =>
-      _getValueAsBoolean1(reference, def ? 1 : 0) != 0;
+  bool getValueAsBoolean1(bool def) {
+    final result__ = _getValueAsBoolean1(reference, def ? 1 : 0) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getValueAsString = jlookup<
               ffi.NativeFunction<
@@ -3692,8 +4323,11 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.1
-  jni.JlString getValueAsString() =>
-      jni.JlString.fromRef(_getValueAsString(reference));
+  jni.JlString getValueAsString() {
+    final result__ = jni.JlString.fromRef(_getValueAsString(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getValueAsString1 = jlookup<
               ffi.NativeFunction<
@@ -3719,8 +4353,12 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.1
-  jni.JlString getValueAsString1(jni.JlString def) =>
-      jni.JlString.fromRef(_getValueAsString1(reference, def.reference));
+  jni.JlString getValueAsString1(jni.JlString def) {
+    final result__ =
+        jni.JlString.fromRef(_getValueAsString1(reference, def.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _canReadObjectId =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3740,7 +4378,11 @@ class JsonParser extends jni.JlObject {
   ///@return {@code True} if the format being read supports native Object Ids;
   ///    {@code false} if not
   ///@since 2.3
-  bool canReadObjectId() => _canReadObjectId(reference) != 0;
+  bool canReadObjectId() {
+    final result__ = _canReadObjectId(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _canReadTypeId =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3760,7 +4402,11 @@ class JsonParser extends jni.JlObject {
   ///@return {@code True} if the format being read supports native Type Ids;
   ///    {@code false} if not
   ///@since 2.3
-  bool canReadTypeId() => _canReadTypeId(reference) != 0;
+  bool canReadTypeId() {
+    final result__ = _canReadTypeId(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getObjectId = jlookup<
               ffi.NativeFunction<
@@ -3784,7 +4430,11 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.3
-  jni.JlObject getObjectId() => jni.JlObject.fromRef(_getObjectId(reference));
+  jni.JlObject getObjectId() {
+    final result__ = jni.JlObject.fromRef(_getObjectId(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getTypeId = jlookup<
               ffi.NativeFunction<
@@ -3808,7 +4458,11 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.3
-  jni.JlObject getTypeId() => jni.JlObject.fromRef(_getTypeId(reference));
+  jni.JlObject getTypeId() {
+    final result__ = jni.JlObject.fromRef(_getTypeId(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _readValuesAs = jlookup<
               ffi.NativeFunction<
@@ -3830,8 +4484,12 @@ class JsonParser extends jni.JlObject {
   ///@return Iterator for reading multiple Java values from content
   ///@throws IOException if there is either an underlying I/O problem or decoding
   ///    issue at format layer
-  jni.JlObject readValuesAs(jni.JlObject valueType) =>
-      jni.JlObject.fromRef(_readValuesAs(reference, valueType.reference));
+  jni.JlObject readValuesAs(jni.JlObject valueType) {
+    final result__ =
+        jni.JlObject.fromRef(_readValuesAs(reference, valueType.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _readValuesAs1 = jlookup<
               ffi.NativeFunction<
@@ -3853,8 +4511,12 @@ class JsonParser extends jni.JlObject {
   ///@return Iterator for reading multiple Java values from content
   ///@throws IOException if there is either an underlying I/O problem or decoding
   ///    issue at format layer
-  jni.JlObject readValuesAs1(jni.JlObject valueTypeRef) =>
-      jni.JlObject.fromRef(_readValuesAs1(reference, valueTypeRef.reference));
+  jni.JlObject readValuesAs1(jni.JlObject valueTypeRef) {
+    final result__ =
+        jni.JlObject.fromRef(_readValuesAs1(reference, valueTypeRef.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 }
 
 /// from: com.fasterxml.jackson.core.JsonParser$Feature
@@ -3870,7 +4532,11 @@ class JsonParser_Feature extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonParser.Feature[] values()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JlObject values() => jni.JlObject.fromRef(_values());
+  static jni.JlObject values() {
+    final result__ = jni.JlObject.fromRef(_values());
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _valueOf = jlookup<
               ffi.NativeFunction<
@@ -3880,8 +4546,11 @@ class JsonParser_Feature extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonParser.Feature valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonParser_Feature valueOf(jni.JlString name) =>
-      JsonParser_Feature.fromRef(_valueOf(name.reference));
+  static JsonParser_Feature valueOf(jni.JlString name) {
+    final result__ = JsonParser_Feature.fromRef(_valueOf(name.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _collectDefaults =
       jlookup<ffi.NativeFunction<ffi.Int32 Function()>>(
@@ -3893,7 +4562,11 @@ class JsonParser_Feature extends jni.JlObject {
   /// Method that calculates bit set (flags) of all features that
   /// are enabled by default.
   ///@return Bit mask of all features that are enabled by default
-  static int collectDefaults() => _collectDefaults();
+  static int collectDefaults() {
+    final result__ = _collectDefaults();
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _ctor =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Uint8)>>(
@@ -3902,7 +4575,9 @@ class JsonParser_Feature extends jni.JlObject {
 
   /// from: private void <init>(boolean defaultState)
   JsonParser_Feature(bool defaultState)
-      : super.fromRef(_ctor(defaultState ? 1 : 0));
+      : super.fromRef(_ctor(defaultState ? 1 : 0)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _enabledByDefault =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3910,7 +4585,11 @@ class JsonParser_Feature extends jni.JlObject {
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public boolean enabledByDefault()
-  bool enabledByDefault() => _enabledByDefault(reference) != 0;
+  bool enabledByDefault() {
+    final result__ = _enabledByDefault(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _enabledIn = jlookup<
               ffi.NativeFunction<
@@ -3919,7 +4598,11 @@ class JsonParser_Feature extends jni.JlObject {
       .asFunction<int Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public boolean enabledIn(int flags)
-  bool enabledIn(int flags) => _enabledIn(reference, flags) != 0;
+  bool enabledIn(int flags) {
+    final result__ = _enabledIn(reference, flags) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _getMask =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -3927,7 +4610,11 @@ class JsonParser_Feature extends jni.JlObject {
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public int getMask()
-  int getMask() => _getMask(reference);
+  int getMask() {
+    final result__ = _getMask(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 }
 
 /// from: com.fasterxml.jackson.core.JsonParser$NumberType
@@ -3944,7 +4631,11 @@ class JsonParser_NumberType extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonParser.NumberType[] values()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JlObject values() => jni.JlObject.fromRef(_values());
+  static jni.JlObject values() {
+    final result__ = jni.JlObject.fromRef(_values());
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _valueOf = jlookup<
               ffi.NativeFunction<
@@ -3954,8 +4645,11 @@ class JsonParser_NumberType extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonParser.NumberType valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonParser_NumberType valueOf(jni.JlString name) =>
-      JsonParser_NumberType.fromRef(_valueOf(name.reference));
+  static JsonParser_NumberType valueOf(jni.JlString name) {
+    final result__ = JsonParser_NumberType.fromRef(_valueOf(name.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _ctor =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
@@ -3963,7 +4657,9 @@ class JsonParser_NumberType extends jni.JlObject {
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
   /// from: private void <init>()
-  JsonParser_NumberType() : super.fromRef(_ctor());
+  JsonParser_NumberType() : super.fromRef(_ctor()) {
+    jni.Jni.indir.checkException();
+  }
 }
 
 /// from: com.fasterxml.jackson.core.JsonToken
@@ -3980,7 +4676,11 @@ class JsonToken extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonToken[] values()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JlObject values() => jni.JlObject.fromRef(_values());
+  static jni.JlObject values() {
+    final result__ = jni.JlObject.fromRef(_values());
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _valueOf = jlookup<
               ffi.NativeFunction<
@@ -3990,8 +4690,11 @@ class JsonToken extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonToken valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonToken valueOf(jni.JlString name) =>
-      JsonToken.fromRef(_valueOf(name.reference));
+  static JsonToken valueOf(jni.JlString name) {
+    final result__ = JsonToken.fromRef(_valueOf(name.reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _ctor = jlookup<
           ffi.NativeFunction<
@@ -4005,7 +4708,9 @@ class JsonToken extends jni.JlObject {
   ///   single static representation; null otherwise
   ///@param id Numeric id from JsonTokenId
   JsonToken(jni.JlString token, int id)
-      : super.fromRef(_ctor(token.reference, id));
+      : super.fromRef(_ctor(token.reference, id)) {
+    jni.Jni.indir.checkException();
+  }
 
   static final _id =
       jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
@@ -4013,7 +4718,11 @@ class JsonToken extends jni.JlObject {
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public final int id()
-  int id() => _id(reference);
+  int id() {
+    final result__ = _id(reference);
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _asString = jlookup<
               ffi.NativeFunction<
@@ -4023,7 +4732,11 @@ class JsonToken extends jni.JlObject {
 
   /// from: public final java.lang.String asString()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlString asString() => jni.JlString.fromRef(_asString(reference));
+  jni.JlString asString() {
+    final result__ = jni.JlString.fromRef(_asString(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _asCharArray = jlookup<
               ffi.NativeFunction<
@@ -4033,7 +4746,11 @@ class JsonToken extends jni.JlObject {
 
   /// from: public final char[] asCharArray()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject asCharArray() => jni.JlObject.fromRef(_asCharArray(reference));
+  jni.JlObject asCharArray() {
+    final result__ = jni.JlObject.fromRef(_asCharArray(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _asByteArray = jlookup<
               ffi.NativeFunction<
@@ -4043,7 +4760,11 @@ class JsonToken extends jni.JlObject {
 
   /// from: public final byte[] asByteArray()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject asByteArray() => jni.JlObject.fromRef(_asByteArray(reference));
+  jni.JlObject asByteArray() {
+    final result__ = jni.JlObject.fromRef(_asByteArray(reference));
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isNumeric =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -4054,7 +4775,11 @@ class JsonToken extends jni.JlObject {
   ///
   /// @return {@code True} if this token is {@code VALUE_NUMBER_INT} or {@code VALUE_NUMBER_FLOAT},
   ///   {@code false} otherwise
-  bool isNumeric() => _isNumeric(reference) != 0;
+  bool isNumeric() {
+    final result__ = _isNumeric(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isStructStart =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -4070,7 +4795,11 @@ class JsonToken extends jni.JlObject {
   ///@return {@code True} if this token is {@code START_OBJECT} or {@code START_ARRAY},
   ///   {@code false} otherwise
   ///@since 2.3
-  bool isStructStart() => _isStructStart(reference) != 0;
+  bool isStructStart() {
+    final result__ = _isStructStart(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isStructEnd =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -4086,7 +4815,11 @@ class JsonToken extends jni.JlObject {
   ///@return {@code True} if this token is {@code END_OBJECT} or {@code END_ARRAY},
   ///   {@code false} otherwise
   ///@since 2.3
-  bool isStructEnd() => _isStructEnd(reference) != 0;
+  bool isStructEnd() {
+    final result__ = _isStructEnd(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isScalarValue =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -4101,7 +4834,11 @@ class JsonToken extends jni.JlObject {
   /// {@code FIELD_NAME}.
   ///@return {@code True} if this token is a scalar value token (one of
   ///   {@code VALUE_xxx} tokens), {@code false} otherwise
-  bool isScalarValue() => _isScalarValue(reference) != 0;
+  bool isScalarValue() {
+    final result__ = _isScalarValue(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 
   static final _isBoolean =
       jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
@@ -4112,5 +4849,9 @@ class JsonToken extends jni.JlObject {
   ///
   /// @return {@code True} if this token is {@code VALUE_TRUE} or {@code VALUE_FALSE},
   ///   {@code false} otherwise
-  bool isBoolean() => _isBoolean(reference) != 0;
+  bool isBoolean() {
+    final result__ = _isBoolean(reference) != 0;
+    jni.Jni.indir.checkException();
+    return result__;
+  }
 }

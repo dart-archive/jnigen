@@ -11,9 +11,8 @@ import 'dart:ffi';
 import 'package:pdfbox_plugin/third_party/org/apache/pdfbox/pdmodel.dart';
 
 void writeInfo(String file) {
-
-  final inputFile = Jni
-      .newInstance("java/io/FileInputStream", "(Ljava/lang/String;)V", [file]);
+  final inputFile = Jni.newInstance(
+      "java/io/FileInputStream", "(Ljava/lang/String;)V", [file]);
 
   final pdDoc = PDDocument.load7(inputFile);
   int pages = pdDoc.getNumberOfPages();

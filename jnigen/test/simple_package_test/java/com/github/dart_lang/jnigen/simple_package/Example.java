@@ -32,6 +32,10 @@ public class Example {
     this.num = num;
   }
 
+  public static void throwException() {
+	throw new RuntimeException("Hello");
+  }
+
   public static class Aux {
     public boolean value;
 

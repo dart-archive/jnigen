@@ -127,15 +127,17 @@ class DartBindingsGenerator {
       final className = _getSimpleName(c.binaryName);
       final ctorFnName = name == 'ctor' ? className : '$className.$name';
       s.write('$ctorFnName(${_formalArgs(m)}) : '
-          'super.fromRef($wrapperExpr);\n');
+          'super.fromRef($wrapperExpr) { jni.Jni.indir.checkException(); }\n');
       return s.toString();
     }
 
     var wrapperExpr = '$sym(${_actualArgs(m)})';
     wrapperExpr = _toDartResult(wrapperExpr, m.returnType, returnType);
-    s.write('$returnType $name(${_formalArgs(m)}) '
-        '=> $wrapperExpr;\n');
-
+    final depth = '$_indent$_indent';
+    s.write('$returnType $name(${_formalArgs(m)}) {');
+    s.write('${depth}final result__ = $wrapperExpr;');
+    s.write('${depth}jni.Jni.indir.checkException();');
+    s.write('${depth}return result__;\n$_indent}');
     return s.toString();
   }
 
