@@ -1,4 +1,4 @@
-package dev.dart.jni_example;
+package com.github.dart_lang.jni_example;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,10 +6,10 @@ import android.widget.Toast;
 import androidx.annotation.Keep;
 
 @Keep
-class AnyToast {
-  static AnyToast makeText(
+class Toaster {
+  static Toaster makeText(
       Activity mainActivity, Context context, CharSequence text, int duration) {
-    AnyToast toast = new AnyToast();
+    Toaster toast = new Toaster();
     toast.mainActivity = mainActivity;
     toast.context = context;
     toast.text = text;

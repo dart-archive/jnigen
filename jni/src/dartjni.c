@@ -72,7 +72,7 @@ jobject GetCurrentActivity() {
 }
 
 #ifdef __ANDROID__
-JNIEXPORT void JNICALL Java_dev_dart_jni_JniPlugin_initializeJni(
+JNIEXPORT void JNICALL Java_com_github_dart_1lang_jni_JniPlugin_initializeJni(
     JNIEnv *env, jobject obj, jobject appContext, jobject classLoader) {
 	jniEnv = env;
 	(*env)->GetJavaVM(env, &jni.jvm);
@@ -84,7 +84,7 @@ JNIEXPORT void JNICALL Java_dev_dart_jni_JniPlugin_initializeJni(
 	                        "(Ljava/lang/String;)Ljava/lang/Class;");
 }
 
-JNIEXPORT void JNICALL Java_dev_dart_jni_JniPlugin_setJniActivity(JNIEnv *env, jobject obj, jobject activity, jobject context) {
+JNIEXPORT void JNICALL Java_com_github_dart_1lang_jni_JniPlugin_setJniActivity(JNIEnv *env, jobject obj, jobject activity, jobject context) {
 	jniEnv = env;
 	if (jni.currentActivity != NULL) {
 		(*env)->DeleteGlobalRef(env, jni.currentActivity);

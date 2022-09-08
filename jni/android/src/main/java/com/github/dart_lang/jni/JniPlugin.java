@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-package dev.dart.jni;
+package com.github.dart_lang.jni;
 
 import android.app.Activity;
 import android.content.Context;

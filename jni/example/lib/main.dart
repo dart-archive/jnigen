@@ -66,17 +66,17 @@ void showToast(String text) {
   //
   // In this example, Toaster class wraps android.widget.Toast so that it
   // can be called from any thread. See
-  // android/app/src/main/java/dev/dart/jni_example/Toaster.java
+  // android/app/src/main/java/com/github/dart_lang/jni_example/Toaster.java
   Jni.invokeStaticMethod<JlObject>(
-      "dev/dart/jni_example/Toaster",
+      "com/github/dart_lang/jni_example/Toaster",
       "makeText",
       "(Landroid/app/Activity;Landroid/content/Context;"
           "Ljava/lang/CharSequence;I)"
-          "Ldev/dart/jni_example/Toaster;",
+          "Lcom/github/dart_lang/jni_example/Toaster;",
       [
         Jni.getCurrentActivity(),
         Jni.getCachedApplicationContext(),
-        ":-)",
+        "😀",
         0
       ]).callMethodByName("show", "()V", []);
 }
