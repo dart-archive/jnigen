@@ -13,9 +13,7 @@ import 'android_utils/com/example/in_app_java.dart';
 JlObject activity = JlObject.fromRef(Jni.getCurrentActivity());
 
 void showToast(String text) {
-  final jstr = JlString.fromString(text);
-  AndroidUtils.showToast(activity, jstr, 0);
-  jstr.delete();
+  AndroidUtils.showToast(activity, text.jlString(), 0);
 }
 
 void main() {

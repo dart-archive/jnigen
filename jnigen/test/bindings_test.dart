@@ -101,8 +101,15 @@ void main() async {
       next.delete();
     }
     expect(values, equals([false, true, false, false, true, true, false]));
-    final erroneous = factory.createParser6("<html>".jlString());
-    expect(() => erroneous.nextToken(), throwsA(isA<JniException>()));
     Jni.deleteAll([factory, parser, json]);
+  });
+  test("parsing invalid JSON throws JniException", () {
+    using((arena) {
+      final factory = JsonFactory()..deletedIn(arena);
+      final erroneous = factory
+          .createParser6("<html>".jlString()..deletedIn(arena))
+        ..deletedIn(arena);
+      expect(() => erroneous.nextToken(), throwsA(isA<JniException>()));
+    });
   });
 }

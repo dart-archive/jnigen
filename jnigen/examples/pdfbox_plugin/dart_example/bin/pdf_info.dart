@@ -6,7 +6,6 @@ import 'dart:io';
 
 import 'package:path/path.dart';
 import 'package:jni/jni.dart';
-import 'dart:ffi';
 
 import 'package:pdfbox_plugin/third_party/org/apache/pdfbox/pdmodel.dart';
 
@@ -21,21 +20,20 @@ void writeInfo(String file) {
   final subject = info.getSubject();
   final author = info.getAuthor();
   stderr.writeln('Number of pages: $pages');
-  if (title.reference != nullptr) {
+
+  if (!title.isNull) {
     stderr.writeln('Title: ${title.toDartString()}');
   }
-  if (subject.reference != nullptr) {
+
+  if (!subject.isNull) {
     stderr.writeln('Subject: ${subject.toDartString()}');
   }
-  if (author.reference != nullptr) {
+
+  if (!author.isNull) {
     stderr.writeln('Author: ${author.toDartString()}');
   }
-  stderr.writeln('PDF Version: ${pdDoc.getVersion()}');
 
-  for (JlObject jr in [pdDoc, info, title, author, subject]) {
-    jr.delete();
-  }
-  inputFile.delete();
+  stderr.writeln('PDF Version: ${pdDoc.getVersion().toStringAsPrecision(2)}');
 }
 
 final jniLibsDir = join('build', 'jni_libs');

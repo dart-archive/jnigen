@@ -51,11 +51,10 @@ double randomDouble() {
 }
 
 int uptime() {
-  final systemClock = Jni.findJlClass("android/os/SystemClock");
-  final uptime = systemClock.callStaticMethodByName<int>(
-      "uptimeMillis", "()J", [], JniType.longType);
-  systemClock.delete();
-  return uptime;
+  return Jni.findJlClass("android/os/SystemClock").use(
+    (systemClock) => systemClock.callStaticMethodByName<int>(
+        "uptimeMillis", "()J", [], JniType.longType),
+  );
 }
 
 void quit() {
@@ -81,8 +80,8 @@ void showToast(String text) {
         Jni.getCurrentActivity(),
         Jni.getCachedApplicationContext(),
         "😀",
-        0
-      ]).callMethodByName("show", "()V", []);
+        0,
+      ]).use((toast) => toast.callMethodByName("show", "()V", []));
 }
 
 void main() {

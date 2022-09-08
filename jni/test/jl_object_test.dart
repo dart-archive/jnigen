@@ -164,6 +164,22 @@ void main() {
     expect(randomInt, lessThan(15));
   });
 
+  // The JlObject and JlClass have NativeFinalizer. However, it's possible to
+  // explicitly use `Arena`.
+  test('Using arena', () {
+    final objects = <JlObject>[];
+    using((arena) {
+      final r = Jni.findJlClass('java/util/Random')..deletedIn(arena);
+      final ctor = r.getCtorID("()V");
+      for (int i = 0; i < 10; i++) {
+        objects.add(r.newObject(ctor, [])..deletedIn(arena));
+      }
+    });
+    for (var object in objects) {
+      expect(object.isDeleted, isTrue);
+    }
+  });
+
   test("enums", () {
     // Don't forget to escape $ in nested type names
     final ordinal = Jni.retrieveStaticField<JlObject>(

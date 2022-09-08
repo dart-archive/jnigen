@@ -162,13 +162,12 @@ class PDFFileInfo {
   late int numPages;
 
   /// Converts JlString to dart string and deletes the original.
+  /// Also handles the case where the underlying string is Null.
   String _fromJavaStr(JlString jstr) {
     if (jstr.reference == nullptr) {
       return '(null)';
     }
-    final result = jstr.toDartString();
-    jstr.delete();
-    return result;
+    return jstr.toDartString(deleteOriginal: true);
   }
 
   PDFFileInfo.usingPDFBox(this.filename) {
@@ -189,9 +188,7 @@ class PDFFileInfo {
     title = _fromJavaStr(info.getTitle());
     subject = _fromJavaStr(info.getSubject());
 
-    /// Delete objects after done.
     pdf.close();
-    Jni.deleteAll([info, pdf, inputFile]);
   }
 }
 
