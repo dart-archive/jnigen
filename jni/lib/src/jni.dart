@@ -41,14 +41,14 @@ DynamicLibrary _loadDartJniLibrary({String? dir, String baseName = "dartjni"}) {
   }
 }
 
-/// Provides utilities to spawn and manage JNI.
+/// Utilities to spawn and manage JNI.
 abstract class Jni {
   static final DynamicLibrary _dylib = _loadDartJniLibrary(dir: _dylibDir);
   static final JniBindings _bindings = JniBindings(_dylib);
   static final _getJniEnvFn = _dylib.lookup<Void>('GetJniEnv');
   static final _getJniContextFn = _dylib.lookup<Void>('GetJniContext');
 
-  // store dylibDir if any was used.
+  /// Store dylibDir if any was used.
   static String? _dylibDir;
 
   /// Sets the directory where dynamic libraries are looked for.
@@ -93,20 +93,6 @@ abstract class Jni {
     );
     _bindings.SpawnJvm(jArgs);
     _freeVMArgs(jArgs);
-  }
-
-  /// Destroys the JVM associated with this process.
-  static void destroyJvm() {
-    final vm = _bindings.GetJavaVM();
-    if (vm == nullptr) {
-      throw StateError('No JVM exists to destroy');
-    }
-    final result = vm.DestroyJavaVM();
-    if (result != JNI_OK) {
-      throw StateError('DestroyJavaVM failed with error code $result');
-    }
-    // invalidate cached _indir.
-    _indir = null;
   }
 
   static Pointer<JavaVMInitArgs> _createVMArgs({
@@ -168,7 +154,7 @@ abstract class Jni {
   /// Returns pointer to a process-wide shared instance of [Indir].
   ///
   /// [Indir] provides an indirection over [JniEnv] so that it can be used from
-  /// any thread.
+  /// any thread, and always returns global object references.
   static Pointer<JniEnvIndir> get indir {
     _indir ??= _fetchIndir();
     return _indir!;
@@ -205,10 +191,10 @@ abstract class Jni {
   static JlClass findJlClass(String qualifiedName) =>
       JlClass.fromRef(findClass(qualifiedName));
 
-  /// Constructs an instance of class with given args.
+  /// Constructs an instance of class with given arguments.
   ///
-  /// Use it when you only need one instance, but not the actual class
-  /// nor any constructor / static methods.
+  /// Use it when one instance is needed, but the constructor or class aren't
+  /// required themselves.
   static JlObject newInstance(
       String qualifiedName, String ctorSignature, List<dynamic> args) {
     final cls = findJlClass(qualifiedName);
@@ -218,17 +204,19 @@ abstract class Jni {
     return obj;
   }
 
-  /// Converts passed arguments to JValue array
-  /// for use in methods that take arguments.
+  /// Converts passed arguments to JValue array.
   ///
   /// int, bool, double and JObject types are converted out of the box.
-  /// wrap values in types such as [JValueLong]
-  /// to convert to other primitive types instead.
+  /// Wrap values in types such as [JValueLong] to convert to other primitive
+  /// types such as `long`, `short` and `char`.
   static Pointer<JValue> jvalues(List<dynamic> args,
       {Allocator allocator = calloc}) {
     return toJValues(args, allocator: allocator);
   }
 
+  /// Returns the value of static field identified by [fieldName] & [signature].
+  ///
+  /// See [JlObject.getField] for more explanations about [callType] and [T].
   static T retrieveStaticField<T>(
       String className, String fieldName, String signature,
       [int? callType]) {

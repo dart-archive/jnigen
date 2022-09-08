@@ -16,16 +16,18 @@ import 'jvalues.dart';
 // type switch like a regular type.
 typedef _VoidType = void;
 
+/// A class which holds one or more JNI references, and has a `delete` operation
+/// which disposes the reference(s).
 abstract class JniReference {
   void _assertNotDeleted();
   bool get isDeleted;
   void delete();
 
-  /// Register this object to be deleted at the end of [arena]'s lifetime.
+  /// Registers this object to be deleted at the end of [arena]'s lifetime.
   void deletedIn(Arena arena) => arena.onReleaseAll(delete);
 }
 
-extension JniDeletableUseExtension<T extends JniReference> on T {
+extension JniReferenceUseExtension<T extends JniReference> on T {
   /// Applies [callback] on [this] object and then delete the underlying JNI
   /// reference, returning the result of [callback].
   R use<R>(R Function(T) callback) {
@@ -218,7 +220,8 @@ class JlObject extends JniReference implements Finalizable {
   /// Pass the underlying reference into [function] and return the result.
   ///
   /// Result of [function] takes ownership of [reference], and this object is
-  /// marked as deleted.
+  /// marked as deleted. [function] can be constructor of a subclass of JlClass,
+  /// in which case this function will be useful to cast an expression.
   T into<T extends JlObject>(T Function(JObject) function) {
     _assertNotDeleted();
     _finalizer.detach(this);
@@ -230,6 +233,7 @@ class JlObject extends JniReference implements Finalizable {
   @override
   bool get isDeleted => _deleted;
 
+  /// Check whether the underlying JNI reference is `null`.
   bool get isNull => reference == nullptr;
 
   /// The underlying JNI global reference of this object.
@@ -389,12 +393,14 @@ class JlObject extends JniReference implements Finalizable {
   }
 }
 
+/// A high level wrapper over a JNI class reference.
 class JlClass extends JniReference implements Finalizable {
   /// Construct a new [JlClass] with [reference] as its underlying reference.
   JlClass.fromRef(this.reference) {
     _finalizer.attach(this, reference, detach: this);
   }
 
+  /// The underlying JNI class reference.
   final JClass reference;
   bool _deleted = false;
 
@@ -507,6 +513,7 @@ class JlClass extends JniReference implements Finalizable {
 class JlString extends JlObject {
   /// Construct a new [JlString] with [reference] as its underlying reference.
   JlString.fromRef(JString reference) : super.fromRef(reference);
+
   static JString _toJavaString(String s) {
     final chars = s.toNativeUtf8().cast<Char>();
     final jstr = _indir.NewStringUTF(chars);
@@ -514,8 +521,13 @@ class JlString extends JlObject {
     return jstr;
   }
 
+  /// Construct a [JlString] from the contents of Dart string [s].
   JlString.fromString(String s) : super.fromRef(_toJavaString(s));
 
+  /// Returns the contents as a Dart String.
+  ///
+  /// If [deleteOriginal] is true, the underlying reference is deleted
+  /// after conversion and this object will be marked as deleted.
   String toDartString({bool deleteOriginal = false}) {
     _assertNotDeleted();
     if (reference == nullptr) {
@@ -529,14 +541,10 @@ class JlString extends JlObject {
     }
     return result;
   }
-
-  late final _dartString = toDartString();
-
-  @override
-  String toString() => _dartString;
 }
 
 extension ToJlStringMethod on String {
+  /// Returns a [JlString] with the contents of this String.
   JlString jlString() {
     return JlString.fromString(this);
   }

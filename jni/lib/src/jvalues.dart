@@ -16,7 +16,6 @@ void _fillJValue(Pointer<JValue> pos, dynamic arg) {
     return;
   }
 
-  // switch on runtimeType is not guaranteed to work?
   switch (arg.runtimeType) {
     case int:
       pos.ref.i = arg;
@@ -137,6 +136,7 @@ class JValueArgs {
     }
   }
 
+  /// Deletes temporary references such as [JString]s.
   void dispose() {
     for (var ref in createdRefs) {
       _indir.DeleteGlobalRef(ref);
