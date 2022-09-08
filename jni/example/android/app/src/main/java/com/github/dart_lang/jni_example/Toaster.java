@@ -11,8 +11,7 @@ import androidx.annotation.Keep;
 
 @Keep
 class Toaster {
-  static Toaster makeText(
-      Activity mainActivity, Context context, CharSequence text, int duration) {
+  static Toaster makeText(Activity mainActivity, Context context, CharSequence text, int duration) {
     Toaster toast = new Toaster();
     toast.mainActivity = mainActivity;
     toast.context = context;
