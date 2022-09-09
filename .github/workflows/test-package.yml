@@ -87,9 +87,8 @@ jobs:
           parallel: true
           path-to-lcov: ./jnigen/coverage/lcov.info
 
-  ## TODO: More minimal test on windows after fixing dev dependency.
+  ## TODO(#15): More minimal test on windows after fixing dev dependency.
   ## i.e do not rerun analyze and format steps, and do not require flutter.
-  ## IssueRef: https://github.com/dart-lang/jnigen/issues/15
 
   test_summarizer:
     runs-on: ubuntu-latest
@@ -148,6 +147,11 @@ jobs:
           flag-name: jni_tests
           parallel: true
           path-to-lcov: ./jni/coverage/lcov.info
+      - name: regenerate & compare ffigen bindings
+        run: |
+          cp lib/src/third_party/jni_bindings_generated.dart __old_bindings
+          dart run ffigen --config ffigen.yaml
+          diff lib/src/third_party/jni_bindings_generated.dart __old_bindings
 
   build_jni_example_linux:
     runs-on: ubuntu-latest

@@ -62,8 +62,11 @@ class FilesWriter extends BindingsWriter {
     log.info('Creating dart init file ...');
     final initFileUri = dartRoot.resolve(_initFileName);
     final initFile = await File.fromUri(initFileUri).create(recursive: true);
-    await initFile.writeAsString(DartPreludes.initFile(config.libraryName),
-        flush: true);
+    var initCode = DartPreludes.initFile(config.libraryName);
+    if (preamble != null) {
+      initCode = '$preamble\n$initCode';
+    }
+    await initFile.writeAsString(initCode, flush: true);
     final subdir = config.cSubdir ?? '.';
     final cFileRelativePath = '$subdir/$libraryName.c';
     final cFile = await File.fromUri(cRoot.resolve(cFileRelativePath))
