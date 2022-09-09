@@ -353,8 +353,7 @@ class CPreludes {
       'JniContext (*context_getter)(void);\n'
       'JNIEnv *(*env_getter)(void);\n'
       '\n';
-  static const initializers =
-      'void setJniGetters(JniContext (*cg)(void),\n'
+  static const initializers = 'void setJniGetters(JniContext (*cg)(void),\n'
       '        JNIEnv *(*eg)(void)) {\n'
       '    context_getter = cg;\n'
       '    env_getter = eg;\n'
