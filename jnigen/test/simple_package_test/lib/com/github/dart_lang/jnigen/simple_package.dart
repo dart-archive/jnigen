@@ -14,7 +14,7 @@
 import "dart:ffi" as ffi;
 import "package:jni/jni.dart" as jni;
 
-import "../../../../_init.dart" show jlookup;
+import "../../../../_init.dart" show jniLookup;
 
 /// from: com.github.dart_lang.jnigen.simple_package.Example
 class Example extends jni.JniObject {
@@ -27,7 +27,7 @@ class Example extends jni.JniObject {
   static const OFF = 0;
 
   static final _get_aux =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "get_com_github_dart_lang_jnigen_simple_package_Example_aux")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -35,7 +35,7 @@ class Example extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static Example_Aux get aux => Example_Aux.fromRef(_get_aux());
   static final _set_aux =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "set_com_github_dart_lang_jnigen_simple_package_Example_aux")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -43,14 +43,14 @@ class Example extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static set aux(Example_Aux value) => _set_aux(value.reference);
 
-  static final _get_num = jlookup<ffi.NativeFunction<ffi.Int32 Function()>>(
+  static final _get_num = jniLookup<ffi.NativeFunction<ffi.Int32 Function()>>(
           "get_com_github_dart_lang_jnigen_simple_package_Example_num")
       .asFunction<int Function()>();
 
   /// from: static public int num
   static int get num => _get_num();
   static final _set_num =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Int32)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Int32)>>(
               "set_com_github_dart_lang_jnigen_simple_package_Example_num")
           .asFunction<void Function(int)>();
 
@@ -58,7 +58,7 @@ class Example extends jni.JniObject {
   static set num(int value) => _set_num(value);
 
   static final _ctor =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "com_github_dart_lang_jnigen_simple_package_Example_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -68,7 +68,7 @@ class Example extends jni.JniObject {
   }
 
   static final _getAux =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "com_github_dart_lang_jnigen_simple_package_Example_getAux")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -81,7 +81,7 @@ class Example extends jni.JniObject {
   }
 
   static final _addInts =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Int32, ffi.Int32)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Int32, ffi.Int32)>>(
               "com_github_dart_lang_jnigen_simple_package_Example_addInts")
           .asFunction<int Function(int, int)>();
 
@@ -92,7 +92,7 @@ class Example extends jni.JniObject {
     return result__;
   }
 
-  static final _getSelf = jlookup<
+  static final _getSelf = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_github_dart_lang_jnigen_simple_package_Example_getSelf")
@@ -107,7 +107,7 @@ class Example extends jni.JniObject {
   }
 
   static final _getNum =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_github_dart_lang_jnigen_simple_package_Example_getNum")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -118,7 +118,7 @@ class Example extends jni.JniObject {
     return result__;
   }
 
-  static final _setNum = jlookup<
+  static final _setNum = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "com_github_dart_lang_jnigen_simple_package_Example_setNum")
@@ -131,7 +131,7 @@ class Example extends jni.JniObject {
     return result__;
   }
 
-  static final _throwException = jlookup<
+  static final _throwException = jniLookup<
               ffi.NativeFunction<ffi.Void Function()>>(
           "com_github_dart_lang_jnigen_simple_package_Example_throwException")
       .asFunction<void Function()>();
@@ -148,7 +148,7 @@ class Example extends jni.JniObject {
 class Example_Aux extends jni.JniObject {
   Example_Aux.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
-  static final _get_value = jlookup<
+  static final _get_value = jniLookup<
           ffi.NativeFunction<
               ffi.Uint8 Function(
     ffi.Pointer<ffi.Void>,
@@ -160,7 +160,7 @@ class Example_Aux extends jni.JniObject {
 
   /// from: public boolean value
   bool get value => _get_value(reference) != 0;
-  static final _set_value = jlookup<
+  static final _set_value = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "set_com_github_dart_lang_jnigen_simple_package_Example__Aux_value")
@@ -170,7 +170,7 @@ class Example_Aux extends jni.JniObject {
   set value(bool value) => _set_value(reference, value ? 1 : 0);
 
   static final _ctor =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Uint8)>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Uint8)>>(
               "com_github_dart_lang_jnigen_simple_package_Example__Aux_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
@@ -179,7 +179,7 @@ class Example_Aux extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _getValue = jlookup<
+  static final _getValue = jniLookup<
               ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
           "com_github_dart_lang_jnigen_simple_package_Example__Aux_getValue")
       .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
@@ -191,7 +191,7 @@ class Example_Aux extends jni.JniObject {
     return result__;
   }
 
-  static final _setValue = jlookup<
+  static final _setValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "com_github_dart_lang_jnigen_simple_package_Example__Aux_setValue")

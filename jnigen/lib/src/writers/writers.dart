@@ -104,7 +104,7 @@ class FilesWriter extends BindingsWriter {
       dartFileStream
         ..write(DartPreludes.bindingFileHeaders)
         ..write(resolver.getImportStrings().join('\n'))
-        ..write('import "$initImportPath" show jlookup;\n\n');
+        ..write('import "$initImportPath" show jniLookup;\n\n');
       // write dart bindings only after all imports are figured out
       dartBindings.forEach(dartFileStream.write);
       cBindings.forEach(cFileStream.write);

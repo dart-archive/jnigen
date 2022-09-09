@@ -349,12 +349,12 @@ class CPreludes {
       '#include "dartjni.h"\n'
       '\n';
   static const defines = 'thread_local JNIEnv *jniEnv;\n'
-      'struct JniContext jni;\n\n'
-      'struct JniContext (*context_getter)(void);\n'
+      'JniContext jni;\n\n'
+      'JniContext (*context_getter)(void);\n'
       'JNIEnv *(*env_getter)(void);\n'
       '\n';
   static const initializers =
-      'void setJniGetters(struct JniContext (*cg)(void),\n'
+      'void setJniGetters(JniContext (*cg)(void),\n'
       '        JNIEnv *(*eg)(void)) {\n'
       '    context_getter = cg;\n'
       '    env_getter = eg;\n'

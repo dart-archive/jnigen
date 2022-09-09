@@ -27,7 +27,7 @@
 import "dart:ffi" as ffi;
 import "package:jni/jni.dart" as jni;
 
-import "../../../_init.dart" show jlookup;
+import "../../../_init.dart" show jniLookup;
 
 /// from: com.fasterxml.jackson.core.JsonFactory
 ///
@@ -60,7 +60,7 @@ class JsonFactory extends jni.JniObject {
   /// (and returned by \#getFormatName()
   static const FORMAT_NAME_JSON = "JSON";
 
-  static final _get_DEFAULT_FACTORY_FEATURE_FLAGS = jlookup<
+  static final _get_DEFAULT_FACTORY_FEATURE_FLAGS = jniLookup<
               ffi.NativeFunction<ffi.Int32 Function()>>(
           "get_com_fasterxml_jackson_core_JsonFactory_DEFAULT_FACTORY_FEATURE_FLAGS")
       .asFunction<int Function()>();
@@ -71,7 +71,7 @@ class JsonFactory extends jni.JniObject {
   static int get DEFAULT_FACTORY_FEATURE_FLAGS =>
       _get_DEFAULT_FACTORY_FEATURE_FLAGS();
 
-  static final _get_DEFAULT_PARSER_FEATURE_FLAGS = jlookup<
+  static final _get_DEFAULT_PARSER_FEATURE_FLAGS = jniLookup<
               ffi.NativeFunction<ffi.Int32 Function()>>(
           "get_com_fasterxml_jackson_core_JsonFactory_DEFAULT_PARSER_FEATURE_FLAGS")
       .asFunction<int Function()>();
@@ -83,7 +83,7 @@ class JsonFactory extends jni.JniObject {
   static int get DEFAULT_PARSER_FEATURE_FLAGS =>
       _get_DEFAULT_PARSER_FEATURE_FLAGS();
 
-  static final _get_DEFAULT_GENERATOR_FEATURE_FLAGS = jlookup<
+  static final _get_DEFAULT_GENERATOR_FEATURE_FLAGS = jniLookup<
               ffi.NativeFunction<ffi.Int32 Function()>>(
           "get_com_fasterxml_jackson_core_JsonFactory_DEFAULT_GENERATOR_FEATURE_FLAGS")
       .asFunction<int Function()>();
@@ -95,7 +95,7 @@ class JsonFactory extends jni.JniObject {
   static int get DEFAULT_GENERATOR_FEATURE_FLAGS =>
       _get_DEFAULT_GENERATOR_FEATURE_FLAGS();
 
-  static final _get_DEFAULT_ROOT_VALUE_SEPARATOR = jlookup<
+  static final _get_DEFAULT_ROOT_VALUE_SEPARATOR = jniLookup<
               ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
           "get_com_fasterxml_jackson_core_JsonFactory_DEFAULT_ROOT_VALUE_SEPARATOR")
       .asFunction<ffi.Pointer<ffi.Void> Function()>();
@@ -106,7 +106,7 @@ class JsonFactory extends jni.JniObject {
       jni.JniObject.fromRef(_get_DEFAULT_ROOT_VALUE_SEPARATOR());
 
   static final _ctor =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "com_fasterxml_jackson_core_JsonFactory_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -124,7 +124,7 @@ class JsonFactory extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _ctor1 = jlookup<
+  static final _ctor1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_ctor1")
@@ -135,7 +135,7 @@ class JsonFactory extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _ctor2 = jlookup<
+  static final _ctor2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -155,7 +155,7 @@ class JsonFactory extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _ctor3 = jlookup<
+  static final _ctor3 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_ctor3")
@@ -170,7 +170,7 @@ class JsonFactory extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _ctor4 = jlookup<
+  static final _ctor4 = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                   ffi.Uint8)>>("com_fasterxml_jackson_core_JsonFactory_ctor4")
@@ -188,7 +188,7 @@ class JsonFactory extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _rebuild = jlookup<
+  static final _rebuild = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_rebuild")
@@ -208,7 +208,7 @@ class JsonFactory extends jni.JniObject {
   }
 
   static final _builder =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "com_fasterxml_jackson_core_JsonFactory_builder")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -229,7 +229,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _copy = jlookup<
+  static final _copy = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_copy")
@@ -256,7 +256,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _readResolve = jlookup<
+  static final _readResolve = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_readResolve")
@@ -278,7 +278,7 @@ class JsonFactory extends jni.JniObject {
   }
 
   static final _requiresPropertyOrdering =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonFactory_requiresPropertyOrdering")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -305,7 +305,7 @@ class JsonFactory extends jni.JniObject {
   }
 
   static final _canHandleBinaryNatively =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonFactory_canHandleBinaryNatively")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -329,7 +329,7 @@ class JsonFactory extends jni.JniObject {
   }
 
   static final _canUseCharArrays =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonFactory_canUseCharArrays")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -353,7 +353,7 @@ class JsonFactory extends jni.JniObject {
   }
 
   static final _canParseAsync =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonFactory_canParseAsync")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -372,7 +372,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _getFormatReadFeatureType = jlookup<
+  static final _getFormatReadFeatureType = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_getFormatReadFeatureType")
@@ -387,7 +387,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _getFormatWriteFeatureType = jlookup<
+  static final _getFormatWriteFeatureType = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_getFormatWriteFeatureType")
@@ -402,7 +402,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _canUseSchema = jlookup<
+  static final _canUseSchema = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -426,7 +426,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _getFormatName = jlookup<
+  static final _getFormatName = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_getFormatName")
@@ -447,7 +447,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _hasFormat = jlookup<
+  static final _hasFormat = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -466,7 +466,7 @@ class JsonFactory extends jni.JniObject {
   }
 
   static final _requiresCustomCodec =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonFactory_requiresCustomCodec")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -487,7 +487,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _hasJSONFormat = jlookup<
+  static final _hasJSONFormat = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -505,7 +505,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _version = jlookup<
+  static final _version = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_version")
@@ -519,7 +519,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _configure = jlookup<
+  static final _configure = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
@@ -544,7 +544,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _enable = jlookup<
+  static final _enable = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -567,7 +567,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _disable = jlookup<
+  static final _disable = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -590,7 +590,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _isEnabled = jlookup<
+  static final _isEnabled = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -609,7 +609,7 @@ class JsonFactory extends jni.JniObject {
   }
 
   static final _getParserFeatures =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonFactory_getParserFeatures")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -621,7 +621,7 @@ class JsonFactory extends jni.JniObject {
   }
 
   static final _getGeneratorFeatures =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonFactory_getGeneratorFeatures")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -633,7 +633,7 @@ class JsonFactory extends jni.JniObject {
   }
 
   static final _getFormatParserFeatures =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonFactory_getFormatParserFeatures")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -644,7 +644,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _getFormatGeneratorFeatures = jlookup<
+  static final _getFormatGeneratorFeatures = jniLookup<
               ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_getFormatGeneratorFeatures")
       .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
@@ -656,7 +656,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _configure1 = jlookup<
+  static final _configure1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
@@ -680,7 +680,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _enable1 = jlookup<
+  static final _enable1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -702,7 +702,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _disable1 = jlookup<
+  static final _disable1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -724,7 +724,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _isEnabled1 = jlookup<
+  static final _isEnabled1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -742,7 +742,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _isEnabled2 = jlookup<
+  static final _isEnabled2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -761,7 +761,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _getInputDecorator = jlookup<
+  static final _getInputDecorator = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_getInputDecorator")
@@ -779,7 +779,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _setInputDecorator = jlookup<
+  static final _setInputDecorator = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -802,7 +802,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _configure2 = jlookup<
+  static final _configure2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
@@ -826,7 +826,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _enable2 = jlookup<
+  static final _enable2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -848,7 +848,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _disable2 = jlookup<
+  static final _disable2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -870,7 +870,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _isEnabled3 = jlookup<
+  static final _isEnabled3 = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -888,7 +888,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _isEnabled4 = jlookup<
+  static final _isEnabled4 = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -907,7 +907,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _getCharacterEscapes = jlookup<
+  static final _getCharacterEscapes = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_getCharacterEscapes")
@@ -925,7 +925,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _setCharacterEscapes = jlookup<
+  static final _setCharacterEscapes = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -948,7 +948,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _getOutputDecorator = jlookup<
+  static final _getOutputDecorator = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_getOutputDecorator")
@@ -967,7 +967,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _setOutputDecorator = jlookup<
+  static final _setOutputDecorator = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -990,7 +990,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _setRootValueSeparator = jlookup<
+  static final _setRootValueSeparator = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1014,7 +1014,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _getRootValueSeparator = jlookup<
+  static final _getRootValueSeparator = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_getRootValueSeparator")
@@ -1030,7 +1030,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _setCodec = jlookup<
+  static final _setCodec = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1055,7 +1055,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _getCodec = jlookup<
+  static final _getCodec = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_getCodec")
@@ -1069,7 +1069,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createParser = jlookup<
+  static final _createParser = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1103,7 +1103,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createParser1 = jlookup<
+  static final _createParser1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1136,7 +1136,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createParser2 = jlookup<
+  static final _createParser2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1172,7 +1172,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createParser3 = jlookup<
+  static final _createParser3 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1200,7 +1200,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createParser4 = jlookup<
+  static final _createParser4 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1222,7 +1222,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createParser5 = jlookup<
+  static final _createParser5 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Int32, ffi.Int32)>>(
@@ -1247,7 +1247,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createParser6 = jlookup<
+  static final _createParser6 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1269,7 +1269,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createParser7 = jlookup<
+  static final _createParser7 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1291,7 +1291,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createParser8 = jlookup<
+  static final _createParser8 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Int32, ffi.Int32)>>(
@@ -1312,7 +1312,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createParser9 = jlookup<
+  static final _createParser9 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1337,7 +1337,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createNonBlockingByteArrayParser = jlookup<
+  static final _createNonBlockingByteArrayParser = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory_createNonBlockingByteArrayParser")
@@ -1366,7 +1366,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createGenerator = jlookup<
+  static final _createGenerator = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1403,7 +1403,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createGenerator1 = jlookup<
+  static final _createGenerator1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1427,7 +1427,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createGenerator2 = jlookup<
+  static final _createGenerator2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1457,7 +1457,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createGenerator3 = jlookup<
+  static final _createGenerator3 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1488,7 +1488,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createGenerator4 = jlookup<
+  static final _createGenerator4 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1510,7 +1510,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createGenerator5 = jlookup<
+  static final _createGenerator5 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1534,7 +1534,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createJsonParser = jlookup<
+  static final _createJsonParser = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1571,7 +1571,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createJsonParser1 = jlookup<
+  static final _createJsonParser1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1607,7 +1607,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createJsonParser2 = jlookup<
+  static final _createJsonParser2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1646,7 +1646,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createJsonParser3 = jlookup<
+  static final _createJsonParser3 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1678,7 +1678,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createJsonParser4 = jlookup<
+  static final _createJsonParser4 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1703,7 +1703,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createJsonParser5 = jlookup<
+  static final _createJsonParser5 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Int32, ffi.Int32)>>(
@@ -1731,7 +1731,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createJsonParser6 = jlookup<
+  static final _createJsonParser6 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1757,7 +1757,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createJsonGenerator = jlookup<
+  static final _createJsonGenerator = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1796,7 +1796,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createJsonGenerator1 = jlookup<
+  static final _createJsonGenerator1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1828,7 +1828,7 @@ class JsonFactory extends jni.JniObject {
     return result__;
   }
 
-  static final _createJsonGenerator2 = jlookup<
+  static final _createJsonGenerator2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1864,7 +1864,7 @@ class JsonFactory_Feature extends jni.JniObject {
   JsonFactory_Feature.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _values =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "com_fasterxml_jackson_core_JsonFactory__Feature_values")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -1876,7 +1876,7 @@ class JsonFactory_Feature extends jni.JniObject {
     return result__;
   }
 
-  static final _valueOf = jlookup<
+  static final _valueOf = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory__Feature_valueOf")
@@ -1891,7 +1891,7 @@ class JsonFactory_Feature extends jni.JniObject {
   }
 
   static final _collectDefaults =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function()>>(
               "com_fasterxml_jackson_core_JsonFactory__Feature_collectDefaults")
           .asFunction<int Function()>();
 
@@ -1907,7 +1907,7 @@ class JsonFactory_Feature extends jni.JniObject {
   }
 
   static final _ctor =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Uint8)>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Uint8)>>(
               "com_fasterxml_jackson_core_JsonFactory__Feature_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
@@ -1917,7 +1917,7 @@ class JsonFactory_Feature extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _enabledByDefault = jlookup<
+  static final _enabledByDefault = jniLookup<
               ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonFactory__Feature_enabledByDefault")
       .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
@@ -1929,7 +1929,7 @@ class JsonFactory_Feature extends jni.JniObject {
     return result__;
   }
 
-  static final _enabledIn = jlookup<
+  static final _enabledIn = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "com_fasterxml_jackson_core_JsonFactory__Feature_enabledIn")
@@ -1943,7 +1943,7 @@ class JsonFactory_Feature extends jni.JniObject {
   }
 
   static final _getMask =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonFactory__Feature_getMask")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1976,7 +1976,7 @@ class JsonParser extends jni.JniObject {
   /// from: private static final int MAX_SHORT_I
   static const MAX_SHORT_I = 32767;
 
-  static final _get_DEFAULT_READ_CAPABILITIES = jlookup<
+  static final _get_DEFAULT_READ_CAPABILITIES = jniLookup<
               ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
           "get_com_fasterxml_jackson_core_JsonParser_DEFAULT_READ_CAPABILITIES")
       .asFunction<ffi.Pointer<ffi.Void> Function()>();
@@ -1992,7 +1992,7 @@ class JsonParser extends jni.JniObject {
       jni.JniObject.fromRef(_get_DEFAULT_READ_CAPABILITIES());
 
   static final _ctor =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "com_fasterxml_jackson_core_JsonParser_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -2002,7 +2002,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _ctor1 =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Int32)>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Int32)>>(
               "com_fasterxml_jackson_core_JsonParser_ctor1")
           .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
@@ -2011,7 +2011,7 @@ class JsonParser extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _getCodec = jlookup<
+  static final _getCodec = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getCodec")
@@ -2030,7 +2030,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _setCodec = jlookup<
+  static final _setCodec = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2050,7 +2050,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getInputSource = jlookup<
+  static final _getInputSource = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getInputSource")
@@ -2079,7 +2079,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _setRequestPayloadOnError = jlookup<
+  static final _setRequestPayloadOnError = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2098,7 +2098,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _setRequestPayloadOnError1 = jlookup<
+  static final _setRequestPayloadOnError1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2120,7 +2120,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _setRequestPayloadOnError2 = jlookup<
+  static final _setRequestPayloadOnError2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2139,7 +2139,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _setSchema = jlookup<
+  static final _setSchema = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2165,7 +2165,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getSchema = jlookup<
+  static final _getSchema = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getSchema")
@@ -2184,7 +2184,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _canUseSchema = jlookup<
+  static final _canUseSchema = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2204,7 +2204,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _requiresCustomCodec =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_requiresCustomCodec")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2225,7 +2225,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _canParseAsync =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_canParseAsync")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2248,7 +2248,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getNonBlockingInputFeeder = jlookup<
+  static final _getNonBlockingInputFeeder = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getNonBlockingInputFeeder")
@@ -2269,7 +2269,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getReadCapabilities = jlookup<
+  static final _getReadCapabilities = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getReadCapabilities")
@@ -2288,7 +2288,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _version = jlookup<
+  static final _version = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_version")
@@ -2308,7 +2308,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _close =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_close")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2335,7 +2335,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _isClosed =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_isClosed")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2354,7 +2354,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getParsingContext = jlookup<
+  static final _getParsingContext = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getParsingContext")
@@ -2378,7 +2378,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _currentLocation = jlookup<
+  static final _currentLocation = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_currentLocation")
@@ -2405,7 +2405,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _currentTokenLocation = jlookup<
+  static final _currentTokenLocation = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_currentTokenLocation")
@@ -2432,7 +2432,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getCurrentLocation = jlookup<
+  static final _getCurrentLocation = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getCurrentLocation")
@@ -2450,7 +2450,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getTokenLocation = jlookup<
+  static final _getTokenLocation = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getTokenLocation")
@@ -2468,7 +2468,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _currentValue = jlookup<
+  static final _currentValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_currentValue")
@@ -2494,7 +2494,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _assignCurrentValue = jlookup<
+  static final _assignCurrentValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2516,7 +2516,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getCurrentValue = jlookup<
+  static final _getCurrentValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getCurrentValue")
@@ -2534,7 +2534,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _setCurrentValue = jlookup<
+  static final _setCurrentValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2553,7 +2553,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _releaseBuffered = jlookup<
+  static final _releaseBuffered = jniLookup<
               ffi.NativeFunction<
                   ffi.Int32 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2579,7 +2579,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _releaseBuffered1 = jlookup<
+  static final _releaseBuffered1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Int32 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2606,7 +2606,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _enable = jlookup<
+  static final _enable = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2628,7 +2628,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _disable = jlookup<
+  static final _disable = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2650,7 +2650,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _configure = jlookup<
+  static final _configure = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
@@ -2674,7 +2674,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _isEnabled = jlookup<
+  static final _isEnabled = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2692,7 +2692,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _isEnabled1 = jlookup<
+  static final _isEnabled1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2712,7 +2712,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getFeatureMask =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getFeatureMask")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2727,7 +2727,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _setFeatureMask = jlookup<
+  static final _setFeatureMask = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Int32)>>(
@@ -2748,7 +2748,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _overrideStdFeatures = jlookup<
+  static final _overrideStdFeatures = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Int32, ffi.Int32)>>(
@@ -2779,7 +2779,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getFormatFeatures =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getFormatFeatures")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2795,7 +2795,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _overrideFormatFeatures = jlookup<
+  static final _overrideFormatFeatures = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Int32, ffi.Int32)>>(
@@ -2823,7 +2823,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _nextToken = jlookup<
+  static final _nextToken = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_nextToken")
@@ -2846,7 +2846,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _nextValue = jlookup<
+  static final _nextValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_nextValue")
@@ -2877,7 +2877,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _nextFieldName = jlookup<
+  static final _nextFieldName = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2907,7 +2907,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _nextFieldName1 = jlookup<
+  static final _nextFieldName1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_nextFieldName1")
@@ -2930,7 +2930,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _nextTextValue = jlookup<
+  static final _nextTextValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_nextTextValue")
@@ -2958,7 +2958,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _nextIntValue = jlookup<
+  static final _nextIntValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Int32 Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "com_fasterxml_jackson_core_JsonParser_nextIntValue")
@@ -2989,7 +2989,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _nextLongValue = jlookup<
+  static final _nextLongValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Int64 Function(ffi.Pointer<ffi.Void>, ffi.Int64)>>(
           "com_fasterxml_jackson_core_JsonParser_nextLongValue")
@@ -3020,7 +3020,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _nextBooleanValue = jlookup<
+  static final _nextBooleanValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_nextBooleanValue")
@@ -3051,7 +3051,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _skipChildren = jlookup<
+  static final _skipChildren = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_skipChildren")
@@ -3082,7 +3082,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _finishToken =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_finishToken")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3107,7 +3107,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _currentToken = jlookup<
+  static final _currentToken = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_currentToken")
@@ -3132,7 +3132,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _currentTokenId =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_currentTokenId")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3153,7 +3153,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getCurrentToken = jlookup<
+  static final _getCurrentToken = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getCurrentToken")
@@ -3173,7 +3173,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getCurrentTokenId =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getCurrentTokenId")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3189,7 +3189,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _hasCurrentToken =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_hasCurrentToken")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3209,7 +3209,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _hasTokenId = jlookup<
+  static final _hasTokenId = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "com_fasterxml_jackson_core_JsonParser_hasTokenId")
@@ -3235,7 +3235,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _hasToken = jlookup<
+  static final _hasToken = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -3263,7 +3263,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _isExpectedStartArrayToken =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_isExpectedStartArrayToken")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3291,7 +3291,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _isExpectedStartObjectToken = jlookup<
+  static final _isExpectedStartObjectToken = jniLookup<
               ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_isExpectedStartObjectToken")
       .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
@@ -3311,7 +3311,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _isExpectedNumberIntToken =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_isExpectedNumberIntToken")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3333,7 +3333,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _isNaN =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_isNaN")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3358,7 +3358,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _clearCurrentToken =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_clearCurrentToken")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3380,7 +3380,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getLastClearedToken = jlookup<
+  static final _getLastClearedToken = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getLastClearedToken")
@@ -3401,7 +3401,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _overrideCurrentName = jlookup<
+  static final _overrideCurrentName = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -3425,7 +3425,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getCurrentName = jlookup<
+  static final _getCurrentName = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getCurrentName")
@@ -3444,7 +3444,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _currentName = jlookup<
+  static final _currentName = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_currentName")
@@ -3468,7 +3468,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getText = jlookup<
+  static final _getText = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getText")
@@ -3491,7 +3491,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getText1 = jlookup<
+  static final _getText1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Int32 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -3521,7 +3521,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getTextCharacters = jlookup<
+  static final _getTextCharacters = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getTextCharacters")
@@ -3564,7 +3564,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getTextLength =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getTextLength")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3584,7 +3584,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getTextOffset =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getTextOffset")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3604,7 +3604,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _hasTextCharacters =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_hasTextCharacters")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3630,7 +3630,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getNumberValue = jlookup<
+  static final _getNumberValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getNumberValue")
@@ -3655,7 +3655,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getNumberValueExact = jlookup<
+  static final _getNumberValueExact = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getNumberValueExact")
@@ -3684,7 +3684,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getNumberType = jlookup<
+  static final _getNumberType = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getNumberType")
@@ -3707,7 +3707,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getByteValue =
-      jlookup<ffi.NativeFunction<ffi.Int8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getByteValue")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3741,7 +3741,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getShortValue =
-      jlookup<ffi.NativeFunction<ffi.Int16 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int16 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getShortValue")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3769,7 +3769,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getIntValue =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getIntValue")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3797,7 +3797,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getLongValue =
-      jlookup<ffi.NativeFunction<ffi.Int64 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int64 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getLongValue")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3824,7 +3824,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getBigIntegerValue = jlookup<
+  static final _getBigIntegerValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getBigIntegerValue")
@@ -3851,7 +3851,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getFloatValue =
-      jlookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getFloatValue")
           .asFunction<double Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3879,7 +3879,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getDoubleValue =
-      jlookup<ffi.NativeFunction<ffi.Double Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Double Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getDoubleValue")
           .asFunction<double Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3906,7 +3906,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getDecimalValue = jlookup<
+  static final _getDecimalValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getDecimalValue")
@@ -3930,7 +3930,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getBooleanValue =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getBooleanValue")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -3953,7 +3953,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getEmbeddedObject = jlookup<
+  static final _getEmbeddedObject = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getEmbeddedObject")
@@ -3982,7 +3982,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getBinaryValue = jlookup<
+  static final _getBinaryValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -4021,7 +4021,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getBinaryValue1 = jlookup<
+  static final _getBinaryValue1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getBinaryValue1")
@@ -4042,7 +4042,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _readBinaryValue = jlookup<
+  static final _readBinaryValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Int32 Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -4068,7 +4068,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _readBinaryValue1 = jlookup<
+  static final _readBinaryValue1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Int32 Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -4094,7 +4094,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getValueAsInt =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getValueAsInt")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -4119,7 +4119,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getValueAsInt1 = jlookup<
+  static final _getValueAsInt1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Int32 Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "com_fasterxml_jackson_core_JsonParser_getValueAsInt1")
@@ -4147,7 +4147,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getValueAsLong =
-      jlookup<ffi.NativeFunction<ffi.Int64 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int64 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getValueAsLong")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -4172,7 +4172,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getValueAsLong1 = jlookup<
+  static final _getValueAsLong1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Int64 Function(ffi.Pointer<ffi.Void>, ffi.Int64)>>(
           "com_fasterxml_jackson_core_JsonParser_getValueAsLong1")
@@ -4200,7 +4200,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getValueAsDouble =
-      jlookup<ffi.NativeFunction<ffi.Double Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Double Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getValueAsDouble")
           .asFunction<double Function(ffi.Pointer<ffi.Void>)>();
 
@@ -4225,7 +4225,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getValueAsDouble1 = jlookup<
+  static final _getValueAsDouble1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Double Function(ffi.Pointer<ffi.Void>, ffi.Double)>>(
           "com_fasterxml_jackson_core_JsonParser_getValueAsDouble1")
@@ -4253,7 +4253,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _getValueAsBoolean =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_getValueAsBoolean")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -4278,7 +4278,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getValueAsBoolean1 = jlookup<
+  static final _getValueAsBoolean1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "com_fasterxml_jackson_core_JsonParser_getValueAsBoolean1")
@@ -4305,7 +4305,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getValueAsString = jlookup<
+  static final _getValueAsString = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getValueAsString")
@@ -4331,7 +4331,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getValueAsString1 = jlookup<
+  static final _getValueAsString1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -4363,7 +4363,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _canReadObjectId =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_canReadObjectId")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -4387,7 +4387,7 @@ class JsonParser extends jni.JniObject {
   }
 
   static final _canReadTypeId =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser_canReadTypeId")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -4410,7 +4410,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getObjectId = jlookup<
+  static final _getObjectId = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getObjectId")
@@ -4438,7 +4438,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _getTypeId = jlookup<
+  static final _getTypeId = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser_getTypeId")
@@ -4466,7 +4466,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _readValuesAs = jlookup<
+  static final _readValuesAs = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -4493,7 +4493,7 @@ class JsonParser extends jni.JniObject {
     return result__;
   }
 
-  static final _readValuesAs1 = jlookup<
+  static final _readValuesAs1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -4528,7 +4528,7 @@ class JsonParser_Feature extends jni.JniObject {
   JsonParser_Feature.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _values =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "com_fasterxml_jackson_core_JsonParser__Feature_values")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -4540,7 +4540,7 @@ class JsonParser_Feature extends jni.JniObject {
     return result__;
   }
 
-  static final _valueOf = jlookup<
+  static final _valueOf = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser__Feature_valueOf")
@@ -4555,7 +4555,7 @@ class JsonParser_Feature extends jni.JniObject {
   }
 
   static final _collectDefaults =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function()>>(
               "com_fasterxml_jackson_core_JsonParser__Feature_collectDefaults")
           .asFunction<int Function()>();
 
@@ -4571,7 +4571,7 @@ class JsonParser_Feature extends jni.JniObject {
   }
 
   static final _ctor =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Uint8)>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Uint8)>>(
               "com_fasterxml_jackson_core_JsonParser__Feature_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function(int)>();
 
@@ -4582,7 +4582,7 @@ class JsonParser_Feature extends jni.JniObject {
   }
 
   static final _enabledByDefault =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser__Feature_enabledByDefault")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -4593,7 +4593,7 @@ class JsonParser_Feature extends jni.JniObject {
     return result__;
   }
 
-  static final _enabledIn = jlookup<
+  static final _enabledIn = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "com_fasterxml_jackson_core_JsonParser__Feature_enabledIn")
@@ -4607,7 +4607,7 @@ class JsonParser_Feature extends jni.JniObject {
   }
 
   static final _getMask =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonParser__Feature_getMask")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -4627,7 +4627,7 @@ class JsonParser_NumberType extends jni.JniObject {
   JsonParser_NumberType.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _values =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "com_fasterxml_jackson_core_JsonParser__NumberType_values")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -4639,7 +4639,7 @@ class JsonParser_NumberType extends jni.JniObject {
     return result__;
   }
 
-  static final _valueOf = jlookup<
+  static final _valueOf = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonParser__NumberType_valueOf")
@@ -4654,7 +4654,7 @@ class JsonParser_NumberType extends jni.JniObject {
   }
 
   static final _ctor =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "com_fasterxml_jackson_core_JsonParser__NumberType_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -4672,7 +4672,7 @@ class JsonToken extends jni.JniObject {
   JsonToken.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _values =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "com_fasterxml_jackson_core_JsonToken_values")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -4684,7 +4684,7 @@ class JsonToken extends jni.JniObject {
     return result__;
   }
 
-  static final _valueOf = jlookup<
+  static final _valueOf = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonToken_valueOf")
@@ -4698,7 +4698,7 @@ class JsonToken extends jni.JniObject {
     return result__;
   }
 
-  static final _ctor = jlookup<
+  static final _ctor = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                   ffi.Int32)>>("com_fasterxml_jackson_core_JsonToken_ctor")
@@ -4715,7 +4715,7 @@ class JsonToken extends jni.JniObject {
   }
 
   static final _id =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonToken_id")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -4726,7 +4726,7 @@ class JsonToken extends jni.JniObject {
     return result__;
   }
 
-  static final _asString = jlookup<
+  static final _asString = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonToken_asString")
@@ -4740,7 +4740,7 @@ class JsonToken extends jni.JniObject {
     return result__;
   }
 
-  static final _asCharArray = jlookup<
+  static final _asCharArray = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonToken_asCharArray")
@@ -4754,7 +4754,7 @@ class JsonToken extends jni.JniObject {
     return result__;
   }
 
-  static final _asByteArray = jlookup<
+  static final _asByteArray = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "com_fasterxml_jackson_core_JsonToken_asByteArray")
@@ -4769,7 +4769,7 @@ class JsonToken extends jni.JniObject {
   }
 
   static final _isNumeric =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonToken_isNumeric")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -4784,7 +4784,7 @@ class JsonToken extends jni.JniObject {
   }
 
   static final _isStructStart =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonToken_isStructStart")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -4804,7 +4804,7 @@ class JsonToken extends jni.JniObject {
   }
 
   static final _isStructEnd =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonToken_isStructEnd")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -4824,7 +4824,7 @@ class JsonToken extends jni.JniObject {
   }
 
   static final _isScalarValue =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonToken_isScalarValue")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -4843,7 +4843,7 @@ class JsonToken extends jni.JniObject {
   }
 
   static final _isBoolean =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "com_fasterxml_jackson_core_JsonToken_isBoolean")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 

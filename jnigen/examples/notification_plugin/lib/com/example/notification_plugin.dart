@@ -14,14 +14,14 @@
 import "dart:ffi" as ffi;
 import "package:jni/jni.dart" as jni;
 
-import "../../_init.dart" show jlookup;
+import "../../_init.dart" show jniLookup;
 
 /// from: com.example.notification_plugin.Notifications
 class Notifications extends jni.JniObject {
   Notifications.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _ctor =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "com_example_notification_plugin_Notifications_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -30,7 +30,7 @@ class Notifications extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _showNotification = jlookup<
+  static final _showNotification = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Int32,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(

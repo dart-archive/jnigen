@@ -10,14 +10,14 @@
 import "dart:ffi" as ffi;
 import "package:jni/jni.dart" as jni;
 
-import "../../_init.dart" show jlookup;
+import "../../_init.dart" show jniLookup;
 
 /// from: com.example.in_app_java.AndroidUtils
 class AndroidUtils extends jni.JniObject {
   AndroidUtils.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _ctor =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "com_example_in_app_java_AndroidUtils_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -26,7 +26,7 @@ class AndroidUtils extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _showToast = jlookup<
+  static final _showToast = jniLookup<
           ffi.NativeFunction<
               ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
                   ffi.Int32)>>("com_example_in_app_java_AndroidUtils_showToast")

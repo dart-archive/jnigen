@@ -28,7 +28,7 @@
 import "dart:ffi" as ffi;
 import "package:jni/jni.dart" as jni;
 
-import "../../../_init.dart" show jlookup;
+import "../../../_init.dart" show jniLookup;
 
 /// from: org.apache.pdfbox.pdmodel.PDDocument
 ///
@@ -39,7 +39,7 @@ class PDDocument extends jni.JniObject {
   PDDocument.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _get_RESERVE_BYTE_RANGE =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "get_org_apache_pdfbox_pdmodel_PDDocument_RESERVE_BYTE_RANGE")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -56,7 +56,7 @@ class PDDocument extends jni.JniObject {
       jni.JniObject.fromRef(_get_RESERVE_BYTE_RANGE());
 
   static final _get_LOG =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "get_org_apache_pdfbox_pdmodel_PDDocument_LOG")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -64,7 +64,7 @@ class PDDocument extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JniObject get LOG => jni.JniObject.fromRef(_get_LOG());
 
-  static final _get_document = jlookup<
+  static final _get_document = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -78,7 +78,7 @@ class PDDocument extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get document => jni.JniObject.fromRef(_get_document(reference));
 
-  static final _get_documentInformation = jlookup<
+  static final _get_documentInformation = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -92,7 +92,7 @@ class PDDocument extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   PDDocumentInformation get documentInformation =>
       PDDocumentInformation.fromRef(_get_documentInformation(reference));
-  static final _set_documentInformation = jlookup<
+  static final _set_documentInformation = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -105,7 +105,7 @@ class PDDocument extends jni.JniObject {
   set documentInformation(PDDocumentInformation value) =>
       _set_documentInformation(reference, value.reference);
 
-  static final _get_documentCatalog = jlookup<
+  static final _get_documentCatalog = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -119,7 +119,7 @@ class PDDocument extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get documentCatalog =>
       jni.JniObject.fromRef(_get_documentCatalog(reference));
-  static final _set_documentCatalog = jlookup<
+  static final _set_documentCatalog = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -132,7 +132,7 @@ class PDDocument extends jni.JniObject {
   set documentCatalog(jni.JniObject value) =>
       _set_documentCatalog(reference, value.reference);
 
-  static final _get_encryption = jlookup<
+  static final _get_encryption = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -146,7 +146,7 @@ class PDDocument extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get encryption =>
       jni.JniObject.fromRef(_get_encryption(reference));
-  static final _set_encryption = jlookup<
+  static final _set_encryption = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -159,7 +159,7 @@ class PDDocument extends jni.JniObject {
   set encryption(jni.JniObject value) =>
       _set_encryption(reference, value.reference);
 
-  static final _get_allSecurityToBeRemoved = jlookup<
+  static final _get_allSecurityToBeRemoved = jniLookup<
           ffi.NativeFunction<
               ffi.Uint8 Function(
     ffi.Pointer<ffi.Void>,
@@ -172,7 +172,7 @@ class PDDocument extends jni.JniObject {
   /// from: private boolean allSecurityToBeRemoved
   bool get allSecurityToBeRemoved =>
       _get_allSecurityToBeRemoved(reference) != 0;
-  static final _set_allSecurityToBeRemoved = jlookup<
+  static final _set_allSecurityToBeRemoved = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "set_org_apache_pdfbox_pdmodel_PDDocument_allSecurityToBeRemoved")
@@ -182,7 +182,7 @@ class PDDocument extends jni.JniObject {
   set allSecurityToBeRemoved(bool value) =>
       _set_allSecurityToBeRemoved(reference, value ? 1 : 0);
 
-  static final _get_documentId = jlookup<
+  static final _get_documentId = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -196,7 +196,7 @@ class PDDocument extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get documentId =>
       jni.JniObject.fromRef(_get_documentId(reference));
-  static final _set_documentId = jlookup<
+  static final _set_documentId = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -209,7 +209,7 @@ class PDDocument extends jni.JniObject {
   set documentId(jni.JniObject value) =>
       _set_documentId(reference, value.reference);
 
-  static final _get_pdfSource = jlookup<
+  static final _get_pdfSource = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -224,7 +224,7 @@ class PDDocument extends jni.JniObject {
   jni.JniObject get pdfSource =>
       jni.JniObject.fromRef(_get_pdfSource(reference));
 
-  static final _get_accessPermission = jlookup<
+  static final _get_accessPermission = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -238,7 +238,7 @@ class PDDocument extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get accessPermission =>
       jni.JniObject.fromRef(_get_accessPermission(reference));
-  static final _set_accessPermission = jlookup<
+  static final _set_accessPermission = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -251,7 +251,7 @@ class PDDocument extends jni.JniObject {
   set accessPermission(jni.JniObject value) =>
       _set_accessPermission(reference, value.reference);
 
-  static final _get_fontsToSubset = jlookup<
+  static final _get_fontsToSubset = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -266,7 +266,7 @@ class PDDocument extends jni.JniObject {
   jni.JniObject get fontsToSubset =>
       jni.JniObject.fromRef(_get_fontsToSubset(reference));
 
-  static final _get_fontsToClose = jlookup<
+  static final _get_fontsToClose = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -281,7 +281,7 @@ class PDDocument extends jni.JniObject {
   jni.JniObject get fontsToClose =>
       jni.JniObject.fromRef(_get_fontsToClose(reference));
 
-  static final _get_signInterface = jlookup<
+  static final _get_signInterface = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -295,7 +295,7 @@ class PDDocument extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get signInterface =>
       jni.JniObject.fromRef(_get_signInterface(reference));
-  static final _set_signInterface = jlookup<
+  static final _set_signInterface = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -308,7 +308,7 @@ class PDDocument extends jni.JniObject {
   set signInterface(jni.JniObject value) =>
       _set_signInterface(reference, value.reference);
 
-  static final _get_signingSupport = jlookup<
+  static final _get_signingSupport = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -322,7 +322,7 @@ class PDDocument extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get signingSupport =>
       jni.JniObject.fromRef(_get_signingSupport(reference));
-  static final _set_signingSupport = jlookup<
+  static final _set_signingSupport = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -335,7 +335,7 @@ class PDDocument extends jni.JniObject {
   set signingSupport(jni.JniObject value) =>
       _set_signingSupport(reference, value.reference);
 
-  static final _get_resourceCache = jlookup<
+  static final _get_resourceCache = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -349,7 +349,7 @@ class PDDocument extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get resourceCache =>
       jni.JniObject.fromRef(_get_resourceCache(reference));
-  static final _set_resourceCache = jlookup<
+  static final _set_resourceCache = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -362,7 +362,7 @@ class PDDocument extends jni.JniObject {
   set resourceCache(jni.JniObject value) =>
       _set_resourceCache(reference, value.reference);
 
-  static final _get_signatureAdded = jlookup<
+  static final _get_signatureAdded = jniLookup<
           ffi.NativeFunction<
               ffi.Uint8 Function(
     ffi.Pointer<ffi.Void>,
@@ -374,7 +374,7 @@ class PDDocument extends jni.JniObject {
 
   /// from: private boolean signatureAdded
   bool get signatureAdded => _get_signatureAdded(reference) != 0;
-  static final _set_signatureAdded = jlookup<
+  static final _set_signatureAdded = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "set_org_apache_pdfbox_pdmodel_PDDocument_signatureAdded")
@@ -385,7 +385,7 @@ class PDDocument extends jni.JniObject {
       _set_signatureAdded(reference, value ? 1 : 0);
 
   static final _ctor =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "org_apache_pdfbox_pdmodel_PDDocument_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -397,7 +397,7 @@ class PDDocument extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _ctor1 = jlookup<
+  static final _ctor1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_ctor1")
@@ -413,7 +413,7 @@ class PDDocument extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _ctor2 = jlookup<
+  static final _ctor2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_ctor2")
@@ -427,7 +427,7 @@ class PDDocument extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _ctor3 = jlookup<
+  static final _ctor3 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -446,7 +446,7 @@ class PDDocument extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _ctor4 = jlookup<
+  static final _ctor4 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -468,7 +468,7 @@ class PDDocument extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _addPage = jlookup<
+  static final _addPage = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -487,7 +487,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _addSignature = jlookup<
+  static final _addSignature = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -513,7 +513,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _addSignature1 = jlookup<
+  static final _addSignature1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -542,7 +542,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _addSignature2 = jlookup<
+  static final _addSignature2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -571,7 +571,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _addSignature3 = jlookup<
+  static final _addSignature3 = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>,
@@ -606,7 +606,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _findSignatureField = jlookup<
+  static final _findSignatureField = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -630,7 +630,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _checkSignatureField = jlookup<
+  static final _checkSignatureField = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -654,7 +654,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _checkSignatureAnnotation = jlookup<
+  static final _checkSignatureAnnotation = jniLookup<
               ffi.NativeFunction<
                   ffi.Uint8 Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -678,7 +678,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _prepareVisibleSignature = jlookup<
+  static final _prepareVisibleSignature = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>,
@@ -702,7 +702,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _assignSignatureRectangle = jlookup<
+  static final _assignSignatureRectangle = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -720,7 +720,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _assignAppearanceDictionary = jlookup<
+  static final _assignAppearanceDictionary = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -738,7 +738,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _assignAcroFormDefaultResource = jlookup<
+  static final _assignAcroFormDefaultResource = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -756,7 +756,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _prepareNonVisibleSignature = jlookup<
+  static final _prepareNonVisibleSignature = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -772,7 +772,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _addSignatureField = jlookup<
+  static final _addSignatureField = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>,
@@ -802,7 +802,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _removePage = jlookup<
+  static final _removePage = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -820,7 +820,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _removePage1 = jlookup<
+  static final _removePage1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_removePage1")
@@ -836,7 +836,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _importPage = jlookup<
+  static final _importPage = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -876,7 +876,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _getDocument = jlookup<
+  static final _getDocument = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_getDocument")
@@ -893,7 +893,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _getDocumentInformation = jlookup<
+  static final _getDocumentInformation = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_getDocumentInformation")
@@ -916,7 +916,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _setDocumentInformation = jlookup<
+  static final _setDocumentInformation = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -938,7 +938,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _getDocumentCatalog = jlookup<
+  static final _getDocumentCatalog = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_getDocumentCatalog")
@@ -956,7 +956,7 @@ class PDDocument extends jni.JniObject {
   }
 
   static final _isEncrypted =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_pdmodel_PDDocument_isEncrypted")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -970,7 +970,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _getEncryption = jlookup<
+  static final _getEncryption = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_getEncryption")
@@ -990,7 +990,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _setEncryptionDictionary = jlookup<
+  static final _setEncryptionDictionary = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1009,7 +1009,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _getLastSignatureDictionary = jlookup<
+  static final _getLastSignatureDictionary = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_getLastSignatureDictionary")
@@ -1029,7 +1029,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _getSignatureFields = jlookup<
+  static final _getSignatureFields = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_getSignatureFields")
@@ -1047,7 +1047,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _getSignatureDictionaries = jlookup<
+  static final _getSignatureDictionaries = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_getSignatureDictionaries")
@@ -1066,7 +1066,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _registerTrueTypeFontForClosing = jlookup<
+  static final _registerTrueTypeFontForClosing = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1086,7 +1086,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _getFontsToSubset = jlookup<
+  static final _getFontsToSubset = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_getFontsToSubset")
@@ -1102,7 +1102,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load = jlookup<
+  static final _load = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_load")
@@ -1122,7 +1122,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load1 = jlookup<
+  static final _load1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1147,7 +1147,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load2 = jlookup<
+  static final _load2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1172,7 +1172,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load3 = jlookup<
+  static final _load3 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1199,7 +1199,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load4 = jlookup<
+  static final _load4 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>,
@@ -1232,7 +1232,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load5 = jlookup<
+  static final _load5 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>,
@@ -1276,7 +1276,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load6 = jlookup<
+  static final _load6 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>,
@@ -1311,7 +1311,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load7 = jlookup<
+  static final _load7 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_load7")
@@ -1332,7 +1332,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load8 = jlookup<
+  static final _load8 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1358,7 +1358,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load9 = jlookup<
+  static final _load9 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1384,7 +1384,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load10 = jlookup<
+  static final _load10 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>,
@@ -1418,7 +1418,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load11 = jlookup<
+  static final _load11 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1446,7 +1446,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load12 = jlookup<
+  static final _load12 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>,
@@ -1492,7 +1492,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load13 = jlookup<
+  static final _load13 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_load13")
@@ -1512,7 +1512,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load14 = jlookup<
+  static final _load14 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1537,7 +1537,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load15 = jlookup<
+  static final _load15 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>,
@@ -1571,7 +1571,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _load16 = jlookup<
+  static final _load16 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>,
@@ -1616,7 +1616,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _save = jlookup<
+  static final _save = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1639,7 +1639,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _save1 = jlookup<
+  static final _save1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1662,7 +1662,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _save2 = jlookup<
+  static final _save2 = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1686,7 +1686,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _saveIncremental = jlookup<
+  static final _saveIncremental = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1715,7 +1715,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _saveIncremental1 = jlookup<
+  static final _saveIncremental1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1751,7 +1751,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _saveIncrementalForExternalSigning = jlookup<
+  static final _saveIncrementalForExternalSigning = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1807,7 +1807,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _getPage = jlookup<
+  static final _getPage = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                   ffi.Int32)>>("org_apache_pdfbox_pdmodel_PDDocument_getPage")
@@ -1829,7 +1829,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _getPages = jlookup<
+  static final _getPages = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_getPages")
@@ -1847,7 +1847,7 @@ class PDDocument extends jni.JniObject {
   }
 
   static final _getNumberOfPages =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_pdmodel_PDDocument_getNumberOfPages")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1862,7 +1862,7 @@ class PDDocument extends jni.JniObject {
   }
 
   static final _close =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_pdmodel_PDDocument_close")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1876,7 +1876,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _protect = jlookup<
+  static final _protect = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1902,7 +1902,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _getCurrentAccessPermission = jlookup<
+  static final _getCurrentAccessPermission = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_getCurrentAccessPermission")
@@ -1924,7 +1924,7 @@ class PDDocument extends jni.JniObject {
   }
 
   static final _isAllSecurityToBeRemoved =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_pdmodel_PDDocument_isAllSecurityToBeRemoved")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1938,7 +1938,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _setAllSecurityToBeRemoved = jlookup<
+  static final _setAllSecurityToBeRemoved = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_setAllSecurityToBeRemoved")
@@ -1955,7 +1955,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _getDocumentId = jlookup<
+  static final _getDocumentId = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_getDocumentId")
@@ -1972,7 +1972,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _setDocumentId = jlookup<
+  static final _setDocumentId = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1991,7 +1991,7 @@ class PDDocument extends jni.JniObject {
   }
 
   static final _getVersion =
-      jlookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_pdmodel_PDDocument_getVersion")
           .asFunction<double Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2005,7 +2005,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _setVersion = jlookup<
+  static final _setVersion = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Float)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_setVersion")
@@ -2021,7 +2021,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _getResourceCache = jlookup<
+  static final _getResourceCache = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocument_getResourceCache")
@@ -2038,7 +2038,7 @@ class PDDocument extends jni.JniObject {
     return result__;
   }
 
-  static final _setResourceCache = jlookup<
+  static final _setResourceCache = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2067,7 +2067,7 @@ class PDDocument extends jni.JniObject {
 class PDDocumentInformation extends jni.JniObject {
   PDDocumentInformation.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
-  static final _get_info = jlookup<
+  static final _get_info = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -2082,7 +2082,7 @@ class PDDocumentInformation extends jni.JniObject {
   jni.JniObject get info => jni.JniObject.fromRef(_get_info(reference));
 
   static final _ctor =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "org_apache_pdfbox_pdmodel_PDDocumentInformation_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -2093,7 +2093,7 @@ class PDDocumentInformation extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _ctor1 = jlookup<
+  static final _ctor1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocumentInformation_ctor1")
@@ -2108,7 +2108,7 @@ class PDDocumentInformation extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _getCOSObject = jlookup<
+  static final _getCOSObject = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocumentInformation_getCOSObject")
@@ -2125,7 +2125,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _getPropertyStringValue = jlookup<
+  static final _getPropertyStringValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2152,7 +2152,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _getTitle = jlookup<
+  static final _getTitle = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocumentInformation_getTitle")
@@ -2169,7 +2169,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _setTitle = jlookup<
+  static final _setTitle = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2187,7 +2187,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _getAuthor = jlookup<
+  static final _getAuthor = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocumentInformation_getAuthor")
@@ -2204,7 +2204,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _setAuthor = jlookup<
+  static final _setAuthor = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2222,7 +2222,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _getSubject = jlookup<
+  static final _getSubject = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocumentInformation_getSubject")
@@ -2239,7 +2239,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _setSubject = jlookup<
+  static final _setSubject = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2257,7 +2257,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _getKeywords = jlookup<
+  static final _getKeywords = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocumentInformation_getKeywords")
@@ -2274,7 +2274,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _setKeywords = jlookup<
+  static final _setKeywords = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2292,7 +2292,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _getCreator = jlookup<
+  static final _getCreator = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocumentInformation_getCreator")
@@ -2309,7 +2309,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _setCreator = jlookup<
+  static final _setCreator = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2327,7 +2327,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _getProducer = jlookup<
+  static final _getProducer = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocumentInformation_getProducer")
@@ -2344,7 +2344,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _setProducer = jlookup<
+  static final _setProducer = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2362,7 +2362,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _getCreationDate = jlookup<
+  static final _getCreationDate = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocumentInformation_getCreationDate")
@@ -2379,7 +2379,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _setCreationDate = jlookup<
+  static final _setCreationDate = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2397,7 +2397,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _getModificationDate = jlookup<
+  static final _getModificationDate = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocumentInformation_getModificationDate")
@@ -2414,7 +2414,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _setModificationDate = jlookup<
+  static final _setModificationDate = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2432,7 +2432,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _getTrapped = jlookup<
+  static final _getTrapped = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocumentInformation_getTrapped")
@@ -2450,7 +2450,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _getMetadataKeys = jlookup<
+  static final _getMetadataKeys = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_pdmodel_PDDocumentInformation_getMetadataKeys")
@@ -2468,7 +2468,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _getCustomMetadataValue = jlookup<
+  static final _getCustomMetadataValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2491,7 +2491,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _setCustomMetadataValue = jlookup<
+  static final _setCustomMetadataValue = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2513,7 +2513,7 @@ class PDDocumentInformation extends jni.JniObject {
     return result__;
   }
 
-  static final _setTrapped = jlookup<
+  static final _setTrapped = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(

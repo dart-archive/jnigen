@@ -29,7 +29,7 @@ import "dart:ffi" as ffi;
 import "package:jni/jni.dart" as jni;
 
 import "../pdfbox/pdmodel.dart" as pdmodel_;
-import "../../../_init.dart" show jlookup;
+import "../../../_init.dart" show jniLookup;
 
 /// from: org.apache.pdfbox.text.PDFTextStripper
 ///
@@ -43,14 +43,14 @@ import "../../../_init.dart" show jlookup;
 class PDFTextStripper extends jni.JniObject {
   PDFTextStripper.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
-  static final _get_defaultIndentThreshold = jlookup<
+  static final _get_defaultIndentThreshold = jniLookup<
               ffi.NativeFunction<ffi.Float Function()>>(
           "get_org_apache_pdfbox_text_PDFTextStripper_defaultIndentThreshold")
       .asFunction<double Function()>();
 
   /// from: private static float defaultIndentThreshold
   static double get defaultIndentThreshold => _get_defaultIndentThreshold();
-  static final _set_defaultIndentThreshold = jlookup<
+  static final _set_defaultIndentThreshold = jniLookup<
               ffi.NativeFunction<ffi.Void Function(ffi.Float)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_defaultIndentThreshold")
       .asFunction<void Function(double)>();
@@ -60,14 +60,14 @@ class PDFTextStripper extends jni.JniObject {
       _set_defaultIndentThreshold(value);
 
   static final _get_defaultDropThreshold =
-      jlookup<ffi.NativeFunction<ffi.Float Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Float Function()>>(
               "get_org_apache_pdfbox_text_PDFTextStripper_defaultDropThreshold")
           .asFunction<double Function()>();
 
   /// from: private static float defaultDropThreshold
   static double get defaultDropThreshold => _get_defaultDropThreshold();
   static final _set_defaultDropThreshold =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Float)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Float)>>(
               "set_org_apache_pdfbox_text_PDFTextStripper_defaultDropThreshold")
           .asFunction<void Function(double)>();
 
@@ -76,7 +76,7 @@ class PDFTextStripper extends jni.JniObject {
       _set_defaultDropThreshold(value);
 
   static final _get_LOG =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "get_org_apache_pdfbox_text_PDFTextStripper_LOG")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -84,7 +84,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JniObject get LOG => jni.JniObject.fromRef(_get_LOG());
 
-  static final _get_LINE_SEPARATOR = jlookup<
+  static final _get_LINE_SEPARATOR = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -101,7 +101,7 @@ class PDFTextStripper extends jni.JniObject {
   jni.JniString get LINE_SEPARATOR =>
       jni.JniString.fromRef(_get_LINE_SEPARATOR(reference));
 
-  static final _get_lineSeparator = jlookup<
+  static final _get_lineSeparator = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -115,7 +115,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniString get lineSeparator =>
       jni.JniString.fromRef(_get_lineSeparator(reference));
-  static final _set_lineSeparator = jlookup<
+  static final _set_lineSeparator = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -128,7 +128,7 @@ class PDFTextStripper extends jni.JniObject {
   set lineSeparator(jni.JniString value) =>
       _set_lineSeparator(reference, value.reference);
 
-  static final _get_wordSeparator = jlookup<
+  static final _get_wordSeparator = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -142,7 +142,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniString get wordSeparator =>
       jni.JniString.fromRef(_get_wordSeparator(reference));
-  static final _set_wordSeparator = jlookup<
+  static final _set_wordSeparator = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -155,7 +155,7 @@ class PDFTextStripper extends jni.JniObject {
   set wordSeparator(jni.JniString value) =>
       _set_wordSeparator(reference, value.reference);
 
-  static final _get_paragraphStart = jlookup<
+  static final _get_paragraphStart = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -169,7 +169,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniString get paragraphStart =>
       jni.JniString.fromRef(_get_paragraphStart(reference));
-  static final _set_paragraphStart = jlookup<
+  static final _set_paragraphStart = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -182,7 +182,7 @@ class PDFTextStripper extends jni.JniObject {
   set paragraphStart(jni.JniString value) =>
       _set_paragraphStart(reference, value.reference);
 
-  static final _get_paragraphEnd = jlookup<
+  static final _get_paragraphEnd = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -196,7 +196,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniString get paragraphEnd =>
       jni.JniString.fromRef(_get_paragraphEnd(reference));
-  static final _set_paragraphEnd = jlookup<
+  static final _set_paragraphEnd = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -209,7 +209,7 @@ class PDFTextStripper extends jni.JniObject {
   set paragraphEnd(jni.JniString value) =>
       _set_paragraphEnd(reference, value.reference);
 
-  static final _get_pageStart = jlookup<
+  static final _get_pageStart = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -223,7 +223,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniString get pageStart =>
       jni.JniString.fromRef(_get_pageStart(reference));
-  static final _set_pageStart = jlookup<
+  static final _set_pageStart = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -236,7 +236,7 @@ class PDFTextStripper extends jni.JniObject {
   set pageStart(jni.JniString value) =>
       _set_pageStart(reference, value.reference);
 
-  static final _get_pageEnd = jlookup<
+  static final _get_pageEnd = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -249,7 +249,7 @@ class PDFTextStripper extends jni.JniObject {
   /// from: private java.lang.String pageEnd
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniString get pageEnd => jni.JniString.fromRef(_get_pageEnd(reference));
-  static final _set_pageEnd = jlookup<
+  static final _set_pageEnd = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -261,7 +261,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   set pageEnd(jni.JniString value) => _set_pageEnd(reference, value.reference);
 
-  static final _get_articleStart = jlookup<
+  static final _get_articleStart = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -275,7 +275,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniString get articleStart =>
       jni.JniString.fromRef(_get_articleStart(reference));
-  static final _set_articleStart = jlookup<
+  static final _set_articleStart = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -288,7 +288,7 @@ class PDFTextStripper extends jni.JniObject {
   set articleStart(jni.JniString value) =>
       _set_articleStart(reference, value.reference);
 
-  static final _get_articleEnd = jlookup<
+  static final _get_articleEnd = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -302,7 +302,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniString get articleEnd =>
       jni.JniString.fromRef(_get_articleEnd(reference));
-  static final _set_articleEnd = jlookup<
+  static final _set_articleEnd = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -315,7 +315,7 @@ class PDFTextStripper extends jni.JniObject {
   set articleEnd(jni.JniString value) =>
       _set_articleEnd(reference, value.reference);
 
-  static final _get_currentPageNo = jlookup<
+  static final _get_currentPageNo = jniLookup<
           ffi.NativeFunction<
               ffi.Int32 Function(
     ffi.Pointer<ffi.Void>,
@@ -327,7 +327,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: private int currentPageNo
   int get currentPageNo => _get_currentPageNo(reference);
-  static final _set_currentPageNo = jlookup<
+  static final _set_currentPageNo = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_currentPageNo")
@@ -336,7 +336,7 @@ class PDFTextStripper extends jni.JniObject {
   /// from: private int currentPageNo
   set currentPageNo(int value) => _set_currentPageNo(reference, value);
 
-  static final _get_startPage = jlookup<
+  static final _get_startPage = jniLookup<
           ffi.NativeFunction<
               ffi.Int32 Function(
     ffi.Pointer<ffi.Void>,
@@ -348,7 +348,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: private int startPage
   int get startPage => _get_startPage(reference);
-  static final _set_startPage = jlookup<
+  static final _set_startPage = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_startPage")
@@ -357,7 +357,7 @@ class PDFTextStripper extends jni.JniObject {
   /// from: private int startPage
   set startPage(int value) => _set_startPage(reference, value);
 
-  static final _get_endPage = jlookup<
+  static final _get_endPage = jniLookup<
           ffi.NativeFunction<
               ffi.Int32 Function(
     ffi.Pointer<ffi.Void>,
@@ -369,7 +369,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: private int endPage
   int get endPage => _get_endPage(reference);
-  static final _set_endPage = jlookup<
+  static final _set_endPage = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_endPage")
@@ -378,7 +378,7 @@ class PDFTextStripper extends jni.JniObject {
   /// from: private int endPage
   set endPage(int value) => _set_endPage(reference, value);
 
-  static final _get_startBookmark = jlookup<
+  static final _get_startBookmark = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -392,7 +392,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get startBookmark =>
       jni.JniObject.fromRef(_get_startBookmark(reference));
-  static final _set_startBookmark = jlookup<
+  static final _set_startBookmark = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -405,7 +405,7 @@ class PDFTextStripper extends jni.JniObject {
   set startBookmark(jni.JniObject value) =>
       _set_startBookmark(reference, value.reference);
 
-  static final _get_startBookmarkPageNumber = jlookup<
+  static final _get_startBookmarkPageNumber = jniLookup<
           ffi.NativeFunction<
               ffi.Int32 Function(
     ffi.Pointer<ffi.Void>,
@@ -417,7 +417,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: private int startBookmarkPageNumber
   int get startBookmarkPageNumber => _get_startBookmarkPageNumber(reference);
-  static final _set_startBookmarkPageNumber = jlookup<
+  static final _set_startBookmarkPageNumber = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_startBookmarkPageNumber")
@@ -427,7 +427,7 @@ class PDFTextStripper extends jni.JniObject {
   set startBookmarkPageNumber(int value) =>
       _set_startBookmarkPageNumber(reference, value);
 
-  static final _get_endBookmarkPageNumber = jlookup<
+  static final _get_endBookmarkPageNumber = jniLookup<
           ffi.NativeFunction<
               ffi.Int32 Function(
     ffi.Pointer<ffi.Void>,
@@ -439,7 +439,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: private int endBookmarkPageNumber
   int get endBookmarkPageNumber => _get_endBookmarkPageNumber(reference);
-  static final _set_endBookmarkPageNumber = jlookup<
+  static final _set_endBookmarkPageNumber = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_endBookmarkPageNumber")
@@ -449,7 +449,7 @@ class PDFTextStripper extends jni.JniObject {
   set endBookmarkPageNumber(int value) =>
       _set_endBookmarkPageNumber(reference, value);
 
-  static final _get_endBookmark = jlookup<
+  static final _get_endBookmark = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -463,7 +463,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get endBookmark =>
       jni.JniObject.fromRef(_get_endBookmark(reference));
-  static final _set_endBookmark = jlookup<
+  static final _set_endBookmark = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -476,7 +476,7 @@ class PDFTextStripper extends jni.JniObject {
   set endBookmark(jni.JniObject value) =>
       _set_endBookmark(reference, value.reference);
 
-  static final _get_suppressDuplicateOverlappingText = jlookup<
+  static final _get_suppressDuplicateOverlappingText = jniLookup<
           ffi.NativeFunction<
               ffi.Uint8 Function(
     ffi.Pointer<ffi.Void>,
@@ -489,7 +489,7 @@ class PDFTextStripper extends jni.JniObject {
   /// from: private boolean suppressDuplicateOverlappingText
   bool get suppressDuplicateOverlappingText =>
       _get_suppressDuplicateOverlappingText(reference) != 0;
-  static final _set_suppressDuplicateOverlappingText = jlookup<
+  static final _set_suppressDuplicateOverlappingText = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_suppressDuplicateOverlappingText")
@@ -499,7 +499,7 @@ class PDFTextStripper extends jni.JniObject {
   set suppressDuplicateOverlappingText(bool value) =>
       _set_suppressDuplicateOverlappingText(reference, value ? 1 : 0);
 
-  static final _get_shouldSeparateByBeads = jlookup<
+  static final _get_shouldSeparateByBeads = jniLookup<
           ffi.NativeFunction<
               ffi.Uint8 Function(
     ffi.Pointer<ffi.Void>,
@@ -511,7 +511,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: private boolean shouldSeparateByBeads
   bool get shouldSeparateByBeads => _get_shouldSeparateByBeads(reference) != 0;
-  static final _set_shouldSeparateByBeads = jlookup<
+  static final _set_shouldSeparateByBeads = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_shouldSeparateByBeads")
@@ -521,7 +521,7 @@ class PDFTextStripper extends jni.JniObject {
   set shouldSeparateByBeads(bool value) =>
       _set_shouldSeparateByBeads(reference, value ? 1 : 0);
 
-  static final _get_sortByPosition = jlookup<
+  static final _get_sortByPosition = jniLookup<
           ffi.NativeFunction<
               ffi.Uint8 Function(
     ffi.Pointer<ffi.Void>,
@@ -533,7 +533,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: private boolean sortByPosition
   bool get sortByPosition => _get_sortByPosition(reference) != 0;
-  static final _set_sortByPosition = jlookup<
+  static final _set_sortByPosition = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_sortByPosition")
@@ -543,7 +543,7 @@ class PDFTextStripper extends jni.JniObject {
   set sortByPosition(bool value) =>
       _set_sortByPosition(reference, value ? 1 : 0);
 
-  static final _get_addMoreFormatting = jlookup<
+  static final _get_addMoreFormatting = jniLookup<
           ffi.NativeFunction<
               ffi.Uint8 Function(
     ffi.Pointer<ffi.Void>,
@@ -555,7 +555,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: private boolean addMoreFormatting
   bool get addMoreFormatting => _get_addMoreFormatting(reference) != 0;
-  static final _set_addMoreFormatting = jlookup<
+  static final _set_addMoreFormatting = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_addMoreFormatting")
@@ -565,7 +565,7 @@ class PDFTextStripper extends jni.JniObject {
   set addMoreFormatting(bool value) =>
       _set_addMoreFormatting(reference, value ? 1 : 0);
 
-  static final _get_indentThreshold = jlookup<
+  static final _get_indentThreshold = jniLookup<
           ffi.NativeFunction<
               ffi.Float Function(
     ffi.Pointer<ffi.Void>,
@@ -577,7 +577,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: private float indentThreshold
   double get indentThreshold => _get_indentThreshold(reference);
-  static final _set_indentThreshold = jlookup<
+  static final _set_indentThreshold = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Float)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_indentThreshold")
@@ -586,7 +586,7 @@ class PDFTextStripper extends jni.JniObject {
   /// from: private float indentThreshold
   set indentThreshold(double value) => _set_indentThreshold(reference, value);
 
-  static final _get_dropThreshold = jlookup<
+  static final _get_dropThreshold = jniLookup<
           ffi.NativeFunction<
               ffi.Float Function(
     ffi.Pointer<ffi.Void>,
@@ -598,7 +598,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: private float dropThreshold
   double get dropThreshold => _get_dropThreshold(reference);
-  static final _set_dropThreshold = jlookup<
+  static final _set_dropThreshold = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Float)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_dropThreshold")
@@ -607,7 +607,7 @@ class PDFTextStripper extends jni.JniObject {
   /// from: private float dropThreshold
   set dropThreshold(double value) => _set_dropThreshold(reference, value);
 
-  static final _get_spacingTolerance = jlookup<
+  static final _get_spacingTolerance = jniLookup<
           ffi.NativeFunction<
               ffi.Float Function(
     ffi.Pointer<ffi.Void>,
@@ -619,7 +619,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: private float spacingTolerance
   double get spacingTolerance => _get_spacingTolerance(reference);
-  static final _set_spacingTolerance = jlookup<
+  static final _set_spacingTolerance = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Float)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_spacingTolerance")
@@ -628,7 +628,7 @@ class PDFTextStripper extends jni.JniObject {
   /// from: private float spacingTolerance
   set spacingTolerance(double value) => _set_spacingTolerance(reference, value);
 
-  static final _get_averageCharTolerance = jlookup<
+  static final _get_averageCharTolerance = jniLookup<
           ffi.NativeFunction<
               ffi.Float Function(
     ffi.Pointer<ffi.Void>,
@@ -640,7 +640,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: private float averageCharTolerance
   double get averageCharTolerance => _get_averageCharTolerance(reference);
-  static final _set_averageCharTolerance = jlookup<
+  static final _set_averageCharTolerance = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Float)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_averageCharTolerance")
@@ -650,7 +650,7 @@ class PDFTextStripper extends jni.JniObject {
   set averageCharTolerance(double value) =>
       _set_averageCharTolerance(reference, value);
 
-  static final _get_beadRectangles = jlookup<
+  static final _get_beadRectangles = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -664,7 +664,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get beadRectangles =>
       jni.JniObject.fromRef(_get_beadRectangles(reference));
-  static final _set_beadRectangles = jlookup<
+  static final _set_beadRectangles = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -677,7 +677,7 @@ class PDFTextStripper extends jni.JniObject {
   set beadRectangles(jni.JniObject value) =>
       _set_beadRectangles(reference, value.reference);
 
-  static final _get_charactersByArticle = jlookup<
+  static final _get_charactersByArticle = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -704,7 +704,7 @@ class PDFTextStripper extends jni.JniObject {
   /// Most PDFs won't have any beads, so charactersByArticle will contain a single entry.
   jni.JniObject get charactersByArticle =>
       jni.JniObject.fromRef(_get_charactersByArticle(reference));
-  static final _set_charactersByArticle = jlookup<
+  static final _set_charactersByArticle = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -730,7 +730,7 @@ class PDFTextStripper extends jni.JniObject {
   set charactersByArticle(jni.JniObject value) =>
       _set_charactersByArticle(reference, value.reference);
 
-  static final _get_characterListMapping = jlookup<
+  static final _get_characterListMapping = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -744,7 +744,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get characterListMapping =>
       jni.JniObject.fromRef(_get_characterListMapping(reference));
-  static final _set_characterListMapping = jlookup<
+  static final _set_characterListMapping = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -757,7 +757,7 @@ class PDFTextStripper extends jni.JniObject {
   set characterListMapping(jni.JniObject value) =>
       _set_characterListMapping(reference, value.reference);
 
-  static final _get_document = jlookup<
+  static final _get_document = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -771,7 +771,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   pdmodel_.PDDocument get document =>
       pdmodel_.PDDocument.fromRef(_get_document(reference));
-  static final _set_document = jlookup<
+  static final _set_document = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -784,7 +784,7 @@ class PDFTextStripper extends jni.JniObject {
   set document(pdmodel_.PDDocument value) =>
       _set_document(reference, value.reference);
 
-  static final _get_output = jlookup<
+  static final _get_output = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -797,7 +797,7 @@ class PDFTextStripper extends jni.JniObject {
   /// from: protected java.io.Writer output
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get output => jni.JniObject.fromRef(_get_output(reference));
-  static final _set_output = jlookup<
+  static final _set_output = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -809,7 +809,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   set output(jni.JniObject value) => _set_output(reference, value.reference);
 
-  static final _get_inParagraph = jlookup<
+  static final _get_inParagraph = jniLookup<
           ffi.NativeFunction<
               ffi.Uint8 Function(
     ffi.Pointer<ffi.Void>,
@@ -823,7 +823,7 @@ class PDFTextStripper extends jni.JniObject {
   ///
   /// True if we started a paragraph but haven't ended it yet.
   bool get inParagraph => _get_inParagraph(reference) != 0;
-  static final _set_inParagraph = jlookup<
+  static final _set_inParagraph = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "set_org_apache_pdfbox_text_PDFTextStripper_inParagraph")
@@ -852,7 +852,7 @@ class PDFTextStripper extends jni.JniObject {
   /// from: private static final float LAST_WORD_SPACING_RESET_VALUE
   static const LAST_WORD_SPACING_RESET_VALUE = -1.0;
 
-  static final _get_LIST_ITEM_EXPRESSIONS = jlookup<
+  static final _get_LIST_ITEM_EXPRESSIONS = jniLookup<
               ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
           "get_org_apache_pdfbox_text_PDFTextStripper_LIST_ITEM_EXPRESSIONS")
       .asFunction<ffi.Pointer<ffi.Void> Function()>();
@@ -865,7 +865,7 @@ class PDFTextStripper extends jni.JniObject {
   static jni.JniObject get LIST_ITEM_EXPRESSIONS =>
       jni.JniObject.fromRef(_get_LIST_ITEM_EXPRESSIONS());
 
-  static final _get_listOfPatterns = jlookup<
+  static final _get_listOfPatterns = jniLookup<
           ffi.NativeFunction<
               ffi.Pointer<ffi.Void> Function(
     ffi.Pointer<ffi.Void>,
@@ -879,7 +879,7 @@ class PDFTextStripper extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniObject get listOfPatterns =>
       jni.JniObject.fromRef(_get_listOfPatterns(reference));
-  static final _set_listOfPatterns = jlookup<
+  static final _set_listOfPatterns = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -893,7 +893,7 @@ class PDFTextStripper extends jni.JniObject {
       _set_listOfPatterns(reference, value.reference);
 
   static final _get_MIRRORING_CHAR_MAP =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "get_org_apache_pdfbox_text_PDFTextStripper_MIRRORING_CHAR_MAP")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -902,7 +902,7 @@ class PDFTextStripper extends jni.JniObject {
   static jni.JniObject get MIRRORING_CHAR_MAP =>
       jni.JniObject.fromRef(_get_MIRRORING_CHAR_MAP());
   static final _set_MIRRORING_CHAR_MAP =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "set_org_apache_pdfbox_text_PDFTextStripper_MIRRORING_CHAR_MAP")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -912,7 +912,7 @@ class PDFTextStripper extends jni.JniObject {
       _set_MIRRORING_CHAR_MAP(value.reference);
 
   static final _ctor =
-      jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
+      jniLookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
               "org_apache_pdfbox_text_PDFTextStripper_ctor")
           .asFunction<ffi.Pointer<ffi.Void> Function()>();
 
@@ -924,7 +924,7 @@ class PDFTextStripper extends jni.JniObject {
     jni.Jni.env.checkException();
   }
 
-  static final _getText = jlookup<
+  static final _getText = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -953,7 +953,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _resetEngine =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_resetEngine")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -964,7 +964,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _writeText = jlookup<
+  static final _writeText = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -986,7 +986,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _processPages = jlookup<
+  static final _processPages = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1005,7 +1005,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _startDocument = jlookup<
+  static final _startDocument = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1024,7 +1024,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _endDocument = jlookup<
+  static final _endDocument = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1044,7 +1044,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _processPage = jlookup<
+  static final _processPage = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1063,7 +1063,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _fillBeadRectangles = jlookup<
+  static final _fillBeadRectangles = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1079,7 +1079,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _startArticle =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_startArticle")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1095,7 +1095,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _startArticle1 = jlookup<
+  static final _startArticle1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "org_apache_pdfbox_text_PDFTextStripper_startArticle1")
@@ -1114,7 +1114,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _endArticle =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_endArticle")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1128,7 +1128,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _startPage1 = jlookup<
+  static final _startPage1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1147,7 +1147,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _endPage1 = jlookup<
+  static final _endPage1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1167,7 +1167,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _writePage =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_writePage")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1183,7 +1183,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _overlap = jlookup<
+  static final _overlap = jniLookup<
           ffi.NativeFunction<
               ffi.Uint8 Function(
                   ffi.Pointer<ffi.Void>,
@@ -1203,7 +1203,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _writeLineSeparator =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_writeLineSeparator")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1218,7 +1218,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _writeWordSeparator =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_writeWordSeparator")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1232,7 +1232,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _writeCharacters = jlookup<
+  static final _writeCharacters = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1251,7 +1251,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _writeString = jlookup<
+  static final _writeString = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1274,7 +1274,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _writeString1 = jlookup<
+  static final _writeString1 = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1293,7 +1293,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _within = jlookup<
+  static final _within = jniLookup<
           ffi.NativeFunction<
               ffi.Uint8 Function(ffi.Pointer<ffi.Void>, ffi.Float, ffi.Float,
                   ffi.Float)>>("org_apache_pdfbox_text_PDFTextStripper_within")
@@ -1312,7 +1312,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _processTextPosition = jlookup<
+  static final _processTextPosition = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1332,7 +1332,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _getStartPage =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_getStartPage")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1348,7 +1348,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setStartPage = jlookup<
+  static final _setStartPage = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "org_apache_pdfbox_text_PDFTextStripper_setStartPage")
@@ -1365,7 +1365,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _getEndPage =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_getEndPage")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1381,7 +1381,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setEndPage = jlookup<
+  static final _setEndPage = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Int32)>>(
           "org_apache_pdfbox_text_PDFTextStripper_setEndPage")
@@ -1397,7 +1397,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setLineSeparator = jlookup<
+  static final _setLineSeparator = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1416,7 +1416,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getLineSeparator = jlookup<
+  static final _getLineSeparator = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getLineSeparator")
@@ -1433,7 +1433,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getWordSeparator = jlookup<
+  static final _getWordSeparator = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getWordSeparator")
@@ -1450,7 +1450,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setWordSeparator = jlookup<
+  static final _setWordSeparator = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1471,7 +1471,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getSuppressDuplicateOverlappingText = jlookup<
+  static final _getSuppressDuplicateOverlappingText = jniLookup<
               ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getSuppressDuplicateOverlappingText")
       .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
@@ -1486,7 +1486,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _getCurrentPageNo =
-      jlookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_getCurrentPageNo")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1500,7 +1500,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getOutput = jlookup<
+  static final _getOutput = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getOutput")
@@ -1517,7 +1517,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getCharactersByArticle = jlookup<
+  static final _getCharactersByArticle = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getCharactersByArticle")
@@ -1535,7 +1535,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setSuppressDuplicateOverlappingText = jlookup<
+  static final _setSuppressDuplicateOverlappingText = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "org_apache_pdfbox_text_PDFTextStripper_setSuppressDuplicateOverlappingText")
@@ -1556,7 +1556,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _getSeparateByBeads =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_getSeparateByBeads")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1570,7 +1570,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setShouldSeparateByBeads = jlookup<
+  static final _setShouldSeparateByBeads = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "org_apache_pdfbox_text_PDFTextStripper_setShouldSeparateByBeads")
@@ -1587,7 +1587,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getEndBookmark = jlookup<
+  static final _getEndBookmark = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getEndBookmark")
@@ -1604,7 +1604,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setEndBookmark = jlookup<
+  static final _setEndBookmark = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1622,7 +1622,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getStartBookmark = jlookup<
+  static final _getStartBookmark = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getStartBookmark")
@@ -1639,7 +1639,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setStartBookmark = jlookup<
+  static final _setStartBookmark = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1658,7 +1658,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _getAddMoreFormatting =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_getAddMoreFormatting")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1672,7 +1672,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setAddMoreFormatting = jlookup<
+  static final _setAddMoreFormatting = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "org_apache_pdfbox_text_PDFTextStripper_setAddMoreFormatting")
@@ -1690,7 +1690,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _getSortByPosition =
-      jlookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_getSortByPosition")
           .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1704,7 +1704,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setSortByPosition = jlookup<
+  static final _setSortByPosition = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Uint8)>>(
           "org_apache_pdfbox_text_PDFTextStripper_setSortByPosition")
@@ -1727,7 +1727,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _getSpacingTolerance =
-      jlookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_getSpacingTolerance")
           .asFunction<double Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1742,7 +1742,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setSpacingTolerance = jlookup<
+  static final _setSpacingTolerance = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Float)>>(
           "org_apache_pdfbox_text_PDFTextStripper_setSpacingTolerance")
@@ -1761,7 +1761,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _getAverageCharTolerance =
-      jlookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_getAverageCharTolerance")
           .asFunction<double Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1776,7 +1776,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setAverageCharTolerance = jlookup<
+  static final _setAverageCharTolerance = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Float)>>(
           "org_apache_pdfbox_text_PDFTextStripper_setAverageCharTolerance")
@@ -1796,7 +1796,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _getIndentThreshold =
-      jlookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_getIndentThreshold")
           .asFunction<double Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1811,7 +1811,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setIndentThreshold = jlookup<
+  static final _setIndentThreshold = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Float)>>(
           "org_apache_pdfbox_text_PDFTextStripper_setIndentThreshold")
@@ -1830,7 +1830,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _getDropThreshold =
-      jlookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Float Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_getDropThreshold")
           .asFunction<double Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1845,7 +1845,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setDropThreshold = jlookup<
+  static final _setDropThreshold = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Float)>>(
           "org_apache_pdfbox_text_PDFTextStripper_setDropThreshold")
@@ -1863,7 +1863,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getParagraphStart = jlookup<
+  static final _getParagraphStart = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getParagraphStart")
@@ -1880,7 +1880,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setParagraphStart = jlookup<
+  static final _setParagraphStart = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1898,7 +1898,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getParagraphEnd = jlookup<
+  static final _getParagraphEnd = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getParagraphEnd")
@@ -1915,7 +1915,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setParagraphEnd = jlookup<
+  static final _setParagraphEnd = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1933,7 +1933,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getPageStart = jlookup<
+  static final _getPageStart = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getPageStart")
@@ -1950,7 +1950,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setPageStart = jlookup<
+  static final _setPageStart = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -1968,7 +1968,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getPageEnd = jlookup<
+  static final _getPageEnd = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getPageEnd")
@@ -1985,7 +1985,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setPageEnd = jlookup<
+  static final _setPageEnd = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2003,7 +2003,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getArticleStart = jlookup<
+  static final _getArticleStart = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getArticleStart")
@@ -2020,7 +2020,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setArticleStart = jlookup<
+  static final _setArticleStart = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2038,7 +2038,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getArticleEnd = jlookup<
+  static final _getArticleEnd = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getArticleEnd")
@@ -2055,7 +2055,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setArticleEnd = jlookup<
+  static final _setArticleEnd = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2073,7 +2073,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _handleLineSeparation = jlookup<
+  static final _handleLineSeparation = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>,
@@ -2115,7 +2115,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _isParagraphSeparation = jlookup<
+  static final _isParagraphSeparation = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>,
@@ -2164,7 +2164,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _multiplyFloat = jlookup<
+  static final _multiplyFloat = jniLookup<
               ffi.NativeFunction<
                   ffi.Float Function(
                       ffi.Pointer<ffi.Void>, ffi.Float, ffi.Float)>>(
@@ -2179,7 +2179,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _writeParagraphSeparator =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_writeParagraphSeparator")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2194,7 +2194,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _writeParagraphStart =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_writeParagraphStart")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2209,7 +2209,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _writeParagraphEnd =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_writeParagraphEnd")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2224,7 +2224,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _writePageStart =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_writePageStart")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2239,7 +2239,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _writePageEnd =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_writePageEnd")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2253,7 +2253,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _matchListItemPattern = jlookup<
+  static final _matchListItemPattern = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2278,7 +2278,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _setListItemPatterns = jlookup<
+  static final _setListItemPatterns = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2296,7 +2296,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _getListItemPatterns = jlookup<
+  static final _getListItemPatterns = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>>(
           "org_apache_pdfbox_text_PDFTextStripper_getListItemPatterns")
@@ -2327,7 +2327,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _matchPattern = jlookup<
+  static final _matchPattern = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2357,7 +2357,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _writeLine = jlookup<
+  static final _writeLine = jniLookup<
               ffi.NativeFunction<
                   ffi.Void Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2376,7 +2376,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _normalize = jlookup<
+  static final _normalize = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2398,7 +2398,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _handleDirection = jlookup<
+  static final _handleDirection = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2426,7 +2426,7 @@ class PDFTextStripper extends jni.JniObject {
   }
 
   static final _parseBidiFile =
-      jlookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+      jniLookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
               "org_apache_pdfbox_text_PDFTextStripper_parseBidiFile")
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2441,7 +2441,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _createWord = jlookup<
+  static final _createWord = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2461,7 +2461,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _normalizeWord = jlookup<
+  static final _normalizeWord = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
@@ -2484,7 +2484,7 @@ class PDFTextStripper extends jni.JniObject {
     return result__;
   }
 
-  static final _normalizeAdd = jlookup<
+  static final _normalizeAdd = jniLookup<
               ffi.NativeFunction<
                   ffi.Pointer<ffi.Void> Function(
                       ffi.Pointer<ffi.Void>,

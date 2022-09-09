@@ -204,8 +204,7 @@ abstract class Compound extends BindingType {
             es.write("$depth///\n"
                 "$depth/// This is an automatically generated extension method\n");
           }
-          es.write("$depth@pragma('vm:prefer-inline')\n"
-              "$depth${fnType.returnType.getDartType(w)} ${m.name}(");
+          es.write("$depth${fnType.returnType.getDartType(w)} ${m.name}(");
           final visibleParams = <String>[];
           final actualParams = <String>[if (implicitThis) "this"];
           final callableFnType = fnType.getDartType(w);
