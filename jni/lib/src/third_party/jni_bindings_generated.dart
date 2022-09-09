@@ -315,13 +315,11 @@ class JNIInvokeInterface extends ffi.Struct {
 }
 
 extension JNIInvokeInterfaceExtension on ffi.Pointer<JavaVM> {
-  @pragma('vm:prefer-inline')
   int DestroyJavaVM() {
     return value.ref.DestroyJavaVM
         .asFunction<int Function(ffi.Pointer<JavaVM>)>()(this);
   }
 
-  @pragma('vm:prefer-inline')
   int AttachCurrentThread(
       ffi.Pointer<ffi.Pointer<JniEnv>> p_env, ffi.Pointer<ffi.Void> thr_args) {
     return value.ref.AttachCurrentThread.asFunction<
@@ -329,20 +327,17 @@ extension JNIInvokeInterfaceExtension on ffi.Pointer<JavaVM> {
             ffi.Pointer<ffi.Void>)>()(this, p_env, thr_args);
   }
 
-  @pragma('vm:prefer-inline')
   int DetachCurrentThread() {
     return value.ref.DetachCurrentThread
         .asFunction<int Function(ffi.Pointer<JavaVM>)>()(this);
   }
 
-  @pragma('vm:prefer-inline')
   int GetEnv(ffi.Pointer<ffi.Pointer<ffi.Void>> p_env, int version) {
     return value.ref.GetEnv.asFunction<
         int Function(ffi.Pointer<JavaVM>, ffi.Pointer<ffi.Pointer<ffi.Void>>,
             int)>()(this, p_env, version);
   }
 
-  @pragma('vm:prefer-inline')
   int AttachCurrentThreadAsDaemon(
       ffi.Pointer<ffi.Pointer<JniEnv>> p_env, ffi.Pointer<ffi.Void> thr_args) {
     return value.ref.AttachCurrentThreadAsDaemon.asFunction<
@@ -367,18 +362,6 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<ffi.NativeFunction<JInt Function(ffi.Pointer<JniEnv1>)>>
       GetVersion;
 
-  /// 1. jint Je_<MatchFName>() {
-  /// attach_thread();
-  /// (*jniEnv)->MatchFName(<MatchPNames - First>)
-  /// }
-  ///
-  /// 2. struct JeIndir {
-  /// jint (*GetVersion)(MatchPNames - First);
-  /// }
-  ///
-  /// 3. struct JeIndir jei = {
-  /// .MatchFName = Je_MatchFName
-  /// }
   external ffi.Pointer<
       ffi.NativeFunction<
           JClass Function(ffi.Pointer<JniEnv1>, ffi.Pointer<ffi.Char>, JObject,
@@ -2413,12 +2396,10 @@ class GlobalJniEnv extends ffi.Struct {
 }
 
 extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
-  @pragma('vm:prefer-inline')
   int GetVersion() {
     return ref.GetVersion.asFunction<int Function()>()();
   }
 
-  @pragma('vm:prefer-inline')
   JClass DefineClass(ffi.Pointer<ffi.Char> name, JObject loader,
       ffi.Pointer<JByte> buf, int bufLen) {
     return ref.DefineClass.asFunction<
@@ -2426,122 +2407,100 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             int)>()(name, loader, buf, bufLen);
   }
 
-  @pragma('vm:prefer-inline')
   JClass FindClass(ffi.Pointer<ffi.Char> name) {
     return ref.FindClass.asFunction<JClass Function(ffi.Pointer<ffi.Char>)>()(
         name);
   }
 
-  @pragma('vm:prefer-inline')
   JMethodID FromReflectedMethod(JObject method) {
     return ref.FromReflectedMethod.asFunction<JMethodID Function(JObject)>()(
         method);
   }
 
-  @pragma('vm:prefer-inline')
   JFieldID FromReflectedField(JObject field) {
     return ref.FromReflectedField.asFunction<JFieldID Function(JObject)>()(
         field);
   }
 
-  @pragma('vm:prefer-inline')
   JObject ToReflectedMethod(JClass cls, JMethodID methodId, int isStatic) {
     return ref.ToReflectedMethod.asFunction<
         JObject Function(JClass, JMethodID, int)>()(cls, methodId, isStatic);
   }
 
-  @pragma('vm:prefer-inline')
   JClass GetSuperclass(JClass clazz) {
     return ref.GetSuperclass.asFunction<JClass Function(JClass)>()(clazz);
   }
 
-  @pragma('vm:prefer-inline')
   int IsAssignableFrom(JClass clazz1, JClass clazz2) {
     return ref.IsAssignableFrom.asFunction<int Function(JClass, JClass)>()(
         clazz1, clazz2);
   }
 
-  @pragma('vm:prefer-inline')
   JObject ToReflectedField(JClass cls, JFieldID fieldID, int isStatic) {
     return ref.ToReflectedField.asFunction<
         JObject Function(JClass, JFieldID, int)>()(cls, fieldID, isStatic);
   }
 
-  @pragma('vm:prefer-inline')
   int Throw(JThrowable obj) {
     return ref.Throw.asFunction<int Function(JThrowable)>()(obj);
   }
 
-  @pragma('vm:prefer-inline')
   int ThrowNew(JClass clazz, ffi.Pointer<ffi.Char> message) {
     return ref.ThrowNew.asFunction<
         int Function(JClass, ffi.Pointer<ffi.Char>)>()(clazz, message);
   }
 
-  @pragma('vm:prefer-inline')
   JThrowable ExceptionOccurred() {
     return ref.ExceptionOccurred.asFunction<JThrowable Function()>()();
   }
 
-  @pragma('vm:prefer-inline')
   void ExceptionDescribe() {
     return ref.ExceptionDescribe.asFunction<void Function()>()();
   }
 
-  @pragma('vm:prefer-inline')
   void ExceptionClear() {
     return ref.ExceptionClear.asFunction<void Function()>()();
   }
 
-  @pragma('vm:prefer-inline')
   void FatalError(ffi.Pointer<ffi.Char> msg) {
     return ref.FatalError.asFunction<void Function(ffi.Pointer<ffi.Char>)>()(
         msg);
   }
 
-  @pragma('vm:prefer-inline')
   int PushLocalFrame(int capacity) {
     return ref.PushLocalFrame.asFunction<int Function(int)>()(capacity);
   }
 
-  @pragma('vm:prefer-inline')
   JObject PopLocalFrame(JObject result) {
     return ref.PopLocalFrame.asFunction<JObject Function(JObject)>()(result);
   }
 
-  @pragma('vm:prefer-inline')
   JObject NewGlobalRef(JObject obj) {
     return ref.NewGlobalRef.asFunction<JObject Function(JObject)>()(obj);
   }
 
-  @pragma('vm:prefer-inline')
   void DeleteGlobalRef(JObject globalRef) {
     return ref.DeleteGlobalRef.asFunction<void Function(JObject)>()(globalRef);
   }
 
-  @pragma('vm:prefer-inline')
   int IsSameObject(JObject ref1, JObject ref2) {
     return ref.IsSameObject.asFunction<int Function(JObject, JObject)>()(
         ref1, ref2);
   }
 
-  @pragma('vm:prefer-inline')
   int EnsureLocalCapacity(int capacity) {
     return ref.EnsureLocalCapacity.asFunction<int Function(int)>()(capacity);
   }
 
-  @pragma('vm:prefer-inline')
   JObject AllocObject(JClass clazz) {
     return ref.AllocObject.asFunction<JObject Function(JClass)>()(clazz);
   }
 
-  @pragma('vm:prefer-inline')
   JObject NewObject(JClass arg1, JMethodID arg2) {
     return ref.NewObject.asFunction<JObject Function(JClass, JMethodID)>()(
         arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   JObject NewObjectA(
       JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.NewObjectA.asFunction<
@@ -2549,18 +2508,15 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JClass, JMethodID, ffi.Pointer<JValue>)>()(clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   JClass GetObjectClass(JObject obj) {
     return ref.GetObjectClass.asFunction<JClass Function(JObject)>()(obj);
   }
 
-  @pragma('vm:prefer-inline')
   int IsInstanceOf(JObject obj, JClass clazz) {
     return ref.IsInstanceOf.asFunction<int Function(JObject, JClass)>()(
         obj, clazz);
   }
 
-  @pragma('vm:prefer-inline')
   JMethodID GetMethodID(
       JClass clazz, ffi.Pointer<ffi.Char> name, ffi.Pointer<ffi.Char> sig) {
     return ref.GetMethodID.asFunction<
@@ -2568,13 +2524,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             ffi.Pointer<ffi.Char>)>()(clazz, name, sig);
   }
 
-  @pragma('vm:prefer-inline')
   JObject CallObjectMethod(JObject arg1, JMethodID arg2) {
     return ref.CallObjectMethod.asFunction<
         JObject Function(JObject, JMethodID)>()(arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   JObject CallObjectMethodA(
       JObject obj, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallObjectMethodA.asFunction<
@@ -2582,13 +2536,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JObject, JMethodID, ffi.Pointer<JValue>)>()(obj, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallBooleanMethod(JObject arg1, JMethodID arg2) {
     return ref.CallBooleanMethod.asFunction<int Function(JObject, JMethodID)>()(
         arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   int CallBooleanMethodA(
       JObject obj, JMethodID methodId, ffi.Pointer<JValue> args) {
     return ref.CallBooleanMethodA.asFunction<
@@ -2596,13 +2548,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JObject, JMethodID, ffi.Pointer<JValue>)>()(obj, methodId, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallByteMethod(JObject arg1, JMethodID arg2) {
     return ref.CallByteMethod.asFunction<int Function(JObject, JMethodID)>()(
         arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   int CallByteMethodA(
       JObject obj, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallByteMethodA.asFunction<
@@ -2610,13 +2560,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JObject, JMethodID, ffi.Pointer<JValue>)>()(obj, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallCharMethod(JObject arg1, JMethodID arg2) {
     return ref.CallCharMethod.asFunction<int Function(JObject, JMethodID)>()(
         arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   int CallCharMethodA(
       JObject obj, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallCharMethodA.asFunction<
@@ -2624,13 +2572,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JObject, JMethodID, ffi.Pointer<JValue>)>()(obj, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallShortMethod(JObject arg1, JMethodID arg2) {
     return ref.CallShortMethod.asFunction<int Function(JObject, JMethodID)>()(
         arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   int CallShortMethodA(
       JObject obj, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallShortMethodA.asFunction<
@@ -2638,13 +2584,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JObject, JMethodID, ffi.Pointer<JValue>)>()(obj, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallIntMethod(JObject arg1, JMethodID arg2) {
     return ref.CallIntMethod.asFunction<int Function(JObject, JMethodID)>()(
         arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   int CallIntMethodA(
       JObject obj, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallIntMethodA.asFunction<
@@ -2652,13 +2596,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JObject, JMethodID, ffi.Pointer<JValue>)>()(obj, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallLongMethod(JObject arg1, JMethodID arg2) {
     return ref.CallLongMethod.asFunction<int Function(JObject, JMethodID)>()(
         arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   int CallLongMethodA(
       JObject obj, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallLongMethodA.asFunction<
@@ -2666,13 +2608,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JObject, JMethodID, ffi.Pointer<JValue>)>()(obj, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   double CallFloatMethod(JObject arg1, JMethodID arg2) {
     return ref.CallFloatMethod.asFunction<
         double Function(JObject, JMethodID)>()(arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   double CallFloatMethodA(
       JObject obj, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallFloatMethodA.asFunction<
@@ -2680,13 +2620,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JObject, JMethodID, ffi.Pointer<JValue>)>()(obj, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   double CallDoubleMethod(JObject arg1, JMethodID arg2) {
     return ref.CallDoubleMethod.asFunction<
         double Function(JObject, JMethodID)>()(arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   double CallDoubleMethodA(
       JObject obj, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallDoubleMethodA.asFunction<
@@ -2694,13 +2632,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JObject, JMethodID, ffi.Pointer<JValue>)>()(obj, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   void CallVoidMethod(JObject arg1, JMethodID arg2) {
     return ref.CallVoidMethod.asFunction<void Function(JObject, JMethodID)>()(
         arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   void CallVoidMethodA(
       JObject obj, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallVoidMethodA.asFunction<
@@ -2708,14 +2644,12 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JObject, JMethodID, ffi.Pointer<JValue>)>()(obj, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   JObject CallNonvirtualObjectMethod(
       JObject arg1, JClass arg2, JMethodID arg3) {
     return ref.CallNonvirtualObjectMethod.asFunction<
         JObject Function(JObject, JClass, JMethodID)>()(arg1, arg2, arg3);
   }
 
-  @pragma('vm:prefer-inline')
   JObject CallNonvirtualObjectMethodA(
       JObject obj, JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallNonvirtualObjectMethodA.asFunction<
@@ -2723,13 +2657,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             ffi.Pointer<JValue>)>()(obj, clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallNonvirtualBooleanMethod(JObject arg1, JClass arg2, JMethodID arg3) {
     return ref.CallNonvirtualBooleanMethod.asFunction<
         int Function(JObject, JClass, JMethodID)>()(arg1, arg2, arg3);
   }
 
-  @pragma('vm:prefer-inline')
   int CallNonvirtualBooleanMethodA(
       JObject obj, JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallNonvirtualBooleanMethodA.asFunction<
@@ -2737,13 +2669,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         obj, clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallNonvirtualByteMethod(JObject arg1, JClass arg2, JMethodID arg3) {
     return ref.CallNonvirtualByteMethod.asFunction<
         int Function(JObject, JClass, JMethodID)>()(arg1, arg2, arg3);
   }
 
-  @pragma('vm:prefer-inline')
   int CallNonvirtualByteMethodA(
       JObject obj, JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallNonvirtualByteMethodA.asFunction<
@@ -2751,13 +2681,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         obj, clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallNonvirtualCharMethod(JObject arg1, JClass arg2, JMethodID arg3) {
     return ref.CallNonvirtualCharMethod.asFunction<
         int Function(JObject, JClass, JMethodID)>()(arg1, arg2, arg3);
   }
 
-  @pragma('vm:prefer-inline')
   int CallNonvirtualCharMethodA(
       JObject obj, JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallNonvirtualCharMethodA.asFunction<
@@ -2765,13 +2693,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         obj, clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallNonvirtualShortMethod(JObject arg1, JClass arg2, JMethodID arg3) {
     return ref.CallNonvirtualShortMethod.asFunction<
         int Function(JObject, JClass, JMethodID)>()(arg1, arg2, arg3);
   }
 
-  @pragma('vm:prefer-inline')
   int CallNonvirtualShortMethodA(
       JObject obj, JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallNonvirtualShortMethodA.asFunction<
@@ -2779,13 +2705,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         obj, clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallNonvirtualIntMethod(JObject arg1, JClass arg2, JMethodID arg3) {
     return ref.CallNonvirtualIntMethod.asFunction<
         int Function(JObject, JClass, JMethodID)>()(arg1, arg2, arg3);
   }
 
-  @pragma('vm:prefer-inline')
   int CallNonvirtualIntMethodA(
       JObject obj, JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallNonvirtualIntMethodA.asFunction<
@@ -2793,13 +2717,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         obj, clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallNonvirtualLongMethod(JObject arg1, JClass arg2, JMethodID arg3) {
     return ref.CallNonvirtualLongMethod.asFunction<
         int Function(JObject, JClass, JMethodID)>()(arg1, arg2, arg3);
   }
 
-  @pragma('vm:prefer-inline')
   int CallNonvirtualLongMethodA(
       JObject obj, JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallNonvirtualLongMethodA.asFunction<
@@ -2807,13 +2729,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         obj, clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   double CallNonvirtualFloatMethod(JObject arg1, JClass arg2, JMethodID arg3) {
     return ref.CallNonvirtualFloatMethod.asFunction<
         double Function(JObject, JClass, JMethodID)>()(arg1, arg2, arg3);
   }
 
-  @pragma('vm:prefer-inline')
   double CallNonvirtualFloatMethodA(
       JObject obj, JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallNonvirtualFloatMethodA.asFunction<
@@ -2821,13 +2741,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         obj, clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   double CallNonvirtualDoubleMethod(JObject arg1, JClass arg2, JMethodID arg3) {
     return ref.CallNonvirtualDoubleMethod.asFunction<
         double Function(JObject, JClass, JMethodID)>()(arg1, arg2, arg3);
   }
 
-  @pragma('vm:prefer-inline')
   double CallNonvirtualDoubleMethodA(
       JObject obj, JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallNonvirtualDoubleMethodA.asFunction<
@@ -2835,13 +2753,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         obj, clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   void CallNonvirtualVoidMethod(JObject arg1, JClass arg2, JMethodID arg3) {
     return ref.CallNonvirtualVoidMethod.asFunction<
         void Function(JObject, JClass, JMethodID)>()(arg1, arg2, arg3);
   }
 
-  @pragma('vm:prefer-inline')
   void CallNonvirtualVoidMethodA(
       JObject obj, JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallNonvirtualVoidMethodA.asFunction<
@@ -2849,7 +2765,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         obj, clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   JFieldID GetFieldID(
       JClass clazz, ffi.Pointer<ffi.Char> name, ffi.Pointer<ffi.Char> sig) {
     return ref.GetFieldID.asFunction<
@@ -2857,115 +2772,96 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             ffi.Pointer<ffi.Char>)>()(clazz, name, sig);
   }
 
-  @pragma('vm:prefer-inline')
   JObject GetObjectField(JObject obj, JFieldID fieldID) {
     return ref.GetObjectField.asFunction<JObject Function(JObject, JFieldID)>()(
         obj, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   int GetBooleanField(JObject obj, JFieldID fieldID) {
     return ref.GetBooleanField.asFunction<int Function(JObject, JFieldID)>()(
         obj, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   int GetByteField(JObject obj, JFieldID fieldID) {
     return ref.GetByteField.asFunction<int Function(JObject, JFieldID)>()(
         obj, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   int GetCharField(JObject obj, JFieldID fieldID) {
     return ref.GetCharField.asFunction<int Function(JObject, JFieldID)>()(
         obj, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   int GetShortField(JObject obj, JFieldID fieldID) {
     return ref.GetShortField.asFunction<int Function(JObject, JFieldID)>()(
         obj, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   int GetIntField(JObject obj, JFieldID fieldID) {
     return ref.GetIntField.asFunction<int Function(JObject, JFieldID)>()(
         obj, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   int GetLongField(JObject obj, JFieldID fieldID) {
     return ref.GetLongField.asFunction<int Function(JObject, JFieldID)>()(
         obj, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   double GetFloatField(JObject obj, JFieldID fieldID) {
     return ref.GetFloatField.asFunction<double Function(JObject, JFieldID)>()(
         obj, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   double GetDoubleField(JObject obj, JFieldID fieldID) {
     return ref.GetDoubleField.asFunction<double Function(JObject, JFieldID)>()(
         obj, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   void SetObjectField(JObject obj, JFieldID fieldID, JObject val) {
     return ref.SetObjectField.asFunction<
         void Function(JObject, JFieldID, JObject)>()(obj, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetBooleanField(JObject obj, JFieldID fieldID, int val) {
     return ref.SetBooleanField.asFunction<
         void Function(JObject, JFieldID, int)>()(obj, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetByteField(JObject obj, JFieldID fieldID, int val) {
     return ref.SetByteField.asFunction<void Function(JObject, JFieldID, int)>()(
         obj, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetCharField(JObject obj, JFieldID fieldID, int val) {
     return ref.SetCharField.asFunction<void Function(JObject, JFieldID, int)>()(
         obj, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetShortField(JObject obj, JFieldID fieldID, int val) {
     return ref.SetShortField.asFunction<
         void Function(JObject, JFieldID, int)>()(obj, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetIntField(JObject obj, JFieldID fieldID, int val) {
     return ref.SetIntField.asFunction<void Function(JObject, JFieldID, int)>()(
         obj, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetLongField(JObject obj, JFieldID fieldID, int val) {
     return ref.SetLongField.asFunction<void Function(JObject, JFieldID, int)>()(
         obj, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetFloatField(JObject obj, JFieldID fieldID, double val) {
     return ref.SetFloatField.asFunction<
         void Function(JObject, JFieldID, double)>()(obj, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetDoubleField(JObject obj, JFieldID fieldID, double val) {
     return ref.SetDoubleField.asFunction<
         void Function(JObject, JFieldID, double)>()(obj, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   JMethodID GetStaticMethodID(
       JClass clazz, ffi.Pointer<ffi.Char> name, ffi.Pointer<ffi.Char> sig) {
     return ref.GetStaticMethodID.asFunction<
@@ -2973,13 +2869,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             ffi.Pointer<ffi.Char>)>()(clazz, name, sig);
   }
 
-  @pragma('vm:prefer-inline')
   JObject CallStaticObjectMethod(JClass arg1, JMethodID arg2) {
     return ref.CallStaticObjectMethod.asFunction<
         JObject Function(JClass, JMethodID)>()(arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   JObject CallStaticObjectMethodA(
       JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallStaticObjectMethodA.asFunction<
@@ -2987,13 +2881,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JClass, JMethodID, ffi.Pointer<JValue>)>()(clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallStaticBooleanMethod(JClass arg1, JMethodID arg2) {
     return ref.CallStaticBooleanMethod.asFunction<
         int Function(JClass, JMethodID)>()(arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   int CallStaticBooleanMethodA(
       JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallStaticBooleanMethodA.asFunction<
@@ -3001,13 +2893,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JClass, JMethodID, ffi.Pointer<JValue>)>()(clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallStaticByteMethod(JClass arg1, JMethodID arg2) {
     return ref.CallStaticByteMethod.asFunction<
         int Function(JClass, JMethodID)>()(arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   int CallStaticByteMethodA(
       JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallStaticByteMethodA.asFunction<
@@ -3015,13 +2905,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JClass, JMethodID, ffi.Pointer<JValue>)>()(clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallStaticCharMethod(JClass arg1, JMethodID arg2) {
     return ref.CallStaticCharMethod.asFunction<
         int Function(JClass, JMethodID)>()(arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   int CallStaticCharMethodA(
       JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallStaticCharMethodA.asFunction<
@@ -3029,13 +2917,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JClass, JMethodID, ffi.Pointer<JValue>)>()(clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallStaticShortMethod(JClass arg1, JMethodID arg2) {
     return ref.CallStaticShortMethod.asFunction<
         int Function(JClass, JMethodID)>()(arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   int CallStaticShortMethodA(
       JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallStaticShortMethodA.asFunction<
@@ -3043,13 +2929,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JClass, JMethodID, ffi.Pointer<JValue>)>()(clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallStaticIntMethod(JClass arg1, JMethodID arg2) {
     return ref.CallStaticIntMethod.asFunction<
         int Function(JClass, JMethodID)>()(arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   int CallStaticIntMethodA(
       JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallStaticIntMethodA.asFunction<
@@ -3057,13 +2941,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JClass, JMethodID, ffi.Pointer<JValue>)>()(clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   int CallStaticLongMethod(JClass arg1, JMethodID arg2) {
     return ref.CallStaticLongMethod.asFunction<
         int Function(JClass, JMethodID)>()(arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   int CallStaticLongMethodA(
       JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallStaticLongMethodA.asFunction<
@@ -3071,13 +2953,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JClass, JMethodID, ffi.Pointer<JValue>)>()(clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   double CallStaticFloatMethod(JClass arg1, JMethodID arg2) {
     return ref.CallStaticFloatMethod.asFunction<
         double Function(JClass, JMethodID)>()(arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   double CallStaticFloatMethodA(
       JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallStaticFloatMethodA.asFunction<
@@ -3085,13 +2965,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JClass, JMethodID, ffi.Pointer<JValue>)>()(clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   double CallStaticDoubleMethod(JClass arg1, JMethodID arg2) {
     return ref.CallStaticDoubleMethod.asFunction<
         double Function(JClass, JMethodID)>()(arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   double CallStaticDoubleMethodA(
       JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallStaticDoubleMethodA.asFunction<
@@ -3099,13 +2977,11 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JClass, JMethodID, ffi.Pointer<JValue>)>()(clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   void CallStaticVoidMethod(JClass arg1, JMethodID arg2) {
     return ref.CallStaticVoidMethod.asFunction<
         void Function(JClass, JMethodID)>()(arg1, arg2);
   }
 
-  @pragma('vm:prefer-inline')
   void CallStaticVoidMethodA(
       JClass clazz, JMethodID methodID, ffi.Pointer<JValue> args) {
     return ref.CallStaticVoidMethodA.asFunction<
@@ -3113,7 +2989,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JClass, JMethodID, ffi.Pointer<JValue>)>()(clazz, methodID, args);
   }
 
-  @pragma('vm:prefer-inline')
   JFieldID GetStaticFieldID(
       JClass clazz, ffi.Pointer<ffi.Char> name, ffi.Pointer<ffi.Char> sig) {
     return ref.GetStaticFieldID.asFunction<
@@ -3121,126 +2996,105 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             ffi.Pointer<ffi.Char>)>()(clazz, name, sig);
   }
 
-  @pragma('vm:prefer-inline')
   JObject GetStaticObjectField(JClass clazz, JFieldID fieldID) {
     return ref.GetStaticObjectField.asFunction<
         JObject Function(JClass, JFieldID)>()(clazz, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   int GetStaticBooleanField(JClass clazz, JFieldID fieldID) {
     return ref.GetStaticBooleanField.asFunction<
         int Function(JClass, JFieldID)>()(clazz, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   int GetStaticByteField(JClass clazz, JFieldID fieldID) {
     return ref.GetStaticByteField.asFunction<int Function(JClass, JFieldID)>()(
         clazz, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   int GetStaticCharField(JClass clazz, JFieldID fieldID) {
     return ref.GetStaticCharField.asFunction<int Function(JClass, JFieldID)>()(
         clazz, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   int GetStaticShortField(JClass clazz, JFieldID fieldID) {
     return ref.GetStaticShortField.asFunction<int Function(JClass, JFieldID)>()(
         clazz, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   int GetStaticIntField(JClass clazz, JFieldID fieldID) {
     return ref.GetStaticIntField.asFunction<int Function(JClass, JFieldID)>()(
         clazz, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   int GetStaticLongField(JClass clazz, JFieldID fieldID) {
     return ref.GetStaticLongField.asFunction<int Function(JClass, JFieldID)>()(
         clazz, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   double GetStaticFloatField(JClass clazz, JFieldID fieldID) {
     return ref.GetStaticFloatField.asFunction<
         double Function(JClass, JFieldID)>()(clazz, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   double GetStaticDoubleField(JClass clazz, JFieldID fieldID) {
     return ref.GetStaticDoubleField.asFunction<
         double Function(JClass, JFieldID)>()(clazz, fieldID);
   }
 
-  @pragma('vm:prefer-inline')
   void SetStaticObjectField(JClass clazz, JFieldID fieldID, JObject val) {
     return ref.SetStaticObjectField.asFunction<
         void Function(JClass, JFieldID, JObject)>()(clazz, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetStaticBooleanField(JClass clazz, JFieldID fieldID, int val) {
     return ref.SetStaticBooleanField.asFunction<
         void Function(JClass, JFieldID, int)>()(clazz, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetStaticByteField(JClass clazz, JFieldID fieldID, int val) {
     return ref.SetStaticByteField.asFunction<
         void Function(JClass, JFieldID, int)>()(clazz, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetStaticCharField(JClass clazz, JFieldID fieldID, int val) {
     return ref.SetStaticCharField.asFunction<
         void Function(JClass, JFieldID, int)>()(clazz, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetStaticShortField(JClass clazz, JFieldID fieldID, int val) {
     return ref.SetStaticShortField.asFunction<
         void Function(JClass, JFieldID, int)>()(clazz, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetStaticIntField(JClass clazz, JFieldID fieldID, int val) {
     return ref.SetStaticIntField.asFunction<
         void Function(JClass, JFieldID, int)>()(clazz, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetStaticLongField(JClass clazz, JFieldID fieldID, int val) {
     return ref.SetStaticLongField.asFunction<
         void Function(JClass, JFieldID, int)>()(clazz, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetStaticFloatField(JClass clazz, JFieldID fieldID, double val) {
     return ref.SetStaticFloatField.asFunction<
         void Function(JClass, JFieldID, double)>()(clazz, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   void SetStaticDoubleField(JClass clazz, JFieldID fieldID, double val) {
     return ref.SetStaticDoubleField.asFunction<
         void Function(JClass, JFieldID, double)>()(clazz, fieldID, val);
   }
 
-  @pragma('vm:prefer-inline')
   JString NewString(ffi.Pointer<JChar> unicodeChars, int len) {
     return ref.NewString.asFunction<
         JString Function(ffi.Pointer<JChar>, int)>()(unicodeChars, len);
   }
 
-  @pragma('vm:prefer-inline')
   int GetStringLength(JString string) {
     return ref.GetStringLength.asFunction<int Function(JString)>()(string);
   }
 
-  @pragma('vm:prefer-inline')
   ffi.Pointer<JChar> GetStringChars(
       JString string, ffi.Pointer<JBoolean> isCopy) {
     return ref.GetStringChars.asFunction<
@@ -3248,24 +3102,20 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JString, ffi.Pointer<JBoolean>)>()(string, isCopy);
   }
 
-  @pragma('vm:prefer-inline')
   void ReleaseStringChars(JString string, ffi.Pointer<JChar> isCopy) {
     return ref.ReleaseStringChars.asFunction<
         void Function(JString, ffi.Pointer<JChar>)>()(string, isCopy);
   }
 
-  @pragma('vm:prefer-inline')
   JString NewStringUTF(ffi.Pointer<ffi.Char> bytes) {
     return ref.NewStringUTF.asFunction<
         JString Function(ffi.Pointer<ffi.Char>)>()(bytes);
   }
 
-  @pragma('vm:prefer-inline')
   int GetStringUTFLength(JString string) {
     return ref.GetStringUTFLength.asFunction<int Function(JString)>()(string);
   }
 
-  @pragma('vm:prefer-inline')
   ffi.Pointer<ffi.Char> GetStringUTFChars(
       JString string, ffi.Pointer<JBoolean> isCopy) {
     return ref.GetStringUTFChars.asFunction<
@@ -3273,18 +3123,15 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JString, ffi.Pointer<JBoolean>)>()(string, isCopy);
   }
 
-  @pragma('vm:prefer-inline')
   void ReleaseStringUTFChars(JString string, ffi.Pointer<ffi.Char> utf) {
     return ref.ReleaseStringUTFChars.asFunction<
         void Function(JString, ffi.Pointer<ffi.Char>)>()(string, utf);
   }
 
-  @pragma('vm:prefer-inline')
   int GetArrayLength(JArray array) {
     return ref.GetArrayLength.asFunction<int Function(JArray)>()(array);
   }
 
-  @pragma('vm:prefer-inline')
   JObjectArray NewObjectArray(
       int length, JClass elementClass, JObject initialElement) {
     return ref.NewObjectArray.asFunction<
@@ -3292,60 +3139,49 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             int, JClass, JObject)>()(length, elementClass, initialElement);
   }
 
-  @pragma('vm:prefer-inline')
   JObject GetObjectArrayElement(JObjectArray array, int index) {
     return ref.GetObjectArrayElement.asFunction<
         JObject Function(JObjectArray, int)>()(array, index);
   }
 
-  @pragma('vm:prefer-inline')
   void SetObjectArrayElement(JObjectArray array, int index, JObject val) {
     return ref.SetObjectArrayElement.asFunction<
         void Function(JObjectArray, int, JObject)>()(array, index, val);
   }
 
-  @pragma('vm:prefer-inline')
   JBooleanArray NewBooleanArray(int length) {
     return ref.NewBooleanArray.asFunction<JBooleanArray Function(int)>()(
         length);
   }
 
-  @pragma('vm:prefer-inline')
   JByteArray NewByteArray(int length) {
     return ref.NewByteArray.asFunction<JByteArray Function(int)>()(length);
   }
 
-  @pragma('vm:prefer-inline')
   JCharArray NewCharArray(int length) {
     return ref.NewCharArray.asFunction<JCharArray Function(int)>()(length);
   }
 
-  @pragma('vm:prefer-inline')
   JShortArray NewShortArray(int length) {
     return ref.NewShortArray.asFunction<JShortArray Function(int)>()(length);
   }
 
-  @pragma('vm:prefer-inline')
   JIntArray NewIntArray(int length) {
     return ref.NewIntArray.asFunction<JIntArray Function(int)>()(length);
   }
 
-  @pragma('vm:prefer-inline')
   JLongArray NewLongArray(int length) {
     return ref.NewLongArray.asFunction<JLongArray Function(int)>()(length);
   }
 
-  @pragma('vm:prefer-inline')
   JFloatArray NewFloatArray(int length) {
     return ref.NewFloatArray.asFunction<JFloatArray Function(int)>()(length);
   }
 
-  @pragma('vm:prefer-inline')
   JDoubleArray NewDoubleArray(int length) {
     return ref.NewDoubleArray.asFunction<JDoubleArray Function(int)>()(length);
   }
 
-  @pragma('vm:prefer-inline')
   ffi.Pointer<JBoolean> GetBooleanArrayElements(
       JBooleanArray array, ffi.Pointer<JBoolean> isCopy) {
     return ref.GetBooleanArrayElements.asFunction<
@@ -3353,7 +3189,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JBooleanArray, ffi.Pointer<JBoolean>)>()(array, isCopy);
   }
 
-  @pragma('vm:prefer-inline')
   ffi.Pointer<JByte> GetByteArrayElements(
       JByteArray array, ffi.Pointer<JBoolean> isCopy) {
     return ref.GetByteArrayElements.asFunction<
@@ -3361,7 +3196,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JByteArray, ffi.Pointer<JBoolean>)>()(array, isCopy);
   }
 
-  @pragma('vm:prefer-inline')
   ffi.Pointer<JChar> GetCharArrayElements(
       JCharArray array, ffi.Pointer<JBoolean> isCopy) {
     return ref.GetCharArrayElements.asFunction<
@@ -3369,7 +3203,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JCharArray, ffi.Pointer<JBoolean>)>()(array, isCopy);
   }
 
-  @pragma('vm:prefer-inline')
   ffi.Pointer<JShort> GetShortArrayElements(
       JShortArray array, ffi.Pointer<JBoolean> isCopy) {
     return ref.GetShortArrayElements.asFunction<
@@ -3377,7 +3210,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JShortArray, ffi.Pointer<JBoolean>)>()(array, isCopy);
   }
 
-  @pragma('vm:prefer-inline')
   ffi.Pointer<JInt> GetIntArrayElements(
       JIntArray array, ffi.Pointer<JBoolean> isCopy) {
     return ref.GetIntArrayElements.asFunction<
@@ -3385,7 +3217,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JIntArray, ffi.Pointer<JBoolean>)>()(array, isCopy);
   }
 
-  @pragma('vm:prefer-inline')
   ffi.Pointer<JLong> GetLongArrayElements(
       JLongArray array, ffi.Pointer<JBoolean> isCopy) {
     return ref.GetLongArrayElements.asFunction<
@@ -3393,7 +3224,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JLongArray, ffi.Pointer<JBoolean>)>()(array, isCopy);
   }
 
-  @pragma('vm:prefer-inline')
   ffi.Pointer<JFloat> GetFloatArrayElements(
       JFloatArray array, ffi.Pointer<JBoolean> isCopy) {
     return ref.GetFloatArrayElements.asFunction<
@@ -3401,7 +3231,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JFloatArray, ffi.Pointer<JBoolean>)>()(array, isCopy);
   }
 
-  @pragma('vm:prefer-inline')
   ffi.Pointer<JDouble> GetDoubleArrayElements(
       JDoubleArray array, ffi.Pointer<JBoolean> isCopy) {
     return ref.GetDoubleArrayElements.asFunction<
@@ -3409,7 +3238,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JDoubleArray, ffi.Pointer<JBoolean>)>()(array, isCopy);
   }
 
-  @pragma('vm:prefer-inline')
   void ReleaseBooleanArrayElements(
       JBooleanArray array, ffi.Pointer<JBoolean> elems, int mode) {
     return ref.ReleaseBooleanArrayElements.asFunction<
@@ -3417,7 +3245,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JBooleanArray, ffi.Pointer<JBoolean>, int)>()(array, elems, mode);
   }
 
-  @pragma('vm:prefer-inline')
   void ReleaseByteArrayElements(
       JByteArray array, ffi.Pointer<JByte> elems, int mode) {
     return ref.ReleaseByteArrayElements.asFunction<
@@ -3425,7 +3252,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JByteArray, ffi.Pointer<JByte>, int)>()(array, elems, mode);
   }
 
-  @pragma('vm:prefer-inline')
   void ReleaseCharArrayElements(
       JCharArray array, ffi.Pointer<JChar> elems, int mode) {
     return ref.ReleaseCharArrayElements.asFunction<
@@ -3433,7 +3259,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JCharArray, ffi.Pointer<JChar>, int)>()(array, elems, mode);
   }
 
-  @pragma('vm:prefer-inline')
   void ReleaseShortArrayElements(
       JShortArray array, ffi.Pointer<JShort> elems, int mode) {
     return ref.ReleaseShortArrayElements.asFunction<
@@ -3441,14 +3266,12 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JShortArray, ffi.Pointer<JShort>, int)>()(array, elems, mode);
   }
 
-  @pragma('vm:prefer-inline')
   void ReleaseIntArrayElements(
       JIntArray array, ffi.Pointer<JInt> elems, int mode) {
     return ref.ReleaseIntArrayElements.asFunction<
         void Function(JIntArray, ffi.Pointer<JInt>, int)>()(array, elems, mode);
   }
 
-  @pragma('vm:prefer-inline')
   void ReleaseLongArrayElements(
       JLongArray array, ffi.Pointer<JLong> elems, int mode) {
     return ref.ReleaseLongArrayElements.asFunction<
@@ -3456,7 +3279,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JLongArray, ffi.Pointer<JLong>, int)>()(array, elems, mode);
   }
 
-  @pragma('vm:prefer-inline')
   void ReleaseFloatArrayElements(
       JFloatArray array, ffi.Pointer<JFloat> elems, int mode) {
     return ref.ReleaseFloatArrayElements.asFunction<
@@ -3464,7 +3286,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JFloatArray, ffi.Pointer<JFloat>, int)>()(array, elems, mode);
   }
 
-  @pragma('vm:prefer-inline')
   void ReleaseDoubleArrayElements(
       JDoubleArray array, ffi.Pointer<JDouble> elems, int mode) {
     return ref.ReleaseDoubleArrayElements.asFunction<
@@ -3472,7 +3293,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JDoubleArray, ffi.Pointer<JDouble>, int)>()(array, elems, mode);
   }
 
-  @pragma('vm:prefer-inline')
   void GetBooleanArrayRegion(
       JBooleanArray array, int start, int len, ffi.Pointer<JBoolean> buf) {
     return ref.GetBooleanArrayRegion.asFunction<
@@ -3480,7 +3300,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void GetByteArrayRegion(
       JByteArray array, int start, int len, ffi.Pointer<JByte> buf) {
     return ref.GetByteArrayRegion.asFunction<
@@ -3488,7 +3307,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void GetCharArrayRegion(
       JCharArray array, int start, int len, ffi.Pointer<JChar> buf) {
     return ref.GetCharArrayRegion.asFunction<
@@ -3496,7 +3314,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void GetShortArrayRegion(
       JShortArray array, int start, int len, ffi.Pointer<JShort> buf) {
     return ref.GetShortArrayRegion.asFunction<
@@ -3504,7 +3321,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void GetIntArrayRegion(
       JIntArray array, int start, int len, ffi.Pointer<JInt> buf) {
     return ref.GetIntArrayRegion.asFunction<
@@ -3512,7 +3328,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JIntArray, int, int, ffi.Pointer<JInt>)>()(array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void GetLongArrayRegion(
       JLongArray array, int start, int len, ffi.Pointer<JLong> buf) {
     return ref.GetLongArrayRegion.asFunction<
@@ -3520,7 +3335,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void GetFloatArrayRegion(
       JFloatArray array, int start, int len, ffi.Pointer<JFloat> buf) {
     return ref.GetFloatArrayRegion.asFunction<
@@ -3528,7 +3342,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void GetDoubleArrayRegion(
       JDoubleArray array, int start, int len, ffi.Pointer<JDouble> buf) {
     return ref.GetDoubleArrayRegion.asFunction<
@@ -3536,7 +3349,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void SetBooleanArrayRegion(
       JBooleanArray array, int start, int len, ffi.Pointer<JBoolean> buf) {
     return ref.SetBooleanArrayRegion.asFunction<
@@ -3544,7 +3356,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void SetByteArrayRegion(
       JByteArray array, int start, int len, ffi.Pointer<JByte> buf) {
     return ref.SetByteArrayRegion.asFunction<
@@ -3552,7 +3363,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void SetCharArrayRegion(
       JCharArray array, int start, int len, ffi.Pointer<JChar> buf) {
     return ref.SetCharArrayRegion.asFunction<
@@ -3560,7 +3370,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void SetShortArrayRegion(
       JShortArray array, int start, int len, ffi.Pointer<JShort> buf) {
     return ref.SetShortArrayRegion.asFunction<
@@ -3568,7 +3377,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void SetIntArrayRegion(
       JIntArray array, int start, int len, ffi.Pointer<JInt> buf) {
     return ref.SetIntArrayRegion.asFunction<
@@ -3576,7 +3384,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JIntArray, int, int, ffi.Pointer<JInt>)>()(array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void SetLongArrayRegion(
       JLongArray array, int start, int len, ffi.Pointer<JLong> buf) {
     return ref.SetLongArrayRegion.asFunction<
@@ -3584,7 +3391,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void SetFloatArrayRegion(
       JFloatArray array, int start, int len, ffi.Pointer<JFloat> buf) {
     return ref.SetFloatArrayRegion.asFunction<
@@ -3592,7 +3398,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void SetDoubleArrayRegion(
       JDoubleArray array, int start, int len, ffi.Pointer<JDouble> buf) {
     return ref.SetDoubleArrayRegion.asFunction<
@@ -3600,7 +3405,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         array, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   int RegisterNatives(
       JClass clazz, ffi.Pointer<JNINativeMethod> methods, int nMethods) {
     return ref.RegisterNatives.asFunction<
@@ -3608,28 +3412,23 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
         clazz, methods, nMethods);
   }
 
-  @pragma('vm:prefer-inline')
   int UnregisterNatives(JClass clazz) {
     return ref.UnregisterNatives.asFunction<int Function(JClass)>()(clazz);
   }
 
-  @pragma('vm:prefer-inline')
   int MonitorEnter(JObject obj) {
     return ref.MonitorEnter.asFunction<int Function(JObject)>()(obj);
   }
 
-  @pragma('vm:prefer-inline')
   int MonitorExit(JObject obj) {
     return ref.MonitorExit.asFunction<int Function(JObject)>()(obj);
   }
 
-  @pragma('vm:prefer-inline')
   int GetJavaVM(ffi.Pointer<ffi.Pointer<JavaVM>> vm) {
     return ref.GetJavaVM.asFunction<
         int Function(ffi.Pointer<ffi.Pointer<JavaVM>>)>()(vm);
   }
 
-  @pragma('vm:prefer-inline')
   void GetStringRegion(
       JString str, int start, int len, ffi.Pointer<JChar> buf) {
     return ref.GetStringRegion.asFunction<
@@ -3637,7 +3436,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JString, int, int, ffi.Pointer<JChar>)>()(str, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   void GetStringUTFRegion(
       JString str, int start, int len, ffi.Pointer<ffi.Char> buf) {
     return ref.GetStringUTFRegion.asFunction<
@@ -3645,7 +3443,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JString, int, int, ffi.Pointer<ffi.Char>)>()(str, start, len, buf);
   }
 
-  @pragma('vm:prefer-inline')
   ffi.Pointer<ffi.Void> GetPrimitiveArrayCritical(
       JArray array, ffi.Pointer<JBoolean> isCopy) {
     return ref.GetPrimitiveArrayCritical.asFunction<
@@ -3653,7 +3450,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JArray, ffi.Pointer<JBoolean>)>()(array, isCopy);
   }
 
-  @pragma('vm:prefer-inline')
   void ReleasePrimitiveArrayCritical(
       JArray array, ffi.Pointer<ffi.Void> carray, int mode) {
     return ref.ReleasePrimitiveArrayCritical.asFunction<
@@ -3661,7 +3457,6 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JArray, ffi.Pointer<ffi.Void>, int)>()(array, carray, mode);
   }
 
-  @pragma('vm:prefer-inline')
   ffi.Pointer<JChar> GetStringCritical(
       JString str, ffi.Pointer<JBoolean> isCopy) {
     return ref.GetStringCritical.asFunction<
@@ -3669,45 +3464,37 @@ extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
             JString, ffi.Pointer<JBoolean>)>()(str, isCopy);
   }
 
-  @pragma('vm:prefer-inline')
   void ReleaseStringCritical(JString str, ffi.Pointer<JChar> carray) {
     return ref.ReleaseStringCritical.asFunction<
         void Function(JString, ffi.Pointer<JChar>)>()(str, carray);
   }
 
-  @pragma('vm:prefer-inline')
   JWeak NewWeakGlobalRef(JObject obj) {
     return ref.NewWeakGlobalRef.asFunction<JWeak Function(JObject)>()(obj);
   }
 
-  @pragma('vm:prefer-inline')
   void DeleteWeakGlobalRef(JWeak obj) {
     return ref.DeleteWeakGlobalRef.asFunction<void Function(JWeak)>()(obj);
   }
 
-  @pragma('vm:prefer-inline')
   int ExceptionCheck() {
     return ref.ExceptionCheck.asFunction<int Function()>()();
   }
 
-  @pragma('vm:prefer-inline')
   JObject NewDirectByteBuffer(ffi.Pointer<ffi.Void> address, int capacity) {
     return ref.NewDirectByteBuffer.asFunction<
         JObject Function(ffi.Pointer<ffi.Void>, int)>()(address, capacity);
   }
 
-  @pragma('vm:prefer-inline')
   ffi.Pointer<ffi.Void> GetDirectBufferAddress(JObject buf) {
     return ref.GetDirectBufferAddress.asFunction<
         ffi.Pointer<ffi.Void> Function(JObject)>()(buf);
   }
 
-  @pragma('vm:prefer-inline')
   int GetDirectBufferCapacity(JObject buf) {
     return ref.GetDirectBufferCapacity.asFunction<int Function(JObject)>()(buf);
   }
 
-  @pragma('vm:prefer-inline')
   int GetObjectRefType(JObject obj) {
     return ref.GetObjectRefType.asFunction<int Function(JObject)>()(obj);
   }
