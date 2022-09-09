@@ -12,38 +12,35 @@ import 'dart:ffi';
 import 'package:jni/jni.dart';
 
 // An example of calling JNI methods using low level primitives.
-String toJavaStringUsingEnv(int n) {
-  // GlobalJniEnv is a thin abstraction over JNIEnv in JNI C API.
-  // For a more ergonomic API for common use cases of calling methods and
-  // accessing fields, see next examples using JniObject and JniClass.
-  final env = Jni.env;
-  final arena = Arena();
-  final cls = env.FindClass("java/lang/String".toNativeChars(arena));
-  final mId = env.GetStaticMethodID(cls, "valueOf".toNativeChars(),
-      "(I)Ljava/lang/String;".toNativeChars(arena));
-  final i = arena<JValue>();
-  i.ref.i = n;
-  final res = env.CallStaticObjectMethodA(cls, mId, i);
-  final str = env.asDartString(res);
-  env.deleteAllRefs([res, cls]);
-  arena.releaseAll();
-  return str;
-}
+// GlobalJniEnv is a thin abstraction over JNIEnv in JNI C API.
+// For a more ergonomic API for common use cases of calling methods and
+// accessing fields, see next examples using JniObject and JniClass.
+String toJavaStringUsingEnv(int n) => using((arena) {
+      final env = Jni.env;
+      final cls = env.FindClass("java/lang/String".toNativeChars(arena));
+      final mId = env.GetStaticMethodID(cls, "valueOf".toNativeChars(),
+          "(I)Ljava/lang/String;".toNativeChars(arena));
+      final i = arena<JValue>();
+      i.ref.i = n;
+      final res = env.CallStaticObjectMethodA(cls, mId, i);
+      final str = env.asDartString(res);
+      env.deleteAllRefs([res, cls]);
+      return str;
+    });
 
-int randomUsingEnv(int n) {
-  final arena = Arena();
-  final env = Jni.env;
-  final randomCls = env.FindClass("java/util/Random".toNativeChars(arena));
-  final ctor = env.GetMethodID(
-      randomCls, "<init>".toNativeChars(arena), "()V".toNativeChars(arena));
-  final random = env.NewObject(randomCls, ctor);
-  final nextInt = env.GetMethodID(
-      randomCls, "nextInt".toNativeChars(arena), "(I)I".toNativeChars(arena));
-  final res = env.CallIntMethodA(random, nextInt, Jni.jvalues([n]));
-  env.deleteAllRefs([randomCls, random]);
-  return res;
-}
-
+int randomUsingEnv(int n) => using((arena) {
+      final arena = Arena();
+      final env = Jni.env;
+      final randomCls = env.FindClass("java/util/Random".toNativeChars(arena));
+      final ctor = env.GetMethodID(
+          randomCls, "<init>".toNativeChars(arena), "()V".toNativeChars(arena));
+      final random = env.NewObject(randomCls, ctor);
+      final nextInt = env.GetMethodID(randomCls, "nextInt".toNativeChars(arena),
+          "(I)I".toNativeChars(arena));
+      final res = env.CallIntMethodA(random, nextInt, Jni.jvalues([n]));
+      env.deleteAllRefs([randomCls, random]);
+      return res;
+    });
 double randomDouble() {
   final math = Jni.findJniClass("java/lang/Math");
   final random = math.callStaticMethodByName<double>("random", "()D", []);
@@ -60,7 +57,7 @@ int uptime() {
 
 void quit() {
   JniObject.fromRef(Jni.getCurrentActivity())
-      .use((ac) => ac.callMethodByName("finish", "()V", []));
+      .use((ac) => ac.callMethodByName<void>("finish", "()V", []));
 }
 
 void showToast(String text) {

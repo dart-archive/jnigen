@@ -39,7 +39,7 @@ jobject GetClassLoader() {
 }
 
 /// Load class through platform-specific mechanism
-/// ...
+///
 /// Currently uses application classloader on android,
 /// and JNIEnv->FindClass on other platforms.
 FFI_PLUGIN_EXPORT
