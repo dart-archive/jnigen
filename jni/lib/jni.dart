@@ -39,7 +39,7 @@
 /// the command: `dart run jni:setup -p package_name` in the same directory.
 ///
 /// ## JNIEnv
-/// `JniEnvIndir` type provides a thin wrapper over `JNIEnv*` which can be used
+/// `GlobalJniEnv` type provides a thin wrapper over `JNIEnv*` which can be used
 /// from across threads, and always returns JNI global references. This is
 /// needed because Dart doesn't make guarantees about even the straight-line
 /// code being scheduled on the same thread.
@@ -63,8 +63,8 @@ export 'src/third_party/jni_bindings_generated.dart'
     hide JNI_LOG_TAG, JniBindings, JniEnv, JniEnv1;
 export 'src/jni.dart' hide ProtectedJniExtensions;
 export 'src/jvalues.dart' hide JValueArgs, toJValues;
-export 'src/indir_extensions.dart'
-    show StringMethodsForJni, CharPtrMethodsForJni, AdditionalIndirMethods;
+export 'src/env_extensions.dart'
+    show StringMethodsForJni, CharPtrMethodsForJni, AdditionalEnvMethods;
 export 'src/jni_exceptions.dart';
-export 'src/jl_object.dart' hide JniReference;
+export 'src/jni_object.dart' hide JniReference;
 export 'package:ffi/ffi.dart' show using, Arena;

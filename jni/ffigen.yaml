@@ -11,10 +11,10 @@ description: |
 output: 'lib/src/third_party/jni_bindings_generated.dart'
 headers:
   entry-points:
-    - 'src/indir.h'
+    - 'src/global_jni_env.h'
   include-directives:
     - 'src/dartjni.h'
-    - 'src/indir.h'
+    - 'src/global_jni_env.h'
     - 'third_party/jni.h'
 compiler-opts:
   - '-Ithird_party/'

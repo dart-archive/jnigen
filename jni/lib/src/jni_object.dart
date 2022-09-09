@@ -9,7 +9,7 @@ import 'package:ffi/ffi.dart';
 import 'third_party/jni_bindings_generated.dart';
 import 'jni_exceptions.dart';
 import 'jni.dart';
-import 'indir_extensions.dart';
+import 'env_extensions.dart';
 import 'jvalues.dart';
 
 // This typedef is needed because void is a keyword and cannot be used in
@@ -52,68 +52,68 @@ class _CallGetMethods {
   Function(JClass, JMethodID, Pointer<JValue>) callStaticMethod;
 }
 
-final Pointer<JniEnvIndir> _indir = Jni.indir;
+final Pointer<GlobalJniEnv> _env = Jni.env;
 
 final Map<int, _CallGetMethods> _accessors = {
   JniType.boolType: _CallGetMethods(
-    _indir.GetBooleanField,
-    _indir.GetStaticBooleanField,
-    _indir.CallBooleanMethodA,
-    _indir.CallStaticBooleanMethodA,
+    _env.GetBooleanField,
+    _env.GetStaticBooleanField,
+    _env.CallBooleanMethodA,
+    _env.CallStaticBooleanMethodA,
   ),
   JniType.byteType: _CallGetMethods(
-    _indir.GetByteField,
-    _indir.GetStaticByteField,
-    _indir.CallByteMethodA,
-    _indir.CallStaticByteMethodA,
+    _env.GetByteField,
+    _env.GetStaticByteField,
+    _env.CallByteMethodA,
+    _env.CallStaticByteMethodA,
   ),
   JniType.shortType: _CallGetMethods(
-    _indir.GetShortField,
-    _indir.GetStaticShortField,
-    _indir.CallShortMethodA,
-    _indir.CallStaticShortMethodA,
+    _env.GetShortField,
+    _env.GetStaticShortField,
+    _env.CallShortMethodA,
+    _env.CallStaticShortMethodA,
   ),
   JniType.charType: _CallGetMethods(
-    _indir.GetCharField,
-    _indir.GetStaticCharField,
-    _indir.CallCharMethodA,
-    _indir.CallStaticCharMethodA,
+    _env.GetCharField,
+    _env.GetStaticCharField,
+    _env.CallCharMethodA,
+    _env.CallStaticCharMethodA,
   ),
   JniType.intType: _CallGetMethods(
-    _indir.GetIntField,
-    _indir.GetStaticIntField,
-    _indir.CallIntMethodA,
-    _indir.CallStaticIntMethodA,
+    _env.GetIntField,
+    _env.GetStaticIntField,
+    _env.CallIntMethodA,
+    _env.CallStaticIntMethodA,
   ),
   JniType.longType: _CallGetMethods(
-    _indir.GetLongField,
-    _indir.GetStaticLongField,
-    _indir.CallLongMethodA,
-    _indir.CallStaticLongMethodA,
+    _env.GetLongField,
+    _env.GetStaticLongField,
+    _env.CallLongMethodA,
+    _env.CallStaticLongMethodA,
   ),
   JniType.floatType: _CallGetMethods(
-    _indir.GetFloatField,
-    _indir.GetStaticFloatField,
-    _indir.CallFloatMethodA,
-    _indir.CallStaticFloatMethodA,
+    _env.GetFloatField,
+    _env.GetStaticFloatField,
+    _env.CallFloatMethodA,
+    _env.CallStaticFloatMethodA,
   ),
   JniType.doubleType: _CallGetMethods(
-    _indir.GetDoubleField,
-    _indir.GetStaticDoubleField,
-    _indir.CallDoubleMethodA,
-    _indir.CallStaticDoubleMethodA,
+    _env.GetDoubleField,
+    _env.GetStaticDoubleField,
+    _env.CallDoubleMethodA,
+    _env.CallStaticDoubleMethodA,
   ),
   JniType.objectType: _CallGetMethods(
-    _indir.GetObjectField,
-    _indir.GetStaticObjectField,
-    _indir.CallObjectMethodA,
-    _indir.CallStaticObjectMethodA,
+    _env.GetObjectField,
+    _env.GetStaticObjectField,
+    _env.CallObjectMethodA,
+    _env.CallStaticObjectMethodA,
   ),
   JniType.voidType: _CallGetMethods(
     (x, y) => throw ArgumentError('void passed as field type'),
     (x, y) => throw ArgumentError('void passed as static field type'),
-    _indir.CallVoidMethodA,
-    _indir.CallStaticVoidMethodA,
+    _env.CallVoidMethodA,
+    _env.CallStaticVoidMethodA,
   ),
 };
 
@@ -124,7 +124,7 @@ T _getID<T>(
     String sig) {
   final result = using(
       (arena) => f(ptr, name.toNativeChars(arena), sig.toNativeChars(arena)));
-  _indir.checkException();
+  _env.checkException();
   return result;
 }
 
@@ -159,17 +159,17 @@ T _callOrGet<T>(int? callType, Function(int) f) {
       result = f(finalCallType) as T;
       break;
     case String:
-    case JlObject:
-    case JlString:
+    case JniObject:
+    case JniString:
       finalCallType =
           _getCallType(callType, JniType.objectType, {JniType.objectType});
       final ref = f(finalCallType) as JObject;
       if (ref == nullptr) {
-        _indir.checkException();
+        _env.checkException();
       }
       final ctor = T == String
-          ? (ref) => _indir.asDartString(ref, deleteOriginal: true)
-          : (T == JlObject ? JlObject.fromRef : JlString.fromRef);
+          ? (ref) => _env.asDartString(ref, deleteOriginal: true)
+          : (T == JniObject ? JniObject.fromRef : JniString.fromRef);
       result = ctor(ref) as T;
       break;
     case _VoidType:
@@ -194,35 +194,35 @@ T _callMethod<T>(
   calloc.free(jArgs.values);
   jArgs.dispose();
   if (result == 0 || result == 0.0 || result == null) {
-    _indir.checkException();
+    _env.checkException();
   }
   return result;
 }
 
 T _getField<T>(int? callType, Function(int) f) {
   final result = _callOrGet<T>(callType, f);
-  _indir.checkException();
+  _env.checkException();
   return result;
 }
 
 /// A high-level wrapper for JNI global object reference.
 ///
 /// This is the base class for classes generated by `jnigen`.
-class JlObject extends JniReference implements Finalizable {
+class JniObject extends JniReference implements Finalizable {
   /// Finalizer for this class
-  static final _finalizer = NativeFinalizer(_indir.ref.DeleteGlobalRef);
+  static final _finalizer = NativeFinalizer(_env.ref.DeleteGlobalRef);
 
-  /// Construct a new [JlObject] with [reference] as its underlying reference.
-  JlObject.fromRef(this.reference) {
+  /// Construct a new [JniObject] with [reference] as its underlying reference.
+  JniObject.fromRef(this.reference) {
     _finalizer.attach(this, reference, detach: this);
   }
 
   /// Pass the underlying reference into [function] and return the result.
   ///
   /// Result of [function] takes ownership of [reference], and this object is
-  /// marked as deleted. [function] can be constructor of a subclass of JlClass,
+  /// marked as deleted. [function] can be constructor of a subclass of JniClass
   /// in which case this function will be useful to cast an expression.
-  T into<T extends JlObject>(T Function(JObject) function) {
+  T into<T extends JniObject>(T Function(JObject) function) {
     _assertNotDeleted();
     _finalizer.detach(this);
     _deleted = true;
@@ -239,8 +239,6 @@ class JlObject extends JniReference implements Finalizable {
   /// The underlying JNI global reference of this object.
   final JObject reference;
 
-  static final _indir = Jni.indir;
-
   bool _deleted = false;
 
   /// Reference to class of the reference obtained using `GetObjectClass`. It's
@@ -251,7 +249,7 @@ class JlObject extends JniReference implements Finalizable {
   JObject? _classRef;
 
   JObject get _class {
-    _classRef ??= _indir.GetObjectClass(reference);
+    _classRef ??= _env.GetObjectClass(reference);
     _finalizer.attach(this, _classRef!, detach: this);
     return _classRef!;
   }
@@ -272,42 +270,42 @@ class JlObject extends JniReference implements Finalizable {
     }
     _deleted = true;
     _finalizer.detach(this);
-    _indir.DeleteGlobalRef(reference);
+    _env.DeleteGlobalRef(reference);
     if (_classRef != null) {
-      _indir.DeleteGlobalRef(_classRef!);
+      _env.DeleteGlobalRef(_classRef!);
     }
   }
 
-  /// Returns [JlClass] corresponding to concrete class of this object.
+  /// Returns [JniClass] corresponding to concrete class of this object.
   ///
   /// This may be a subclass of compile-time class.
-  JlClass getClass() {
+  JniClass getClass() {
     _assertNotDeleted();
-    return JlClass.fromRef(_indir.GetObjectClass(reference));
+    return JniClass.fromRef(_env.GetObjectClass(reference));
   }
 
   /// Get [JFieldID] of instance field identified by [fieldName] & [signature].
   JFieldID getFieldID(String fieldName, String signature) {
     _assertNotDeleted();
-    return _getID(_indir.GetFieldID, _class, fieldName, signature);
+    return _getID(_env.GetFieldID, _class, fieldName, signature);
   }
 
   /// Get [JFieldID] of static field identified by [fieldName] & [signature].
   JFieldID getStaticFieldID(String fieldName, String signature) {
     _assertNotDeleted();
-    return _getID(_indir.GetStaticFieldID, _class, fieldName, signature);
+    return _getID(_env.GetStaticFieldID, _class, fieldName, signature);
   }
 
   /// Get [JMethodID] of instance method [methodName] with [signature].
   JMethodID getMethodID(String methodName, String signature) {
     _assertNotDeleted();
-    return _getID(_indir.GetMethodID, _class, methodName, signature);
+    return _getID(_env.GetMethodID, _class, methodName, signature);
   }
 
   /// Get [JMethodID] of static method [methodName] with [signature].
   JMethodID getStaticMethodID(String methodName, String signature) {
     _assertNotDeleted();
-    return _getID(_indir.GetStaticMethodID, _class, methodName, signature);
+    return _getID(_env.GetStaticMethodID, _class, methodName, signature);
   }
 
   /// Retrieve the value of the field using [fieldID].
@@ -315,9 +313,9 @@ class JlObject extends JniReference implements Finalizable {
   /// [callType] determines the return type of the underlying JNI call made.
   /// If the Java field is of `long` type, this must be [JniType.longType] and
   /// so on. Default is chosen based on return type [T], which maps int -> int,
-  /// double -> double, void -> void, and JlObject types to `Object`.
+  /// double -> double, void -> void, and JniObject types to `Object`.
   ///
-  /// If [T] is String or [JlObject], required conversions are performed and
+  /// If [T] is String or [JniObject], required conversions are performed and
   /// final value is returned.
   T getField<T>(JFieldID fieldID, [int? callType]) {
     _assertNotDeleted();
@@ -353,7 +351,7 @@ class JlObject extends JniReference implements Finalizable {
   /// Call the method using [methodID],
   ///
   /// [args] can consist of primitive types, JNI primitive wrappers such as
-  /// [JValueLong], strings, and subclasses of [JlObject].
+  /// [JValueLong], strings, and subclasses of [JniObject].
   ///
   /// See [getField] for an explanation about [callType] and return type [T].
   T callMethod<T>(JMethodID methodID, List<dynamic> args, [int? callType]) {
@@ -394,9 +392,9 @@ class JlObject extends JniReference implements Finalizable {
 }
 
 /// A high level wrapper over a JNI class reference.
-class JlClass extends JniReference implements Finalizable {
-  /// Construct a new [JlClass] with [reference] as its underlying reference.
-  JlClass.fromRef(this.reference) {
+class JniClass extends JniReference implements Finalizable {
+  /// Construct a new [JniClass] with [reference] as its underlying reference.
+  JniClass.fromRef(this.reference) {
     _finalizer.attach(this, reference, detach: this);
   }
 
@@ -404,7 +402,7 @@ class JlClass extends JniReference implements Finalizable {
   final JClass reference;
   bool _deleted = false;
 
-  static final _finalizer = NativeFinalizer(_indir.ref.DeleteGlobalRef);
+  static final _finalizer = NativeFinalizer(_env.ref.DeleteGlobalRef);
 
   @override
   void _assertNotDeleted() {
@@ -426,31 +424,31 @@ class JlClass extends JniReference implements Finalizable {
     }
     _deleted = true;
     _finalizer.detach(this);
-    _indir.DeleteGlobalRef(reference);
+    _env.DeleteGlobalRef(reference);
   }
 
   /// Get [JFieldID] of static field [fieldName] with [signature].
   JFieldID getStaticFieldID(String fieldName, String signature) {
     _assertNotDeleted();
-    return _getID(_indir.GetStaticFieldID, reference, fieldName, signature);
+    return _getID(_env.GetStaticFieldID, reference, fieldName, signature);
   }
 
   /// Get [JMethodID] of static method [methodName] with [signature].
   JMethodID getStaticMethodID(String methodName, String signature) {
     _assertNotDeleted();
-    return _getID(_indir.GetStaticMethodID, reference, methodName, signature);
+    return _getID(_env.GetStaticMethodID, reference, methodName, signature);
   }
 
   /// Get [JFieldID] of field [fieldName] with [signature].
   JFieldID getFieldID(String fieldName, String signature) {
     _assertNotDeleted();
-    return _getID(_indir.GetFieldID, reference, fieldName, signature);
+    return _getID(_env.GetFieldID, reference, fieldName, signature);
   }
 
   /// Get [JMethodID] of method [methodName] with [signature].
   JMethodID getMethodID(String methodName, String signature) {
     _assertNotDeleted();
-    return _getID(_indir.GetMethodID, reference, methodName, signature);
+    return _getID(_env.GetMethodID, reference, methodName, signature);
   }
 
   /// Get [JMethodID] of constructor with [signature].
@@ -458,7 +456,7 @@ class JlClass extends JniReference implements Finalizable {
 
   /// Get the value of static field using [fieldID].
   ///
-  /// See [JlObject.getField] for more explanation about [callType].
+  /// See [JniObject.getField] for more explanation about [callType].
   T getStaticField<T>(JFieldID fieldID, [int? callType]) {
     _assertNotDeleted();
     return _getField<T>(
@@ -475,7 +473,7 @@ class JlClass extends JniReference implements Finalizable {
 
   /// Call the static method using [methodID].
   ///
-  /// See [JlObject.callMethod] and [JlObject.getField] for more explanation
+  /// See [JniObject.callMethod] and [JniObject.getField] for more explanation
   /// about [args] and [callType].
   T callStaticMethod<T>(JMethodID methodID, List<dynamic> args,
       [int? callType]) {
@@ -497,32 +495,32 @@ class JlClass extends JniReference implements Finalizable {
   }
 
   /// Create a new instance of this class with [ctor] and [args].
-  JlObject newObject(JMethodID ctor, List<dynamic> args) {
+  JniObject newObject(JMethodID ctor, List<dynamic> args) {
     _assertNotDeleted();
     final jArgs = JValueArgs(args);
-    final res = _indir.NewObjectA(reference, ctor, jArgs.values);
+    final res = _env.NewObjectA(reference, ctor, jArgs.values);
     calloc.free(jArgs.values);
     jArgs.dispose();
     if (res == nullptr) {
-      _indir.checkException();
+      _env.checkException();
     }
-    return JlObject.fromRef(res);
+    return JniObject.fromRef(res);
   }
 }
 
-class JlString extends JlObject {
-  /// Construct a new [JlString] with [reference] as its underlying reference.
-  JlString.fromRef(JString reference) : super.fromRef(reference);
+class JniString extends JniObject {
+  /// Construct a new [JniString] with [reference] as its underlying reference.
+  JniString.fromRef(JString reference) : super.fromRef(reference);
 
   static JString _toJavaString(String s) {
     final chars = s.toNativeUtf8().cast<Char>();
-    final jstr = _indir.NewStringUTF(chars);
+    final jstr = _env.NewStringUTF(chars);
     malloc.free(chars);
     return jstr;
   }
 
-  /// Construct a [JlString] from the contents of Dart string [s].
-  JlString.fromString(String s) : super.fromRef(_toJavaString(s));
+  /// Construct a [JniString] from the contents of Dart string [s].
+  JniString.fromString(String s) : super.fromRef(_toJavaString(s));
 
   /// Returns the contents as a Dart String.
   ///
@@ -531,11 +529,11 @@ class JlString extends JlObject {
   String toDartString({bool deleteOriginal = false}) {
     _assertNotDeleted();
     if (reference == nullptr) {
-      throw NullJlStringException();
+      throw NullJniStringException();
     }
-    final chars = _indir.GetStringUTFChars(reference, nullptr);
+    final chars = _env.GetStringUTFChars(reference, nullptr);
     final result = chars.cast<Utf8>().toDartString();
-    _indir.ReleaseStringUTFChars(reference, chars);
+    _env.ReleaseStringUTFChars(reference, chars);
     if (deleteOriginal) {
       delete();
     }
@@ -543,9 +541,9 @@ class JlString extends JlObject {
   }
 }
 
-extension ToJlStringMethod on String {
-  /// Returns a [JlString] with the contents of this String.
-  JlString jlString() {
-    return JlString.fromString(this);
+extension ToJniStringMethod on String {
+  /// Returns a [JniString] with the contents of this String.
+  JniString jniString() {
+    return JniString.fromString(this);
   }
 }

@@ -7,11 +7,11 @@ import 'package:ffi/ffi.dart';
 
 import 'third_party/jni_bindings_generated.dart';
 import 'jni.dart';
-import 'jl_object.dart';
-import 'indir_extensions.dart';
+import 'jni_object.dart';
+import 'env_extensions.dart';
 
 void _fillJValue(Pointer<JValue> pos, dynamic arg) {
-  if (arg is JlObject) {
+  if (arg is JniObject) {
     pos.ref.l = arg.reference;
     return;
   }
@@ -119,7 +119,7 @@ class JValueChar {
 class JValueArgs {
   late Pointer<JValue> values;
   final List<JObject> createdRefs = [];
-  final _indir = Jni.indir;
+  final _env = Jni.env;
 
   JValueArgs(List<dynamic> args, [Allocator allocator = malloc]) {
     values = allocator<JValue>(args.length);
@@ -127,7 +127,7 @@ class JValueArgs {
       final arg = args[i];
       final ptr = values.elementAt(i);
       if (arg is String) {
-        final jstr = _indir.asJString(arg);
+        final jstr = _env.asJString(arg);
         ptr.ref.l = jstr;
         createdRefs.add(jstr);
       } else {
@@ -139,7 +139,7 @@ class JValueArgs {
   /// Deletes temporary references such as [JString]s.
   void dispose() {
     for (var ref in createdRefs) {
-      _indir.DeleteGlobalRef(ref);
+      _env.DeleteGlobalRef(ref);
     }
   }
 }

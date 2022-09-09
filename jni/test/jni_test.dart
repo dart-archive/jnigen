@@ -28,21 +28,21 @@ void main() {
     }
   }
 
-  // Tests in this file demonstrate how to use `Indir`, a thin abstraction over
-  // JNIEnv in JNI C API. Indir can be used from multiple threads, and converts
-  // all returned object references to global references, so that you don't
-  // need to worry about whether your Dart code will be scheduled on another
-  // thread.
+  // Tests in this file demonstrate how to use `GlobalJniEnv`, a thin
+  // abstraction over JNIEnv in JNI C API. This can be used from multiple
+  // threads, and converts all returned object references to global references,
+  // so that you don't need to worry about whether your Dart code will be
+  // scheduled on another thread.
   //
-  // Indir wraps all methods of JNIEnv (UpperCamelCase, reflecting original name
-  // of the method) and provides few more extension methods (lowerCamelCase).
+  // GlobalJniEnv wraps all methods of JNIEnv (UpperCamelCase, reflecting the
+  // original name of the method) and provides few more extension methods
+  // (lowerCamelCase).
   //
-  // For examples of a higher level API, see `jl_object_tests.dart`.
-  final indir = Jni.indir;
+  // For examples of a higher level API, see `jni_object_tests.dart`.
+  final env = Jni.env;
 
   test('get JNI Version', () {
-    final indir = Jni.indir;
-    expect(indir.GetVersion(), isNot(equals(0)));
+    expect(Jni.env.GetVersion(), isNot(equals(0)));
   });
 
   test('Manually lookup & call Long.toHexString static method', () {
@@ -54,10 +54,10 @@ void main() {
     // Method names on JniEnv* from C JNI API are capitalized
     // like in original, while other extension methods
     // follow Dart naming conventions.
-    final longClass = indir.FindClass("java/lang/Long".toNativeChars(arena));
+    final longClass = env.FindClass("java/lang/Long".toNativeChars(arena));
     // Refer JNI spec on how to construct method signatures
     // Passing wrong signature leads to a segfault
-    final hexMethod = indir.GetStaticMethodID(
+    final hexMethod = env.GetStaticMethodID(
         longClass,
         "toHexString".toNativeChars(arena),
         "(J)Ljava/lang/String;".toNativeChars(arena));
@@ -67,12 +67,12 @@ void main() {
       // if your argument is int, bool, or JObject (`Pointer<Void>`)
       // it can be directly placed in the list. To convert into different primitive
       // types, use JValue<Type> wrappers.
-      final jres = indir.CallStaticObjectMethodA(
+      final jres = env.CallStaticObjectMethodA(
           longClass, hexMethod, Jni.jvalues([JValueLong(i)], allocator: arena));
 
       // use asDartString extension method on Pointer<JniEnv>
       // to convert a String jobject result to string
-      final res = indir.asDartString(jres);
+      final res = env.asDartString(jres);
       expect(res, equals(i.toRadixString(16)));
 
       // Any object or class result from java is a local reference
@@ -80,9 +80,9 @@ void main() {
       // Note that method and field IDs aren't local references.
       // But they are valid only until a reference to corresponding
       // java class exists.
-      indir.DeleteGlobalRef(jres);
+      env.DeleteGlobalRef(jres);
     }
-    indir.DeleteGlobalRef(longClass);
+    env.DeleteGlobalRef(longClass);
     arena.releaseAll();
   });
 
@@ -91,40 +91,40 @@ void main() {
     // convenience method that wraps
     // converting dart string to native string,
     // instantiating java string, and freeing the native string
-    final jstr = indir.asJString(str);
-    expect(str, equals(indir.asDartString(jstr)));
-    indir.DeleteGlobalRef(jstr);
+    final jstr = env.asJString(str);
+    expect(str, equals(env.asDartString(jstr)));
+    env.DeleteGlobalRef(jstr);
   });
 
   test("Convert back and forth between dart and java string", () {
     final arena = Arena();
     const str = "ABCD EFGH";
     // This is what asJString and asDartString do internally
-    final jstr = indir.NewStringUTF(str.toNativeChars(arena));
-    final jchars = indir.GetStringUTFChars(jstr, nullptr);
+    final jstr = env.NewStringUTF(str.toNativeChars(arena));
+    final jchars = env.GetStringUTFChars(jstr, nullptr);
     final dstr = jchars.toDartString();
-    indir.ReleaseStringUTFChars(jstr, jchars);
+    env.ReleaseStringUTFChars(jstr, jchars);
     expect(str, equals(dstr));
-    indir.DeleteGlobalRef(jstr);
+    env.DeleteGlobalRef(jstr);
     arena.releaseAll();
   });
 
   test("Print something from Java", () {
     final arena = Arena();
-    final system = indir.FindClass("java/lang/System".toNativeChars(arena));
-    final field = indir.GetStaticFieldID(system, "out".toNativeChars(arena),
+    final system = env.FindClass("java/lang/System".toNativeChars(arena));
+    final field = env.GetStaticFieldID(system, "out".toNativeChars(arena),
         "Ljava/io/PrintStream;".toNativeChars(arena));
-    final out = indir.GetStaticObjectField(system, field);
-    final printStream = indir.GetObjectClass(out);
+    final out = env.GetStaticObjectField(system, field);
+    final printStream = env.GetObjectClass(out);
     /*
     final println = env.GetMethodID(printStream, "println".toNativeChars(arena),
         "(Ljava/lang/String;)V".toNativeChars(arena));
 	*/
     const str = "\nHello JNI!";
-    final jstr = indir.asJString(str);
+    final jstr = env.asJString(str);
     // test runner can't compare what's printed by Java, leaving it
     // env.CallVoidMethodA(out, println, Jni.jvalues([jstr]));
-    indir.deleteAllRefs([system, printStream, jstr]);
+    env.deleteAllRefs([system, printStream, jstr]);
     arena.releaseAll();
   });
 }

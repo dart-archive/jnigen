@@ -26,7 +26,7 @@ class DartBindingsGenerator {
 
   static const String _void = '${ffi}Void';
 
-  static const String _jlObject = '${jni}JlObject';
+  static const String _jniObject = '${jni}JniObject';
 
   DartBindingsGenerator(this.config, this.resolver);
   Config config;
@@ -52,11 +52,11 @@ class DartBindingsGenerator {
     s.write(_breakDocComment(decl.javadoc, depth: ''));
     final name = _getSimpleName(decl.binaryName);
 
-    var superName = _jlObject;
+    var superName = _jniObject;
     if (decl.superclass != null) {
       superName = resolver
               .resolve((decl.superclass!.type as DeclaredType).binaryName) ??
-          _jlObject;
+          _jniObject;
     }
 
     s.write('class $name extends $superName {\n');
@@ -127,7 +127,7 @@ class DartBindingsGenerator {
       final className = _getSimpleName(c.binaryName);
       final ctorFnName = name == 'ctor' ? className : '$className.$name';
       s.write('$ctorFnName(${_formalArgs(m)}) : '
-          'super.fromRef($wrapperExpr) { jni.Jni.indir.checkException(); }\n');
+          'super.fromRef($wrapperExpr) { jni.Jni.env.checkException(); }\n');
       return s.toString();
     }
 
@@ -136,7 +136,7 @@ class DartBindingsGenerator {
     final depth = '$_indent$_indent';
     s.write('$returnType $name(${_formalArgs(m)}) {');
     s.write('${depth}final result__ = $wrapperExpr;');
-    s.write('${depth}jni.Jni.indir.checkException();');
+    s.write('${depth}jni.Jni.env.checkException();');
     s.write('${depth}return result__;\n$_indent}');
     return s.toString();
   }
@@ -286,13 +286,13 @@ class DartBindingsGenerator {
         throw SkipException('Not supported: generics');
       case Kind.array:
         if (resolver != null) {
-          return _jlObject;
+          return _jniObject;
         }
         return _voidPtr;
       case Kind.declared:
         if (resolver != null) {
           return resolver.resolve((t.type as DeclaredType).binaryName) ??
-              _jlObject;
+              _jniObject;
         }
         return _voidPtr;
     }

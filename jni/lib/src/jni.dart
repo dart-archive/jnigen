@@ -9,10 +9,10 @@ import 'package:ffi/ffi.dart';
 import 'package:path/path.dart';
 
 import 'third_party/jni_bindings_generated.dart';
-import 'indir_extensions.dart';
+import 'env_extensions.dart';
 import 'jvalues.dart';
 import 'jni_exceptions.dart';
-import 'jl_object.dart';
+import 'jni_object.dart';
 
 String _getLibraryFileName(String base) {
   if (Platform.isLinux || Platform.isAndroid) {
@@ -139,25 +139,25 @@ abstract class Jni {
     return _bindings.GetJavaVM();
   }
 
-  /// Returns the indirection instance, which is an abstraction over JNIEnv
+  /// Returns the instance of [GlobalJniEnv], which is an abstraction over JNIEnv
   /// without the same-thread restriction.
-  static Pointer<JniEnvIndir> _fetchIndir() {
-    final indir = _bindings.GetIndir();
-    if (indir == nullptr) {
+  static Pointer<GlobalJniEnv> _fetchGlobalEnv() {
+    final env = _bindings.GetGlobalEnv();
+    if (env == nullptr) {
       throw NoJvmInstanceException();
     }
-    return indir;
+    return env;
   }
 
-  static Pointer<JniEnvIndir>? _indir;
+  static Pointer<GlobalJniEnv>? _env;
 
-  /// Returns pointer to a process-wide shared instance of [Indir].
+  /// Points to a process-wide shared instance of [GlobalJniEnv].
   ///
-  /// [Indir] provides an indirection over [JniEnv] so that it can be used from
+  /// It provides an indirection over [JniEnv] so that it can be used from
   /// any thread, and always returns global object references.
-  static Pointer<JniEnvIndir> get indir {
-    _indir ??= _fetchIndir();
-    return _indir!;
+  static Pointer<GlobalJniEnv> get env {
+    _env ??= _fetchGlobalEnv();
+    return _env!;
   }
 
   /// Returns current application context on Android.
@@ -181,23 +181,23 @@ abstract class Jni {
     final cls = _bindings.LoadClass(nameChars);
     calloc.free(nameChars);
     if (cls == nullptr) {
-      indir.checkException();
+      env.checkException();
     }
     return cls;
   }
 
   /// Returns class for [qualifiedName] found by platform-specific mechanism,
-  /// wrapped in a [JlClass].
-  static JlClass findJlClass(String qualifiedName) =>
-      JlClass.fromRef(findClass(qualifiedName));
+  /// wrapped in a [JniClass].
+  static JniClass findJniClass(String qualifiedName) =>
+      JniClass.fromRef(findClass(qualifiedName));
 
   /// Constructs an instance of class with given arguments.
   ///
   /// Use it when one instance is needed, but the constructor or class aren't
   /// required themselves.
-  static JlObject newInstance(
+  static JniObject newInstance(
       String qualifiedName, String ctorSignature, List<dynamic> args) {
-    final cls = findJlClass(qualifiedName);
+    final cls = findJniClass(qualifiedName);
     final ctor = cls.getCtorID(ctorSignature);
     final obj = cls.newObject(ctor, args);
     cls.delete();
@@ -216,11 +216,11 @@ abstract class Jni {
 
   /// Returns the value of static field identified by [fieldName] & [signature].
   ///
-  /// See [JlObject.getField] for more explanations about [callType] and [T].
+  /// See [JniObject.getField] for more explanations about [callType] and [T].
   static T retrieveStaticField<T>(
       String className, String fieldName, String signature,
       [int? callType]) {
-    final cls = findJlClass(className);
+    final cls = findJniClass(className);
     final result = cls.getStaticFieldByName<T>(fieldName, signature, callType);
     cls.delete();
     return result;
@@ -229,12 +229,12 @@ abstract class Jni {
   /// Calls static method identified by [methodName] and [signature]
   /// on [className] with [args] as and [callType].
   ///
-  /// For more explanation on [args] and [callType], see [JlObject.getField]
-  /// and [JlObject.callMethod] respectively.
+  /// For more explanation on [args] and [callType], see [JniObject.getField]
+  /// and [JniObject.callMethod] respectively.
   static T invokeStaticMethod<T>(
       String className, String methodName, String signature, List<dynamic> args,
       [int? callType]) {
-    final cls = findJlClass(className);
+    final cls = findJniClass(className);
     final result =
         cls.callStaticMethodByName<T>(methodName, signature, args, callType);
     cls.delete();
@@ -270,5 +270,5 @@ extension ProtectedJniExtensions on Jni {
   }
 
   /// Checks for and rethrows any pending exception in JNI as a [JniException].
-  static void checkException() => Jni.indir.checkException();
+  static void checkException() => Jni.env.checkException();
 }

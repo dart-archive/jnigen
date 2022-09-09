@@ -7,11 +7,11 @@
 
 #include "dartjni.h"
 
-struct JniContext jni = {NULL, NULL, NULL, NULL, NULL};
+JniContext jni = {NULL, NULL, NULL, NULL, NULL};
 
 thread_local JNIEnv *jniEnv = NULL;
 
-FFI_PLUGIN_EXPORT struct JniContext GetJniContext() { return jni; }
+FFI_PLUGIN_EXPORT JniContext GetJniContext() { return jni; }
 
 /// Get JVM associated with current process.
 /// Returns NULL if no JVM is running.

@@ -13,7 +13,7 @@ import "package:jni/jni.dart" as jni;
 import "../../../../_init.dart" show jlookup;
 
 /// from: com.github.dart_lang.jnigen.pkg2.C2
-class C2 extends jni.JlObject {
+class C2 extends jni.JniObject {
   C2.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _get_CONSTANT =
@@ -38,6 +38,6 @@ class C2 extends jni.JlObject {
 
   /// from: public void <init>()
   C2() : super.fromRef(_ctor()) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 }

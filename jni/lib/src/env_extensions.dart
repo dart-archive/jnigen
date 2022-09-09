@@ -10,7 +10,7 @@ import 'third_party/jni_bindings_generated.dart';
 
 import 'jni_exceptions.dart';
 
-extension AdditionalIndirMethods on Pointer<JniEnvIndir> {
+extension AdditionalEnvMethods on Pointer<GlobalJniEnv> {
   /// Convenience method for converting a [JString]
   /// to dart string.
   /// if [deleteOriginal] is specified, jstring passed will be deleted using

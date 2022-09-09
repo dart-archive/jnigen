@@ -17,9 +17,9 @@ class UseAfterFreeException implements Exception {
   }
 }
 
-class NullJlStringException implements Exception {
+class NullJniStringException implements Exception {
   @override
-  String toString() => 'toDartString called on null JlString reference';
+  String toString() => 'toDartString called on null JniString reference';
 }
 
 class DoubleFreeException implements Exception {

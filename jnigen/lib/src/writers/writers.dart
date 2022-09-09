@@ -81,7 +81,7 @@ class FilesWriter extends BindingsWriter {
       final dartFile = await File.fromUri(dartFileUri).create(recursive: true);
       final resolver = PackagePathResolver(
           config.importMap ?? const {}, packageName, classNames,
-          predefined: {'java.lang.String': 'jni.JlString'});
+          predefined: {'java.lang.String': 'jni.JniString'});
       final cgen = CBindingGenerator(config);
       final dgen = DartBindingsGenerator(config, resolver);
 

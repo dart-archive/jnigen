@@ -11,54 +11,55 @@ import 'dart:ffi';
 
 import 'package:jni/jni.dart';
 
-String toJavaStringUsingIndir(int n) {
-  // Indir is a thin abstraction over JNIEnv in JNI C API.
+// An example of calling JNI methods using low level primitives.
+String toJavaStringUsingEnv(int n) {
+  // GlobalJniEnv is a thin abstraction over JNIEnv in JNI C API.
   // For a more ergonomic API for common use cases of calling methods and
-  // accessing fields, see next examples using JlObject and JlClass.
-  final indir = Jni.indir;
+  // accessing fields, see next examples using JniObject and JniClass.
+  final env = Jni.env;
   final arena = Arena();
-  final cls = indir.FindClass("java/lang/String".toNativeChars(arena));
-  final mId = indir.GetStaticMethodID(cls, "valueOf".toNativeChars(),
+  final cls = env.FindClass("java/lang/String".toNativeChars(arena));
+  final mId = env.GetStaticMethodID(cls, "valueOf".toNativeChars(),
       "(I)Ljava/lang/String;".toNativeChars(arena));
   final i = arena<JValue>();
   i.ref.i = n;
-  final res = indir.CallStaticObjectMethodA(cls, mId, i);
-  final str = indir.asDartString(res);
-  indir.deleteAllRefs([res, cls]);
+  final res = env.CallStaticObjectMethodA(cls, mId, i);
+  final str = env.asDartString(res);
+  env.deleteAllRefs([res, cls]);
   arena.releaseAll();
   return str;
 }
 
-int randomUsingIndir(int n) {
+int randomUsingEnv(int n) {
   final arena = Arena();
-  final indir = Jni.indir;
-  final randomCls = indir.FindClass("java/util/Random".toNativeChars(arena));
-  final ctor = indir.GetMethodID(
+  final env = Jni.env;
+  final randomCls = env.FindClass("java/util/Random".toNativeChars(arena));
+  final ctor = env.GetMethodID(
       randomCls, "<init>".toNativeChars(arena), "()V".toNativeChars(arena));
-  final random = indir.NewObject(randomCls, ctor);
-  final nextInt = indir.GetMethodID(
+  final random = env.NewObject(randomCls, ctor);
+  final nextInt = env.GetMethodID(
       randomCls, "nextInt".toNativeChars(arena), "(I)I".toNativeChars(arena));
-  final res = indir.CallIntMethodA(random, nextInt, Jni.jvalues([n]));
-  indir.deleteAllRefs([randomCls, random]);
+  final res = env.CallIntMethodA(random, nextInt, Jni.jvalues([n]));
+  env.deleteAllRefs([randomCls, random]);
   return res;
 }
 
 double randomDouble() {
-  final math = Jni.findJlClass("java/lang/Math");
+  final math = Jni.findJniClass("java/lang/Math");
   final random = math.callStaticMethodByName<double>("random", "()D", []);
   math.delete();
   return random;
 }
 
 int uptime() {
-  return Jni.findJlClass("android/os/SystemClock").use(
+  return Jni.findJniClass("android/os/SystemClock").use(
     (systemClock) => systemClock.callStaticMethodByName<int>(
         "uptimeMillis", "()J", [], JniType.longType),
   );
 }
 
 void quit() {
-  JlObject.fromRef(Jni.getCurrentActivity())
+  JniObject.fromRef(Jni.getCurrentActivity())
       .use((ac) => ac.callMethodByName("finish", "()V", []));
 }
 
@@ -70,7 +71,7 @@ void showToast(String text) {
   // In this example, Toaster class wraps android.widget.Toast so that it
   // can be called from any thread. See
   // android/app/src/main/java/com/github/dart_lang/jni_example/Toaster.java
-  Jni.invokeStaticMethod<JlObject>(
+  Jni.invokeStaticMethod<JniObject>(
       "com/github/dart_lang/jni_example/Toaster",
       "makeText",
       "(Landroid/app/Activity;Landroid/content/Context;"
@@ -89,8 +90,8 @@ void main() {
     Jni.spawn();
   }
   final examples = [
-    Example("String.valueOf(1332)", () => toJavaStringUsingIndir(1332)),
-    Example("Generate random number", () => randomUsingIndir(180),
+    Example("String.valueOf(1332)", () => toJavaStringUsingEnv(1332)),
+    Example("Generate random number", () => randomUsingEnv(180),
         runInitially: false),
     Example("Math.random()", () => randomDouble(), runInitially: false),
     if (Platform.isAndroid) ...[
@@ -102,7 +103,7 @@ void main() {
               "android/os/Build", "DEVICE", "Ljava/lang/String;")),
       Example(
         "Package name",
-        () => JlObject.fromRef(Jni.getCurrentActivity()).use((activity) =>
+        () => JniObject.fromRef(Jni.getCurrentActivity()).use((activity) =>
             activity.callMethodByName<String>(
                 "getPackageName", "()Ljava/lang/String;", [])),
       ),

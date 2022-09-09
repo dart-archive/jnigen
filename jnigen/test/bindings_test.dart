@@ -90,7 +90,7 @@ void main() async {
     expect(() => Example.throwException(), throwsA(isA<JniException>()));
   });
   test('simple json parsing test', () {
-    final json = JlString.fromString('[1, true, false, 2, 4]');
+    final json = JniString.fromString('[1, true, false, 2, 4]');
     final factory = JsonFactory();
     final parser = factory.createParser6(json);
     final values = <bool>[];
@@ -107,7 +107,7 @@ void main() async {
     using((arena) {
       final factory = JsonFactory()..deletedIn(arena);
       final erroneous = factory
-          .createParser6("<html>".jlString()..deletedIn(arena))
+          .createParser6("<html>".jniString()..deletedIn(arena))
         ..deletedIn(arena);
       expect(() => erroneous.nextToken(), throwsA(isA<JniException>()));
     });

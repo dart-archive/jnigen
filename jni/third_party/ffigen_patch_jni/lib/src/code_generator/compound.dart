@@ -15,7 +15,7 @@ const vtableClasses = {"JNIInvokeInterface": "JavaVM"};
 // Y is extension class if it contains function pointer fields which are
 // otherwise equivalent to normal functions, and just packed in a structure
 // for convenience.
-const extensionClasses = {'JniEnvIndir', 'JniNativeExtensions'};
+const extensionClasses = {'GlobalJniEnv', 'JniNativeExtensions'};
 
 const methodNameRenames = {"throw": "throwException"};
 

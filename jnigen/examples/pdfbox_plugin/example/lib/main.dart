@@ -18,7 +18,6 @@ import 'package:pdfbox_plugin/third_party/org/apache/pdfbox/pdmodel.dart';
 
 Stream<String> files(String dir) => Directory(dir).list().map((e) => e.path);
 
-late Jni jni;
 const jarError = 'No JAR files were found.\n'
     'Run `dart run jnigen:download_maven_jars --config jnigen.yaml` '
     'in plugin directory.\n'
@@ -163,7 +162,7 @@ class PDFFileInfo {
 
   /// Converts JlString to dart string and deletes the original.
   /// Also handles the case where the underlying string is Null.
-  String _fromJavaStr(JlString jstr) {
+  String _fromJavaStr(JniString jstr) {
     if (jstr.reference == nullptr) {
       return '(null)';
     }

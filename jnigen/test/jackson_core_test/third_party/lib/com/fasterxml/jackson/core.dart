@@ -48,7 +48,7 @@ import "../../../_init.dart" show jlookup;
 /// the default constructor is used for constructing factory
 /// instances.
 ///@author Tatu Saloranta
-class JsonFactory extends jni.JlObject {
+class JsonFactory extends jni.JniObject {
   JsonFactory.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// from: private static final long serialVersionUID
@@ -102,8 +102,8 @@ class JsonFactory extends jni.JlObject {
 
   /// from: static public final com.fasterxml.jackson.core.SerializableString DEFAULT_ROOT_VALUE_SEPARATOR
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JlObject get DEFAULT_ROOT_VALUE_SEPARATOR =>
-      jni.JlObject.fromRef(_get_DEFAULT_ROOT_VALUE_SEPARATOR());
+  static jni.JniObject get DEFAULT_ROOT_VALUE_SEPARATOR =>
+      jni.JniObject.fromRef(_get_DEFAULT_ROOT_VALUE_SEPARATOR());
 
   static final _ctor =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
@@ -121,7 +121,7 @@ class JsonFactory extends jni.JlObject {
   /// and this reuse only works within context of a single
   /// factory instance.
   JsonFactory() : super.fromRef(_ctor()) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 
   static final _ctor1 = jlookup<
@@ -131,8 +131,8 @@ class JsonFactory extends jni.JlObject {
       .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public void <init>(com.fasterxml.jackson.core.ObjectCodec oc)
-  JsonFactory.ctor1(jni.JlObject oc) : super.fromRef(_ctor1(oc.reference)) {
-    jni.Jni.indir.checkException();
+  JsonFactory.ctor1(jni.JniObject oc) : super.fromRef(_ctor1(oc.reference)) {
+    jni.Jni.env.checkException();
   }
 
   static final _ctor2 = jlookup<
@@ -150,9 +150,9 @@ class JsonFactory extends jni.JlObject {
   ///@param src Original factory to copy settings from
   ///@param codec Databinding-level codec to use, if any
   ///@since 2.2.1
-  JsonFactory.ctor2(JsonFactory src, jni.JlObject codec)
+  JsonFactory.ctor2(JsonFactory src, jni.JniObject codec)
       : super.fromRef(_ctor2(src.reference, codec.reference)) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 
   static final _ctor3 = jlookup<
@@ -166,8 +166,8 @@ class JsonFactory extends jni.JlObject {
   /// Constructor used by JsonFactoryBuilder for instantiation.
   ///@param b Builder that contains settings to use
   ///@since 2.10
-  JsonFactory.ctor3(jni.JlObject b) : super.fromRef(_ctor3(b.reference)) {
-    jni.Jni.indir.checkException();
+  JsonFactory.ctor3(jni.JniObject b) : super.fromRef(_ctor3(b.reference)) {
+    jni.Jni.env.checkException();
   }
 
   static final _ctor4 = jlookup<
@@ -183,9 +183,9 @@ class JsonFactory extends jni.JlObject {
   /// implementation for json.
   ///@param b Builder that contains settings to use
   ///@param bogus Argument only needed to separate constructor signature; ignored
-  JsonFactory.ctor4(jni.JlObject b, bool bogus)
+  JsonFactory.ctor4(jni.JniObject b, bool bogus)
       : super.fromRef(_ctor4(b.reference, bogus ? 1 : 0)) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 
   static final _rebuild = jlookup<
@@ -201,9 +201,9 @@ class JsonFactory extends jni.JlObject {
   /// with settings of this factory.
   ///@return Builder instance to use
   ///@since 2.10
-  jni.JlObject rebuild() {
-    final result__ = jni.JlObject.fromRef(_rebuild(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject rebuild() {
+    final result__ = jni.JniObject.fromRef(_rebuild(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -223,9 +223,9 @@ class JsonFactory extends jni.JlObject {
   /// NOTE: signature unfortunately does not expose true implementation type; this
   /// will be fixed in 3.0.
   ///@return Builder instance to use
-  static jni.JlObject builder() {
-    final result__ = jni.JlObject.fromRef(_builder());
-    jni.Jni.indir.checkException();
+  static jni.JniObject builder() {
+    final result__ = jni.JniObject.fromRef(_builder());
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -252,7 +252,7 @@ class JsonFactory extends jni.JlObject {
   ///@since 2.1
   JsonFactory copy() {
     final result__ = JsonFactory.fromRef(_copy(reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -271,9 +271,9 @@ class JsonFactory extends jni.JlObject {
   ///
   /// Note: must be overridden by sub-classes as well.
   ///@return Newly constructed instance
-  jni.JlObject readResolve() {
-    final result__ = jni.JlObject.fromRef(_readResolve(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject readResolve() {
+    final result__ = jni.JniObject.fromRef(_readResolve(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -300,7 +300,7 @@ class JsonFactory extends jni.JlObject {
   ///@since 2.3
   bool requiresPropertyOrdering() {
     final result__ = _requiresPropertyOrdering(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -324,7 +324,7 @@ class JsonFactory extends jni.JlObject {
   ///@since 2.3
   bool canHandleBinaryNatively() {
     final result__ = _canHandleBinaryNatively(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -348,7 +348,7 @@ class JsonFactory extends jni.JlObject {
   ///@since 2.4
   bool canUseCharArrays() {
     final result__ = _canUseCharArrays(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -368,7 +368,7 @@ class JsonFactory extends jni.JlObject {
   ///@since 2.9
   bool canParseAsync() {
     final result__ = _canParseAsync(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -380,9 +380,10 @@ class JsonFactory extends jni.JlObject {
 
   /// from: public java.lang.Class<? extends com.fasterxml.jackson.core.FormatFeature> getFormatReadFeatureType()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject getFormatReadFeatureType() {
-    final result__ = jni.JlObject.fromRef(_getFormatReadFeatureType(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getFormatReadFeatureType() {
+    final result__ =
+        jni.JniObject.fromRef(_getFormatReadFeatureType(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -394,10 +395,10 @@ class JsonFactory extends jni.JlObject {
 
   /// from: public java.lang.Class<? extends com.fasterxml.jackson.core.FormatFeature> getFormatWriteFeatureType()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject getFormatWriteFeatureType() {
+  jni.JniObject getFormatWriteFeatureType() {
     final result__ =
-        jni.JlObject.fromRef(_getFormatWriteFeatureType(reference));
-    jni.Jni.indir.checkException();
+        jni.JniObject.fromRef(_getFormatWriteFeatureType(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -419,9 +420,9 @@ class JsonFactory extends jni.JlObject {
   ///@param schema Schema instance to check
   ///@return Whether parsers and generators constructed by this factory
   ///   can use specified format schema instance
-  bool canUseSchema(jni.JlObject schema) {
+  bool canUseSchema(jni.JniObject schema) {
     final result__ = _canUseSchema(reference, schema.reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -440,9 +441,9 @@ class JsonFactory extends jni.JlObject {
   /// Note: sub-classes should override this method; default
   /// implementation will return null for all sub-classes
   ///@return Name of the format handled by parsers, generators this factory creates
-  jni.JlString getFormatName() {
-    final result__ = jni.JlString.fromRef(_getFormatName(reference));
-    jni.Jni.indir.checkException();
+  jni.JniString getFormatName() {
+    final result__ = jni.JniString.fromRef(_getFormatName(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -457,9 +458,10 @@ class JsonFactory extends jni.JlObject {
 
   /// from: public com.fasterxml.jackson.core.format.MatchStrength hasFormat(com.fasterxml.jackson.core.format.InputAccessor acc)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject hasFormat(jni.JlObject acc) {
-    final result__ = jni.JlObject.fromRef(_hasFormat(reference, acc.reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject hasFormat(jni.JniObject acc) {
+    final result__ =
+        jni.JniObject.fromRef(_hasFormat(reference, acc.reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -481,7 +483,7 @@ class JsonFactory extends jni.JlObject {
   ///@since 2.1
   bool requiresCustomCodec() {
     final result__ = _requiresCustomCodec(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -496,10 +498,10 @@ class JsonFactory extends jni.JlObject {
 
   /// from: protected com.fasterxml.jackson.core.format.MatchStrength hasJSONFormat(com.fasterxml.jackson.core.format.InputAccessor acc)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject hasJSONFormat(jni.JlObject acc) {
+  jni.JniObject hasJSONFormat(jni.JniObject acc) {
     final result__ =
-        jni.JlObject.fromRef(_hasJSONFormat(reference, acc.reference));
-    jni.Jni.indir.checkException();
+        jni.JniObject.fromRef(_hasJSONFormat(reference, acc.reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -511,9 +513,9 @@ class JsonFactory extends jni.JlObject {
 
   /// from: public com.fasterxml.jackson.core.Version version()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject version() {
-    final result__ = jni.JlObject.fromRef(_version(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject version() {
+    final result__ = jni.JniObject.fromRef(_version(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -538,7 +540,7 @@ class JsonFactory extends jni.JlObject {
   JsonFactory configure(JsonFactory_Feature f, bool state) {
     final result__ =
         JsonFactory.fromRef(_configure(reference, f.reference, state ? 1 : 0));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -561,7 +563,7 @@ class JsonFactory extends jni.JlObject {
   ///@deprecated since 2.10 use JsonFactoryBuilder\#configure(JsonFactory.Feature, boolean) instead
   JsonFactory enable(JsonFactory_Feature f) {
     final result__ = JsonFactory.fromRef(_enable(reference, f.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -584,7 +586,7 @@ class JsonFactory extends jni.JlObject {
   ///@deprecated since 2.10 use JsonFactoryBuilder\#configure(JsonFactory.Feature, boolean) instead
   JsonFactory disable(JsonFactory_Feature f) {
     final result__ = JsonFactory.fromRef(_disable(reference, f.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -602,7 +604,7 @@ class JsonFactory extends jni.JlObject {
   ///@return True if the specified feature is enabled
   bool isEnabled(JsonFactory_Feature f) {
     final result__ = _isEnabled(reference, f.reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -614,7 +616,7 @@ class JsonFactory extends jni.JlObject {
   /// from: public final int getParserFeatures()
   int getParserFeatures() {
     final result__ = _getParserFeatures(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -626,7 +628,7 @@ class JsonFactory extends jni.JlObject {
   /// from: public final int getGeneratorFeatures()
   int getGeneratorFeatures() {
     final result__ = _getGeneratorFeatures(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -638,7 +640,7 @@ class JsonFactory extends jni.JlObject {
   /// from: public int getFormatParserFeatures()
   int getFormatParserFeatures() {
     final result__ = _getFormatParserFeatures(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -650,7 +652,7 @@ class JsonFactory extends jni.JlObject {
   /// from: public int getFormatGeneratorFeatures()
   int getFormatGeneratorFeatures() {
     final result__ = _getFormatGeneratorFeatures(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -674,7 +676,7 @@ class JsonFactory extends jni.JlObject {
   JsonFactory configure1(JsonParser_Feature f, bool state) {
     final result__ =
         JsonFactory.fromRef(_configure1(reference, f.reference, state ? 1 : 0));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -696,7 +698,7 @@ class JsonFactory extends jni.JlObject {
   ///@return This factory instance (to allow call chaining)
   JsonFactory enable1(JsonParser_Feature f) {
     final result__ = JsonFactory.fromRef(_enable1(reference, f.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -718,7 +720,7 @@ class JsonFactory extends jni.JlObject {
   ///@return This factory instance (to allow call chaining)
   JsonFactory disable1(JsonParser_Feature f) {
     final result__ = JsonFactory.fromRef(_disable1(reference, f.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -736,7 +738,7 @@ class JsonFactory extends jni.JlObject {
   ///@return True if specified feature is enabled
   bool isEnabled1(JsonParser_Feature f) {
     final result__ = _isEnabled1(reference, f.reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -753,9 +755,9 @@ class JsonFactory extends jni.JlObject {
   ///@param f Feature to check
   ///@return True if specified feature is enabled
   ///@since 2.10
-  bool isEnabled2(jni.JlObject f) {
+  bool isEnabled2(jni.JniObject f) {
     final result__ = _isEnabled2(reference, f.reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -771,9 +773,9 @@ class JsonFactory extends jni.JlObject {
   /// Method for getting currently configured input decorator (if any;
   /// there is no default decorator).
   ///@return InputDecorator configured, if any
-  jni.JlObject getInputDecorator() {
-    final result__ = jni.JlObject.fromRef(_getInputDecorator(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getInputDecorator() {
+    final result__ = jni.JniObject.fromRef(_getInputDecorator(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -793,10 +795,10 @@ class JsonFactory extends jni.JlObject {
   ///@param d Decorator to configure for this factory, if any ({@code null} if none)
   ///@return This factory instance (to allow call chaining)
   ///@deprecated Since 2.10 use JsonFactoryBuilder\#inputDecorator(InputDecorator) instead
-  JsonFactory setInputDecorator(jni.JlObject d) {
+  JsonFactory setInputDecorator(jni.JniObject d) {
     final result__ =
         JsonFactory.fromRef(_setInputDecorator(reference, d.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -817,10 +819,10 @@ class JsonFactory extends jni.JlObject {
   ///@param f Feature to enable/disable
   ///@param state Whether to enable or disable the feature
   ///@return This factory instance (to allow call chaining)
-  JsonFactory configure2(jni.JlObject f, bool state) {
+  JsonFactory configure2(jni.JniObject f, bool state) {
     final result__ =
         JsonFactory.fromRef(_configure2(reference, f.reference, state ? 1 : 0));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -840,9 +842,9 @@ class JsonFactory extends jni.JlObject {
   /// (check JsonGenerator.Feature for list of features)
   ///@param f Feature to enable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory enable2(jni.JlObject f) {
+  JsonFactory enable2(jni.JniObject f) {
     final result__ = JsonFactory.fromRef(_enable2(reference, f.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -862,9 +864,9 @@ class JsonFactory extends jni.JlObject {
   /// (check JsonGenerator.Feature for list of features)
   ///@param f Feature to disable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory disable2(jni.JlObject f) {
+  JsonFactory disable2(jni.JniObject f) {
     final result__ = JsonFactory.fromRef(_disable2(reference, f.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -880,9 +882,9 @@ class JsonFactory extends jni.JlObject {
   /// Check whether specified generator feature is enabled.
   ///@param f Feature to check
   ///@return Whether specified feature is enabled
-  bool isEnabled3(jni.JlObject f) {
+  bool isEnabled3(jni.JniObject f) {
     final result__ = _isEnabled3(reference, f.reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -899,9 +901,9 @@ class JsonFactory extends jni.JlObject {
   ///@param f Feature to check
   ///@return Whether specified feature is enabled
   ///@since 2.10
-  bool isEnabled4(jni.JlObject f) {
+  bool isEnabled4(jni.JniObject f) {
     final result__ = _isEnabled4(reference, f.reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -917,9 +919,9 @@ class JsonFactory extends jni.JlObject {
   /// Method for accessing custom escapes factory uses for JsonGenerators
   /// it creates.
   ///@return Configured {@code CharacterEscapes}, if any; {@code null} if none
-  jni.JlObject getCharacterEscapes() {
-    final result__ = jni.JlObject.fromRef(_getCharacterEscapes(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getCharacterEscapes() {
+    final result__ = jni.JniObject.fromRef(_getCharacterEscapes(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -939,10 +941,10 @@ class JsonFactory extends jni.JlObject {
   /// it creates.
   ///@param esc CharaterEscapes to set (or {@code null} for "none")
   ///@return This factory instance (to allow call chaining)
-  JsonFactory setCharacterEscapes(jni.JlObject esc) {
+  JsonFactory setCharacterEscapes(jni.JniObject esc) {
     final result__ =
         JsonFactory.fromRef(_setCharacterEscapes(reference, esc.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -959,9 +961,9 @@ class JsonFactory extends jni.JlObject {
   /// there is no default decorator).
   ///@return OutputDecorator configured for generators factory creates, if any;
   ///    {@code null} if none.
-  jni.JlObject getOutputDecorator() {
-    final result__ = jni.JlObject.fromRef(_getOutputDecorator(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getOutputDecorator() {
+    final result__ = jni.JniObject.fromRef(_getOutputDecorator(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -981,10 +983,10 @@ class JsonFactory extends jni.JlObject {
   ///@return This factory instance (to allow call chaining)
   ///@param d Output decorator to use, if any
   ///@deprecated Since 2.10 use JsonFactoryBuilder\#outputDecorator(OutputDecorator) instead
-  JsonFactory setOutputDecorator(jni.JlObject d) {
+  JsonFactory setOutputDecorator(jni.JniObject d) {
     final result__ =
         JsonFactory.fromRef(_setOutputDecorator(reference, d.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1005,10 +1007,10 @@ class JsonFactory extends jni.JlObject {
   ///@param sep Separator to use, if any; null means that no separator is
   ///   automatically added
   ///@return This factory instance (to allow call chaining)
-  JsonFactory setRootValueSeparator(jni.JlString sep) {
+  JsonFactory setRootValueSeparator(jni.JniString sep) {
     final result__ =
         JsonFactory.fromRef(_setRootValueSeparator(reference, sep.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1022,9 +1024,9 @@ class JsonFactory extends jni.JlObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// @return Root value separator configured, if any
-  jni.JlString getRootValueSeparator() {
-    final result__ = jni.JlString.fromRef(_getRootValueSeparator(reference));
-    jni.Jni.indir.checkException();
+  jni.JniString getRootValueSeparator() {
+    final result__ = jni.JniString.fromRef(_getRootValueSeparator(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1047,9 +1049,9 @@ class JsonFactory extends jni.JlObject {
   /// of JsonParser and JsonGenerator instances.
   ///@param oc Codec to use
   ///@return This factory instance (to allow call chaining)
-  JsonFactory setCodec(jni.JlObject oc) {
+  JsonFactory setCodec(jni.JniObject oc) {
     final result__ = JsonFactory.fromRef(_setCodec(reference, oc.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1061,9 +1063,9 @@ class JsonFactory extends jni.JlObject {
 
   /// from: public com.fasterxml.jackson.core.ObjectCodec getCodec()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject getCodec() {
-    final result__ = jni.JlObject.fromRef(_getCodec(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getCodec() {
+    final result__ = jni.JniObject.fromRef(_getCodec(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1095,9 +1097,9 @@ class JsonFactory extends jni.JlObject {
   /// the parser, since caller has no access to it.
   ///@param f File that contains JSON content to parse
   ///@since 2.1
-  JsonParser createParser(jni.JlObject f) {
+  JsonParser createParser(jni.JniObject f) {
     final result__ = JsonParser.fromRef(_createParser(reference, f.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1127,10 +1129,10 @@ class JsonFactory extends jni.JlObject {
   /// the parser, since caller has no access to it.
   ///@param url URL pointing to resource that contains JSON content to parse
   ///@since 2.1
-  JsonParser createParser1(jni.JlObject url) {
+  JsonParser createParser1(jni.JniObject url) {
     final result__ =
         JsonParser.fromRef(_createParser1(reference, url.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1163,10 +1165,10 @@ class JsonFactory extends jni.JlObject {
   /// For other charsets use \#createParser(java.io.Reader).
   ///@param in InputStream to use for reading JSON content to parse
   ///@since 2.1
-  JsonParser createParser2(jni.JlObject in0) {
+  JsonParser createParser2(jni.JniObject in0) {
     final result__ =
         JsonParser.fromRef(_createParser2(reference, in0.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1192,9 +1194,9 @@ class JsonFactory extends jni.JlObject {
   /// is enabled.
   ///@param r Reader to use for reading JSON content to parse
   ///@since 2.1
-  JsonParser createParser3(jni.JlObject r) {
+  JsonParser createParser3(jni.JniObject r) {
     final result__ = JsonParser.fromRef(_createParser3(reference, r.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1213,10 +1215,10 @@ class JsonFactory extends jni.JlObject {
   /// Method for constructing parser for parsing
   /// the contents of given byte array.
   ///@since 2.1
-  JsonParser createParser4(jni.JlObject data) {
+  JsonParser createParser4(jni.JniObject data) {
     final result__ =
         JsonParser.fromRef(_createParser4(reference, data.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1238,10 +1240,10 @@ class JsonFactory extends jni.JlObject {
   ///@param offset Offset of the first data byte within buffer
   ///@param len Length of contents to parse within buffer
   ///@since 2.1
-  JsonParser createParser5(jni.JlObject data, int offset, int len) {
+  JsonParser createParser5(jni.JniObject data, int offset, int len) {
     final result__ = JsonParser.fromRef(
         _createParser5(reference, data.reference, offset, len));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1260,10 +1262,10 @@ class JsonFactory extends jni.JlObject {
   /// Method for constructing parser for parsing
   /// contents of given String.
   ///@since 2.1
-  JsonParser createParser6(jni.JlString content) {
+  JsonParser createParser6(jni.JniString content) {
     final result__ =
         JsonParser.fromRef(_createParser6(reference, content.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1282,10 +1284,10 @@ class JsonFactory extends jni.JlObject {
   /// Method for constructing parser for parsing
   /// contents of given char array.
   ///@since 2.4
-  JsonParser createParser7(jni.JlObject content) {
+  JsonParser createParser7(jni.JniObject content) {
     final result__ =
         JsonParser.fromRef(_createParser7(reference, content.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1303,10 +1305,10 @@ class JsonFactory extends jni.JlObject {
   ///
   /// Method for constructing parser for parsing contents of given char array.
   ///@since 2.4
-  JsonParser createParser8(jni.JlObject content, int offset, int len) {
+  JsonParser createParser8(jni.JniObject content, int offset, int len) {
     final result__ = JsonParser.fromRef(
         _createParser8(reference, content.reference, offset, len));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1328,10 +1330,10 @@ class JsonFactory extends jni.JlObject {
   /// If this factory does not support DataInput as source,
   /// will throw UnsupportedOperationException
   ///@since 2.8
-  JsonParser createParser9(jni.JlObject in0) {
+  JsonParser createParser9(jni.JniObject in0) {
     final result__ =
         JsonParser.fromRef(_createParser9(reference, in0.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1360,7 +1362,7 @@ class JsonFactory extends jni.JlObject {
   JsonParser createNonBlockingByteArrayParser() {
     final result__ =
         JsonParser.fromRef(_createNonBlockingByteArrayParser(reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1394,10 +1396,10 @@ class JsonFactory extends jni.JlObject {
   ///@param out OutputStream to use for writing JSON content
   ///@param enc Character encoding to use
   ///@since 2.1
-  jni.JlObject createGenerator(jni.JlObject out, jni.JlObject enc) {
-    final result__ = jni.JlObject.fromRef(
+  jni.JniObject createGenerator(jni.JniObject out, jni.JniObject enc) {
+    final result__ = jni.JniObject.fromRef(
         _createGenerator(reference, out.reference, enc.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1418,10 +1420,10 @@ class JsonFactory extends jni.JlObject {
   ///
   /// Note: there are formats that use fixed encoding (like most binary data formats).
   ///@since 2.1
-  jni.JlObject createGenerator1(jni.JlObject out) {
+  jni.JniObject createGenerator1(jni.JniObject out) {
     final result__ =
-        jni.JlObject.fromRef(_createGenerator1(reference, out.reference));
-    jni.Jni.indir.checkException();
+        jni.JniObject.fromRef(_createGenerator1(reference, out.reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1448,10 +1450,10 @@ class JsonFactory extends jni.JlObject {
   /// Using application needs to close it explicitly.
   ///@since 2.1
   ///@param w Writer to use for writing JSON content
-  jni.JlObject createGenerator2(jni.JlObject w) {
+  jni.JniObject createGenerator2(jni.JniObject w) {
     final result__ =
-        jni.JlObject.fromRef(_createGenerator2(reference, w.reference));
-    jni.Jni.indir.checkException();
+        jni.JniObject.fromRef(_createGenerator2(reference, w.reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1479,10 +1481,10 @@ class JsonFactory extends jni.JlObject {
   ///@param f File to write contents to
   ///@param enc Character encoding to use
   ///@since 2.1
-  jni.JlObject createGenerator3(jni.JlObject f, jni.JlObject enc) {
-    final result__ = jni.JlObject.fromRef(
+  jni.JniObject createGenerator3(jni.JniObject f, jni.JniObject enc) {
+    final result__ = jni.JniObject.fromRef(
         _createGenerator3(reference, f.reference, enc.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1501,10 +1503,10 @@ class JsonFactory extends jni.JlObject {
   /// Method for constructing generator for writing content using specified
   /// DataOutput instance.
   ///@since 2.8
-  jni.JlObject createGenerator4(jni.JlObject out, jni.JlObject enc) {
-    final result__ = jni.JlObject.fromRef(
+  jni.JniObject createGenerator4(jni.JniObject out, jni.JniObject enc) {
+    final result__ = jni.JniObject.fromRef(
         _createGenerator4(reference, out.reference, enc.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1525,10 +1527,10 @@ class JsonFactory extends jni.JlObject {
   ///
   /// Note: there are formats that use fixed encoding (like most binary data formats).
   ///@since 2.8
-  jni.JlObject createGenerator5(jni.JlObject out) {
+  jni.JniObject createGenerator5(jni.JniObject out) {
     final result__ =
-        jni.JlObject.fromRef(_createGenerator5(reference, out.reference));
-    jni.Jni.indir.checkException();
+        jni.JniObject.fromRef(_createGenerator5(reference, out.reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1562,10 +1564,10 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(File) instead.
-  JsonParser createJsonParser(jni.JlObject f) {
+  JsonParser createJsonParser(jni.JniObject f) {
     final result__ =
         JsonParser.fromRef(_createJsonParser(reference, f.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1598,10 +1600,10 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(URL) instead.
-  JsonParser createJsonParser1(jni.JlObject url) {
+  JsonParser createJsonParser1(jni.JniObject url) {
     final result__ =
         JsonParser.fromRef(_createJsonParser1(reference, url.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1637,10 +1639,10 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(InputStream) instead.
-  JsonParser createJsonParser2(jni.JlObject in0) {
+  JsonParser createJsonParser2(jni.JniObject in0) {
     final result__ =
         JsonParser.fromRef(_createJsonParser2(reference, in0.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1669,10 +1671,10 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(Reader) instead.
-  JsonParser createJsonParser3(jni.JlObject r) {
+  JsonParser createJsonParser3(jni.JniObject r) {
     final result__ =
         JsonParser.fromRef(_createJsonParser3(reference, r.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1694,10 +1696,10 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[]) instead.
-  JsonParser createJsonParser4(jni.JlObject data) {
+  JsonParser createJsonParser4(jni.JniObject data) {
     final result__ =
         JsonParser.fromRef(_createJsonParser4(reference, data.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1722,10 +1724,10 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[],int,int) instead.
-  JsonParser createJsonParser5(jni.JlObject data, int offset, int len) {
+  JsonParser createJsonParser5(jni.JniObject data, int offset, int len) {
     final result__ = JsonParser.fromRef(
         _createJsonParser5(reference, data.reference, offset, len));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1748,10 +1750,10 @@ class JsonFactory extends jni.JlObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(String) instead.
-  JsonParser createJsonParser6(jni.JlString content) {
+  JsonParser createJsonParser6(jni.JniString content) {
     final result__ =
         JsonParser.fromRef(_createJsonParser6(reference, content.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1787,10 +1789,10 @@ class JsonFactory extends jni.JlObject {
   ///@return Generator constructed
   ///@throws IOException if parser initialization fails due to I/O (write) problem
   ///@deprecated Since 2.2, use \#createGenerator(OutputStream, JsonEncoding) instead.
-  jni.JlObject createJsonGenerator(jni.JlObject out, jni.JlObject enc) {
-    final result__ = jni.JlObject.fromRef(
+  jni.JniObject createJsonGenerator(jni.JniObject out, jni.JniObject enc) {
+    final result__ = jni.JniObject.fromRef(
         _createJsonGenerator(reference, out.reference, enc.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1819,10 +1821,10 @@ class JsonFactory extends jni.JlObject {
   ///@return Generator constructed
   ///@throws IOException if parser initialization fails due to I/O (write) problem
   ///@deprecated Since 2.2, use \#createGenerator(Writer) instead.
-  jni.JlObject createJsonGenerator1(jni.JlObject out) {
+  jni.JniObject createJsonGenerator1(jni.JniObject out) {
     final result__ =
-        jni.JlObject.fromRef(_createJsonGenerator1(reference, out.reference));
-    jni.Jni.indir.checkException();
+        jni.JniObject.fromRef(_createJsonGenerator1(reference, out.reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1846,10 +1848,10 @@ class JsonFactory extends jni.JlObject {
   ///@return Generator constructed
   ///@throws IOException if parser initialization fails due to I/O (write) problem
   ///@deprecated Since 2.2, use \#createGenerator(OutputStream) instead.
-  jni.JlObject createJsonGenerator2(jni.JlObject out) {
+  jni.JniObject createJsonGenerator2(jni.JniObject out) {
     final result__ =
-        jni.JlObject.fromRef(_createJsonGenerator2(reference, out.reference));
-    jni.Jni.indir.checkException();
+        jni.JniObject.fromRef(_createJsonGenerator2(reference, out.reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 }
@@ -1858,7 +1860,7 @@ class JsonFactory extends jni.JlObject {
 ///
 /// Enumeration that defines all on/off features that can only be
 /// changed for JsonFactory.
-class JsonFactory_Feature extends jni.JlObject {
+class JsonFactory_Feature extends jni.JniObject {
   JsonFactory_Feature.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _values =
@@ -1868,9 +1870,9 @@ class JsonFactory_Feature extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonFactory.Feature[] values()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JlObject values() {
-    final result__ = jni.JlObject.fromRef(_values());
-    jni.Jni.indir.checkException();
+  static jni.JniObject values() {
+    final result__ = jni.JniObject.fromRef(_values());
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1882,9 +1884,9 @@ class JsonFactory_Feature extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonFactory.Feature valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonFactory_Feature valueOf(jni.JlString name) {
+  static JsonFactory_Feature valueOf(jni.JniString name) {
     final result__ = JsonFactory_Feature.fromRef(_valueOf(name.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1900,7 +1902,7 @@ class JsonFactory_Feature extends jni.JlObject {
   ///@return Bit field of features enabled by default
   static int collectDefaults() {
     final result__ = _collectDefaults();
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1912,7 +1914,7 @@ class JsonFactory_Feature extends jni.JlObject {
   /// from: private void <init>(boolean defaultState)
   JsonFactory_Feature(bool defaultState)
       : super.fromRef(_ctor(defaultState ? 1 : 0)) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 
   static final _enabledByDefault = jlookup<
@@ -1923,7 +1925,7 @@ class JsonFactory_Feature extends jni.JlObject {
   /// from: public boolean enabledByDefault()
   bool enabledByDefault() {
     final result__ = _enabledByDefault(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1936,7 +1938,7 @@ class JsonFactory_Feature extends jni.JlObject {
   /// from: public boolean enabledIn(int flags)
   bool enabledIn(int flags) {
     final result__ = _enabledIn(reference, flags) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -1948,7 +1950,7 @@ class JsonFactory_Feature extends jni.JlObject {
   /// from: public int getMask()
   int getMask() {
     final result__ = _getMask(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 }
@@ -1959,7 +1961,7 @@ class JsonFactory_Feature extends jni.JlObject {
 /// Instances are created using factory methods of
 /// a JsonFactory instance.
 ///@author Tatu Saloranta
-class JsonParser extends jni.JlObject {
+class JsonParser extends jni.JniObject {
   JsonParser.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// from: private static final int MIN_BYTE_I
@@ -1986,8 +1988,8 @@ class JsonParser extends jni.JlObject {
   /// basis for format-specific readers (or as bogus instance if non-null
   /// set needs to be passed).
   ///@since 2.12
-  static jni.JlObject get DEFAULT_READ_CAPABILITIES =>
-      jni.JlObject.fromRef(_get_DEFAULT_READ_CAPABILITIES());
+  static jni.JniObject get DEFAULT_READ_CAPABILITIES =>
+      jni.JniObject.fromRef(_get_DEFAULT_READ_CAPABILITIES());
 
   static final _ctor =
       jlookup<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>(
@@ -1996,7 +1998,7 @@ class JsonParser extends jni.JlObject {
 
   /// from: protected void <init>()
   JsonParser() : super.fromRef(_ctor()) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 
   static final _ctor1 =
@@ -2006,7 +2008,7 @@ class JsonParser extends jni.JlObject {
 
   /// from: protected void <init>(int features)
   JsonParser.ctor1(int features) : super.fromRef(_ctor1(features)) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 
   static final _getCodec = jlookup<
@@ -2022,9 +2024,9 @@ class JsonParser extends jni.JlObject {
   /// parser, if any. Codec is used by \#readValueAs(Class)
   /// method (and its variants).
   ///@return Codec assigned to this parser, if any; {@code null} if none
-  jni.JlObject getCodec() {
-    final result__ = jni.JlObject.fromRef(_getCodec(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getCodec() {
+    final result__ = jni.JniObject.fromRef(_getCodec(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2042,9 +2044,9 @@ class JsonParser extends jni.JlObject {
   /// parser, if any. Codec is used by \#readValueAs(Class)
   /// method (and its variants).
   ///@param oc Codec to assign, if any; {@code null} if none
-  void setCodec(jni.JlObject oc) {
+  void setCodec(jni.JniObject oc) {
     final result__ = _setCodec(reference, oc.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2071,9 +2073,9 @@ class JsonParser extends jni.JlObject {
   /// In general use of this accessor should be considered as
   /// "last effort", i.e. only used if no other mechanism is applicable.
   ///@return Input source this parser was configured with
-  jni.JlObject getInputSource() {
-    final result__ = jni.JlObject.fromRef(_getInputSource(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getInputSource() {
+    final result__ = jni.JniObject.fromRef(_getInputSource(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2090,9 +2092,9 @@ class JsonParser extends jni.JlObject {
   /// Sets the payload to be passed if JsonParseException is thrown.
   ///@param payload Payload to pass
   ///@since 2.8
-  void setRequestPayloadOnError(jni.JlObject payload) {
+  void setRequestPayloadOnError(jni.JniObject payload) {
     final result__ = _setRequestPayloadOnError(reference, payload.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2111,10 +2113,10 @@ class JsonParser extends jni.JlObject {
   ///@param payload Payload to pass
   ///@param charset Character encoding for (lazily) decoding payload
   ///@since 2.8
-  void setRequestPayloadOnError1(jni.JlObject payload, jni.JlString charset) {
+  void setRequestPayloadOnError1(jni.JniObject payload, jni.JniString charset) {
     final result__ = _setRequestPayloadOnError1(
         reference, payload.reference, charset.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2131,9 +2133,9 @@ class JsonParser extends jni.JlObject {
   /// Sets the String request payload
   ///@param payload Payload to pass
   ///@since 2.8
-  void setRequestPayloadOnError2(jni.JlString payload) {
+  void setRequestPayloadOnError2(jni.JniString payload) {
     final result__ = _setRequestPayloadOnError2(reference, payload.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2157,9 +2159,9 @@ class JsonParser extends jni.JlObject {
   /// is thrown.
   ///@param schema Schema to use
   ///@throws UnsupportedOperationException if parser does not support schema
-  void setSchema(jni.JlObject schema) {
+  void setSchema(jni.JniObject schema) {
     final result__ = _setSchema(reference, schema.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2176,9 +2178,9 @@ class JsonParser extends jni.JlObject {
   /// Default implementation returns null.
   ///@return Schema in use by this parser, if any; {@code null} if none
   ///@since 2.1
-  jni.JlObject getSchema() {
-    final result__ = jni.JlObject.fromRef(_getSchema(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getSchema() {
+    final result__ = jni.JniObject.fromRef(_getSchema(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2195,9 +2197,9 @@ class JsonParser extends jni.JlObject {
   /// this parser (using \#setSchema).
   ///@param schema Schema to check
   ///@return True if this parser can use given schema; false if not
-  bool canUseSchema(jni.JlObject schema) {
+  bool canUseSchema(jni.JniObject schema) {
     final result__ = _canUseSchema(reference, schema.reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2218,7 +2220,7 @@ class JsonParser extends jni.JlObject {
   ///@since 2.1
   bool requiresCustomCodec() {
     final result__ = _requiresCustomCodec(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2242,7 +2244,7 @@ class JsonParser extends jni.JlObject {
   ///@since 2.9
   bool canParseAsync() {
     final result__ = _canParseAsync(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2260,10 +2262,10 @@ class JsonParser extends jni.JlObject {
   /// parsers that use blocking I/O.
   ///@return Input feeder to use with non-blocking (async) parsing
   ///@since 2.9
-  jni.JlObject getNonBlockingInputFeeder() {
+  jni.JniObject getNonBlockingInputFeeder() {
     final result__ =
-        jni.JlObject.fromRef(_getNonBlockingInputFeeder(reference));
-    jni.Jni.indir.checkException();
+        jni.JniObject.fromRef(_getNonBlockingInputFeeder(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2280,9 +2282,9 @@ class JsonParser extends jni.JlObject {
   /// underlying data format being read (directly or indirectly).
   ///@return Set of read capabilities for content to read via this parser
   ///@since 2.12
-  jni.JlObject getReadCapabilities() {
-    final result__ = jni.JlObject.fromRef(_getReadCapabilities(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getReadCapabilities() {
+    final result__ = jni.JniObject.fromRef(_getReadCapabilities(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2299,9 +2301,9 @@ class JsonParser extends jni.JlObject {
   /// Left for sub-classes to implement.
   ///@return Version of this generator (derived from version declared for
   ///   {@code jackson-core} jar that contains the class
-  jni.JlObject version() {
-    final result__ = jni.JlObject.fromRef(_version(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject version() {
+    final result__ = jni.JniObject.fromRef(_version(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2328,7 +2330,7 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException if there is either an underlying I/O problem
   void close() {
     final result__ = _close(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2348,7 +2350,7 @@ class JsonParser extends jni.JlObject {
   ///@return {@code True} if this parser instance has been closed
   bool isClosed() {
     final result__ = _isClosed(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2370,9 +2372,9 @@ class JsonParser extends jni.JlObject {
   /// Contexts can also be used for simple xpath-like matching of
   /// input, if so desired.
   ///@return Stream input context (JsonStreamContext) associated with this parser
-  jni.JlObject getParsingContext() {
-    final result__ = jni.JlObject.fromRef(_getParsingContext(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getParsingContext() {
+    final result__ = jni.JniObject.fromRef(_getParsingContext(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2397,9 +2399,9 @@ class JsonParser extends jni.JlObject {
   /// to other library)
   ///@return Location of the last processed input unit (byte or character)
   ///@since 2.13
-  jni.JlObject currentLocation() {
-    final result__ = jni.JlObject.fromRef(_currentLocation(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject currentLocation() {
+    final result__ = jni.JniObject.fromRef(_currentLocation(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2424,9 +2426,9 @@ class JsonParser extends jni.JlObject {
   /// to other library)
   ///@return Starting location of the token parser currently points to
   ///@since 2.13 (will eventually replace \#getTokenLocation)
-  jni.JlObject currentTokenLocation() {
-    final result__ = jni.JlObject.fromRef(_currentTokenLocation(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject currentTokenLocation() {
+    final result__ = jni.JniObject.fromRef(_currentTokenLocation(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2442,9 +2444,9 @@ class JsonParser extends jni.JlObject {
   /// Alias for \#currentLocation(), to be deprecated in later
   /// Jackson 2.x versions (and removed from Jackson 3.0).
   ///@return Location of the last processed input unit (byte or character)
-  jni.JlObject getCurrentLocation() {
-    final result__ = jni.JlObject.fromRef(_getCurrentLocation(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getCurrentLocation() {
+    final result__ = jni.JniObject.fromRef(_getCurrentLocation(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2460,9 +2462,9 @@ class JsonParser extends jni.JlObject {
   /// Alias for \#currentTokenLocation(), to be deprecated in later
   /// Jackson 2.x versions (and removed from Jackson 3.0).
   ///@return Starting location of the token parser currently points to
-  jni.JlObject getTokenLocation() {
-    final result__ = jni.JlObject.fromRef(_getTokenLocation(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getTokenLocation() {
+    final result__ = jni.JniObject.fromRef(_getTokenLocation(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2486,9 +2488,9 @@ class JsonParser extends jni.JlObject {
   /// and gets passed through data-binding.
   ///@return "Current value" associated with the current input context (state) of this parser
   ///@since 2.13 (added as replacement for older \#getCurrentValue()
-  jni.JlObject currentValue() {
-    final result__ = jni.JlObject.fromRef(_currentValue(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject currentValue() {
+    final result__ = jni.JniObject.fromRef(_currentValue(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2508,9 +2510,9 @@ class JsonParser extends jni.JlObject {
   ///</code>
   ///@param v Current value to assign for the current input context of this parser
   ///@since 2.13 (added as replacement for older \#setCurrentValue
-  void assignCurrentValue(jni.JlObject v) {
+  void assignCurrentValue(jni.JniObject v) {
     final result__ = _assignCurrentValue(reference, v.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2526,9 +2528,9 @@ class JsonParser extends jni.JlObject {
   /// Alias for \#currentValue(), to be deprecated in later
   /// Jackson 2.x versions (and removed from Jackson 3.0).
   ///@return Location of the last processed input unit (byte or character)
-  jni.JlObject getCurrentValue() {
-    final result__ = jni.JlObject.fromRef(_getCurrentValue(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getCurrentValue() {
+    final result__ = jni.JniObject.fromRef(_getCurrentValue(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2545,9 +2547,9 @@ class JsonParser extends jni.JlObject {
   /// Alias for \#assignCurrentValue, to be deprecated in later
   /// Jackson 2.x versions (and removed from Jackson 3.0).
   ///@param v Current value to assign for the current input context of this parser
-  void setCurrentValue(jni.JlObject v) {
+  void setCurrentValue(jni.JniObject v) {
     final result__ = _setCurrentValue(reference, v.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2571,9 +2573,9 @@ class JsonParser extends jni.JlObject {
   ///    (that is, input can not be sent to OutputStream;
   ///    otherwise number of bytes released (0 if there was nothing to release)
   ///@throws IOException if write to stream threw exception
-  int releaseBuffered(jni.JlObject out) {
+  int releaseBuffered(jni.JniObject out) {
     final result__ = _releaseBuffered(reference, out.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2598,9 +2600,9 @@ class JsonParser extends jni.JlObject {
   ///    (that is, input can not be sent to Writer;
   ///    otherwise number of chars released (0 if there was nothing to release)
   ///@throws IOException if write using Writer threw exception
-  int releaseBuffered1(jni.JlObject w) {
+  int releaseBuffered1(jni.JniObject w) {
     final result__ = _releaseBuffered1(reference, w.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2622,7 +2624,7 @@ class JsonParser extends jni.JlObject {
   ///@return This parser, to allow call chaining
   JsonParser enable(JsonParser_Feature f) {
     final result__ = JsonParser.fromRef(_enable(reference, f.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2644,7 +2646,7 @@ class JsonParser extends jni.JlObject {
   ///@return This parser, to allow call chaining
   JsonParser disable(JsonParser_Feature f) {
     final result__ = JsonParser.fromRef(_disable(reference, f.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2668,7 +2670,7 @@ class JsonParser extends jni.JlObject {
   JsonParser configure(JsonParser_Feature f, bool state) {
     final result__ =
         JsonParser.fromRef(_configure(reference, f.reference, state ? 1 : 0));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2686,7 +2688,7 @@ class JsonParser extends jni.JlObject {
   ///@return {@code True} if feature is enabled; {@code false} otherwise
   bool isEnabled(JsonParser_Feature f) {
     final result__ = _isEnabled(reference, f.reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2703,9 +2705,9 @@ class JsonParser extends jni.JlObject {
   ///@param f Feature to check
   ///@return {@code True} if feature is enabled; {@code false} otherwise
   ///@since 2.10
-  bool isEnabled1(jni.JlObject f) {
+  bool isEnabled1(jni.JniObject f) {
     final result__ = _isEnabled1(reference, f.reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2721,7 +2723,7 @@ class JsonParser extends jni.JlObject {
   ///@since 2.3
   int getFeatureMask() {
     final result__ = _getFeatureMask(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2742,7 +2744,7 @@ class JsonParser extends jni.JlObject {
   ///@deprecated Since 2.7, use \#overrideStdFeatures(int, int) instead
   JsonParser setFeatureMask(int mask) {
     final result__ = JsonParser.fromRef(_setFeatureMask(reference, mask));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2772,7 +2774,7 @@ class JsonParser extends jni.JlObject {
   JsonParser overrideStdFeatures(int values, int mask) {
     final result__ =
         JsonParser.fromRef(_overrideStdFeatures(reference, values, mask));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2789,7 +2791,7 @@ class JsonParser extends jni.JlObject {
   ///@since 2.6
   int getFormatFeatures() {
     final result__ = _getFormatFeatures(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2817,7 +2819,7 @@ class JsonParser extends jni.JlObject {
   JsonParser overrideFormatFeatures(int values, int mask) {
     final result__ =
         JsonParser.fromRef(_overrideFormatFeatures(reference, values, mask));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2840,7 +2842,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   JsonToken nextToken() {
     final result__ = JsonToken.fromRef(_nextToken(reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2871,7 +2873,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   JsonToken nextValue() {
     final result__ = JsonToken.fromRef(_nextValue(reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2899,9 +2901,9 @@ class JsonParser extends jni.JlObject {
   ///    specified name; {@code false} otherwise (different token or non-matching name)
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  bool nextFieldName(jni.JlObject str) {
+  bool nextFieldName(jni.JniObject str) {
     final result__ = _nextFieldName(reference, str.reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2922,9 +2924,9 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.5
-  jni.JlString nextFieldName1() {
-    final result__ = jni.JlString.fromRef(_nextFieldName1(reference));
-    jni.Jni.indir.checkException();
+  jni.JniString nextFieldName1() {
+    final result__ = jni.JniString.fromRef(_nextFieldName1(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2950,9 +2952,9 @@ class JsonParser extends jni.JlObject {
   ///   to; or {@code null} if next token is of some other type
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlString nextTextValue() {
-    final result__ = jni.JlString.fromRef(_nextTextValue(reference));
-    jni.Jni.indir.checkException();
+  jni.JniString nextTextValue() {
+    final result__ = jni.JniString.fromRef(_nextTextValue(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -2983,7 +2985,7 @@ class JsonParser extends jni.JlObject {
   ///@throws InputCoercionException if integer number does not fit in Java {@code int}
   int nextIntValue(int defaultValue) {
     final result__ = _nextIntValue(reference, defaultValue);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3014,7 +3016,7 @@ class JsonParser extends jni.JlObject {
   ///@throws InputCoercionException if integer number does not fit in Java {@code long}
   int nextLongValue(int defaultValue) {
     final result__ = _nextLongValue(reference, defaultValue);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3043,9 +3045,9 @@ class JsonParser extends jni.JlObject {
   ///   token parser advanced to; or {@code null} if next token is of some other type
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject nextBooleanValue() {
-    final result__ = jni.JlObject.fromRef(_nextBooleanValue(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject nextBooleanValue() {
+    final result__ = jni.JniObject.fromRef(_nextBooleanValue(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3075,7 +3077,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   JsonParser skipChildren() {
     final result__ = JsonParser.fromRef(_skipChildren(reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3101,7 +3103,7 @@ class JsonParser extends jni.JlObject {
   ///@since 2.8
   void finishToken() {
     final result__ = _finishToken(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3125,7 +3127,7 @@ class JsonParser extends jni.JlObject {
   ///@since 2.8
   JsonToken currentToken() {
     final result__ = JsonToken.fromRef(_currentToken(reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3147,7 +3149,7 @@ class JsonParser extends jni.JlObject {
   ///@return {@code int} matching one of constants from JsonTokenId.
   int currentTokenId() {
     final result__ = _currentTokenId(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3166,7 +3168,7 @@ class JsonParser extends jni.JlObject {
   ///   if any: null before any tokens have been read, and
   JsonToken getCurrentToken() {
     final result__ = JsonToken.fromRef(_getCurrentToken(reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3182,7 +3184,7 @@ class JsonParser extends jni.JlObject {
   ///@deprecated Since 2.12 use \#currentTokenId instead
   int getCurrentTokenId() {
     final result__ = _getCurrentTokenId(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3203,7 +3205,7 @@ class JsonParser extends jni.JlObject {
   ///   has been consumed)
   bool hasCurrentToken() {
     final result__ = _hasCurrentToken(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3229,7 +3231,7 @@ class JsonParser extends jni.JlObject {
   ///@since 2.5
   bool hasTokenId(int id) {
     final result__ = _hasTokenId(reference, id) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3256,7 +3258,7 @@ class JsonParser extends jni.JlObject {
   ///@since 2.6
   bool hasToken(JsonToken t) {
     final result__ = _hasToken(reference, t.reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3285,7 +3287,7 @@ class JsonParser extends jni.JlObject {
   ///   {@code false} if not
   bool isExpectedStartArrayToken() {
     final result__ = _isExpectedStartArrayToken(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3304,7 +3306,7 @@ class JsonParser extends jni.JlObject {
   ///@since 2.5
   bool isExpectedStartObjectToken() {
     final result__ = _isExpectedStartObjectToken(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3326,7 +3328,7 @@ class JsonParser extends jni.JlObject {
   ///@since 2.12
   bool isExpectedNumberIntToken() {
     final result__ = _isExpectedNumberIntToken(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3351,7 +3353,7 @@ class JsonParser extends jni.JlObject {
   ///@since 2.9
   bool isNaN() {
     final result__ = _isNaN(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3374,7 +3376,7 @@ class JsonParser extends jni.JlObject {
   /// it will not be used again).
   void clearCurrentToken() {
     final result__ = _clearCurrentToken(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3395,7 +3397,7 @@ class JsonParser extends jni.JlObject {
   ///@return Last cleared token, if any; {@code null} otherwise
   JsonToken getLastClearedToken() {
     final result__ = JsonToken.fromRef(_getLastClearedToken(reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3417,9 +3419,9 @@ class JsonParser extends jni.JlObject {
   /// Note that use of this method should only be done as sort of last
   /// resort, as it is a work-around for regular operation.
   ///@param name Name to use as the current name; may be null.
-  void overrideCurrentName(jni.JlString name) {
+  void overrideCurrentName(jni.JniString name) {
     final result__ = _overrideCurrentName(reference, name.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3436,9 +3438,9 @@ class JsonParser extends jni.JlObject {
   ///@return Name of the current field in the parsing context
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlString getCurrentName() {
-    final result__ = jni.JlString.fromRef(_getCurrentName(reference));
-    jni.Jni.indir.checkException();
+  jni.JniString getCurrentName() {
+    final result__ = jni.JniString.fromRef(_getCurrentName(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3460,9 +3462,9 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.10
-  jni.JlString currentName() {
-    final result__ = jni.JlString.fromRef(_currentName(reference));
-    jni.Jni.indir.checkException();
+  jni.JniString currentName() {
+    final result__ = jni.JniString.fromRef(_currentName(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3483,9 +3485,9 @@ class JsonParser extends jni.JlObject {
   ///   by \#nextToken() or other iteration methods)
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlString getText() {
-    final result__ = jni.JlString.fromRef(_getText(reference));
-    jni.Jni.indir.checkException();
+  jni.JniString getText() {
+    final result__ = jni.JniString.fromRef(_getText(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3513,9 +3515,9 @@ class JsonParser extends jni.JlObject {
   ///   {@code writer}, or
   ///   JsonParseException for decoding problems
   ///@since 2.8
-  int getText1(jni.JlObject writer) {
+  int getText1(jni.JniObject writer) {
     final result__ = _getText1(reference, writer.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3555,9 +3557,9 @@ class JsonParser extends jni.JlObject {
   ///    at offset 0, and not necessarily until the end of buffer)
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject getTextCharacters() {
-    final result__ = jni.JlObject.fromRef(_getTextCharacters(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getTextCharacters() {
+    final result__ = jni.JniObject.fromRef(_getTextCharacters(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3577,7 +3579,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   int getTextLength() {
     final result__ = _getTextLength(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3597,7 +3599,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   int getTextOffset() {
     final result__ = _getTextOffset(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3624,7 +3626,7 @@ class JsonParser extends jni.JlObject {
   ///   means that it may or may not exist
   bool hasTextCharacters() {
     final result__ = _hasTextCharacters(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3647,9 +3649,9 @@ class JsonParser extends jni.JlObject {
   ///    the current token is not numeric, or if decoding of the value fails
   ///    (invalid format for numbers); plain IOException if underlying
   ///    content read fails (possible if values are extracted lazily)
-  jni.JlObject getNumberValue() {
-    final result__ = jni.JlObject.fromRef(_getNumberValue(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getNumberValue() {
+    final result__ = jni.JniObject.fromRef(_getNumberValue(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3676,9 +3678,9 @@ class JsonParser extends jni.JlObject {
   ///    (invalid format for numbers); plain IOException if underlying
   ///    content read fails (possible if values are extracted lazily)
   ///@since 2.12
-  jni.JlObject getNumberValueExact() {
-    final result__ = jni.JlObject.fromRef(_getNumberValueExact(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getNumberValueExact() {
+    final result__ = jni.JniObject.fromRef(_getNumberValueExact(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3700,7 +3702,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   JsonParser_NumberType getNumberType() {
     final result__ = JsonParser_NumberType.fromRef(_getNumberType(reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3734,7 +3736,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   int getByteValue() {
     final result__ = _getByteValue(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3762,7 +3764,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   int getShortValue() {
     final result__ = _getShortValue(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3790,7 +3792,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   int getIntValue() {
     final result__ = _getIntValue(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3818,7 +3820,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   int getLongValue() {
     final result__ = _getLongValue(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3842,9 +3844,9 @@ class JsonParser extends jni.JlObject {
   ///     otherwise exception thrown
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject getBigIntegerValue() {
-    final result__ = jni.JlObject.fromRef(_getBigIntegerValue(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getBigIntegerValue() {
+    final result__ = jni.JniObject.fromRef(_getBigIntegerValue(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3872,7 +3874,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   double getFloatValue() {
     final result__ = _getFloatValue(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3900,7 +3902,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   double getDoubleValue() {
     final result__ = _getDoubleValue(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3921,9 +3923,9 @@ class JsonParser extends jni.JlObject {
   ///   otherwise exception thrown
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject getDecimalValue() {
-    final result__ = jni.JlObject.fromRef(_getDecimalValue(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getDecimalValue() {
+    final result__ = jni.JniObject.fromRef(_getDecimalValue(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3947,7 +3949,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   bool getBooleanValue() {
     final result__ = _getBooleanValue(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -3974,9 +3976,9 @@ class JsonParser extends jni.JlObject {
   ///   for the current token, if any; {@code null otherwise}
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject getEmbeddedObject() {
-    final result__ = jni.JlObject.fromRef(_getEmbeddedObject(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getEmbeddedObject() {
+    final result__ = jni.JniObject.fromRef(_getEmbeddedObject(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4012,10 +4014,10 @@ class JsonParser extends jni.JlObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject getBinaryValue(jni.JlObject bv) {
+  jni.JniObject getBinaryValue(jni.JniObject bv) {
     final result__ =
-        jni.JlObject.fromRef(_getBinaryValue(reference, bv.reference));
-    jni.Jni.indir.checkException();
+        jni.JniObject.fromRef(_getBinaryValue(reference, bv.reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4034,9 +4036,9 @@ class JsonParser extends jni.JlObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JlObject getBinaryValue1() {
-    final result__ = jni.JlObject.fromRef(_getBinaryValue1(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getBinaryValue1() {
+    final result__ = jni.JniObject.fromRef(_getBinaryValue1(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4060,9 +4062,9 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.1
-  int readBinaryValue(jni.JlObject out) {
+  int readBinaryValue(jni.JniObject out) {
     final result__ = _readBinaryValue(reference, out.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4085,9 +4087,9 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.1
-  int readBinaryValue1(jni.JlObject bv, jni.JlObject out) {
+  int readBinaryValue1(jni.JniObject bv, jni.JniObject out) {
     final result__ = _readBinaryValue1(reference, bv.reference, out.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4113,7 +4115,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   int getValueAsInt() {
     final result__ = _getValueAsInt(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4140,7 +4142,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   int getValueAsInt1(int def) {
     final result__ = _getValueAsInt1(reference, def);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4166,7 +4168,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   int getValueAsLong() {
     final result__ = _getValueAsLong(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4193,7 +4195,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   int getValueAsLong1(int def) {
     final result__ = _getValueAsLong1(reference, def);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4219,7 +4221,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   double getValueAsDouble() {
     final result__ = _getValueAsDouble(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4246,7 +4248,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   double getValueAsDouble1(double def) {
     final result__ = _getValueAsDouble1(reference, def);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4272,7 +4274,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   bool getValueAsBoolean() {
     final result__ = _getValueAsBoolean(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4299,7 +4301,7 @@ class JsonParser extends jni.JlObject {
   ///   JsonParseException for decoding problems
   bool getValueAsBoolean1(bool def) {
     final result__ = _getValueAsBoolean1(reference, def ? 1 : 0) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4323,9 +4325,9 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.1
-  jni.JlString getValueAsString() {
-    final result__ = jni.JlString.fromRef(_getValueAsString(reference));
-    jni.Jni.indir.checkException();
+  jni.JniString getValueAsString() {
+    final result__ = jni.JniString.fromRef(_getValueAsString(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4353,10 +4355,10 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.1
-  jni.JlString getValueAsString1(jni.JlString def) {
+  jni.JniString getValueAsString1(jni.JniString def) {
     final result__ =
-        jni.JlString.fromRef(_getValueAsString1(reference, def.reference));
-    jni.Jni.indir.checkException();
+        jni.JniString.fromRef(_getValueAsString1(reference, def.reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4380,7 +4382,7 @@ class JsonParser extends jni.JlObject {
   ///@since 2.3
   bool canReadObjectId() {
     final result__ = _canReadObjectId(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4404,7 +4406,7 @@ class JsonParser extends jni.JlObject {
   ///@since 2.3
   bool canReadTypeId() {
     final result__ = _canReadTypeId(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4430,9 +4432,9 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.3
-  jni.JlObject getObjectId() {
-    final result__ = jni.JlObject.fromRef(_getObjectId(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getObjectId() {
+    final result__ = jni.JniObject.fromRef(_getObjectId(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4458,9 +4460,9 @@ class JsonParser extends jni.JlObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.3
-  jni.JlObject getTypeId() {
-    final result__ = jni.JlObject.fromRef(_getTypeId(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject getTypeId() {
+    final result__ = jni.JniObject.fromRef(_getTypeId(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4484,10 +4486,10 @@ class JsonParser extends jni.JlObject {
   ///@return Iterator for reading multiple Java values from content
   ///@throws IOException if there is either an underlying I/O problem or decoding
   ///    issue at format layer
-  jni.JlObject readValuesAs(jni.JlObject valueType) {
+  jni.JniObject readValuesAs(jni.JniObject valueType) {
     final result__ =
-        jni.JlObject.fromRef(_readValuesAs(reference, valueType.reference));
-    jni.Jni.indir.checkException();
+        jni.JniObject.fromRef(_readValuesAs(reference, valueType.reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4511,10 +4513,10 @@ class JsonParser extends jni.JlObject {
   ///@return Iterator for reading multiple Java values from content
   ///@throws IOException if there is either an underlying I/O problem or decoding
   ///    issue at format layer
-  jni.JlObject readValuesAs1(jni.JlObject valueTypeRef) {
-    final result__ =
-        jni.JlObject.fromRef(_readValuesAs1(reference, valueTypeRef.reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject readValuesAs1(jni.JniObject valueTypeRef) {
+    final result__ = jni.JniObject.fromRef(
+        _readValuesAs1(reference, valueTypeRef.reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 }
@@ -4522,7 +4524,7 @@ class JsonParser extends jni.JlObject {
 /// from: com.fasterxml.jackson.core.JsonParser$Feature
 ///
 /// Enumeration that defines all on/off features for parsers.
-class JsonParser_Feature extends jni.JlObject {
+class JsonParser_Feature extends jni.JniObject {
   JsonParser_Feature.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _values =
@@ -4532,9 +4534,9 @@ class JsonParser_Feature extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonParser.Feature[] values()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JlObject values() {
-    final result__ = jni.JlObject.fromRef(_values());
-    jni.Jni.indir.checkException();
+  static jni.JniObject values() {
+    final result__ = jni.JniObject.fromRef(_values());
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4546,9 +4548,9 @@ class JsonParser_Feature extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonParser.Feature valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonParser_Feature valueOf(jni.JlString name) {
+  static JsonParser_Feature valueOf(jni.JniString name) {
     final result__ = JsonParser_Feature.fromRef(_valueOf(name.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4564,7 +4566,7 @@ class JsonParser_Feature extends jni.JlObject {
   ///@return Bit mask of all features that are enabled by default
   static int collectDefaults() {
     final result__ = _collectDefaults();
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4576,7 +4578,7 @@ class JsonParser_Feature extends jni.JlObject {
   /// from: private void <init>(boolean defaultState)
   JsonParser_Feature(bool defaultState)
       : super.fromRef(_ctor(defaultState ? 1 : 0)) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 
   static final _enabledByDefault =
@@ -4587,7 +4589,7 @@ class JsonParser_Feature extends jni.JlObject {
   /// from: public boolean enabledByDefault()
   bool enabledByDefault() {
     final result__ = _enabledByDefault(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4600,7 +4602,7 @@ class JsonParser_Feature extends jni.JlObject {
   /// from: public boolean enabledIn(int flags)
   bool enabledIn(int flags) {
     final result__ = _enabledIn(reference, flags) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4612,7 +4614,7 @@ class JsonParser_Feature extends jni.JlObject {
   /// from: public int getMask()
   int getMask() {
     final result__ = _getMask(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 }
@@ -4621,7 +4623,7 @@ class JsonParser_Feature extends jni.JlObject {
 ///
 /// Enumeration of possible "native" (optimal) types that can be
 /// used for numbers.
-class JsonParser_NumberType extends jni.JlObject {
+class JsonParser_NumberType extends jni.JniObject {
   JsonParser_NumberType.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _values =
@@ -4631,9 +4633,9 @@ class JsonParser_NumberType extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonParser.NumberType[] values()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JlObject values() {
-    final result__ = jni.JlObject.fromRef(_values());
-    jni.Jni.indir.checkException();
+  static jni.JniObject values() {
+    final result__ = jni.JniObject.fromRef(_values());
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4645,9 +4647,9 @@ class JsonParser_NumberType extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonParser.NumberType valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonParser_NumberType valueOf(jni.JlString name) {
+  static JsonParser_NumberType valueOf(jni.JniString name) {
     final result__ = JsonParser_NumberType.fromRef(_valueOf(name.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4658,7 +4660,7 @@ class JsonParser_NumberType extends jni.JlObject {
 
   /// from: private void <init>()
   JsonParser_NumberType() : super.fromRef(_ctor()) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 }
 
@@ -4666,7 +4668,7 @@ class JsonParser_NumberType extends jni.JlObject {
 ///
 /// Enumeration for basic token types used for returning results
 /// of parsing JSON content.
-class JsonToken extends jni.JlObject {
+class JsonToken extends jni.JniObject {
   JsonToken.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _values =
@@ -4676,9 +4678,9 @@ class JsonToken extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonToken[] values()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JlObject values() {
-    final result__ = jni.JlObject.fromRef(_values());
-    jni.Jni.indir.checkException();
+  static jni.JniObject values() {
+    final result__ = jni.JniObject.fromRef(_values());
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4690,9 +4692,9 @@ class JsonToken extends jni.JlObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonToken valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonToken valueOf(jni.JlString name) {
+  static JsonToken valueOf(jni.JniString name) {
     final result__ = JsonToken.fromRef(_valueOf(name.reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4707,9 +4709,9 @@ class JsonToken extends jni.JlObject {
   /// @param token representation for this token, if there is a
   ///   single static representation; null otherwise
   ///@param id Numeric id from JsonTokenId
-  JsonToken(jni.JlString token, int id)
+  JsonToken(jni.JniString token, int id)
       : super.fromRef(_ctor(token.reference, id)) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 
   static final _id =
@@ -4720,7 +4722,7 @@ class JsonToken extends jni.JlObject {
   /// from: public final int id()
   int id() {
     final result__ = _id(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4732,9 +4734,9 @@ class JsonToken extends jni.JlObject {
 
   /// from: public final java.lang.String asString()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlString asString() {
-    final result__ = jni.JlString.fromRef(_asString(reference));
-    jni.Jni.indir.checkException();
+  jni.JniString asString() {
+    final result__ = jni.JniString.fromRef(_asString(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4746,9 +4748,9 @@ class JsonToken extends jni.JlObject {
 
   /// from: public final char[] asCharArray()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject asCharArray() {
-    final result__ = jni.JlObject.fromRef(_asCharArray(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject asCharArray() {
+    final result__ = jni.JniObject.fromRef(_asCharArray(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4760,9 +4762,9 @@ class JsonToken extends jni.JlObject {
 
   /// from: public final byte[] asByteArray()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JlObject asByteArray() {
-    final result__ = jni.JlObject.fromRef(_asByteArray(reference));
-    jni.Jni.indir.checkException();
+  jni.JniObject asByteArray() {
+    final result__ = jni.JniObject.fromRef(_asByteArray(reference));
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4777,7 +4779,7 @@ class JsonToken extends jni.JlObject {
   ///   {@code false} otherwise
   bool isNumeric() {
     final result__ = _isNumeric(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4797,7 +4799,7 @@ class JsonToken extends jni.JlObject {
   ///@since 2.3
   bool isStructStart() {
     final result__ = _isStructStart(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4817,7 +4819,7 @@ class JsonToken extends jni.JlObject {
   ///@since 2.3
   bool isStructEnd() {
     final result__ = _isStructEnd(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4836,7 +4838,7 @@ class JsonToken extends jni.JlObject {
   ///   {@code VALUE_xxx} tokens), {@code false} otherwise
   bool isScalarValue() {
     final result__ = _isScalarValue(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -4851,7 +4853,7 @@ class JsonToken extends jni.JlObject {
   ///   {@code false} otherwise
   bool isBoolean() {
     final result__ = _isBoolean(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 }

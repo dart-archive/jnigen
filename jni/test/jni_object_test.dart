@@ -22,21 +22,21 @@ void main() {
 
   // The API based on JniEnv is intended to closely mimic C API of JNI,
   // And thus can be too verbose for simple experimenting and one-off uses
-  // JlObject API provides an easier way to perform some common operations.
+  // JniObject API provides an easier way to perform some common operations.
   //
   // However, if binding generation using jnigen is possible, that should be
   // the first choice.
-  test("Long.intValue() using JlObject", () {
-    // JlClass wraps a local class reference, and
+  test("Long.intValue() using JniObject", () {
+    // JniClass wraps a local class reference, and
     // provides convenience functions.
-    final longClass = Jni.findJlClass("java/lang/Long");
+    final longClass = Jni.findJniClass("java/lang/Long");
 
     // looks for a constructor with given signature.
     // equivalently you can lookup a method with name <init>
     final longCtor = longClass.getCtorID("(J)V");
 
     // note that the arguments are just passed as a list.
-    // allowed argument types are primitive types, JlObject and its subclasses,
+    // allowed argument types are primitive types, JniObject and its subclasses,
     // and raw JNI references (JObject). Strings will be automatically converted
     // to JNI strings.
     final long = longClass.newObject(longCtor, [176]);
@@ -44,15 +44,15 @@ void main() {
     final intValue = long.callMethodByName<int>("intValue", "()I", []);
     expect(intValue, equals(176));
 
-    // delete any JlObject and JlClass instances using .delete() after use.
+    // delete any JniObject and JniClass instances using .delete() after use.
     // TODO(#50) implement NativeFinalizers.
     long.delete();
     longClass.delete();
   });
 
   test("call a static method using JniClass APIs", () {
-    final integerClass = Jni.findJlClass("java/lang/Integer");
-    final result = integerClass.callStaticMethodByName<JlString>(
+    final integerClass = Jni.findJniClass("java/lang/Integer");
+    final result = integerClass.callStaticMethodByName<JniString>(
         "toHexString", "(I)Ljava/lang/String;", [31]);
 
     // if the object is supposed to be a Java string
@@ -68,7 +68,7 @@ void main() {
   });
 
   test("Call method with null argument, expect exception", () {
-    final integerClass = Jni.findJlClass("java/lang/Integer");
+    final integerClass = Jni.findJniClass("java/lang/Integer");
     expect(
         () => integerClass.callStaticMethodByName<int>(
             "parseInt", "(Ljava/lang/String;)I", [nullptr]),
@@ -77,13 +77,13 @@ void main() {
   });
 
   test("Try to find a non-exisiting class, expect exception", () {
-    expect(() => Jni.findJlClass("java/lang/NotExists"), throwsException);
+    expect(() => Jni.findJniClass("java/lang/NotExists"), throwsException);
   });
 
   /// callMethodByName will be expensive if making same call many times
   /// Use getMethodID to get a method ID and use it in subsequent calls
   test("Example for using getMethodID", () {
-    final longClass = Jni.findJlClass("java/lang/Long");
+    final longClass = Jni.findJniClass("java/lang/Long");
     final bitCountMethod = longClass.getStaticMethodID("bitCount", "(J)I");
 
     // Use newInstance if you want only one instance.
@@ -129,7 +129,7 @@ void main() {
 
   // Use callStringMethod if all you care about is a string result
   test("callStaticStringMethod", () {
-    final longClass = Jni.findJlClass("java/lang/Long");
+    final longClass = Jni.findJniClass("java/lang/Long");
     const n = 1223334444;
     final strFromJava = longClass.callStaticMethodByName<String>(
         "toOctalString", "(J)Ljava/lang/String;", [JValueLong(n)]);
@@ -137,12 +137,12 @@ void main() {
     longClass.delete();
   });
 
-  // In JlObject, JniClass, and retrieve_/invoke_ methods
+  // In JniObject, JniClass, and retrieve_/invoke_ methods
   // you can also pass Dart strings, apart from range of types
   // allowed by Jni.jvalues
   // They will be converted automatically.
   test("Passing strings in arguments", () {
-    final out = Jni.retrieveStaticField<JlObject>(
+    final out = Jni.retrieveStaticField<JniObject>(
         "java/lang/System", "out", "Ljava/io/PrintStream;");
     // uncomment next line to see output
     // (\n because test runner prints first char at end of the line)
@@ -157,19 +157,19 @@ void main() {
     expect(twelve, equals(12));
   });
 
-  // You can use() method on JlObject for using once and deleting.
+  // You can use() method on JniObject for using once and deleting.
   test("use() method", () {
     final randomInt = Jni.newInstance("java/util/Random", "()V", [])
         .use((random) => random.callMethodByName<int>("nextInt", "(I)I", [15]));
     expect(randomInt, lessThan(15));
   });
 
-  // The JlObject and JlClass have NativeFinalizer. However, it's possible to
+  // The JniObject and JniClass have NativeFinalizer. However, it's possible to
   // explicitly use `Arena`.
   test('Using arena', () {
-    final objects = <JlObject>[];
+    final objects = <JniObject>[];
     using((arena) {
-      final r = Jni.findJlClass('java/util/Random')..deletedIn(arena);
+      final r = Jni.findJniClass('java/util/Random')..deletedIn(arena);
       final ctor = r.getCtorID("()V");
       for (int i = 0; i < 10; i++) {
         objects.add(r.newObject(ctor, [])..deletedIn(arena));
@@ -182,7 +182,7 @@ void main() {
 
   test("enums", () {
     // Don't forget to escape $ in nested type names
-    final ordinal = Jni.retrieveStaticField<JlObject>(
+    final ordinal = Jni.retrieveStaticField<JniObject>(
             "java/net/Proxy\$Type", "HTTP", "Ljava/net/Proxy\$Type;")
         .use((f) => f.callMethodByName<int>("ordinal", "()I", []));
     expect(ordinal, equals(1));

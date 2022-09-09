@@ -13,7 +13,7 @@ import "package:jni/jni.dart" as jni;
 import "../../../../_init.dart" show jlookup;
 
 /// from: com.github.dart_lang.jnigen.simple_package.Example
-class Example extends jni.JlObject {
+class Example extends jni.JniObject {
   Example.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// from: static public final int ON
@@ -60,7 +60,7 @@ class Example extends jni.JlObject {
 
   /// from: public void <init>()
   Example() : super.fromRef(_ctor()) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 
   static final _getAux =
@@ -72,7 +72,7 @@ class Example extends jni.JlObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static Example_Aux getAux() {
     final result__ = Example_Aux.fromRef(_getAux());
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -84,7 +84,7 @@ class Example extends jni.JlObject {
   /// from: static public int addInts(int a, int b)
   static int addInts(int a, int b) {
     final result__ = _addInts(a, b);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -98,7 +98,7 @@ class Example extends jni.JlObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   Example getSelf() {
     final result__ = Example.fromRef(_getSelf(reference));
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -110,7 +110,7 @@ class Example extends jni.JlObject {
   /// from: public int getNum()
   int getNum() {
     final result__ = _getNum(reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -123,7 +123,7 @@ class Example extends jni.JlObject {
   /// from: public void setNum(int num)
   void setNum(int num) {
     final result__ = _setNum(reference, num);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -135,13 +135,13 @@ class Example extends jni.JlObject {
   /// from: static public void throwException()
   static void throwException() {
     final result__ = _throwException();
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 }
 
 /// from: com.github.dart_lang.jnigen.simple_package.Example$Aux
-class Example_Aux extends jni.JlObject {
+class Example_Aux extends jni.JniObject {
   Example_Aux.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _get_value = jlookup<
@@ -172,7 +172,7 @@ class Example_Aux extends jni.JlObject {
 
   /// from: public void <init>(boolean value)
   Example_Aux(bool value) : super.fromRef(_ctor(value ? 1 : 0)) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 
   static final _getValue = jlookup<
@@ -183,7 +183,7 @@ class Example_Aux extends jni.JlObject {
   /// from: public boolean getValue()
   bool getValue() {
     final result__ = _getValue(reference) != 0;
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 
@@ -196,7 +196,7 @@ class Example_Aux extends jni.JlObject {
   /// from: public void setValue(boolean value)
   void setValue(bool value) {
     final result__ = _setValue(reference, value ? 1 : 0);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 }

@@ -17,8 +17,8 @@ void main() {
     }
   }
 
-  testWidgets("Long.intValue() using JlObject", (t) async {
-    final longClass = Jni.findJlClass("java/lang/Long");
+  testWidgets("Long.intValue() using JniObject", (t) async {
+    final longClass = Jni.findJniClass("java/lang/Long");
 
     final longCtor = longClass.getCtorID("(J)V");
 
@@ -32,8 +32,8 @@ void main() {
   });
 
   testWidgets("call a static method using JniClass APIs", (t) async {
-    final integerClass = JlClass.fromRef(Jni.findClass("java/lang/Integer"));
-    final result = integerClass.callStaticMethodByName<JlString>(
+    final integerClass = JniClass.fromRef(Jni.findClass("java/lang/Integer"));
+    final result = integerClass.callStaticMethodByName<JniString>(
         "toHexString", "(I)Ljava/lang/String;", [31]);
 
     final resultString = result.toDartString();
@@ -45,7 +45,7 @@ void main() {
   });
 
   testWidgets("Example for using getMethodID", (t) async {
-    final longClass = Jni.findJlClass("java/lang/Long");
+    final longClass = Jni.findJniClass("java/lang/Long");
     final bitCountMethod = longClass.getStaticMethodID("bitCount", "(J)I");
 
     final random = Jni.newInstance("java/util/Random", "()V", []);
@@ -81,7 +81,7 @@ void main() {
   });
 
   testWidgets("callStaticStringMethod", (t) async {
-    final longClass = Jni.findJlClass("java/lang/Long");
+    final longClass = Jni.findJniClass("java/lang/Long");
     const n = 1223334444;
     final strFromJava = longClass.callStaticMethodByName<String>(
         "toOctalString", "(J)Ljava/lang/String;", [JValueLong(n)]);
@@ -102,7 +102,7 @@ void main() {
   });
 
   testWidgets("enums", (t) async {
-    final ordinal = Jni.retrieveStaticField<JlObject>(
+    final ordinal = Jni.retrieveStaticField<JniObject>(
             "java/net/Proxy\$Type", "HTTP", "Ljava/net/Proxy\$Type;")
         .use((f) => f.callMethodByName<int>("ordinal", "()I", []));
     expect(ordinal, equals(1));

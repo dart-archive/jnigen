@@ -17,7 +17,7 @@ import "package:jni/jni.dart" as jni;
 import "../../_init.dart" show jlookup;
 
 /// from: com.example.notification_plugin.Notifications
-class Notifications extends jni.JlObject {
+class Notifications extends jni.JniObject {
   Notifications.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _ctor =
@@ -27,7 +27,7 @@ class Notifications extends jni.JlObject {
 
   /// from: public void <init>()
   Notifications() : super.fromRef(_ctor()) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 
   static final _showNotification = jlookup<
@@ -40,11 +40,11 @@ class Notifications extends jni.JlObject {
               ffi.Pointer<ffi.Void>)>();
 
   /// from: static public void showNotification(android.content.Context context, int notificationID, java.lang.String title, java.lang.String text)
-  static void showNotification(jni.JlObject context, int notificationID,
-      jni.JlString title, jni.JlString text) {
+  static void showNotification(jni.JniObject context, int notificationID,
+      jni.JniString title, jni.JniString text) {
     final result__ = _showNotification(
         context.reference, notificationID, title.reference, text.reference);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 }

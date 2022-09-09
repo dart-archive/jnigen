@@ -7,7 +7,7 @@ project(jni_library VERSION 0.0.1 LANGUAGES C)
 
 add_library(jni SHARED
   "dartjni.c"
-  "indir.c"
+  "global_jni_env.c"
 )
 
 set_target_properties(jni PROPERTIES

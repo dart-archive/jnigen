@@ -203,77 +203,20 @@ class JniBindings {
   late final _GetCurrentActivity =
       _GetCurrentActivityPtr.asFunction<JObject Function()>();
 
-  void SetJNILogging(
-    int level,
-  ) {
-    return _SetJNILogging(
-      level,
-    );
+  late final ffi.Pointer<GlobalJniEnv> _globalEnv =
+      _lookup<GlobalJniEnv>('globalEnv');
+
+  GlobalJniEnv get globalEnv => _globalEnv.ref;
+
+  ffi.Pointer<GlobalJniEnv> GetGlobalEnv() {
+    return _GetGlobalEnv();
   }
 
-  late final _SetJNILoggingPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>('SetJNILogging');
-  late final _SetJNILogging =
-      _SetJNILoggingPtr.asFunction<void Function(int)>();
-
-  JString ToJavaString(
-    ffi.Pointer<ffi.Char> str,
-  ) {
-    return _ToJavaString(
-      str,
-    );
-  }
-
-  late final _ToJavaStringPtr =
-      _lookup<ffi.NativeFunction<JString Function(ffi.Pointer<ffi.Char>)>>(
-          'ToJavaString');
-  late final _ToJavaString =
-      _ToJavaStringPtr.asFunction<JString Function(ffi.Pointer<ffi.Char>)>();
-
-  ffi.Pointer<ffi.Char> GetJavaStringChars(
-    JString jstr,
-  ) {
-    return _GetJavaStringChars(
-      jstr,
-    );
-  }
-
-  late final _GetJavaStringCharsPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(JString)>>(
-          'GetJavaStringChars');
-  late final _GetJavaStringChars = _GetJavaStringCharsPtr.asFunction<
-      ffi.Pointer<ffi.Char> Function(JString)>();
-
-  void ReleaseJavaStringChars(
-    JString jstr,
-    ffi.Pointer<ffi.Char> buf,
-  ) {
-    return _ReleaseJavaStringChars(
-      jstr,
-      buf,
-    );
-  }
-
-  late final _ReleaseJavaStringCharsPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              JString, ffi.Pointer<ffi.Char>)>>('ReleaseJavaStringChars');
-  late final _ReleaseJavaStringChars = _ReleaseJavaStringCharsPtr.asFunction<
-      void Function(JString, ffi.Pointer<ffi.Char>)>();
-
-  late final ffi.Pointer<JniEnvIndir> _indir = _lookup<JniEnvIndir>('indir');
-
-  JniEnvIndir get indir => _indir.ref;
-
-  ffi.Pointer<JniEnvIndir> GetIndir() {
-    return _GetIndir();
-  }
-
-  late final _GetIndirPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<JniEnvIndir> Function()>>(
-          'GetIndir');
-  late final _GetIndir =
-      _GetIndirPtr.asFunction<ffi.Pointer<JniEnvIndir> Function()>();
+  late final _GetGlobalEnvPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<GlobalJniEnv> Function()>>(
+          'GetGlobalEnv');
+  late final _GetGlobalEnv =
+      _GetGlobalEnvPtr.asFunction<ffi.Pointer<GlobalJniEnv> Function()>();
 }
 
 class jfieldID_ extends ffi.Opaque {}
@@ -1672,7 +1615,7 @@ abstract class JniType {
   static const int voidType = 9;
 }
 
-class JniEnvIndir extends ffi.Struct {
+class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<ffi.NativeFunction<JInt Function()>> GetVersion;
 
   external ffi.Pointer<
@@ -2469,7 +2412,7 @@ class JniEnvIndir extends ffi.Struct {
       GetObjectRefType;
 }
 
-extension JniEnvIndirExtension on ffi.Pointer<JniEnvIndir> {
+extension GlobalJniEnvExtension on ffi.Pointer<GlobalJniEnv> {
   @pragma('vm:prefer-inline')
   int GetVersion() {
     return ref.GetVersion.asFunction<int Function()>()();

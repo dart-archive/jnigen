@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 #include "dartjni.h"
-struct JniEnvIndir {
+typedef struct GlobalJniEnv {
     jint (*GetVersion)();
     jclass (*DefineClass)(const char * name, jobject loader, const jbyte * buf, jsize bufLen);
     jclass (*FindClass)(const char * name);
@@ -200,7 +200,7 @@ struct JniEnvIndir {
     void * (*GetDirectBufferAddress)(jobject buf);
     jlong (*GetDirectBufferCapacity)(jobject buf);
     jobjectRefType (*GetObjectRefType)(jobject obj);
-};
+} GlobalJniEnv;
 
-extern struct JniEnvIndir indir;
-FFI_PLUGIN_EXPORT struct JniEnvIndir *GetIndir(void);
+extern GlobalJniEnv globalEnv;
+FFI_PLUGIN_EXPORT struct GlobalJniEnv *GetGlobalEnv(void);

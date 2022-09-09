@@ -40,17 +40,17 @@
 #define __ENVP_CAST (void **)
 #endif
 
-struct JniContext {
+typedef struct JniContext {
 	JavaVM *jvm;
 	jobject classLoader;
 	jmethodID loadClassMethod;
 	jobject currentActivity;
 	jobject appContext;
-};
+} JniContext;
 
 extern thread_local JNIEnv *jniEnv;
 
-extern struct JniContext jni;
+extern JniContext jni;
 
 enum DartJniLogLevel {
 	JNI_VERBOSE = 2,
@@ -73,7 +73,7 @@ enum JniType {
 	voidType = 9,
 };
 
-FFI_PLUGIN_EXPORT struct JniContext GetJniContext();
+FFI_PLUGIN_EXPORT JniContext GetJniContext();
 
 FFI_PLUGIN_EXPORT JavaVM *GetJavaVM(void);
 
@@ -91,19 +91,11 @@ FFI_PLUGIN_EXPORT jobject GetApplicationContext(void);
 
 FFI_PLUGIN_EXPORT jobject GetCurrentActivity(void);
 
-FFI_PLUGIN_EXPORT void SetJNILogging(int level);
-
-FFI_PLUGIN_EXPORT jstring ToJavaString(char *str);
-
-FFI_PLUGIN_EXPORT const char *GetJavaStringChars(jstring jstr);
-
-FFI_PLUGIN_EXPORT void ReleaseJavaStringChars(jstring jstr, const char *buf);
-
 /// For use by jni_gen's generated code
 /// don't use these.
 
 // these 2 fn ptr vars will be defined by generated code library
-extern struct JniContext (*context_getter)(void);
+extern JniContext (*context_getter)(void);
 extern JNIEnv *(*env_getter)(void);
 
 // this function will be exported by generated code library

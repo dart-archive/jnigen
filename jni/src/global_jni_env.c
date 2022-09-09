@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-#include "indir.h"
+#include "global_jni_env.h"
 jint Jei_GetVersion() {
     attach_thread();
     return (*jniEnv)->GetVersion(jniEnv);
@@ -983,7 +983,7 @@ jobjectRefType Jei_GetObjectRefType(jobject obj) {
     return (*jniEnv)->GetObjectRefType(jniEnv, obj);
 }
 
-struct JniEnvIndir indir = {
+struct GlobalJniEnv globalEnv = {
     .GetVersion = Jei_GetVersion,
     .DefineClass = Jei_DefineClass,
     .FindClass = Jei_FindClass,
@@ -1182,7 +1182,7 @@ struct JniEnvIndir indir = {
     .GetObjectRefType = Jei_GetObjectRefType,
 };
 
-FFI_PLUGIN_EXPORT struct JniEnvIndir *GetIndir(void) {
+FFI_PLUGIN_EXPORT struct GlobalJniEnv *GetGlobalEnv(void) {
     if (jni.jvm == NULL) return NULL;
-    return &indir;
+    return &globalEnv;
 }

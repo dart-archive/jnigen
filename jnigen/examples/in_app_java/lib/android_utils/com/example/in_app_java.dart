@@ -13,7 +13,7 @@ import "package:jni/jni.dart" as jni;
 import "../../_init.dart" show jlookup;
 
 /// from: com.example.in_app_java.AndroidUtils
-class AndroidUtils extends jni.JlObject {
+class AndroidUtils extends jni.JniObject {
   AndroidUtils.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   static final _ctor =
@@ -23,7 +23,7 @@ class AndroidUtils extends jni.JlObject {
 
   /// from: public void <init>()
   AndroidUtils() : super.fromRef(_ctor()) {
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
   }
 
   static final _showToast = jlookup<
@@ -35,10 +35,10 @@ class AndroidUtils extends jni.JlObject {
 
   /// from: static void showToast(android.app.Activity mainActivity, java.lang.CharSequence text, int duration)
   static void showToast(
-      jni.JlObject mainActivity, jni.JlObject text, int duration) {
+      jni.JniObject mainActivity, jni.JniObject text, int duration) {
     final result__ =
         _showToast(mainActivity.reference, text.reference, duration);
-    jni.Jni.indir.checkException();
+    jni.Jni.env.checkException();
     return result__;
   }
 }
