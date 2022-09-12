@@ -19,13 +19,12 @@ typedef _VoidType = void;
 /// A class which holds one or more JNI references, and has a `delete` operation
 /// which disposes the reference(s).
 abstract class JniReference implements Finalizable {
-
   static final _finalizer = NativeFinalizer(_env.ref.DeleteGlobalRef);
 
   JniReference.fromRef(this.reference) {
     _finalizer.attach(this, reference, detach: this);
   }
- 
+
   bool _deleted = false;
 
   void _ensureNotDeleted() {
@@ -277,7 +276,8 @@ class JniObject extends JniReference {
   /// Get [JFieldID] of static field identified by [fieldName] & [signature].
   JFieldID getStaticFieldID(String fieldName, String signature) {
     _ensureNotDeleted();
-    return _getID(_env.GetStaticFieldID, _class.reference, fieldName, signature);
+    return _getID(
+        _env.GetStaticFieldID, _class.reference, fieldName, signature);
   }
 
   /// Get [JMethodID] of instance method [methodName] with [signature].
@@ -289,7 +289,8 @@ class JniObject extends JniReference {
   /// Get [JMethodID] of static method [methodName] with [signature].
   JMethodID getStaticMethodID(String methodName, String signature) {
     _ensureNotDeleted();
-    return _getID(_env.GetStaticMethodID, _class.reference, methodName, signature);
+    return _getID(
+        _env.GetStaticMethodID, _class.reference, methodName, signature);
   }
 
   /// Retrieve the value of the field using [fieldID].
@@ -320,9 +321,8 @@ class JniObject extends JniReference {
   /// See [getField] for an explanation about [callType] parameter.
   T getStaticField<T>(JFieldID fieldID, [int? callType]) {
     _ensureNotDeleted();
-    return _getField<T>(
-        callType, (ct) => _accessors[ct]!.getStaticField(_class.reference,
-          fieldID));
+    return _getField<T>(callType,
+        (ct) => _accessors[ct]!.getStaticField(_class.reference, fieldID));
   }
 
   /// Get value of the static field identified by [name] and [signature].
