@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:async';
 
-import 'dart:ffi'; // for nullptr :=
 import 'package:jni/jni.dart';
 import 'package:path/path.dart';
 
