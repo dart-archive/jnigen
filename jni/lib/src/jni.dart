@@ -79,59 +79,48 @@ abstract class Jni {
     List<String> classPath = const [],
     bool ignoreUnrecognized = false,
     int jniVersion = JNI_VERSION_1_6,
-  }) {
-    _dylibDir = dylibDir;
-    final existVm = _bindings.GetJavaVM();
-    if (existVm != nullptr) {
-      throw JvmExistsException();
-    }
-    final jArgs = _createVMArgs(
-      options: jvmOptions,
-      classPath: classPath,
-      version: jniVersion,
-      ignoreUnrecognized: ignoreUnrecognized,
-    );
-    _bindings.SpawnJvm(jArgs);
-    _freeVMArgs(jArgs);
-  }
+  }) =>
+      using((arena) {
+        _dylibDir = dylibDir;
+        final existVm = _bindings.GetJavaVM();
+        if (existVm != nullptr) {
+          throw JvmExistsException();
+        }
+        final jvmArgs = _createVMArgs(
+          options: jvmOptions,
+          classPath: classPath,
+          version: jniVersion,
+          ignoreUnrecognized: ignoreUnrecognized,
+          allocator: arena,
+        );
+        _bindings.SpawnJvm(jvmArgs);
+      });
 
   static Pointer<JavaVMInitArgs> _createVMArgs({
     List<String> options = const [],
     List<String> classPath = const [],
     bool ignoreUnrecognized = false,
     int version = JNI_VERSION_1_6,
+    required Allocator allocator,
   }) {
-    final args = calloc<JavaVMInitArgs>();
+    final args = allocator<JavaVMInitArgs>();
     if (options.isNotEmpty || classPath.isNotEmpty) {
       final count = options.length + (classPath.isNotEmpty ? 1 : 0);
-
-      final optsPtr = (count != 0) ? calloc<JavaVMOption>(count) : nullptr;
+      final optsPtr = (count != 0) ? allocator<JavaVMOption>(count) : nullptr;
       args.ref.options = optsPtr;
       for (int i = 0; i < options.length; i++) {
-        optsPtr.elementAt(i).ref.optionString = options[i].toNativeChars();
+        optsPtr.elementAt(i).ref.optionString = options[i].toNativeChars(allocator);
       }
       if (classPath.isNotEmpty) {
         final classPathString = classPath.join(Platform.isWindows ? ';' : ":");
         optsPtr.elementAt(count - 1).ref.optionString =
-            "-Djava.class.path=$classPathString".toNativeChars();
+            "-Djava.class.path=$classPathString".toNativeChars(allocator);
       }
       args.ref.nOptions = count;
     }
     args.ref.ignoreUnrecognized = ignoreUnrecognized ? 1 : 0;
     args.ref.version = version;
     return args;
-  }
-
-  static void _freeVMArgs(Pointer<JavaVMInitArgs> argPtr) {
-    final nOptions = argPtr.ref.nOptions;
-    final options = argPtr.ref.options;
-    if (nOptions != 0) {
-      for (var i = 0; i < nOptions; i++) {
-        calloc.free(options.elementAt(i).ref.optionString);
-      }
-      calloc.free(argPtr.ref.options);
-    }
-    calloc.free(argPtr);
   }
 
   /// Returns pointer to current JNI JavaVM instance
@@ -176,15 +165,14 @@ abstract class Jni {
   static JObject getApplicationClassLoader() => _bindings.GetClassLoader();
 
   /// Returns class reference found through system-specific mechanism
-  static JClass findClass(String qualifiedName) {
-    final nameChars = qualifiedName.toNativeChars();
-    final cls = _bindings.LoadClass(nameChars);
-    calloc.free(nameChars);
-    if (cls == nullptr) {
-      env.checkException();
-    }
-    return cls;
-  }
+  static JClass findClass(String qualifiedName) => using((arena) {
+        final nameChars = qualifiedName.toNativeChars(arena);
+        final cls = _bindings.LoadClass(nameChars);
+        if (cls == nullptr) {
+          env.checkException();
+        }
+        return cls;
+      });
 
   /// Returns class for [qualifiedName] found by platform-specific mechanism,
   /// wrapped in a [JniClass].
@@ -199,7 +187,7 @@ abstract class Jni {
       String qualifiedName, String ctorSignature, List<dynamic> args) {
     final cls = findJniClass(qualifiedName);
     final ctor = cls.getCtorID(ctorSignature);
-    final obj = cls.newObject(ctor, args);
+    final obj = cls.newInstance(ctor, args);
     cls.delete();
     return obj;
   }

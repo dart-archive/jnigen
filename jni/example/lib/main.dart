@@ -29,7 +29,6 @@ String toJavaStringUsingEnv(int n) => using((arena) {
     });
 
 int randomUsingEnv(int n) => using((arena) {
-      final arena = Arena();
       final env = Jni.env;
       final randomCls = env.FindClass("java/util/Random".toNativeChars(arena));
       final ctor = env.GetMethodID(

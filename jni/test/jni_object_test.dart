@@ -39,13 +39,14 @@ void main() {
     // allowed argument types are primitive types, JniObject and its subclasses,
     // and raw JNI references (JObject). Strings will be automatically converted
     // to JNI strings.
-    final long = longClass.newObject(longCtor, [176]);
+    final long = longClass.newInstance(longCtor, [176]);
 
     final intValue = long.callMethodByName<int>("intValue", "()I", []);
     expect(intValue, equals(176));
 
     // delete any JniObject and JniClass instances using .delete() after use.
-    // TODO(#50) implement NativeFinalizers.
+    // Deletion is not strictly required since JNI objects / classes have
+    // a NativeFinalizer. But deleting them after use is a good practice.
     long.delete();
     longClass.delete();
   });
@@ -172,7 +173,7 @@ void main() {
       final r = Jni.findJniClass('java/util/Random')..deletedIn(arena);
       final ctor = r.getCtorID("()V");
       for (int i = 0; i < 10; i++) {
-        objects.add(r.newObject(ctor, [])..deletedIn(arena));
+        objects.add(r.newInstance(ctor, [])..deletedIn(arena));
       }
     });
     for (var object in objects) {

@@ -38,7 +38,7 @@ jobject GetClassLoader() {
 	return (*jniEnv)->NewLocalRef(jniEnv, jni.classLoader);
 }
 
-/// Load class through platform-specific mechanism
+/// Load class through platform-specific mechanism.
 ///
 /// Currently uses application classloader on android,
 /// and JNIEnv->FindClass on other platforms.

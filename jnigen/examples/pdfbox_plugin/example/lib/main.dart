@@ -159,7 +159,7 @@ class PDFFileInfo {
   late String author, subject, title;
   late int numPages;
 
-  /// Converts JlString to dart string and deletes the original.
+  /// Converts JniString to dart string and deletes the original.
   /// Also handles the case where the underlying string is Null.
   String _fromJavaStr(JniString jstr) {
     if (jstr.reference == nullptr) {

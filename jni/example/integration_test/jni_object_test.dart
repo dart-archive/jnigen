@@ -22,7 +22,7 @@ void main() {
 
     final longCtor = longClass.getCtorID("(J)V");
 
-    final long = longClass.newObject(longCtor, [176]);
+    final long = longClass.newInstance(longCtor, [176]);
 
     final intValue = long.callMethodByName<int>("intValue", "()I", []);
     expect(intValue, equals(176));
