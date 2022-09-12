@@ -1,6 +1,6 @@
 name: jni
 description: Library to access JNI from dart and flutter
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/dart-lang/jnigen
 
 environment:

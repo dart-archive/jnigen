@@ -1,5 +1,5 @@
 name: notification_plugin_example
-description: Demonstrates how to use the notification_plugin plugin.
+description: Demonstrates how to use notification_plugin.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.

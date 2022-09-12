@@ -217,16 +217,6 @@ class JniObject extends JniReference {
     _finalizer.attach(this, reference, detach: this);
   }
 
-  /// Pass the underlying reference into [function] and return the result.
-  ///
-  /// Result of [function] takes ownership of [reference], and this object is
-  /// marked as deleted. [function] can be constructor of a subclass of JniClass
-  /// in which case this function will be useful to cast an expression.
-  T into<T extends JniObject>(T Function(JObject) function) {
-    _disownReference();
-    return function(reference);
-  }
-
   /// The underlying JNI global reference of this object.
   final JObject reference;
 
@@ -259,10 +249,10 @@ class JniObject extends JniReference {
     }
   }
 
-  /// Stop keeping track of [reference].
-  ///
-  /// _Unsafe!_ The caller needs to keep track of [reference].
-  Pointer<Void> _disownReference() {
+  /// Deletes the JNI reference and marks this object as deleted. Any further
+  /// uses will throw [UseAfterFreeException].
+  @override
+  void delete() {
     if (_deleted) {
       throw DoubleFreeException(this, reference);
     }
@@ -271,16 +261,10 @@ class JniObject extends JniReference {
     if (_classRef != null) {
       _env.DeleteGlobalRef(_classRef!);
     }
-    return reference;
-  }
-
-  /// Deletes the JNI reference and marks this object as deleted. Any further
-  /// uses will throw [UseAfterFreeException].
-  @override
-  void delete() {
-    _disownReference();
     _env.DeleteGlobalRef(reference);
   }
+
+  // TODO(#55): Support casting JniObject subclasses
 
   /// Returns [JniClass] corresponding to concrete class of this object.
   ///
