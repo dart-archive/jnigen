@@ -109,7 +109,8 @@ abstract class Jni {
       final optsPtr = (count != 0) ? allocator<JavaVMOption>(count) : nullptr;
       args.ref.options = optsPtr;
       for (int i = 0; i < options.length; i++) {
-        optsPtr.elementAt(i).ref.optionString = options[i].toNativeChars(allocator);
+        optsPtr.elementAt(i).ref.optionString =
+            options[i].toNativeChars(allocator);
       }
       if (classPath.isNotEmpty) {
         final classPathString = classPath.join(Platform.isWindows ? ';' : ":");
