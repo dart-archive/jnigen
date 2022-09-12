@@ -29,12 +29,12 @@ extension AdditionalEnvMethods on Pointer<GlobalJniEnv> {
   }
 
   /// Return a new [JString] from contents of [s].
-  JString asJString(String s) {
-    final utf = s.toNativeUtf8().cast<Char>();
-    final result = NewStringUTF(utf);
-    malloc.free(utf);
-    return result;
-  }
+  JString asJString(String s) => using((arena) {
+        final utf = s.toNativeUtf8().cast<Char>();
+        final result = NewStringUTF(utf);
+        malloc.free(utf);
+        return result;
+      });
 
   /// Deletes all references in [refs].
   void deleteAllRefs(List<JObject> refs) {
