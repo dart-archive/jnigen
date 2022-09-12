@@ -1598,6 +1598,19 @@ abstract class JniType {
   static const int voidType = 9;
 }
 
+/// Wrapper over JNIEnv in the JNI API, which can be used from multiple Dart
+/// Threads.
+///
+/// It consists of wrappers to JNIEnv methods which manage the thread-local
+/// JNIEnv pointer in C code. Additionally, any returned local reference value
+/// is converted to global reference.
+///
+/// For the documentation on methods themselves, see the JNI Specification at
+/// https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/functions.html
+///
+/// Apart from the specification, the Android NDK's JNI page consists of useful
+/// information about using the JNI:
+/// https://developer.android.com/training/articles/perf-jni
 class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<ffi.NativeFunction<JInt Function()>> GetVersion;
 

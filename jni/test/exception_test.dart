@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:io';
-import 'dart:ffi';
 
 import 'package:test/test.dart';
 import 'package:jni/jni.dart';

@@ -5,7 +5,9 @@ This enables calling Java code from Dart.
 
 This is a GSoC 2022 project.
 
-Currently this package is highly experimental and proof-of-concept. [examples/](examples) and [jackson_core_test](test/jackson_core_test) for some usage examples. It is possible to specify some dependencies to be downloaded automatically through `maven`. When targetting Android, it's also possible to generate bindings for custom code depending on Android libraries.
+Currently this package is highly experimental and proof-of-concept. See [examples/](examples) and [jackson_core_test](test/jackson_core_test) for some usage examples.
+
+It is possible to specify some dependencies to be downloaded automatically through `maven`. When targetting Android, it's also possible to generate bindings for custom code depending on Android libraries.
 
 Basic features of the Java language (static and instance methods, fields, constructors) are supported in generated bindings.
 

@@ -67,4 +67,6 @@ export 'src/env_extensions.dart'
     show StringMethodsForJni, CharPtrMethodsForJni, AdditionalEnvMethods;
 export 'src/jni_exceptions.dart';
 export 'src/jni_object.dart' hide JniReference;
+
 export 'package:ffi/ffi.dart' show using, Arena;
+export 'dart:ffi' show nullptr;

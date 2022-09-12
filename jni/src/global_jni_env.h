@@ -3,6 +3,19 @@
 // BSD-style license that can be found in the LICENSE file.
 
 #include "dartjni.h"
+/// Wrapper over JNIEnv in the JNI API, which can be used from multiple Dart
+/// Threads.
+///
+/// It consists of wrappers to JNIEnv methods which manage the thread-local
+/// JNIEnv pointer in C code. Additionally, any returned local reference value
+/// is converted to global reference.
+///
+/// For the documentation on methods themselves, see the JNI Specification at
+/// https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/functions.html
+///
+/// Apart from the specification, the Android NDK's JNI page consists of useful
+/// information about using the JNI:
+/// https://developer.android.com/training/articles/perf-jni
 typedef struct GlobalJniEnv {
     jint (*GetVersion)();
     jclass (*DefineClass)(const char * name, jobject loader, const jbyte * buf, jsize bufLen);
