@@ -14,8 +14,8 @@ final jacksonCoreTests = join(packageTests, 'jackson_core_test');
 final thirdParty = join(jacksonCoreTests, 'third_party');
 final lib = join(thirdParty, 'lib');
 final src = join(thirdParty, 'src');
-final testLib = join(thirdParty, 'test_lib');
-final testSrc = join(thirdParty, 'test_src');
+final testLib = join(thirdParty, 'test_', 'lib');
+final testSrc = join(thirdParty, 'test_', 'src');
 
 /// Compares 2 [Config] objects using [expect] to give useful errors when
 /// two fields are not equal.
@@ -70,6 +70,6 @@ void main() {
   ]);
 
   test('compare configuration values', () {
-    expectConfigsAreEqual(config, getConfig(isTest: true));
+    expectConfigsAreEqual(config, getConfig(root: join(thirdParty, 'test_')));
   });
 }
