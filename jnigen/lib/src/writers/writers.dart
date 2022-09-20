@@ -80,7 +80,7 @@ class FilesWriter extends BindingsWriter {
     for (var packageName in packages.keys) {
       final relativeFileName = '${packageName.replaceAll('.', '/')}.dart';
       final dartFileUri = dartRoot.resolve(relativeFileName);
-      log.info('Writing bindings for $packageName...');
+      log.fine('Writing bindings for $packageName...');
       final dartFile = await File.fromUri(dartFileUri).create(recursive: true);
       final resolver = PackagePathResolver(
           config.importMap ?? const {}, packageName, classNames,
