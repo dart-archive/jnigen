@@ -22,8 +22,11 @@ Future<int> runCmd(String exec, List<String> args,
   return proc.exitCode;
 }
 
-Future<List<String>> getJarPaths(String testRoot) {
+Future<List<String>> getJarPaths(String testRoot) async {
   final jarPath = join(testRoot, 'jar');
+  if (!await Directory(jarPath).exists()) {
+    return [];
+  }
   return Directory(jarPath)
       .list()
       .map((entry) => entry.path)

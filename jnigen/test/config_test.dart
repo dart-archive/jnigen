@@ -5,6 +5,7 @@
 import 'package:jnigen/src/config/config.dart';
 import 'package:test/test.dart';
 import 'package:path/path.dart' hide equals;
+import 'package:path/path.dart' as path show equals;
 
 import 'jackson_core_test/generate.dart';
 
@@ -32,9 +33,9 @@ void expectConfigsAreEqual(Config a, Config b) {
   if (am != null) {
     expect(bm, isNotNull);
     expect(am.sourceDeps, bm!.sourceDeps);
-    expect(am.sourceDir, bm.sourceDir);
+    expect(path.equals(am.sourceDir, bm.sourceDir), isTrue);
     expect(am.jarOnlyDeps, bm.jarOnlyDeps);
-    expect(am.jarDir, bm.jarDir);
+    expect(path.equals(am.jarDir, bm.jarDir), isTrue);
   } else {
     expect(bm, isNull);
   }

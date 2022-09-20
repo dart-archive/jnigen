@@ -19,6 +19,7 @@ class MavenTools {
     log.info('execute $exec ${args.join(" ")}');
     final proc = await Process.start(exec, args,
         workingDirectory: workingDirectory,
+        runInShell: true,
         mode: ProcessStartMode.inheritStdio);
     return proc.exitCode;
   }
@@ -27,11 +28,18 @@ class MavenTools {
       List<MavenDependency> deps, List<String> mvnArgs) async {
     final pom = _getStubPom(deps);
     log.finer('using POM stub:\n$pom');
-    await File(_tempPom).writeAsString(pom);
+    await File(_tempPom).writeAsString(pom, flush: true);
     await Directory(_tempTarget).create();
     await _runCmd('mvn', ['-f', _tempPom, ...mvnArgs]);
-    await File(_tempPom).delete();
-    await Directory(_tempTarget).delete(recursive: true);
+    try {
+      File(_tempPom).deleteSync();
+    } catch (e) {
+      log.warning("cannot delete $_tempPom: $e");
+    }
+    final targetDir = Directory(_tempTarget);
+    if (targetDir.existsSync()) {
+      await Directory(_tempTarget).delete(recursive: true);
+    }
   }
 
   /// Create a list of [MavenDependency] objects from maven coordinates in string form.
