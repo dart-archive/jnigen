@@ -52,7 +52,7 @@ class MavenTools {
       [
         'dependency:unpack-dependencies',
         '-DexcludeTransitive=true',
-        '-DoutputDirectory=$targetDir',
+        '-DoutputDirectory=../$targetDir',
         '-Dclassifier=sources',
       ],
       tempDir,
@@ -68,7 +68,7 @@ class MavenTools {
       deps,
       [
         'dependency:copy-dependencies',
-        '-DoutputDirectory=$targetDir',
+        '-DoutputDirectory=../$targetDir',
       ],
       tempDir,
     );
