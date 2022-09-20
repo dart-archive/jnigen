@@ -160,7 +160,7 @@ void main(List<String> arguments) async {
     await tempDir.create();
     await build(options, srcDir.absolute.path, tempDirUri.toFilePath());
     final dllDirUri =
-        Platform.isWindows ? tempDirUri : tempDirUri.resolve("Debug");
+        Platform.isWindows ? tempDirUri.resolve("Debug") : tempDirUri;
     final dllDir = Directory.fromUri(dllDirUri);
     for (var entry in dllDir.listSync()) {
       final dllSuffix = Platform.isWindows ? "dll" : "so";
