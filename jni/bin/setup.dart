@@ -159,9 +159,12 @@ void main(List<String> arguments) async {
     final tempDir = Directory.fromUri(tempDirUri);
     await tempDir.create();
     await build(options, srcDir.absolute.path, tempDirUri.toFilePath());
-    for (var entry
-        in Directory.fromUri(tempDirUri.resolve("Debug")).listSync()) {
-      if (entry.path.endsWith("dll")) {
+    final dllDirUri =
+        Platform.isWindows ? tempDirUri : tempDirUri.resolve("Debug");
+    final dllDir = Directory.fromUri(dllDirUri);
+    for (var entry in dllDir.listSync()) {
+      final dllSuffix = Platform.isWindows ? "dll" : "so";
+      if (entry.path.endsWith(dllSuffix)) {
         final dllName = entry.uri.pathSegments.last;
         final target = buildDir.uri.resolve(dllName);
         entry.renameSync(target.toFilePath());
