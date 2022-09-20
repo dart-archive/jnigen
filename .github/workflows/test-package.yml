@@ -89,6 +89,7 @@ jobs:
           flag-name: jnigen_tests
           parallel: true
           path-to-lcov: ./jnigen/coverage/lcov.info
+        if: ${{ matrix.sdk == 'stable' }}
 
   test_summarizer:
     runs-on: ubuntu-latest
@@ -191,7 +192,7 @@ jobs:
       - run: Add-Content $env:GITHUB_PATH "$env:JAVA_HOME\bin\server"
       - run: dart pub get
       - run: dart run jni:setup
-      - run: dart test -j 1
+      - run: dart test
 
   test_jnigen_windows_minimal:
     needs: [analyze_jnigen]
@@ -213,7 +214,7 @@ jobs:
       - run: git config --global core.autocrlf true
       - run: Add-Content $env:GITHUB_PATH "$env:JAVA_HOME\bin\server"
       - run: dart pub get
-      - run: dart test -j 1
+      - run: dart test
 
   build_jni_example_linux:
     runs-on: ubuntu-latest

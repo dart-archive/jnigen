@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:jnigen/jnigen.dart';
+import 'package:logging/logging.dart';
 import 'package:path/path.dart' hide equals;
 
 const jacksonPreamble = '// Generated from jackson-core which is licensed under'
@@ -51,6 +52,7 @@ Config getConfig(
             'com.fasterxml.jackson.core.JsonParser',
             'com.fasterxml.jackson.core.JsonToken',
           ],
+    logLevel: Level.WARNING,
     exclude: BindingExclusions(
       fields: excludeAll<Field>([
         ['com.fasterxml.jackson.core.JsonFactory', 'DEFAULT_QUOTE_CHAR'],

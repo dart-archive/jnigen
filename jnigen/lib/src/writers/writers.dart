@@ -139,7 +139,7 @@ class FilesWriter extends BindingsWriter {
     final packagePath = await findPackageRoot(package);
     if (packagePath != null) {
       final sourceFile = File.fromUri(packagePath.resolve(relPath));
-      final targetFile = await File.fromUri(target).create();
+      final targetFile = await File.fromUri(target).create(recursive: true);
       var source = await sourceFile.readAsString();
       if (transform != null) {
         source = transform(source);

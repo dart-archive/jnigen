@@ -13,8 +13,8 @@ import 'test_util/test_util.dart';
 
 void main() {
   final thirdParty = join('test', 'jackson_core_test', 'third_party');
-  final testLib = join(thirdParty, 'test_lib');
-  final testSrc = join(thirdParty, 'test_src');
+  final testLib = join(thirdParty, 'test_lib_yaml');
+  final testSrc = join(thirdParty, 'test_src_yaml');
   final lib = join(thirdParty, 'lib');
   final src = join(thirdParty, 'src');
   final config = join('test', 'jackson_core_test', 'jnigen.yaml');
