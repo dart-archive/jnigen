@@ -11,6 +11,9 @@ It is possible to specify some dependencies to be downloaded automatically throu
 
 Basic features of the Java language (static and instance methods, fields, constructors) are supported in generated bindings.
 
+## SDK Requirements
+Dart standalone target is supported, but due to some problems with pubspec, the `dart` command must be from Flutter SDK and not Dart SDK. See [dart-lang/pub#3563](https://github.com/dart-lang/pub/issues/3563).
+
 ## Basics
 ### Running `jnigen`
 There are 2 ways to use `jnigen`:
@@ -33,4 +36,3 @@ The generated C file has to be linked to JNI libraries. Therefore a CMake config
 
 ## Examples
 Few runnable examples are provided in [examples/](examples/) directory. (Re)generate the bindings by running `dart run jnigen --config jnigen.yaml` in the root of the respective examples. Corresponding README files contain more information about the examples.
-
