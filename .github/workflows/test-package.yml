@@ -214,6 +214,7 @@ jobs:
       - run: git config --global core.autocrlf true
       - run: Add-Content $env:GITHUB_PATH "$env:JAVA_HOME\bin\server"
       - run: dart pub get
+      - run: dart run jnigen:setup
       - run: dart test
 
   build_jni_example_linux:
