@@ -154,9 +154,10 @@ void main(List<String> arguments) async {
   } else {
     // pass srcDir absolute path because it will be passed to CMake as arg
     // which will be running in different directory
-    await Directory("dart_tool/jni").create(recursive: true);
-    final tempDir =
-        await Directory(".dart_tool").createTemp("jni_native_build_");
+    final jniDirUri = Uri.directory("dart_tool").resolve("jni");
+    final jniDir = Directory.fromUri(jniDirUri);
+    await jniDir.create(recursive: true);
+    final tempDir = await jniDir.createTemp("jni_native_build_");
     await build(options, srcDir.absolute.path, tempDir.path);
     final dllDirUri =
         Platform.isWindows ? tempDir.uri.resolve("Debug") : tempDir.uri;
