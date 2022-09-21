@@ -154,7 +154,7 @@ void main(List<String> arguments) async {
   } else {
     // pass srcDir absolute path because it will be passed to CMake as arg
     // which will be running in different directory
-    final jniDirUri = Uri.directory("dart_tool").resolve("jni");
+    final jniDirUri = Uri.directory(".dart_tool").resolve("jni");
     final jniDir = Directory.fromUri(jniDirUri);
     await jniDir.create(recursive: true);
     final tempDir = await jniDir.createTemp("jni_native_build_");
