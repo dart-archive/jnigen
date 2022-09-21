@@ -154,13 +154,11 @@ void main(List<String> arguments) async {
   } else {
     // pass srcDir absolute path because it will be passed to CMake as arg
     // which will be running in different directory
-    final now = DateTime.now().microsecondsSinceEpoch;
-    final tempDirUri = Uri.directory(".dart_tool/cmake-build-$now");
-    final tempDir = Directory.fromUri(tempDirUri);
-    await tempDir.create();
-    await build(options, srcDir.absolute.path, tempDirUri.toFilePath());
+    final tempDir =
+        await Directory.systemTemp.createTemp("dartjni_native_build_");
+    await build(options, srcDir.absolute.path, tempDir.path);
     final dllDirUri =
-        Platform.isWindows ? tempDirUri.resolve("Debug") : tempDirUri;
+        Platform.isWindows ? tempDir.uri.resolve("Debug") : tempDir.uri;
     final dllDir = Directory.fromUri(dllDirUri);
     for (var entry in dllDir.listSync()) {
       final dllSuffix = Platform.isWindows ? "dll" : "so";
