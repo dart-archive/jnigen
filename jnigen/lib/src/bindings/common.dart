@@ -293,8 +293,11 @@ bool hasSelfParam(Method m) => !isStaticMethod(m) && !isCtor(m);
 bool isObjectField(Field f) => !isPrimitive(f.type);
 bool isObjectMethod(Method m) => !isPrimitive(m.returnType);
 
-const ctorNameC = 'new';
-const ctorNameDart = 'ctor';
+/// Returns class name as useful in dart.
+///
+/// Eg -> a.b.X.Y -> X_Y
+String getSimplifiedClassName(String binaryName) =>
+    binaryName.split('.').last.replaceAll('\$', '_');
 
 // Marker exception when a method or class cannot be translated
 // The inner functions may not know how much context has to be skipped in case
