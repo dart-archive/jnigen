@@ -20,14 +20,14 @@ final testSrc = join(thirdParty, 'test_', 'src');
 /// Compares 2 [Config] objects using [expect] to give useful errors when
 /// two fields are not equal.
 void expectConfigsAreEqual(Config a, Config b) {
-  expect(a.classes, equals(b.classes), reason: "[classes]");
-  expect(a.libraryName, equals(b.libraryName), reason: "[libraryName]");
-  expect(a.cRoot, equals(b.cRoot), reason: "[cRoot]");
-  expect(a.dartRoot, equals(b.dartRoot), reason: "[dartRoot]");
-  expect(a.sourcePath, equals(b.sourcePath), reason: "[sourcePath]");
-  expect(a.classPath, equals(b.classPath), reason: "[classPath]");
-  expect(a.preamble, equals(b.preamble), reason: "[preamble]");
-  expect(a.importMap, equals(b.importMap), reason: "[importMap]");
+  expect(a.classes, equals(b.classes), reason: "classes");
+  expect(a.libraryName, equals(b.libraryName), reason: "libraryName");
+  expect(a.cRoot, equals(b.cRoot), reason: "cRoot");
+  expect(a.dartRoot, equals(b.dartRoot), reason: "dartRoot");
+  expect(a.sourcePath, equals(b.sourcePath), reason: "sourcePath");
+  expect(a.classPath, equals(b.classPath), reason: "classPath");
+  expect(a.preamble, equals(b.preamble), reason: "preamble");
+  expect(a.importMap, equals(b.importMap), reason: "importMap");
   final am = a.mavenDownloads;
   final bm = b.mavenDownloads;
   if (am != null) {
