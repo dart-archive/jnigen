@@ -2194,7 +2194,7 @@ jobject org_apache_pdfbox_text_PDFTextStripper_handleLineSeparation(jobject self
     load_env();
     load_class_gr(&_c_org_apache_pdfbox_text_PDFTextStripper, "org/apache/pdfbox/text/PDFTextStripper");
     if (_c_org_apache_pdfbox_text_PDFTextStripper == NULL) return (jobject)0;
-    load_method(_c_org_apache_pdfbox_text_PDFTextStripper, &_m_org_apache_pdfbox_text_PDFTextStripper_handleLineSeparation, "handleLineSeparation", "(Lorg/apache/pdfbox/text/PDFTextStripper$PositionWrapper;Lorg/apache/pdfbox/text/PDFTextStripper$PositionWrapper;Lorg/apache/pdfbox/text/PDFTextStripper$PositionWrapper;F)Lorg/apache/pdfbox/text/PDFTextStripper$PositionWrapper;");
+    load_method(_c_org_apache_pdfbox_text_PDFTextStripper, &_m_org_apache_pdfbox_text_PDFTextStripper_handleLineSeparation, "handleLineSeparation", "(Lorg/apache/pdfbox/text/PDFTextStripper\$PositionWrapper;Lorg/apache/pdfbox/text/PDFTextStripper\$PositionWrapper;Lorg/apache/pdfbox/text/PDFTextStripper\$PositionWrapper;F)Lorg/apache/pdfbox/text/PDFTextStripper\$PositionWrapper;");
     if (_m_org_apache_pdfbox_text_PDFTextStripper_handleLineSeparation == NULL) return (jobject)0;
     jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_org_apache_pdfbox_text_PDFTextStripper_handleLineSeparation, current, lastPosition, lastLineStartPosition, maxHeightForLine);
     return to_global_ref(_result);
@@ -2206,7 +2206,7 @@ void org_apache_pdfbox_text_PDFTextStripper_isParagraphSeparation(jobject self_,
     load_env();
     load_class_gr(&_c_org_apache_pdfbox_text_PDFTextStripper, "org/apache/pdfbox/text/PDFTextStripper");
     if (_c_org_apache_pdfbox_text_PDFTextStripper == NULL) return (void)0;
-    load_method(_c_org_apache_pdfbox_text_PDFTextStripper, &_m_org_apache_pdfbox_text_PDFTextStripper_isParagraphSeparation, "isParagraphSeparation", "(Lorg/apache/pdfbox/text/PDFTextStripper$PositionWrapper;Lorg/apache/pdfbox/text/PDFTextStripper$PositionWrapper;Lorg/apache/pdfbox/text/PDFTextStripper$PositionWrapper;F)V");
+    load_method(_c_org_apache_pdfbox_text_PDFTextStripper, &_m_org_apache_pdfbox_text_PDFTextStripper_isParagraphSeparation, "isParagraphSeparation", "(Lorg/apache/pdfbox/text/PDFTextStripper\$PositionWrapper;Lorg/apache/pdfbox/text/PDFTextStripper\$PositionWrapper;Lorg/apache/pdfbox/text/PDFTextStripper\$PositionWrapper;F)V");
     if (_m_org_apache_pdfbox_text_PDFTextStripper_isParagraphSeparation == NULL) return (void)0;
     (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_org_apache_pdfbox_text_PDFTextStripper_isParagraphSeparation, position, lastPosition, lastLineStartPosition, maxHeightForLine);
 }
@@ -2284,7 +2284,7 @@ jobject org_apache_pdfbox_text_PDFTextStripper_matchListItemPattern(jobject self
     load_env();
     load_class_gr(&_c_org_apache_pdfbox_text_PDFTextStripper, "org/apache/pdfbox/text/PDFTextStripper");
     if (_c_org_apache_pdfbox_text_PDFTextStripper == NULL) return (jobject)0;
-    load_method(_c_org_apache_pdfbox_text_PDFTextStripper, &_m_org_apache_pdfbox_text_PDFTextStripper_matchListItemPattern, "matchListItemPattern", "(Lorg/apache/pdfbox/text/PDFTextStripper$PositionWrapper;)Ljava/util/regex/Pattern;");
+    load_method(_c_org_apache_pdfbox_text_PDFTextStripper, &_m_org_apache_pdfbox_text_PDFTextStripper_matchListItemPattern, "matchListItemPattern", "(Lorg/apache/pdfbox/text/PDFTextStripper\$PositionWrapper;)Ljava/util/regex/Pattern;");
     if (_m_org_apache_pdfbox_text_PDFTextStripper_matchListItemPattern == NULL) return (jobject)0;
     jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_org_apache_pdfbox_text_PDFTextStripper_matchListItemPattern, pw);
     return to_global_ref(_result);
@@ -2377,7 +2377,7 @@ jobject org_apache_pdfbox_text_PDFTextStripper_createWord(jobject self_, jobject
     load_env();
     load_class_gr(&_c_org_apache_pdfbox_text_PDFTextStripper, "org/apache/pdfbox/text/PDFTextStripper");
     if (_c_org_apache_pdfbox_text_PDFTextStripper == NULL) return (jobject)0;
-    load_method(_c_org_apache_pdfbox_text_PDFTextStripper, &_m_org_apache_pdfbox_text_PDFTextStripper_createWord, "createWord", "(Ljava/lang/String;Ljava/util/List;)Lorg/apache/pdfbox/text/PDFTextStripper$WordWithTextPositions;");
+    load_method(_c_org_apache_pdfbox_text_PDFTextStripper, &_m_org_apache_pdfbox_text_PDFTextStripper_createWord, "createWord", "(Ljava/lang/String;Ljava/util/List;)Lorg/apache/pdfbox/text/PDFTextStripper\$WordWithTextPositions;");
     if (_m_org_apache_pdfbox_text_PDFTextStripper_createWord == NULL) return (jobject)0;
     jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_org_apache_pdfbox_text_PDFTextStripper_createWord, word, wordPositions);
     return to_global_ref(_result);
@@ -2401,7 +2401,7 @@ jobject org_apache_pdfbox_text_PDFTextStripper_normalizeAdd(jobject self_, jobje
     load_env();
     load_class_gr(&_c_org_apache_pdfbox_text_PDFTextStripper, "org/apache/pdfbox/text/PDFTextStripper");
     if (_c_org_apache_pdfbox_text_PDFTextStripper == NULL) return (jobject)0;
-    load_method(_c_org_apache_pdfbox_text_PDFTextStripper, &_m_org_apache_pdfbox_text_PDFTextStripper_normalizeAdd, "normalizeAdd", "(Ljava/util/List;Ljava/lang/StringBuilder;Ljava/util/List;Lorg/apache/pdfbox/text/PDFTextStripper$LineItem;)Ljava/lang/StringBuilder;");
+    load_method(_c_org_apache_pdfbox_text_PDFTextStripper, &_m_org_apache_pdfbox_text_PDFTextStripper_normalizeAdd, "normalizeAdd", "(Ljava/util/List;Ljava/lang/StringBuilder;Ljava/util/List;Lorg/apache/pdfbox/text/PDFTextStripper\$LineItem;)Ljava/lang/StringBuilder;");
     if (_m_org_apache_pdfbox_text_PDFTextStripper_normalizeAdd == NULL) return (jobject)0;
     jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_org_apache_pdfbox_text_PDFTextStripper_normalizeAdd, normalized, lineBuilder, wordPositions, item);
     return to_global_ref(_result);

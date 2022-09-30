@@ -192,7 +192,9 @@ jobs:
       - run: Add-Content $env:GITHUB_PATH "$env:JAVA_HOME\bin\server"
       - run: dart pub get
       - run: dart run jni:setup
-      - run: dart test
+      ## -j 1 is required to avoid a rare race condition which is caused by all tests which spawn
+      ## JVM being run in same process.
+      - run: dart test -j 1
 
   test_jnigen_windows_minimal:
     needs: [analyze_jnigen]

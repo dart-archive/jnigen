@@ -1,8 +1,26 @@
-// Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
+  // Generated from an annotated version of jni.h provided in Android NDK.
+  // (NDK Version 23.1.7779620)
+  // The license for original file is provided below:
 
+  /*
+   * Copyright (C) 2006 The Android Open Source Project
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   */
+
+#include "../dartjni.h"
 #include "global_jni_env.h"
+
 jint globalEnv_GetVersion() {
     attach_thread();
     return (*jniEnv)->GetVersion(jniEnv);
@@ -983,7 +1001,7 @@ jobjectRefType globalEnv_GetObjectRefType(jobject obj) {
     return (*jniEnv)->GetObjectRefType(jniEnv, obj);
 }
 
-struct GlobalJniEnv globalEnv = {
+GlobalJniEnv globalJniEnv = {
     .GetVersion = globalEnv_GetVersion,
     .DefineClass = globalEnv_DefineClass,
     .FindClass = globalEnv_FindClass,
@@ -1182,7 +1200,10 @@ struct GlobalJniEnv globalEnv = {
     .GetObjectRefType = globalEnv_GetObjectRefType,
 };
 
-FFI_PLUGIN_EXPORT struct GlobalJniEnv *GetGlobalEnv(void) {
-    if (jni.jvm == NULL) return NULL;
-    return &globalEnv;
+FFI_PLUGIN_EXPORT
+GlobalJniEnv* GetGlobalEnv() {
+    if (jni.jvm == NULL) {
+        return NULL;
+    }
+    return &globalJniEnv;
 }

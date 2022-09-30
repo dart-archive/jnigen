@@ -80,7 +80,6 @@ class SummarizerCommand {
     }
     args.addAll(extraArgs);
     args.addAll(classes);
-
     log.info('execute $exec ${args.join(' ')}');
     final proc = await Process.start(exec, args,
         workingDirectory: workingDirectory?.toFilePath() ?? '.');

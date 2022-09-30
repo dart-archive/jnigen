@@ -2,8 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-#pragma once
+#pragma once 
 
+// Note: include appropriate system jni.h as found by CMake, not third_party/jni.h
 #include <jni.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -32,14 +33,13 @@
 #include <android/log.h>
 #endif
 
-#define JNI_LOG_TAG "Dart-JNI"
-
 #ifdef __ANDROID__
 #define __ENVP_CAST (JNIEnv **)
 #else
 #define __ENVP_CAST (void **)
 #endif
 
+/// Stores the global state of the JNI.
 typedef struct JniContext {
 	JavaVM *jvm;
 	jobject classLoader;
@@ -48,20 +48,15 @@ typedef struct JniContext {
 	jobject appContext;
 } JniContext;
 
+// jniEnv for this thread, used by inline functions in this header,
+// therefore declared as extern.
 extern thread_local JNIEnv *jniEnv;
 
 extern JniContext jni;
 
-enum DartJniLogLevel {
-	JNI_VERBOSE = 2,
-	JNI_DEBUG,
-	JNI_INFO,
-	JNI_WARN,
-	JNI_ERROR
-};
-
+/// Types used by JNI API to distinguish between primitive types.
 enum JniType {
-	boolType = 0,
+	booleanType = 0,
 	byteType = 1,
 	shortType = 2,
 	charType = 3,
@@ -73,11 +68,52 @@ enum JniType {
 	voidType = 9,
 };
 
-FFI_PLUGIN_EXPORT JniContext GetJniContext();
+/// Result type for use by JNI.
+///
+/// If [exception] is null, it means the result is valid.
+/// It's assumed that the caller knows the expected type in [result].
+typedef struct JniResult {
+	jvalue result;
+	jthrowable exception;
+} JniResult;
+
+/// Similar to [JniResult] but for class lookups.
+typedef struct JniClassLookupResult {
+	jclass classRef;
+	jthrowable exception;
+} JniClassLookupResult;
+
+/// Similar to [JniResult] but for method/field ID lookups.
+typedef struct JniPointerResult {
+	void *id;
+	jthrowable exception;
+} JniPointerResult;
+
+/// This struct contains functions which wrap method call / field access conveniently along with
+/// exception checking.
+///
+/// Flutter embedding checks for pending JNI exceptions before an FFI transition, which requires us
+/// to check for and clear the exception before returning to dart code, which requires these functions
+/// to return result types.
+typedef struct JniAccessors {
+	JniClassLookupResult (*getClass)(char *internalName);
+	JniPointerResult (*getFieldID)(jclass cls, char *fieldName, char *signature);
+	JniPointerResult (*getStaticFieldID)(jclass cls, char *fieldName, char *signature);
+	JniPointerResult (*getMethodID)(jclass cls, char *methodName, char *signature);
+	JniPointerResult (*getStaticMethodID)(jclass cls, char *methodName, char *signature);
+	JniResult (*newObject)(jclass cls, jmethodID ctor, jvalue *args);
+	JniResult (*callMethod)(jobject obj, jmethodID methodID, int callType, jvalue *args);
+	JniResult (*callStaticMethod)(jclass cls, jmethodID methodID, int callType, jvalue *args);
+	JniResult (*getField)(jobject obj, jfieldID fieldID, int callType);
+	JniResult (*getObjectClass)(jobject obj);
+	JniResult (*getStaticField)(jclass cls, jfieldID fieldID, int callType);
+	jthrowable (*setField)(jobject obj, jfieldID fieldID, int callType, jvalue value);
+	jthrowable (*setStaticField)(jclass cls, jfieldID fieldID, int callType, jvalue value);
+} JniAccessors;
+
+FFI_PLUGIN_EXPORT JniAccessors *GetAccessors();
 
 FFI_PLUGIN_EXPORT JavaVM *GetJavaVM(void);
-
-FFI_PLUGIN_EXPORT int DestroyJavaVM();
 
 FFI_PLUGIN_EXPORT JNIEnv *GetJniEnv(void);
 
@@ -91,17 +127,8 @@ FFI_PLUGIN_EXPORT jobject GetApplicationContext(void);
 
 FFI_PLUGIN_EXPORT jobject GetCurrentActivity(void);
 
-/// For use by jni_gen's generated code
-/// don't use these.
-
-// these 2 fn ptr vars will be defined by generated code library
-extern JniContext (*context_getter)(void);
-extern JNIEnv *(*env_getter)(void);
-
-// this function will be exported by generated code library
-// it will set above 2 variables.
-FFI_PLUGIN_EXPORT void setJniGetters(struct JniContext (*cg)(void),
-		JNIEnv *(*eg)(void));
+// Migration note: Below inline functions are required by C bindings, but can be moved to dartjni.c
+// once migration to pure dart bindings is complete.
 
 // `static inline` because `inline` doesn't work, it may still not
 // inline the function in which case a linker error may be produced.
@@ -142,12 +169,6 @@ static inline void attach_thread() {
 	}
 }
 
-static inline void load_env() {
-	if (jniEnv == NULL) {
-		jni = context_getter();
-		jniEnv = env_getter();
-	}
-}
 
 static inline void load_method(jclass cls, jmethodID *res, const char *name,
                                const char *sig) {
@@ -183,3 +204,24 @@ static inline jobject to_global_ref(jobject ref) {
 	return g;
 }
 
+// These functions are useful for C+Dart bindings, and not required for pure dart bindings.
+
+FFI_PLUGIN_EXPORT JniContext GetJniContext();
+/// For use by jni_gen's generated code
+/// don't use these.
+
+// these 2 fn ptr vars will be defined by generated code library
+extern JniContext (*context_getter)(void);
+extern JNIEnv *(*env_getter)(void);
+
+// this function will be exported by generated code library
+// it will set above 2 variables.
+FFI_PLUGIN_EXPORT void setJniGetters(struct JniContext (*cg)(void),
+		JNIEnv *(*eg)(void));
+
+static inline void load_env() {
+	if (jniEnv == NULL) {
+		jni = context_getter();
+		jniEnv = env_getter();
+	}
+}

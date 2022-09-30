@@ -5,39 +5,42 @@
 import 'package:jnigen/src/elements/elements.dart';
 import 'package:jnigen/src/config/config.dart';
 import 'package:jnigen/src/logging/logging.dart';
+import 'package:jnigen/src/util/name_utils.dart';
 
 import 'symbol_resolver.dart';
 import 'common.dart';
 
-class DartBindingsGenerator extends BindingsGenerator {
-  // symbol lookup function for generated code.
+class PureDartBindingsGenerator extends BindingsGenerator {
+  static final indent = BindingsGenerator.indent;
+
+  // Name for reference in base class.
   static const selfPointer = BindingsGenerator.selfPointer;
-  static const _jniLookup = 'jniLookup';
-  static final indent = ' ' * 2;
 
   // import prefixes
   static const ffi = BindingsGenerator.ffi;
   static const jni = BindingsGenerator.jni;
 
   static const voidPointer = BindingsGenerator.voidPointer;
-
   static const ffiVoidType = BindingsGenerator.ffiVoidType;
-
   static const jniObjectType = BindingsGenerator.jniObjectType;
 
-  DartBindingsGenerator(this.config, SymbolResolver resolver) : super(resolver);
+  static final _deleteInstruction = BindingsGenerator.deleteInstruction;
+
+  PureDartBindingsGenerator(this.config, SymbolResolver resolver)
+      : super(resolver);
   Config config;
 
   String generateBinding(ClassDecl decl) {
     if (!decl.isPreprocessed) {
-      throw StateError('Java class declaration must be preprocessed before'
+      throw StateError(
+          'Java class declaration ${decl.binaryName} must be preprocessed before'
           'being passed to bindings generator');
     }
     if (!decl.isIncluded) {
       return '';
     }
     final bindings = _class(decl);
-    log.finest('generated bindings for class ${decl.binaryName}');
+    log.fine('generated bindings for class ${decl.binaryName}');
     return bindings;
   }
 
@@ -46,7 +49,7 @@ class DartBindingsGenerator extends BindingsGenerator {
 
     s.write('/// from: ${decl.binaryName}\n');
     s.write(breakDocComment(decl.javadoc, depth: ''));
-    final name = _getSimpleName(decl.binaryName);
+    final name = getSimplifiedClassName(decl.binaryName);
 
     var superName = jniObjectType;
     if (decl.superclass != null) {
@@ -56,15 +59,12 @@ class DartBindingsGenerator extends BindingsGenerator {
     }
 
     s.write('class $name extends $superName {\n');
-    s.write('$indent$name.fromRef($voidPointer ref) : '
-        'super.fromRef(ref);\n');
-
-    s.writeln();
+    s.write('static final _classRef = '
+        '_accessors.getClassOf("${decl.internalName}");\n');
+    s.write('$indent$name.fromRef(jni.JObject ref) : super.fromRef(ref);\n');
 
     for (var field in decl.fields) {
-      if (!field.isIncluded) {
-        continue;
-      }
+      if (!field.isIncluded) continue;
       try {
         s.write(_field(decl, field));
         s.writeln();
@@ -90,117 +90,111 @@ class DartBindingsGenerator extends BindingsGenerator {
     return s.toString();
   }
 
+  @override
+  String toDartResult(String expr, TypeUsage type, String dartType) {
+    if (isPrimitive(type)) {
+      return expr;
+    }
+    return '$dartType.fromRef($expr)';
+  }
+
   String _method(ClassDecl c, Method m) {
     final name = m.finalName;
-    final cName = memberNameInC(c, name);
+    final isStatic = isStaticMethod(m);
+    final ifStatic = isStatic ? 'Static' : '';
     final s = StringBuffer();
-    final sym = '_$name';
-    final ffiSig = dartSigForMethod(m, isFfiSig: true);
-    final dartSig = dartSigForMethod(m, isFfiSig: false);
-    s.write('${indent}static final $sym = $_jniLookup'
-        '<${ffi}NativeFunction<$ffiSig>>("$cName")\n'
-        '.asFunction<$dartSig>();\n');
+    final mID = '_id_$name';
+    final jniSignature = getJniSignature(m);
+    s.write('static final $mID = _accessors.get${ifStatic}MethodIDOf('
+        '_classRef, "${m.name}", "$jniSignature");\n');
     // Different logic for constructor and method;
     // For constructor, we want return type to be new object.
+
     final returnType = dartOuterType(m.returnType);
     s.write('$indent/// from: ${originalMethodHeader(m)}\n');
-    if (!isPrimitive(m.returnType)) {
-      s.write(BindingsGenerator.deleteInstruction);
+    if (!isPrimitive(m.returnType) || isCtor(m)) {
+      s.write(_deleteInstruction);
     }
     s.write(breakDocComment(m.javadoc));
-    s.write(indent);
-
-    if (isStaticMethod(m)) {
-      s.write('static ');
-    }
-
     if (isCtor(m)) {
-      final wrapperExpr = '$sym(${actualArgs(m)})';
-      final className = _getSimpleName(c.binaryName);
+      final wrapperExpr =
+          '_accessors.newObjectWithArgs(_classRef, $mID, [${actualArgs(m)}]).object';
+      final className = getSimplifiedClassName(c.binaryName);
       final ctorFnName = name == 'ctor' ? className : '$className.$name';
       s.write('$ctorFnName(${formalArgs(m)}) : '
-          'super.fromRef($wrapperExpr) { jni.Jni.env.checkException(); }\n');
+          'super.fromRef($wrapperExpr);\n');
       return s.toString();
     }
 
-    var wrapperExpr = '$sym(${actualArgs(m)})';
+    s.write(indent);
+    if (isStatic) {
+      s.write('static ');
+    }
+    final selfArgument = isStatic ? '_classRef' : selfPointer;
+    final callType = getCallType(m.returnType);
+    final resultGetter = getResultGetterName(m.returnType);
+    var wrapperExpr = '_accessors.call${ifStatic}MethodWithArgs'
+        '($selfArgument, $mID, $callType, [${actualArgs(m)}])'
+        '.$resultGetter';
     wrapperExpr = toDartResult(wrapperExpr, m.returnType, returnType);
-    final depth = '$indent$indent';
-    s.write('$returnType $name(${formalArgs(m)}) {');
-    s.write('${depth}final result__ = $wrapperExpr;');
-    s.write('${depth}jni.Jni.env.checkException();');
-    s.write('${depth}return result__;\n$indent}');
+    s.write('$returnType $name(${formalArgs(m)}) => $wrapperExpr;\n');
     return s.toString();
   }
 
   String _field(ClassDecl c, Field f) {
     final name = f.finalName;
+    final isStatic = isStaticField(f);
+    final ifStatic = isStatic ? 'Static' : '';
+    final isFinal = isFinalField(f);
     final s = StringBuffer();
+    final selfArgument = isStatic ? '_classRef' : selfPointer;
+    final callType = getCallType(f.type);
+    final resultGetter = getResultGetterName(f.type);
+    final outerType = dartOuterType(f.type);
 
     void writeDocs({bool writeDeleteInstruction = true}) {
       s.write('$indent/// from: ${originalFieldDecl(f)}\n');
       if (!isPrimitive(f.type) && writeDeleteInstruction) {
-        s.write(BindingsGenerator.deleteInstruction);
+        s.write(_deleteInstruction);
       }
       s.write(breakDocComment(f.javadoc));
     }
 
-    if (isStaticField(f) && isFinalField(f) && f.defaultValue != null) {
+    if (isStatic && isFinal && f.defaultValue != null) {
       writeDocs(writeDeleteInstruction: false);
       s.write('${indent}static const $name = ${literal(f.defaultValue)};\n');
       return s.toString();
     }
-    final cName = memberNameInC(c, name);
-
-    void writeAccessor({bool isSetter = false}) {
-      final symPrefix = isSetter ? 'set' : 'get';
-      final sym = '_${symPrefix}_$name';
-      final ffiSig = dartSigForField(f, isSetter: isSetter, isFfiSig: true);
-      final dartSig = dartSigForField(f, isSetter: isSetter, isFfiSig: false);
-      s.write('${indent}static final $sym = $_jniLookup'
-          '<${ffi}NativeFunction<$ffiSig>>("${symPrefix}_$cName")\n'
-          '.asFunction<$dartSig>();\n');
-      // write original type
+    final jniSignature = getJniSignatureForField(f);
+    final fID = '_id_$name';
+    s.write('static final $fID = '
+        '_accessors.get${ifStatic}FieldIDOf(_classRef, '
+        '"${f.name}","$jniSignature");\n');
+    void writeAccessor({bool setter = false}) {
       writeDocs();
       s.write(indent);
-      if (isStaticField(f)) s.write('static ');
-      if (isSetter) {
-        s.write('set $name(${dartOuterType(f.type)} value) => $sym(');
-        if (!isStaticField(f)) {
-          s.write('$selfPointer, ');
-        }
-        s.write(toNativeArg('value', f.type));
-        s.write(');\n');
+      if (isStatic) s.write('static ');
+      if (setter) {
+        final fieldType = getTypeNameAtCallSite(f.type);
+        s.write('set $name($outerType value) => _env.Set$ifStatic'
+            '${fieldType}Field($selfArgument, $fID, '
+            '${toNativeArg("value", f.type)});\n');
       } else {
-        // getter
-        final self = isStaticField(f) ? '' : selfPointer;
         final outer = dartOuterType(f.type);
-        final callExpr = '$sym($self)';
+        final callExpr = '_accessors.getField($selfArgument, $fID, $callType)'
+            '.$resultGetter';
         final resultExpr = toDartResult(callExpr, f.type, outer);
         s.write('$outer get $name => $resultExpr;\n');
       }
     }
 
-    writeAccessor(isSetter: false);
-    if (!isFinalField(f)) writeAccessor(isSetter: true);
+    writeAccessor(setter: false);
+    if (!isFinalField(f)) writeAccessor(setter: true);
     return s.toString();
   }
 
-  String _getSimpleName(String binaryName) {
-    final components = binaryName.split(".");
-    return components.last.replaceAll("\$", "_");
-  }
-
-  static String initFile(String libraryName) => 'import "dart:ffi";\n'
-      'import "package:jni/internal_helpers_for_jnigen.dart";\n'
-      '\n'
-      'final Pointer<T> Function<T extends NativeType>(String sym) '
-      'jniLookup = ProtectedJniExtensions.initGeneratedLibrary("$libraryName");\n'
-      '\n';
   static const autoGeneratedNotice = '// Autogenerated by jnigen. '
       'DO NOT EDIT!\n\n';
-  static const defaultImports = 'import "dart:ffi" as ffi;\n'
-      'import "package:jni/jni.dart" as jni;\n\n';
   static const defaultLintSuppressions =
       '// ignore_for_file: camel_case_types\n'
       '// ignore_for_file: non_constant_identifier_names\n'
@@ -208,7 +202,17 @@ class DartBindingsGenerator extends BindingsGenerator {
       '// ignore_for_file: annotate_overrides\n'
       '// ignore_for_file: no_leading_underscores_for_local_identifiers\n'
       '// ignore_for_file: unused_element\n'
+      '// ignore_for_file: unused_field\n'
       '\n';
-  static const bindingFileHeaders =
-      autoGeneratedNotice + defaultLintSuppressions + defaultImports;
+
+  static const defaultImports = 'import "package:jni/jni.dart" as jni;\n'
+      'import "package:jni/internal_helpers_for_jnigen.dart" as jnix;\n\n';
+
+  static const initialization = 'final _env = jni.Jni.env;\n'
+      'final _accessors = jni.Jni.accessors;\n\n';
+
+  static const bindingFileBoilerplate = autoGeneratedNotice +
+      defaultLintSuppressions +
+      defaultImports +
+      initialization;
 }

@@ -22,7 +22,7 @@ String getSimpleNameOf(ClassDecl cls) => cls.simpleName;
 /// Returns class name as useful in dart.
 ///
 /// Eg -> a.b.X.Y -> X_Y
-String simplifiedClassName(String binaryName) =>
+String getSimplifiedClassName(String binaryName) =>
     getLastName(binaryName).replaceAll('\$', '_');
 
 // Utilities to operate on package names.

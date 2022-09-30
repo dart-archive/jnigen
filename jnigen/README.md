@@ -14,6 +14,8 @@ Basic features of the Java language (static and instance methods, fields, constr
 ## SDK Requirements
 Dart standalone target is supported, but due to some problems with pubspec, the `dart` command must be from Flutter SDK and not Dart SDK. See [dart-lang/pub#3563](https://github.com/dart-lang/pub/issues/3563).
 
+Along with JDK, maven (`mvn` command) is required. On windows, it can be installed using a package manager such as `scoop`.
+
 ## Basics
 ### Running `jnigen`
 There are 2 ways to use `jnigen`:
@@ -32,7 +34,7 @@ The following properties must be specified in yaml.
 * `dart_root`: root folder to write generated Dart bindings (see below).
 * `library_name`: specifies name of the generated library in CMakeFiles.txt.
 
-The generated C file has to be linked to JNI libraries. Therefore a CMake configuration is always generated which builds the generated code as shared library. The `init.dart` in generated dart code loads the library on first time a method is accessed. On dart standalone, it will be loaded from the same directory specified in `Jni.spawn` call.
+The generated C file has to be linked to JNI libraries. Therefore a CMake configuration is always generated which builds the generated code as shared library. The `_init.dart` in generated dart code loads the library on first time a method is accessed. On dart standalone, it will be loaded from the same directory specified in `Jni.spawn` call.
 
 ## Examples
 Few runnable examples are provided in [examples/](examples/) directory. (Re)generate the bindings by running `dart run jnigen --config jnigen.yaml` in the root of the respective examples. Corresponding README files contain more information about the examples.

@@ -40,6 +40,10 @@ Future<void> buildApiSummarizer() async {
 }
 
 Future<void> buildSummarizerIfNotExists({bool force = false}) async {
+  // TODO(#43): This function cannot be invoked concurrently because 2 processes
+  // will start building summarizer at once. Introduce a locking mechnanism so
+  // that when one process is building summarizer JAR, other process waits using
+  // exponential backoff.
   final jarExists = await File(jarFile).exists();
   final isJarStale = jarExists &&
       await isPackageModifiedAfter(

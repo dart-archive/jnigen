@@ -9,7 +9,7 @@ import 'elements/elements.dart';
 import 'summary/summary.dart';
 import 'config/config.dart';
 import 'tools/tools.dart';
-import 'writers/writers.dart';
+import 'writers/files_writer.dart';
 import 'logging/logging.dart';
 
 Future<void> generateJniBindings(Config config) async {
@@ -26,6 +26,7 @@ Future<void> generateJniBindings(Config config) async {
     backend: config.summarizerOptions?.backend,
   );
 
+  // additional sources added using maven downloads and gradle trickery.
   final extraSources = <Uri>[];
   final extraJars = <Uri>[];
   final mavenDl = config.mavenDownloads;
