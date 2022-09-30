@@ -105,10 +105,7 @@ typedef struct JniAccessors {
 	JniResult (*callMethod)(jobject obj, jmethodID methodID, int callType, jvalue *args);
 	JniResult (*callStaticMethod)(jclass cls, jmethodID methodID, int callType, jvalue *args);
 	JniResult (*getField)(jobject obj, jfieldID fieldID, int callType);
-	JniResult (*getObjectClass)(jobject obj);
 	JniResult (*getStaticField)(jclass cls, jfieldID fieldID, int callType);
-	jthrowable (*setField)(jobject obj, jfieldID fieldID, int callType, jvalue value);
-	jthrowable (*setStaticField)(jclass cls, jfieldID fieldID, int callType, jvalue value);
 } JniAccessors;
 
 FFI_PLUGIN_EXPORT JniAccessors *GetAccessors();

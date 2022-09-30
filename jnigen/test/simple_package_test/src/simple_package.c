@@ -42,7 +42,7 @@ jobject com_github_dart_lang_jnigen_simple_package_Example_getAux() {
     load_env();
     load_class_gr(&_c_com_github_dart_lang_jnigen_simple_package_Example, "com/github/dart_lang/jnigen/simple_package/Example");
     if (_c_com_github_dart_lang_jnigen_simple_package_Example == NULL) return (jobject)0;
-    load_static_method(_c_com_github_dart_lang_jnigen_simple_package_Example, &_m_com_github_dart_lang_jnigen_simple_package_Example_getAux, "getAux", "()Lcom/github/dart_lang/jnigen/simple_package/Example\$Aux;");
+    load_static_method(_c_com_github_dart_lang_jnigen_simple_package_Example, &_m_com_github_dart_lang_jnigen_simple_package_Example_getAux, "getAux", "()Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;");
     if (_m_com_github_dart_lang_jnigen_simple_package_Example_getAux == NULL) return (jobject)0;
     jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_com_github_dart_lang_jnigen_simple_package_Example, _m_com_github_dart_lang_jnigen_simple_package_Example_getAux);
     return to_global_ref(_result);
@@ -112,7 +112,7 @@ jobject get_com_github_dart_lang_jnigen_simple_package_Example_aux() {
     load_env();
     load_class_gr(&_c_com_github_dart_lang_jnigen_simple_package_Example, "com/github/dart_lang/jnigen/simple_package/Example");
     if (_c_com_github_dart_lang_jnigen_simple_package_Example == NULL) return (jobject)0;
-    load_static_field(_c_com_github_dart_lang_jnigen_simple_package_Example, &_f_com_github_dart_lang_jnigen_simple_package_Example_aux, "aux","Lcom/github/dart_lang/jnigen/simple_package/Example\$Aux;");
+    load_static_field(_c_com_github_dart_lang_jnigen_simple_package_Example, &_f_com_github_dart_lang_jnigen_simple_package_Example_aux, "aux","Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;");
     return to_global_ref((*jniEnv)->GetStaticObjectField(jniEnv, _c_com_github_dart_lang_jnigen_simple_package_Example, _f_com_github_dart_lang_jnigen_simple_package_Example_aux));
 }
 
@@ -121,7 +121,7 @@ void set_com_github_dart_lang_jnigen_simple_package_Example_aux(jobject value) {
     load_env();
     load_class_gr(&_c_com_github_dart_lang_jnigen_simple_package_Example, "com/github/dart_lang/jnigen/simple_package/Example");
     if (_c_com_github_dart_lang_jnigen_simple_package_Example == NULL) return (void)0;
-    load_static_field(_c_com_github_dart_lang_jnigen_simple_package_Example, &_f_com_github_dart_lang_jnigen_simple_package_Example_aux, "aux","Lcom/github/dart_lang/jnigen/simple_package/Example\$Aux;");
+    load_static_field(_c_com_github_dart_lang_jnigen_simple_package_Example, &_f_com_github_dart_lang_jnigen_simple_package_Example_aux, "aux","Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;");
     ((*jniEnv)->SetStaticObjectField(jniEnv, _c_com_github_dart_lang_jnigen_simple_package_Example, _f_com_github_dart_lang_jnigen_simple_package_Example_aux, value));
 }
 
@@ -153,7 +153,7 @@ jmethodID _m_com_github_dart_lang_jnigen_simple_package_Example__Aux_ctor = NULL
 FFI_PLUGIN_EXPORT
 jobject com_github_dart_lang_jnigen_simple_package_Example__Aux_ctor(uint8_t value) {
     load_env();
-    load_class_gr(&_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, "com/github/dart_lang/jnigen/simple_package/Example\$Aux");
+    load_class_gr(&_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, "com/github/dart_lang/jnigen/simple_package/Example$Aux");
     if (_c_com_github_dart_lang_jnigen_simple_package_Example__Aux == NULL) return (jobject)0;
     load_method(_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, &_m_com_github_dart_lang_jnigen_simple_package_Example__Aux_ctor, "<init>", "(Z)V");
     if (_m_com_github_dart_lang_jnigen_simple_package_Example__Aux_ctor == NULL) return (jobject)0;
@@ -165,7 +165,7 @@ jmethodID _m_com_github_dart_lang_jnigen_simple_package_Example__Aux_getValue = 
 FFI_PLUGIN_EXPORT
 uint8_t com_github_dart_lang_jnigen_simple_package_Example__Aux_getValue(jobject self_) {
     load_env();
-    load_class_gr(&_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, "com/github/dart_lang/jnigen/simple_package/Example\$Aux");
+    load_class_gr(&_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, "com/github/dart_lang/jnigen/simple_package/Example$Aux");
     if (_c_com_github_dart_lang_jnigen_simple_package_Example__Aux == NULL) return (uint8_t)0;
     load_method(_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, &_m_com_github_dart_lang_jnigen_simple_package_Example__Aux_getValue, "getValue", "()Z");
     if (_m_com_github_dart_lang_jnigen_simple_package_Example__Aux_getValue == NULL) return (uint8_t)0;
@@ -177,7 +177,7 @@ jmethodID _m_com_github_dart_lang_jnigen_simple_package_Example__Aux_setValue = 
 FFI_PLUGIN_EXPORT
 void com_github_dart_lang_jnigen_simple_package_Example__Aux_setValue(jobject self_, uint8_t value) {
     load_env();
-    load_class_gr(&_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, "com/github/dart_lang/jnigen/simple_package/Example\$Aux");
+    load_class_gr(&_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, "com/github/dart_lang/jnigen/simple_package/Example$Aux");
     if (_c_com_github_dart_lang_jnigen_simple_package_Example__Aux == NULL) return (void)0;
     load_method(_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, &_m_com_github_dart_lang_jnigen_simple_package_Example__Aux_setValue, "setValue", "(Z)V");
     if (_m_com_github_dart_lang_jnigen_simple_package_Example__Aux_setValue == NULL) return (void)0;
@@ -188,7 +188,7 @@ jfieldID _f_com_github_dart_lang_jnigen_simple_package_Example__Aux_value = NULL
 FFI_PLUGIN_EXPORT
 uint8_t get_com_github_dart_lang_jnigen_simple_package_Example__Aux_value(jobject self_) {
     load_env();
-    load_class_gr(&_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, "com/github/dart_lang/jnigen/simple_package/Example\$Aux");
+    load_class_gr(&_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, "com/github/dart_lang/jnigen/simple_package/Example$Aux");
     if (_c_com_github_dart_lang_jnigen_simple_package_Example__Aux == NULL) return (uint8_t)0;
     load_field(_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, &_f_com_github_dart_lang_jnigen_simple_package_Example__Aux_value, "value","Z");
     return ((*jniEnv)->GetBooleanField(jniEnv, self_, _f_com_github_dart_lang_jnigen_simple_package_Example__Aux_value));
@@ -197,7 +197,7 @@ uint8_t get_com_github_dart_lang_jnigen_simple_package_Example__Aux_value(jobjec
 FFI_PLUGIN_EXPORT
 void set_com_github_dart_lang_jnigen_simple_package_Example__Aux_value(jobject self_, uint8_t value) {
     load_env();
-    load_class_gr(&_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, "com/github/dart_lang/jnigen/simple_package/Example\$Aux");
+    load_class_gr(&_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, "com/github/dart_lang/jnigen/simple_package/Example$Aux");
     if (_c_com_github_dart_lang_jnigen_simple_package_Example__Aux == NULL) return (void)0;
     load_field(_c_com_github_dart_lang_jnigen_simple_package_Example__Aux, &_f_com_github_dart_lang_jnigen_simple_package_Example__Aux_value, "value","Z");
     ((*jniEnv)->SetBooleanField(jniEnv, self_, _f_com_github_dart_lang_jnigen_simple_package_Example__Aux_value, value));
