@@ -133,14 +133,14 @@ class BindingExclusions {
 }
 
 enum BindingsType {
-  legacy, // C+Dart bindings
+  cBased, // C+Dart bindings
   singleFile,
   packageStructured,
 }
 
 BindingsType getBindingsType(String? type, BindingsType defaultType) {
   const names = {
-    'legacy': BindingsType.legacy,
+    'c_based': BindingsType.cBased,
     'single_file': BindingsType.singleFile,
     'package_structured': BindingsType.packageStructured,
   };
@@ -151,7 +151,7 @@ BindingsType getBindingsType(String? type, BindingsType defaultType) {
 class Config {
   Config({
     required this.classes,
-    this.bindingsType = BindingsType.legacy,
+    this.bindingsType = BindingsType.cBased,
     this.outputPath,
     this.libraryName,
     this.cRoot,
@@ -168,18 +168,13 @@ class Config {
     this.logLevel = Level.INFO,
     this.dumpJsonTo,
   }) {
-    if (bindingsType == BindingsType.legacy) {
+    if (bindingsType == BindingsType.cBased) {
       if (cRoot == null || dartRoot == null || libraryName == null) {
-        throw ArgumentError("In legacy mode these values must be specified: "
+        throw ArgumentError("In c_based mode these values must be specified: "
             "c_root, dart_root, library_name");
       }
     } else {
-      if (outputPath == null) {
-        throw ArgumentError("output_path must be specified.");
-      }
-      if (cRoot != null || dartRoot != null || libraryName != null) {
-        stderr.writeln("one or more legacy mode config options ignored!");
-      }
+      throw UnimplementedError("BindingsType not yet supported: $bindingsType");
     }
   }
 
@@ -200,7 +195,7 @@ class Config {
   /// This will also determine the name of shared object file.
   final String? libraryName;
 
-  /// Directory to write JNI C Bindings, in legacy (C+Dart) mode.
+  /// Directory to write JNI C Bindings, in C+Dart mode.
   ///
   /// Strictly speaking, this is the root to place the `CMakeLists.txt` file
   /// for the generated C bindings. It may be desirable to use the [cSubdir]
@@ -208,10 +203,10 @@ class Config {
   /// when generated code is required to be in `third_party` directory.
   Uri? cRoot;
 
-  /// Directory to write Dart bindings, in legacy mode.
+  /// Directory to write Dart bindings, in C + Dart mode.
   Uri? dartRoot;
 
-  /// Subfolder relative to [cRoot] to write generated C code, in legacy mode.
+  /// Subfolder relative to [cRoot] to write generated C code.
   String? cSubdir;
 
   /// Output file or folder in non-legacy modes
@@ -325,7 +320,7 @@ class Config {
         fields: regexFilter<Field>(_Props.excludeFields),
       ),
       bindingsType: getBindingsType(
-          prov.getString(_Props.bindingsType), BindingsType.legacy),
+          prov.getString(_Props.bindingsType), BindingsType.cBased),
       cRoot: directoryUri(prov.getString(_Props.cRoot)),
       dartRoot: directoryUri(prov.getString(_Props.dartRoot)),
       outputPath: fileUri(prov.getString(_Props.outputPath)),
