@@ -39,7 +39,7 @@ jclass LoadClass(const char *name) {
 FFI_PLUGIN_EXPORT
 jobject GetClassLoader() {
 	attach_thread();
-	return (*jniEnv)->NewLocalRef(jniEnv, jni.classLoader);
+	return (*jniEnv)->NewGlobalRef(jniEnv, jni.classLoader);
 }
 
 /// Returns application context on Android.
@@ -315,80 +315,6 @@ JniResult getStaticField(jclass cls, jfieldID fieldID, int callType) {
 	return jniResult;
 }
 
-jthrowable setField(jobject obj, jfieldID fieldID, int callType, jvalue value) {
-	attach_thread();
-	switch (callType) {
-		case booleanType:
-			(*jniEnv)->SetBooleanField(jniEnv, obj, fieldID, value.z);
-			break;
-		case byteType:
-			(*jniEnv)->SetByteField(jniEnv, obj, fieldID, value.b);
-			break;
-		case shortType:
-			(*jniEnv)->SetShortField(jniEnv, obj, fieldID, value.s);
-			break;
-		case charType:
-			(*jniEnv)->SetCharField(jniEnv, obj, fieldID, value.c);
-			break;
-		case intType:
-			(*jniEnv)->SetIntField(jniEnv, obj, fieldID, value.i);
-			break;
-		case longType:
-			(*jniEnv)->SetLongField(jniEnv, obj, fieldID, value.j);
-			break;
-		case floatType:
-			(*jniEnv)->SetFloatField(jniEnv, obj, fieldID, value.f);
-			break;
-		case doubleType:
-			(*jniEnv)->SetDoubleField(jniEnv, obj, fieldID, value.d);
-			break;
-		case objectType:
-			(*jniEnv)->SetObjectField(jniEnv, obj, fieldID, value.l);
-			break;
-		case voidType:
-			// This error should have been handled in Dart.
-			break;
-	}
-	return exceptionCheck();
-}
-
-jthrowable setStaticField(jobject obj, jfieldID fieldID, int callType, jvalue value) {
-	attach_thread();
-	switch (callType) {
-		case booleanType:
-			(*jniEnv)->SetStaticBooleanField(jniEnv, obj, fieldID, value.z);
-			break;
-		case byteType:
-			(*jniEnv)->SetStaticByteField(jniEnv, obj, fieldID, value.b);
-			break;
-		case shortType:
-			(*jniEnv)->SetStaticShortField(jniEnv, obj, fieldID, value.s);
-			break;
-		case charType:
-			(*jniEnv)->SetStaticCharField(jniEnv, obj, fieldID, value.c);
-			break;
-		case intType:
-			(*jniEnv)->SetStaticIntField(jniEnv, obj, fieldID, value.i);
-			break;
-		case longType:
-			(*jniEnv)->SetStaticLongField(jniEnv, obj, fieldID, value.j);
-			break;
-		case floatType:
-			(*jniEnv)->SetStaticFloatField(jniEnv, obj, fieldID, value.f);
-			break;
-		case doubleType:
-			(*jniEnv)->SetStaticDoubleField(jniEnv, obj, fieldID, value.d);
-			break;
-		case objectType:
-			(*jniEnv)->SetStaticObjectField(jniEnv, obj, fieldID, value.l);
-			break;
-		case voidType:
-			// This error should have been handled in Dart.
-			break;
-	}
-	return exceptionCheck();
-}
-
 JniResult newObject(jclass cls, jmethodID ctor, jvalue *args) {
 	attach_thread();
 	JniResult jniResult;
@@ -408,8 +334,6 @@ JniAccessors accessors = {
 	.callStaticMethod = callStaticMethod,
 	.getField = getField,
 	.getStaticField = getStaticField,
-	.setField = setField,
-	.setStaticField = setStaticField,
 };
 
 FFI_PLUGIN_EXPORT JniAccessors *GetAccessors() { return &accessors; }

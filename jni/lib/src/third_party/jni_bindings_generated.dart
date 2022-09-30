@@ -1502,21 +1502,9 @@ class JniAccessors extends ffi.Struct {
           ffi.NativeFunction<JniResult Function(JObject, JFieldID, ffi.Int)>>
       getField;
 
-  external ffi.Pointer<ffi.NativeFunction<JniResult Function(JObject)>>
-      getObjectClass;
-
   external ffi.Pointer<
           ffi.NativeFunction<JniResult Function(JClass, JFieldID, ffi.Int)>>
       getStaticField;
-
-  external ffi.Pointer<
-      ffi.NativeFunction<
-          JThrowable Function(JObject, JFieldID, ffi.Int, JValue)>> setField;
-
-  external ffi.Pointer<
-          ffi.NativeFunction<
-              JThrowable Function(JClass, JFieldID, ffi.Int, JValue)>>
-      setStaticField;
 }
 
 extension JniAccessorsExtension on ffi.Pointer<JniAccessors> {
@@ -1580,28 +1568,10 @@ extension JniAccessorsExtension on ffi.Pointer<JniAccessors> {
         obj, fieldID, callType);
   }
 
-  JniResult getObjectClass(JObject obj) {
-    return ref.getObjectClass.asFunction<JniResult Function(JObject)>()(obj);
-  }
-
   JniResult getStaticField(JClass cls, JFieldID fieldID, int callType) {
     return ref.getStaticField
             .asFunction<JniResult Function(JClass, JFieldID, int)>()(
         cls, fieldID, callType);
-  }
-
-  JThrowable setField(
-      JObject obj, JFieldID fieldID, int callType, JValue value) {
-    return ref.setField
-            .asFunction<JThrowable Function(JObject, JFieldID, int, JValue)>()(
-        obj, fieldID, callType, value);
-  }
-
-  JThrowable setStaticField(
-      JClass cls, JFieldID fieldID, int callType, JValue value) {
-    return ref.setStaticField
-            .asFunction<JThrowable Function(JClass, JFieldID, int, JValue)>()(
-        cls, fieldID, callType, value);
   }
 }
 
