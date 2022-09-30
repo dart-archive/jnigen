@@ -412,7 +412,7 @@ class JniClass extends JniReference {
         _ensureNotDeleted();
         final jArgs = JValueArgs(args, arena);
         arena.onReleaseAll(jArgs.dispose);
-        final res = _env.NewObjectA(reference, ctor, jArgs.values);
+        final res = _accessors.newObject(reference, ctor, jArgs.values).object;
         return JniObject.fromRef(res);
       });
 }

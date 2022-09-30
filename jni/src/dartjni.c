@@ -318,7 +318,7 @@ JniResult getStaticField(jclass cls, jfieldID fieldID, int callType) {
 JniResult newObject(jclass cls, jmethodID ctor, jvalue *args) {
 	attach_thread();
 	JniResult jniResult;
-	jniResult.result.l = (*jniEnv)->NewObjectA(jniEnv, cls, ctor, args);
+	jniResult.result.l = to_global_ref((*jniEnv)->NewObjectA(jniEnv, cls, ctor, args));
 	jniResult.exception = exceptionCheck();
 	return jniResult;
 }
