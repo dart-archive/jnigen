@@ -10,7 +10,7 @@ import 'package:jnigen/src/logging/logging.dart';
 abstract class BindingsWriter {
   Future<void> writeBindings(Iterable<ClassDecl> classes);
 
-  // Run dart format command on [path].
+  /// Run dart format command on [path].
   static Future<void> runDartFormat(String path) async {
     log.info('Running dart format...');
     final formatRes = await Process.run('dart', ['format', path]);

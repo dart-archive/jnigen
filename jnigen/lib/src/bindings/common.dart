@@ -250,7 +250,7 @@ String getInternalName(String binaryName) {
     case "boolean":
       return "Z";
     default:
-      return binaryName.replaceAll(".", "/").replaceAll("\$", "\\\$");
+      return binaryName.replaceAll(".", "/");
   }
 }
 
