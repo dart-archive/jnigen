@@ -5,7 +5,6 @@
 import 'package:jnigen/src/elements/elements.dart';
 import 'package:jnigen/src/config/config.dart';
 import 'package:jnigen/src/logging/logging.dart';
-import 'package:jnigen/src/util/name_utils.dart';
 import 'package:jnigen/src/util/rename_conflict.dart';
 
 import 'common.dart';
