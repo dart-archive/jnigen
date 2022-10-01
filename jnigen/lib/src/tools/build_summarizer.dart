@@ -29,14 +29,21 @@ Future<void> buildApiSummarizer() async {
     pom.toFilePath(),
     'assembly:assembly'
   ];
-  log.info('execute mvn $mvnArgs');
-  final mvnProc = await Process.start('mvn', mvnArgs,
-      workingDirectory: toolPath,
-      runInShell: true,
-      mode: ProcessStartMode.inheritStdio);
-  await mvnProc.exitCode;
-  await File(targetJarFile).rename(jarFile);
-  await Directory(mvnTargetDir).delete(recursive: true);
+  log.info('execute mvn ${mvnArgs.join(" ")}');
+  try {
+    final mvnProc = await Process.run('mvn', mvnArgs,
+        workingDirectory: toolPath, runInShell: true);
+    final exitCode = mvnProc.exitCode;
+    if (exitCode == 0) {
+      await File(targetJarFile).rename(jarFile);
+    } else {
+      printError(mvnProc.stdout);
+      printError(mvnProc.stderr);
+      printError("maven exited with $exitCode");
+    }
+  } finally {
+    await Directory(mvnTargetDir).delete(recursive: true);
+  }
 }
 
 Future<void> buildSummarizerIfNotExists({bool force = false}) async {
