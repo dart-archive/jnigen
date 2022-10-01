@@ -121,11 +121,18 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: install clang tools
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y clang-format
       - run: flutter pub get
       - name: Check formatting
         run: flutter format --output=none --set-exit-if-changed .
       - name: Run lints
         run: flutter analyze --fatal-infos
+      - name: Check C code formatting using clang-format
+        run: clang-format --dry-run -Werror dartjni.c dartjni.h third_party/*.c third_party/*.h
+        working-directory: ./jni/src
 
   test_jni:
     runs-on: ubuntu-latest
