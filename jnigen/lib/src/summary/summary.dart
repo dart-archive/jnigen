@@ -82,7 +82,6 @@ class SummarizerCommand {
     log.info('execute $exec ${args.join(' ')}');
     final proc = await Process.start(exec, args,
         workingDirectory: workingDirectory?.toFilePath() ?? '.');
-    // ignore: unawaited_futures
     return proc;
   }
 }
