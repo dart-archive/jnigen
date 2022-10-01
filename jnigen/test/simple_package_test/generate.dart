@@ -48,7 +48,7 @@ Config getConfig() {
     preamble: preamble,
     cRoot: cWrapperDir,
     dartRoot: dartWrappersRoot,
-    logLevel: Level.WARNING,
+    logLevel: Level.INFO,
     libraryName: 'simple_package',
   );
   return config;

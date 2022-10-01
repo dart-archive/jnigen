@@ -26,7 +26,7 @@ Future<void> generateJniBindings(Config config) async {
     backend: config.summarizerOptions?.backend,
   );
 
-  // additional sources added using maven downloads and gradle trickery.
+  // Additional sources added using maven downloads and gradle trickery.
   final extraSources = <Uri>[];
   final extraJars = <Uri>[];
   final mavenDl = config.mavenDownloads;

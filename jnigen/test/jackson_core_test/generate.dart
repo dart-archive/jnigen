@@ -51,7 +51,7 @@ Config getConfig(
             'com.fasterxml.jackson.core.JsonParser',
             'com.fasterxml.jackson.core.JsonToken',
           ],
-    logLevel: Level.WARNING,
+    logLevel: Level.INFO,
     exclude: BindingExclusions(
       fields: excludeAll<Field>([
         ['com.fasterxml.jackson.core.JsonFactory', 'DEFAULT_QUOTE_CHAR'],

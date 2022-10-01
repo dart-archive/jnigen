@@ -4,7 +4,7 @@
 
 #pragma once 
 
-// Note: include appropriate system jni.h as found by CMake, not third_party/jni.h
+// Note: include appropriate system jni.h as found by CMake, not third_party/jni.h.
 #include <jni.h>
 #include <stdint.h>
 #include <stdio.h>

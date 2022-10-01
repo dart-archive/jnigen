@@ -97,14 +97,14 @@ int _getCallType(int? callType, int defaultType, Set<int> allowed) {
   throw InvalidCallTypeException(callType, allowed);
 }
 
-T _callOrGet<T>(int? callType, JniResult Function(int) f) {
+T _callOrGet<T>(int? callType, JniResult Function(int) function) {
   final int finalCallType;
   late T result;
   switch (T) {
     case bool:
       finalCallType =
           _getCallType(callType, JniType.booleanType, {JniType.booleanType});
-      result = f(finalCallType).boolean as T;
+      result = function(finalCallType).boolean as T;
       break;
     case int:
       finalCallType = _getCallType(callType, JniType.intType, {
@@ -114,7 +114,7 @@ T _callOrGet<T>(int? callType, JniResult Function(int) f) {
         JniType.intType,
         JniType.longType,
       });
-      final jniResult = f(finalCallType);
+      final jniResult = function(finalCallType);
       switch (finalCallType) {
         case JniType.byteType:
           result = jniResult.byte as T;
@@ -136,7 +136,7 @@ T _callOrGet<T>(int? callType, JniResult Function(int) f) {
     case double:
       finalCallType = _getCallType(callType, JniType.doubleType,
           {JniType.floatType, JniType.doubleType});
-      final jniResult = f(finalCallType);
+      final jniResult = function(finalCallType);
       switch (finalCallType) {
         case JniType.floatType:
           result = jniResult.float as T;
@@ -151,7 +151,7 @@ T _callOrGet<T>(int? callType, JniResult Function(int) f) {
     case JniString:
       finalCallType =
           _getCallType(callType, JniType.objectType, {JniType.objectType});
-      final ref = f(finalCallType).object;
+      final ref = function(finalCallType).object;
       final ctor = T == String
           ? (ref) => _env.asDartString(ref, deleteOriginal: true)
           : (T == JniObject ? JniObject.fromRef : JniString.fromRef);
@@ -160,7 +160,7 @@ T _callOrGet<T>(int? callType, JniResult Function(int) f) {
     case _VoidType:
       finalCallType =
           _getCallType(callType, JniType.voidType, {JniType.voidType});
-      f(finalCallType).check();
+      function(finalCallType).check();
       result = null as T;
       break;
     case dynamic:

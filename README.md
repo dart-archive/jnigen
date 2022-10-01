@@ -14,7 +14,7 @@ This project is a work-in-progress and highly experimental. Users can check out 
 ## SDK Requirements
 Dart standalone target is supported, but due to some problems with pubspec, the `dart` command must be from Flutter SDK and not Dart SDK. See [dart-lang/pub#3563](https://github.com/dart-lang/pub/issues/3563).
 
-Along with JDK, maven (`mvn` command) is required. On Windows, it can be installed using a package manager such as `scoop`.
+Along with JDK, maven (`mvn` command) is required. On Windows, it can be installed using a package manager such as `chocolatey` or `scoop`.
 
 On windows, you need to append the path of `jvm.dll` in your JDK installation to PATH.
 
