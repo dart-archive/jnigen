@@ -371,7 +371,7 @@ jobs:
           diff -qr _c src/
           diff -qr _dart lib/third_party
       - name: Generate full bindings
-        run: dart run jnigen --config jnigen.yaml --override classes=org.apache.pdfbox.pdmodel;org.apache.pdfbox.text
+        run: dart run jnigen --config jnigen.yaml --override classes="org.apache.pdfbox.pdmodel;org.apache.pdfbox.text"
       - name: Analyze generated bindings
         run: |
           flutter pub get # dart-analyze errors on flutter example
