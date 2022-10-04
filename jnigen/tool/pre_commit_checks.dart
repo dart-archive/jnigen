@@ -2,14 +2,14 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// This is a handy little tool to run an important subset of CI checks on
-// development machine before submitting PR. This saves from accidentally
-// forgetting to format or remove an unused import.
+// This is a script to run a subset of CI checks on development machine before 
+// submitting PR. This prevents from accidentally forgetting to format or 
+// remove an unused import.
 
-// This is rough around the edges. There may be some false positives such
+// This is rough around the edges. This script may give false positives such
 // as some gitignore'd temporary files failing the comparison.
 
-// on windows, please install 'diffutils' using your favorite package installer
+// On windows, please install 'diffutils' using your favorite package installer
 // for this script to work correctly. Also ensure that clang-format is on your
 // PATH.
 

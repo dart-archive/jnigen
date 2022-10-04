@@ -6,6 +6,14 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 
+const makefilesGenerator = 'make';
+const ninjaGenerator = 'ninja';
+
+const cmakeGeneratorNames = {
+  makefilesGenerator: 'Unix Makefiles',
+  ninjaGenerator: 'Ninja',
+};
+
 void runCommand(String exec, List<String> args, String workingDirectory) {
   stderr.writeln('+ $exec ${args.join(" ")}');
   final process =
@@ -22,17 +30,20 @@ void main(List<String> arguments) {
     ..addOption(
       "generator",
       abbr: 'G',
-      help: 'Generator to pass to CMake',
-      allowed: ['Ninja', 'Unix Makefiles'],
-      defaultsTo: Platform.isWindows ? 'Ninja' : 'Unix Makefiles',
-    );
+      help: 'Generator to pass to CMake. (Either "ninja" or "make").',
+      allowed: [ninjaGenerator, makefilesGenerator],
+      defaultsTo: Platform.isWindows ? ninjaGenerator : makefilesGenerator,
+    )
+    ..addFlag('help', abbr: 'h', help: 'Show this usage information.');
   final argResults = argParser.parse(arguments);
-  if (argResults.rest.isNotEmpty) {
+  if (argResults.rest.isNotEmpty || argResults['help']) {
+    stderr.writeln('This script generates compile_commands.json for '
+      'C source files in src/');
     stderr.writeln(argParser.usage);
     exitCode = 1;
     return;
   }
-  final generator = argResults['generator'];
+  final generator = cmakeGeneratorNames[argResults['generator']];
   final tempDir = Directory.current.createTempSync("clangd_setup_temp_");
   final src = Directory.current.uri.resolve("src/");
   try {
@@ -42,7 +53,7 @@ void main(List<String> arguments) {
           "-DCMAKE_EXPORT_COMPILE_COMMANDS=1",
           src.toFilePath(),
           "-G",
-          generator,
+          generator!,
         ],
         tempDir.path);
     final createdFile = tempDir.uri.resolve("compile_commands.json");
