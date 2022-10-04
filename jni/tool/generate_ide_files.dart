@@ -38,7 +38,7 @@ void main(List<String> arguments) {
   final argResults = argParser.parse(arguments);
   if (argResults.rest.isNotEmpty || argResults['help']) {
     stderr.writeln('This script generates compile_commands.json for '
-      'C source files in src/');
+        'C source files in src/');
     stderr.writeln(argParser.usage);
     exitCode = 1;
     return;

@@ -2,8 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// This is a script to run a subset of CI checks on development machine before 
-// submitting PR. This prevents from accidentally forgetting to format or 
+// This is a script to run a subset of CI checks on development machine before
+// submitting PR. This prevents from accidentally forgetting to format or
 // remove an unused import.
 
 // This is rough around the edges. This script may give false positives such
