@@ -33,7 +33,15 @@ c_root: 'src/'
 c_subdir: 'third_party/'
 
 ## Root for generated Dart bindings.
-dart_root: 'lib/third_party/'
+dart_root: 'lib/src/third_party/'
+
+## Root package configuration, this allows to write bindings to $dart_root/pdmodel.dart instead of
+## $dart_root/org/apache/pdfbox/pdmodel.dart assuming the org.apache.pdfbox is common to all subpackages
+## included in this config.
+##
+## Since every package maps to dart file, even if all your classes are in one package A.B.C, root package
+## will be A.B and not A.B.C
+root_package: org.apache.pdfbox
 
 ## Classes / packages for which bindings need to be generated.
 classes:

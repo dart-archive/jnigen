@@ -16,6 +16,10 @@ public class Example {
     num = 121;
   }
 
+  public int whichExample() {
+    return 0;
+  }
+
   public static Aux getAux() {
     return aux;
   }
@@ -53,6 +57,6 @@ public class Example {
 
     public void setValue(boolean value) {
       this.value = value;
-    }
+    }    
   }
 }
