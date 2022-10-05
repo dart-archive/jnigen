@@ -57,6 +57,6 @@ public class Example {
 
     public void setValue(boolean value) {
       this.value = value;
-    }    
+    }
   }
 }
