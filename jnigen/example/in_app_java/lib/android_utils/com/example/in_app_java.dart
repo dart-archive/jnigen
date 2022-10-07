@@ -11,7 +11,7 @@ import "dart:ffi" as ffi;
 import "package:jni/internal_helpers_for_jnigen.dart";
 import "package:jni/jni.dart" as jni;
 
-import "_init.dart" show jniLookup;
+import "../../_init.dart" show jniLookup;
 
 /// from: com.example.in_app_java.AndroidUtils
 class AndroidUtils extends jni.JniObject {

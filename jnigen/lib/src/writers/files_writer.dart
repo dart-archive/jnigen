@@ -163,13 +163,6 @@ class CallbackWriter implements BindingsWriter {
 class FilesWriter extends BindingsWriter {
   static const _initFileName = '_init.dart';
 
-  static String _removePrefix(String s, String prefix) {
-    if (s.startsWith(prefix)) {
-      return s.substring(prefix.length);
-    }
-    return s;
-  }
-
   FilesWriter(this.config);
   Config config;
 
@@ -178,23 +171,12 @@ class FilesWriter extends BindingsWriter {
     final preamble = config.preamble;
     final Map<String, List<ClassDecl>> packages = {};
     final Map<String, ClassDecl> classesByName = {};
-    var rootPackagePrefix = '';
-    final rootPackage = config.rootPackage;
-    if (rootPackage != null) {
-      log.info("using root package = $rootPackage");
-      rootPackagePrefix = '$rootPackage.';
-    }
     for (var c in classes) {
       classesByName.putIfAbsent(c.binaryName, () => c);
       packages.putIfAbsent(c.packageName, () => <ClassDecl>[]);
       packages[c.packageName]!.add(c);
     }
     final classNames = classesByName.keys.toSet();
-
-    if (config.bindingsType == BindingsType.packageStructured) {
-      throw UnimplementedError(
-          "Package structured bindings are not yet implemented");
-    }
 
     final cRoot = config.cRoot!;
     log.info("Using c root = $cRoot");
@@ -221,9 +203,7 @@ class FilesWriter extends BindingsWriter {
     cFileStream.write(CPreludes.prelude);
     ApiPreprocessor.preprocessAll(classesByName, config);
     for (var packageName in packages.keys) {
-      final relativePackageName = _removePrefix(packageName, rootPackagePrefix);
-      final relativeFileName =
-          '${relativePackageName.replaceAll('.', '/')}.dart';
+      final relativeFileName = '${packageName.replaceAll('.', '/')}.dart';
       final dartFileUri = dartRoot.resolve(relativeFileName);
       log.fine('Writing bindings for $packageName...');
       final dartFile = await File.fromUri(dartFileUri).create(recursive: true);

@@ -30,7 +30,7 @@ import "package:jni/internal_helpers_for_jnigen.dart";
 import "package:jni/jni.dart" as jni;
 
 import "pdmodel.dart" as pdmodel_;
-import "_init.dart" show jniLookup;
+import "../../../_init.dart" show jniLookup;
 
 /// from: org.apache.pdfbox.text.PDFTextStripper
 ///
