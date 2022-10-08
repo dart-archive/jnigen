@@ -41,9 +41,15 @@ Config getConfig(
       backend: useAsm ? 'asm' : null,
     ),
     preamble: jacksonPreamble,
-    libraryName: testName,
-    cRoot: Uri.directory(join(rootDir, 'src')),
-    dartRoot: Uri.directory(join(rootDir, 'lib')),
+    outputConfig: OutputConfig(
+      cConfig: CCodeOutputConfig(
+        libraryName: testName,
+        root: Uri.directory(join(rootDir, 'src')),
+      ),
+      dartConfig: DartCodeOutputConfig(
+        root: Uri.directory(join(rootDir, 'lib')),
+      ),
+    ),
     classes: (generateFullVersion)
         ? ['com.fasterxml.jackson.core']
         : [

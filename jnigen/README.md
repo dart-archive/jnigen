@@ -28,12 +28,6 @@ Both approaches are almost identical. When using YAML, it's possible to selectiv
 ### Generated bindings
 Generated bindings will consist of 2 parts - C bindings which call JNI, and Dart bindings which call C bindings. The generated bindings will depend on `package:jni` for instantiating / obtaining a JVM instance.
 
-The following properties must be specified in yaml.
-
-* `c_root`: root folder to write generated C bindings.
-* `dart_root`: root folder to write generated Dart bindings (see below).
-* `library_name`: specifies name of the generated library in CMakeFiles.txt.
-
 The generated C file has to be linked to JNI libraries. Therefore a CMake configuration is always generated which builds the generated code as shared library. The `_init.dart` in generated dart code loads the library on first time a method is accessed. On dart standalone, it will be loaded from the same directory specified in `Jni.spawn` call.
 
 ## Examples
