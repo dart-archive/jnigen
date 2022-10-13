@@ -4,9 +4,9 @@ android_sdk_config:
 output:
   c:
     library_name: android_utils
-    root: src/android_utils
+    path: src/android_utils
   dart:
-    root: lib/android_utils
+    path: lib/android_utils
 
 source_path:
   - 'android/app/src/main/java'

@@ -127,7 +127,7 @@ enum SummarizerBackend {
 
 class CCodeOutputConfig {
   CCodeOutputConfig({
-    required this.root,
+    required this.path,
     required this.libraryName,
     this.subdir,
   });
@@ -136,26 +136,26 @@ class CCodeOutputConfig {
   ///
   /// Strictly speaking, this is the root to place the `CMakeLists.txt` file
   /// for the generated C bindings. It may be desirable to use the [subdir]
-  /// options to write C files to a subdirectory of [root]. For instance,
+  /// options to write C files to a subdirectory of [path]. For instance,
   /// when generated code is required to be in `third_party` directory.
-  Uri root;
+  Uri path;
 
   /// Name of generated library in CMakeLists.txt configuration.
   ///
   /// This will also determine the name of shared object file.
   String libraryName;
 
-  /// Subfolder relative to [root] to write generated C code.
+  /// Subfolder relative to [path] to write generated C code.
   String? subdir;
 }
 
 class DartCodeOutputConfig {
   // TODO(#90): Support output_structure = single_file | package_structure.
 
-  DartCodeOutputConfig({required this.root});
+  DartCodeOutputConfig({required this.path});
 
   /// Path to write generated Dart bindings.
-  Uri root;
+  Uri path;
 }
 
 class OutputConfig {
@@ -320,11 +320,11 @@ class Config {
       outputConfig: OutputConfig(
         cConfig: CCodeOutputConfig(
           libraryName: must(prov.getString, '', _Props.libraryName),
-          root: Uri.directory(must(prov.getString, '.', _Props.cRoot)),
+          path: Uri.directory(must(prov.getString, '.', _Props.cRoot)),
           subdir: prov.getString(_Props.cSubdir),
         ),
         dartConfig: DartCodeOutputConfig(
-          root: Uri.directory(must(prov.getString, '.', _Props.dartRoot)),
+          path: Uri.directory(must(prov.getString, '.', _Props.dartRoot)),
         ),
       ),
       preamble: prov.getString(_Props.preamble),
@@ -394,9 +394,9 @@ class _Props {
   static const outputConfig = 'output';
   static const cCodeOutputConfig = '$outputConfig.c';
   static const dartCodeOutputConfig = '$outputConfig.dart';
-  static const cRoot = '$cCodeOutputConfig.root';
+  static const cRoot = '$cCodeOutputConfig.path';
   static const cSubdir = '$cCodeOutputConfig.subdir';
-  static const dartRoot = '$dartCodeOutputConfig.root';
+  static const dartRoot = '$dartCodeOutputConfig.path';
   static const libraryName = '$cCodeOutputConfig.library_name';
   static const preamble = 'preamble';
   static const logLevel = 'log_level';

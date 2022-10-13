@@ -21,8 +21,8 @@ void main() {
     final args = [
       '--config',
       configFile,
-      '-Doutput.c.root=$testSrc',
-      '-Doutput.dart.root=$testLib',
+      '-Doutput.c.path=$testSrc',
+      '-Doutput.dart.path=$testLib',
     ];
     final config = Config.parseArgs(args);
     await generateAndCompareBindings(config, lib, src);

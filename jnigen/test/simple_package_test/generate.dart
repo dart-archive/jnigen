@@ -47,10 +47,10 @@ Config getConfig() {
     ],
     outputConfig: OutputConfig(
       cConfig: CCodeOutputConfig(
-        root: cWrapperDir,
+        path: cWrapperDir,
         libraryName: 'simple_package',
       ),
-      dartConfig: DartCodeOutputConfig(root: dartWrappersRoot),
+      dartConfig: DartCodeOutputConfig(path: dartWrappersRoot),
     ),
     preamble: preamble,
   );

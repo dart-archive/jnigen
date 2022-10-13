@@ -178,9 +178,9 @@ class FilesWriter extends BindingsWriter {
     }
     final classNames = classesByName.keys.toSet();
 
-    final cRoot = config.outputConfig.cConfig.root;
+    final cRoot = config.outputConfig.cConfig.path;
     log.info("Using c root = $cRoot");
-    final dartRoot = config.outputConfig.dartConfig.root;
+    final dartRoot = config.outputConfig.dartConfig.path;
     log.info("Using dart root = $dartRoot");
     final libraryName = config.outputConfig.cConfig.libraryName;
 

@@ -44,10 +44,10 @@ Config getConfig(
     outputConfig: OutputConfig(
       cConfig: CCodeOutputConfig(
         libraryName: testName,
-        root: Uri.directory(join(rootDir, 'src')),
+        path: Uri.directory(join(rootDir, 'src')),
       ),
       dartConfig: DartCodeOutputConfig(
-        root: Uri.directory(join(rootDir, 'lib')),
+        path: Uri.directory(join(rootDir, 'lib')),
       ),
     ),
     classes: (generateFullVersion)

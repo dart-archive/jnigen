@@ -14,7 +14,7 @@ classes:
 
 output:
   c:
-    root: 'src/'
+    path: 'src/'
     library_name: notification_plugin
   dart:
-    root: 'lib/'
+    path: 'lib/'

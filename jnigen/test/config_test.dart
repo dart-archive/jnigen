@@ -24,9 +24,9 @@ void expectConfigsAreEqual(Config a, Config b) {
   expect(a.outputConfig.cConfig.libraryName,
       equals(b.outputConfig.cConfig.libraryName),
       reason: "libraryName");
-  expect(a.outputConfig.cConfig.root, equals(b.outputConfig.cConfig.root),
+  expect(a.outputConfig.cConfig.path, equals(b.outputConfig.cConfig.path),
       reason: "cRoot");
-  expect(a.outputConfig.dartConfig.root, equals(b.outputConfig.dartConfig.root),
+  expect(a.outputConfig.dartConfig.path, equals(b.outputConfig.dartConfig.path),
       reason: "dartRoot");
   expect(a.sourcePath, equals(b.sourcePath), reason: "sourcePath");
   expect(a.classPath, equals(b.classPath), reason: "classPath");
@@ -75,8 +75,8 @@ void main() {
   final config = Config.parseArgs([
     '--config',
     join(jacksonCoreTests, 'jnigen.yaml'),
-    '-Doutput.c.root=$testSrc',
-    '-Doutput.dart.root=$testLib',
+    '-Doutput.c.path=$testSrc',
+    '-Doutput.dart.path=$testLib',
   ]);
 
   test('compare configuration values', () {

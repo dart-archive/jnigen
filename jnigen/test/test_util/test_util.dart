@@ -60,8 +60,8 @@ void compareDirs(String path1, String path2) {
 Future<void> _generateTempBindings(Config config, Directory tempDir) async {
   final tempSrc = tempDir.uri.resolve("src/");
   final tempLib = tempDir.uri.resolve("lib/");
-  config.outputConfig.cConfig.root = tempSrc;
-  config.outputConfig.dartConfig.root = tempLib;
+  config.outputConfig.cConfig.path = tempSrc;
+  config.outputConfig.dartConfig.path = tempLib;
   await generateJniBindings(config);
 }
 
