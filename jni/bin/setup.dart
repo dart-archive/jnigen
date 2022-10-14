@@ -10,7 +10,8 @@ import 'package:package_config/package_config.dart';
 const ansiRed = '\x1b[31m';
 const ansiDefault = '\x1b[39;49m';
 
-const jniNativeBuildDirective = '# jnigen_native_build';
+const jniNativeBuildDirective =
+    '# jni_native_build (Build with jni:setup. Do not delete this line)';
 
 const _defaultRelativeBuildPath = "build/jni_libs";
 
