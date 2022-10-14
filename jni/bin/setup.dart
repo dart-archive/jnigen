@@ -10,6 +10,8 @@ import 'package:package_config/package_config.dart';
 const ansiRed = '\x1b[31m';
 const ansiDefault = '\x1b[39;49m';
 
+const jniNativeBuildDirective = '# jnigen_native_build';
+
 const _defaultRelativeBuildPath = "build/jni_libs";
 
 const _buildPath = "build-path";
@@ -103,8 +105,6 @@ Future<String> findSources(String packageName) async {
 
 /// Return '/src' directories of all dependencies which has a CMakeLists.txt
 /// file.
-///
-/// TODO(PR): Should this rather check for ffiPlugin property of pubspecs?
 Future<Map<String, String>> findDependencySources() async {
   final packageConfig = await findPackageConfig(Directory.current);
   if (packageConfig == null) {
@@ -114,8 +114,12 @@ Future<Map<String, String>> findDependencySources() async {
   for (var package in packageConfig.packages) {
     final src = package.root.resolve("src/");
     final cmakeLists = src.resolve("CMakeLists.txt");
-    if (File.fromUri(cmakeLists).existsSync()) {
-      sources[package.name] = src.toFilePath();
+    final cmakeListsFile = File.fromUri(cmakeLists);
+    if (cmakeListsFile.existsSync()) {
+      final firstLine = cmakeListsFile.readAsLinesSync().first;
+      if (firstLine == jniNativeBuildDirective) {
+        sources[package.name] = src.toFilePath();
+      }
     }
   }
   return sources;
