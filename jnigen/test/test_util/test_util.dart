@@ -38,6 +38,10 @@ Future<List<String>> getJarPaths(String testRoot) async {
 
 /// compares 2 hierarchies, with and without prefix 'test_'
 void compareDirs(String path1, String path2) {
+  if (File(path1).existsSync()) {
+    expect(File(path1).readAsStringSync(), File(path2).readAsStringSync());
+    return;
+  }
   final list1 = Directory(path1).listSync(recursive: true);
   final list2 = Directory(path2).listSync(recursive: true);
   expect(list1.length, equals(list2.length));
@@ -59,22 +63,30 @@ void compareDirs(String path1, String path2) {
 
 Future<void> _generateTempBindings(Config config, Directory tempDir) async {
   final tempSrc = tempDir.uri.resolve("src/");
-  final tempLib = tempDir.uri.resolve("lib/");
+  final singleFile = config.outputConfig.dartConfig.outputStructure ==
+      OutputStructure.singleFile;
+  final tempLib = singleFile
+      ? tempDir.uri.resolve("generated.dart")
+      : tempDir.uri.resolve("lib/");
   config.outputConfig.cConfig.path = tempSrc;
   config.outputConfig.dartConfig.path = tempLib;
   await generateJniBindings(config);
 }
 
 Future<void> generateAndCompareBindings(
-    Config config, String lib, String src) async {
+    Config config, String dartPath, String cPath) async {
   final currentDir = Directory.current;
   final tempDir = currentDir.createTempSync("jnigen_test_temp");
   final tempSrc = tempDir.uri.resolve("src/");
-  final tempLib = tempDir.uri.resolve("lib/");
+  final singleFile = config.outputConfig.dartConfig.outputStructure ==
+      OutputStructure.singleFile;
+  final tempLib = singleFile
+      ? tempDir.uri.resolve("generated.dart")
+      : tempDir.uri.resolve("lib/");
   try {
     await _generateTempBindings(config, tempDir);
-    compareDirs(lib, tempLib.toFilePath());
-    compareDirs(src, tempSrc.toFilePath());
+    compareDirs(dartPath, tempLib.toFilePath());
+    compareDirs(cPath, tempSrc.toFilePath());
   } finally {
     tempDir.deleteSync(recursive: true);
   }

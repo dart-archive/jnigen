@@ -50,7 +50,10 @@ Config getConfig() {
         path: cWrapperDir,
         libraryName: 'simple_package',
       ),
-      dartConfig: DartCodeOutputConfig(path: dartWrappersRoot),
+      dartConfig: DartCodeOutputConfig(
+        path: dartWrappersRoot.resolve('simple_package.dart'),
+        outputStructure: OutputStructure.singleFile,
+      ),
     ),
     preamble: preamble,
   );

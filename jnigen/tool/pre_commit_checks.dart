@@ -174,11 +174,11 @@ void main() async {
       "--config",
       "jnigen.yaml",
       "-Doutput.c.path=src_temp",
-      "-Doutput.dart.path=lib_temp",
+      "-Doutput.dart.path=_temp.dart",
     ])
-    ..chainCommand("diff", ["-qr", "lib/android_utils/", "lib_temp/"])
+    ..chainCommand("diff", ["lib/android_utils.dart", "_temp.dart"])
     ..chainCommand("diff", ["-qr", "src/android_utils/", "src_temp/"])
-    ..chainCleanupCommand("rm", ["-r", "lib_temp", "src_temp"]);
+    ..chainCleanupCommand("rm", ["-r", "_temp.dart", "src_temp"]);
   final comparePdfboxBindings = Runner(
       "Generate & compare PdfBox Bindings", "jnigen/example/pdfbox_plugin")
     ..chainCommand("dart", [
@@ -186,8 +186,8 @@ void main() async {
       "jnigen",
       "--config",
       "jnigen.yaml",
-      "-Doutput.c.path=src_temp",
-      "-Doutput.dart.path=lib_temp",
+      "-Doutput.c.path=src_temp/",
+      "-Doutput.dart.path=lib_temp/",
     ])
     ..chainCommand("diff", ["-qr", "lib/src/third_party/", "lib_temp/"])
     ..chainCommand("diff", ["-qr", "src/", "src_temp/"])
@@ -201,11 +201,11 @@ void main() async {
       "--config",
       "jnigen.yaml",
       "-Doutput.c.path=src_temp",
-      "-Doutput.dart.path=lib_temp",
+      "-Doutput.dart.path=_temp.dart",
     ])
-    ..chainCommand("diff", ["-qr", "lib/", "lib_temp/"])
+    ..chainCommand("diff", ["lib/notifications.dart", "_temp.dart"])
     ..chainCommand("diff", ["-qr", "src/", "src_temp/"])
-    ..chainCleanupCommand("rm", ["-r", "lib_temp", "src_temp"]);
+    ..chainCleanupCommand("rm", ["-r", "_temp.dart", "src_temp"]);
   unawaited(jnigenAnalyze.run().then((_) {
     jnigenTest.run();
     compareInAppJavaBindings.run();

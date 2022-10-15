@@ -125,6 +125,24 @@ enum SummarizerBackend {
   doclet,
 }
 
+T _getEnumValueFromString<T>(
+    Map<String, T> values, String? name, T defaultVal) {
+  if (name == null) return defaultVal;
+  final value = values[name];
+  if (value == null) throw ArgumentError('Got: $name, allowed: ${values.keys}');
+  return value;
+}
+
+enum OutputStructure { packageStructure, singleFile }
+
+OutputStructure getOutputStructure(String? name, OutputStructure defaultVal) {
+  const values = {
+    'package_structure': OutputStructure.packageStructure,
+    'single_file': OutputStructure.singleFile,
+  };
+  return _getEnumValueFromString(values, name, defaultVal);
+}
+
 class CCodeOutputConfig {
   CCodeOutputConfig({
     required this.path,
@@ -152,10 +170,29 @@ class CCodeOutputConfig {
 class DartCodeOutputConfig {
   // TODO(#90): Support output_structure = single_file | package_structure.
 
-  DartCodeOutputConfig({required this.path});
+  DartCodeOutputConfig({
+    required this.path,
+    this.outputStructure = OutputStructure.packageStructure,
+  }) {
+    if (outputStructure == OutputStructure.singleFile) {
+      if (!path.toFilePath().endsWith('.dart')) {
+        throw ArgumentError(
+            'output path must end with ".dart" in single file mode');
+      }
+    } else {
+      // Make the path a directory, even if it's provided without
+      // trailing slash.
+      //
+      // This is to ensure that Uri.resolve works properly in all cases.
+      path = Uri.directory(path.toFilePath());
+    }
+  }
 
   /// Path to write generated Dart bindings.
   Uri path;
+
+  /// File structure of the generated Dart bindings.
+  OutputStructure outputStructure;
 }
 
 class OutputConfig {
@@ -324,7 +361,11 @@ class Config {
           subdir: prov.getString(_Props.cSubdir),
         ),
         dartConfig: DartCodeOutputConfig(
-          path: Uri.directory(must(prov.getString, '.', _Props.dartRoot)),
+          path: Uri.file(must(prov.getString, '.', _Props.dartRoot)),
+          outputStructure: getOutputStructure(
+            prov.getString(_Props.outputStructure),
+            OutputStructure.packageStructure,
+          ),
         ),
       ),
       preamble: prov.getString(_Props.preamble),
@@ -397,6 +438,7 @@ class _Props {
   static const cRoot = '$cCodeOutputConfig.path';
   static const cSubdir = '$cCodeOutputConfig.subdir';
   static const dartRoot = '$dartCodeOutputConfig.path';
+  static const outputStructure = '$dartCodeOutputConfig.output_structure';
   static const libraryName = '$cCodeOutputConfig.library_name';
   static const preamble = 'preamble';
   static const logLevel = 'log_level';
