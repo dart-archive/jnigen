@@ -37,8 +37,7 @@ Future<List<String>> getJarPaths(String testRoot) async {
 }
 
 /// Read file normalizing CRLF to LF.
-String readFile(File file) => file.readAsStringSync()
-  .replaceAll('\r\n', '\n');
+String readFile(File file) => file.readAsStringSync().replaceAll('\r\n', '\n');
 
 /// compares 2 hierarchies, with and without prefix 'test_'
 void comparePaths(String path1, String path2) {
@@ -46,7 +45,7 @@ void comparePaths(String path1, String path2) {
     expect(
       readFile(File(path1)),
       readFile(File(path2)),
-      );
+    );
     return;
   }
   final list1 = Directory(path1).listSync(recursive: true);
