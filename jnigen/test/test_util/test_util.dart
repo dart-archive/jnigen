@@ -36,10 +36,16 @@ Future<List<String>> getJarPaths(String testRoot) async {
       .toList();
 }
 
+String readFile(File file) => file.readAsStringSync()
+  .replaceAll('\r\n', '\n');
+
 /// compares 2 hierarchies, with and without prefix 'test_'
-void compareDirs(String path1, String path2) {
+void comparePaths(String path1, String path2) {
   if (File(path1).existsSync()) {
-    expect(File(path1).readAsStringSync(), File(path2).readAsStringSync());
+    expect(
+      readFile(File(path1)),
+      readFile(File(path2)),
+      );
     return;
   }
   final list1 = Directory(path1).listSync(recursive: true);
@@ -56,8 +62,7 @@ void compareDirs(String path1, String path2) {
     final b = File(list2[i].path);
     // Some windows problems: Depending on your working tree and git config
     // one file may have CRLFs and other may have LFs.
-    expect(a.readAsStringSync().replaceAll("\r\n", "\n"),
-        equals(b.readAsStringSync().replaceAll("\r\n", "\n")));
+    expect(readFile(a), readFile(b));
   }
 }
 
@@ -85,8 +90,8 @@ Future<void> generateAndCompareBindings(
       : tempDir.uri.resolve("lib/");
   try {
     await _generateTempBindings(config, tempDir);
-    compareDirs(dartPath, tempLib.toFilePath());
-    compareDirs(cPath, tempSrc.toFilePath());
+    comparePaths(dartPath, tempLib.toFilePath());
+    comparePaths(cPath, tempSrc.toFilePath());
   } finally {
     tempDir.deleteSync(recursive: true);
   }
