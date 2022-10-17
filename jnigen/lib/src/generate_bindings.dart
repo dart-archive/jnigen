@@ -98,7 +98,7 @@ Future<void> generateJniBindings(Config config) async {
     return;
   }
   final list = json as List;
-  final outputStructure = config.outputConfig.dartConfig.outputStructure;
+  final outputStructure = config.outputConfig.dartConfig.structure;
   BindingsWriter outputWriter;
   if (outputStructure == OutputStructure.packageStructure) {
     outputWriter = FilesWriter(config);

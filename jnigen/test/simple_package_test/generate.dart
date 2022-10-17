@@ -52,7 +52,7 @@ Config getConfig() {
       ),
       dartConfig: DartCodeOutputConfig(
         path: dartWrappersRoot.resolve('simple_package.dart'),
-        outputStructure: OutputStructure.singleFile,
+        structure: OutputStructure.singleFile,
       ),
     ),
     preamble: preamble,

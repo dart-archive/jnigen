@@ -223,7 +223,7 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
 
   @override
   String getPostImportBoilerplate([String? initFilePath]) {
-    if (config.outputConfig.dartConfig.outputStructure ==
+    if (config.outputConfig.dartConfig.structure ==
         OutputStructure.singleFile) {
       return _initCode();
     } else {

@@ -66,8 +66,8 @@ void comparePaths(String path1, String path2) {
 
 Future<void> _generateTempBindings(Config config, Directory tempDir) async {
   final tempSrc = tempDir.uri.resolve("src/");
-  final singleFile = config.outputConfig.dartConfig.outputStructure ==
-      OutputStructure.singleFile;
+  final singleFile =
+      config.outputConfig.dartConfig.structure == OutputStructure.singleFile;
   final tempLib = singleFile
       ? tempDir.uri.resolve("generated.dart")
       : tempDir.uri.resolve("lib/");
@@ -81,8 +81,8 @@ Future<void> generateAndCompareBindings(
   final currentDir = Directory.current;
   final tempDir = currentDir.createTempSync("jnigen_test_temp");
   final tempSrc = tempDir.uri.resolve("src/");
-  final singleFile = config.outputConfig.dartConfig.outputStructure ==
-      OutputStructure.singleFile;
+  final singleFile =
+      config.outputConfig.dartConfig.structure == OutputStructure.singleFile;
   final tempLib = singleFile
       ? tempDir.uri.resolve("generated.dart")
       : tempDir.uri.resolve("lib/");

@@ -172,9 +172,9 @@ class DartCodeOutputConfig {
 
   DartCodeOutputConfig({
     required this.path,
-    this.outputStructure = OutputStructure.packageStructure,
+    this.structure = OutputStructure.packageStructure,
   }) {
-    if (outputStructure == OutputStructure.singleFile) {
+    if (structure == OutputStructure.singleFile) {
       if (!path.toFilePath().endsWith('.dart')) {
         throw ArgumentError(
             'output path must end with ".dart" in single file mode');
@@ -192,7 +192,7 @@ class DartCodeOutputConfig {
   Uri path;
 
   /// File structure of the generated Dart bindings.
-  OutputStructure outputStructure;
+  OutputStructure structure;
 }
 
 class OutputConfig {
@@ -362,7 +362,7 @@ class Config {
         ),
         dartConfig: DartCodeOutputConfig(
           path: Uri.file(must(prov.getString, '.', _Props.dartRoot)),
-          outputStructure: getOutputStructure(
+          structure: getOutputStructure(
             prov.getString(_Props.outputStructure),
             OutputStructure.packageStructure,
           ),
@@ -438,7 +438,7 @@ class _Props {
   static const cRoot = '$cCodeOutputConfig.path';
   static const cSubdir = '$cCodeOutputConfig.subdir';
   static const dartRoot = '$dartCodeOutputConfig.path';
-  static const outputStructure = '$dartCodeOutputConfig.output_structure';
+  static const outputStructure = '$dartCodeOutputConfig.structure';
   static const libraryName = '$cCodeOutputConfig.library_name';
   static const preamble = 'preamble';
   static const logLevel = 'log_level';
