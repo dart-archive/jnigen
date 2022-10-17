@@ -173,7 +173,7 @@ void main() async {
       "jnigen",
       "--config",
       "jnigen.yaml",
-      "-Doutput.c.path=src_temp",
+      "-Doutput.c.path=src_temp/",
       "-Doutput.dart.path=_temp.dart",
     ])
     ..chainCommand("diff", ["lib/android_utils.dart", "_temp.dart"])
@@ -200,7 +200,7 @@ void main() async {
       "jnigen",
       "--config",
       "jnigen.yaml",
-      "-Doutput.c.path=src_temp",
+      "-Doutput.c.path=src_temp/",
       "-Doutput.dart.path=_temp.dart",
     ])
     ..chainCommand("diff", ["lib/notifications.dart", "_temp.dart"])
