@@ -133,6 +133,13 @@ T _getEnumValueFromString<T>(
   return value;
 }
 
+void _ensureIsDirectory(String name, Uri path) {
+  if (!path.toFilePath().endsWith(Platform.pathSeparator)) {
+    throw ArgumentError('$name must be a directory path. If using YAML '
+        'config, please ensure the path ends with a slash (/).');
+  }
+}
+
 enum OutputStructure { packageStructure, singleFile }
 
 OutputStructure getOutputStructure(String? name, OutputStructure defaultVal) {
@@ -148,7 +155,12 @@ class CCodeOutputConfig {
     required this.path,
     required this.libraryName,
     this.subdir,
-  });
+  }) {
+    _ensureIsDirectory('C output path', path);
+    if (subdir != null) {
+      _ensureIsDirectory('C subdirectory', path.resolve(subdir!));
+    }
+  }
 
   /// Directory to write JNI C Bindings, in C+Dart mode.
   ///
@@ -180,11 +192,7 @@ class DartCodeOutputConfig {
             'output path must end with ".dart" in single file mode');
       }
     } else {
-      // Make the path a directory, even if it's provided without
-      // trailing slash.
-      //
-      // This is to ensure that Uri.resolve works properly in all cases.
-      path = Uri.directory(path.toFilePath());
+      _ensureIsDirectory('Dart output path', path);
     }
   }
 
