@@ -4,7 +4,7 @@ android_sdk_config:
 output:
   c:
     library_name: android_utils
-    path: src/android_utils
+    path: src/android_utils/
   dart:
     path: lib/android_utils.dart
     structure: single_file

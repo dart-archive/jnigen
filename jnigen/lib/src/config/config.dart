@@ -365,7 +365,7 @@ class Config {
       outputConfig: OutputConfig(
         cConfig: CCodeOutputConfig(
           libraryName: must(prov.getString, '', _Props.libraryName),
-          path: Uri.directory(must(prov.getString, '.', _Props.cRoot)),
+          path: Uri.file(must(prov.getString, '.', _Props.cRoot)),
           subdir: prov.getString(_Props.cSubdir),
         ),
         dartConfig: DartCodeOutputConfig(
