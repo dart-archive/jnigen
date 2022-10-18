@@ -100,7 +100,7 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
     final returnType = getDartOuterType(m.returnType, resolver);
     final ifStaticMethod = isStaticMethod(m) ? 'static' : '';
 
-    /// Initialize corresponding C method ID.
+    // Load corresponding C method.
     s.write('${indent}static final $sym = $lookup'
         '<${ffi}NativeFunction<$ffiSig>>("$cName")\n'
         '.asFunction<$dartSig>();\n');
