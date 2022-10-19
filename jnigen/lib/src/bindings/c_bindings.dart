@@ -95,17 +95,18 @@ class CBindingGenerator {
     final envMethod =
         isACtor ? 'NewObject' : 'Call$ifStaticCall${callType}Method';
     final returnResultIfAny = _result(m);
-    s.write('jmethodID $methodID = NULL;\n'
-        'FFI_PLUGIN_EXPORT\n'
-        '$jniResultType $cMethodName($cMethodParams) {\n'
-        '    $_loadEnvCall'
-        '    ${_loadClassCall(classRef, getInternalName(c.binaryName))}'
-        '    load_${ifStaticMethodID}method($classRef, '
-        '      &$methodID, "${m.name}", "$jniSignature");\n'
-        '    if ($methodID == NULL) return $ifError;\n'
-        '    $ifAssignResult(*jniEnv)->$envMethod($callArgs);\n'
-        '    $returnResultIfAny\n'
-        '}\n');
+    s.write('''
+jmethodID $methodID = NULL;
+FFI_PLUGIN_EXPORT
+$jniResultType $cMethodName($cMethodParams) {
+    $_loadEnvCall
+    ${_loadClassCall(classRef, getInternalName(c.binaryName))}
+    load_${ifStaticMethodID}method($classRef,
+      &$methodID, "${m.name}", "$jniSignature");
+    if ($methodID == NULL) return $ifError;
+    $ifAssignResult(*jniEnv)->$envMethod($callArgs);
+    $returnResultIfAny
+}\n''');
     return s.toString();
   }
 
@@ -145,7 +146,7 @@ class CBindingGenerator {
         accessorStatements =
             '$indent(*jniEnv)->Set$ifStaticCall${callType}Field(jniEnv, '
             '$objectArgument, $fieldVar, value);\n'
-            '${indent}return $ifError;\n';
+            '${indent}return $ifError;';
       } else {
         var getterExpr = '(*jniEnv)->Get$ifStaticCall${callType}Field(jniEnv, '
             '$objectArgument, $fieldVar)';
@@ -156,17 +157,18 @@ class CBindingGenerator {
         final unionField = getJValueField(f.type);
         accessorStatements = '$indent$cResultType _result = $getterExpr;\n'
             '${indent}return (JniResult){.result = '
-            '{.$unionField = _result}, .exception = check_exception()};\n';
+            '{.$unionField = _result}, .exception = check_exception()};';
       }
 
-      s.write('FFI_PLUGIN_EXPORT\n'
-          '$cReturnType ${cMethodPrefix}_$fieldNameInC($formalArgs) {\n'
-          '    $_loadEnvCall'
-          '    ${_loadClassCall(classVar, getInternalName(c.binaryName))}'
-          '    load_${ifStaticField}field($classVar, &$fieldVar, "$fieldName",'
-          '      "${_fieldSignature(f)}");\n'
-          '$accessorStatements'
-          '}\n\n');
+      s.write('''
+FFI_PLUGIN_EXPORT
+$cReturnType ${cMethodPrefix}_$fieldNameInC($formalArgs) {
+    $_loadEnvCall
+    ${_loadClassCall(classVar, getInternalName(c.binaryName))}
+    load_${ifStaticField}field($classVar, &$fieldVar, "$fieldName",
+      "${_fieldSignature(f)}");
+$accessorStatements
+}\n\n''');
     }
 
     writeAccessor(isSetter: false);
@@ -177,11 +179,11 @@ class CBindingGenerator {
     return s.toString();
   }
 
-  final String _loadEnvCall = '${indent}load_env();\n';
+  final String _loadEnvCall = '${indent}load_env();';
 
   String _loadClassCall(String classVar, String internalName) {
     return '${indent}load_class_gr(&$classVar, "$internalName");\n'
-        '${indent}if ($classVar == NULL) return $ifError;\n';
+        '${indent}if ($classVar == NULL) return $ifError;';
   }
 
   String _formalArgs(Method m) {
