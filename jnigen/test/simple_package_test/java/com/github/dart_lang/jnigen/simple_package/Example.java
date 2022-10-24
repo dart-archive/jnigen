@@ -31,7 +31,7 @@ public class Example {
   }
 
   public static Integer[] getArr() {
-    return new Integer[]{1, 2, 3};
+    return new Integer[] {1, 2, 3};
   }
 
   public static int addAll(Integer[] arr) {
