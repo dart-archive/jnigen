@@ -333,8 +333,7 @@ String getSignature(String binaryName) {
   }
 }
 
-String getInternalNameOfUsage(TypeUsage usage,
-    {bool escapeDollarSign = false}) {
+String getDescriptor(TypeUsage usage, {bool escapeDollarSign = false}) {
   switch (usage.kind) {
     case Kind.declared:
       return getSignature((usage.type as DeclaredType).binaryName);
@@ -347,12 +346,12 @@ String getInternalNameOfUsage(TypeUsage usage,
       // This is just a (wrong) placeholder
       return "Ljava/lang/Object;";
     case Kind.array:
-      final inner = getInternalNameOfUsage((usage.type as ArrayType).type);
+      final inner = getDescriptor((usage.type as ArrayType).type);
       return "[$inner";
     case Kind.wildcard:
       final extendsBound = (usage.type as Wildcard).extendsBound;
       if (extendsBound != null) {
-        return getInternalNameOfUsage(extendsBound);
+        return getDescriptor(extendsBound);
       }
       return 'Ljava/lang/Object;';
   }
@@ -429,11 +428,11 @@ String getJniSignatureForMethod(Method m) {
   final s = StringBuffer();
   s.write('(');
   for (var param in m.params) {
-    final type = getInternalNameOfUsage(param.type);
+    final type = getDescriptor(param.type);
     s.write(type);
   }
   s.write(')');
-  final returnType = getInternalNameOfUsage(m.returnType);
+  final returnType = getDescriptor(m.returnType);
   s.write(returnType);
   return s.toString();
 }

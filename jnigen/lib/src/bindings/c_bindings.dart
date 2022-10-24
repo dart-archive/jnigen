@@ -166,7 +166,7 @@ $cReturnType ${cMethodPrefix}_$fieldNameInC($formalArgs) {
     $_loadEnvCall
     ${_loadClassCall(classVar, getInternalName(c.binaryName))}
     load_${ifStaticField}field($classVar, &$fieldVar, "$fieldName",
-      "${getInternalNameOfUsage(f.type)}");
+      "${getDescriptor(f.type)}");
 $accessorStatements
 }\n\n''');
     }
