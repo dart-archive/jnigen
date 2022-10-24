@@ -42,6 +42,7 @@ class Command implements Step {
       exec,
       args,
       workingDirectory: workingDirectory.toFilePath(),
+      runInShell: true,
     );
     if (result.exitCode != 0) {
       printError(result.stdout);
