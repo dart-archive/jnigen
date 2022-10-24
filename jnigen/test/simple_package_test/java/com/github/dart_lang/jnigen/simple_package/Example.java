@@ -30,12 +30,12 @@ public class Example {
     return a + b;
   }
 
-  public static int[] getArr() {
-    return new int[]{1, 2, 3};
+  public static Integer[] getArr() {
+    return new Integer[]{1, 2, 3};
   }
 
-  public static int addAll(int[] arr) {
-    return Arrays.stream(arr).sum();
+  public static int addAll(Integer[] arr) {
+    return Arrays.stream(arr).mapToInt(val -> val).sum();
   }
 
   public Example getSelf() {

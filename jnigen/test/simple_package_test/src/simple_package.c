@@ -83,7 +83,7 @@ JniResult Example__getArr() {
         load_class_gr(&_c_Example, "com/github/dart_lang/jnigen/simple_package/Example");
     if (_c_Example == NULL) return (JniResult){.result = {.j = 0}, .exception = check_exception()};
     load_static_method(_c_Example,
-      &_m_Example__getArr, "getArr", "()[I");
+      &_m_Example__getArr, "getArr", "()[Ljava/lang/Integer;");
     if (_m_Example__getArr == NULL) return (JniResult){.result = {.j = 0}, .exception = check_exception()};
     jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Example, _m_Example__getArr);
         return (JniResult){.result = {.l = to_global_ref(_result)}, .exception = check_exception()};
@@ -96,7 +96,7 @@ JniResult Example__addAll(jobject arr) {
         load_class_gr(&_c_Example, "com/github/dart_lang/jnigen/simple_package/Example");
     if (_c_Example == NULL) return (JniResult){.result = {.j = 0}, .exception = check_exception()};
     load_static_method(_c_Example,
-      &_m_Example__addAll, "addAll", "([I)I");
+      &_m_Example__addAll, "addAll", "([Ljava/lang/Integer;)I");
     if (_m_Example__addAll == NULL) return (JniResult){.result = {.j = 0}, .exception = check_exception()};
     int32_t _result = (*jniEnv)->CallStaticIntMethod(jniEnv, _c_Example, _m_Example__addAll, arr);
         return (JniResult){.result = {.i = _result}, .exception = check_exception()};
