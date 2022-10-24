@@ -81,6 +81,12 @@ void main() async {
     expect(Example.addInts(10, 15), equals(25));
   });
 
+  // TODO(HosseinYousefi): For now we're passing null as arrays.
+  // should be changed after array support is added.
+  test('static methods arrays', () {
+    expect(Example.addAll(Example.getArr()), 6);
+  });
+
   test('instance methods', () {
     final ex = Example();
     expect(ex.getNum(), equals(Example.num));
