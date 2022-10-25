@@ -3,6 +3,8 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // Run this script after any change which affects generated bindings.
+//
+// This will update all generated bindings in the whole repository.
 
 import 'dart:io';
 
