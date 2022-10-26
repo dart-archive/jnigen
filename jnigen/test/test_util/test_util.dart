@@ -71,7 +71,9 @@ Future<void> _generateTempBindings(Config config, Directory tempDir) async {
   final tempLib = singleFile
       ? tempDir.uri.resolve("generated.dart")
       : tempDir.uri.resolve("lib/");
-  config.outputConfig.cConfig.path = tempSrc;
+  if (config.outputConfig.bindingsType == BindingsType.cBased) {
+    config.outputConfig.cConfig!.path = tempSrc;
+  }
   config.outputConfig.dartConfig.path = tempLib;
   await generateJniBindings(config);
 }
