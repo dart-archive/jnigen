@@ -54,7 +54,7 @@ class PureDartBindingsGenerator extends BindingsGenerator {
 
     s.write('/// from: ${decl.binaryName}\n');
     s.write(breakDocComment(decl.javadoc, depth: ''));
-    final name = getSimplifiedClassName(decl.binaryName);
+    final name = decl.finalName;
 
     var superName = jniObjectType;
     if (decl.superclass != null) {
@@ -137,7 +137,7 @@ class PureDartBindingsGenerator extends BindingsGenerator {
     if (isCtor(m)) {
       final wrapperExpr =
           '$accessors.newObjectWithArgs($classRef, $mID, [${actualArgs(m)}]).object';
-      final className = getSimplifiedClassName(c.binaryName);
+      final className = c.finalName;
       final ctorFnName = name == 'ctor' ? className : '$className.$name';
       s.write('$ctorFnName(${getFormalArgs(m, resolver)}) : '
           'super.fromRef($wrapperExpr);\n');
