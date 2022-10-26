@@ -91,7 +91,9 @@ Future<void> generateAndCompareBindings(
   try {
     await _generateTempBindings(config, tempDir);
     comparePaths(dartPath, tempLib.toFilePath());
-    comparePaths(cPath, tempSrc.toFilePath());
+    if (config.outputConfig.bindingsType == BindingsType.cBased) {
+      comparePaths(cPath, tempSrc.toFilePath());
+    }
   } finally {
     tempDir.deleteSync(recursive: true);
   }
