@@ -2078,6 +2078,7 @@ class JsonParser_Feature extends jni.JniObject {
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonParser\$Feature");
   JsonParser_Feature.fromRef(jni.JObject ref) : super.fromRef(ref);
+
   static final _id_values = jniAccessors.getStaticMethodIDOf(_classRef,
       "values", "()[Lcom/fasterxml/jackson/core/JsonParser\$Feature;");
 
@@ -2151,6 +2152,7 @@ class JsonParser_NumberType extends jni.JniObject {
   static final _classRef = jniAccessors
       .getClassOf("com/fasterxml/jackson/core/JsonParser\$NumberType");
   JsonParser_NumberType.fromRef(jni.JObject ref) : super.fromRef(ref);
+
   static final _id_values = jniAccessors.getStaticMethodIDOf(_classRef,
       "values", "()[Lcom/fasterxml/jackson/core/JsonParser\$NumberType;");
 

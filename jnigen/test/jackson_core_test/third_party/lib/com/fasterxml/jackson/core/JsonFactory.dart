@@ -1462,6 +1462,7 @@ class JsonFactory_Feature extends jni.JniObject {
   static final _classRef = jniAccessors
       .getClassOf("com/fasterxml/jackson/core/JsonFactory\$Feature");
   JsonFactory_Feature.fromRef(jni.JObject ref) : super.fromRef(ref);
+
   static final _id_values = jniAccessors.getStaticMethodIDOf(_classRef,
       "values", "()[Lcom/fasterxml/jackson/core/JsonFactory\$Feature;");
 

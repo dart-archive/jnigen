@@ -41,6 +41,7 @@ class JsonToken extends jni.JniObject {
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonToken");
   JsonToken.fromRef(jni.JObject ref) : super.fromRef(ref);
+
   static final _id_values = jniAccessors.getStaticMethodIDOf(
       _classRef, "values", "()[Lcom/fasterxml/jackson/core/JsonToken;");
 
