@@ -279,7 +279,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Setup clang format
-        uses: jidicula/clang-format-action@v4.9.0
+        uses: ConorMacBride/install-package@v1
+        with:
+          brew: clang-format
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
