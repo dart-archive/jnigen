@@ -278,11 +278,8 @@ jobs:
         working-directory: ./jnigen
     steps:
       - uses: actions/checkout@v3
-      - name: Setup clang
-        uses: egor-tensin/setup-clang@v1
-        with:
-          version: latest
-          platform: x64
+      - name: Setup clang format
+        uses: jidicula/clang-format-action@v4.9.0
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
