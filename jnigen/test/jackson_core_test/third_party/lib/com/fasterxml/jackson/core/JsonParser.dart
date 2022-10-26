@@ -24,6 +24,7 @@
 // ignore_for_file: unused_shown_name
 // ignore_for_file: annotate_overrides
 // ignore_for_file: no_leading_underscores_for_local_identifiers
+// ignore_for_file: unused_import
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 

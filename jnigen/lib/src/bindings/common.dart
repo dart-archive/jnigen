@@ -169,7 +169,7 @@ abstract class BindingsGenerator {
   String getDartLiteral(dynamic value) {
     if (value is String) {
       // TODO(#31): escape string literal.
-      return '"$value"';
+      return '"$value"'.replaceAll('\\', '\\\\');
     }
     if (value is int || value is double || value is bool) {
       return value.toString();

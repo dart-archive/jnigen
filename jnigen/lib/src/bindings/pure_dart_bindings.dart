@@ -224,6 +224,7 @@ class PureDartBindingsGenerator extends BindingsGenerator {
       '// ignore_for_file: unused_shown_name\n'
       '// ignore_for_file: annotate_overrides\n'
       '// ignore_for_file: no_leading_underscores_for_local_identifiers\n'
+      '// ignore_for_file: unused_import\n'
       '// ignore_for_file: unused_element\n'
       '// ignore_for_file: unused_field\n'
       '\n';
