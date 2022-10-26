@@ -7,6 +7,9 @@ import 'dart:io';
 import 'package:jnigen/jnigen.dart';
 import 'package:path/path.dart' hide equals;
 import 'package:test/test.dart';
+import 'package:logging/logging.dart' show Level;
+
+import 'package:jnigen/src/logging/logging.dart' show printError;
 
 Future<bool> isEmptyOrNotExistDir(String path) async {
   final dir = Directory(path);
@@ -17,10 +20,15 @@ Future<bool> isEmptyOrNotExistDir(String path) async {
 /// Required because only Process.start provides inheritStdio argument
 Future<int> runCommand(String exec, List<String> args,
     {String? workingDirectory}) async {
-  stderr.writeln('[exec] $exec ${args.join(" ")}');
-  final proc = await Process.start(exec, args,
-      workingDirectory: workingDirectory, mode: ProcessStartMode.inheritStdio);
-  return await proc.exitCode;
+  final proc =
+      await Process.run(exec, args, workingDirectory: workingDirectory);
+  if (proc.exitCode != 0) {
+    printError('command exited with exit status ${proc.exitCode}:\n'
+        '$exec ${args.join(" ")}\n');
+    printError(proc.stdout);
+    printError(proc.stderr);
+  }
+  return proc.exitCode;
 }
 
 /// List all JAR files in [testRoot]/jar
@@ -75,6 +83,7 @@ Future<void> _generateTempBindings(Config config, Directory tempDir) async {
     config.outputConfig.cConfig!.path = tempSrc;
   }
   config.outputConfig.dartConfig.path = tempLib;
+  config.logLevel = Level.WARNING;
   await generateJniBindings(config);
 }
 
