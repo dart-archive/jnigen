@@ -27,8 +27,7 @@ void main(List<String> arguments) async {
   final parser = ArgParser()
     ..addFlag(
       _clone,
-      help:
-          'Git clone will be run and the checks will happen in a temporary directory.',
+      help: 'Run checks in a cloned copy of the project.',
       defaultsTo: true,
       negatable: true,
     );
