@@ -5,7 +5,6 @@
 import 'package:jnigen/src/elements/elements.dart';
 import 'package:jnigen/src/config/config.dart';
 import 'package:jnigen/src/logging/logging.dart';
-import 'package:jnigen/src/util/rename_conflict.dart';
 
 import 'symbol_resolver.dart';
 import 'common.dart';
@@ -98,6 +97,13 @@ class PureDartBindingsGenerator extends BindingsGenerator {
   }
 
   @override
+  String toNativeArg(String name, TypeUsage type,
+      {bool convertBooleanToInt = false}) {
+    return super
+        .toNativeArg(name, type, convertBooleanToInt: convertBooleanToInt);
+  }
+
+  @override
   String toDartResult(String expr, TypeUsage type, String dartType) {
     if (isPrimitive(type)) {
       return expr;
@@ -106,24 +112,8 @@ class PureDartBindingsGenerator extends BindingsGenerator {
   }
 
   @override
-  String actualArgs(Method m) {
-    final List<String> args = [];
-    for (var param in m.params) {
-      final paramName = kwRename(param.name);
-      args.add(toNativeArg(paramName, param.type));
-    }
-    return args.join(', ');
-  }
-
-  @override
-  String toNativeArg(String name, TypeUsage type,
-      {bool convertBooleanToInt = false}) {
-    if (isPrimitive(type)) {
-      return (type.name == 'boolean' && convertBooleanToInt)
-          ? '$name ? 1 : 0'
-          : name;
-    }
-    return '$name.$selfPointer';
+  String actualArgs(Method m, {bool addSelf = false}) {
+    return super.actualArgs(m, addSelf: addSelf);
   }
 
   String _method(ClassDecl c, Method m, SymbolResolver resolver) {
