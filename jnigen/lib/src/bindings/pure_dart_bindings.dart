@@ -62,12 +62,11 @@ class PureDartBindingsGenerator extends BindingsGenerator {
               .resolve((decl.superclass!.type as DeclaredType).binaryName) ??
           jniObjectType;
     }
-
-    s.write('class $name extends $superName {\n');
-    s.write('static final $classRef = '
-        '$accessors.getClassOf'
-        '("${escapeDollarSign(getInternalName(decl.binaryName))}");\n');
-    s.write('$indent$name.fromRef(jni.JObject ref) : super.fromRef(ref);\n');
+    final internalName = escapeDollarSign(getInternalName(decl.binaryName));
+    s.write('class $name extends $superName {\n'
+        '  static final $classRef = $accessors.getClassOf("$internalName");\n'
+        '  $indent$name.fromRef(jni.JObject ref) : super.fromRef(ref);\n'
+        '\n');
 
     for (var field in decl.fields) {
       if (!field.isIncluded) continue;
@@ -123,11 +122,12 @@ class PureDartBindingsGenerator extends BindingsGenerator {
     final s = StringBuffer();
     final mID = '_id_$name';
     final jniSignature = escapeDollarSign(getJniSignatureForMethod(m));
+
     s.write('static final $mID = $accessors.get${ifStatic}MethodIDOf('
         '$classRef, "${m.name}", "$jniSignature");\n');
+
     // Different logic for constructor and method;
     // For constructor, we want return type to be new object.
-
     final returnType = getDartOuterType(m.returnType, resolver);
     s.write('$indent/// from: ${getOriginalMethodHeader(m)}\n');
     if (!isPrimitive(m.returnType) || isCtor(m)) {
