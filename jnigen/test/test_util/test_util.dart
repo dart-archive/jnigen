@@ -16,8 +16,7 @@ Future<bool> isEmptyOrNotExistDir(String path) async {
   return (!await dir.exists()) || (await dir.list().length == 0);
 }
 
-/// Runs "$exec ${args...}" and returns exit code.
-/// Required because only Process.start provides inheritStdio argument
+/// Runs command, and prints output only if the exit status is non-zero.
 Future<int> runCommand(String exec, List<String> args,
     {String? workingDirectory}) async {
   final proc =
@@ -47,28 +46,18 @@ Future<List<String>> getJarPaths(String testRoot) async {
 /// Read file normalizing CRLF to LF.
 String readFile(File file) => file.readAsStringSync().replaceAll('\r\n', '\n');
 
-/// compares 2 hierarchies, with and without prefix 'test_'
+/// Compares 2 hierarchies using `git diff --no-index`.
 void comparePaths(String path1, String path2) {
-  if (File(path1).existsSync()) {
-    expect(
-      readFile(File(path1)),
-      readFile(File(path2)),
-    );
-    return;
-  }
-  final list1 = Directory(path1).listSync(recursive: true);
-  final list2 = Directory(path2).listSync(recursive: true);
-  expect(list1.length, equals(list2.length));
-  for (var list in [list1, list2]) {
-    list.sort((a, b) => a.path.compareTo(b.path));
-  }
-  for (int i = 0; i < list1.length; i++) {
-    if (list1[i].statSync().type != FileSystemEntityType.file) {
-      continue;
-    }
-    final a = File(list1[i].path);
-    final b = File(list2[i].path);
-    expect(readFile(a), readFile(b));
+  final proc = Process.runSync("git", [
+    "diff",
+    "--no-index",
+    if (stderr.supportsAnsiEscapes) "--color=always",
+    path1,
+    path2,
+  ]);
+  if (proc.exitCode != 0) {
+    stderr.writeln('\n${proc.stdout}');
+    throw Exception("Files differ: ($path1, $path2)");
   }
 }
 
