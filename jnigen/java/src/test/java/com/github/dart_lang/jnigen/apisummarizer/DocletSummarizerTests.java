@@ -23,10 +23,10 @@ public class DocletSummarizerTests {
   @Before
   public void setUp() {
     var opts = new Main.SummarizerOptions();
-    opts.sourcePaths = "src/test/resources/";
-    // javadoc tool API is quite inflexible, in that we cannot pass an doclet object, but a class
+    opts.sourcePath = "src/test/resources/";
+    // javadoc tool API is quite inflexible, in that we cannot pass a doclet object, but a class
     // So any state we want to access from it has to be either serialized or saved in static fields.
-    // This means we lose lot of control over loading of files etc..
+    // This means we lose a lot of control over loading of files etc...
     // Here, TestDoclet simply stores the result in a static variable which we can get and check
     // later.
     Main.runDocletWithClass(TestDoclet.class, List.of("com.example.Example"), opts);

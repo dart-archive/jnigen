@@ -11,7 +11,7 @@ public class SummarizerDoclet extends SummarizerDocletBase {
   @Override
   public boolean run(DocletEnvironment docletEnvironment) {
     var result = super.run(docletEnvironment);
-    Main.writeAll(types);
+    Main.writeJSON(types);
     return result;
   }
 }

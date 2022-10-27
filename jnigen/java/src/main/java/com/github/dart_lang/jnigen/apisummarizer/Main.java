@@ -22,10 +22,16 @@ import jdk.javadoc.doclet.Doclet;
 import org.apache.commons.cli.*;
 
 public class Main {
+  public enum Backend {
+    DOCLET,
+    ASM,
+    AUTO,
+  }
+
   private static final CommandLineParser parser = new DefaultParser();
   static SummarizerOptions config;
 
-  public static void writeAll(List<ClassDecl> decls) {
+  public static void writeJSON(List<ClassDecl> decls) {
     var mapper = new ObjectMapper();
     Log.timed("Writing JSON");
     mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -44,9 +50,10 @@ public class Main {
 
   public static void runDocletWithClass(
       Class<? extends Doclet> docletClass, List<String> qualifiedNames, SummarizerOptions options) {
+    String[] sourcePaths = options.sourcePath.split(File.pathSeparator);
     List<File> javaFilePaths =
         qualifiedNames.stream()
-            .map(s -> findSourceLocation(s, options.sourcePaths.split(File.pathSeparator)))
+            .map(s -> findSourceLocation(s, sourcePaths))
             .collect(Collectors.toList());
     Log.setVerbose(options.verbose);
 
@@ -62,17 +69,17 @@ public class Main {
     var fileObjects = fileManager.getJavaFileObjects(files);
 
     var cli = new ArrayList<String>();
-    cli.add((options.useModules ? "--module-" : "--") + "source-path=" + options.sourcePaths);
-    if (options.classPaths != null) {
-      cli.add("--class-path=" + options.classPaths);
+    cli.add((options.useModules ? "--module-" : "--") + "source-path=" + options.sourcePath);
+    if (options.classPath != null) {
+      cli.add("--class-path=" + options.classPath);
     }
     if (options.addDependencies) {
       cli.add("--expand-requires=all");
     }
     cli.addAll(List.of("-encoding", "utf8"));
 
-    if (options.toolOptions != null) {
-      cli.addAll(List.of(options.toolOptions.split(" ")));
+    if (options.toolArgs != null) {
+      cli.addAll(List.of(options.toolArgs.split(" ")));
     }
 
     javadoc.getTask(null, fileManager, System.err::println, docletClass, cli, fileObjects).call();
@@ -81,21 +88,25 @@ public class Main {
   public static void main(String[] args) {
     CommandLine cl = parseArgs(args);
     config = SummarizerOptions.fromCommandLine(cl);
-    if (config.useAsm) {
-      System.err.println("use-asm: ignoring all flags other than --classes (-c)");
-      try {
-        writeAll(AsmSummarizer.run(config.classPaths.split(File.pathSeparator), cl.getArgs()));
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      return;
+    switch (config.backend) {
+      case ASM:
+        try {
+          writeJSON(AsmSummarizer.run(config.classPath.split(File.pathSeparator), cl.getArgs()));
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        break;
+      case DOCLET:
+        runDoclet(List.of(cl.getArgs()), config);
+        break;
+      case AUTO:
+        // TODO: Run doclet as default but fall back to ASM with classpath + bootclasspath.
     }
-    runDoclet(List.of(cl.getArgs()), config);
   }
 
-  public static File findSourceLocation(String qualifiedName, String[] paths) {
+  public static File findSourceLocation(String qualifiedName, String[] sourcePaths) {
     var s = qualifiedName.replace(".", "/");
-    for (var folder : paths) {
+    for (var folder : sourcePaths) {
       var f = new File(folder, s + ".java");
       if (f.exists() && f.isFile()) {
         return f;
@@ -105,13 +116,14 @@ public class Main {
         return d;
       }
     }
-    throw new RuntimeException("cannot find class: " + s);
+    throw new RuntimeException("Cannot find class: " + qualifiedName);
   }
 
   public static List<File> recursiveListFiles(File file, FileFilter filter) {
     if (!file.isDirectory()) {
       return List.of(file);
     }
+    // list files using a breadth-first traversal
     var files = new ArrayList<File>();
     var queue = new ArrayDeque<File>();
     queue.add(file);
@@ -139,7 +151,10 @@ public class Main {
     Option classes = new Option("c", "classes", true, "paths to search for compiled classes");
     Option backend =
         new Option(
-            "b", "backend", true, "backend to use for summary generation ('doclet' or 'asm').");
+            "b",
+            "backend",
+            true,
+            "backend to use for summary generation ('doclet', 'asm' or 'auto' (default)).");
     Option useModules = new Option("M", "use-modules", false, "use Java modules");
     Option recursive = new Option("r", "recursive", false, "Include dependencies of classes");
     Option moduleNames =
@@ -177,28 +192,27 @@ public class Main {
   }
 
   public static class SummarizerOptions {
-    String sourcePaths, classPaths;
-    boolean useModules, useAsm;
+    String sourcePath, classPath;
+    boolean useModules;
+
+    Backend backend;
     String modulesList;
     boolean addDependencies;
-    String toolOptions;
+    String toolArgs;
     boolean verbose;
+
+    SummarizerOptions() {}
 
     public static SummarizerOptions fromCommandLine(CommandLine cmd) {
       var opts = new SummarizerOptions();
-      opts.sourcePaths = cmd.getOptionValue("sources", ".");
-      var backend = cmd.getOptionValue("backend", "doclet");
-      if (backend.equalsIgnoreCase("asm")) {
-        opts.useAsm = true;
-      } else if (!backend.equalsIgnoreCase("doclet")) {
-        System.err.println("supported backends: asm, doclet");
-        System.exit(1);
-      }
-      opts.classPaths = cmd.getOptionValue("classes", null);
+      opts.sourcePath = cmd.getOptionValue("sources", ".");
+      var backendString = cmd.getOptionValue("backend", "doclet");
+      opts.backend = Backend.valueOf(backendString.toUpperCase());
+      opts.classPath = cmd.getOptionValue("classes", null);
       opts.useModules = cmd.hasOption("use-modules");
       opts.modulesList = cmd.getOptionValue("module-names", null);
       opts.addDependencies = cmd.hasOption("recursive");
-      opts.toolOptions = cmd.getOptionValue("doctool-args", null);
+      opts.toolArgs = cmd.getOptionValue("doctool-args", null);
       opts.verbose = cmd.hasOption("verbose");
       return opts;
     }
