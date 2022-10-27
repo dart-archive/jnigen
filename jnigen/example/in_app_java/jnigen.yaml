@@ -12,5 +12,4 @@ output:
 source_path:
   - 'android/app/src/main/java'
 classes:
-  - 'com.example.in_app_java.AndroidUtils' ## From source_path.
-  - 'android.app.Activity' ## From gradle classpath, since it's not in sources.
+  - 'com.example.in_app_java.AndroidUtils'

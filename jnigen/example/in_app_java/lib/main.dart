@@ -9,7 +9,7 @@ import 'package:jni/jni.dart';
 // structure.
 import 'android_utils.dart';
 
-Activity activity = Activity.fromRef(Jni.getCurrentActivity());
+JniObject activity = JniObject.fromRef(Jni.getCurrentActivity());
 
 void showToast(String text) {
   AndroidUtils.showToast(activity, text.jniString(), 0);
