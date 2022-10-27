@@ -256,6 +256,7 @@ public class Main {
               StreamUtil.map(
                   list, fileElement -> wrapCheckedException(FileInputStream::new, fileElement)));
         }
+        continue;
       }
       try {
         JarFile jar = new JarFile(file);
@@ -266,7 +267,7 @@ public class Main {
           jar.close();
         }
       } catch (IOException e) {
-        throw new RuntimeException();
+        throw new RuntimeException(e);
       }
     }
     return Optional.empty();
