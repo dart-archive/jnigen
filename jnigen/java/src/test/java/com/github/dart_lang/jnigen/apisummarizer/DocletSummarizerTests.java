@@ -7,7 +7,9 @@ package com.github.dart_lang.jnigen.apisummarizer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.github.dart_lang.jnigen.apisummarizer.doclet.SummarizerDoclet;
 import com.github.dart_lang.jnigen.apisummarizer.elements.ClassDecl;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +31,12 @@ public class DocletSummarizerTests {
     // This means we lose a lot of control over loading of files etc...
     // Here, TestDoclet simply stores the result in a static variable which we can get and check
     // later.
-    Main.runDocletWithClass(TestDoclet.class, List.of("com.example.Example"), opts);
-    parsedDecls = TestDoclet.getClassDecls();
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
+    List<File> files =
+        Main.findSourceFiles("com.example.Example", opts.sourcePath.split(File.pathSeparator))
+            .get();
+    Main.runDoclet(files, opts);
+    parsedDecls = SummarizerDoclet.getClasses();
     for (var decl : parsedDecls) {
       classesByName.put(decl.binaryName, decl);
     }
