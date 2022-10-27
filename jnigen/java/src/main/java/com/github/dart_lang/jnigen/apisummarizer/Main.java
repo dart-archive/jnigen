@@ -41,6 +41,7 @@ public class Main {
     boolean addDependencies;
     String toolArgs;
     boolean verbose;
+    String outputFile;
     String[] args;
 
     SummarizerOptions() {}
@@ -56,6 +57,7 @@ public class Main {
       opts.addDependencies = cmd.hasOption("recursive");
       opts.toolArgs = cmd.getOptionValue("doctool-args", null);
       opts.verbose = cmd.hasOption("verbose");
+      opts.outputFile = cmd.getOptionValue("output-file", null);
       opts.args = cmd.getArgs();
       return opts;
     }
@@ -81,9 +83,19 @@ public class Main {
     Option doctoolArgs =
         new Option("D", "doctool-args", true, "Arguments to pass to the documentation tool");
     Option verbose = new Option("v", "verbose", false, "Enable verbose output");
+    Option outputFile =
+        new Option("o", "output-file", true, "Write JSON to file instead of stdout");
     for (Option opt :
         new Option[] {
-          sources, classes, backend, useModules, recursive, moduleNames, doctoolArgs, verbose
+          sources,
+          classes,
+          backend,
+          useModules,
+          recursive,
+          moduleNames,
+          doctoolArgs,
+          verbose,
+          outputFile,
         }) {
       options.addOption(opt);
     }
@@ -260,10 +272,18 @@ public class Main {
     return Optional.empty();
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws FileNotFoundException {
     options = parseArgs(args);
-    var sourcePaths = options.sourcePath.split(File.pathSeparator);
-    var classPaths = options.classPath.split(File.pathSeparator);
+    OutputStream output;
+    if (options.outputFile == null || options.outputFile.equals("-")) {
+      output = System.out;
+    } else {
+      output = new FileOutputStream(options.outputFile);
+    }
+    var sourcePaths =
+        options.sourcePath != null ? options.sourcePath.split(File.pathSeparator) : new String[] {};
+    var classPaths =
+        options.classPath != null ? options.classPath.split(File.pathSeparator) : new String[] {};
     var classStreams = new ArrayList<InputStream>();
     var sourceFiles = new ArrayList<File>();
     var notFound = new ArrayList<String>();
@@ -295,15 +315,15 @@ public class Main {
 
     switch (options.backend) {
       case DOCLET:
-        JsonUtil.writeJSON(runDoclet(sourceFiles, options));
+        JsonUtil.writeJSON(runDoclet(sourceFiles, options), output);
         break;
       case ASM:
-        JsonUtil.writeJSON(AsmSummarizer.run(classStreams));
+        JsonUtil.writeJSON(AsmSummarizer.run(classStreams), output);
         break;
       case AUTO:
         var decls = runDoclet(sourceFiles, options);
         decls.addAll(AsmSummarizer.run(classStreams));
-        JsonUtil.writeJSON(decls);
+        JsonUtil.writeJSON(decls, output);
         break;
     }
   }
