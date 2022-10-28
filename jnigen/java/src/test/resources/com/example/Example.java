@@ -23,6 +23,12 @@ public class Example {
     return instanceField;
   }
 
+  protected int overrideableMethod(int x, int y) {}
+
+  int defaultAccessNotVisible();
+
+  private int privateAccessNotVisible();
+
   public static class Aux extends Example {
     public static int nothing = 0;
 

@@ -45,6 +45,35 @@
         "name" : "int"
       }
     }
+  }, {
+    "modifiers" : [ "protected" ],
+    "name" : "overrideableMethod",
+    "params" : [ {
+      "name" : "x",
+      "type" : {
+        "shorthand" : "int",
+        "kind" : "PRIMITIVE",
+        "type" : {
+          "name" : "int"
+        }
+      }
+    }, {
+      "name" : "y",
+      "type" : {
+        "shorthand" : "int",
+        "kind" : "PRIMITIVE",
+        "type" : {
+          "name" : "int"
+        }
+      }
+    } ],
+    "returnType" : {
+      "shorthand" : "int",
+      "kind" : "PRIMITIVE",
+      "type" : {
+        "name" : "int"
+      }
+    }
   } ],
   "fields" : [ {
     "modifiers" : [ "static", "public", "final" ],
