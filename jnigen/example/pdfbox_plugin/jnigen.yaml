@@ -43,7 +43,10 @@ classes:
   - 'org.apache.pdfbox.pdmodel.PDDocumentInformation'
   - 'org.apache.pdfbox.text.PDFTextStripper'
 
-## Exclude a problematic field
+## Exclude a problematic static field. Static fields are usually converted directly to dart static fields. In the current implementation some string escaping problems may occur.
+## See issue #31 (https://github.com/dart-lang/jnigen/issues/31) for more details.
+## (This field does not appear in bindings unless full package bindings are generated using a `-Dclasses` override.)
+## TODO(#31): For string fields, it may be better to generate a field getter than a direct literal.
 exclude:
   fields:
     - 'org.apache.pdfbox.contentstream.operator.OperatorName#SHOW_TEXT_LINE_AND_SPACE'
@@ -57,7 +60,7 @@ exclude:
 ## sourcepath and classpath.
 ##
 ## Note that when maven based tooling is used, the first run often has to fetch
-## all the dependencies and might take some time. However, maven caches most
+## all the dependencies and might take some time. However, maven caches the
 ## artifacts in local repository, thus subsequent runs will be faster.
 maven_downloads:
   ## For these dependencies, both source and JARs are downloaded.
