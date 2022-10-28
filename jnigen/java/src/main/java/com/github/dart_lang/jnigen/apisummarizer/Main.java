@@ -168,7 +168,7 @@ public class Main {
       return List.of(file);
     }
 
-    // list files using a breadth-first traversal
+    // List files using a breadth-first traversal.
     var files = new ArrayList<File>();
     var queue = new ArrayDeque<File>();
     queue.add(file);
