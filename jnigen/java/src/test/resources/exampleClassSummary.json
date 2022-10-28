@@ -74,6 +74,25 @@
         "name" : "int"
       }
     }
+  }, {
+    "name" : "defaultAccessNotVisible",
+    "returnType" : {
+      "shorthand" : "int",
+      "kind" : "PRIMITIVE",
+      "type" : {
+        "name" : "int"
+      }
+    }
+  }, {
+    "modifiers" : [ "private" ],
+    "name" : "privateAccessNotVisible",
+    "returnType" : {
+      "shorthand" : "int",
+      "kind" : "PRIMITIVE",
+      "type" : {
+        "name" : "int"
+      }
+    }
   } ],
   "fields" : [ {
     "modifiers" : [ "static", "public", "final" ],
