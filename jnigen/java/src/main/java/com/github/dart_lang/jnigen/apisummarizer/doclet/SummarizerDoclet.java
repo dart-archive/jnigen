@@ -20,6 +20,11 @@ import jdk.javadoc.doclet.Reporter;
 public class SummarizerDoclet implements Doclet {
   private AstEnv utils;
 
+  private boolean isPublicOrProtected(Element element) {
+    return element.getModifiers().stream()
+        .anyMatch(m -> m.toString().equals("public") || m.toString().equals("protected"));
+  }
+
   @Override
   public void init(Locale locale, Reporter reporter) {}
 
@@ -121,7 +126,9 @@ public class SummarizerDoclet implements Doclet {
           cls.values.add(e.getSimpleName().toString());
           break;
         case FIELD:
-          cls.fields.add(builders.field(e));
+          if (isPublicOrProtected(e)) {
+            cls.fields.add(builders.field(e));
+          }
           break;
         case PARAMETER:
           if (collector.method == null) {
@@ -142,6 +149,9 @@ public class SummarizerDoclet implements Doclet {
       switch (element.getKind()) {
         case METHOD:
         case CONSTRUCTOR:
+          if (!isPublicOrProtected(element)) {
+            break;
+          }
           try {
             var method = builders.method(element);
             collector.method = method;

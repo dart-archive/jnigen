@@ -5,6 +5,7 @@
   "binaryName" : "com.example.Example",
   "packageName" : "com.example",
   "methods" : [ {
+    "modifiers" : [ "public" ],
     "name" : "<init>",
     "params" : [ {
       "name" : "instanceField",
@@ -24,7 +25,7 @@
       }
     }
   }, {
-    "modifiers" : [ "static" ],
+    "modifiers" : [ "static", "public" ],
     "name" : "getStaticField",
     "returnType" : {
       "shorthand" : "java.lang.String",
@@ -35,6 +36,7 @@
       }
     }
   }, {
+    "modifiers" : [ "public" ],
     "name" : "getInstanceField",
     "returnType" : {
       "shorthand" : "int",
@@ -45,18 +47,7 @@
     }
   } ],
   "fields" : [ {
-    "modifiers" : [ "static", "final" ],
-    "name" : "staticFinalField",
-    "type" : {
-      "shorthand" : "boolean",
-      "kind" : "PRIMITIVE",
-      "type" : {
-        "name" : "boolean"
-      }
-    },
-    "defaultValue" : true
-  }, {
-    "modifiers" : [ "static" ],
+    "modifiers" : [ "static", "public" ],
     "name" : "staticField",
     "type" : {
       "shorthand" : "java.lang.String",
@@ -67,6 +58,7 @@
       }
     }
   }, {
+    "modifiers" : [ "public" ],
     "name" : "instanceField",
     "type" : {
       "shorthand" : "int",
@@ -104,7 +96,7 @@
       }
     }
   }, {
-    "modifiers" : [ "static" ],
+    "modifiers" : [ "static", "public" ],
     "name" : "getAnExample",
     "returnType" : {
       "shorthand" : "com.example.Example",
@@ -116,7 +108,7 @@
     }
   } ],
   "fields" : [ {
-    "modifiers" : [ "static" ],
+    "modifiers" : [ "static", "public" ],
     "name" : "nothing",
     "type" : {
       "shorthand" : "int",
