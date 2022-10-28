@@ -9,7 +9,7 @@ This project intends to provide 2 packages to enable JNI interop from Dart & Flu
 | [jni](jni/) | Ergonomic C bindings to JNI C API and several helper methods |
 | [jnigen](jnigen/) | Tool to generate Dart bindings to Java code using FFI |
 
-This project is a work-in-progress and highly experimental. Users can check out and experiment with the examples. We do not guarantee stability of the API or commands at this point.
+This project is a work-in-progress and __highly experimental__. Users can check out and experiment with the examples. We do not guarantee stability of the API or commands at this point.
 
 ## Requirements
 ### SDK
