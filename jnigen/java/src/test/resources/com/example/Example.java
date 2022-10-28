@@ -5,7 +5,7 @@
 package com.example;
 
 public class Example {
-  static final boolean staticFinalField = true;
+  public static final boolean staticFinalField = true;
 
   public Example(int instanceField) {
     this.instanceField = instanceField;

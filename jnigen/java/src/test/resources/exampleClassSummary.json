@@ -47,6 +47,17 @@
     }
   } ],
   "fields" : [ {
+    "modifiers" : [ "static", "public", "final" ],
+    "name" : "staticFinalField",
+    "type" : {
+      "shorthand" : "boolean",
+      "kind" : "PRIMITIVE",
+      "type" : {
+        "name" : "boolean"
+      }
+    },
+    "defaultValue" : true
+  }, {
     "modifiers" : [ "static", "public" ],
     "name" : "staticField",
     "type" : {
