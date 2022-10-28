@@ -33,7 +33,7 @@ CMake and a standard C toolchain is required to build `package:jni` and C bindin
 
 It's recommended to have `clang-format` installed for formatting the generated C bindings. On Windows, it's part of LLVM installation. On most Linux distributions it is available as a separate package. On MacOS, it can be installed using Homebrew.
 
-## Introduction
+## Overview
 This repository contains two packages: `package:jni` (support library) and `package:jnigen` (code generator).
 
 `package:jnigen` generates C bindings which call Java methods through JNI, and Dart bindings which call these C wrappers through FFI.
@@ -48,7 +48,7 @@ C code is always generated into a directory with it's own build configuration. I
 
 As a proof-of-concept, pure dart bindings which do not require C code (apart from `package:jni` dependency) are supported. Trade-offs are listed at the end of this document.
 
-### Configuration
+## Configuration
 There are 2 ways to use `jnigen`:
 
 * Run as command line tool with a YAML config.
@@ -56,12 +56,12 @@ There are 2 ways to use `jnigen`:
 
 Both approaches are almost identical. When using YAML, it's possible to selectively override configuration properties with command line, using `-Dproperty_name=value` syntax. We usually use YAML in our [examples][jnigen/examples/]. See the end of this document for a tabular description of configuration properties.
 
-### Java features support
+## Java features support
 Currently basic features of the Java language are supported in the bindings. Each Java class is mapped to a Dart class. Bindings are generated for methods, constructors and fields. Exceptions thrown in Java are rethrown in Dart with stack trace from Java.
 
 More advanced features like callbacks, generics and subtyping are not supported yet.
 
-### Platform support
+## Platform support
 | Platform | Dart Standalone | Flutter |
 | -------- | --------------- | ------- |
 | Android  | N/A             | YES     |
