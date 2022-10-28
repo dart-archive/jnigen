@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.Keep;
 
 @Keep
-abstract public class AndroidUtils {
+public abstract class AndroidUtils {
   // Hide constructor
   private AndroidUtils() {}
 
