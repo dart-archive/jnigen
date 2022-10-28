@@ -84,7 +84,7 @@ The build directory has to be passed to `Jni.spawn` call. It's assumed that all 
 Few runnable examples are provided in [example/](example/) directory. (Re)generate the bindings by running `dart run jnigen --config jnigen.yaml` in the root of the respective examples. Corresponding README files contain more information about the examples.
 
 ## Contributing
-See ARCHITECTURE.md for details about architecture and internals of `jnigen`.
+See [ARCHITECTURE.md](ARCHITECTURE.md) for details about architecture and internals of `jnigen`.
 
 ## Appendix A: YAML Configuration Reference
 Keys ending with a colon (`:`) denote subsections.
