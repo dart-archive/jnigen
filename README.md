@@ -1,15 +1,121 @@
 [![Build Status](https://github.com/dart-lang/jnigen/workflows/Dart%20CI/badge.svg)](https://github.com/dart-lang/jnigen/actions?query=workflow%3A%22Dart+CI%22+branch%3Amain)
 
-## jnigen
+## Introduction
+Experimental bindings generator for Java bindings through dart:ffi and JNI.
 
-This project intends to provide 2 packages to enable JNI interop from Dart & Flutter. Currently this package is highly experimental.
+It generates C and Dart bindings which enable calling Java libraries from Dart.
 
-| Package | Description |
-| ------- | --------- |
-| [jni](jni/) | Ergonomic C bindings to JNI C API and several helper methods |
-| [jnigen](jnigen/) | Tool to generate Dart bindings to Java code using FFI |
+## Example Bindings
+It's possible to generate bindings for libraries, or any Java source files.
 
-This project is a work-in-progress and __highly experimental__. Users can check out and experiment with the examples. We do not guarantee stability of the API or commands at this point.
+Here's a simple example Java file, in a Flutter Android app.
+
+```java
+package com.example.in_app_java;
+
+import android.app.Activity;
+import android.widget.Toast;
+import androidx.annotation.Keep;
+
+@Keep
+public abstract class AndroidUtils {
+  // Hide constructor
+  private AndroidUtils() {}
+
+  public static void showToast(Activity mainActivity, CharSequence text, int duration) {
+    mainActivity.runOnUiThread(() -> Toast.makeText(mainActivity, text, duration).show());
+  }
+}
+```
+
+Dart bindings can be generated using a YAML configuration.
+
+```yaml
+android_sdk_config:
+  add_gradle_deps: true
+
+output:
+  c:
+    library_name: android_utils
+    path: src/android_utils/
+  dart:
+    path: lib/android_utils.dart
+    structure: single_file
+
+source_path:
+  - 'android/app/src/main/java'
+classes:
+  - 'com.example.in_app_java.AndroidUtils'
+```
+
+This produces the following Dart bindings:
+```dart
+/// Some boilerplate is omitted for clarity.
+final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
+    ProtectedJniExtensions.initGeneratedLibrary("android_utils");
+
+/// from: com.example.in_app_java.AndroidUtils
+class AndroidUtils extends jni.JniObject {
+  AndroidUtils.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
+
+  static final _showToast = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("AndroidUtils__showToast")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: static public void showToast(android.app.Activity mainActivity, java.lang.CharSequence text, int duration)
+  static void showToast(
+          jni.JniObject mainActivity, jni.JniObject text, int duration) =>
+      _showToast(mainActivity.reference, text.reference, duration).check();
+}
+```
+
+As well as the C bindings called by the dart bindings.
+```c
+// Some boilerplate is omitted for clarity.
+
+// com.example.in_app_java.AndroidUtils
+jclass _c_AndroidUtils = NULL;
+
+jmethodID _m_AndroidUtils__showToast = NULL;
+FFI_PLUGIN_EXPORT
+JniResult AndroidUtils__showToast(jobject mainActivity,
+                                  jobject text,
+                                  int32_t duration) {
+  load_env();
+  load_class_gr(&_c_AndroidUtils, "com/example/in_app_java/AndroidUtils");
+  if (_c_AndroidUtils == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_AndroidUtils, &_m_AndroidUtils__showToast, "showToast",
+                     "(Landroid/app/Activity;Ljava/lang/CharSequence;I)V");
+  if (_m_AndroidUtils__showToast == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  (*jniEnv)->CallStaticVoidMethod(jniEnv, _c_AndroidUtils,
+                                  _m_AndroidUtils__showToast, mainActivity,
+                                  text, duration);
+  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+}
+```
+
+The complete example can be found in [jnigen/example/in_app_java](jnigen/example/in_app_java). The complete example adds one more class to the configuration to demonstrate using JAR files instead of sources.
+
+## Overview
+This repository contains two packages: `package:jni` (support library) and `package:jnigen` (code generator).
+
+`package:jnigen` generates C bindings which call Java methods through JNI, and Dart bindings which call these C wrappers through FFI.
+
+The generated code relies on common infrastructure provided by `package:jni` support library.
+
+For building a description of Java API, it needs complete source code or JAR files of the corresponding library. `jnigen` can use either complete sources or compiled classes from JAR files to build this API description. These are to be provided in the configuration as `class_path` and `source_path` respectively.
+
+It's possible to generate Java code mirroring source layout with each class having a separate dart file, or all classes into a same dart file.
+
+C code is always generated into a directory with it's own build configuration. It's built as a separate dynamic library.
+
+As a proof-of-concept, pure dart bindings which do not require C code (apart from `package:jni` dependency) are supported. Trade-offs are listed at the end of this document.
 
 ## Requirements
 ### SDK
@@ -32,21 +138,6 @@ $env:Path += ";${env:JAVA_HOME}\bin\server".
 CMake and a standard C toolchain is required to build `package:jni` and C bindings generated by `jnigen`.
 
 It's recommended to have `clang-format` installed for formatting the generated C bindings. On Windows, it's part of LLVM installation. On most Linux distributions it is available as a separate package. On MacOS, it can be installed using Homebrew.
-
-## Overview
-This repository contains two packages: `package:jni` (support library) and `package:jnigen` (code generator).
-
-`package:jnigen` generates C bindings which call Java methods through JNI, and Dart bindings which call these C wrappers through FFI.
-
-The generated code relies on common infrastructure provided by `package:jni` support library.
-
-For building a description of Java API, it needs complete source code or JAR files of the corresponding library. `jnigen` can use either complete sources or compiled classes from JAR files to build this API description. These are to be provided in the configuration as `class_path` and `source_path` respectively.
-
-It's possible to generate Java code mirroring source layout with each class having a separate dart file, or all classes into a same dart file.
-
-C code is always generated into a directory with it's own build configuration. It's built as a separate dynamic library.
-
-As a proof-of-concept, pure dart bindings which do not require C code (apart from `package:jni` dependency) are supported. Trade-offs are listed at the end of this document.
 
 ## Configuration
 There are 2 ways to use `jnigen`:
@@ -81,7 +172,7 @@ By default `jni:setup` goes through pubspec configuration and builds all JNI dep
 The build directory has to be passed to `Jni.spawn` call. It's assumed that all dependencies are built into same target directory, so that once JNI is initialized, generated bindings can load their respective C libraries automatically.
 
 ## Examples
-Few runnable examples are provided in [example/](example/) directory. (Re)generate the bindings by running `dart run jnigen --config jnigen.yaml` in the root of the respective examples. Corresponding README files contain more information about the examples.
+Few runnable examples are provided in [example/](example/) directory. Corresponding README files contain more information about the examples and how to regenerate the bindings.
 
 ## Contributing
 See [ARCHITECTURE.md](ARCHITECTURE.md) for details about architecture and internals of `jnigen`.
@@ -150,7 +241,7 @@ Any C output configuration will be ignored.
 However, pure dart bindings will require additional allocations and check runtimeType of the arguments. This will be the case until Variadic arguments land in Dart FFI.
 
 ## Appendix C: Android core libraries
-These days, Android projects depend heavily on AndroidX and other libraries downloaded via gradle. We have a tracking issue to improve detection of android SDK and dependencies. (#31). Currently we can fetch the JAR dependencies of an android project, by running a gradle stub, if `android_sdk_config` >> `add_gradle_deps` is specified.
+These days, Android projects depend heavily on AndroidX and other libraries downloaded via gradle. We have a tracking issue to improve detection of android SDK and dependencies. (#31). Currently we can fetch the JAR dependencies of an android project, by running a gradle stub, if `android_sdk_config` >> `add_gradle_deps` is specified. 
 
 But core libraries (the `android.**` namespace) is not downloaded through gradle. The core libraries are shipped as stub JARs with the Android SDK. (`$SDK_ROOT/platforms/android-$VERSION/android-stubs-src.jar`).
 
