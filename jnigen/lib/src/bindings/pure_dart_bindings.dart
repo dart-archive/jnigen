@@ -65,7 +65,7 @@ class PureDartBindingsGenerator extends BindingsGenerator {
     final internalName = escapeDollarSign(getInternalName(decl.binaryName));
     s.write('class $name extends $superName {\n'
         '  static final $classRef = $accessors.getClassOf("$internalName");\n'
-        '  $indent$name.fromRef(jni.JObject ref) : super.fromRef(ref);\n'
+        '  $indent$name.fromRef(${jni}JObject ref) : super.fromRef(ref);\n'
         '\n');
 
     for (var field in decl.fields) {
@@ -92,6 +92,7 @@ class PureDartBindingsGenerator extends BindingsGenerator {
       }
     }
     s.write("}\n");
+    s.write(dartArrayExtension(decl));
     return s.toString();
   }
 
@@ -218,24 +219,27 @@ class PureDartBindingsGenerator extends BindingsGenerator {
       'DO NOT EDIT!\n\n';
   static const defaultLintSuppressions =
       '// ignore_for_file: annotate_overrides\n'
+      '// ignore_for_file: camel_case_extensions\n'
       '// ignore_for_file: camel_case_types\n'
       '// ignore_for_file: constant_identifier_names\n'
       '// ignore_for_file: file_names\n'
       '// ignore_for_file: no_leading_underscores_for_local_identifiers\n'
       '// ignore_for_file: non_constant_identifier_names\n'
+      '// ignore_for_file: unnecessary_cast\n'
       '// ignore_for_file: unused_element\n'
       '// ignore_for_file: unused_field\n'
       '// ignore_for_file: unused_import\n'
       '// ignore_for_file: unused_shown_name\n'
       '\n';
 
+  static const ffiImport = 'import "dart:ffi" as ffi;\n';
   static const jniImport = 'import "package:jni/jni.dart" as jni;\n\n';
   static const internalHelpersImport =
       'import "package:jni/internal_helpers_for_jnigen.dart";\n\n';
-  static const defaultImports = jniImport + internalHelpersImport;
+  static const defaultImports = ffiImport + jniImport + internalHelpersImport;
 
-  static const initialization = 'final jniEnv = jni.Jni.env;\n'
-      'final jniAccessors = jni.Jni.accessors;\n\n';
+  static const initialization = 'final jniEnv = ${jni}Jni.env;\n'
+      'final jniAccessors = ${jni}Jni.accessors;\n\n';
   static String initImport(String initFilePath) =>
       'import "$initFilePath" show jniEnv, jniAccessors;\n\n';
 

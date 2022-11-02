@@ -94,6 +94,18 @@ abstract class BindingsGenerator {
     return '$jniResultType Function($ref)';
   }
 
+  String dartArrayExtension(ClassDecl decl) {
+    final name = decl.finalName;
+    return '\nextension ${name}JniArray on ${jni}JniArray<$name> {\n'
+        '$indent$name operator [](int index) {\n'
+        '${indent * 2}return $name.fromRef(elementAt(index, ${jni}JniType.objectType).object);\n'
+        '$indent}\n\n'
+        '${indent}void operator []=(int index, $name value) {\n'
+        '${indent * 2}(this as ${jni}JniArray<${jni}JniObject>)[index] = value;\n'
+        '$indent}\n'
+        '}\n';
+  }
+
   String dartSigForMethod(Method m, {required bool isFfiSig}) {
     final conv = isFfiSig ? getDartFfiType : getDartInnerType;
     final argTypes = [if (hasSelfParam(m)) voidPointer];
