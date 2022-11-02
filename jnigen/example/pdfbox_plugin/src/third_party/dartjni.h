@@ -119,9 +119,7 @@ typedef struct JniAccessors {
   JniPointerResult (*newObjectArray)(jsize length,
                                      jclass elementClass,
                                      jobject initialElement);
-  JniResult (*getArrayElement)(jarray array,
-                               int index,
-                               int type);
+  JniResult (*getArrayElement)(jarray array, int index, int type);
   JniResult (*callMethod)(jobject obj,
                           jmethodID methodID,
                           int callType,

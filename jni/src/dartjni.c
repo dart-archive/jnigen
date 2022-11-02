@@ -408,11 +408,12 @@ JniPointerResult newPrimitiveArray(jsize length, int type) {
   return result;
 }
 
-JniPointerResult newObjectArray(jsize length, jclass elementClass, jobject initialElement) {
+JniPointerResult newObjectArray(jsize length,
+                                jclass elementClass,
+                                jobject initialElement) {
   attach_thread();
   jarray array = to_global_ref(
-    (*jniEnv)->NewObjectArray(jniEnv, length, elementClass, initialElement)
-  );
+      (*jniEnv)->NewObjectArray(jniEnv, length, elementClass, initialElement));
   JniPointerResult result = {.id = array, .exception = NULL};
   result.exception = check_exception();
   return result;
@@ -423,7 +424,8 @@ JniResult getArrayElement(jarray array, int index, int type) {
   attach_thread();
   // Boundary checks
   if (index < 0 || index >= (*jniEnv)->GetArrayLength(jniEnv, array)) {
-    JniClassLookupResult classRes = getClass("java/lang/ArrayIndexOutOfBoundsException");
+    JniClassLookupResult classRes =
+        getClass("java/lang/ArrayIndexOutOfBoundsException");
     if (classRes.exception) {
       result.exception = classRes.exception;
       return result;
@@ -444,31 +446,33 @@ JniResult getArrayElement(jarray array, int index, int type) {
   jvalue value;
   switch (type) {
     case booleanType:
-      value.z = *((*jniEnv)->GetBooleanArrayElements(jniEnv, array, NULL) + index);
+      value.z =
+          ((*jniEnv)->GetBooleanArrayElements(jniEnv, array, NULL))[index];
       break;
     case byteType:
-      value.b = *((*jniEnv)->GetByteArrayElements(jniEnv, array, NULL) + index);
+      value.b = ((*jniEnv)->GetByteArrayElements(jniEnv, array, NULL))[index];
       break;
     case shortType:
-      value.s = *((*jniEnv)->GetShortArrayElements(jniEnv, array, NULL) + index);
+      value.s = ((*jniEnv)->GetShortArrayElements(jniEnv, array, NULL))[index];
       break;
     case charType:
-      value.c = *((*jniEnv)->GetCharArrayElements(jniEnv, array, NULL) + index);
+      value.c = ((*jniEnv)->GetCharArrayElements(jniEnv, array, NULL))[index];
       break;
     case intType:
-      value.i = *((*jniEnv)->GetIntArrayElements(jniEnv, array, NULL) + index);
+      value.i = ((*jniEnv)->GetIntArrayElements(jniEnv, array, NULL))[index];
       break;
     case longType:
-      value.j = *((*jniEnv)->GetLongArrayElements(jniEnv, array, NULL) + index);
+      value.j = ((*jniEnv)->GetLongArrayElements(jniEnv, array, NULL))[index];
       break;
     case floatType:
-      value.f = *((*jniEnv)->GetFloatArrayElements(jniEnv, array, NULL) + index);
+      value.f = ((*jniEnv)->GetFloatArrayElements(jniEnv, array, NULL))[index];
       break;
     case doubleType:
-      value.d = *((*jniEnv)->GetDoubleArrayElements(jniEnv, array, NULL) + index);
+      value.d = ((*jniEnv)->GetDoubleArrayElements(jniEnv, array, NULL))[index];
       break;
     case objectType:
-      value.l = to_global_ref((*jniEnv)->GetObjectArrayElement(jniEnv, array, index));
+      value.l =
+          to_global_ref((*jniEnv)->GetObjectArrayElement(jniEnv, array, index));
     case voidType:
       // This error should have been handled in dart.
       // is there a way to mark this as unreachable?
