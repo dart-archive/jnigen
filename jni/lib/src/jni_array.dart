@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// ignore_for_file: unnecessary_cast
+
 part of 'jni_object.dart';
 
 class JniArray<E> extends JniObject {
@@ -9,6 +11,11 @@ class JniArray<E> extends JniObject {
   JniArray.fromRef(JArray reference) : super.fromRef(reference);
 
   int? _length;
+
+  JniResult elementAt(int index, int type) {
+    RangeError.checkValidIndex(index, this);
+    return _accessors.getArrayElement(reference, index, type);
+  }
 
   /// The number of elements in this array.
   int get length {
@@ -27,10 +34,7 @@ extension NativeJniArray<E extends NativeType> on JniArray<E> {
 
 extension BoolJniArray on JniArray<JBoolean> {
   bool operator [](int index) {
-    RangeError.checkValidIndex(index, this);
-    return _env.GetBooleanArrayElements(
-            reference, nullptr.cast<Uint8>())[index] >
-        0;
+    return elementAt(index, JniType.booleanType).boolean;
   }
 
   void operator []=(int index, bool value) {
@@ -57,8 +61,7 @@ extension BoolJniArray on JniArray<JBoolean> {
 
 extension ByteJniArray on JniArray<JByte> {
   int operator [](int index) {
-    RangeError.checkValidIndex(index, this);
-    return _env.GetByteArrayElements(reference, nullptr.cast<Uint8>())[index];
+    return elementAt(index, JniType.byteType).byte;
   }
 
   void operator []=(int index, int value) {
@@ -85,9 +88,8 @@ extension ByteJniArray on JniArray<JByte> {
 
 extension CharJniArray on JniArray<JChar> {
   String operator [](int index) {
-    RangeError.checkValidIndex(index, this);
     return String.fromCharCode(
-      _env.GetCharArrayElements(reference, nullptr.cast<Uint8>()).value,
+      elementAt(index, JniType.byteType).char,
     );
   }
 
@@ -115,8 +117,7 @@ extension CharJniArray on JniArray<JChar> {
 
 extension ShortJniArray on JniArray<JShort> {
   int operator [](int index) {
-    RangeError.checkValidIndex(index, this);
-    return _env.GetShortArrayElements(reference, nullptr.cast<Uint8>())[index];
+    return elementAt(index, JniType.shortType).short;
   }
 
   void operator []=(int index, int value) {
@@ -143,8 +144,7 @@ extension ShortJniArray on JniArray<JShort> {
 
 extension IntJniArray on JniArray<JInt> {
   int operator [](int index) {
-    RangeError.checkValidIndex(index, this);
-    return _env.GetIntArrayElements(reference, nullptr.cast<Uint8>())[index];
+    return elementAt(index, JniType.intType).integer;
   }
 
   void operator []=(int index, int value) {
@@ -171,8 +171,7 @@ extension IntJniArray on JniArray<JInt> {
 
 extension LongJniArray on JniArray<JLong> {
   int operator [](int index) {
-    RangeError.checkValidIndex(index, this);
-    return _env.GetLongArrayElements(reference, nullptr.cast<Uint8>())[index];
+    return elementAt(index, JniType.longType).long;
   }
 
   void operator []=(int index, int value) {
@@ -199,8 +198,7 @@ extension LongJniArray on JniArray<JLong> {
 
 extension FloatJniArray on JniArray<JFloat> {
   double operator [](int index) {
-    RangeError.checkValidIndex(index, this);
-    return _env.GetFloatArrayElements(reference, nullptr.cast<Uint8>())[index];
+    return elementAt(index, JniType.floatType).float;
   }
 
   void operator []=(int index, double value) {
@@ -227,8 +225,7 @@ extension FloatJniArray on JniArray<JFloat> {
 
 extension DoubleJniArray on JniArray<JDouble> {
   double operator [](int index) {
-    RangeError.checkValidIndex(index, this);
-    return _env.GetDoubleArrayElements(reference, nullptr.cast<Uint8>())[index];
+    return elementAt(index, JniType.doubleType).doubleFloat;
   }
 
   void operator []=(int index, double value) {
@@ -253,13 +250,18 @@ extension DoubleJniArray on JniArray<JDouble> {
   }
 }
 
-extension TJniArray<T extends JniObject> on JniArray<T> {
-  void operator []=(int index, T value) {
+extension ObjectJniArray<T extends JniObject> on JniArray<T> {
+  JniObject operator [](int index) {
+    return JniObject.fromRef(elementAt(index, JniType.objectType).object);
+  }
+
+  void operator []=(int index, JniObject value) {
     RangeError.checkValidIndex(index, this);
     _env.SetObjectArrayElement(reference, index, value.reference);
   }
 
-  void setRange(int start, int end, Iterable<T> iterable, [int skipCount = 0]) {
+  void setRange(int start, int end, Iterable<JniObject> iterable,
+      [int skipCount = 0]) {
     RangeError.checkValidRange(start, end, length);
     final size = end - start;
     final it = iterable.skip(skipCount).take(size);
@@ -269,23 +271,22 @@ extension TJniArray<T extends JniObject> on JniArray<T> {
   }
 }
 
-extension ObjectJniArray on JniArray<JniObject> {
-  JniObject operator [](int index) {
-    RangeError.checkValidIndex(index, this);
-    return JniObject.fromRef(_env.GetObjectArrayElement(reference, index));
-  }
-}
-
 extension ArrayJniArray<T> on JniArray<JniArray<T>> {
   JniArray<T> operator [](int index) {
-    RangeError.checkValidIndex(index, this);
-    return JniArray<T>.fromRef(_env.GetObjectArrayElement(reference, index));
+    return JniArray<T>.fromRef(elementAt(index, JniType.objectType).object);
+  }
+
+  void operator []=(int index, JniString value) {
+    (this as JniArray<JniObject>)[index] = value;
   }
 }
 
 extension StringJniArray on JniArray<JniString> {
   JniString operator [](int index) {
-    RangeError.checkValidIndex(index, this);
-    return JniString.fromRef(_env.GetObjectArrayElement(reference, index));
+    return JniString.fromRef(elementAt(index, JniType.objectType).object);
+  }
+
+  void operator []=(int index, JniString value) {
+    (this as JniArray<JniObject>)[index] = value;
   }
 }

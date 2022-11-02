@@ -192,54 +192,70 @@ abstract class Jni {
 
   /// Constructs a boolean array with the given length.
   static JniArray<JBoolean> newBooleanArray(int length) {
-    return JniArray.fromRef(env.NewBooleanArray(length));
+    final ref =
+        accessors.newPrimitiveArray(length, JniType.booleanType).checkedRef;
+    return JniArray.fromRef(ref);
   }
 
   /// Constructs a byte array with the given length.
   static JniArray<JByte> newByteArray(int length) {
-    return JniArray.fromRef(env.NewByteArray(length));
+    final ref =
+        accessors.newPrimitiveArray(length, JniType.byteType).checkedRef;
+    return JniArray.fromRef(ref);
   }
 
   /// Constructs a char array with the given length.
   static JniArray<JChar> newCharArray(int length) {
-    return JniArray.fromRef(env.NewCharArray(length));
+    final ref =
+        accessors.newPrimitiveArray(length, JniType.charType).checkedRef;
+    return JniArray.fromRef(ref);
   }
 
   /// Constructs a short array with the given length.
   static JniArray<JShort> newShortArray(int length) {
-    return JniArray.fromRef(env.NewShortArray(length));
+    final ref =
+        accessors.newPrimitiveArray(length, JniType.shortType).checkedRef;
+    return JniArray.fromRef(ref);
   }
 
   /// Constructs an int array with the given length.
   static JniArray<JInt> newIntArray(int length) {
-    return JniArray.fromRef(env.NewIntArray(length));
+    final ref = accessors.newPrimitiveArray(length, JniType.intType).checkedRef;
+    return JniArray.fromRef(ref);
   }
 
   /// Constructs a long array with the given length.
   static JniArray<JLong> newLongArray(int length) {
-    return JniArray.fromRef(env.NewLongArray(length));
+    final ref =
+        accessors.newPrimitiveArray(length, JniType.longType).checkedRef;
+    return JniArray.fromRef(ref);
   }
 
   /// Constructs a float array with the given length.
   static JniArray<JFloat> newFloatArray(int length) {
-    return JniArray.fromRef(env.NewFloatArray(length));
+    final ref =
+        accessors.newPrimitiveArray(length, JniType.floatType).checkedRef;
+    return JniArray.fromRef(ref);
   }
 
   /// Constructs a double array with the given length.
   static JniArray<JDouble> newDoubleArray(int length) {
-    return JniArray.fromRef(env.NewDoubleArray(length));
+    final ref =
+        accessors.newPrimitiveArray(length, JniType.doubleType).checkedRef;
+    return JniArray.fromRef(ref);
   }
 
   /// Constructs an Object array with the given length.
   /// All elements are initially set to initialElement.
   static JniArray<T> newArray<T extends JniObject>(
     int length,
+    JniClass jniClass,
     T initialElement,
   ) {
     return JniArray.fromRef(
       env.NewObjectArray(
         length,
-        initialElement.getClass().reference,
+        jniClass.reference,
         initialElement.reference,
       ),
     );
