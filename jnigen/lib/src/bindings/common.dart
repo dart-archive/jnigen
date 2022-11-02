@@ -32,6 +32,8 @@ abstract class BindingsGenerator {
 
   static const String jniObjectType = '${jni}JniObject';
 
+  static const String jniArrayType = '${jni}JniArray';
+
   static const String jniResultType = '${jni}JniResult';
 
   /// Generate bindings string for given class declaration.
@@ -124,7 +126,11 @@ abstract class BindingsGenerator {
         throw SkipException('Not supported: generics');
       case Kind.array:
         if (resolver != null) {
-          return jniObjectType;
+          final innerType = (t.type as ArrayType).type;
+          final dartType = innerType.kind == Kind.primitive
+              ? getDartFfiType(innerType)
+              : _dartType(innerType, resolver: resolver);
+          return '$jniArrayType<$dartType>';
         }
         return voidPointer;
       case Kind.declared:
@@ -141,7 +147,7 @@ abstract class BindingsGenerator {
     const primitives = {
       'byte': 'Int8',
       'short': 'Int16',
-      'char': 'Int16',
+      'char': 'Uint16',
       'int': 'Int32',
       'long': 'Int64',
       'float': 'Float',

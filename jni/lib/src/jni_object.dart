@@ -4,13 +4,16 @@
 
 import 'dart:ffi';
 
+import 'package:collection/collection.dart';
 import 'package:ffi/ffi.dart';
 
-import 'third_party/jni_bindings_generated.dart';
-import 'jni_exceptions.dart';
-import 'jni.dart';
 import 'accessors.dart';
+import 'jni.dart';
+import 'jni_exceptions.dart';
 import 'jvalues.dart';
+import 'third_party/jni_bindings_generated.dart';
+
+part 'jni_array.dart';
 
 // This typedef is needed because void is a keyword and cannot be used in
 // type switch like a regular type.
@@ -430,6 +433,9 @@ class JniString extends JniObject {
         }
         return jstr;
       });
+
+  /// The number of Unicode characters in this Java string.
+  int get length => _env.GetStringLength(reference);
 
   /// Construct a [JniString] from the contents of Dart string [s].
   JniString.fromString(String s) : super.fromRef(_toJavaString(s));

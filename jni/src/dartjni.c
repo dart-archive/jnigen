@@ -368,6 +368,118 @@ JniResult newObject(jclass cls, jmethodID ctor, jvalue* args) {
   return jniResult;
 }
 
+JniPointerResult newPrimitiveArray(jsize length, int type) {
+  attach_thread();
+  void* pointer;
+  switch (type) {
+    case booleanType:
+      pointer = (*jniEnv)->NewBooleanArray(jniEnv, length);
+      break;
+    case byteType:
+      pointer = (*jniEnv)->NewByteArray(jniEnv, length);
+      break;
+    case shortType:
+      pointer = (*jniEnv)->NewShortArray(jniEnv, length);
+      break;
+    case charType:
+      pointer = (*jniEnv)->NewCharArray(jniEnv, length);
+      break;
+    case intType:
+      pointer = (*jniEnv)->NewIntArray(jniEnv, length);
+      break;
+    case longType:
+      pointer = (*jniEnv)->NewLongArray(jniEnv, length);
+      break;
+    case floatType:
+      pointer = (*jniEnv)->NewFloatArray(jniEnv, length);
+      break;
+    case doubleType:
+      pointer = (*jniEnv)->NewDoubleArray(jniEnv, length);
+      break;
+    case objectType:
+    case voidType:
+      // This error should have been handled in dart.
+      // is there a way to mark this as unreachable?
+      // or throw exception in Dart using Dart's C API.
+      break;
+  }
+  JniPointerResult result = {.id = to_global_ref(pointer), .exception = NULL};
+  result.exception = check_exception();
+  return result;
+}
+
+JniPointerResult newObjectArray(jsize length, jclass elementClass, jobject initialElement) {
+  attach_thread();
+  jarray array = to_global_ref(
+    (*jniEnv)->NewObjectArray(jniEnv, length, elementClass, initialElement)
+  );
+  JniPointerResult result = {.id = array, .exception = NULL};
+  result.exception = check_exception();
+  return result;
+}
+
+JniResult getArrayElement(jarray array, int index, int type) {
+  JniResult result = {NULL, NULL};
+  attach_thread();
+  // Boundary checks
+  if (index < 0 || index >= (*jniEnv)->GetArrayLength(jniEnv, array)) {
+    JniClassLookupResult classRes = getClass("java/lang/ArrayIndexOutOfBoundsException");
+    if (classRes.exception) {
+      result.exception = classRes.exception;
+      return result;
+    }
+    JniPointerResult ctorRes = getMethodID(classRes.classRef, "<init>", "()V");
+    if (ctorRes.exception) {
+      result.exception = classRes.exception;
+      return result;
+    }
+    JniResult exceptionRes = newObject(classRes.classRef, ctorRes.id, NULL);
+    if (exceptionRes.exception) {
+      result.exception = exceptionRes.exception;
+      return result;
+    }
+    result.exception = to_global_ref(exceptionRes.result.l);
+    return result;
+  }
+  jvalue value;
+  switch (type) {
+    case booleanType:
+      value.z = *((*jniEnv)->GetBooleanArrayElements(jniEnv, array, NULL) + index);
+      break;
+    case byteType:
+      value.b = *((*jniEnv)->GetByteArrayElements(jniEnv, array, NULL) + index);
+      break;
+    case shortType:
+      value.s = *((*jniEnv)->GetShortArrayElements(jniEnv, array, NULL) + index);
+      break;
+    case charType:
+      value.c = *((*jniEnv)->GetCharArrayElements(jniEnv, array, NULL) + index);
+      break;
+    case intType:
+      value.i = *((*jniEnv)->GetIntArrayElements(jniEnv, array, NULL) + index);
+      break;
+    case longType:
+      value.j = *((*jniEnv)->GetLongArrayElements(jniEnv, array, NULL) + index);
+      break;
+    case floatType:
+      value.f = *((*jniEnv)->GetFloatArrayElements(jniEnv, array, NULL) + index);
+      break;
+    case doubleType:
+      value.d = *((*jniEnv)->GetDoubleArrayElements(jniEnv, array, NULL) + index);
+      break;
+    case objectType:
+      value.l = to_global_ref((*jniEnv)->GetObjectArrayElement(jniEnv, array, index));
+    case voidType:
+      // This error should have been handled in dart.
+      // is there a way to mark this as unreachable?
+      // or throw exception in Dart using Dart's C API.
+      break;
+  }
+  result.result = value;
+  result.exception = check_exception();
+  return result;
+}
+
 JniExceptionDetails getExceptionDetails(jthrowable exception) {
   JniExceptionDetails details;
   details.message = (*jniEnv)->CallObjectMethod(
@@ -394,6 +506,9 @@ JniAccessors accessors = {
     .getMethodID = getMethodID,
     .getStaticMethodID = getStaticMethodID,
     .newObject = newObject,
+    .newPrimitiveArray = newPrimitiveArray,
+    .newObjectArray = newObjectArray,
+    .getArrayElement = getArrayElement,
     .callMethod = callMethod,
     .callStaticMethod = callStaticMethod,
     .getField = getField,

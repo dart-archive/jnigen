@@ -190,6 +190,61 @@ abstract class Jni {
     return obj;
   }
 
+  /// Constructs a boolean array with the given length.
+  static JniArray<JBoolean> newBooleanArray(int length) {
+    return JniArray.fromRef(env.NewBooleanArray(length));
+  }
+
+  /// Constructs a byte array with the given length.
+  static JniArray<JByte> newByteArray(int length) {
+    return JniArray.fromRef(env.NewByteArray(length));
+  }
+
+  /// Constructs a char array with the given length.
+  static JniArray<JChar> newCharArray(int length) {
+    return JniArray.fromRef(env.NewCharArray(length));
+  }
+
+  /// Constructs a short array with the given length.
+  static JniArray<JShort> newShortArray(int length) {
+    return JniArray.fromRef(env.NewShortArray(length));
+  }
+
+  /// Constructs an int array with the given length.
+  static JniArray<JInt> newIntArray(int length) {
+    return JniArray.fromRef(env.NewIntArray(length));
+  }
+
+  /// Constructs a long array with the given length.
+  static JniArray<JLong> newLongArray(int length) {
+    return JniArray.fromRef(env.NewLongArray(length));
+  }
+
+  /// Constructs a float array with the given length.
+  static JniArray<JFloat> newFloatArray(int length) {
+    return JniArray.fromRef(env.NewFloatArray(length));
+  }
+
+  /// Constructs a double array with the given length.
+  static JniArray<JDouble> newDoubleArray(int length) {
+    return JniArray.fromRef(env.NewDoubleArray(length));
+  }
+
+  /// Constructs an Object array with the given length.
+  /// All elements are initially set to initialElement.
+  static JniArray<T> newArray<T extends JniObject>(
+    int length,
+    T initialElement,
+  ) {
+    return JniArray.fromRef(
+      env.NewObjectArray(
+        length,
+        initialElement.getClass().reference,
+        initialElement.reference,
+      ),
+    );
+  }
+
   /// Converts passed arguments to JValue array.
   ///
   /// int, bool, double and JObject types are converted out of the box.
