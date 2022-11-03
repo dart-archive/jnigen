@@ -89,7 +89,7 @@ extension ByteJniArray on JniArray<JByte> {
 extension CharJniArray on JniArray<JChar> {
   String operator [](int index) {
     return String.fromCharCode(
-      elementAt(index, JniType.byteType).char,
+      elementAt(index, JniType.charType).char,
     );
   }
 

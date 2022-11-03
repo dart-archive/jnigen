@@ -246,17 +246,15 @@ abstract class Jni {
   }
 
   /// Constructs an Object array with the given length.
-  /// All elements are initially set to initialElement.
+  /// All elements are initially set to the element at initialElementRef.
   static JniArray<T> newArray<T extends JniObject>(
-    int length,
-    JniClass jniClass,
-    T initialElement,
-  ) {
-    return JniArray.fromRef(
+      int length, Pointer<Void> classRef,
+      [Pointer<Void>? initialElementRef]) {
+    return JniArray<T>.fromRef(
       env.NewObjectArray(
         length,
-        jniClass.reference,
-        initialElement.reference,
+        classRef,
+        initialElementRef ?? nullptr,
       ),
     );
   }

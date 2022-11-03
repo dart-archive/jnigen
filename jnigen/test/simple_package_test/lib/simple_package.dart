@@ -103,18 +103,18 @@ class Example extends jni.JniObject {
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("Example__getArr")
           .asFunction<jni.JniResult Function()>();
 
-  /// from: static public java.lang.Integer[] getArr()
+  /// from: static public int[] getArr()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JniArray<jni.JniObject> getArr() =>
-      jni.JniArray<jni.JniObject>.fromRef(_getArr().object);
+  static jni.JniArray<ffi.Int32> getArr() =>
+      jni.JniArray<ffi.Int32>.fromRef(_getArr().object);
 
   static final _addAll = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("Example__addAll")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public int addAll(java.lang.Integer[] arr)
-  static int addAll(jni.JniArray<jni.JniObject> arr) =>
+  /// from: static public int addAll(int[] arr)
+  static int addAll(jni.JniArray<ffi.Int32> arr) =>
       _addAll(arr.reference).integer;
 
   static final _getSelf = jniLookup<
@@ -143,6 +143,24 @@ class Example extends jni.JniObject {
 
   /// from: public void setNum(int num)
   void setNum(int num) => _setNum(reference, num).check();
+
+  static final _getInternal = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__getInternal")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int getInternal()
+  int getInternal() => _getInternal(reference).integer;
+
+  static final _setInternal = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("Example__setInternal")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public void setInternal(int internal)
+  void setInternal(int internal) => _setInternal(reference, internal).check();
 
   static final _throwException =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
