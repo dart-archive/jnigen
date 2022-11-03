@@ -276,7 +276,7 @@ extension ArrayJniArray<T> on JniArray<JniArray<T>> {
     return JniArray<T>.fromRef(elementAt(index, JniType.objectType).object);
   }
 
-  void operator []=(int index, JniString value) {
+  void operator []=(int index, JniArray<T> value) {
     (this as JniArray<JniObject>)[index] = value;
   }
 }
