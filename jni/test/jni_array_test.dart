@@ -26,6 +26,9 @@ void main() {
     expect(array[1], true);
     expect(array[2], true);
     expect(() {
+      final _ = array[-1];
+    }, throwsRangeError);
+    expect(() {
       array[-1] = false;
     }, throwsRangeError);
     expect(() {
@@ -46,6 +49,9 @@ void main() {
     expect(array[0], '5');
     expect(array[1], '6');
     expect(array[2], '7');
+    expect(() {
+      final _ = array[-1];
+    }, throwsRangeError);
     expect(() {
       array[-1] = '4';
     }, throwsRangeError);
@@ -68,6 +74,9 @@ void main() {
     expect(array[1], 6);
     expect(array[2], 7);
     expect(() {
+      final _ = array[-1];
+    }, throwsRangeError);
+    expect(() {
       array[-1] = 4;
     }, throwsRangeError);
     expect(() {
@@ -88,6 +97,9 @@ void main() {
     expect(array[0], 5);
     expect(array[1], 6);
     expect(array[2], 7);
+    expect(() {
+      final _ = array[-1];
+    }, throwsRangeError);
     expect(() {
       array[-1] = 4;
     }, throwsRangeError);
@@ -110,6 +122,9 @@ void main() {
     expect(array[1], 6);
     expect(array[2], 7);
     expect(() {
+      final _ = array[-1];
+    }, throwsRangeError);
+    expect(() {
       array[-1] = 4;
     }, throwsRangeError);
     expect(() {
@@ -131,6 +146,9 @@ void main() {
     expect(array[1], 6);
     expect(array[2], 7);
     expect(() {
+      final _ = array[-1];
+    }, throwsRangeError);
+    expect(() {
       array[-1] = 4;
     }, throwsRangeError);
     expect(() {
@@ -151,6 +169,9 @@ void main() {
     expect(array[0], 5);
     expect(array[1], 6);
     expect(array[2], 7);
+    expect(() {
+      final _ = array[-1];
+    }, throwsRangeError);
     expect(() {
       array[-1] = 4;
     }, throwsRangeError);
@@ -180,6 +201,9 @@ void main() {
     expect(array[0].toDartString(), "55");
     expect(array[1].toDartString(), "66");
     expect(array[2].toDartString(), "77");
+    expect(() {
+      final _ = array[-1];
+    }, throwsRangeError);
     expect(() {
       array[-1] = "44".jniString();
     }, throwsRangeError);
