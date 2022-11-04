@@ -422,53 +422,31 @@ JniPointerResult newObjectArray(jsize length,
 JniResult getArrayElement(jarray array, int index, int type) {
   JniResult result = {NULL, NULL};
   attach_thread();
-  // Boundary checks
-  if (index < 0 || index >= (*jniEnv)->GetArrayLength(jniEnv, array)) {
-    JniClassLookupResult classRes =
-        getClass("java/lang/ArrayIndexOutOfBoundsException");
-    if (classRes.exception) {
-      result.exception = classRes.exception;
-      return result;
-    }
-    JniPointerResult ctorRes = getMethodID(classRes.classRef, "<init>", "()V");
-    if (ctorRes.exception) {
-      result.exception = classRes.exception;
-      return result;
-    }
-    JniResult exceptionRes = newObject(classRes.classRef, ctorRes.id, NULL);
-    if (exceptionRes.exception) {
-      result.exception = exceptionRes.exception;
-      return result;
-    }
-    result.exception = to_global_ref(exceptionRes.result.l);
-    return result;
-  }
   jvalue value;
   switch (type) {
     case booleanType:
-      value.z =
-          ((*jniEnv)->GetBooleanArrayElements(jniEnv, array, NULL))[index];
+      (*jniEnv)->GetBooleanArrayRegion(jniEnv, array, index, 1, &value.z);
       break;
     case byteType:
-      value.b = ((*jniEnv)->GetByteArrayElements(jniEnv, array, NULL))[index];
+      (*jniEnv)->GetByteArrayRegion(jniEnv, array, index, 1, &value.b);
       break;
     case shortType:
-      value.s = ((*jniEnv)->GetShortArrayElements(jniEnv, array, NULL))[index];
+      (*jniEnv)->GetShortArrayRegion(jniEnv, array, index, 1, &value.s);
       break;
     case charType:
-      value.c = ((*jniEnv)->GetCharArrayElements(jniEnv, array, NULL))[index];
+      (*jniEnv)->GetCharArrayRegion(jniEnv, array, index, 1, &value.c);
       break;
     case intType:
-      value.i = ((*jniEnv)->GetIntArrayElements(jniEnv, array, NULL))[index];
+      (*jniEnv)->GetIntArrayRegion(jniEnv, array, index, 1, &value.i);
       break;
     case longType:
-      value.j = ((*jniEnv)->GetLongArrayElements(jniEnv, array, NULL))[index];
+      (*jniEnv)->GetLongArrayRegion(jniEnv, array, index, 1, &value.j);
       break;
     case floatType:
-      value.f = ((*jniEnv)->GetFloatArrayElements(jniEnv, array, NULL))[index];
+      (*jniEnv)->GetFloatArrayRegion(jniEnv, array, index, 1, &value.f);
       break;
     case doubleType:
-      value.d = ((*jniEnv)->GetDoubleArrayElements(jniEnv, array, NULL))[index];
+      (*jniEnv)->GetDoubleArrayRegion(jniEnv, array, index, 1, &value.d);
       break;
     case objectType:
       value.l =
