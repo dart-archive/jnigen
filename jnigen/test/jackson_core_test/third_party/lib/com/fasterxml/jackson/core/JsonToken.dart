@@ -30,7 +30,6 @@
 // ignore_for_file: unused_import
 // ignore_for_file: unused_shown_name
 
-import "dart:ffi" as ffi;
 import "package:jni/jni.dart" as jni;
 
 import "package:jni/internal_helpers_for_jnigen.dart";
@@ -84,8 +83,8 @@ class JsonToken extends jni.JniObject {
 
   /// from: public final char[] asCharArray()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JniArray<ffi.Uint16> asCharArray() =>
-      jni.JniArray<ffi.Uint16>.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JniArray<jni.JChar> asCharArray() =>
+      jni.JniArray<jni.JChar>.fromRef(jniAccessors.callMethodWithArgs(
           reference, _id_asCharArray, jni.JniType.objectType, []).object);
 
   static final _id_asByteArray =
@@ -93,8 +92,8 @@ class JsonToken extends jni.JniObject {
 
   /// from: public final byte[] asByteArray()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JniArray<ffi.Int8> asByteArray() =>
-      jni.JniArray<ffi.Int8>.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JniArray<jni.JByte> asByteArray() =>
+      jni.JniArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(
           reference, _id_asByteArray, jni.JniType.objectType, []).object);
 
   static final _id_isNumeric =

@@ -96,12 +96,12 @@ abstract class BindingsGenerator {
 
   String dartArrayExtension(ClassDecl decl) {
     final name = decl.finalName;
-    return '\nextension ${name}JniArray on ${jni}JniArray<$name> {\n'
+    return '\nextension ${name}JniArray on $jniArrayType<$name> {\n'
         '$indent$name operator [](int index) {\n'
         '${indent * 2}return $name.fromRef(elementAt(index, ${jni}JniType.objectType).object);\n'
         '$indent}\n\n'
         '${indent}void operator []=(int index, $name value) {\n'
-        '${indent * 2}(this as ${jni}JniArray<${jni}JniObject>)[index] = value;\n'
+        '${indent * 2}(this as $jniArrayType<$jniObjectType>)[index] = value;\n'
         '$indent}\n'
         '}\n';
   }
@@ -129,6 +129,16 @@ abstract class BindingsGenerator {
       'void': 'void',
       'boolean': 'bool',
     };
+    const jniTypes = {
+      'byte': 'JByte',
+      'short': 'JShort',
+      'char': 'JChar',
+      'int': 'JInt',
+      'long': 'JLong',
+      'float': 'JFloat',
+      'double': 'JDouble',
+      'boolean': 'JBoolean',
+    };
     switch (t.kind) {
       case Kind.primitive:
         if (t.name == 'boolean' && resolver == null) return 'int';
@@ -140,7 +150,7 @@ abstract class BindingsGenerator {
         if (resolver != null) {
           final innerType = (t.type as ArrayType).type;
           final dartType = innerType.kind == Kind.primitive
-              ? getDartFfiType(innerType)
+              ? jni + jniTypes[(innerType.type as PrimitiveType).name]!
               : _dartType(innerType, resolver: resolver);
           return '$jniArrayType<$dartType>';
         }
@@ -154,7 +164,7 @@ abstract class BindingsGenerator {
     }
   }
 
-  // Get corresponding Dart FFI type of Java type.
+  /// Get corresponding Dart FFI type of Java type.
   String getDartFfiType(TypeUsage t) {
     const primitives = {
       'byte': 'Int8',

@@ -829,7 +829,7 @@ class PDDocument extends jni.JniObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the PDF required a non-empty password.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load12(jni.JniArray<ffi.Int8> input) =>
+  static PDDocument load12(jni.JniArray<jni.JByte> input) =>
       PDDocument.fromRef(_load12(input.reference).object);
 
   static final _load13 = jniLookup<
@@ -850,7 +850,7 @@ class PDDocument extends jni.JniObject {
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
   static PDDocument load13(
-          jni.JniArray<ffi.Int8> input, jni.JniString password) =>
+          jni.JniArray<jni.JByte> input, jni.JniString password) =>
       PDDocument.fromRef(_load13(input.reference, password.reference).object);
 
   static final _load14 = jniLookup<
@@ -875,8 +875,11 @@ class PDDocument extends jni.JniObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load14(jni.JniArray<ffi.Int8> input, jni.JniString password,
-          jni.JniObject keyStore, jni.JniString alias) =>
+  static PDDocument load14(
+          jni.JniArray<jni.JByte> input,
+          jni.JniString password,
+          jni.JniObject keyStore,
+          jni.JniString alias) =>
       PDDocument.fromRef(_load14(input.reference, password.reference,
               keyStore.reference, alias.reference)
           .object);
@@ -910,7 +913,7 @@ class PDDocument extends jni.JniObject {
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
   static PDDocument load15(
-          jni.JniArray<ffi.Int8> input,
+          jni.JniArray<jni.JByte> input,
           jni.JniString password,
           jni.JniObject keyStore,
           jni.JniString alias,

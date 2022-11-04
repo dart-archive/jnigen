@@ -232,11 +232,10 @@ class PureDartBindingsGenerator extends BindingsGenerator {
       '// ignore_for_file: unused_shown_name\n'
       '\n';
 
-  static const ffiImport = 'import "dart:ffi" as ffi;\n';
   static const jniImport = 'import "package:jni/jni.dart" as jni;\n\n';
   static const internalHelpersImport =
       'import "package:jni/internal_helpers_for_jnigen.dart";\n\n';
-  static const defaultImports = ffiImport + jniImport + internalHelpersImport;
+  static const defaultImports = jniImport + internalHelpersImport;
 
   static const initialization = 'final jniEnv = ${jni}Jni.env;\n'
       'final jniAccessors = ${jni}Jni.accessors;\n\n';

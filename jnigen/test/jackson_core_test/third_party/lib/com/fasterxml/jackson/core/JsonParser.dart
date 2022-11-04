@@ -30,7 +30,6 @@
 // ignore_for_file: unused_import
 // ignore_for_file: unused_shown_name
 
-import "dart:ffi" as ffi;
 import "package:jni/jni.dart" as jni;
 
 import "package:jni/internal_helpers_for_jnigen.dart";
@@ -159,7 +158,7 @@ class JsonParser extends jni.JniObject {
   ///@param charset Character encoding for (lazily) decoding payload
   ///@since 2.8
   void setRequestPayloadOnError1(
-          jni.JniArray<ffi.Int8> payload, jni.JniString charset) =>
+          jni.JniArray<jni.JByte> payload, jni.JniString charset) =>
       jniAccessors.callMethodWithArgs(reference, _id_setRequestPayloadOnError1,
           jni.JniType.voidType, [payload.reference, charset.reference]).check();
 
@@ -1284,8 +1283,8 @@ class JsonParser extends jni.JniObject {
   ///    at offset 0, and not necessarily until the end of buffer)
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniArray<ffi.Uint16> getTextCharacters() =>
-      jni.JniArray<ffi.Uint16>.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JniArray<jni.JChar> getTextCharacters() =>
+      jni.JniArray<jni.JChar>.fromRef(jniAccessors.callMethodWithArgs(
           reference, _id_getTextCharacters, jni.JniType.objectType, []).object);
 
   static final _id_getTextLength =
@@ -1653,8 +1652,8 @@ class JsonParser extends jni.JniObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniArray<ffi.Int8> getBinaryValue(jni.JniObject bv) =>
-      jni.JniArray<ffi.Int8>.fromRef(jniAccessors.callMethodWithArgs(reference,
+  jni.JniArray<jni.JByte> getBinaryValue(jni.JniObject bv) =>
+      jni.JniArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(reference,
           _id_getBinaryValue, jni.JniType.objectType, [bv.reference]).object);
 
   static final _id_getBinaryValue1 =
@@ -1669,8 +1668,8 @@ class JsonParser extends jni.JniObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniArray<ffi.Int8> getBinaryValue1() =>
-      jni.JniArray<ffi.Int8>.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JniArray<jni.JByte> getBinaryValue1() =>
+      jni.JniArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(
           reference, _id_getBinaryValue1, jni.JniType.objectType, []).object);
 
   static final _id_readBinaryValue = jniAccessors.getMethodIDOf(
