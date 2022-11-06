@@ -14,6 +14,7 @@ import 'jvalues.dart';
 import 'third_party/jni_bindings_generated.dart';
 
 part 'jni_array.dart';
+part 'jni_type_class.dart';
 
 // This typedef is needed because void is a keyword and cannot be used in
 // type switch like a regular type.

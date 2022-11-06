@@ -161,6 +161,11 @@ class JsonToken extends jni.JniObject {
       reference, _id_isBoolean, jni.JniType.booleanType, []).boolean;
 }
 
+class JsonTokenTypeClass extends jni.JniTypeClass<JsonToken> {
+  @override
+  String get signature => r"Lcom/fasterxml/jackson/core/JsonToken;";
+}
+
 extension JsonTokenJniArray on jni.JniArray<JsonToken> {
   JsonToken operator [](int index) {
     return JsonToken.fromRef(elementAt(index, jni.JniType.objectType).object);

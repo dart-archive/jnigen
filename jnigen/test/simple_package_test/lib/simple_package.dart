@@ -171,6 +171,12 @@ class Example extends jni.JniObject {
   static void throwException() => _throwException().check();
 }
 
+class ExampleTypeClass extends jni.JniTypeClass<Example> {
+  @override
+  String get signature =>
+      r"Lcom/github/dart_lang/jnigen/simple_package/Example;";
+}
+
 extension ExampleJniArray on jni.JniArray<Example> {
   Example operator [](int index) {
     return Example.fromRef(elementAt(index, jni.JniType.objectType).object);
@@ -233,6 +239,12 @@ class Example_Aux extends jni.JniObject {
   void setValue(bool value) => _setValue(reference, value ? 1 : 0).check();
 }
 
+class Example_AuxTypeClass extends jni.JniTypeClass<Example_Aux> {
+  @override
+  String get signature =>
+      r"Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;";
+}
+
 extension Example_AuxJniArray on jni.JniArray<Example_Aux> {
   Example_Aux operator [](int index) {
     return Example_Aux.fromRef(elementAt(index, jni.JniType.objectType).object);
@@ -270,6 +282,11 @@ class C2 extends jni.JniObject {
   C2() : super.fromRef(_ctor().object);
 }
 
+class C2TypeClass extends jni.JniTypeClass<C2> {
+  @override
+  String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/C2;";
+}
+
 extension C2JniArray on jni.JniArray<C2> {
   C2 operator [](int index) {
     return C2.fromRef(elementAt(index, jni.JniType.objectType).object);
@@ -299,6 +316,11 @@ class Example1 extends jni.JniObject {
 
   /// from: public int whichExample()
   int whichExample() => _whichExample(reference).integer;
+}
+
+class Example1TypeClass extends jni.JniTypeClass<Example1> {
+  @override
+  String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/Example;";
 }
 
 extension Example1JniArray on jni.JniArray<Example1> {

@@ -1210,6 +1210,11 @@ class PDFTextStripper extends jni.JniObject {
           _matchPattern(string.reference, patterns.reference).object);
 }
 
+class PDFTextStripperTypeClass extends jni.JniTypeClass<PDFTextStripper> {
+  @override
+  String get signature => r"Lorg/apache/pdfbox/text/PDFTextStripper;";
+}
+
 extension PDFTextStripperJniArray on jni.JniArray<PDFTextStripper> {
   PDFTextStripper operator [](int index) {
     return PDFTextStripper.fromRef(

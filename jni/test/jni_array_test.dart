@@ -13,7 +13,7 @@ void main() {
     }
   }
   test("Java boolean array", () {
-    final array = Jni.newBooleanArray(3);
+    final array = JniBooleanTypeClass().newArray(3);
     expect(array.length, 3);
     array[0] = true;
     array[1] = false;
@@ -37,7 +37,7 @@ void main() {
     array.delete();
   });
   test("Java char array", () {
-    final array = Jni.newCharArray(3);
+    final array = JniCharTypeClass().newArray(3);
     expect(array.length, 3);
     array[0] = '1';
     array[1] = '2';
@@ -61,7 +61,7 @@ void main() {
     array.delete();
   });
   test("Java byte array", () {
-    final array = Jni.newByteArray(3);
+    final array = JniByteTypeClass().newArray(3);
     expect(array.length, 3);
     array[0] = 1;
     array[1] = 2;
@@ -85,7 +85,7 @@ void main() {
     array.delete();
   });
   test("Java short array", () {
-    final array = Jni.newShortArray(3);
+    final array = JniShortTypeClass().newArray(3);
     expect(array.length, 3);
     array[0] = 1;
     array[1] = 2;
@@ -109,7 +109,7 @@ void main() {
     array.delete();
   });
   test("Java int array", () {
-    final array = Jni.newIntArray(3);
+    final array = JniIntTypeClass().newArray(3);
     expect(array.length, 3);
     array[0] = 1;
     array[1] = 2;
@@ -133,7 +133,7 @@ void main() {
     array.delete();
   });
   test("Java float array", () {
-    final array = Jni.newFloatArray(3);
+    final array = JniFloatTypeClass().newArray(3);
     expect(array.length, 3);
     array[0] = 0.5;
     array[1] = 2;
@@ -157,7 +157,7 @@ void main() {
     array.delete();
   });
   test("Java double array", () {
-    final array = Jni.newDoubleArray(3);
+    final array = JniDoubleTypeClass().newArray(3);
     expect(array.length, 3);
     array[0] = 0.5;
     array[1] = 2;
@@ -181,10 +181,7 @@ void main() {
     array.delete();
   });
   test("Java string array", () {
-    final array = Jni.newArray<JniString>(
-      3,
-      Jni.findClass("java/lang/String"),
-    );
+    final array = JniStringTypeClass().newArray(3);
     expect(array.length, 3);
     array[0] = "11".jniString();
     array[1] = "22".jniString();
@@ -213,16 +210,15 @@ void main() {
     array.delete();
   });
   test("Java 2d array", () {
-    final array = Jni.newIntArray(3);
+    final array = JniIntTypeClass().newArray(3);
     array[0] = 1;
     array[1] = 2;
     array[2] = 3;
-    final twoDimArray = Jni.newArray<JniArray<JInt>>(
-      3,
-      Jni.findClass("[I"),
-      array.reference,
-    );
+    final twoDimArray = JniArrayTypeClass(JniIntTypeClass()).newArray(3);
     expect(twoDimArray.length, 3);
+    twoDimArray[0] = array;
+    twoDimArray[1] = array;
+    twoDimArray[2] = array;
     for (var i = 0; i < 3; ++i) {
       expect(twoDimArray[i][0], 1);
       expect(twoDimArray[i][1], 2);

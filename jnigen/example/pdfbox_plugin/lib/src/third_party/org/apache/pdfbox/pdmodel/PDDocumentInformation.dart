@@ -427,6 +427,12 @@ class PDDocumentInformation extends jni.JniObject {
       _setTrapped(reference, value.reference).check();
 }
 
+class PDDocumentInformationTypeClass
+    extends jni.JniTypeClass<PDDocumentInformation> {
+  @override
+  String get signature => r"Lorg/apache/pdfbox/pdmodel/PDDocumentInformation;";
+}
+
 extension PDDocumentInformationJniArray on jni.JniArray<PDDocumentInformation> {
   PDDocumentInformation operator [](int index) {
     return PDDocumentInformation.fromRef(

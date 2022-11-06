@@ -38,6 +38,11 @@ class AndroidUtils extends jni.JniObject {
       _showToast(mainActivity.reference, text.reference, duration).check();
 }
 
+class AndroidUtilsTypeClass extends jni.JniTypeClass<AndroidUtils> {
+  @override
+  String get signature => r"Lcom/example/in_app_java/AndroidUtils;";
+}
+
 extension AndroidUtilsJniArray on jni.JniArray<AndroidUtils> {
   AndroidUtils operator [](int index) {
     return AndroidUtils.fromRef(
@@ -343,6 +348,11 @@ class Build extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JniString getRadioVersion() =>
       jni.JniString.fromRef(_getRadioVersion().object);
+}
+
+class BuildTypeClass extends jni.JniTypeClass<Build> {
+  @override
+  String get signature => r"Landroid/os/Build;";
 }
 
 extension BuildJniArray on jni.JniArray<Build> {

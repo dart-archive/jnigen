@@ -1303,6 +1303,11 @@ class PDDocument extends jni.JniObject {
       _setResourceCache(reference, resourceCache.reference).check();
 }
 
+class PDDocumentTypeClass extends jni.JniTypeClass<PDDocument> {
+  @override
+  String get signature => r"Lorg/apache/pdfbox/pdmodel/PDDocument;";
+}
+
 extension PDDocumentJniArray on jni.JniArray<PDDocument> {
   PDDocument operator [](int index) {
     return PDDocument.fromRef(elementAt(index, jni.JniType.objectType).object);

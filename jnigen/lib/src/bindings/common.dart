@@ -34,6 +34,8 @@ abstract class BindingsGenerator {
 
   static const String jniArrayType = '${jni}JniArray';
 
+  static const String jniTypeClassType = '${jni}JniTypeClass';
+
   static const String jniResultType = '${jni}JniResult';
 
   /// Generate bindings string for given class declaration.
@@ -103,6 +105,15 @@ abstract class BindingsGenerator {
         '${indent}void operator []=(int index, $name value) {\n'
         '${indent * 2}(this as $jniArrayType<$jniObjectType>)[index] = value;\n'
         '$indent}\n'
+        '}\n';
+  }
+
+  String dartTypeClass(ClassDecl decl) {
+    final name = decl.finalName;
+    final signature = getSignature(decl.binaryName);
+    return '\nclass ${name}TypeClass extends $jniTypeClassType<$name> {\n'
+        '$indent@override\n'
+        '${indent}String get signature => r"$signature";\n'
         '}\n';
   }
 

@@ -1454,6 +1454,11 @@ class JsonFactory extends jni.JniObject {
           [out.reference]).object);
 }
 
+class JsonFactoryTypeClass extends jni.JniTypeClass<JsonFactory> {
+  @override
+  String get signature => r"Lcom/fasterxml/jackson/core/JsonFactory;";
+}
+
 extension JsonFactoryJniArray on jni.JniArray<JsonFactory> {
   JsonFactory operator [](int index) {
     return JsonFactory.fromRef(elementAt(index, jni.JniType.objectType).object);
@@ -1528,6 +1533,12 @@ class JsonFactory_Feature extends jni.JniObject {
   /// from: public int getMask()
   int getMask() => jniAccessors.callMethodWithArgs(
       reference, _id_getMask, jni.JniType.intType, []).integer;
+}
+
+class JsonFactory_FeatureTypeClass
+    extends jni.JniTypeClass<JsonFactory_Feature> {
+  @override
+  String get signature => r"Lcom/fasterxml/jackson/core/JsonFactory$Feature;";
 }
 
 extension JsonFactory_FeatureJniArray on jni.JniArray<JsonFactory_Feature> {

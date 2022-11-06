@@ -92,6 +92,7 @@ class PureDartBindingsGenerator extends BindingsGenerator {
       }
     }
     s.write("}\n");
+    s.write(dartTypeClass(decl));
     s.write(dartArrayExtension(decl));
     return s.toString();
   }

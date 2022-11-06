@@ -2062,6 +2062,11 @@ class JsonParser extends jni.JniObject {
           [valueTypeRef.reference]).object);
 }
 
+class JsonParserTypeClass extends jni.JniTypeClass<JsonParser> {
+  @override
+  String get signature => r"Lcom/fasterxml/jackson/core/JsonParser;";
+}
+
 extension JsonParserJniArray on jni.JniArray<JsonParser> {
   JsonParser operator [](int index) {
     return JsonParser.fromRef(elementAt(index, jni.JniType.objectType).object);
@@ -2137,6 +2142,11 @@ class JsonParser_Feature extends jni.JniObject {
       reference, _id_getMask, jni.JniType.intType, []).integer;
 }
 
+class JsonParser_FeatureTypeClass extends jni.JniTypeClass<JsonParser_Feature> {
+  @override
+  String get signature => r"Lcom/fasterxml/jackson/core/JsonParser$Feature;";
+}
+
 extension JsonParser_FeatureJniArray on jni.JniArray<JsonParser_Feature> {
   JsonParser_Feature operator [](int index) {
     return JsonParser_Feature.fromRef(
@@ -2180,6 +2190,12 @@ class JsonParser_NumberType extends jni.JniObject {
           _id_valueOf,
           jni.JniType.objectType,
           [name.reference]).object);
+}
+
+class JsonParser_NumberTypeTypeClass
+    extends jni.JniTypeClass<JsonParser_NumberType> {
+  @override
+  String get signature => r"Lcom/fasterxml/jackson/core/JsonParser$NumberType;";
 }
 
 extension JsonParser_NumberTypeJniArray on jni.JniArray<JsonParser_NumberType> {

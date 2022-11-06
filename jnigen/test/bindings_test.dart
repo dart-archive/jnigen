@@ -106,7 +106,7 @@ void main() async {
     final ex2 = Example();
     ex1.setInternal(1);
     ex2.setInternal(2);
-    final array = Jni.newArray<Example>(2, ex1.getClass().reference);
+    final array = ExampleTypeClass().newArray(2);
     array[0] = ex1;
     array[1] = ex2;
     print(array[0].getInternal());

@@ -54,6 +54,11 @@ class Notifications extends jni.JniObject {
           .check();
 }
 
+class NotificationsTypeClass extends jni.JniTypeClass<Notifications> {
+  @override
+  String get signature => r"Lcom/example/notification_plugin/Notifications;";
+}
+
 extension NotificationsJniArray on jni.JniArray<Notifications> {
   Notifications operator [](int index) {
     return Notifications.fromRef(
