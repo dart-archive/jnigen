@@ -10,6 +10,18 @@ class JniArray<E> extends JniObject {
   /// Construct a new [JniArray] with [reference] as its underlying reference.
   JniArray.fromRef(JArray reference) : super.fromRef(reference);
 
+  JniArray.create(JniTypeClass<E> typeClass, int length)
+      : super.fromRef(
+          (typeClass._type == JniType.objectType)
+              ? _accessors
+                  .newObjectArray(
+                      length, typeClass._getClass().reference, nullptr)
+                  .checkedRef
+              : _accessors
+                  .newPrimitiveArray(length, typeClass._type)
+                  .checkedRef,
+        );
+
   int? _length;
 
   JniResult elementAt(int index, int type) {

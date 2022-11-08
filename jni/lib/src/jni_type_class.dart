@@ -7,17 +7,6 @@ part of 'jni_object.dart';
 abstract class JniTypeClass<T> {
   int get _type => JniType.objectType;
 
-  /// Creates a new array with the given length from this type.
-  JniArray<T> newArray(int length) {
-    return JniArray.fromRef(
-      (_type == JniType.objectType)
-          ? _accessors
-              .newObjectArray(length, _getClass().reference, nullptr)
-              .checkedRef
-          : _accessors.newPrimitiveArray(length, _type).checkedRef,
-    );
-  }
-
   String get signature;
 
   JniClass _getClass() => Jni.findJniClass(signature);
