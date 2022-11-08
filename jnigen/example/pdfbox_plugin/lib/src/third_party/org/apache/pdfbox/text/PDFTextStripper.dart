@@ -1218,7 +1218,7 @@ class PDFTextStripperTypeClass extends jni.JniTypeClass<PDFTextStripper> {
 extension PDFTextStripperJniArray on jni.JniArray<PDFTextStripper> {
   PDFTextStripper operator [](int index) {
     return PDFTextStripper.fromRef(
-        elementAt(index, jni.JniType.objectType).object);
+        elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, PDFTextStripper value) {

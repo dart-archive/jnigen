@@ -52,7 +52,7 @@ class JsonToken extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JniArray<JsonToken> values() =>
       jni.JniArray<JsonToken>.fromRef(jniAccessors.callStaticMethodWithArgs(
-          _classRef, _id_values, jni.JniType.objectType, []).object);
+          _classRef, _id_values, jni.JniCallType.objectType, []).object);
 
   static final _id_valueOf = jniAccessors.getStaticMethodIDOf(_classRef,
       "valueOf", "(Ljava/lang/String;)Lcom/fasterxml/jackson/core/JsonToken;");
@@ -61,13 +61,13 @@ class JsonToken extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static JsonToken valueOf(jni.JniString name) =>
       JsonToken.fromRef(jniAccessors.callStaticMethodWithArgs(_classRef,
-          _id_valueOf, jni.JniType.objectType, [name.reference]).object);
+          _id_valueOf, jni.JniCallType.objectType, [name.reference]).object);
 
   static final _id_id = jniAccessors.getMethodIDOf(_classRef, "id", "()I");
 
   /// from: public final int id()
-  int id() => jniAccessors
-      .callMethodWithArgs(reference, _id_id, jni.JniType.intType, []).integer;
+  int id() => jniAccessors.callMethodWithArgs(
+      reference, _id_id, jni.JniCallType.intType, []).integer;
 
   static final _id_asString =
       jniAccessors.getMethodIDOf(_classRef, "asString", "()Ljava/lang/String;");
@@ -76,7 +76,7 @@ class JsonToken extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniString asString() =>
       jni.JniString.fromRef(jniAccessors.callMethodWithArgs(
-          reference, _id_asString, jni.JniType.objectType, []).object);
+          reference, _id_asString, jni.JniCallType.objectType, []).object);
 
   static final _id_asCharArray =
       jniAccessors.getMethodIDOf(_classRef, "asCharArray", "()[C");
@@ -85,7 +85,7 @@ class JsonToken extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniArray<jni.JChar> asCharArray() =>
       jni.JniArray<jni.JChar>.fromRef(jniAccessors.callMethodWithArgs(
-          reference, _id_asCharArray, jni.JniType.objectType, []).object);
+          reference, _id_asCharArray, jni.JniCallType.objectType, []).object);
 
   static final _id_asByteArray =
       jniAccessors.getMethodIDOf(_classRef, "asByteArray", "()[B");
@@ -94,7 +94,7 @@ class JsonToken extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JniArray<jni.JByte> asByteArray() =>
       jni.JniArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(
-          reference, _id_asByteArray, jni.JniType.objectType, []).object);
+          reference, _id_asByteArray, jni.JniCallType.objectType, []).object);
 
   static final _id_isNumeric =
       jniAccessors.getMethodIDOf(_classRef, "isNumeric", "()Z");
@@ -104,7 +104,7 @@ class JsonToken extends jni.JniObject {
   /// @return {@code True} if this token is {@code VALUE_NUMBER_INT} or {@code VALUE_NUMBER_FLOAT},
   ///   {@code false} otherwise
   bool isNumeric() => jniAccessors.callMethodWithArgs(
-      reference, _id_isNumeric, jni.JniType.booleanType, []).boolean;
+      reference, _id_isNumeric, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_isStructStart =
       jniAccessors.getMethodIDOf(_classRef, "isStructStart", "()Z");
@@ -119,7 +119,7 @@ class JsonToken extends jni.JniObject {
   ///   {@code false} otherwise
   ///@since 2.3
   bool isStructStart() => jniAccessors.callMethodWithArgs(
-      reference, _id_isStructStart, jni.JniType.booleanType, []).boolean;
+      reference, _id_isStructStart, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_isStructEnd =
       jniAccessors.getMethodIDOf(_classRef, "isStructEnd", "()Z");
@@ -134,7 +134,7 @@ class JsonToken extends jni.JniObject {
   ///   {@code false} otherwise
   ///@since 2.3
   bool isStructEnd() => jniAccessors.callMethodWithArgs(
-      reference, _id_isStructEnd, jni.JniType.booleanType, []).boolean;
+      reference, _id_isStructEnd, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_isScalarValue =
       jniAccessors.getMethodIDOf(_classRef, "isScalarValue", "()Z");
@@ -148,7 +148,7 @@ class JsonToken extends jni.JniObject {
   ///@return {@code True} if this token is a scalar value token (one of
   ///   {@code VALUE_xxx} tokens), {@code false} otherwise
   bool isScalarValue() => jniAccessors.callMethodWithArgs(
-      reference, _id_isScalarValue, jni.JniType.booleanType, []).boolean;
+      reference, _id_isScalarValue, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_isBoolean =
       jniAccessors.getMethodIDOf(_classRef, "isBoolean", "()Z");
@@ -158,7 +158,7 @@ class JsonToken extends jni.JniObject {
   /// @return {@code True} if this token is {@code VALUE_TRUE} or {@code VALUE_FALSE},
   ///   {@code false} otherwise
   bool isBoolean() => jniAccessors.callMethodWithArgs(
-      reference, _id_isBoolean, jni.JniType.booleanType, []).boolean;
+      reference, _id_isBoolean, jni.JniCallType.booleanType, []).boolean;
 }
 
 class JsonTokenTypeClass extends jni.JniTypeClass<JsonToken> {
@@ -168,7 +168,8 @@ class JsonTokenTypeClass extends jni.JniTypeClass<JsonToken> {
 
 extension JsonTokenJniArray on jni.JniArray<JsonToken> {
   JsonToken operator [](int index) {
-    return JsonToken.fromRef(elementAt(index, jni.JniType.objectType).object);
+    return JsonToken.fromRef(
+        elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, JsonToken value) {

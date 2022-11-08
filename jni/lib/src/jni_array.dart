@@ -12,7 +12,7 @@ class JniArray<E> extends JniObject {
 
   JniArray.create(JniTypeClass<E> typeClass, int length)
       : super.fromRef(
-          (typeClass._type == JniType.objectType)
+          (typeClass._type == JniCallType.objectType)
               ? _accessors
                   .newObjectArray(
                       length, typeClass._getClass().reference, nullptr)
@@ -46,7 +46,7 @@ extension NativeJniArray<E extends NativeType> on JniArray<E> {
 
 extension BoolJniArray on JniArray<JBoolean> {
   bool operator [](int index) {
-    return elementAt(index, JniType.booleanType).boolean;
+    return elementAt(index, JniCallType.booleanType).boolean;
   }
 
   void operator []=(int index, bool value) {
@@ -73,7 +73,7 @@ extension BoolJniArray on JniArray<JBoolean> {
 
 extension ByteJniArray on JniArray<JByte> {
   int operator [](int index) {
-    return elementAt(index, JniType.byteType).byte;
+    return elementAt(index, JniCallType.byteType).byte;
   }
 
   void operator []=(int index, int value) {
@@ -101,7 +101,7 @@ extension ByteJniArray on JniArray<JByte> {
 extension CharJniArray on JniArray<JChar> {
   String operator [](int index) {
     return String.fromCharCode(
-      elementAt(index, JniType.charType).char,
+      elementAt(index, JniCallType.charType).char,
     );
   }
 
@@ -129,7 +129,7 @@ extension CharJniArray on JniArray<JChar> {
 
 extension ShortJniArray on JniArray<JShort> {
   int operator [](int index) {
-    return elementAt(index, JniType.shortType).short;
+    return elementAt(index, JniCallType.shortType).short;
   }
 
   void operator []=(int index, int value) {
@@ -156,7 +156,7 @@ extension ShortJniArray on JniArray<JShort> {
 
 extension IntJniArray on JniArray<JInt> {
   int operator [](int index) {
-    return elementAt(index, JniType.intType).integer;
+    return elementAt(index, JniCallType.intType).integer;
   }
 
   void operator []=(int index, int value) {
@@ -183,7 +183,7 @@ extension IntJniArray on JniArray<JInt> {
 
 extension LongJniArray on JniArray<JLong> {
   int operator [](int index) {
-    return elementAt(index, JniType.longType).long;
+    return elementAt(index, JniCallType.longType).long;
   }
 
   void operator []=(int index, int value) {
@@ -210,7 +210,7 @@ extension LongJniArray on JniArray<JLong> {
 
 extension FloatJniArray on JniArray<JFloat> {
   double operator [](int index) {
-    return elementAt(index, JniType.floatType).float;
+    return elementAt(index, JniCallType.floatType).float;
   }
 
   void operator []=(int index, double value) {
@@ -237,7 +237,7 @@ extension FloatJniArray on JniArray<JFloat> {
 
 extension DoubleJniArray on JniArray<JDouble> {
   double operator [](int index) {
-    return elementAt(index, JniType.doubleType).doubleFloat;
+    return elementAt(index, JniCallType.doubleType).doubleFloat;
   }
 
   void operator []=(int index, double value) {
@@ -264,7 +264,7 @@ extension DoubleJniArray on JniArray<JDouble> {
 
 extension ObjectJniArray<T extends JniObject> on JniArray<T> {
   JniObject operator [](int index) {
-    return JniObject.fromRef(elementAt(index, JniType.objectType).object);
+    return JniObject.fromRef(elementAt(index, JniCallType.objectType).object);
   }
 
   void operator []=(int index, JniObject value) {
@@ -285,7 +285,7 @@ extension ObjectJniArray<T extends JniObject> on JniArray<T> {
 
 extension ArrayJniArray<T> on JniArray<JniArray<T>> {
   JniArray<T> operator [](int index) {
-    return JniArray<T>.fromRef(elementAt(index, JniType.objectType).object);
+    return JniArray<T>.fromRef(elementAt(index, JniCallType.objectType).object);
   }
 
   void operator []=(int index, JniArray<T> value) {
@@ -295,7 +295,7 @@ extension ArrayJniArray<T> on JniArray<JniArray<T>> {
 
 extension StringJniArray on JniArray<JniString> {
   JniString operator [](int index) {
-    return JniString.fromRef(elementAt(index, JniType.objectType).object);
+    return JniString.fromRef(elementAt(index, JniCallType.objectType).object);
   }
 
   void operator []=(int index, JniString value) {

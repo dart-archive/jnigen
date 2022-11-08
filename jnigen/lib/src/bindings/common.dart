@@ -34,6 +34,8 @@ abstract class BindingsGenerator {
 
   static const String jniArrayType = '${jni}JniArray';
 
+  static const String jniCallType = '${jni}JniCallType';
+
   static const String jniTypeClassType = '${jni}JniTypeClass';
 
   static const String jniResultType = '${jni}JniResult';
@@ -100,7 +102,7 @@ abstract class BindingsGenerator {
     final name = decl.finalName;
     return '\nextension ${name}JniArray on $jniArrayType<$name> {\n'
         '$indent$name operator [](int index) {\n'
-        '${indent * 2}return $name.fromRef(elementAt(index, ${jni}JniType.objectType).object);\n'
+        '${indent * 2}return $name.fromRef(elementAt(index, ${jni}JniCallType.objectType).object);\n'
         '$indent}\n\n'
         '${indent}void operator []=(int index, $name value) {\n'
         '${indent * 2}(this as $jniArrayType<$jniObjectType>)[index] = value;\n'
@@ -269,6 +271,12 @@ abstract class BindingsGenerator {
   static final deleteInstruction =
       '$indent/// The returned object must be deleted after use, '
       'by calling the `delete` method.\n';
+  String getCallType(TypeUsage returnType) {
+    if (isPrimitive(returnType)) {
+      return "$jniCallType.${returnType.name}Type";
+    }
+    return "$jniCallType.objectType";
+  }
 }
 
 String breakDocComment(JavaDocComment? javadoc, {String depth = '    '}) {
@@ -441,13 +449,6 @@ String getTypeNameAtCallSite(TypeUsage t) {
     return t.name.substring(0, 1).toUpperCase() + t.name.substring(1);
   }
   return "Object";
-}
-
-String getCallType(TypeUsage returnType) {
-  if (isPrimitive(returnType)) {
-    return "jni.JniType.${returnType.name}Type";
-  }
-  return "jni.JniType.objectType";
 }
 
 String getResultGetterName(TypeUsage returnType) {

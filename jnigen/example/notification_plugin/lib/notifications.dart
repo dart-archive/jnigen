@@ -62,7 +62,7 @@ class NotificationsTypeClass extends jni.JniTypeClass<Notifications> {
 extension NotificationsJniArray on jni.JniArray<Notifications> {
   Notifications operator [](int index) {
     return Notifications.fromRef(
-        elementAt(index, jni.JniType.objectType).object);
+        elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Notifications value) {

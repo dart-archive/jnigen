@@ -1310,7 +1310,8 @@ class PDDocumentTypeClass extends jni.JniTypeClass<PDDocument> {
 
 extension PDDocumentJniArray on jni.JniArray<PDDocument> {
   PDDocument operator [](int index) {
-    return PDDocument.fromRef(elementAt(index, jni.JniType.objectType).object);
+    return PDDocument.fromRef(
+        elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, PDDocument value) {

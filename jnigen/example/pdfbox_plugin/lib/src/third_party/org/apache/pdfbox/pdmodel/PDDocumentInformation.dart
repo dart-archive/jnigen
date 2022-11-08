@@ -436,7 +436,7 @@ class PDDocumentInformationTypeClass
 extension PDDocumentInformationJniArray on jni.JniArray<PDDocumentInformation> {
   PDDocumentInformation operator [](int index) {
     return PDDocumentInformation.fromRef(
-        elementAt(index, jni.JniType.objectType).object);
+        elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, PDDocumentInformation value) {

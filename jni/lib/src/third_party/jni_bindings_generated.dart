@@ -1410,7 +1410,7 @@ class JavaVMInitArgs extends ffi.Struct {
 }
 
 /// Types used by JNI API to distinguish between primitive types.
-abstract class JniType {
+abstract class JniCallType {
   static const int booleanType = 0;
   static const int byteType = 1;
   static const int shortType = 2;

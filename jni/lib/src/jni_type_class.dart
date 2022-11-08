@@ -5,7 +5,7 @@
 part of 'jni_object.dart';
 
 abstract class JniTypeClass<T> {
-  int get _type => JniType.objectType;
+  int get _type => JniCallType.objectType;
 
   String get signature;
 
@@ -14,7 +14,7 @@ abstract class JniTypeClass<T> {
 
 class JniBooleanTypeClass extends JniTypeClass<JBoolean> {
   @override
-  int get _type => JniType.booleanType;
+  int get _type => JniCallType.booleanType;
 
   @override
   String get signature => "Z";
@@ -22,7 +22,7 @@ class JniBooleanTypeClass extends JniTypeClass<JBoolean> {
 
 class JniByteTypeClass extends JniTypeClass<JByte> {
   @override
-  int get _type => JniType.byteType;
+  int get _type => JniCallType.byteType;
 
   @override
   String get signature => "B";
@@ -30,7 +30,7 @@ class JniByteTypeClass extends JniTypeClass<JByte> {
 
 class JniCharTypeClass extends JniTypeClass<JChar> {
   @override
-  int get _type => JniType.charType;
+  int get _type => JniCallType.charType;
 
   @override
   String get signature => "C";
@@ -38,7 +38,7 @@ class JniCharTypeClass extends JniTypeClass<JChar> {
 
 class JniShortTypeClass extends JniTypeClass<JShort> {
   @override
-  int get _type => JniType.shortType;
+  int get _type => JniCallType.shortType;
 
   @override
   String get signature => "S";
@@ -46,7 +46,7 @@ class JniShortTypeClass extends JniTypeClass<JShort> {
 
 class JniIntTypeClass extends JniTypeClass<JInt> {
   @override
-  int get _type => JniType.intType;
+  int get _type => JniCallType.intType;
 
   @override
   String get signature => "I";
@@ -54,7 +54,7 @@ class JniIntTypeClass extends JniTypeClass<JInt> {
 
 class JniLongTypeClass extends JniTypeClass<JLong> {
   @override
-  int get _type => JniType.longType;
+  int get _type => JniCallType.longType;
 
   @override
   String get signature => "J";
@@ -62,7 +62,7 @@ class JniLongTypeClass extends JniTypeClass<JLong> {
 
 class JniFloatTypeClass extends JniTypeClass<JFloat> {
   @override
-  int get _type => JniType.floatType;
+  int get _type => JniCallType.floatType;
 
   @override
   String get signature => "F";
@@ -70,7 +70,7 @@ class JniFloatTypeClass extends JniTypeClass<JFloat> {
 
 class JniDoubleTypeClass extends JniTypeClass<JDouble> {
   @override
-  int get _type => JniType.doubleType;
+  int get _type => JniCallType.doubleType;
 
   @override
   String get signature => "D";

@@ -46,7 +46,7 @@ class AndroidUtilsTypeClass extends jni.JniTypeClass<AndroidUtils> {
 extension AndroidUtilsJniArray on jni.JniArray<AndroidUtils> {
   AndroidUtils operator [](int index) {
     return AndroidUtils.fromRef(
-        elementAt(index, jni.JniType.objectType).object);
+        elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, AndroidUtils value) {
@@ -357,7 +357,7 @@ class BuildTypeClass extends jni.JniTypeClass<Build> {
 
 extension BuildJniArray on jni.JniArray<Build> {
   Build operator [](int index) {
-    return Build.fromRef(elementAt(index, jni.JniType.objectType).object);
+    return Build.fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Build value) {

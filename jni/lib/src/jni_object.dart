@@ -105,46 +105,46 @@ T _callOrGet<T>(int? callType, JniResult Function(int) function) {
   late T result;
   switch (T) {
     case bool:
-      finalCallType =
-          _getCallType(callType, JniType.booleanType, {JniType.booleanType});
+      finalCallType = _getCallType(
+          callType, JniCallType.booleanType, {JniCallType.booleanType});
       result = function(finalCallType).boolean as T;
       break;
     case int:
-      finalCallType = _getCallType(callType, JniType.intType, {
-        JniType.byteType,
-        JniType.charType,
-        JniType.shortType,
-        JniType.intType,
-        JniType.longType,
+      finalCallType = _getCallType(callType, JniCallType.intType, {
+        JniCallType.byteType,
+        JniCallType.charType,
+        JniCallType.shortType,
+        JniCallType.intType,
+        JniCallType.longType,
       });
       final jniResult = function(finalCallType);
       switch (finalCallType) {
-        case JniType.byteType:
+        case JniCallType.byteType:
           result = jniResult.byte as T;
           break;
-        case JniType.shortType:
+        case JniCallType.shortType:
           result = jniResult.short as T;
           break;
-        case JniType.charType:
+        case JniCallType.charType:
           result = jniResult.char as T;
           break;
-        case JniType.intType:
+        case JniCallType.intType:
           result = jniResult.integer as T;
           break;
-        case JniType.longType:
+        case JniCallType.longType:
           result = jniResult.long as T;
           break;
       }
       break;
     case double:
-      finalCallType = _getCallType(callType, JniType.doubleType,
-          {JniType.floatType, JniType.doubleType});
+      finalCallType = _getCallType(callType, JniCallType.doubleType,
+          {JniCallType.floatType, JniCallType.doubleType});
       final jniResult = function(finalCallType);
       switch (finalCallType) {
-        case JniType.floatType:
+        case JniCallType.floatType:
           result = jniResult.float as T;
           break;
-        case JniType.doubleType:
+        case JniCallType.doubleType:
           result = jniResult.doubleFloat as T;
           break;
       }
@@ -152,8 +152,8 @@ T _callOrGet<T>(int? callType, JniResult Function(int) function) {
     case String:
     case JniObject:
     case JniString:
-      finalCallType =
-          _getCallType(callType, JniType.objectType, {JniType.objectType});
+      finalCallType = _getCallType(
+          callType, JniCallType.objectType, {JniCallType.objectType});
       final ref = function(finalCallType).object;
       final ctor = T == String
           ? (ref) => _env.asDartString(ref, deleteOriginal: true)
@@ -162,7 +162,7 @@ T _callOrGet<T>(int? callType, JniResult Function(int) function) {
       break;
     case _VoidType:
       finalCallType =
-          _getCallType(callType, JniType.voidType, {JniType.voidType});
+          _getCallType(callType, JniCallType.voidType, {JniCallType.voidType});
       function(finalCallType).check();
       result = null as T;
       break;
@@ -253,7 +253,7 @@ class JniObject extends JniReference {
   /// Retrieve the value of the field using [fieldID].
   ///
   /// [callType] determines the return type of the underlying JNI call made.
-  /// If the Java field is of `long` type, this must be [JniType.longType] and
+  /// If the Java field is of `long` type, this must be [JniCallType.longType] and
   /// so on. Default is chosen based on return type [T], which maps int -> int,
   /// double -> double, void -> void, and JniObject types to `Object`.
   ///
@@ -261,7 +261,7 @@ class JniObject extends JniReference {
   /// final value is returned.
   T getField<T>(JFieldID fieldID, [int? callType]) {
     _ensureNotDeleted();
-    if (callType == JniType.voidType) {
+    if (callType == JniCallType.voidType) {
       throw ArgumentError("void is not a valid field type.");
     }
     return _getField<T>(
@@ -280,7 +280,7 @@ class JniObject extends JniReference {
   ///
   /// See [getField] for an explanation about [callType] parameter.
   T getStaticField<T>(JFieldID fieldID, [int? callType]) {
-    if (callType == JniType.voidType) {
+    if (callType == JniCallType.voidType) {
       throw ArgumentError("void is not a valid field type.");
     }
     _ensureNotDeleted();
@@ -376,7 +376,7 @@ class JniClass extends JniReference {
   ///
   /// See [JniObject.getField] for more explanation about [callType].
   T getStaticField<T>(JFieldID fieldID, [int? callType]) {
-    if (callType == JniType.voidType) {
+    if (callType == JniCallType.voidType) {
       throw ArgumentError("void is not a valid field type.");
     }
     _ensureNotDeleted();

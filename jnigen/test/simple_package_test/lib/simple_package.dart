@@ -179,7 +179,7 @@ class ExampleTypeClass extends jni.JniTypeClass<Example> {
 
 extension ExampleJniArray on jni.JniArray<Example> {
   Example operator [](int index) {
-    return Example.fromRef(elementAt(index, jni.JniType.objectType).object);
+    return Example.fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Example value) {
@@ -247,7 +247,8 @@ class Example_AuxTypeClass extends jni.JniTypeClass<Example_Aux> {
 
 extension Example_AuxJniArray on jni.JniArray<Example_Aux> {
   Example_Aux operator [](int index) {
-    return Example_Aux.fromRef(elementAt(index, jni.JniType.objectType).object);
+    return Example_Aux.fromRef(
+        elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Example_Aux value) {
@@ -289,7 +290,7 @@ class C2TypeClass extends jni.JniTypeClass<C2> {
 
 extension C2JniArray on jni.JniArray<C2> {
   C2 operator [](int index) {
-    return C2.fromRef(elementAt(index, jni.JniType.objectType).object);
+    return C2.fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, C2 value) {
@@ -325,7 +326,8 @@ class Example1TypeClass extends jni.JniTypeClass<Example1> {
 
 extension Example1JniArray on jni.JniArray<Example1> {
   Example1 operator [](int index) {
-    return Example1.fromRef(elementAt(index, jni.JniType.objectType).object);
+    return Example1.fromRef(
+        elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Example1 value) {
