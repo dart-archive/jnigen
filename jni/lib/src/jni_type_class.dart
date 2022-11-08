@@ -4,8 +4,8 @@
 
 part of 'jni_object.dart';
 
-abstract class JniTypeClass<T> {
-  const JniTypeClass();
+abstract class JniType<T> {
+  const JniType();
 
   int get _type => JniCallType.objectType;
 
@@ -14,8 +14,8 @@ abstract class JniTypeClass<T> {
   JniClass _getClass() => Jni.findJniClass(signature);
 }
 
-class JniBooleanTypeClass extends JniTypeClass<JBoolean> {
-  const JniBooleanTypeClass();
+class JniBooleanType extends JniType<JBoolean> {
+  const JniBooleanType();
 
   @override
   int get _type => JniCallType.booleanType;
@@ -24,7 +24,7 @@ class JniBooleanTypeClass extends JniTypeClass<JBoolean> {
   String get signature => "Z";
 }
 
-class JniByteTypeClass extends JniTypeClass<JByte> {
+class JniByteTypeClass extends JniType<JByte> {
   const JniByteTypeClass();
 
   @override
@@ -34,8 +34,8 @@ class JniByteTypeClass extends JniTypeClass<JByte> {
   String get signature => "B";
 }
 
-class JniCharTypeClass extends JniTypeClass<JChar> {
-  const JniCharTypeClass();
+class JniCharType extends JniType<JChar> {
+  const JniCharType();
 
   @override
   int get _type => JniCallType.charType;
@@ -44,8 +44,8 @@ class JniCharTypeClass extends JniTypeClass<JChar> {
   String get signature => "C";
 }
 
-class JniShortTypeClass extends JniTypeClass<JShort> {
-  const JniShortTypeClass();
+class JniShortType extends JniType<JShort> {
+  const JniShortType();
 
   @override
   int get _type => JniCallType.shortType;
@@ -54,8 +54,8 @@ class JniShortTypeClass extends JniTypeClass<JShort> {
   String get signature => "S";
 }
 
-class JniIntTypeClass extends JniTypeClass<JInt> {
-  const JniIntTypeClass();
+class JniIntType extends JniType<JInt> {
+  const JniIntType();
 
   @override
   int get _type => JniCallType.intType;
@@ -64,8 +64,8 @@ class JniIntTypeClass extends JniTypeClass<JInt> {
   String get signature => "I";
 }
 
-class JniLongTypeClass extends JniTypeClass<JLong> {
-  const JniLongTypeClass();
+class JniLongType extends JniType<JLong> {
+  const JniLongType();
 
   @override
   int get _type => JniCallType.longType;
@@ -74,8 +74,8 @@ class JniLongTypeClass extends JniTypeClass<JLong> {
   String get signature => "J";
 }
 
-class JniFloatTypeClass extends JniTypeClass<JFloat> {
-  const JniFloatTypeClass();
+class JniFloatType extends JniType<JFloat> {
+  const JniFloatType();
 
   @override
   int get _type => JniCallType.floatType;
@@ -84,8 +84,8 @@ class JniFloatTypeClass extends JniTypeClass<JFloat> {
   String get signature => "F";
 }
 
-class JniDoubleTypeClass extends JniTypeClass<JDouble> {
-  const JniDoubleTypeClass();
+class JniDoubleType extends JniType<JDouble> {
+  const JniDoubleType();
 
   @override
   int get _type => JniCallType.doubleType;
@@ -94,24 +94,24 @@ class JniDoubleTypeClass extends JniTypeClass<JDouble> {
   String get signature => "D";
 }
 
-class JniObjectTypeClass extends JniTypeClass<JniObject> {
-  const JniObjectTypeClass();
+class JniObjectType extends JniType<JniObject> {
+  const JniObjectType();
 
   @override
   String get signature => "Ljava/lang/Object;";
 }
 
-class JniStringTypeClass extends JniTypeClass<JniString> {
-  const JniStringTypeClass();
+class JniStringType extends JniType<JniString> {
+  const JniStringType();
 
   @override
   String get signature => "Ljava/lang/String;";
 }
 
-class JniArrayTypeClass<T> extends JniTypeClass<JniArray<T>> {
-  final JniTypeClass<T> elementType;
+class JniArrayType<T> extends JniType<JniArray<T>> {
+  final JniType<T> elementType;
 
-  const JniArrayTypeClass(this.elementType);
+  const JniArrayType(this.elementType);
 
   @override
   String get signature => '[${elementType.signature}';

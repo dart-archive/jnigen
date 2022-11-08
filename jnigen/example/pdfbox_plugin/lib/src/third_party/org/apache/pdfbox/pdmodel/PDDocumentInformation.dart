@@ -46,7 +46,7 @@ class PDDocumentInformation extends jni.JniObject {
   PDDocumentInformation.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const type = PDDocumentInformationTypeClass();
+  static const type = PDDocumentInformationType();
   static final _ctor = jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
           "PDDocumentInformation__ctor")
       .asFunction<jni.JniResult Function()>();
@@ -429,9 +429,8 @@ class PDDocumentInformation extends jni.JniObject {
       _setTrapped(reference, value.reference).check();
 }
 
-class PDDocumentInformationTypeClass
-    extends jni.JniTypeClass<PDDocumentInformation> {
-  const PDDocumentInformationTypeClass();
+class PDDocumentInformationType extends jni.JniType<PDDocumentInformation> {
+  const PDDocumentInformationType();
 
   @override
   String get signature => r"Lorg/apache/pdfbox/pdmodel/PDDocumentInformation;";

@@ -8,12 +8,12 @@ part of 'jni_object.dart';
 
 class JniArray<E> extends JniObject {
   /// The type which includes information such as the signature of this class.
-  static type<T>(JniTypeClass<T> innerType) => JniArrayTypeClass(innerType);
+  static type<T>(JniType<T> innerType) => JniArrayType(innerType);
 
   /// Construct a new [JniArray] with [reference] as its underlying reference.
   JniArray.fromRef(JArray reference) : super.fromRef(reference);
 
-  JniArray.create(JniTypeClass<E> typeClass, int length)
+  JniArray.create(JniType<E> typeClass, int length)
       : super.fromRef(
           (typeClass._type == JniCallType.objectType)
               ? _accessors
