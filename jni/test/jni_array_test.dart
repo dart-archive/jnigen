@@ -136,20 +136,20 @@ void main() {
     }, throwsRangeError);
     array.delete();
   });
-  const epsFloat = 1e-6;
+  const epsilon = 1e-6;
   test("Java float array", () {
     final array = JniArray(const JniFloatType(), 3);
     expect(array.length, 3);
     array[0] = 0.5;
     array[1] = 2;
     array[2] = 3;
-    expect(array[0], closeTo(0.5, epsFloat));
-    expect(array[1], closeTo(2, epsFloat));
-    expect(array[2], closeTo(3, epsFloat));
+    expect(array[0], closeTo(0.5, epsilon));
+    expect(array[1], closeTo(2, epsilon));
+    expect(array[2], closeTo(3, epsilon));
     array.setRange(0, 3, [4, 5, 6, 7], 1);
-    expect(array[0], closeTo(5, epsFloat));
-    expect(array[1], closeTo(6, epsFloat));
-    expect(array[2], closeTo(7, epsFloat));
+    expect(array[0], closeTo(5, epsilon));
+    expect(array[1], closeTo(6, epsilon));
+    expect(array[2], closeTo(7, epsilon));
     expect(() {
       final _ = array[-1];
     }, throwsRangeError);
@@ -167,13 +167,13 @@ void main() {
     array[0] = 0.5;
     array[1] = 2;
     array[2] = 3;
-    expect(array[0], closeTo(0.5, epsFloat));
-    expect(array[1], closeTo(2, epsFloat));
-    expect(array[2], closeTo(3, epsFloat));
+    expect(array[0], closeTo(0.5, epsilon));
+    expect(array[1], closeTo(2, epsilon));
+    expect(array[2], closeTo(3, epsilon));
     array.setRange(0, 3, [4, 5, 6, 7], 1);
-    expect(array[0], closeTo(5, epsFloat));
-    expect(array[1], closeTo(6, epsFloat));
-    expect(array[2], closeTo(7, epsFloat));
+    expect(array[0], closeTo(5, epsilon));
+    expect(array[1], closeTo(6, epsilon));
+    expect(array[2], closeTo(7, epsilon));
     expect(() {
       final _ = array[-1];
     }, throwsRangeError);
