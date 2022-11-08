@@ -60,7 +60,7 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
 
     s.write('class $name extends $superName {\n'
         '$indent$name.fromRef($voidPointer ref) : super.fromRef(ref);\n\n');
-
+    s.write(dartStaticTypeGetter(decl));
     for (var field in decl.fields) {
       if (!field.isIncluded) {
         continue;

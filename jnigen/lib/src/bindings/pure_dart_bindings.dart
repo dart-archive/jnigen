@@ -67,7 +67,7 @@ class PureDartBindingsGenerator extends BindingsGenerator {
         '  static final $classRef = $accessors.getClassOf("$internalName");\n'
         '  $indent$name.fromRef(${jni}JObject ref) : super.fromRef(ref);\n'
         '\n');
-
+    s.write(dartStaticTypeGetter(decl));
     for (var field in decl.fields) {
       if (!field.isIncluded) continue;
       try {

@@ -45,6 +45,8 @@ class JsonToken extends jni.JniObject {
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonToken");
   JsonToken.fromRef(jni.JObject ref) : super.fromRef(ref);
 
+  /// The type which includes information such as the signature of this class.
+  static const type = JsonTokenTypeClass();
   static final _id_values = jniAccessors.getStaticMethodIDOf(
       _classRef, "values", "()[Lcom/fasterxml/jackson/core/JsonToken;");
 
@@ -162,6 +164,8 @@ class JsonToken extends jni.JniObject {
 }
 
 class JsonTokenTypeClass extends jni.JniTypeClass<JsonToken> {
+  const JsonTokenTypeClass();
+
   @override
   String get signature => r"Lcom/fasterxml/jackson/core/JsonToken;";
 }

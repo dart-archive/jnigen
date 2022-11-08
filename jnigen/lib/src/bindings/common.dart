@@ -37,6 +37,7 @@ abstract class BindingsGenerator {
   static const String jniCallType = '${jni}JniCallType';
 
   static const String jniTypeClassType = '${jni}JniTypeClass';
+  static const String typeClassSuffix = 'TypeClass';
 
   static const String jniResultType = '${jni}JniResult';
 
@@ -113,10 +114,17 @@ abstract class BindingsGenerator {
   String dartTypeClass(ClassDecl decl) {
     final name = decl.finalName;
     final signature = getSignature(decl.binaryName);
-    return '\nclass ${name}TypeClass extends $jniTypeClassType<$name> {\n'
+    return '\nclass $name$typeClassSuffix extends $jniTypeClassType<$name> {\n'
+        '${indent}const $name$typeClassSuffix();\n\n'
         '$indent@override\n'
         '${indent}String get signature => r"$signature";\n'
         '}\n';
+  }
+
+  String dartStaticTypeGetter(ClassDecl decl) {
+    final name = decl.finalName;
+    return '\n$indent/// The type which includes information such as the signature of this class.\n'
+        '$indent static const type = $name$typeClassSuffix();\n';
   }
 
   String dartSigForMethod(Method m, {required bool isFfiSig}) {

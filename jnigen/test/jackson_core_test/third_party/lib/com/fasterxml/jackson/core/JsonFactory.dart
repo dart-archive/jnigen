@@ -61,6 +61,9 @@ class JsonFactory extends jni.JniObject {
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonFactory");
   JsonFactory.fromRef(jni.JObject ref) : super.fromRef(ref);
 
+  /// The type which includes information such as the signature of this class.
+  static const type = JsonFactoryTypeClass();
+
   /// from: static public final java.lang.String FORMAT_NAME_JSON
   ///
   /// Name used to identify JSON format
@@ -1496,6 +1499,8 @@ class JsonFactory extends jni.JniObject {
 }
 
 class JsonFactoryTypeClass extends jni.JniTypeClass<JsonFactory> {
+  const JsonFactoryTypeClass();
+
   @override
   String get signature => r"Lcom/fasterxml/jackson/core/JsonFactory;";
 }
@@ -1520,6 +1525,8 @@ class JsonFactory_Feature extends jni.JniObject {
       .getClassOf("com/fasterxml/jackson/core/JsonFactory\$Feature");
   JsonFactory_Feature.fromRef(jni.JObject ref) : super.fromRef(ref);
 
+  /// The type which includes information such as the signature of this class.
+  static const type = JsonFactory_FeatureTypeClass();
   static final _id_values = jniAccessors.getStaticMethodIDOf(_classRef,
       "values", "()[Lcom/fasterxml/jackson/core/JsonFactory\$Feature;");
 
@@ -1579,6 +1586,8 @@ class JsonFactory_Feature extends jni.JniObject {
 
 class JsonFactory_FeatureTypeClass
     extends jni.JniTypeClass<JsonFactory_Feature> {
+  const JsonFactory_FeatureTypeClass();
+
   @override
   String get signature => r"Lcom/fasterxml/jackson/core/JsonFactory$Feature;";
 }

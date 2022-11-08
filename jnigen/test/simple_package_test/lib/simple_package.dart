@@ -28,6 +28,9 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
 class Example extends jni.JniObject {
   Example.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
+  /// The type which includes information such as the signature of this class.
+  static const type = ExampleTypeClass();
+
   /// from: static public final int ON
   static const ON = 1;
 
@@ -172,6 +175,8 @@ class Example extends jni.JniObject {
 }
 
 class ExampleTypeClass extends jni.JniTypeClass<Example> {
+  const ExampleTypeClass();
+
   @override
   String get signature =>
       r"Lcom/github/dart_lang/jnigen/simple_package/Example;";
@@ -191,6 +196,8 @@ extension ExampleJniArray on jni.JniArray<Example> {
 class Example_Aux extends jni.JniObject {
   Example_Aux.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
+  /// The type which includes information such as the signature of this class.
+  static const type = Example_AuxTypeClass();
   static final _get_value = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
@@ -240,6 +247,8 @@ class Example_Aux extends jni.JniObject {
 }
 
 class Example_AuxTypeClass extends jni.JniTypeClass<Example_Aux> {
+  const Example_AuxTypeClass();
+
   @override
   String get signature =>
       r"Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;";
@@ -260,6 +269,8 @@ extension Example_AuxJniArray on jni.JniArray<Example_Aux> {
 class C2 extends jni.JniObject {
   C2.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
+  /// The type which includes information such as the signature of this class.
+  static const type = C2TypeClass();
   static final _get_CONSTANT =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_C2__CONSTANT")
@@ -284,6 +295,8 @@ class C2 extends jni.JniObject {
 }
 
 class C2TypeClass extends jni.JniTypeClass<C2> {
+  const C2TypeClass();
+
   @override
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/C2;";
 }
@@ -302,6 +315,8 @@ extension C2JniArray on jni.JniArray<C2> {
 class Example1 extends jni.JniObject {
   Example1.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
+  /// The type which includes information such as the signature of this class.
+  static const type = Example1TypeClass();
   static final _ctor =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("Example1__ctor")
           .asFunction<jni.JniResult Function()>();
@@ -320,6 +335,8 @@ class Example1 extends jni.JniObject {
 }
 
 class Example1TypeClass extends jni.JniTypeClass<Example1> {
+  const Example1TypeClass();
+
   @override
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/Example;";
 }

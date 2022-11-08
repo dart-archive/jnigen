@@ -13,7 +13,7 @@ void main() {
     }
   }
   test("Java boolean array", () {
-    final array = JniArray.create(JniBooleanTypeClass(), 3);
+    final array = JniArray.create(const JniBooleanTypeClass(), 3);
     expect(array.length, 3);
     array[0] = true;
     array[1] = false;
@@ -37,7 +37,7 @@ void main() {
     array.delete();
   });
   test("Java char array", () {
-    final array = JniArray.create(JniCharTypeClass(), 3);
+    final array = JniArray.create(const JniCharTypeClass(), 3);
     expect(array.length, 3);
     array[0] = 'ح';
     array[1] = '2';
@@ -61,7 +61,7 @@ void main() {
     array.delete();
   });
   test("Java byte array", () {
-    final array = JniArray.create(JniByteTypeClass(), 3);
+    final array = JniArray.create(const JniByteTypeClass(), 3);
     expect(array.length, 3);
     array[0] = 1;
     array[1] = 2;
@@ -85,7 +85,7 @@ void main() {
     array.delete();
   });
   test("Java short array", () {
-    final array = JniArray.create(JniShortTypeClass(), 3);
+    final array = JniArray.create(const JniShortTypeClass(), 3);
     expect(array.length, 3);
     array[0] = 1;
     array[1] = 2;
@@ -109,7 +109,7 @@ void main() {
     array.delete();
   });
   test("Java int array", () {
-    final array = JniArray.create(JniIntTypeClass(), 3);
+    final array = JniArray.create(const JniIntTypeClass(), 3);
     expect(array.length, 3);
     array[0] = 1;
     array[1] = 2;
@@ -133,7 +133,7 @@ void main() {
     array.delete();
   });
   test("Java float array", () {
-    final array = JniArray.create(JniFloatTypeClass(), 3);
+    final array = JniArray.create(const JniFloatTypeClass(), 3);
     expect(array.length, 3);
     array[0] = 0.5;
     array[1] = 2;
@@ -157,7 +157,7 @@ void main() {
     array.delete();
   });
   test("Java double array", () {
-    final array = JniArray.create(JniDoubleTypeClass(), 3);
+    final array = JniArray.create(const JniDoubleTypeClass(), 3);
     expect(array.length, 3);
     array[0] = 0.5;
     array[1] = 2;
@@ -181,7 +181,7 @@ void main() {
     array.delete();
   });
   test("Java string array", () {
-    final array = JniArray.create(JniStringTypeClass(), 3);
+    final array = JniArray.create(JniString.type, 3);
     expect(array.length, 3);
     array[0] = "حس".jniString();
     array[1] = "\$".jniString();
@@ -210,12 +210,12 @@ void main() {
     array.delete();
   });
   test("Java 2d array", () {
-    final array = JniArray.create(JniIntTypeClass(), 3);
+    final array = JniArray.create(const JniIntTypeClass(), 3);
     array[0] = 1;
     array[1] = 2;
     array[2] = 3;
     final twoDimArray =
-        JniArray.create(JniArrayTypeClass(JniIntTypeClass()), 3);
+        JniArray.create(const JniArrayTypeClass(JniIntTypeClass()), 3);
     expect(twoDimArray.length, 3);
     twoDimArray[0] = array;
     twoDimArray[1] = array;

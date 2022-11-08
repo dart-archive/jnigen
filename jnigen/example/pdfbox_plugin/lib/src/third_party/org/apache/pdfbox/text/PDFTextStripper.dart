@@ -48,6 +48,8 @@ import "../../../../_init.dart" show jniLookup;
 class PDFTextStripper extends jni.JniObject {
   PDFTextStripper.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
+  /// The type which includes information such as the signature of this class.
+  static const type = PDFTextStripperTypeClass();
   static final _get_LINE_SEPARATOR = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
@@ -1211,6 +1213,8 @@ class PDFTextStripper extends jni.JniObject {
 }
 
 class PDFTextStripperTypeClass extends jni.JniTypeClass<PDFTextStripper> {
+  const PDFTextStripperTypeClass();
+
   @override
   String get signature => r"Lorg/apache/pdfbox/text/PDFTextStripper;";
 }

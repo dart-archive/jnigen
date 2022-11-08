@@ -24,6 +24,8 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
 class AndroidUtils extends jni.JniObject {
   AndroidUtils.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
+  /// The type which includes information such as the signature of this class.
+  static const type = AndroidUtilsTypeClass();
   static final _showToast = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>,
@@ -39,6 +41,8 @@ class AndroidUtils extends jni.JniObject {
 }
 
 class AndroidUtilsTypeClass extends jni.JniTypeClass<AndroidUtils> {
+  const AndroidUtilsTypeClass();
+
   @override
   String get signature => r"Lcom/example/in_app_java/AndroidUtils;";
 }
@@ -58,6 +62,8 @@ extension AndroidUtilsJniArray on jni.JniArray<AndroidUtils> {
 class Build extends jni.JniObject {
   Build.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
+  /// The type which includes information such as the signature of this class.
+  static const type = BuildTypeClass();
   static final _get_BOARD =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_Build__BOARD")
@@ -351,6 +357,8 @@ class Build extends jni.JniObject {
 }
 
 class BuildTypeClass extends jni.JniTypeClass<Build> {
+  const BuildTypeClass();
+
   @override
   String get signature => r"Landroid/os/Build;";
 }

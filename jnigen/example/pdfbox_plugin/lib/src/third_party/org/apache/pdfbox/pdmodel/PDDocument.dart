@@ -44,6 +44,8 @@ import "../../../../_init.dart" show jniLookup;
 class PDDocument extends jni.JniObject {
   PDDocument.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
+  /// The type which includes information such as the signature of this class.
+  static const type = PDDocumentTypeClass();
   static final _ctor = jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
           "PDDocument__ctor")
       .asFunction<jni.JniResult Function()>();
@@ -1304,6 +1306,8 @@ class PDDocument extends jni.JniObject {
 }
 
 class PDDocumentTypeClass extends jni.JniTypeClass<PDDocument> {
+  const PDDocumentTypeClass();
+
   @override
   String get signature => r"Lorg/apache/pdfbox/pdmodel/PDDocument;";
 }
