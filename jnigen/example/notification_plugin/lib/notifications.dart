@@ -29,7 +29,7 @@ class Notifications extends jni.JniObject {
   Notifications.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const type = NotificationsType();
+  static const jni.JniType<Notifications> type = _NotificationsType();
   static final _ctor = jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
           "Notifications__ctor")
       .asFunction<jni.JniResult Function()>();
@@ -56,8 +56,8 @@ class Notifications extends jni.JniObject {
           .check();
 }
 
-class NotificationsType extends jni.JniType<Notifications> {
-  const NotificationsType();
+class _NotificationsType extends jni.JniType<Notifications> {
+  const _NotificationsType();
 
   @override
   String get signature => r"Lcom/example/notification_plugin/Notifications;";

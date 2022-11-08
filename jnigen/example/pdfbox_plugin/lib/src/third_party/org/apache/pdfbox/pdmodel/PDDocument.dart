@@ -45,7 +45,7 @@ class PDDocument extends jni.JniObject {
   PDDocument.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const type = PDDocumentType();
+  static const jni.JniType<PDDocument> type = _PDDocumentType();
   static final _ctor = jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
           "PDDocument__ctor")
       .asFunction<jni.JniResult Function()>();
@@ -1305,8 +1305,8 @@ class PDDocument extends jni.JniObject {
       _setResourceCache(reference, resourceCache.reference).check();
 }
 
-class PDDocumentType extends jni.JniType<PDDocument> {
-  const PDDocumentType();
+class _PDDocumentType extends jni.JniType<PDDocument> {
+  const _PDDocumentType();
 
   @override
   String get signature => r"Lorg/apache/pdfbox/pdmodel/PDDocument;";

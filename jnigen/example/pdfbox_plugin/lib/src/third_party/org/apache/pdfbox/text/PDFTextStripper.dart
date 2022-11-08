@@ -49,7 +49,7 @@ class PDFTextStripper extends jni.JniObject {
   PDFTextStripper.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const type = PDFTextStripperType();
+  static const jni.JniType<PDFTextStripper> type = _PDFTextStripperType();
   static final _get_LINE_SEPARATOR = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
@@ -1212,8 +1212,8 @@ class PDFTextStripper extends jni.JniObject {
           _matchPattern(string.reference, patterns.reference).object);
 }
 
-class PDFTextStripperType extends jni.JniType<PDFTextStripper> {
-  const PDFTextStripperType();
+class _PDFTextStripperType extends jni.JniType<PDFTextStripper> {
+  const _PDFTextStripperType();
 
   @override
   String get signature => r"Lorg/apache/pdfbox/text/PDFTextStripper;";

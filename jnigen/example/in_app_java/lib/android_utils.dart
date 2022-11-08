@@ -25,7 +25,7 @@ class AndroidUtils extends jni.JniObject {
   AndroidUtils.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const type = AndroidUtilsType();
+  static const jni.JniType<AndroidUtils> type = _AndroidUtilsType();
   static final _showToast = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>,
@@ -40,8 +40,8 @@ class AndroidUtils extends jni.JniObject {
       _showToast(mainActivity.reference, text.reference, duration).check();
 }
 
-class AndroidUtilsType extends jni.JniType<AndroidUtils> {
-  const AndroidUtilsType();
+class _AndroidUtilsType extends jni.JniType<AndroidUtils> {
+  const _AndroidUtilsType();
 
   @override
   String get signature => r"Lcom/example/in_app_java/AndroidUtils;";
@@ -63,7 +63,7 @@ class Build extends jni.JniObject {
   Build.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const type = BuildType();
+  static const jni.JniType<Build> type = _BuildType();
   static final _get_BOARD =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_Build__BOARD")
@@ -356,8 +356,8 @@ class Build extends jni.JniObject {
       jni.JniString.fromRef(_getRadioVersion().object);
 }
 
-class BuildType extends jni.JniType<Build> {
-  const BuildType();
+class _BuildType extends jni.JniType<Build> {
+  const _BuildType();
 
   @override
   String get signature => r"Landroid/os/Build;";

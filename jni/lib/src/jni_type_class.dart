@@ -94,24 +94,24 @@ class JniDoubleType extends JniType<JDouble> {
   String get signature => "D";
 }
 
-class JniObjectType extends JniType<JniObject> {
-  const JniObjectType();
+class _JniObjectType extends JniType<JniObject> {
+  const _JniObjectType();
 
   @override
   String get signature => "Ljava/lang/Object;";
 }
 
-class JniStringType extends JniType<JniString> {
-  const JniStringType();
+class _JniStringType extends JniType<JniString> {
+  const _JniStringType();
 
   @override
   String get signature => "Ljava/lang/String;";
 }
 
-class JniArrayType<T> extends JniType<JniArray<T>> {
+class _JniArrayType<T> extends JniType<JniArray<T>> {
   final JniType<T> elementType;
 
-  const JniArrayType(this.elementType);
+  const _JniArrayType(this.elementType);
 
   @override
   String get signature => '[${elementType.signature}';

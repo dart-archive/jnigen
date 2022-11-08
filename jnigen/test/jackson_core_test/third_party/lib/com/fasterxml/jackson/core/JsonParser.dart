@@ -49,7 +49,7 @@ class JsonParser extends jni.JniObject {
   JsonParser.fromRef(jni.JObject ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const type = JsonParserType();
+  static const jni.JniType<JsonParser> type = _JsonParserType();
   static final _id_DEFAULT_READ_CAPABILITIES = jniAccessors.getStaticFieldIDOf(
       _classRef,
       "DEFAULT_READ_CAPABILITIES",
@@ -2090,8 +2090,8 @@ class JsonParser extends jni.JniObject {
           [valueTypeRef.reference]).object);
 }
 
-class JsonParserType extends jni.JniType<JsonParser> {
-  const JsonParserType();
+class _JsonParserType extends jni.JniType<JsonParser> {
+  const _JsonParserType();
 
   @override
   String get signature => r"Lcom/fasterxml/jackson/core/JsonParser;";
@@ -2117,7 +2117,7 @@ class JsonParser_Feature extends jni.JniObject {
   JsonParser_Feature.fromRef(jni.JObject ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const type = JsonParser_FeatureType();
+  static const jni.JniType<JsonParser_Feature> type = _JsonParser_FeatureType();
   static final _id_values = jniAccessors.getStaticMethodIDOf(_classRef,
       "values", "()[Lcom/fasterxml/jackson/core/JsonParser\$Feature;");
 
@@ -2175,8 +2175,8 @@ class JsonParser_Feature extends jni.JniObject {
       reference, _id_getMask, jni.JniCallType.intType, []).integer;
 }
 
-class JsonParser_FeatureType extends jni.JniType<JsonParser_Feature> {
-  const JsonParser_FeatureType();
+class _JsonParser_FeatureType extends jni.JniType<JsonParser_Feature> {
+  const _JsonParser_FeatureType();
 
   @override
   String get signature => r"Lcom/fasterxml/jackson/core/JsonParser$Feature;";
@@ -2203,7 +2203,8 @@ class JsonParser_NumberType extends jni.JniObject {
   JsonParser_NumberType.fromRef(jni.JObject ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const type = JsonParser_NumberTypeType();
+  static const jni.JniType<JsonParser_NumberType> type =
+      _JsonParser_NumberTypeType();
   static final _id_values = jniAccessors.getStaticMethodIDOf(_classRef,
       "values", "()[Lcom/fasterxml/jackson/core/JsonParser\$NumberType;");
 
@@ -2229,8 +2230,8 @@ class JsonParser_NumberType extends jni.JniObject {
           [name.reference]).object);
 }
 
-class JsonParser_NumberTypeType extends jni.JniType<JsonParser_NumberType> {
-  const JsonParser_NumberTypeType();
+class _JsonParser_NumberTypeType extends jni.JniType<JsonParser_NumberType> {
+  const _JsonParser_NumberTypeType();
 
   @override
   String get signature => r"Lcom/fasterxml/jackson/core/JsonParser$NumberType;";
