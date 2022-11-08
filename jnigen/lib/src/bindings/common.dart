@@ -37,7 +37,8 @@ abstract class BindingsGenerator {
   static const String jniCallType = '${jni}JniCallType';
 
   static const String jniTypeType = '${jni}JniType';
-  static const String typeSuffix = 'Type';
+  static const String typeClassSuffix = 'Type';
+  static const String typeClassPrefix = '_\$';
 
   static const String jniResultType = '${jni}JniResult';
 
@@ -101,7 +102,7 @@ abstract class BindingsGenerator {
 
   String dartArrayExtension(ClassDecl decl) {
     final name = decl.finalName;
-    return '\nextension ${name}JniArray on $jniArrayType<$name> {\n'
+    return '\nextension \$${name}JniArray on $jniArrayType<$name> {\n'
         '$indent$name operator [](int index) {\n'
         '${indent * 2}return $name.fromRef(elementAt(index, ${jni}JniCallType.objectType).object);\n'
         '$indent}\n\n'
@@ -114,8 +115,9 @@ abstract class BindingsGenerator {
   String dartTypeClass(ClassDecl decl) {
     final name = decl.finalName;
     final signature = getSignature(decl.binaryName);
-    return '\nclass _$name$typeSuffix extends $jniTypeType<$name> {\n'
-        '${indent}const _$name$typeSuffix();\n\n'
+    final typeClassName = '$typeClassPrefix$name$typeClassSuffix';
+    return '\nclass $typeClassName extends $jniTypeType<$name> {\n'
+        '${indent}const $typeClassName();\n\n'
         '$indent@override\n'
         '${indent}String get signature => r"$signature";\n'
         '}\n';
@@ -123,8 +125,9 @@ abstract class BindingsGenerator {
 
   String dartStaticTypeGetter(ClassDecl decl) {
     final name = decl.finalName;
+    final typeClassName = '$typeClassPrefix$name$typeClassSuffix';
     return '\n$indent/// The type which includes information such as the signature of this class.\n'
-        '${indent}static const $jniTypeType<$name> type = _$name$typeSuffix();\n';
+        '${indent}static const $jniTypeType<$name> type = $typeClassName();\n';
   }
 
   String dartSigForMethod(Method m, {required bool isFfiSig}) {

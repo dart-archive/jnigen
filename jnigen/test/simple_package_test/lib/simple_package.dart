@@ -29,7 +29,7 @@ class Example extends jni.JniObject {
   Example.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JniType<Example> type = _ExampleType();
+  static const jni.JniType<Example> type = _$ExampleType();
 
   /// from: static public final int ON
   static const ON = 1;
@@ -174,15 +174,15 @@ class Example extends jni.JniObject {
   static void throwException() => _throwException().check();
 }
 
-class _ExampleType extends jni.JniType<Example> {
-  const _ExampleType();
+class _$ExampleType extends jni.JniType<Example> {
+  const _$ExampleType();
 
   @override
   String get signature =>
       r"Lcom/github/dart_lang/jnigen/simple_package/Example;";
 }
 
-extension ExampleJniArray on jni.JniArray<Example> {
+extension $ExampleJniArray on jni.JniArray<Example> {
   Example operator [](int index) {
     return Example.fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
@@ -197,7 +197,7 @@ class Example_Aux extends jni.JniObject {
   Example_Aux.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JniType<Example_Aux> type = _Example_AuxType();
+  static const jni.JniType<Example_Aux> type = _$Example_AuxType();
   static final _get_value = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
@@ -246,15 +246,15 @@ class Example_Aux extends jni.JniObject {
   void setValue(bool value) => _setValue(reference, value ? 1 : 0).check();
 }
 
-class _Example_AuxType extends jni.JniType<Example_Aux> {
-  const _Example_AuxType();
+class _$Example_AuxType extends jni.JniType<Example_Aux> {
+  const _$Example_AuxType();
 
   @override
   String get signature =>
       r"Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;";
 }
 
-extension Example_AuxJniArray on jni.JniArray<Example_Aux> {
+extension $Example_AuxJniArray on jni.JniArray<Example_Aux> {
   Example_Aux operator [](int index) {
     return Example_Aux.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
@@ -270,7 +270,7 @@ class C2 extends jni.JniObject {
   C2.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JniType<C2> type = _C2Type();
+  static const jni.JniType<C2> type = _$C2Type();
   static final _get_CONSTANT =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_C2__CONSTANT")
@@ -294,14 +294,14 @@ class C2 extends jni.JniObject {
   C2() : super.fromRef(_ctor().object);
 }
 
-class _C2Type extends jni.JniType<C2> {
-  const _C2Type();
+class _$C2Type extends jni.JniType<C2> {
+  const _$C2Type();
 
   @override
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/C2;";
 }
 
-extension C2JniArray on jni.JniArray<C2> {
+extension $C2JniArray on jni.JniArray<C2> {
   C2 operator [](int index) {
     return C2.fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
@@ -316,7 +316,7 @@ class Example1 extends jni.JniObject {
   Example1.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JniType<Example1> type = _Example1Type();
+  static const jni.JniType<Example1> type = _$Example1Type();
   static final _ctor =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("Example1__ctor")
           .asFunction<jni.JniResult Function()>();
@@ -334,14 +334,14 @@ class Example1 extends jni.JniObject {
   int whichExample() => _whichExample(reference).integer;
 }
 
-class _Example1Type extends jni.JniType<Example1> {
-  const _Example1Type();
+class _$Example1Type extends jni.JniType<Example1> {
+  const _$Example1Type();
 
   @override
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/Example;";
 }
 
-extension Example1JniArray on jni.JniArray<Example1> {
+extension $Example1JniArray on jni.JniArray<Example1> {
   Example1 operator [](int index) {
     return Example1.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);

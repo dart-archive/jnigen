@@ -46,7 +46,7 @@ class JsonToken extends jni.JniObject {
   JsonToken.fromRef(jni.JObject ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JniType<JsonToken> type = _JsonTokenType();
+  static const jni.JniType<JsonToken> type = _$JsonTokenType();
   static final _id_values = jniAccessors.getStaticMethodIDOf(
       _classRef, "values", "()[Lcom/fasterxml/jackson/core/JsonToken;");
 
@@ -163,14 +163,14 @@ class JsonToken extends jni.JniObject {
       reference, _id_isBoolean, jni.JniCallType.booleanType, []).boolean;
 }
 
-class _JsonTokenType extends jni.JniType<JsonToken> {
-  const _JsonTokenType();
+class _$JsonTokenType extends jni.JniType<JsonToken> {
+  const _$JsonTokenType();
 
   @override
   String get signature => r"Lcom/fasterxml/jackson/core/JsonToken;";
 }
 
-extension JsonTokenJniArray on jni.JniArray<JsonToken> {
+extension $JsonTokenJniArray on jni.JniArray<JsonToken> {
   JsonToken operator [](int index) {
     return JsonToken.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);

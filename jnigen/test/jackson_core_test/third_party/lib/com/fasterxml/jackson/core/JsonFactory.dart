@@ -62,7 +62,7 @@ class JsonFactory extends jni.JniObject {
   JsonFactory.fromRef(jni.JObject ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JniType<JsonFactory> type = _JsonFactoryType();
+  static const jni.JniType<JsonFactory> type = _$JsonFactoryType();
 
   /// from: static public final java.lang.String FORMAT_NAME_JSON
   ///
@@ -1498,14 +1498,14 @@ class JsonFactory extends jni.JniObject {
           [out.reference]).object);
 }
 
-class _JsonFactoryType extends jni.JniType<JsonFactory> {
-  const _JsonFactoryType();
+class _$JsonFactoryType extends jni.JniType<JsonFactory> {
+  const _$JsonFactoryType();
 
   @override
   String get signature => r"Lcom/fasterxml/jackson/core/JsonFactory;";
 }
 
-extension JsonFactoryJniArray on jni.JniArray<JsonFactory> {
+extension $JsonFactoryJniArray on jni.JniArray<JsonFactory> {
   JsonFactory operator [](int index) {
     return JsonFactory.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
@@ -1527,7 +1527,7 @@ class JsonFactory_Feature extends jni.JniObject {
 
   /// The type which includes information such as the signature of this class.
   static const jni.JniType<JsonFactory_Feature> type =
-      _JsonFactory_FeatureType();
+      _$JsonFactory_FeatureType();
   static final _id_values = jniAccessors.getStaticMethodIDOf(_classRef,
       "values", "()[Lcom/fasterxml/jackson/core/JsonFactory\$Feature;");
 
@@ -1585,14 +1585,14 @@ class JsonFactory_Feature extends jni.JniObject {
       reference, _id_getMask, jni.JniCallType.intType, []).integer;
 }
 
-class _JsonFactory_FeatureType extends jni.JniType<JsonFactory_Feature> {
-  const _JsonFactory_FeatureType();
+class _$JsonFactory_FeatureType extends jni.JniType<JsonFactory_Feature> {
+  const _$JsonFactory_FeatureType();
 
   @override
   String get signature => r"Lcom/fasterxml/jackson/core/JsonFactory$Feature;";
 }
 
-extension JsonFactory_FeatureJniArray on jni.JniArray<JsonFactory_Feature> {
+extension $JsonFactory_FeatureJniArray on jni.JniArray<JsonFactory_Feature> {
   JsonFactory_Feature operator [](int index) {
     return JsonFactory_Feature.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);

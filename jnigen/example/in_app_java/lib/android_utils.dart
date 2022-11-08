@@ -25,7 +25,7 @@ class AndroidUtils extends jni.JniObject {
   AndroidUtils.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JniType<AndroidUtils> type = _AndroidUtilsType();
+  static const jni.JniType<AndroidUtils> type = _$AndroidUtilsType();
   static final _showToast = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>,
@@ -40,14 +40,14 @@ class AndroidUtils extends jni.JniObject {
       _showToast(mainActivity.reference, text.reference, duration).check();
 }
 
-class _AndroidUtilsType extends jni.JniType<AndroidUtils> {
-  const _AndroidUtilsType();
+class _$AndroidUtilsType extends jni.JniType<AndroidUtils> {
+  const _$AndroidUtilsType();
 
   @override
   String get signature => r"Lcom/example/in_app_java/AndroidUtils;";
 }
 
-extension AndroidUtilsJniArray on jni.JniArray<AndroidUtils> {
+extension $AndroidUtilsJniArray on jni.JniArray<AndroidUtils> {
   AndroidUtils operator [](int index) {
     return AndroidUtils.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
@@ -63,7 +63,7 @@ class Build extends jni.JniObject {
   Build.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JniType<Build> type = _BuildType();
+  static const jni.JniType<Build> type = _$BuildType();
   static final _get_BOARD =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_Build__BOARD")
@@ -356,14 +356,14 @@ class Build extends jni.JniObject {
       jni.JniString.fromRef(_getRadioVersion().object);
 }
 
-class _BuildType extends jni.JniType<Build> {
-  const _BuildType();
+class _$BuildType extends jni.JniType<Build> {
+  const _$BuildType();
 
   @override
   String get signature => r"Landroid/os/Build;";
 }
 
-extension BuildJniArray on jni.JniArray<Build> {
+extension $BuildJniArray on jni.JniArray<Build> {
   Build operator [](int index) {
     return Build.fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
