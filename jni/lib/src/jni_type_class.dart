@@ -5,6 +5,8 @@
 part of 'jni_object.dart';
 
 abstract class JniTypeClass<T> {
+  const JniTypeClass();
+
   int get _type => JniCallType.objectType;
 
   String get signature;
@@ -13,6 +15,8 @@ abstract class JniTypeClass<T> {
 }
 
 class JniBooleanTypeClass extends JniTypeClass<JBoolean> {
+  const JniBooleanTypeClass();
+
   @override
   int get _type => JniCallType.booleanType;
 
@@ -21,6 +25,8 @@ class JniBooleanTypeClass extends JniTypeClass<JBoolean> {
 }
 
 class JniByteTypeClass extends JniTypeClass<JByte> {
+  const JniByteTypeClass();
+
   @override
   int get _type => JniCallType.byteType;
 
@@ -29,6 +35,8 @@ class JniByteTypeClass extends JniTypeClass<JByte> {
 }
 
 class JniCharTypeClass extends JniTypeClass<JChar> {
+  const JniCharTypeClass();
+
   @override
   int get _type => JniCallType.charType;
 
@@ -37,6 +45,8 @@ class JniCharTypeClass extends JniTypeClass<JChar> {
 }
 
 class JniShortTypeClass extends JniTypeClass<JShort> {
+  const JniShortTypeClass();
+
   @override
   int get _type => JniCallType.shortType;
 
@@ -45,6 +55,8 @@ class JniShortTypeClass extends JniTypeClass<JShort> {
 }
 
 class JniIntTypeClass extends JniTypeClass<JInt> {
+  const JniIntTypeClass();
+
   @override
   int get _type => JniCallType.intType;
 
@@ -53,6 +65,8 @@ class JniIntTypeClass extends JniTypeClass<JInt> {
 }
 
 class JniLongTypeClass extends JniTypeClass<JLong> {
+  const JniLongTypeClass();
+
   @override
   int get _type => JniCallType.longType;
 
@@ -61,6 +75,8 @@ class JniLongTypeClass extends JniTypeClass<JLong> {
 }
 
 class JniFloatTypeClass extends JniTypeClass<JFloat> {
+  const JniFloatTypeClass();
+
   @override
   int get _type => JniCallType.floatType;
 
@@ -69,6 +85,8 @@ class JniFloatTypeClass extends JniTypeClass<JFloat> {
 }
 
 class JniDoubleTypeClass extends JniTypeClass<JDouble> {
+  const JniDoubleTypeClass();
+
   @override
   int get _type => JniCallType.doubleType;
 
@@ -77,18 +95,23 @@ class JniDoubleTypeClass extends JniTypeClass<JDouble> {
 }
 
 class JniObjectTypeClass extends JniTypeClass<JniObject> {
+  const JniObjectTypeClass();
+
   @override
   String get signature => "Ljava/lang/Object;";
 }
 
 class JniStringTypeClass extends JniTypeClass<JniString> {
+  const JniStringTypeClass();
+
   @override
   String get signature => "Ljava/lang/String;";
 }
 
 class JniArrayTypeClass<T> extends JniTypeClass<JniArray<T>> {
   final JniTypeClass<T> elementType;
-  JniArrayTypeClass(this.elementType);
+
+  const JniArrayTypeClass(this.elementType);
 
   @override
   String get signature => '[${elementType.signature}';
