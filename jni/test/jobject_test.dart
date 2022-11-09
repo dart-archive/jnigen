@@ -22,11 +22,11 @@ void main() {
 
   // The API based on JniEnv is intended to closely mimic C API of JNI,
   // And thus can be too verbose for simple experimenting and one-off uses
-  // JniObject API provides an easier way to perform some common operations.
+  // JObject API provides an easier way to perform some common operations.
   //
   // However, if binding generation using jnigen is possible, that should be
   // the first choice.
-  test("Long.intValue() using JniObject", () {
+  test("Long.intValue() using JObject", () {
     // JniClass wraps a local class reference, and
     // provides convenience functions.
     final longClass = Jni.findJniClass("java/lang/Long");
@@ -36,7 +36,7 @@ void main() {
     final longCtor = longClass.getCtorID("(J)V");
 
     // note that the arguments are just passed as a list.
-    // allowed argument types are primitive types, JniObject and its subclasses,
+    // allowed argument types are primitive types, JObject and its subclasses,
     // and raw JNI references (JObject). Strings will be automatically converted
     // to JNI strings.
     final long = longClass.newInstance(longCtor, [176]);
@@ -44,7 +44,7 @@ void main() {
     final intValue = long.callMethodByName<int>("intValue", "()I", []);
     expect(intValue, equals(176));
 
-    // delete any JniObject and JniClass instances using .delete() after use.
+    // delete any JObject and JniClass instances using .delete() after use.
     // Deletion is not strictly required since JNI objects / classes have
     // a NativeFinalizer. But deleting them after use is a good practice.
     long.delete();
@@ -138,7 +138,7 @@ void main() {
     longClass.delete();
   });
 
-  // In JniObject, JniClass, and retrieve_/invoke_ methods
+  // In JObject, JniClass, and retrieve_/invoke_ methods
   // you can also pass Dart strings, apart from range of types
   // allowed by Jni.jvalues
   // They will be converted automatically.
@@ -161,14 +161,14 @@ void main() {
     expect(twelve, equals(12));
   });
 
-  // You can use() method on JniObject for using once and deleting.
+  // You can use() method on JObject for using once and deleting.
   test("use() method", () {
     final randomInt = Jni.newInstance("java/util/Random", "()V", [])
         .use((random) => random.callMethodByName<int>("nextInt", "(I)I", [15]));
     expect(randomInt, lessThan(15));
   });
 
-  // The JniObject and JniClass have NativeFinalizer. However, it's possible to
+  // The JObject and JniClass have NativeFinalizer. However, it's possible to
   // explicitly use `Arena`.
   test('Using arena', () {
     final objects = <JObject>[];

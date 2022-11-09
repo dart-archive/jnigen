@@ -22,7 +22,7 @@ void main() {
     }
   }
 
-  testWidgets("Long.intValue() using JniObject", (t) async {
+  testWidgets("Long.intValue() using JObject", (t) async {
     final longClass = Jni.findJniClass("java/lang/Long");
 
     final longCtor = longClass.getCtorID("(J)V");

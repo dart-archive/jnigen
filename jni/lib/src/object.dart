@@ -143,7 +143,7 @@ class JObject extends JReference {
     super.delete();
   }
 
-  // TODO(#55): Support casting JniObject subclasses
+  // TODO(#55): Support casting JObject subclasses
 
   /// Returns [JniClass] corresponding to concrete class of this object.
   ///
@@ -190,7 +190,7 @@ class JObject extends JReference {
   /// [callType] determines the return type of the underlying JNI call made.
   /// If the Java field is of `long` type, this must be [JniCallType.longType] and
   /// so on. Default is chosen based on return type [T], which maps int -> int,
-  /// double -> double, void -> void, and JniObject types to `Object`.
+  /// double -> double, void -> void, and JObject types to `Object`.
   ///
   /// If [T] is String or [JObject], required conversions are performed and
   /// final value is returned.

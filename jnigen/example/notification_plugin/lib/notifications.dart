@@ -50,7 +50,7 @@ class Notifications extends jni.JObject {
 
   /// from: static public void showNotification(android.content.Context context, int notificationID, java.lang.String title, java.lang.String text)
   static void showNotification(jni.JObject context, int notificationID,
-          jni.JniString title, jni.JniString text) =>
+          jni.JString title, jni.JString text) =>
       _showNotification(context.reference, notificationID, title.reference,
               text.reference)
           .check();
