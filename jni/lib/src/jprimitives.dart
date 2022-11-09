@@ -7,7 +7,7 @@ part of 'types.dart';
 abstract class JPrimitive {}
 
 abstract class JByte extends JPrimitive {
-  static const type = _JByteTypeClass();
+  static const JType<JByte> type = _JByteTypeClass();
 }
 
 class _JByteTypeClass extends JType<JByte> {
@@ -21,7 +21,7 @@ class _JByteTypeClass extends JType<JByte> {
 }
 
 abstract class JBoolean extends JPrimitive {
-  static const type = _JBooleanType();
+  static const JType<JBoolean> type = _JBooleanType();
 }
 
 class _JBooleanType extends JType<JBoolean> {
@@ -35,7 +35,7 @@ class _JBooleanType extends JType<JBoolean> {
 }
 
 abstract class JChar extends JPrimitive {
-  static const type = _JCharType();
+  static const JType<JChar> type = _JCharType();
 }
 
 class _JCharType extends JType<JChar> {
@@ -49,7 +49,7 @@ class _JCharType extends JType<JChar> {
 }
 
 abstract class JShort extends JPrimitive {
-  static const type = _JShortType();
+  static const JType<JShort> type = _JShortType();
 }
 
 class _JShortType extends JType<JShort> {
@@ -63,7 +63,7 @@ class _JShortType extends JType<JShort> {
 }
 
 abstract class JInt extends JPrimitive {
-  static const type = _JIntType();
+  static const JType<JInt> type = _JIntType();
 }
 
 class _JIntType extends JType<JInt> {
@@ -77,7 +77,7 @@ class _JIntType extends JType<JInt> {
 }
 
 abstract class JLong extends JPrimitive {
-  static const type = _JLongType();
+  static const JType<JLong> type = _JLongType();
 }
 
 class _JLongType extends JType<JLong> {
@@ -91,7 +91,7 @@ class _JLongType extends JType<JLong> {
 }
 
 abstract class JFloat extends JPrimitive {
-  static const type = _JFloatType();
+  static const JType<JFloat> type = _JFloatType();
 }
 
 class _JFloatType extends JType<JFloat> {
@@ -105,7 +105,7 @@ class _JFloatType extends JType<JFloat> {
 }
 
 abstract class JDouble extends JPrimitive {
-  static const type = _JDoubleType();
+  static const JType<JDouble> type = _JDoubleType();
 }
 
 class _JDoubleType extends JType<JDouble> {
