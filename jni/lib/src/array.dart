@@ -47,7 +47,7 @@ class JArray<E> extends JObject {
   }
 }
 
-extension NativeJArray<E extends JPrimitive> on JArray<E> {
+extension NativeArray<E extends JPrimitive> on JArray<E> {
   void _allocate<T extends NativeType>(
     int size,
     void Function(Pointer<T> ptr) use,
@@ -59,7 +59,7 @@ extension NativeJArray<E extends JPrimitive> on JArray<E> {
   }
 }
 
-extension BoolJArray on JArray<JBoolean> {
+extension BoolArray on JArray<JBoolean> {
   bool operator [](int index) {
     return elementAt(index, JniCallType.booleanType).boolean;
   }
@@ -86,7 +86,7 @@ extension BoolJArray on JArray<JBoolean> {
   }
 }
 
-extension ByteJArray on JArray<JByte> {
+extension ByteArray on JArray<JByte> {
   int operator [](int index) {
     return elementAt(index, JniCallType.byteType).byte;
   }
@@ -113,7 +113,7 @@ extension ByteJArray on JArray<JByte> {
   }
 }
 
-extension CharJArray on JArray<JChar> {
+extension CharArray on JArray<JChar> {
   String operator [](int index) {
     return String.fromCharCode(
       elementAt(index, JniCallType.charType).char,
@@ -142,7 +142,7 @@ extension CharJArray on JArray<JChar> {
   }
 }
 
-extension ShortJArray on JArray<JShort> {
+extension ShortArray on JArray<JShort> {
   int operator [](int index) {
     return elementAt(index, JniCallType.shortType).short;
   }
@@ -169,7 +169,7 @@ extension ShortJArray on JArray<JShort> {
   }
 }
 
-extension IntJArray on JArray<JInt> {
+extension IntArray on JArray<JInt> {
   int operator [](int index) {
     return elementAt(index, JniCallType.intType).integer;
   }
@@ -196,7 +196,7 @@ extension IntJArray on JArray<JInt> {
   }
 }
 
-extension LongJArray on JArray<JLong> {
+extension LongArray on JArray<JLong> {
   int operator [](int index) {
     return elementAt(index, JniCallType.longType).long;
   }
@@ -223,7 +223,7 @@ extension LongJArray on JArray<JLong> {
   }
 }
 
-extension FloatJArray on JArray<JFloat> {
+extension FloatArray on JArray<JFloat> {
   double operator [](int index) {
     return elementAt(index, JniCallType.floatType).float;
   }
@@ -250,7 +250,7 @@ extension FloatJArray on JArray<JFloat> {
   }
 }
 
-extension DoubleJArray on JArray<JDouble> {
+extension DoubleArray on JArray<JDouble> {
   double operator [](int index) {
     return elementAt(index, JniCallType.doubleType).doubleFloat;
   }
@@ -277,7 +277,7 @@ extension DoubleJArray on JArray<JDouble> {
   }
 }
 
-extension ObjectJArray<T extends JObject> on JArray<T> {
+extension ObjectArray<T extends JObject> on JArray<T> {
   JObject operator [](int index) {
     return JObject.fromRef(elementAt(index, JniCallType.objectType).object);
   }
@@ -298,7 +298,7 @@ extension ObjectJArray<T extends JObject> on JArray<T> {
   }
 }
 
-extension ArrayJArray<T> on JArray<JArray<T>> {
+extension ArrayArray<T> on JArray<JArray<T>> {
   JArray<T> operator [](int index) {
     return JArray<T>.fromRef(elementAt(index, JniCallType.objectType).object);
   }
@@ -308,7 +308,7 @@ extension ArrayJArray<T> on JArray<JArray<T>> {
   }
 }
 
-extension StringJArray on JArray<JString> {
+extension StringArray on JArray<JString> {
   JString operator [](int index) {
     return JString.fromRef(elementAt(index, JniCallType.objectType).object);
   }

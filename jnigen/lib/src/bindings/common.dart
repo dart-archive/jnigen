@@ -102,7 +102,7 @@ abstract class BindingsGenerator {
 
   String dartArrayExtension(ClassDecl decl) {
     final name = decl.finalName;
-    return '\nextension \$${name}JniArray on $jniArrayType<$name> {\n'
+    return '\nextension \$${name}Array on $jniArrayType<$name> {\n'
         '$indent$name operator [](int index) {\n'
         '${indent * 2}return $name.fromRef(elementAt(index, ${jni}JniCallType.objectType).object);\n'
         '$indent}\n\n'

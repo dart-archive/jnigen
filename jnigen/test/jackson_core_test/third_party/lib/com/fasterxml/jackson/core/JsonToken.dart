@@ -169,7 +169,7 @@ class _$JsonTokenType extends jni.JType<JsonToken> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonToken;";
 }
 
-extension $JsonTokenJniArray on jni.JArray<JsonToken> {
+extension $JsonTokenArray on jni.JArray<JsonToken> {
   JsonToken operator [](int index) {
     return JsonToken.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);

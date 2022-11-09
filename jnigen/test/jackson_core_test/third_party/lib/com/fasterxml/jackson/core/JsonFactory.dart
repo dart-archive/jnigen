@@ -1502,7 +1502,7 @@ class _$JsonFactoryType extends jni.JType<JsonFactory> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonFactory;";
 }
 
-extension $JsonFactoryJniArray on jni.JArray<JsonFactory> {
+extension $JsonFactoryArray on jni.JArray<JsonFactory> {
   JsonFactory operator [](int index) {
     return JsonFactory.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
@@ -1589,7 +1589,7 @@ class _$JsonFactory_FeatureType extends jni.JType<JsonFactory_Feature> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonFactory$Feature;";
 }
 
-extension $JsonFactory_FeatureJniArray on jni.JArray<JsonFactory_Feature> {
+extension $JsonFactory_FeatureArray on jni.JArray<JsonFactory_Feature> {
   JsonFactory_Feature operator [](int index) {
     return JsonFactory_Feature.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);

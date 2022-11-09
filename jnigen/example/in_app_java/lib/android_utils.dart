@@ -47,7 +47,7 @@ class _$AndroidUtilsType extends jni.JType<AndroidUtils> {
   String get signature => r"Lcom/example/in_app_java/AndroidUtils;";
 }
 
-extension $AndroidUtilsJniArray on jni.JArray<AndroidUtils> {
+extension $AndroidUtilsArray on jni.JArray<AndroidUtils> {
   AndroidUtils operator [](int index) {
     return AndroidUtils.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
@@ -356,7 +356,7 @@ class _$BuildType extends jni.JType<Build> {
   String get signature => r"Landroid/os/Build;";
 }
 
-extension $BuildJniArray on jni.JArray<Build> {
+extension $BuildArray on jni.JArray<Build> {
   Build operator [](int index) {
     return Build.fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }

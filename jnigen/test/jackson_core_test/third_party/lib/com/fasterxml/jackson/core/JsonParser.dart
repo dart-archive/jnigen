@@ -2093,7 +2093,7 @@ class _$JsonParserType extends jni.JType<JsonParser> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonParser;";
 }
 
-extension $JsonParserJniArray on jni.JArray<JsonParser> {
+extension $JsonParserArray on jni.JArray<JsonParser> {
   JsonParser operator [](int index) {
     return JsonParser.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
@@ -2178,7 +2178,7 @@ class _$JsonParser_FeatureType extends jni.JType<JsonParser_Feature> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonParser$Feature;";
 }
 
-extension $JsonParser_FeatureJniArray on jni.JArray<JsonParser_Feature> {
+extension $JsonParser_FeatureArray on jni.JArray<JsonParser_Feature> {
   JsonParser_Feature operator [](int index) {
     return JsonParser_Feature.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
@@ -2233,7 +2233,7 @@ class _$JsonParser_NumberTypeType extends jni.JType<JsonParser_NumberType> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonParser$NumberType;";
 }
 
-extension $JsonParser_NumberTypeJniArray on jni.JArray<JsonParser_NumberType> {
+extension $JsonParser_NumberTypeArray on jni.JArray<JsonParser_NumberType> {
   JsonParser_NumberType operator [](int index) {
     return JsonParser_NumberType.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);

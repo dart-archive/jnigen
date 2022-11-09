@@ -181,7 +181,7 @@ class _$ExampleType extends jni.JType<Example> {
       r"Lcom/github/dart_lang/jnigen/simple_package/Example;";
 }
 
-extension $ExampleJniArray on jni.JArray<Example> {
+extension $ExampleArray on jni.JArray<Example> {
   Example operator [](int index) {
     return Example.fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
@@ -253,7 +253,7 @@ class _$Example_AuxType extends jni.JType<Example_Aux> {
       r"Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;";
 }
 
-extension $Example_AuxJniArray on jni.JArray<Example_Aux> {
+extension $Example_AuxArray on jni.JArray<Example_Aux> {
   Example_Aux operator [](int index) {
     return Example_Aux.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
@@ -300,7 +300,7 @@ class _$C2Type extends jni.JType<C2> {
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/C2;";
 }
 
-extension $C2JniArray on jni.JArray<C2> {
+extension $C2Array on jni.JArray<C2> {
   C2 operator [](int index) {
     return C2.fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
@@ -340,7 +340,7 @@ class _$Example1Type extends jni.JType<Example1> {
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/Example;";
 }
 
-extension $Example1JniArray on jni.JArray<Example1> {
+extension $Example1Array on jni.JArray<Example1> {
   Example1 operator [](int index) {
     return Example1.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
