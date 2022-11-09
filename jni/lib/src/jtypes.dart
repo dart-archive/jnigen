@@ -15,7 +15,7 @@ import 'third_party/jni_bindings_generated.dart';
 
 part 'jprimitives.dart';
 part 'jni_object.dart';
-part 'jni_array.dart';
+part 'jarray.dart';
 part 'jni_type_class.dart';
 
 final Pointer<JniAccessors> _accessors = Jni.accessors;

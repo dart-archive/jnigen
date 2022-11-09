@@ -32,7 +32,7 @@ abstract class BindingsGenerator {
 
   static const String jniObjectType = '${jni}JniObject';
 
-  static const String jniArrayType = '${jni}JniArray';
+  static const String jniArrayType = '${jni}JArray';
 
   static const String jniCallType = '${jni}JniCallType';
 

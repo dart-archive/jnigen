@@ -108,10 +108,10 @@ class _JniStringType extends JniType<JniString> {
   String get signature => "Ljava/lang/String;";
 }
 
-class _JniArrayType<T> extends JniType<JniArray<T>> {
+class _JArrayType<T> extends JniType<JArray<T>> {
   final JniType<T> elementType;
 
-  const _JniArrayType(this.elementType);
+  const _JArrayType(this.elementType);
 
   @override
   String get signature => '[${elementType.signature}';

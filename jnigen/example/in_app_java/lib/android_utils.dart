@@ -47,14 +47,14 @@ class _$AndroidUtilsType extends jni.JniType<AndroidUtils> {
   String get signature => r"Lcom/example/in_app_java/AndroidUtils;";
 }
 
-extension $AndroidUtilsJniArray on jni.JniArray<AndroidUtils> {
+extension $AndroidUtilsJniArray on jni.JArray<AndroidUtils> {
   AndroidUtils operator [](int index) {
     return AndroidUtils.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, AndroidUtils value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }
 
@@ -261,8 +261,8 @@ class Build extends jni.JniObject {
 
   /// from: static public final java.lang.String[] SUPPORTED_32_BIT_ABIS
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JniArray<jni.JniString> get SUPPORTED_32_BIT_ABIS =>
-      jni.JniArray<jni.JniString>.fromRef(_get_SUPPORTED_32_BIT_ABIS().object);
+  static jni.JArray<jni.JniString> get SUPPORTED_32_BIT_ABIS =>
+      jni.JArray<jni.JniString>.fromRef(_get_SUPPORTED_32_BIT_ABIS().object);
 
   static final _get_SUPPORTED_64_BIT_ABIS =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -271,8 +271,8 @@ class Build extends jni.JniObject {
 
   /// from: static public final java.lang.String[] SUPPORTED_64_BIT_ABIS
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JniArray<jni.JniString> get SUPPORTED_64_BIT_ABIS =>
-      jni.JniArray<jni.JniString>.fromRef(_get_SUPPORTED_64_BIT_ABIS().object);
+  static jni.JArray<jni.JniString> get SUPPORTED_64_BIT_ABIS =>
+      jni.JArray<jni.JniString>.fromRef(_get_SUPPORTED_64_BIT_ABIS().object);
 
   static final _get_SUPPORTED_ABIS =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -281,8 +281,8 @@ class Build extends jni.JniObject {
 
   /// from: static public final java.lang.String[] SUPPORTED_ABIS
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JniArray<jni.JniString> get SUPPORTED_ABIS =>
-      jni.JniArray<jni.JniString>.fromRef(_get_SUPPORTED_ABIS().object);
+  static jni.JArray<jni.JniString> get SUPPORTED_ABIS =>
+      jni.JArray<jni.JniString>.fromRef(_get_SUPPORTED_ABIS().object);
 
   static final _get_TAGS =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("get_Build__TAGS")
@@ -363,12 +363,12 @@ class _$BuildType extends jni.JniType<Build> {
   String get signature => r"Landroid/os/Build;";
 }
 
-extension $BuildJniArray on jni.JniArray<Build> {
+extension $BuildJniArray on jni.JArray<Build> {
   Build operator [](int index) {
     return Build.fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Build value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }

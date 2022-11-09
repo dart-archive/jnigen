@@ -951,7 +951,7 @@ class JsonFactory extends jni.JniObject {
   /// Method for constructing parser for parsing
   /// the contents of given byte array.
   ///@since 2.1
-  jsonparser_.JsonParser createParser4(jni.JniArray<jni.JByte> data) =>
+  jsonparser_.JsonParser createParser4(jni.JArray<jni.JByte> data) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createParser4,
@@ -971,7 +971,7 @@ class JsonFactory extends jni.JniObject {
   ///@param len Length of contents to parse within buffer
   ///@since 2.1
   jsonparser_.JsonParser createParser5(
-          jni.JniArray<jni.JByte> data, int offset, int len) =>
+          jni.JArray<jni.JByte> data, int offset, int len) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createParser5,
@@ -1005,7 +1005,7 @@ class JsonFactory extends jni.JniObject {
   /// Method for constructing parser for parsing
   /// contents of given char array.
   ///@since 2.4
-  jsonparser_.JsonParser createParser7(jni.JniArray<jni.JChar> content) =>
+  jsonparser_.JsonParser createParser7(jni.JArray<jni.JChar> content) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createParser7,
@@ -1021,7 +1021,7 @@ class JsonFactory extends jni.JniObject {
   /// Method for constructing parser for parsing contents of given char array.
   ///@since 2.4
   jsonparser_.JsonParser createParser8(
-          jni.JniArray<jni.JChar> content, int offset, int len) =>
+          jni.JArray<jni.JChar> content, int offset, int len) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createParser8,
@@ -1359,7 +1359,7 @@ class JsonFactory extends jni.JniObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[]) instead.
-  jsonparser_.JsonParser createJsonParser4(jni.JniArray<jni.JByte> data) =>
+  jsonparser_.JsonParser createJsonParser4(jni.JArray<jni.JByte> data) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createJsonParser4,
@@ -1382,7 +1382,7 @@ class JsonFactory extends jni.JniObject {
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[],int,int) instead.
   jsonparser_.JsonParser createJsonParser5(
-          jni.JniArray<jni.JByte> data, int offset, int len) =>
+          jni.JArray<jni.JByte> data, int offset, int len) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createJsonParser5,
@@ -1505,14 +1505,14 @@ class _$JsonFactoryType extends jni.JniType<JsonFactory> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonFactory;";
 }
 
-extension $JsonFactoryJniArray on jni.JniArray<JsonFactory> {
+extension $JsonFactoryJniArray on jni.JArray<JsonFactory> {
   JsonFactory operator [](int index) {
     return JsonFactory.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, JsonFactory value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }
 
@@ -1533,8 +1533,8 @@ class JsonFactory_Feature extends jni.JniObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonFactory.Feature[] values()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JniArray<JsonFactory_Feature> values() =>
-      jni.JniArray<JsonFactory_Feature>.fromRef(jniAccessors
+  static jni.JArray<JsonFactory_Feature> values() =>
+      jni.JArray<JsonFactory_Feature>.fromRef(jniAccessors
           .callStaticMethodWithArgs(
               _classRef, _id_values, jni.JniCallType.objectType, []).object);
 
@@ -1592,13 +1592,13 @@ class _$JsonFactory_FeatureType extends jni.JniType<JsonFactory_Feature> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonFactory$Feature;";
 }
 
-extension $JsonFactory_FeatureJniArray on jni.JniArray<JsonFactory_Feature> {
+extension $JsonFactory_FeatureJniArray on jni.JArray<JsonFactory_Feature> {
   JsonFactory_Feature operator [](int index) {
     return JsonFactory_Feature.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, JsonFactory_Feature value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }

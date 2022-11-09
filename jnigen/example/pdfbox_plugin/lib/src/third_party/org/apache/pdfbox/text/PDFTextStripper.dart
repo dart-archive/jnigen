@@ -1220,13 +1220,13 @@ class _$PDFTextStripperType extends jni.JniType<PDFTextStripper> {
   String get signature => r"Lorg/apache/pdfbox/text/PDFTextStripper;";
 }
 
-extension $PDFTextStripperJniArray on jni.JniArray<PDFTextStripper> {
+extension $PDFTextStripperJniArray on jni.JArray<PDFTextStripper> {
   PDFTextStripper operator [](int index) {
     return PDFTextStripper.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, PDFTextStripper value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }

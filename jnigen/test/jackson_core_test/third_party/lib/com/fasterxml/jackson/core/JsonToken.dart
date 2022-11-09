@@ -52,8 +52,8 @@ class JsonToken extends jni.JniObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonToken[] values()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JniArray<JsonToken> values() =>
-      jni.JniArray<JsonToken>.fromRef(jniAccessors.callStaticMethodWithArgs(
+  static jni.JArray<JsonToken> values() =>
+      jni.JArray<JsonToken>.fromRef(jniAccessors.callStaticMethodWithArgs(
           _classRef, _id_values, jni.JniCallType.objectType, []).object);
 
   static final _id_valueOf = jniAccessors.getStaticMethodIDOf(_classRef,
@@ -85,8 +85,8 @@ class JsonToken extends jni.JniObject {
 
   /// from: public final char[] asCharArray()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JniArray<jni.JChar> asCharArray() =>
-      jni.JniArray<jni.JChar>.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JArray<jni.JChar> asCharArray() =>
+      jni.JArray<jni.JChar>.fromRef(jniAccessors.callMethodWithArgs(
           reference, _id_asCharArray, jni.JniCallType.objectType, []).object);
 
   static final _id_asByteArray =
@@ -94,8 +94,8 @@ class JsonToken extends jni.JniObject {
 
   /// from: public final byte[] asByteArray()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JniArray<jni.JByte> asByteArray() =>
-      jni.JniArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JArray<jni.JByte> asByteArray() =>
+      jni.JArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(
           reference, _id_asByteArray, jni.JniCallType.objectType, []).object);
 
   static final _id_isNumeric =
@@ -170,13 +170,13 @@ class _$JsonTokenType extends jni.JniType<JsonToken> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonToken;";
 }
 
-extension $JsonTokenJniArray on jni.JniArray<JsonToken> {
+extension $JsonTokenJniArray on jni.JArray<JsonToken> {
   JsonToken operator [](int index) {
     return JsonToken.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, JsonToken value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }

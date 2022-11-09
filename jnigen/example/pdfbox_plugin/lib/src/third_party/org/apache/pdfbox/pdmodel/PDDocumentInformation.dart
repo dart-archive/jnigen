@@ -437,14 +437,13 @@ class _$PDDocumentInformationType extends jni.JniType<PDDocumentInformation> {
   String get signature => r"Lorg/apache/pdfbox/pdmodel/PDDocumentInformation;";
 }
 
-extension $PDDocumentInformationJniArray
-    on jni.JniArray<PDDocumentInformation> {
+extension $PDDocumentInformationJniArray on jni.JArray<PDDocumentInformation> {
   PDDocumentInformation operator [](int index) {
     return PDDocumentInformation.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, PDDocumentInformation value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }

@@ -63,13 +63,13 @@ class _$NotificationsType extends jni.JniType<Notifications> {
   String get signature => r"Lcom/example/notification_plugin/Notifications;";
 }
 
-extension $NotificationsJniArray on jni.JniArray<Notifications> {
+extension $NotificationsJniArray on jni.JArray<Notifications> {
   Notifications operator [](int index) {
     return Notifications.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Notifications value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }

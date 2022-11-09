@@ -17,7 +17,7 @@ void main() {
     }
   }
   test("Java boolean array", () {
-    final array = JniArray(JBoolean.type, 3);
+    final array = JArray(JBoolean.type, 3);
     expect(array.length, 3);
     array[0] = true;
     array[1] = false;
@@ -41,7 +41,7 @@ void main() {
     array.delete();
   });
   test("Java char array", () {
-    final array = JniArray(JChar.type, 3);
+    final array = JArray(JChar.type, 3);
     expect(array.length, 3);
     array[0] = 'ح';
     array[1] = '2';
@@ -65,7 +65,7 @@ void main() {
     array.delete();
   });
   test("Java byte array", () {
-    final array = JniArray(JByte.type, 3);
+    final array = JArray(JByte.type, 3);
     expect(array.length, 3);
     array[0] = 1;
     array[1] = 2;
@@ -89,7 +89,7 @@ void main() {
     array.delete();
   });
   test("Java short array", () {
-    final array = JniArray(JShort.type, 3);
+    final array = JArray(JShort.type, 3);
     expect(array.length, 3);
     array[0] = 1;
     array[1] = 2;
@@ -113,7 +113,7 @@ void main() {
     array.delete();
   });
   test("Java int array", () {
-    final array = JniArray(JInt.type, 3);
+    final array = JArray(JInt.type, 3);
     expect(array.length, 3);
     array[0] = 1;
     array[1] = 2;
@@ -138,7 +138,7 @@ void main() {
   });
   const epsilon = 1e-6;
   test("Java float array", () {
-    final array = JniArray(JFloat.type, 3);
+    final array = JArray(JFloat.type, 3);
     expect(array.length, 3);
     array[0] = 0.5;
     array[1] = 2;
@@ -162,7 +162,7 @@ void main() {
     array.delete();
   });
   test("Java double array", () {
-    final array = JniArray(JDouble.type, 3);
+    final array = JArray(JDouble.type, 3);
     expect(array.length, 3);
     array[0] = 0.5;
     array[1] = 2;
@@ -186,7 +186,7 @@ void main() {
     array.delete();
   });
   test("Java string array", () {
-    final array = JniArray(JniString.type, 3);
+    final array = JArray(JniString.type, 3);
     expect(array.length, 3);
     array[0] = "حس".jniString();
     array[1] = "\$".jniString();
@@ -215,11 +215,11 @@ void main() {
     array.delete();
   });
   test("Java 2d array", () {
-    final array = JniArray(JInt.type, 3);
+    final array = JArray(JInt.type, 3);
     array[0] = 1;
     array[1] = 2;
     array[2] = 3;
-    final twoDimArray = JniArray(JniArray.type(JInt.type), 3);
+    final twoDimArray = JArray(JArray.type(JInt.type), 3);
     expect(twoDimArray.length, 3);
     twoDimArray[0] = array;
     twoDimArray[1] = array;

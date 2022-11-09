@@ -108,8 +108,8 @@ class Example extends jni.JniObject {
 
   /// from: static public int[] getArr()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JniArray<jni.JInt> getArr() =>
-      jni.JniArray<jni.JInt>.fromRef(_getArr().object);
+  static jni.JArray<jni.JInt> getArr() =>
+      jni.JArray<jni.JInt>.fromRef(_getArr().object);
 
   static final _addAll = jniLookup<
           ffi.NativeFunction<
@@ -117,8 +117,7 @@ class Example extends jni.JniObject {
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public int addAll(int[] arr)
-  static int addAll(jni.JniArray<jni.JInt> arr) =>
-      _addAll(arr.reference).integer;
+  static int addAll(jni.JArray<jni.JInt> arr) => _addAll(arr.reference).integer;
 
   static final _getSelf = jniLookup<
           ffi.NativeFunction<
@@ -182,13 +181,13 @@ class _$ExampleType extends jni.JniType<Example> {
       r"Lcom/github/dart_lang/jnigen/simple_package/Example;";
 }
 
-extension $ExampleJniArray on jni.JniArray<Example> {
+extension $ExampleJniArray on jni.JArray<Example> {
   Example operator [](int index) {
     return Example.fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Example value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }
 
@@ -254,14 +253,14 @@ class _$Example_AuxType extends jni.JniType<Example_Aux> {
       r"Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;";
 }
 
-extension $Example_AuxJniArray on jni.JniArray<Example_Aux> {
+extension $Example_AuxJniArray on jni.JArray<Example_Aux> {
   Example_Aux operator [](int index) {
     return Example_Aux.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Example_Aux value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }
 
@@ -301,13 +300,13 @@ class _$C2Type extends jni.JniType<C2> {
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/C2;";
 }
 
-extension $C2JniArray on jni.JniArray<C2> {
+extension $C2JniArray on jni.JArray<C2> {
   C2 operator [](int index) {
     return C2.fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, C2 value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }
 
@@ -341,13 +340,13 @@ class _$Example1Type extends jni.JniType<Example1> {
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/Example;";
 }
 
-extension $Example1JniArray on jni.JniArray<Example1> {
+extension $Example1JniArray on jni.JArray<Example1> {
   Example1 operator [](int index) {
     return Example1.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Example1 value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }

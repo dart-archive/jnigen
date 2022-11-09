@@ -831,7 +831,7 @@ class PDDocument extends jni.JniObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the PDF required a non-empty password.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load12(jni.JniArray<jni.JByte> input) =>
+  static PDDocument load12(jni.JArray<jni.JByte> input) =>
       PDDocument.fromRef(_load12(input.reference).object);
 
   static final _load13 = jniLookup<
@@ -852,7 +852,7 @@ class PDDocument extends jni.JniObject {
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
   static PDDocument load13(
-          jni.JniArray<jni.JByte> input, jni.JniString password) =>
+          jni.JArray<jni.JByte> input, jni.JniString password) =>
       PDDocument.fromRef(_load13(input.reference, password.reference).object);
 
   static final _load14 = jniLookup<
@@ -877,11 +877,8 @@ class PDDocument extends jni.JniObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load14(
-          jni.JniArray<jni.JByte> input,
-          jni.JniString password,
-          jni.JniObject keyStore,
-          jni.JniString alias) =>
+  static PDDocument load14(jni.JArray<jni.JByte> input, jni.JniString password,
+          jni.JniObject keyStore, jni.JniString alias) =>
       PDDocument.fromRef(_load14(input.reference, password.reference,
               keyStore.reference, alias.reference)
           .object);
@@ -915,7 +912,7 @@ class PDDocument extends jni.JniObject {
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
   static PDDocument load15(
-          jni.JniArray<jni.JByte> input,
+          jni.JArray<jni.JByte> input,
           jni.JniString password,
           jni.JniObject keyStore,
           jni.JniString alias,
@@ -1312,13 +1309,13 @@ class _$PDDocumentType extends jni.JniType<PDDocument> {
   String get signature => r"Lorg/apache/pdfbox/pdmodel/PDDocument;";
 }
 
-extension $PDDocumentJniArray on jni.JniArray<PDDocument> {
+extension $PDDocumentJniArray on jni.JArray<PDDocument> {
   PDDocument operator [](int index) {
     return PDDocument.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, PDDocument value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }

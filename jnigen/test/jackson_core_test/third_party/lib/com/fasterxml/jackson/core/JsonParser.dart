@@ -160,7 +160,7 @@ class JsonParser extends jni.JniObject {
   ///@param charset Character encoding for (lazily) decoding payload
   ///@since 2.8
   void setRequestPayloadOnError1(
-          jni.JniArray<jni.JByte> payload, jni.JniString charset) =>
+          jni.JArray<jni.JByte> payload, jni.JniString charset) =>
       jniAccessors.callMethodWithArgs(
           reference,
           _id_setRequestPayloadOnError1,
@@ -1308,8 +1308,8 @@ class JsonParser extends jni.JniObject {
   ///    at offset 0, and not necessarily until the end of buffer)
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniArray<jni.JChar> getTextCharacters() =>
-      jni.JniArray<jni.JChar>.fromRef(jniAccessors.callMethodWithArgs(reference,
+  jni.JArray<jni.JChar> getTextCharacters() =>
+      jni.JArray<jni.JChar>.fromRef(jniAccessors.callMethodWithArgs(reference,
           _id_getTextCharacters, jni.JniCallType.objectType, []).object);
 
   static final _id_getTextLength =
@@ -1677,8 +1677,8 @@ class JsonParser extends jni.JniObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniArray<jni.JByte> getBinaryValue(jni.JniObject bv) =>
-      jni.JniArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JArray<jni.JByte> getBinaryValue(jni.JniObject bv) =>
+      jni.JArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_getBinaryValue,
           jni.JniCallType.objectType,
@@ -1696,8 +1696,8 @@ class JsonParser extends jni.JniObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniArray<jni.JByte> getBinaryValue1() =>
-      jni.JniArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(reference,
+  jni.JArray<jni.JByte> getBinaryValue1() =>
+      jni.JArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(reference,
           _id_getBinaryValue1, jni.JniCallType.objectType, []).object);
 
   static final _id_readBinaryValue = jniAccessors.getMethodIDOf(
@@ -2097,14 +2097,14 @@ class _$JsonParserType extends jni.JniType<JsonParser> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonParser;";
 }
 
-extension $JsonParserJniArray on jni.JniArray<JsonParser> {
+extension $JsonParserJniArray on jni.JArray<JsonParser> {
   JsonParser operator [](int index) {
     return JsonParser.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, JsonParser value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }
 
@@ -2124,8 +2124,8 @@ class JsonParser_Feature extends jni.JniObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonParser.Feature[] values()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JniArray<JsonParser_Feature> values() =>
-      jni.JniArray<JsonParser_Feature>.fromRef(jniAccessors
+  static jni.JArray<JsonParser_Feature> values() =>
+      jni.JArray<JsonParser_Feature>.fromRef(jniAccessors
           .callStaticMethodWithArgs(
               _classRef, _id_values, jni.JniCallType.objectType, []).object);
 
@@ -2183,14 +2183,14 @@ class _$JsonParser_FeatureType extends jni.JniType<JsonParser_Feature> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonParser$Feature;";
 }
 
-extension $JsonParser_FeatureJniArray on jni.JniArray<JsonParser_Feature> {
+extension $JsonParser_FeatureJniArray on jni.JArray<JsonParser_Feature> {
   JsonParser_Feature operator [](int index) {
     return JsonParser_Feature.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, JsonParser_Feature value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }
 
@@ -2211,8 +2211,8 @@ class JsonParser_NumberType extends jni.JniObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonParser.NumberType[] values()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JniArray<JsonParser_NumberType> values() =>
-      jni.JniArray<JsonParser_NumberType>.fromRef(jniAccessors
+  static jni.JArray<JsonParser_NumberType> values() =>
+      jni.JArray<JsonParser_NumberType>.fromRef(jniAccessors
           .callStaticMethodWithArgs(
               _classRef, _id_values, jni.JniCallType.objectType, []).object);
 
@@ -2238,14 +2238,13 @@ class _$JsonParser_NumberTypeType extends jni.JniType<JsonParser_NumberType> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonParser$NumberType;";
 }
 
-extension $JsonParser_NumberTypeJniArray
-    on jni.JniArray<JsonParser_NumberType> {
+extension $JsonParser_NumberTypeJniArray on jni.JArray<JsonParser_NumberType> {
   JsonParser_NumberType operator [](int index) {
     return JsonParser_NumberType.fromRef(
         elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, JsonParser_NumberType value) {
-    (this as jni.JniArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JniObject>)[index] = value;
   }
 }
