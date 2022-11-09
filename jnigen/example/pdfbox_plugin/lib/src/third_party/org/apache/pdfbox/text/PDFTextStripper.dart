@@ -53,11 +53,11 @@ class PDFTextStripper extends jni.JniObject {
   static final _get_LINE_SEPARATOR = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObject,
+    jni.JObjectPtr,
   )>>("get_PDFTextStripper__LINE_SEPARATOR")
       .asFunction<
           jni.JniResult Function(
-    jni.JObject,
+    jni.JObjectPtr,
   )>();
 
   /// from: protected final java.lang.String LINE_SEPARATOR
@@ -70,11 +70,11 @@ class PDFTextStripper extends jni.JniObject {
   static final _get_charactersByArticle = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObject,
+    jni.JObjectPtr,
   )>>("get_PDFTextStripper__charactersByArticle")
       .asFunction<
           jni.JniResult Function(
-    jni.JObject,
+    jni.JObjectPtr,
   )>();
 
   /// from: protected java.util.ArrayList<java.util.List<org.apache.pdfbox.text.TextPosition>> charactersByArticle
@@ -96,10 +96,11 @@ class PDFTextStripper extends jni.JniObject {
       jni.JniObject.fromRef(_get_charactersByArticle(reference).object);
   static final _set_charactersByArticle = jniLookup<
               ffi.NativeFunction<
-                  jni.JThrowable Function(jni.JObject, ffi.Pointer<ffi.Void>)>>(
+                  jni.JThrowablePtr Function(
+                      jni.JObjectPtr, ffi.Pointer<ffi.Void>)>>(
           "set_PDFTextStripper__charactersByArticle")
       .asFunction<
-          jni.JThrowable Function(jni.JObject, ffi.Pointer<ffi.Void>)>();
+          jni.JThrowablePtr Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
 
   /// from: protected java.util.ArrayList<java.util.List<org.apache.pdfbox.text.TextPosition>> charactersByArticle
   /// The returned object must be deleted after use, by calling the `delete` method.
@@ -122,11 +123,11 @@ class PDFTextStripper extends jni.JniObject {
   static final _get_document = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObject,
+    jni.JObjectPtr,
   )>>("get_PDFTextStripper__document")
       .asFunction<
           jni.JniResult Function(
-    jni.JObject,
+    jni.JObjectPtr,
   )>();
 
   /// from: protected org.apache.pdfbox.pdmodel.PDDocument document
@@ -135,10 +136,10 @@ class PDFTextStripper extends jni.JniObject {
       pddocument_.PDDocument.fromRef(_get_document(reference).object);
   static final _set_document = jniLookup<
           ffi.NativeFunction<
-              jni.JThrowable Function(jni.JObject,
+              jni.JThrowablePtr Function(jni.JObjectPtr,
                   ffi.Pointer<ffi.Void>)>>("set_PDFTextStripper__document")
       .asFunction<
-          jni.JThrowable Function(jni.JObject, ffi.Pointer<ffi.Void>)>();
+          jni.JThrowablePtr Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
 
   /// from: protected org.apache.pdfbox.pdmodel.PDDocument document
   /// The returned object must be deleted after use, by calling the `delete` method.
@@ -148,11 +149,11 @@ class PDFTextStripper extends jni.JniObject {
   static final _get_output = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObject,
+    jni.JObjectPtr,
   )>>("get_PDFTextStripper__output")
       .asFunction<
           jni.JniResult Function(
-    jni.JObject,
+    jni.JObjectPtr,
   )>();
 
   /// from: protected java.io.Writer output
@@ -161,10 +162,10 @@ class PDFTextStripper extends jni.JniObject {
       jni.JniObject.fromRef(_get_output(reference).object);
   static final _set_output = jniLookup<
           ffi.NativeFunction<
-              jni.JThrowable Function(jni.JObject,
+              jni.JThrowablePtr Function(jni.JObjectPtr,
                   ffi.Pointer<ffi.Void>)>>("set_PDFTextStripper__output")
       .asFunction<
-          jni.JThrowable Function(jni.JObject, ffi.Pointer<ffi.Void>)>();
+          jni.JThrowablePtr Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
 
   /// from: protected java.io.Writer output
   /// The returned object must be deleted after use, by calling the `delete` method.

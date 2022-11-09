@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-part of 'jni_object.dart';
+part of 'jtypes.dart';
 
 abstract class JniType<T> {
   const JniType();
@@ -14,8 +14,8 @@ abstract class JniType<T> {
   JniClass _getClass() => Jni.findJniClass(signature);
 }
 
-class JniBooleanType extends JniType<JBooleanMarker> {
-  const JniBooleanType();
+class _JniBooleanType extends JniType<JBoolean> {
+  const _JniBooleanType();
 
   @override
   int get _type => JniCallType.booleanType;
@@ -24,8 +24,8 @@ class JniBooleanType extends JniType<JBooleanMarker> {
   String get signature => "Z";
 }
 
-class JniByteTypeClass extends JniType<JByteMarker> {
-  const JniByteTypeClass();
+class _JniByteTypeClass extends JniType<JByte> {
+  const _JniByteTypeClass();
 
   @override
   int get _type => JniCallType.byteType;
@@ -34,8 +34,8 @@ class JniByteTypeClass extends JniType<JByteMarker> {
   String get signature => "B";
 }
 
-class JniCharType extends JniType<JCharMarker> {
-  const JniCharType();
+class _JniCharType extends JniType<JChar> {
+  const _JniCharType();
 
   @override
   int get _type => JniCallType.charType;
@@ -44,8 +44,8 @@ class JniCharType extends JniType<JCharMarker> {
   String get signature => "C";
 }
 
-class JniShortType extends JniType<JShortMarker> {
-  const JniShortType();
+class _JniShortType extends JniType<JShort> {
+  const _JniShortType();
 
   @override
   int get _type => JniCallType.shortType;
@@ -54,8 +54,8 @@ class JniShortType extends JniType<JShortMarker> {
   String get signature => "S";
 }
 
-class JniIntType extends JniType<JIntMarker> {
-  const JniIntType();
+class _JniIntType extends JniType<JInt> {
+  const _JniIntType();
 
   @override
   int get _type => JniCallType.intType;
@@ -64,8 +64,8 @@ class JniIntType extends JniType<JIntMarker> {
   String get signature => "I";
 }
 
-class JniLongType extends JniType<JLongMarker> {
-  const JniLongType();
+class _JniLongType extends JniType<JLong> {
+  const _JniLongType();
 
   @override
   int get _type => JniCallType.longType;
@@ -74,8 +74,8 @@ class JniLongType extends JniType<JLongMarker> {
   String get signature => "J";
 }
 
-class JniFloatType extends JniType<JFloatMarker> {
-  const JniFloatType();
+class _JniFloatType extends JniType<JFloat> {
+  const _JniFloatType();
 
   @override
   int get _type => JniCallType.floatType;
@@ -84,8 +84,8 @@ class JniFloatType extends JniType<JFloatMarker> {
   String get signature => "F";
 }
 
-class JniDoubleType extends JniType<JDoubleMarker> {
-  const JniDoubleType();
+class _JniDoubleType extends JniType<JDouble> {
+  const _JniDoubleType();
 
   @override
   int get _type => JniCallType.doubleType;

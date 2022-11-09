@@ -11,7 +11,7 @@ import 'package:path/path.dart';
 import 'third_party/jni_bindings_generated.dart';
 import 'jvalues.dart';
 import 'jni_exceptions.dart';
-import 'jni_object.dart';
+import 'jtypes.dart';
 import 'accessors.dart';
 
 String _getLibraryFileName(String base) {

@@ -26,9 +26,9 @@ abstract class BindingsGenerator {
 
   static const String ffiVoidType = '${ffi}Void';
 
-  static const String jobjectType = '${jni}JObject';
+  static const String jobjectType = '${jni}JObjectPtr';
 
-  static const String jthrowableType = '${jni}JThrowable';
+  static const String jthrowableType = '${jni}JThrowablePtr';
 
   static const String jniObjectType = '${jni}JniObject';
 

@@ -160,7 +160,7 @@ class JsonParser extends jni.JniObject {
   ///@param charset Character encoding for (lazily) decoding payload
   ///@since 2.8
   void setRequestPayloadOnError1(
-          jni.JniArray<jni.JByteMarker> payload, jni.JniString charset) =>
+          jni.JniArray<jni.JByte> payload, jni.JniString charset) =>
       jniAccessors.callMethodWithArgs(
           reference,
           _id_setRequestPayloadOnError1,
@@ -1308,11 +1308,9 @@ class JsonParser extends jni.JniObject {
   ///    at offset 0, and not necessarily until the end of buffer)
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniArray<jni.JCharMarker> getTextCharacters() =>
-      jni.JniArray<jni.JCharMarker>.fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_getTextCharacters,
-          jni.JniCallType.objectType, []).object);
+  jni.JniArray<jni.JChar> getTextCharacters() =>
+      jni.JniArray<jni.JChar>.fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_getTextCharacters, jni.JniCallType.objectType, []).object);
 
   static final _id_getTextLength =
       jniAccessors.getMethodIDOf(_classRef, "getTextLength", "()I");
@@ -1679,8 +1677,8 @@ class JsonParser extends jni.JniObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniArray<jni.JByteMarker> getBinaryValue(jni.JniObject bv) =>
-      jni.JniArray<jni.JByteMarker>.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JniArray<jni.JByte> getBinaryValue(jni.JniObject bv) =>
+      jni.JniArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_getBinaryValue,
           jni.JniCallType.objectType,
@@ -1698,11 +1696,9 @@ class JsonParser extends jni.JniObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniArray<jni.JByteMarker> getBinaryValue1() =>
-      jni.JniArray<jni.JByteMarker>.fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_getBinaryValue1,
-          jni.JniCallType.objectType, []).object);
+  jni.JniArray<jni.JByte> getBinaryValue1() =>
+      jni.JniArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_getBinaryValue1, jni.JniCallType.objectType, []).object);
 
   static final _id_readBinaryValue = jniAccessors.getMethodIDOf(
       _classRef, "readBinaryValue", "(Ljava/io/OutputStream;)I");

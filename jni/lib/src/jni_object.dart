@@ -2,23 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:ffi';
-
-import 'package:collection/collection.dart';
-import 'package:ffi/ffi.dart';
-
-import 'accessors.dart';
-import 'jni.dart';
-import 'jni_exceptions.dart';
-import 'jvalues.dart';
-import 'third_party/jni_bindings_generated.dart';
-
-part 'jni_array.dart';
-part 'jni_type_class.dart';
-
-// This typedef is needed because void is a keyword and cannot be used in
-// type switch like a regular type.
-typedef _VoidType = void;
+part of 'jtypes.dart';
 
 /// A class which holds one or more JNI references, and has a `delete` operation
 /// which disposes the reference(s).
@@ -74,10 +58,6 @@ extension JniReferenceUseExtension<T extends JniReference> on T {
     }
   }
 }
-
-final Pointer<JniAccessors> _accessors = Jni.accessors;
-
-final Pointer<GlobalJniEnv> _env = Jni.env;
 
 Pointer<T> _getID<T extends NativeType>(
     JniPointerResult Function(
