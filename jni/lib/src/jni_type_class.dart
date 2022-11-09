@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-part of 'jtypes.dart';
+part of 'types.dart';
 
 abstract class JniType<T> {
   const JniType();
@@ -94,7 +94,7 @@ class _JniDoubleType extends JniType<JDouble> {
   String get signature => "D";
 }
 
-class _JniObjectType extends JniType<JniObject> {
+class _JniObjectType extends JniType<JObject> {
   const _JniObjectType();
 
   @override

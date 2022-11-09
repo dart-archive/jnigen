@@ -25,7 +25,7 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
     ProtectedJniExtensions.initGeneratedLibrary("notification_plugin");
 
 /// from: com.example.notification_plugin.Notifications
-class Notifications extends jni.JniObject {
+class Notifications extends jni.JObject {
   Notifications.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
@@ -49,7 +49,7 @@ class Notifications extends jni.JniObject {
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: static public void showNotification(android.content.Context context, int notificationID, java.lang.String title, java.lang.String text)
-  static void showNotification(jni.JniObject context, int notificationID,
+  static void showNotification(jni.JObject context, int notificationID,
           jni.JniString title, jni.JniString text) =>
       _showNotification(context.reference, notificationID, title.reference,
               text.reference)
@@ -70,6 +70,6 @@ extension $NotificationsJniArray on jni.JArray<Notifications> {
   }
 
   void operator []=(int index, Notifications value) {
-    (this as jni.JArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JObject>)[index] = value;
   }
 }

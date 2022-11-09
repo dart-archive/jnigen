@@ -45,7 +45,7 @@ import "../../../../_init.dart" show jniLookup;
 /// The basic flow of this process is that we get a document and use a series of processXXX() functions that work on
 /// smaller and smaller chunks of the page. Eventually, we fully process each page and then print it.
 ///@author Ben Litchfield
-class PDFTextStripper extends jni.JniObject {
+class PDFTextStripper extends jni.JObject {
   PDFTextStripper.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
@@ -92,8 +92,8 @@ class PDFTextStripper extends jni.JniObject {
   /// text after second article
   ///
   /// Most PDFs won't have any beads, so charactersByArticle will contain a single entry.
-  jni.JniObject get charactersByArticle =>
-      jni.JniObject.fromRef(_get_charactersByArticle(reference).object);
+  jni.JObject get charactersByArticle =>
+      jni.JObject.fromRef(_get_charactersByArticle(reference).object);
   static final _set_charactersByArticle = jniLookup<
               ffi.NativeFunction<
                   jni.JThrowablePtr Function(
@@ -117,7 +117,7 @@ class PDFTextStripper extends jni.JniObject {
   /// text after second article
   ///
   /// Most PDFs won't have any beads, so charactersByArticle will contain a single entry.
-  set charactersByArticle(jni.JniObject value) =>
+  set charactersByArticle(jni.JObject value) =>
       _set_charactersByArticle(reference, value.reference);
 
   static final _get_document = jniLookup<
@@ -158,8 +158,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: protected java.io.Writer output
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JniObject get output =>
-      jni.JniObject.fromRef(_get_output(reference).object);
+  jni.JObject get output => jni.JObject.fromRef(_get_output(reference).object);
   static final _set_output = jniLookup<
           ffi.NativeFunction<
               jni.JThrowablePtr Function(jni.JObjectPtr,
@@ -169,7 +168,7 @@ class PDFTextStripper extends jni.JniObject {
 
   /// from: protected java.io.Writer output
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set output(jni.JniObject value) => _set_output(reference, value.reference);
+  set output(jni.JObject value) => _set_output(reference, value.reference);
 
   static final _ctor = jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
           "PDFTextStripper__ctor")
@@ -221,7 +220,7 @@ class PDFTextStripper extends jni.JniObject {
   ///@param doc The document to get the data from.
   ///@param outputStream The location to put the text.
   ///@throws IOException If the doc is in an invalid state.
-  void writeText(pddocument_.PDDocument doc, jni.JniObject outputStream) =>
+  void writeText(pddocument_.PDDocument doc, jni.JObject outputStream) =>
       _writeText(reference, doc.reference, outputStream.reference).check();
 
   static final _processPages = jniLookup<
@@ -237,7 +236,7 @@ class PDFTextStripper extends jni.JniObject {
   /// This will process all of the pages and the text that is in them.
   ///@param pages The pages object in the document.
   ///@throws IOException If there is an error parsing the text.
-  void processPages(jni.JniObject pages) =>
+  void processPages(jni.JObject pages) =>
       _processPages(reference, pages.reference).check();
 
   static final _startDocument = jniLookup<
@@ -286,7 +285,7 @@ class PDFTextStripper extends jni.JniObject {
   /// This will process the contents of a page.
   ///@param page The page to process.
   ///@throws IOException If there is an error processing the page.
-  void processPage(jni.JniObject page) =>
+  void processPage(jni.JObject page) =>
       _processPage(reference, page.reference).check();
 
   static final _startArticle = jniLookup<
@@ -343,7 +342,7 @@ class PDFTextStripper extends jni.JniObject {
   /// Start a new page. Default implementation is to do nothing. Subclasses may provide additional information.
   ///@param page The page we are about to process.
   ///@throws IOException If there is any error writing to the stream.
-  void startPage(jni.JniObject page) =>
+  void startPage(jni.JObject page) =>
       _startPage(reference, page.reference).check();
 
   static final _endPage = jniLookup<
@@ -359,8 +358,7 @@ class PDFTextStripper extends jni.JniObject {
   /// End a page. Default implementation is to do nothing. Subclasses may provide additional information.
   ///@param page The page we are about to process.
   ///@throws IOException If there is any error writing to the stream.
-  void endPage(jni.JniObject page) =>
-      _endPage(reference, page.reference).check();
+  void endPage(jni.JObject page) => _endPage(reference, page.reference).check();
 
   static final _writePage = jniLookup<
           ffi.NativeFunction<
@@ -413,7 +411,7 @@ class PDFTextStripper extends jni.JniObject {
   /// Write the string in TextPosition to the output stream.
   ///@param text The text to write to the stream.
   ///@throws IOException If there is an error when writing the text.
-  void writeCharacters(jni.JniObject text) =>
+  void writeCharacters(jni.JObject text) =>
       _writeCharacters(reference, text.reference).check();
 
   static final _writeString = jniLookup<
@@ -433,7 +431,7 @@ class PDFTextStripper extends jni.JniObject {
   ///@param text The text to write to the stream.
   ///@param textPositions The TextPositions belonging to the text.
   ///@throws IOException If there is an error when writing the text.
-  void writeString(jni.JString text, jni.JniObject textPositions) =>
+  void writeString(jni.JString text, jni.JObject textPositions) =>
       _writeString(reference, text.reference, textPositions.reference).check();
 
   static final _writeString1 = jniLookup<
@@ -466,7 +464,7 @@ class PDFTextStripper extends jni.JniObject {
   /// This will process a TextPosition object and add the text to the list of characters on a page. It takes care of
   /// overlapping text.
   ///@param text The text to process.
-  void processTextPosition(jni.JniObject text) =>
+  void processTextPosition(jni.JObject text) =>
       _processTextPosition(reference, text.reference).check();
 
   static final _getStartPage = jniLookup<
@@ -620,8 +618,7 @@ class PDFTextStripper extends jni.JniObject {
   ///
   /// The output stream that is being written to.
   ///@return The stream that output is being written to.
-  jni.JniObject getOutput() =>
-      jni.JniObject.fromRef(_getOutput(reference).object);
+  jni.JObject getOutput() => jni.JObject.fromRef(_getOutput(reference).object);
 
   static final _getCharactersByArticle = jniLookup<
               ffi.NativeFunction<
@@ -635,8 +632,8 @@ class PDFTextStripper extends jni.JniObject {
   /// Character strings are grouped by articles. It is quite common that there will only be a single article. This
   /// returns a List that contains List objects, the inner lists will contain TextPosition objects.
   ///@return A double List of TextPositions for all text strings on the page.
-  jni.JniObject getCharactersByArticle() =>
-      jni.JniObject.fromRef(_getCharactersByArticle(reference).object);
+  jni.JObject getCharactersByArticle() =>
+      jni.JObject.fromRef(_getCharactersByArticle(reference).object);
 
   static final _setSuppressDuplicateOverlappingText = jniLookup<
               ffi.NativeFunction<
@@ -693,8 +690,8 @@ class PDFTextStripper extends jni.JniObject {
   ///
   /// Get the bookmark where text extraction should end, inclusive. Default is null.
   ///@return The ending bookmark.
-  jni.JniObject getEndBookmark() =>
-      jni.JniObject.fromRef(_getEndBookmark(reference).object);
+  jni.JObject getEndBookmark() =>
+      jni.JObject.fromRef(_getEndBookmark(reference).object);
 
   static final _setEndBookmark = jniLookup<
           ffi.NativeFunction<
@@ -708,7 +705,7 @@ class PDFTextStripper extends jni.JniObject {
   ///
   /// Set the bookmark where the text extraction should stop.
   ///@param aEndBookmark The ending bookmark.
-  void setEndBookmark(jni.JniObject aEndBookmark) =>
+  void setEndBookmark(jni.JObject aEndBookmark) =>
       _setEndBookmark(reference, aEndBookmark.reference).check();
 
   static final _getStartBookmark = jniLookup<
@@ -722,8 +719,8 @@ class PDFTextStripper extends jni.JniObject {
   ///
   /// Get the bookmark where text extraction should start, inclusive. Default is null.
   ///@return The starting bookmark.
-  jni.JniObject getStartBookmark() =>
-      jni.JniObject.fromRef(_getStartBookmark(reference).object);
+  jni.JObject getStartBookmark() =>
+      jni.JObject.fromRef(_getStartBookmark(reference).object);
 
   static final _setStartBookmark = jniLookup<
           ffi.NativeFunction<
@@ -737,7 +734,7 @@ class PDFTextStripper extends jni.JniObject {
   ///
   /// Set the bookmark where text extraction should start, inclusive.
   ///@param aStartBookmark The starting bookmark.
-  void setStartBookmark(jni.JniObject aStartBookmark) =>
+  void setStartBookmark(jni.JObject aStartBookmark) =>
       _setStartBookmark(reference, aStartBookmark.reference).check();
 
   static final _getAddMoreFormatting = jniLookup<
@@ -1155,7 +1152,7 @@ class PDFTextStripper extends jni.JniObject {
   ///
   /// use to supply a different set of regular expression patterns for matching list item starts.
   ///@param patterns list of patterns
-  void setListItemPatterns(jni.JniObject patterns) =>
+  void setListItemPatterns(jni.JObject patterns) =>
       _setListItemPatterns(reference, patterns.reference).check();
 
   static final _getListItemPatterns = jniLookup<
@@ -1183,8 +1180,8 @@ class PDFTextStripper extends jni.JniObject {
   ///
   /// This method returns a list of such regular expression Patterns.
   ///@return a list of Pattern objects.
-  jni.JniObject getListItemPatterns() =>
-      jni.JniObject.fromRef(_getListItemPatterns(reference).object);
+  jni.JObject getListItemPatterns() =>
+      jni.JObject.fromRef(_getListItemPatterns(reference).object);
 
   static final _matchPattern = jniLookup<
           ffi.NativeFunction<
@@ -1207,9 +1204,8 @@ class PDFTextStripper extends jni.JniObject {
   ///@param string the string to be searched
   ///@param patterns list of patterns
   ///@return matching pattern
-  static jni.JniObject matchPattern(
-          jni.JString string, jni.JniObject patterns) =>
-      jni.JniObject.fromRef(
+  static jni.JObject matchPattern(jni.JString string, jni.JObject patterns) =>
+      jni.JObject.fromRef(
           _matchPattern(string.reference, patterns.reference).object);
 }
 
@@ -1227,6 +1223,6 @@ extension $PDFTextStripperJniArray on jni.JArray<PDFTextStripper> {
   }
 
   void operator []=(int index, PDFTextStripper value) {
-    (this as jni.JArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JObject>)[index] = value;
   }
 }

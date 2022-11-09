@@ -2,9 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-part of 'jtypes.dart';
+part of 'types.dart';
 
-class JString extends JniObject {
+class JString extends JObject {
   /// The type which includes information such as the signature of this class.
   static const JniType<JString> type = _JStringType();
 

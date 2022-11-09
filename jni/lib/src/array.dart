@@ -4,9 +4,9 @@
 
 // ignore_for_file: unnecessary_cast
 
-part of 'jtypes.dart';
+part of 'types.dart';
 
-class JArray<E> extends JniObject {
+class JArray<E> extends JObject {
   /// The type which includes information such as the signature of this class.
   static JniType<JArray<T>> type<T>(JniType<T> innerType) =>
       _JArrayType(innerType);
@@ -269,17 +269,17 @@ extension DoubleJArray on JArray<JDouble> {
   }
 }
 
-extension ObjectJArray<T extends JniObject> on JArray<T> {
-  JniObject operator [](int index) {
-    return JniObject.fromRef(elementAt(index, JniCallType.objectType).object);
+extension ObjectJArray<T extends JObject> on JArray<T> {
+  JObject operator [](int index) {
+    return JObject.fromRef(elementAt(index, JniCallType.objectType).object);
   }
 
-  void operator []=(int index, JniObject value) {
+  void operator []=(int index, JObject value) {
     RangeError.checkValidIndex(index, this);
     _env.SetObjectArrayElement(reference, index, value.reference);
   }
 
-  void setRange(int start, int end, Iterable<JniObject> iterable,
+  void setRange(int start, int end, Iterable<JObject> iterable,
       [int skipCount = 0]) {
     RangeError.checkValidRange(start, end, length);
     final size = end - start;
@@ -296,7 +296,7 @@ extension ArrayJArray<T> on JArray<JArray<T>> {
   }
 
   void operator []=(int index, JArray<T> value) {
-    (this as JArray<JniObject>)[index] = value;
+    (this as JArray<JObject>)[index] = value;
   }
 }
 
@@ -306,6 +306,6 @@ extension StringJArray on JArray<JString> {
   }
 
   void operator []=(int index, JString value) {
-    (this as JArray<JniObject>)[index] = value;
+    (this as JArray<JObject>)[index] = value;
   }
 }

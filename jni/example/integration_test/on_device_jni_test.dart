@@ -116,7 +116,7 @@ void main() {
   });
 
   testWidgets("enums", (t) async {
-    final ordinal = Jni.retrieveStaticField<JniObject>(
+    final ordinal = Jni.retrieveStaticField<JObject>(
             "java/net/Proxy\$Type", "HTTP", "Ljava/net/Proxy\$Type;")
         .use((f) => f.callMethodByName<int>("ordinal", "()I", []));
     expect(ordinal, equals(1));

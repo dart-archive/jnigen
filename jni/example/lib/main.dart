@@ -56,7 +56,7 @@ int uptime() {
 }
 
 void quit() {
-  JniObject.fromRef(Jni.getCurrentActivity())
+  JObject.fromRef(Jni.getCurrentActivity())
       .use((ac) => ac.callMethodByName<void>("finish", "()V", []));
 }
 
@@ -68,7 +68,7 @@ void showToast(String text) {
   // In this example, Toaster class wraps android.widget.Toast so that it
   // can be called from any thread. See
   // android/app/src/main/java/com/github/dart_lang/jni_example/Toaster.java
-  Jni.invokeStaticMethod<JniObject>(
+  Jni.invokeStaticMethod<JObject>(
       "com/github/dart_lang/jni_example/Toaster",
       "makeText",
       "(Landroid/app/Activity;Landroid/content/Context;"
@@ -100,7 +100,7 @@ void main() {
               "android/os/Build", "DEVICE", "Ljava/lang/String;")),
       Example(
         "Package name",
-        () => JniObject.fromRef(Jni.getCurrentActivity()).use((activity) =>
+        () => JObject.fromRef(Jni.getCurrentActivity()).use((activity) =>
             activity.callMethodByName<String>(
                 "getPackageName", "()Ljava/lang/String;", [])),
       ),

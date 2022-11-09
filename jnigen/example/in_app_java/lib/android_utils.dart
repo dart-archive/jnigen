@@ -21,7 +21,7 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
     ProtectedJniExtensions.initGeneratedLibrary("android_utils");
 
 /// from: com.example.in_app_java.AndroidUtils
-class AndroidUtils extends jni.JniObject {
+class AndroidUtils extends jni.JObject {
   AndroidUtils.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
@@ -36,7 +36,7 @@ class AndroidUtils extends jni.JniObject {
 
   /// from: static public void showToast(android.app.Activity mainActivity, java.lang.CharSequence text, int duration)
   static void showToast(
-          jni.JniObject mainActivity, jni.JniObject text, int duration) =>
+          jni.JObject mainActivity, jni.JObject text, int duration) =>
       _showToast(mainActivity.reference, text.reference, duration).check();
 }
 
@@ -54,12 +54,12 @@ extension $AndroidUtilsJniArray on jni.JArray<AndroidUtils> {
   }
 
   void operator []=(int index, AndroidUtils value) {
-    (this as jni.JArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JObject>)[index] = value;
   }
 }
 
 /// from: android.os.Build
-class Build extends jni.JniObject {
+class Build extends jni.JObject {
   Build.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
@@ -342,8 +342,8 @@ class Build extends jni.JniObject {
 
   /// from: static public java.util.List getFingerprintedPartitions()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JniObject getFingerprintedPartitions() =>
-      jni.JniObject.fromRef(_getFingerprintedPartitions().object);
+  static jni.JObject getFingerprintedPartitions() =>
+      jni.JObject.fromRef(_getFingerprintedPartitions().object);
 
   static final _getRadioVersion =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -369,6 +369,6 @@ extension $BuildJniArray on jni.JArray<Build> {
   }
 
   void operator []=(int index, Build value) {
-    (this as jni.JArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JObject>)[index] = value;
   }
 }

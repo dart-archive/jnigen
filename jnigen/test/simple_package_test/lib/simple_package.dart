@@ -25,7 +25,7 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
     ProtectedJniExtensions.initGeneratedLibrary("simple_package");
 
 /// from: com.github.dart_lang.jnigen.simple_package.Example
-class Example extends jni.JniObject {
+class Example extends jni.JObject {
   Example.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
@@ -187,12 +187,12 @@ extension $ExampleJniArray on jni.JArray<Example> {
   }
 
   void operator []=(int index, Example value) {
-    (this as jni.JArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JObject>)[index] = value;
   }
 }
 
 /// from: com.github.dart_lang.jnigen.simple_package.Example$Aux
-class Example_Aux extends jni.JniObject {
+class Example_Aux extends jni.JObject {
   Example_Aux.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
@@ -260,12 +260,12 @@ extension $Example_AuxJniArray on jni.JArray<Example_Aux> {
   }
 
   void operator []=(int index, Example_Aux value) {
-    (this as jni.JArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JObject>)[index] = value;
   }
 }
 
 /// from: com.github.dart_lang.jnigen.pkg2.C2
-class C2 extends jni.JniObject {
+class C2 extends jni.JObject {
   C2.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
@@ -306,12 +306,12 @@ extension $C2JniArray on jni.JArray<C2> {
   }
 
   void operator []=(int index, C2 value) {
-    (this as jni.JArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JObject>)[index] = value;
   }
 }
 
 /// from: com.github.dart_lang.jnigen.pkg2.Example
-class Example1 extends jni.JniObject {
+class Example1 extends jni.JObject {
   Example1.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
@@ -347,6 +347,6 @@ extension $Example1JniArray on jni.JArray<Example1> {
   }
 
   void operator []=(int index, Example1 value) {
-    (this as jni.JArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JObject>)[index] = value;
   }
 }

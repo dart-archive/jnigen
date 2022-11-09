@@ -9,9 +9,9 @@ import 'package:ffi/ffi.dart';
 import 'package:path/path.dart';
 
 import 'third_party/jni_bindings_generated.dart';
-import 'jvalues.dart';
+import 'values.dart';
 import 'jni_exceptions.dart';
-import 'jtypes.dart';
+import 'types.dart';
 import 'accessors.dart';
 
 String _getLibraryFileName(String base) {
@@ -181,7 +181,7 @@ abstract class Jni {
   ///
   /// Use it when one instance is needed, but the constructor or class aren't
   /// required themselves.
-  static JniObject newInstance(
+  static JObject newInstance(
       String qualifiedName, String ctorSignature, List<dynamic> args) {
     final cls = findJniClass(qualifiedName);
     final ctor = cls.getCtorID(ctorSignature);
@@ -202,7 +202,7 @@ abstract class Jni {
 
   /// Returns the value of static field identified by [fieldName] & [signature].
   ///
-  /// See [JniObject.getField] for more explanations about [callType] and [T].
+  /// See [JObject.getField] for more explanations about [callType] and [T].
   static T retrieveStaticField<T>(
       String className, String fieldName, String signature,
       [int? callType]) {
@@ -215,8 +215,8 @@ abstract class Jni {
   /// Calls static method identified by [methodName] and [signature]
   /// on [className] with [args] as and [callType].
   ///
-  /// For more explanation on [args] and [callType], see [JniObject.getField]
-  /// and [JniObject.callMethod] respectively.
+  /// For more explanation on [args] and [callType], see [JObject.getField]
+  /// and [JObject.callMethod] respectively.
   static T invokeStaticMethod<T>(
       String className, String methodName, String signature, List<dynamic> args,
       [int? callType]) {
@@ -228,7 +228,7 @@ abstract class Jni {
   }
 
   /// Delete all references in [objects].
-  static void deleteAll(List<JniReference> objects) {
+  static void deleteAll(List<JReference> objects) {
     for (var object in objects) {
       object.delete();
     }

@@ -145,7 +145,7 @@ void main() {
   test(
     "Passing strings in arguments",
     () {
-      final out = Jni.retrieveStaticField<JniObject>(
+      final out = Jni.retrieveStaticField<JObject>(
           "java/lang/System", "out", "Ljava/io/PrintStream;");
       // uncomment next line to see output
       // (\n because test runner prints first char at end of the line)
@@ -171,7 +171,7 @@ void main() {
   // The JniObject and JniClass have NativeFinalizer. However, it's possible to
   // explicitly use `Arena`.
   test('Using arena', () {
-    final objects = <JniObject>[];
+    final objects = <JObject>[];
     using((arena) {
       final r = Jni.findJniClass('java/util/Random')..deletedIn(arena);
       final ctor = r.getCtorID("()V");
@@ -186,7 +186,7 @@ void main() {
 
   test("enums", () {
     // Don't forget to escape $ in nested type names
-    final ordinal = Jni.retrieveStaticField<JniObject>(
+    final ordinal = Jni.retrieveStaticField<JObject>(
             "java/net/Proxy\$Type", "HTTP", "Ljava/net/Proxy\$Type;")
         .use((f) => f.callMethodByName<int>("ordinal", "()I", []));
     expect(ordinal, equals(1));

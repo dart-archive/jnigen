@@ -40,7 +40,7 @@ import "../../../../_init.dart" show jniEnv, jniAccessors;
 ///
 /// Enumeration for basic token types used for returning results
 /// of parsing JSON content.
-class JsonToken extends jni.JniObject {
+class JsonToken extends jni.JObject {
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonToken");
   JsonToken.fromRef(jni.JObjectPtr ref) : super.fromRef(ref);
@@ -176,6 +176,6 @@ extension $JsonTokenJniArray on jni.JArray<JsonToken> {
   }
 
   void operator []=(int index, JsonToken value) {
-    (this as jni.JArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JObject>)[index] = value;
   }
 }

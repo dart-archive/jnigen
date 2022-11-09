@@ -42,7 +42,7 @@ import "../../../../_init.dart" show jniLookup;
 /// method then it will clear the value.
 ///@author Ben Litchfield
 ///@author Gerardo Ortiz
-class PDDocumentInformation extends jni.JniObject {
+class PDDocumentInformation extends jni.JObject {
   PDDocumentInformation.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
@@ -67,7 +67,7 @@ class PDDocumentInformation extends jni.JniObject {
   ///
   /// Constructor that is used for a preexisting dictionary.
   ///@param dic The underlying dictionary.
-  PDDocumentInformation.ctor1(jni.JniObject dic)
+  PDDocumentInformation.ctor1(jni.JObject dic)
       : super.fromRef(_ctor1(dic.reference).object);
 
   static final _getCOSObject = jniLookup<
@@ -81,8 +81,8 @@ class PDDocumentInformation extends jni.JniObject {
   ///
   /// This will get the underlying dictionary that this object wraps.
   ///@return The underlying info dictionary.
-  jni.JniObject getCOSObject() =>
-      jni.JniObject.fromRef(_getCOSObject(reference).object);
+  jni.JObject getCOSObject() =>
+      jni.JObject.fromRef(_getCOSObject(reference).object);
 
   static final _getPropertyStringValue = jniLookup<
               ffi.NativeFunction<
@@ -104,8 +104,8 @@ class PDDocumentInformation extends jni.JniObject {
   ///
   ///@param propertyKey the dictionaries key
   ///@return the properties value
-  jni.JniObject getPropertyStringValue(jni.JString propertyKey) =>
-      jni.JniObject.fromRef(
+  jni.JObject getPropertyStringValue(jni.JString propertyKey) =>
+      jni.JObject.fromRef(
           _getPropertyStringValue(reference, propertyKey.reference).object);
 
   static final _getTitle = jniLookup<
@@ -291,8 +291,8 @@ class PDDocumentInformation extends jni.JniObject {
   ///
   /// This will get the creation date of the document.  This will return null if no creation date exists.
   ///@return The creation date of the document.
-  jni.JniObject getCreationDate() =>
-      jni.JniObject.fromRef(_getCreationDate(reference).object);
+  jni.JObject getCreationDate() =>
+      jni.JObject.fromRef(_getCreationDate(reference).object);
 
   static final _setCreationDate = jniLookup<
               ffi.NativeFunction<
@@ -307,7 +307,7 @@ class PDDocumentInformation extends jni.JniObject {
   ///
   /// This will set the creation date of the document.
   ///@param date The new creation date for the document.
-  void setCreationDate(jni.JniObject date) =>
+  void setCreationDate(jni.JObject date) =>
       _setCreationDate(reference, date.reference).check();
 
   static final _getModificationDate = jniLookup<
@@ -321,8 +321,8 @@ class PDDocumentInformation extends jni.JniObject {
   ///
   /// This will get the modification date of the document.  This will return null if no modification date exists.
   ///@return The modification date of the document.
-  jni.JniObject getModificationDate() =>
-      jni.JniObject.fromRef(_getModificationDate(reference).object);
+  jni.JObject getModificationDate() =>
+      jni.JObject.fromRef(_getModificationDate(reference).object);
 
   static final _setModificationDate = jniLookup<
               ffi.NativeFunction<
@@ -337,7 +337,7 @@ class PDDocumentInformation extends jni.JniObject {
   ///
   /// This will set the modification date of the document.
   ///@param date The new modification date for the document.
-  void setModificationDate(jni.JniObject date) =>
+  void setModificationDate(jni.JObject date) =>
       _setModificationDate(reference, date.reference).check();
 
   static final _getTrapped = jniLookup<
@@ -367,8 +367,8 @@ class PDDocumentInformation extends jni.JniObject {
   /// This will get the keys of all metadata information fields for the document.
   ///@return all metadata key strings.
   ///@since Apache PDFBox 1.3.0
-  jni.JniObject getMetadataKeys() =>
-      jni.JniObject.fromRef(_getMetadataKeys(reference).object);
+  jni.JObject getMetadataKeys() =>
+      jni.JObject.fromRef(_getMetadataKeys(reference).object);
 
   static final _getCustomMetadataValue = jniLookup<
               ffi.NativeFunction<
@@ -441,6 +441,6 @@ extension $PDDocumentInformationJniArray on jni.JArray<PDDocumentInformation> {
   }
 
   void operator []=(int index, PDDocumentInformation value) {
-    (this as jni.JArray<jni.JniObject>)[index] = value;
+    (this as jni.JArray<jni.JObject>)[index] = value;
   }
 }

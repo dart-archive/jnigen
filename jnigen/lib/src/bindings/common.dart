@@ -30,7 +30,7 @@ abstract class BindingsGenerator {
 
   static const String jthrowableType = '${jni}JThrowablePtr';
 
-  static const String jniObjectType = '${jni}JniObject';
+  static const String jniObjectType = '${jni}JObject';
 
   static const String jniArrayType = '${jni}JArray';
 

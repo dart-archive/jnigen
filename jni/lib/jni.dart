@@ -63,9 +63,9 @@ library jni;
 export 'src/third_party/jni_bindings_generated.dart'
     hide JniBindings, JniEnv, JniEnv1, JniExceptionDetails;
 export 'src/jni.dart' hide ProtectedJniExtensions;
-export 'src/jvalues.dart' hide JValueArgs, toJValues;
+export 'src/values.dart' hide JValueArgs, toJValues;
 export 'src/jni_exceptions.dart';
-export 'src/jtypes.dart' hide JniReference;
+export 'src/types.dart' hide JReference;
 
 export 'package:ffi/ffi.dart' show using, Arena;
 export 'dart:ffi' show nullptr;
