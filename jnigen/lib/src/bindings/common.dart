@@ -36,7 +36,7 @@ abstract class BindingsGenerator {
 
   static const String jniCallType = '${jni}JniCallType';
 
-  static const String jniTypeType = '${jni}JniType';
+  static const String jniTypeType = '${jni}JType';
   static const String typeClassSuffix = 'Type';
   static const String typeClassPrefix = '_\$';
 

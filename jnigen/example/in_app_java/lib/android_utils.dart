@@ -25,7 +25,7 @@ class AndroidUtils extends jni.JObject {
   AndroidUtils.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JniType<AndroidUtils> type = _$AndroidUtilsType();
+  static const jni.JType<AndroidUtils> type = _$AndroidUtilsType();
   static final _showToast = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>,
@@ -40,7 +40,7 @@ class AndroidUtils extends jni.JObject {
       _showToast(mainActivity.reference, text.reference, duration).check();
 }
 
-class _$AndroidUtilsType extends jni.JniType<AndroidUtils> {
+class _$AndroidUtilsType extends jni.JType<AndroidUtils> {
   const _$AndroidUtilsType();
 
   @override
@@ -63,7 +63,7 @@ class Build extends jni.JObject {
   Build.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JniType<Build> type = _$BuildType();
+  static const jni.JType<Build> type = _$BuildType();
   static final _get_BOARD =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_Build__BOARD")
@@ -356,7 +356,7 @@ class Build extends jni.JObject {
       jni.JniString.fromRef(_getRadioVersion().object);
 }
 
-class _$BuildType extends jni.JniType<Build> {
+class _$BuildType extends jni.JType<Build> {
   const _$BuildType();
 
   @override

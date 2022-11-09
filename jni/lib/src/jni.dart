@@ -10,7 +10,7 @@ import 'package:path/path.dart';
 
 import 'third_party/jni_bindings_generated.dart';
 import 'values.dart';
-import 'jni_exceptions.dart';
+import 'exceptions.dart';
 import 'types.dart';
 import 'accessors.dart';
 

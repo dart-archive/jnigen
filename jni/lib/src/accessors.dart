@@ -9,7 +9,7 @@ import 'package:jni/src/values.dart';
 
 import 'third_party/jni_bindings_generated.dart';
 import 'jni.dart';
-import 'jni_exceptions.dart';
+import 'exceptions.dart';
 
 void _check(JThrowablePtr exception) {
   if (exception != nullptr) {
