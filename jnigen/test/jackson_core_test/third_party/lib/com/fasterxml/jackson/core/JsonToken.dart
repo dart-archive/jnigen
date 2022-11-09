@@ -61,7 +61,7 @@ class JsonToken extends jni.JniObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonToken valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonToken valueOf(jni.JniString name) =>
+  static JsonToken valueOf(jni.JString name) =>
       JsonToken.fromRef(jniAccessors.callStaticMethodWithArgs(_classRef,
           _id_valueOf, jni.JniCallType.objectType, [name.reference]).object);
 
@@ -76,9 +76,8 @@ class JsonToken extends jni.JniObject {
 
   /// from: public final java.lang.String asString()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JniString asString() =>
-      jni.JniString.fromRef(jniAccessors.callMethodWithArgs(
-          reference, _id_asString, jni.JniCallType.objectType, []).object);
+  jni.JString asString() => jni.JString.fromRef(jniAccessors.callMethodWithArgs(
+      reference, _id_asString, jni.JniCallType.objectType, []).object);
 
   static final _id_asCharArray =
       jniAccessors.getMethodIDOf(_classRef, "asCharArray", "()[C");

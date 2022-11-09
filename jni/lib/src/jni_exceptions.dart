@@ -17,14 +17,14 @@ class UseAfterFreeException implements Exception {
   }
 }
 
-class NullJniStringException implements Exception {
+class NullJStringException implements Exception {
   @override
-  String toString() => 'toDartString called on null JniString reference';
+  String toString() => 'toDartString called on null JString reference';
 }
 
-class InvalidJniStringException implements Exception {
+class InvalidJStringException implements Exception {
   Pointer<Void> reference;
-  InvalidJniStringException(this.reference);
+  InvalidJStringException(this.reference);
   @override
   String toString() => 'Not a valid Java String: '
       '0x${reference.address.toRadixString(16)}';

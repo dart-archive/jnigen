@@ -101,8 +101,8 @@ class _JniObjectType extends JniType<JniObject> {
   String get signature => "Ljava/lang/Object;";
 }
 
-class _JniStringType extends JniType<JniString> {
-  const _JniStringType();
+class _JStringType extends JniType<JString> {
+  const _JStringType();
 
   @override
   String get signature => "Ljava/lang/String;";

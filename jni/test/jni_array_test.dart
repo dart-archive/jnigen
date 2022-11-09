@@ -186,18 +186,18 @@ void main() {
     array.delete();
   });
   test("Java string array", () {
-    final array = JArray(JniString.type, 3);
+    final array = JArray(JString.type, 3);
     expect(array.length, 3);
-    array[0] = "حس".jniString();
-    array[1] = "\$".jniString();
-    array[2] = "33".jniString();
+    array[0] = "حس".toJString();
+    array[1] = "\$".toJString();
+    array[2] = "33".toJString();
     expect(array[0].toDartString(), "حس");
     expect(array[1].toDartString(), "\$");
     expect(array[2].toDartString(), "33");
     array.setRange(
       0,
       3,
-      ["44".jniString(), "55".jniString(), "66".jniString(), "77".jniString()],
+      ["44".toJString(), "55".toJString(), "66".toJString(), "77".toJString()],
       1,
     );
     expect(array[0].toDartString(), "55");
@@ -207,10 +207,10 @@ void main() {
       final _ = array[-1];
     }, throwsRangeError);
     expect(() {
-      array[-1] = "44".jniString();
+      array[-1] = "44".toJString();
     }, throwsRangeError);
     expect(() {
-      array[3] = "44".jniString();
+      array[3] = "44".toJString();
     }, throwsRangeError);
     array.delete();
   });

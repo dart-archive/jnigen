@@ -13,10 +13,11 @@ import 'jni_exceptions.dart';
 import 'jvalues.dart';
 import 'third_party/jni_bindings_generated.dart';
 
+part 'jarray.dart';
 part 'jprimitives.dart';
 part 'jni_object.dart';
-part 'jarray.dart';
 part 'jni_type_class.dart';
+part 'jstring.dart';
 
 final Pointer<JniAccessors> _accessors = Jni.accessors;
 final Pointer<GlobalJniEnv> _env = Jni.env;

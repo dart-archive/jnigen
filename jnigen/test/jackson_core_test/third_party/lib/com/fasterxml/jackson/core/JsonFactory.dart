@@ -382,8 +382,8 @@ class JsonFactory extends jni.JniObject {
   /// Note: sub-classes should override this method; default
   /// implementation will return null for all sub-classes
   ///@return Name of the format handled by parsers, generators this factory creates
-  jni.JniString getFormatName() =>
-      jni.JniString.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JString getFormatName() =>
+      jni.JString.fromRef(jniAccessors.callMethodWithArgs(
           reference, _id_getFormatName, jni.JniCallType.objectType, []).object);
 
   static final _id_hasFormat = jniAccessors.getMethodIDOf(
@@ -787,7 +787,7 @@ class JsonFactory extends jni.JniObject {
   ///@param sep Separator to use, if any; null means that no separator is
   ///   automatically added
   ///@return This factory instance (to allow call chaining)
-  JsonFactory setRootValueSeparator(jni.JniString sep) =>
+  JsonFactory setRootValueSeparator(jni.JString sep) =>
       JsonFactory.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_setRootValueSeparator,
@@ -801,8 +801,8 @@ class JsonFactory extends jni.JniObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// @return Root value separator configured, if any
-  jni.JniString getRootValueSeparator() =>
-      jni.JniString.fromRef(jniAccessors.callMethodWithArgs(reference,
+  jni.JString getRootValueSeparator() =>
+      jni.JString.fromRef(jniAccessors.callMethodWithArgs(reference,
           _id_getRootValueSeparator, jni.JniCallType.objectType, []).object);
 
   static final _id_setCodec = jniAccessors.getMethodIDOf(_classRef, "setCodec",
@@ -989,7 +989,7 @@ class JsonFactory extends jni.JniObject {
   /// Method for constructing parser for parsing
   /// contents of given String.
   ///@since 2.1
-  jsonparser_.JsonParser createParser6(jni.JniString content) =>
+  jsonparser_.JsonParser createParser6(jni.JString content) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createParser6,
@@ -1404,7 +1404,7 @@ class JsonFactory extends jni.JniObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(String) instead.
-  jsonparser_.JsonParser createJsonParser6(jni.JniString content) =>
+  jsonparser_.JsonParser createJsonParser6(jni.JString content) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createJsonParser6,
@@ -1545,7 +1545,7 @@ class JsonFactory_Feature extends jni.JniObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonFactory.Feature valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonFactory_Feature valueOf(jni.JniString name) =>
+  static JsonFactory_Feature valueOf(jni.JString name) =>
       JsonFactory_Feature.fromRef(jniAccessors.callStaticMethodWithArgs(
           _classRef,
           _id_valueOf,

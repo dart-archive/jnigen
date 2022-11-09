@@ -300,12 +300,12 @@ extension ArrayJArray<T> on JArray<JArray<T>> {
   }
 }
 
-extension StringJArray on JArray<JniString> {
-  JniString operator [](int index) {
-    return JniString.fromRef(elementAt(index, JniCallType.objectType).object);
+extension StringJArray on JArray<JString> {
+  JString operator [](int index) {
+    return JString.fromRef(elementAt(index, JniCallType.objectType).object);
   }
 
-  void operator []=(int index, JniString value) {
+  void operator []=(int index, JString value) {
     (this as JArray<JniObject>)[index] = value;
   }
 }

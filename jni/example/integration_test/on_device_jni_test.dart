@@ -38,7 +38,7 @@ void main() {
 
   testWidgets("call a static method using JniClass APIs", (t) async {
     final integerClass = JniClass.fromRef(Jni.findClass("java/lang/Integer"));
-    final result = integerClass.callStaticMethodByName<JniString>(
+    final result = integerClass.callStaticMethodByName<JString>(
         "toHexString", "(I)Ljava/lang/String;", [31]);
 
     final resultString = result.toDartString();

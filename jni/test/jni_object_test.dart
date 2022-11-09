@@ -53,7 +53,7 @@ void main() {
 
   test("call a static method using JniClass APIs", () {
     final integerClass = Jni.findJniClass("java/lang/Integer");
-    final result = integerClass.callStaticMethodByName<JniString>(
+    final result = integerClass.callStaticMethodByName<JString>(
         "toHexString", "(I)Ljava/lang/String;", [31]);
 
     // if the object is supposed to be a Java string

@@ -160,7 +160,7 @@ class JsonParser extends jni.JniObject {
   ///@param charset Character encoding for (lazily) decoding payload
   ///@since 2.8
   void setRequestPayloadOnError1(
-          jni.JArray<jni.JByte> payload, jni.JniString charset) =>
+          jni.JArray<jni.JByte> payload, jni.JString charset) =>
       jniAccessors.callMethodWithArgs(
           reference,
           _id_setRequestPayloadOnError1,
@@ -175,7 +175,7 @@ class JsonParser extends jni.JniObject {
   /// Sets the String request payload
   ///@param payload Payload to pass
   ///@since 2.8
-  void setRequestPayloadOnError2(jni.JniString payload) =>
+  void setRequestPayloadOnError2(jni.JString payload) =>
       jniAccessors.callMethodWithArgs(reference, _id_setRequestPayloadOnError2,
           jni.JniCallType.voidType, [payload.reference]).check();
 
@@ -795,8 +795,8 @@ class JsonParser extends jni.JniObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.5
-  jni.JniString nextFieldName1() =>
-      jni.JniString.fromRef(jniAccessors.callMethodWithArgs(reference,
+  jni.JString nextFieldName1() =>
+      jni.JString.fromRef(jniAccessors.callMethodWithArgs(reference,
           _id_nextFieldName1, jni.JniCallType.objectType, []).object);
 
   static final _id_nextTextValue = jniAccessors.getMethodIDOf(
@@ -818,8 +818,8 @@ class JsonParser extends jni.JniObject {
   ///   to; or {@code null} if next token is of some other type
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniString nextTextValue() =>
-      jni.JniString.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JString nextTextValue() =>
+      jni.JString.fromRef(jniAccessors.callMethodWithArgs(
           reference, _id_nextTextValue, jni.JniCallType.objectType, []).object);
 
   static final _id_nextIntValue =
@@ -1194,9 +1194,11 @@ class JsonParser extends jni.JniObject {
   /// Note that use of this method should only be done as sort of last
   /// resort, as it is a work-around for regular operation.
   ///@param name Name to use as the current name; may be null.
-  void overrideCurrentName(jni.JniString name) =>
-      jniAccessors.callMethodWithArgs(reference, _id_overrideCurrentName,
-          jni.JniCallType.voidType, [name.reference]).check();
+  void overrideCurrentName(jni.JString name) => jniAccessors.callMethodWithArgs(
+      reference,
+      _id_overrideCurrentName,
+      jni.JniCallType.voidType,
+      [name.reference]).check();
 
   static final _id_getCurrentName = jniAccessors.getMethodIDOf(
       _classRef, "getCurrentName", "()Ljava/lang/String;");
@@ -1208,8 +1210,8 @@ class JsonParser extends jni.JniObject {
   ///@return Name of the current field in the parsing context
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniString getCurrentName() =>
-      jni.JniString.fromRef(jniAccessors.callMethodWithArgs(reference,
+  jni.JString getCurrentName() =>
+      jni.JString.fromRef(jniAccessors.callMethodWithArgs(reference,
           _id_getCurrentName, jni.JniCallType.objectType, []).object);
 
   static final _id_currentName = jniAccessors.getMethodIDOf(
@@ -1227,8 +1229,8 @@ class JsonParser extends jni.JniObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.10
-  jni.JniString currentName() =>
-      jni.JniString.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JString currentName() =>
+      jni.JString.fromRef(jniAccessors.callMethodWithArgs(
           reference, _id_currentName, jni.JniCallType.objectType, []).object);
 
   static final _id_getText =
@@ -1245,9 +1247,8 @@ class JsonParser extends jni.JniObject {
   ///   by \#nextToken() or other iteration methods)
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniString getText() =>
-      jni.JniString.fromRef(jniAccessors.callMethodWithArgs(
-          reference, _id_getText, jni.JniCallType.objectType, []).object);
+  jni.JString getText() => jni.JString.fromRef(jniAccessors.callMethodWithArgs(
+      reference, _id_getText, jni.JniCallType.objectType, []).object);
 
   static final _id_getText1 =
       jniAccessors.getMethodIDOf(_classRef, "getText", "(Ljava/io/Writer;)I");
@@ -1932,8 +1933,8 @@ class JsonParser extends jni.JniObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.1
-  jni.JniString getValueAsString() =>
-      jni.JniString.fromRef(jniAccessors.callMethodWithArgs(reference,
+  jni.JString getValueAsString() =>
+      jni.JString.fromRef(jniAccessors.callMethodWithArgs(reference,
           _id_getValueAsString, jni.JniCallType.objectType, []).object);
 
   static final _id_getValueAsString1 = jniAccessors.getMethodIDOf(
@@ -1954,8 +1955,8 @@ class JsonParser extends jni.JniObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.1
-  jni.JniString getValueAsString1(jni.JniString def) =>
-      jni.JniString.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JString getValueAsString1(jni.JString def) =>
+      jni.JString.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_getValueAsString1,
           jni.JniCallType.objectType,
@@ -2136,7 +2137,7 @@ class JsonParser_Feature extends jni.JniObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonParser.Feature valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonParser_Feature valueOf(jni.JniString name) =>
+  static JsonParser_Feature valueOf(jni.JString name) =>
       JsonParser_Feature.fromRef(jniAccessors.callStaticMethodWithArgs(
           _classRef,
           _id_valueOf,
@@ -2223,7 +2224,7 @@ class JsonParser_NumberType extends jni.JniObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonParser.NumberType valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonParser_NumberType valueOf(jni.JniString name) =>
+  static JsonParser_NumberType valueOf(jni.JString name) =>
       JsonParser_NumberType.fromRef(jniAccessors.callStaticMethodWithArgs(
           _classRef,
           _id_valueOf,

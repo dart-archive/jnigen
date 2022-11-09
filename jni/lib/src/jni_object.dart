@@ -131,13 +131,13 @@ T _callOrGet<T>(int? callType, JniResult Function(int) function) {
       break;
     case String:
     case JniObject:
-    case JniString:
+    case JString:
       finalCallType = _getCallType(
           callType, JniCallType.objectType, {JniCallType.objectType});
       final ref = function(finalCallType).object;
       final ctor = T == String
           ? (ref) => _env.asDartString(ref, deleteOriginal: true)
-          : (T == JniObject ? JniObject.fromRef : JniString.fromRef);
+          : (T == JniObject ? JniObject.fromRef : JString.fromRef);
       result = ctor(ref) as T;
       break;
     case _VoidType:
@@ -404,52 +404,4 @@ class JniClass extends JniReference {
         final res = _accessors.newObject(reference, ctor, jArgs.values).object;
         return JniObject.fromRef(res);
       });
-}
-
-class JniString extends JniObject {
-  /// The type which includes information such as the signature of this class.
-  static const JniType<JniString> type = _JniStringType();
-
-  /// Construct a new [JniString] with [reference] as its underlying reference.
-  JniString.fromRef(JStringPtr reference) : super.fromRef(reference);
-
-  static JStringPtr _toJavaString(String s) => using((arena) {
-        final chars = s.toNativeUtf8(allocator: arena).cast<Char>();
-        final jstr = _env.NewStringUTF(chars);
-        if (jstr == nullptr) {
-          throw 'Fatal: cannot convert string to Java string: $s';
-        }
-        return jstr;
-      });
-
-  /// The number of Unicode characters in this Java string.
-  int get length => _env.GetStringLength(reference);
-
-  /// Construct a [JniString] from the contents of Dart string [s].
-  JniString.fromString(String s) : super.fromRef(_toJavaString(s));
-
-  /// Returns the contents as a Dart String.
-  ///
-  /// If [deleteOriginal] is true, the underlying reference is deleted
-  /// after conversion and this object will be marked as deleted.
-  String toDartString({bool deleteOriginal = false}) {
-    _ensureNotDeleted();
-    if (reference == nullptr) {
-      throw NullJniStringException();
-    }
-    final chars = _env.GetStringUTFChars(reference, nullptr);
-    final result = chars.cast<Utf8>().toDartString();
-    _env.ReleaseStringUTFChars(reference, chars);
-    if (deleteOriginal) {
-      delete();
-    }
-    return result;
-  }
-}
-
-extension ToJniStringMethod on String {
-  /// Returns a [JniString] with the contents of this String.
-  JniString jniString() {
-    return JniString.fromString(this);
-  }
 }

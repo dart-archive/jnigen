@@ -261,18 +261,18 @@ extension AdditionalEnvMethods on Pointer<GlobalJniEnv> {
   /// to dart string.
   /// if [deleteOriginal] is specified, jstring passed will be deleted using
   /// DeleteLocalRef.
-  String asDartString(JStringPtr jstring, {bool deleteOriginal = false}) {
-    if (jstring == nullptr) {
-      throw NullJniStringException();
+  String asDartString(JStringPtr jstringPtr, {bool deleteOriginal = false}) {
+    if (jstringPtr == nullptr) {
+      throw NullJStringException();
     }
-    final chars = GetStringUTFChars(jstring, nullptr);
+    final chars = GetStringUTFChars(jstringPtr, nullptr);
     if (chars == nullptr) {
-      throw InvalidJniStringException(jstring);
+      throw InvalidJStringException(jstringPtr);
     }
     final result = chars.cast<Utf8>().toDartString();
-    ReleaseStringUTFChars(jstring, chars);
+    ReleaseStringUTFChars(jstringPtr, chars);
     if (deleteOriginal) {
-      DeleteGlobalRef(jstring);
+      DeleteGlobalRef(jstringPtr);
     }
     return result;
   }

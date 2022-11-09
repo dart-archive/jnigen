@@ -569,7 +569,7 @@ class PDDocument extends jni.JniObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException in case of a file reading or parsing error
-  static PDDocument load2(jni.JniObject file, jni.JniString password) =>
+  static PDDocument load2(jni.JniObject file, jni.JString password) =>
       PDDocument.fromRef(_load2(file.reference, password.reference).object);
 
   static final _load3 = jniLookup<
@@ -592,7 +592,7 @@ class PDDocument extends jni.JniObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException in case of a file reading or parsing error
-  static PDDocument load3(jni.JniObject file, jni.JniString password,
+  static PDDocument load3(jni.JniObject file, jni.JString password,
           jni.JniObject memUsageSetting) =>
       PDDocument.fromRef(
           _load3(file.reference, password.reference, memUsageSetting.reference)
@@ -619,8 +619,8 @@ class PDDocument extends jni.JniObject {
   ///@param alias alias to be used for decryption when using public key security
   ///@return loaded document
   ///@throws IOException in case of a file reading or parsing error
-  static PDDocument load4(jni.JniObject file, jni.JniString password,
-          jni.JniObject keyStore, jni.JniString alias) =>
+  static PDDocument load4(jni.JniObject file, jni.JString password,
+          jni.JniObject keyStore, jni.JString alias) =>
       PDDocument.fromRef(_load4(file.reference, password.reference,
               keyStore.reference, alias.reference)
           .object);
@@ -654,9 +654,9 @@ class PDDocument extends jni.JniObject {
   ///@throws IOException in case of a file reading or parsing error
   static PDDocument load5(
           jni.JniObject file,
-          jni.JniString password,
+          jni.JString password,
           jni.JniObject keyStore,
-          jni.JniString alias,
+          jni.JString alias,
           jni.JniObject memUsageSetting) =>
       PDDocument.fromRef(_load5(file.reference, password.reference,
               keyStore.reference, alias.reference, memUsageSetting.reference)
@@ -720,7 +720,7 @@ class PDDocument extends jni.JniObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load8(jni.JniObject input, jni.JniString password) =>
+  static PDDocument load8(jni.JniObject input, jni.JString password) =>
       PDDocument.fromRef(_load8(input.reference, password.reference).object);
 
   static final _load9 = jniLookup<
@@ -745,8 +745,8 @@ class PDDocument extends jni.JniObject {
   ///@param alias alias to be used for decryption when using public key security
   ///@return loaded document
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load9(jni.JniObject input, jni.JniString password,
-          jni.JniObject keyStore, jni.JniString alias) =>
+  static PDDocument load9(jni.JniObject input, jni.JString password,
+          jni.JniObject keyStore, jni.JString alias) =>
       PDDocument.fromRef(_load9(input.reference, password.reference,
               keyStore.reference, alias.reference)
           .object);
@@ -772,7 +772,7 @@ class PDDocument extends jni.JniObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load10(jni.JniObject input, jni.JniString password,
+  static PDDocument load10(jni.JniObject input, jni.JString password,
           jni.JniObject memUsageSetting) =>
       PDDocument.fromRef(_load10(
               input.reference, password.reference, memUsageSetting.reference)
@@ -809,9 +809,9 @@ class PDDocument extends jni.JniObject {
   ///@throws IOException In case of a reading or parsing error.
   static PDDocument load11(
           jni.JniObject input,
-          jni.JniString password,
+          jni.JString password,
           jni.JniObject keyStore,
-          jni.JniString alias,
+          jni.JString alias,
           jni.JniObject memUsageSetting) =>
       PDDocument.fromRef(_load11(input.reference, password.reference,
               keyStore.reference, alias.reference, memUsageSetting.reference)
@@ -851,8 +851,7 @@ class PDDocument extends jni.JniObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load13(
-          jni.JArray<jni.JByte> input, jni.JniString password) =>
+  static PDDocument load13(jni.JArray<jni.JByte> input, jni.JString password) =>
       PDDocument.fromRef(_load13(input.reference, password.reference).object);
 
   static final _load14 = jniLookup<
@@ -877,8 +876,8 @@ class PDDocument extends jni.JniObject {
   ///@return loaded document
   ///@throws InvalidPasswordException If the password is incorrect.
   ///@throws IOException In case of a reading or parsing error.
-  static PDDocument load14(jni.JArray<jni.JByte> input, jni.JniString password,
-          jni.JniObject keyStore, jni.JniString alias) =>
+  static PDDocument load14(jni.JArray<jni.JByte> input, jni.JString password,
+          jni.JniObject keyStore, jni.JString alias) =>
       PDDocument.fromRef(_load14(input.reference, password.reference,
               keyStore.reference, alias.reference)
           .object);
@@ -913,9 +912,9 @@ class PDDocument extends jni.JniObject {
   ///@throws IOException In case of a reading or parsing error.
   static PDDocument load15(
           jni.JArray<jni.JByte> input,
-          jni.JniString password,
+          jni.JString password,
           jni.JniObject keyStore,
-          jni.JniString alias,
+          jni.JString alias,
           jni.JniObject memUsageSetting) =>
       PDDocument.fromRef(_load15(input.reference, password.reference,
               keyStore.reference, alias.reference, memUsageSetting.reference)
@@ -938,7 +937,7 @@ class PDDocument extends jni.JniObject {
   /// do not use the document after saving because the contents are now encrypted.
   ///@param fileName The file to save as.
   ///@throws IOException if the output could not be written
-  void save(jni.JniString fileName) =>
+  void save(jni.JString fileName) =>
       _save(reference, fileName.reference).check();
 
   static final _save1 = jniLookup<
