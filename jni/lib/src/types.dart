@@ -9,15 +9,15 @@ import 'package:ffi/ffi.dart';
 
 import 'accessors.dart';
 import 'jni.dart';
-import 'exceptions.dart';
-import 'values.dart';
+import 'jvalues.dart';
 import 'third_party/jni_bindings_generated.dart';
 
-part 'array.dart';
-part 'primitives.dart';
-part 'reference.dart';
-part 'object.dart';
-part 'string.dart';
+part 'jarray.dart';
+part 'jexceptions.dart';
+part 'jprimitives.dart';
+part 'jreference.dart';
+part 'jobject.dart';
+part 'jstring.dart';
 
 final Pointer<JniAccessors> _accessors = Jni.accessors;
 final Pointer<GlobalJniEnv> _env = Jni.env;

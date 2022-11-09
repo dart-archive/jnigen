@@ -9,8 +9,7 @@ import 'package:ffi/ffi.dart';
 import 'package:path/path.dart';
 
 import 'third_party/jni_bindings_generated.dart';
-import 'values.dart';
-import 'exceptions.dart';
+import 'jvalues.dart';
 import 'types.dart';
 import 'accessors.dart';
 

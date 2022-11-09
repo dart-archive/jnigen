@@ -5,11 +5,11 @@
 import 'dart:ffi';
 import 'package:ffi/ffi.dart' show using;
 
-import 'package:jni/src/values.dart';
+import 'package:jni/src/jvalues.dart';
 
 import 'third_party/jni_bindings_generated.dart';
 import 'jni.dart';
-import 'exceptions.dart';
+import 'types.dart';
 
 void _check(JThrowablePtr exception) {
   if (exception != nullptr) {
