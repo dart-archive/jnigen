@@ -12,7 +12,7 @@ class JniArray<E> extends JniObject {
       _JniArrayType(innerType);
 
   /// Construct a new [JniArray] with [reference] as its underlying reference.
-  JniArray.fromRef(JArray reference) : super.fromRef(reference);
+  JniArray.fromRef(JArrayPtr reference) : super.fromRef(reference);
 
   JniArray(JniType<E> typeClass, int length)
       : super.fromRef(
@@ -48,14 +48,14 @@ extension NativeJniArray<E extends NativeType> on JniArray<E> {
   }
 }
 
-extension BoolJniArray on JniArray<JBoolean> {
+extension BoolJniArray on JniArray<JBooleanMarker> {
   bool operator [](int index) {
     return elementAt(index, JniCallType.booleanType).boolean;
   }
 
   void operator []=(int index, bool value) {
     RangeError.checkValidIndex(index, this);
-    _allocate(sizeOf<JBoolean>(), (ptr) {
+    _allocate(sizeOf<JBooleanMarker>(), (ptr) {
       ptr.value = value ? 1 : 0;
       _env.SetBooleanArrayRegion(reference, index, 1, ptr);
     });
@@ -66,7 +66,7 @@ extension BoolJniArray on JniArray<JBoolean> {
     RangeError.checkValidRange(start, end, length);
     final size = end - start;
     final it = iterable.skip(skipCount).take(size);
-    _allocate(sizeOf<JBoolean>() * size, (ptr) {
+    _allocate(sizeOf<JBooleanMarker>() * size, (ptr) {
       it.forEachIndexed((index, element) {
         ptr[index] = element ? 1 : 0;
       });
@@ -75,14 +75,14 @@ extension BoolJniArray on JniArray<JBoolean> {
   }
 }
 
-extension ByteJniArray on JniArray<JByte> {
+extension ByteJniArray on JniArray<JByteMarker> {
   int operator [](int index) {
     return elementAt(index, JniCallType.byteType).byte;
   }
 
   void operator []=(int index, int value) {
     RangeError.checkValidIndex(index, this);
-    _allocate(sizeOf<JByte>(), (ptr) {
+    _allocate(sizeOf<JByteMarker>(), (ptr) {
       ptr.value = value;
       _env.SetByteArrayRegion(reference, index, 1, ptr);
     });
@@ -93,7 +93,7 @@ extension ByteJniArray on JniArray<JByte> {
     RangeError.checkValidRange(start, end, length);
     final size = end - start;
     final it = iterable.skip(skipCount).take(size);
-    _allocate(sizeOf<JByte>() * size, (ptr) {
+    _allocate(sizeOf<JByteMarker>() * size, (ptr) {
       it.forEachIndexed((index, element) {
         ptr[index] = element;
       });
@@ -102,7 +102,7 @@ extension ByteJniArray on JniArray<JByte> {
   }
 }
 
-extension CharJniArray on JniArray<JChar> {
+extension CharJniArray on JniArray<JCharMarker> {
   String operator [](int index) {
     return String.fromCharCode(
       elementAt(index, JniCallType.charType).char,
@@ -111,7 +111,7 @@ extension CharJniArray on JniArray<JChar> {
 
   void operator []=(int index, String value) {
     RangeError.checkValidIndex(index, this);
-    _allocate(sizeOf<JChar>(), (ptr) {
+    _allocate(sizeOf<JCharMarker>(), (ptr) {
       ptr.value = value.codeUnits.first;
       _env.SetCharArrayRegion(reference, index, 1, ptr);
     });
@@ -122,7 +122,7 @@ extension CharJniArray on JniArray<JChar> {
     RangeError.checkValidRange(start, end, length);
     final size = end - start;
     final it = iterable.skip(skipCount).take(size);
-    _allocate(sizeOf<JChar>() * size, (ptr) {
+    _allocate(sizeOf<JCharMarker>() * size, (ptr) {
       it.forEachIndexed((index, element) {
         ptr[index] = element.codeUnits.first;
       });
@@ -131,14 +131,14 @@ extension CharJniArray on JniArray<JChar> {
   }
 }
 
-extension ShortJniArray on JniArray<JShort> {
+extension ShortJniArray on JniArray<JShortMarker> {
   int operator [](int index) {
     return elementAt(index, JniCallType.shortType).short;
   }
 
   void operator []=(int index, int value) {
     RangeError.checkValidIndex(index, this);
-    _allocate(sizeOf<JShort>(), (ptr) {
+    _allocate(sizeOf<JShortMarker>(), (ptr) {
       ptr.value = value;
       _env.SetShortArrayRegion(reference, index, 1, ptr);
     });
@@ -149,7 +149,7 @@ extension ShortJniArray on JniArray<JShort> {
     RangeError.checkValidRange(start, end, length);
     final size = end - start;
     final it = iterable.skip(skipCount).take(size);
-    _allocate(sizeOf<JShort>() * size, (ptr) {
+    _allocate(sizeOf<JShortMarker>() * size, (ptr) {
       it.forEachIndexed((index, element) {
         ptr[index] = element;
       });
@@ -158,14 +158,14 @@ extension ShortJniArray on JniArray<JShort> {
   }
 }
 
-extension IntJniArray on JniArray<JInt> {
+extension IntJniArray on JniArray<JIntMarker> {
   int operator [](int index) {
     return elementAt(index, JniCallType.intType).integer;
   }
 
   void operator []=(int index, int value) {
     RangeError.checkValidIndex(index, this);
-    _allocate(sizeOf<JInt>(), (ptr) {
+    _allocate(sizeOf<JIntMarker>(), (ptr) {
       ptr.value = value;
       _env.SetIntArrayRegion(reference, index, 1, ptr);
     });
@@ -176,7 +176,7 @@ extension IntJniArray on JniArray<JInt> {
     RangeError.checkValidRange(start, end, length);
     final size = end - start;
     final it = iterable.skip(skipCount).take(size);
-    _allocate(sizeOf<JInt>() * size, (ptr) {
+    _allocate(sizeOf<JIntMarker>() * size, (ptr) {
       it.forEachIndexed((index, element) {
         ptr[index] = element;
       });
@@ -185,14 +185,14 @@ extension IntJniArray on JniArray<JInt> {
   }
 }
 
-extension LongJniArray on JniArray<JLong> {
+extension LongJniArray on JniArray<JLongMarker> {
   int operator [](int index) {
     return elementAt(index, JniCallType.longType).long;
   }
 
   void operator []=(int index, int value) {
     RangeError.checkValidIndex(index, this);
-    _allocate(sizeOf<JLong>(), (ptr) {
+    _allocate(sizeOf<JLongMarker>(), (ptr) {
       ptr.value = value;
       _env.SetLongArrayRegion(reference, index, 1, ptr);
     });
@@ -203,7 +203,7 @@ extension LongJniArray on JniArray<JLong> {
     RangeError.checkValidRange(start, end, length);
     final size = end - start;
     final it = iterable.skip(skipCount).take(size);
-    _allocate(sizeOf<JLong>() * size, (ptr) {
+    _allocate(sizeOf<JLongMarker>() * size, (ptr) {
       it.forEachIndexed((index, element) {
         ptr[index] = element;
       });
@@ -212,14 +212,14 @@ extension LongJniArray on JniArray<JLong> {
   }
 }
 
-extension FloatJniArray on JniArray<JFloat> {
+extension FloatJniArray on JniArray<JFloatMarker> {
   double operator [](int index) {
     return elementAt(index, JniCallType.floatType).float;
   }
 
   void operator []=(int index, double value) {
     RangeError.checkValidIndex(index, this);
-    _allocate(sizeOf<JFloat>(), (ptr) {
+    _allocate(sizeOf<JFloatMarker>(), (ptr) {
       ptr.value = value;
       _env.SetFloatArrayRegion(reference, index, 1, ptr);
     });
@@ -230,7 +230,7 @@ extension FloatJniArray on JniArray<JFloat> {
     RangeError.checkValidRange(start, end, length);
     final size = end - start;
     final it = iterable.skip(skipCount).take(size);
-    _allocate(sizeOf<JFloat>() * size, (ptr) {
+    _allocate(sizeOf<JFloatMarker>() * size, (ptr) {
       it.forEachIndexed((index, element) {
         ptr[index] = element;
       });
@@ -239,14 +239,14 @@ extension FloatJniArray on JniArray<JFloat> {
   }
 }
 
-extension DoubleJniArray on JniArray<JDouble> {
+extension DoubleJniArray on JniArray<JDoubleMarker> {
   double operator [](int index) {
     return elementAt(index, JniCallType.doubleType).doubleFloat;
   }
 
   void operator []=(int index, double value) {
     RangeError.checkValidIndex(index, this);
-    _allocate(sizeOf<JDouble>(), (ptr) {
+    _allocate(sizeOf<JDoubleMarker>(), (ptr) {
       ptr.value = value;
       _env.SetDoubleArrayRegion(reference, index, 1, ptr);
     });
@@ -257,7 +257,7 @@ extension DoubleJniArray on JniArray<JDouble> {
     RangeError.checkValidRange(start, end, length);
     final size = end - start;
     final it = iterable.skip(skipCount).take(size);
-    _allocate(sizeOf<JDouble>() * size, (ptr) {
+    _allocate(sizeOf<JDoubleMarker>() * size, (ptr) {
       it.forEachIndexed((index, element) {
         ptr[index] = element;
       });

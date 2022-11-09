@@ -43,7 +43,7 @@ import "../../../../_init.dart" show jniEnv, jniAccessors;
 class JsonToken extends jni.JniObject {
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonToken");
-  JsonToken.fromRef(jni.JObject ref) : super.fromRef(ref);
+  JsonToken.fromRef(jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const jni.JniType<JsonToken> type = _$JsonTokenType();
@@ -85,8 +85,8 @@ class JsonToken extends jni.JniObject {
 
   /// from: public final char[] asCharArray()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JniArray<jni.JChar> asCharArray() =>
-      jni.JniArray<jni.JChar>.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JniArray<jni.JCharMarker> asCharArray() =>
+      jni.JniArray<jni.JCharMarker>.fromRef(jniAccessors.callMethodWithArgs(
           reference, _id_asCharArray, jni.JniCallType.objectType, []).object);
 
   static final _id_asByteArray =
@@ -94,8 +94,8 @@ class JsonToken extends jni.JniObject {
 
   /// from: public final byte[] asByteArray()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JniArray<jni.JByte> asByteArray() =>
-      jni.JniArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JniArray<jni.JByteMarker> asByteArray() =>
+      jni.JniArray<jni.JByteMarker>.fromRef(jniAccessors.callMethodWithArgs(
           reference, _id_asByteArray, jni.JniCallType.objectType, []).object);
 
   static final _id_isNumeric =

@@ -152,22 +152,22 @@ abstract class Jni {
   static Pointer<JniAccessors> get accessors => _bindings.GetAccessors();
 
   /// Returns current application context on Android.
-  static JObject getCachedApplicationContext() {
+  static JObjectPtr getCachedApplicationContext() {
     return _bindings.GetApplicationContext();
   }
 
   /// Returns current activity
-  static JObject getCurrentActivity() => _bindings.GetCurrentActivity();
+  static JObjectPtr getCurrentActivity() => _bindings.GetCurrentActivity();
 
   /// Get the initial classLoader of the application.
   ///
   /// This is especially useful on Android, where
   /// JNI threads cannot access application classes using
   /// the usual `JniEnv.FindClass` method.
-  static JObject getApplicationClassLoader() => _bindings.GetClassLoader();
+  static JObjectPtr getApplicationClassLoader() => _bindings.GetClassLoader();
 
   /// Returns class reference found through system-specific mechanism
-  static JClass findClass(String qualifiedName) => using((arena) {
+  static JClassPtr findClass(String qualifiedName) => using((arena) {
         final cls = accessors.getClass(qualifiedName.toNativeChars(arena));
         return cls.checkedClassRef;
       });
@@ -257,11 +257,11 @@ extension ProtectedJniExtensions on Jni {
 }
 
 extension AdditionalEnvMethods on Pointer<GlobalJniEnv> {
-  /// Convenience method for converting a [JString]
+  /// Convenience method for converting a [JStringPtr]
   /// to dart string.
   /// if [deleteOriginal] is specified, jstring passed will be deleted using
   /// DeleteLocalRef.
-  String asDartString(JString jstring, {bool deleteOriginal = false}) {
+  String asDartString(JStringPtr jstring, {bool deleteOriginal = false}) {
     if (jstring == nullptr) {
       throw NullJniStringException();
     }
@@ -277,8 +277,8 @@ extension AdditionalEnvMethods on Pointer<GlobalJniEnv> {
     return result;
   }
 
-  /// Return a new [JString] from contents of [s].
-  JString asJString(String s) => using((arena) {
+  /// Return a new [JStringPtr] from contents of [s].
+  JStringPtr asJString(String s) => using((arena) {
         final utf = s.toNativeUtf8().cast<Char>();
         final result = NewStringUTF(utf);
         malloc.free(utf);
@@ -286,7 +286,7 @@ extension AdditionalEnvMethods on Pointer<GlobalJniEnv> {
       });
 
   /// Deletes all references in [refs].
-  void deleteAllRefs(List<JObject> refs) {
+  void deleteAllRefs(List<JObjectPtr> refs) {
     for (final ref in refs) {
       DeleteGlobalRef(ref);
     }

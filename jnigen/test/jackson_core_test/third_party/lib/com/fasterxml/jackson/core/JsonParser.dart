@@ -46,7 +46,7 @@ import "../../../../_init.dart" show jniEnv, jniAccessors;
 class JsonParser extends jni.JniObject {
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonParser");
-  JsonParser.fromRef(jni.JObject ref) : super.fromRef(ref);
+  JsonParser.fromRef(jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const jni.JniType<JsonParser> type = _$JsonParserType();
@@ -160,7 +160,7 @@ class JsonParser extends jni.JniObject {
   ///@param charset Character encoding for (lazily) decoding payload
   ///@since 2.8
   void setRequestPayloadOnError1(
-          jni.JniArray<jni.JByte> payload, jni.JniString charset) =>
+          jni.JniArray<jni.JByteMarker> payload, jni.JniString charset) =>
       jniAccessors.callMethodWithArgs(
           reference,
           _id_setRequestPayloadOnError1,
@@ -1308,9 +1308,11 @@ class JsonParser extends jni.JniObject {
   ///    at offset 0, and not necessarily until the end of buffer)
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniArray<jni.JChar> getTextCharacters() =>
-      jni.JniArray<jni.JChar>.fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_getTextCharacters, jni.JniCallType.objectType, []).object);
+  jni.JniArray<jni.JCharMarker> getTextCharacters() =>
+      jni.JniArray<jni.JCharMarker>.fromRef(jniAccessors.callMethodWithArgs(
+          reference,
+          _id_getTextCharacters,
+          jni.JniCallType.objectType, []).object);
 
   static final _id_getTextLength =
       jniAccessors.getMethodIDOf(_classRef, "getTextLength", "()I");
@@ -1677,8 +1679,8 @@ class JsonParser extends jni.JniObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniArray<jni.JByte> getBinaryValue(jni.JniObject bv) =>
-      jni.JniArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(
+  jni.JniArray<jni.JByteMarker> getBinaryValue(jni.JniObject bv) =>
+      jni.JniArray<jni.JByteMarker>.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_getBinaryValue,
           jni.JniCallType.objectType,
@@ -1696,9 +1698,11 @@ class JsonParser extends jni.JniObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JniArray<jni.JByte> getBinaryValue1() =>
-      jni.JniArray<jni.JByte>.fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_getBinaryValue1, jni.JniCallType.objectType, []).object);
+  jni.JniArray<jni.JByteMarker> getBinaryValue1() =>
+      jni.JniArray<jni.JByteMarker>.fromRef(jniAccessors.callMethodWithArgs(
+          reference,
+          _id_getBinaryValue1,
+          jni.JniCallType.objectType, []).object);
 
   static final _id_readBinaryValue = jniAccessors.getMethodIDOf(
       _classRef, "readBinaryValue", "(Ljava/io/OutputStream;)I");
@@ -2114,7 +2118,7 @@ extension $JsonParserJniArray on jni.JniArray<JsonParser> {
 class JsonParser_Feature extends jni.JniObject {
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonParser\$Feature");
-  JsonParser_Feature.fromRef(jni.JObject ref) : super.fromRef(ref);
+  JsonParser_Feature.fromRef(jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const jni.JniType<JsonParser_Feature> type =
@@ -2201,7 +2205,7 @@ extension $JsonParser_FeatureJniArray on jni.JniArray<JsonParser_Feature> {
 class JsonParser_NumberType extends jni.JniObject {
   static final _classRef = jniAccessors
       .getClassOf("com/fasterxml/jackson/core/JsonParser\$NumberType");
-  JsonParser_NumberType.fromRef(jni.JObject ref) : super.fromRef(ref);
+  JsonParser_NumberType.fromRef(jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const jni.JniType<JsonParser_NumberType> type =

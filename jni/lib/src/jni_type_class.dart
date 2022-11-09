@@ -14,7 +14,7 @@ abstract class JniType<T> {
   JniClass _getClass() => Jni.findJniClass(signature);
 }
 
-class JniBooleanType extends JniType<JBoolean> {
+class JniBooleanType extends JniType<JBooleanMarker> {
   const JniBooleanType();
 
   @override
@@ -24,7 +24,7 @@ class JniBooleanType extends JniType<JBoolean> {
   String get signature => "Z";
 }
 
-class JniByteTypeClass extends JniType<JByte> {
+class JniByteTypeClass extends JniType<JByteMarker> {
   const JniByteTypeClass();
 
   @override
@@ -34,7 +34,7 @@ class JniByteTypeClass extends JniType<JByte> {
   String get signature => "B";
 }
 
-class JniCharType extends JniType<JChar> {
+class JniCharType extends JniType<JCharMarker> {
   const JniCharType();
 
   @override
@@ -44,7 +44,7 @@ class JniCharType extends JniType<JChar> {
   String get signature => "C";
 }
 
-class JniShortType extends JniType<JShort> {
+class JniShortType extends JniType<JShortMarker> {
   const JniShortType();
 
   @override
@@ -54,7 +54,7 @@ class JniShortType extends JniType<JShort> {
   String get signature => "S";
 }
 
-class JniIntType extends JniType<JInt> {
+class JniIntType extends JniType<JIntMarker> {
   const JniIntType();
 
   @override
@@ -64,7 +64,7 @@ class JniIntType extends JniType<JInt> {
   String get signature => "I";
 }
 
-class JniLongType extends JniType<JLong> {
+class JniLongType extends JniType<JLongMarker> {
   const JniLongType();
 
   @override
@@ -74,7 +74,7 @@ class JniLongType extends JniType<JLong> {
   String get signature => "J";
 }
 
-class JniFloatType extends JniType<JFloat> {
+class JniFloatType extends JniType<JFloatMarker> {
   const JniFloatType();
 
   @override
@@ -84,7 +84,7 @@ class JniFloatType extends JniType<JFloat> {
   String get signature => "F";
 }
 
-class JniDoubleType extends JniType<JDouble> {
+class JniDoubleType extends JniType<JDoubleMarker> {
   const JniDoubleType();
 
   @override

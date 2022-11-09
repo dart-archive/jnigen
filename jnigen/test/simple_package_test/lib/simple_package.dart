@@ -47,9 +47,9 @@ class Example extends jni.JniObject {
   static Example_Aux get aux => Example_Aux.fromRef(_get_aux().object);
   static final _set_aux = jniLookup<
           ffi.NativeFunction<
-              jni.JThrowable Function(
+              jni.JThrowablePtr Function(
                   ffi.Pointer<ffi.Void>)>>("set_Example__aux")
-      .asFunction<jni.JThrowable Function(ffi.Pointer<ffi.Void>)>();
+      .asFunction<jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux aux
   /// The returned object must be deleted after use, by calling the `delete` method.
@@ -63,9 +63,9 @@ class Example extends jni.JniObject {
   /// from: static public int num
   static int get num => _get_num().integer;
   static final _set_num =
-      jniLookup<ffi.NativeFunction<jni.JThrowable Function(ffi.Int32)>>(
+      jniLookup<ffi.NativeFunction<jni.JThrowablePtr Function(ffi.Int32)>>(
               "set_Example__num")
-          .asFunction<jni.JThrowable Function(int)>();
+          .asFunction<jni.JThrowablePtr Function(int)>();
 
   /// from: static public int num
   static set num(int value) => _set_num(value);
@@ -108,8 +108,8 @@ class Example extends jni.JniObject {
 
   /// from: static public int[] getArr()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JniArray<jni.JInt> getArr() =>
-      jni.JniArray<jni.JInt>.fromRef(_getArr().object);
+  static jni.JniArray<jni.JIntMarker> getArr() =>
+      jni.JniArray<jni.JIntMarker>.fromRef(_getArr().object);
 
   static final _addAll = jniLookup<
           ffi.NativeFunction<
@@ -117,7 +117,7 @@ class Example extends jni.JniObject {
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public int addAll(int[] arr)
-  static int addAll(jni.JniArray<jni.JInt> arr) =>
+  static int addAll(jni.JniArray<jni.JIntMarker> arr) =>
       _addAll(arr.reference).integer;
 
   static final _getSelf = jniLookup<
@@ -201,20 +201,20 @@ class Example_Aux extends jni.JniObject {
   static final _get_value = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObject,
+    jni.JObjectPtr,
   )>>("get_Example_Aux__value")
       .asFunction<
           jni.JniResult Function(
-    jni.JObject,
+    jni.JObjectPtr,
   )>();
 
   /// from: public boolean value
   bool get value => _get_value(reference).boolean;
   static final _set_value = jniLookup<
           ffi.NativeFunction<
-              jni.JThrowable Function(
-                  jni.JObject, ffi.Uint8)>>("set_Example_Aux__value")
-      .asFunction<jni.JThrowable Function(jni.JObject, int)>();
+              jni.JThrowablePtr Function(
+                  jni.JObjectPtr, ffi.Uint8)>>("set_Example_Aux__value")
+      .asFunction<jni.JThrowablePtr Function(jni.JObjectPtr, int)>();
 
   /// from: public boolean value
   set value(bool value) => _set_value(reference, value ? 1 : 0);
@@ -279,9 +279,9 @@ class C2 extends jni.JniObject {
   /// from: static public int CONSTANT
   static int get CONSTANT => _get_CONSTANT().integer;
   static final _set_CONSTANT =
-      jniLookup<ffi.NativeFunction<jni.JThrowable Function(ffi.Int32)>>(
+      jniLookup<ffi.NativeFunction<jni.JThrowablePtr Function(ffi.Int32)>>(
               "set_C2__CONSTANT")
-          .asFunction<jni.JThrowable Function(int)>();
+          .asFunction<jni.JThrowablePtr Function(int)>();
 
   /// from: static public int CONSTANT
   static set CONSTANT(int value) => _set_CONSTANT(value);

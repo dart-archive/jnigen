@@ -59,7 +59,7 @@ import "../../../../_init.dart" show jniEnv, jniAccessors;
 class JsonFactory extends jni.JniObject {
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonFactory");
-  JsonFactory.fromRef(jni.JObject ref) : super.fromRef(ref);
+  JsonFactory.fromRef(jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const jni.JniType<JsonFactory> type = _$JsonFactoryType();
@@ -951,7 +951,7 @@ class JsonFactory extends jni.JniObject {
   /// Method for constructing parser for parsing
   /// the contents of given byte array.
   ///@since 2.1
-  jsonparser_.JsonParser createParser4(jni.JniArray<jni.JByte> data) =>
+  jsonparser_.JsonParser createParser4(jni.JniArray<jni.JByteMarker> data) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createParser4,
@@ -971,7 +971,7 @@ class JsonFactory extends jni.JniObject {
   ///@param len Length of contents to parse within buffer
   ///@since 2.1
   jsonparser_.JsonParser createParser5(
-          jni.JniArray<jni.JByte> data, int offset, int len) =>
+          jni.JniArray<jni.JByteMarker> data, int offset, int len) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createParser5,
@@ -1005,7 +1005,7 @@ class JsonFactory extends jni.JniObject {
   /// Method for constructing parser for parsing
   /// contents of given char array.
   ///@since 2.4
-  jsonparser_.JsonParser createParser7(jni.JniArray<jni.JChar> content) =>
+  jsonparser_.JsonParser createParser7(jni.JniArray<jni.JCharMarker> content) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createParser7,
@@ -1021,7 +1021,7 @@ class JsonFactory extends jni.JniObject {
   /// Method for constructing parser for parsing contents of given char array.
   ///@since 2.4
   jsonparser_.JsonParser createParser8(
-          jni.JniArray<jni.JChar> content, int offset, int len) =>
+          jni.JniArray<jni.JCharMarker> content, int offset, int len) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createParser8,
@@ -1359,7 +1359,8 @@ class JsonFactory extends jni.JniObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[]) instead.
-  jsonparser_.JsonParser createJsonParser4(jni.JniArray<jni.JByte> data) =>
+  jsonparser_.JsonParser createJsonParser4(
+          jni.JniArray<jni.JByteMarker> data) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createJsonParser4,
@@ -1382,7 +1383,7 @@ class JsonFactory extends jni.JniObject {
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[],int,int) instead.
   jsonparser_.JsonParser createJsonParser5(
-          jni.JniArray<jni.JByte> data, int offset, int len) =>
+          jni.JniArray<jni.JByteMarker> data, int offset, int len) =>
       jsonparser_.JsonParser.fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_createJsonParser5,
@@ -1523,7 +1524,7 @@ extension $JsonFactoryJniArray on jni.JniArray<JsonFactory> {
 class JsonFactory_Feature extends jni.JniObject {
   static final _classRef = jniAccessors
       .getClassOf("com/fasterxml/jackson/core/JsonFactory\$Feature");
-  JsonFactory_Feature.fromRef(jni.JObject ref) : super.fromRef(ref);
+  JsonFactory_Feature.fromRef(jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const jni.JniType<JsonFactory_Feature> type =
