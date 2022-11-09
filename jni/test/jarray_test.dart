@@ -227,6 +227,15 @@ void main() {
       }, throwsRangeError);
     });
   });
+  test("Java object array", () {
+    using((arena) {
+      final array = JArray(JObject.type, 3)..deletedIn(arena);
+      expect(array.length, 3);
+      expect(array[0].reference, nullptr);
+      expect(array[1].reference, nullptr);
+      expect(array[2].reference, nullptr);
+    });
+  });
   test("Java 2d array", () {
     using((arena) {
       final array = JArray(JInt.type, 3)..deletedIn(arena);
