@@ -20,7 +20,8 @@ class _JArrayType<T> extends JObjType<JArray<T>> {
 
 class JArray<E> extends JObject {
   /// The type which includes information such as the signature of this class.
-  static JType<JArray<T>> type<T>(JType<T> innerType) => _JArrayType(innerType);
+  static JObjType<JArray<T>> type<T>(JType<T> innerType) =>
+      _JArrayType(innerType);
 
   /// Construct a new [JArray] with [reference] as its underlying reference.
   JArray.fromRef(JArrayPtr reference) : super.fromRef(reference);
