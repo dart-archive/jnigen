@@ -36,7 +36,7 @@ abstract class BindingsGenerator {
 
   static const String jniCallType = '${jni}JniCallType';
 
-  static const String jniTypeType = '${jni}JType';
+  static const String jniTypeType = '${jni}JObjType';
   static const String typeClassSuffix = 'Type';
   static const String typeClassPrefix = '_\$';
 
@@ -119,7 +119,9 @@ abstract class BindingsGenerator {
     return '\nclass $typeClassName extends $jniTypeType<$name> {\n'
         '${indent}const $typeClassName();\n\n'
         '$indent@override\n'
-        '${indent}String get signature => r"$signature";\n'
+        '${indent}String get signature => r"$signature";\n\n'
+        '$indent@override\n'
+        '$indent$name fromRef($jobjectType ref) => $name.fromRef(ref);\n'
         '}\n';
   }
 

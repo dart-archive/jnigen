@@ -7,11 +7,11 @@ part of 'types.dart';
 abstract class JPrimitive {}
 
 abstract class JByte extends JPrimitive {
-  static const JType<JByte> type = _JByteTypeClass();
+  static const JType<JByte> type = _JByteType();
 }
 
-class _JByteTypeClass extends JType<JByte> {
-  const _JByteTypeClass();
+class _JByteType extends JType<JByte> {
+  const _JByteType();
 
   @override
   int get _type => JniCallType.byteType;

@@ -29,7 +29,7 @@ class Example extends jni.JObject {
   Example.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JType<Example> type = _$ExampleType();
+  static const jni.JObjType<Example> type = _$ExampleType();
 
   /// from: static public final int ON
   static const ON = 1;
@@ -173,12 +173,15 @@ class Example extends jni.JObject {
   static void throwException() => _throwException().check();
 }
 
-class _$ExampleType extends jni.JType<Example> {
+class _$ExampleType extends jni.JObjType<Example> {
   const _$ExampleType();
 
   @override
   String get signature =>
       r"Lcom/github/dart_lang/jnigen/simple_package/Example;";
+
+  @override
+  Example fromRef(jni.JObjectPtr ref) => Example.fromRef(ref);
 }
 
 extension $ExampleArray on jni.JArray<Example> {
@@ -196,7 +199,7 @@ class Example_Aux extends jni.JObject {
   Example_Aux.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JType<Example_Aux> type = _$Example_AuxType();
+  static const jni.JObjType<Example_Aux> type = _$Example_AuxType();
   static final _get_value = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
@@ -245,12 +248,15 @@ class Example_Aux extends jni.JObject {
   void setValue(bool value) => _setValue(reference, value ? 1 : 0).check();
 }
 
-class _$Example_AuxType extends jni.JType<Example_Aux> {
+class _$Example_AuxType extends jni.JObjType<Example_Aux> {
   const _$Example_AuxType();
 
   @override
   String get signature =>
       r"Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;";
+
+  @override
+  Example_Aux fromRef(jni.JObjectPtr ref) => Example_Aux.fromRef(ref);
 }
 
 extension $Example_AuxArray on jni.JArray<Example_Aux> {
@@ -269,7 +275,7 @@ class C2 extends jni.JObject {
   C2.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JType<C2> type = _$C2Type();
+  static const jni.JObjType<C2> type = _$C2Type();
   static final _get_CONSTANT =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_C2__CONSTANT")
@@ -293,11 +299,14 @@ class C2 extends jni.JObject {
   C2() : super.fromRef(_ctor().object);
 }
 
-class _$C2Type extends jni.JType<C2> {
+class _$C2Type extends jni.JObjType<C2> {
   const _$C2Type();
 
   @override
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/C2;";
+
+  @override
+  C2 fromRef(jni.JObjectPtr ref) => C2.fromRef(ref);
 }
 
 extension $C2Array on jni.JArray<C2> {
@@ -315,7 +324,7 @@ class Example1 extends jni.JObject {
   Example1.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JType<Example1> type = _$Example1Type();
+  static const jni.JObjType<Example1> type = _$Example1Type();
   static final _ctor =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("Example1__ctor")
           .asFunction<jni.JniResult Function()>();
@@ -333,11 +342,14 @@ class Example1 extends jni.JObject {
   int whichExample() => _whichExample(reference).integer;
 }
 
-class _$Example1Type extends jni.JType<Example1> {
+class _$Example1Type extends jni.JObjType<Example1> {
   const _$Example1Type();
 
   @override
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/Example;";
+
+  @override
+  Example1 fromRef(jni.JObjectPtr ref) => Example1.fromRef(ref);
 }
 
 extension $Example1Array on jni.JArray<Example1> {

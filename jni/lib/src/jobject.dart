@@ -4,11 +4,14 @@
 
 part of 'types.dart';
 
-class _JObjectType extends JType<JObject> {
+class _JObjectType extends JObjType<JObject> {
   const _JObjectType();
 
   @override
   String get signature => "Ljava/lang/Object;";
+
+  @override
+  JObject fromRef(Pointer<Void> ref) => JObject.fromRef(ref);
 }
 
 Pointer<T> _getID<T extends NativeType>(

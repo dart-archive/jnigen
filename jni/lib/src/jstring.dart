@@ -4,11 +4,14 @@
 
 part of 'types.dart';
 
-class _JStringType extends JType<JString> {
+class _JStringType extends JObjType<JString> {
   const _JStringType();
 
   @override
   String get signature => "Ljava/lang/String;";
+
+  @override
+  JString fromRef(Pointer<Void> ref) => JString.fromRef(ref);
 }
 
 class JString extends JObject {
