@@ -31,8 +31,11 @@ Logger log = () {
   return jnigenLogger;
 }();
 
-/// Set logging level to [level] and initialize the logger.
+/// Set logging level to [level].
 void setLoggingLevel(Level level) {
+  /// This initializes `log` as a side effect, so that level setting we apply
+  /// is always the last one applied.
+  log.fine('Set log level: $level');
   Logger.root.level = level;
 }
 
