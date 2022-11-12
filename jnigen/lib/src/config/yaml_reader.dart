@@ -17,8 +17,6 @@ class ConfigError extends Error {
 /// YAML Reader which enables to override specific values from command line.
 class YamlReader {
   YamlReader.of(this.cli, this.yaml);
-  YamlReader.fromYaml(this.yaml) : cli = const {};
-  YamlReader.fromMap(this.cli) : yaml = const {};
   Map<String, String> cli;
   Map<dynamic, dynamic> yaml;
 
