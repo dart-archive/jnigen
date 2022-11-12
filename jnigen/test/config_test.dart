@@ -71,15 +71,56 @@ void expectConfigsAreEqual(Config a, Config b) {
   }
 }
 
+final jnigenYaml = join(jacksonCoreTests, 'jnigen.yaml');
+
+Config parseYamlConfig({List<String> overrides = const []}) =>
+    Config.parseArgs(['--config', jnigenYaml, ...overrides]);
+
+void testForErrorChecking(
+    {required String name,
+    required List<String> overrides,
+    dynamic Function(Config)? function}) {
+  test(name, () {
+    expect(
+      () {
+        final config = parseYamlConfig(overrides: overrides);
+        if (function != null) {
+          function(config);
+        }
+      },
+      throwsA(isA<ConfigException>()),
+    );
+  });
+}
+
 void main() {
   final config = Config.parseArgs([
     '--config',
-    join(jacksonCoreTests, 'jnigen.yaml'),
+    jnigenYaml,
     '-Doutput.c.path=$testSrc/',
     '-Doutput.dart.path=$testLib/',
   ]);
 
   test('compare configuration values', () {
     expectConfigsAreEqual(config, getConfig(root: join(thirdParty, 'test_')));
+  });
+
+  group('Test for config error checking', () {
+    testForErrorChecking(
+      name: 'Invalid bindings type',
+      overrides: ['-Doutput.bindings_type=c_base'],
+    );
+    testForErrorChecking(
+      name: 'Invalid output structure',
+      overrides: ['-Doutput.dart.structure=singl_file'],
+    );
+    testForErrorChecking(
+      name: 'Dart path not ending with /',
+      overrides: ['-Doutput.dart.path=lib'],
+    );
+    testForErrorChecking(
+      name: 'Invalid log level',
+      overrides: ['-Dlog_level=inf'],
+    );
   });
 }
