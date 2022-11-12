@@ -16,11 +16,9 @@ String _colorize(String message, String colorCode) {
   return message;
 }
 
-Logger log = Logger('jnigen');
-
-/// Set logging level to [level] and initialize the logger.
-void setLoggingLevel(Level level) {
-  Logger.root.level = level;
+Logger log = () {
+  final jnigenLogger = Logger('jnigen');
+  Logger.root.level = Level.INFO;
   Logger.root.onRecord.listen((r) {
     var message = '(${r.loggerName}) ${r.level.name}: ${r.message}';
     if ((r.level == Level.SHOUT || r.level == Level.SEVERE)) {
@@ -30,6 +28,12 @@ void setLoggingLevel(Level level) {
     }
     stderr.writeln(message);
   });
+  return jnigenLogger;
+}();
+
+/// Set logging level to [level] and initialize the logger.
+void setLoggingLevel(Level level) {
+  Logger.root.level = level;
 }
 
 /// Prints [message] without logging information.
