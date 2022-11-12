@@ -44,7 +44,7 @@ void printError(Object? message) {
 }
 
 extension FatalErrors on Logger {
-  void fatal(Object? message, {int exitCode = 2}) {
+  void fatal(Object? message, {int exitCode = 1}) {
     message = _colorize('Fatal: $message', _ansiRed);
     stderr.writeln(message);
     exit(exitCode);
