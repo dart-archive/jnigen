@@ -5,7 +5,7 @@ Experimental bindings generator for Java bindings through dart:ffi and JNI.
 
 It generates C and Dart bindings which enable calling Java libraries from Dart.
 
-## Example Bindings
+## Example
 It's possible to generate bindings for libraries, or any Java source files.
 
 Here's a simple example Java file, in a Flutter Android app.
@@ -102,7 +102,19 @@ JniResult AndroidUtils__showToast(jobject mainActivity,
 
 The complete example can be found in [jnigen/example/in_app_java](jnigen/example/in_app_java). The complete example adds one more class to the configuration to demonstrate using JAR files instead of sources.
 
-## Overview
+More examples can be found in [jnigen/example/](jnigen/example/).
+
+## Supported platforms
+| Platform | Dart Standalone | Flutter |
+| -------- | --------------- | ------- |
+| Android  | N/A             | YES     |
+| Linux    | YES             | YES     |
+| Windows  | YES             | YES     |
+| MacOS    | YES             | NO      |
+
+On Android, the flutter application runs embedded in Android JVM. On other platforms, a JVM needs to be explicitly spawned using `Jni.spawn`. `package:jni` provides the infrastructure for initializing and managing the JNI on both Android and Non-Android platforms.
+
+## `package:jnigen` and `package:jni`
 This repository contains two packages: `package:jni` (support library) and `package:jnigen` (code generator).
 
 `package:jnigen` generates C bindings which call Java methods through JNI, and Dart bindings which call these C wrappers through FFI.
@@ -117,9 +129,33 @@ C code is always generated into a directory with it's own build configuration. I
 
 As a proof-of-concept, pure dart bindings which do not require C code (apart from `package:jni` dependency) are supported. Trade-offs are listed at the end of this document.
 
+## Usage
+There are 2 ways to use `jnigen`:
+
+* Run as command line tool with a YAML config.
+* Import `package:jnigen/jnigen.dart` from a script in `tool/` directory of your project.
+
+Both approaches are almost identical. When using YAML, it's possible to selectively override configuration properties with command line, using `-Dproperty_name=value` syntax. We usually use YAML in our [examples][jnigen/examples/]. See the end of this document for a tabular description of configuration properties.
+
+## Java features support
+Currently basic features of the Java language are supported in the bindings. Each Java class is mapped to a Dart class. Bindings are generated for methods, constructors and fields. Exceptions thrown in Java are rethrown in Dart with stack trace from Java.
+
+More advanced features like callbacks, generics and subtyping are not supported yet.
+
+### Note on Dart (standalone) target
+`package:jni` is an FFI plugin containing native code, and any bindings generated from jnigen contains native code too.
+
+On Flutter targets, native libraries are built automatically and bundled. On standalone platforms, no such infrastructure exists yet. As a stopgap solution, running `dart run jni:setup` in a target directory builds all JNI native dependencies of the package into `build/jni_libs`. 
+
+By default `jni:setup` goes through pubspec configuration and builds all JNI dependencies of the project. It can be overridden to build a custom directory using `-s` switch, which can be useful when output configuration for C bindings does not follow standard FFI plugin layout.
+
+The build directory has to be passed to `Jni.spawn` call. It's assumed that all dependencies are built into same target directory, so that once JNI is initialized, generated bindings can load their respective C libraries automatically.
+
 ## Requirements
 ### SDK
-Dart standalone target is supported, but due to some problems with pubspec, the `dart` command must be from Flutter SDK and not Dart SDK. See [dart-lang/pub#3563](https://github.com/dart-lang/pub/issues/3563).
+Flutter SDK is required.
+
+Dart standalone target is supported, but due to some problems with pubspec format, the `dart` command must be from Flutter SDK and not Dart SDK. See [dart-lang/pub#3563](https://github.com/dart-lang/pub/issues/3563).
 
 ### Java tooling
 Along with JDK, maven (`mvn` command) is required. On windows, it can be installed using a package manager such as [chocolatey](https://community.chocolatey.org/packages/maven) or [scoop](https://scoop.sh/#/apps?q=maven).
@@ -139,43 +175,8 @@ CMake and a standard C toolchain is required to build `package:jni` and C bindin
 
 It's recommended to have `clang-format` installed for formatting the generated C bindings. On Windows, it's part of LLVM installation. On most Linux distributions it is available as a separate package. On MacOS, it can be installed using Homebrew.
 
-## Configuration
-There are 2 ways to use `jnigen`:
-
-* Run as command line tool with a YAML config.
-* Import `package:jnigen/jnigen.dart` from a script in `tool/` directory of your project.
-
-Both approaches are almost identical. When using YAML, it's possible to selectively override configuration properties with command line, using `-Dproperty_name=value` syntax. We usually use YAML in our [examples][jnigen/examples/]. See the end of this document for a tabular description of configuration properties.
-
-## Java features support
-Currently basic features of the Java language are supported in the bindings. Each Java class is mapped to a Dart class. Bindings are generated for methods, constructors and fields. Exceptions thrown in Java are rethrown in Dart with stack trace from Java.
-
-More advanced features like callbacks, generics and subtyping are not supported yet.
-
-## Platform support
-| Platform | Dart Standalone | Flutter |
-| -------- | --------------- | ------- |
-| Android  | N/A             | YES     |
-| Linux    | YES             | YES     |
-| Windows  | YES             | YES     |
-| MacOS    | YES             | NO      |
-
-On Android, the flutter application runs embedded in Android JVM. On other platforms, a JVM needs to be explicitly spawned using `Jni.spawn`. `package:jni` provides the infrastructure for initializing and managing the JNI on both Android and Non-Android platforms.
-
-### Note on Dart (standalone) target
-`package:jni` is an FFI plugin containing native code, and any bindings generated from jnigen contains native code too.
-
-On Flutter targets, native libraries are built automatically and bundled. On standalone platforms, no such infrastructure exists yet. As a stopgap solution, running `dart run jni:setup` in a target directory builds all JNI native dependencies of the package into `build/jni_libs`. 
-
-By default `jni:setup` goes through pubspec configuration and builds all JNI dependencies of the project. It can be overridden to build a custom directory using `-s` switch, which can be useful when output configuration for C bindings does not follow standard FFI plugin layout.
-
-The build directory has to be passed to `Jni.spawn` call. It's assumed that all dependencies are built into same target directory, so that once JNI is initialized, generated bindings can load their respective C libraries automatically.
-
-## Examples
-Few runnable examples are provided in [example/](example/) directory. Corresponding README files contain more information about the examples and how to regenerate the bindings.
-
 ## Contributing
-See [ARCHITECTURE.md](ARCHITECTURE.md) for details about architecture and internals of `jnigen`.
+See the wiki for architecture-related documents.
 
 ## Appendix A: YAML Configuration Reference
 Keys ending with a colon (`:`) denote subsections.
