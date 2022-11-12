@@ -7,12 +7,7 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:yaml/yaml.dart';
 
-class ConfigError extends Error {
-  ConfigError(this.message);
-  final String message;
-  @override
-  String toString() => message;
-}
+import 'config_exception.dart';
 
 /// YAML Reader which enables to override specific values from command line.
 class YamlReader {
@@ -55,7 +50,7 @@ class YamlReader {
         if (yamlInput is Map) {
           yamlMap = yamlInput;
         } else {
-          throw ConfigError('YAML config must be set of key value pairs');
+          throw ConfigException('YAML config must be set of key value pairs');
         }
       } on Exception catch (e) {
         stderr.writeln('cannot read $configFile: $e');
@@ -70,7 +65,7 @@ class YamlReader {
         final propertyValue = match.group(2);
         properties[propertyName!] = propertyValue!;
       } else {
-        throw ConfigError('override does not match expected pattern');
+        throw ConfigException('override does not match expected pattern');
       }
     }
     return YamlReader.of(properties, yamlMap);
@@ -85,7 +80,7 @@ class YamlReader {
       if (v == 'false') {
         return false;
       }
-      throw ConfigError('expected boolean value for $property, got $v');
+      throw ConfigException('expected boolean value for $property, got $v');
     }
     return getYamlValue<bool>(property);
   }
@@ -106,7 +101,7 @@ class YamlReader {
     if (value == null || values.contains(value)) {
       return value;
     }
-    throw ConfigError('expected one of $values for $property');
+    throw ConfigException('expected one of $values for $property');
   }
 
   Map<String, String>? getStringMap(String property) {
@@ -124,7 +119,7 @@ class YamlReader {
       if (cursor is YamlMap || cursor is Map) {
         cursor = cursor[i];
       } else {
-        throw ConfigError('expected $current to be a YAML map');
+        throw ConfigException('expected $current to be a YAML map');
       }
       current = [if (current != '') current, i].join('.');
       if (cursor == null) {
@@ -132,7 +127,8 @@ class YamlReader {
       }
     }
     if (cursor is! T) {
-      throw ConfigError('expected $T for $property, got ${cursor.runtimeType}');
+      throw ConfigException(
+          'expected $T for $property, got ${cursor.runtimeType}');
     }
     return cursor;
   }
