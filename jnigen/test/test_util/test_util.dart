@@ -78,6 +78,9 @@ Future<void> _generateTempBindings(Config config, Directory tempDir) async {
 
 /// Generates and compares bindings with reference bindings.
 ///
+/// [dartReferenceBindings] can be directory or file depending on output
+/// configuration.
+///
 /// If the config generates C code, [cReferenceBindings] must be a non-null
 /// directory path.
 Future<void> generateAndCompareBindings(Config config,
