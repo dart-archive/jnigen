@@ -56,17 +56,12 @@ Future<void> generateJniBindings(Config config) async {
   }
   if (androidConfig != null && androidConfig.versions != null) {
     final versions = androidConfig.versions!;
+    final androidSdkRoot =
+        androidConfig.sdkRoot ?? AndroidSdkTools.getAndroidSdkRoot();
     final androidJar = await AndroidSdkTools.getAndroidJarPath(
-        sdkRoot: androidConfig.sdkRoot, versionOrder: versions);
+        sdkRoot: androidSdkRoot, versionOrder: versions);
     if (androidJar != null) {
       extraJars.add(Uri.directory(androidJar));
-    }
-    if (androidConfig.includeSources) {
-      final androidSources = await AndroidSdkTools.getAndroidSourcesPath(
-          sdkRoot: androidConfig.sdkRoot, versionOrder: versions);
-      if (androidSources != null) {
-        extraSources.add(Uri.directory(androidSources));
-      }
     }
   }
 
