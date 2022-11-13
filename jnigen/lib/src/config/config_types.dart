@@ -44,9 +44,6 @@ class MavenDownloads {
 /// The SDK directories for platform stub JARs and sources are searched in the
 /// same order in which [versions] are specified.
 ///
-/// If [includeSources] is true, `jnigen` searches for Android SDK sources
-/// as well in the SDK directory and adds them to the source path.
-///
 /// If [addGradleDeps] is true, a gradle stub is run in order to collect the
 /// actual compile classpath of the `android/` subproject.
 /// This will fail if there was no previous build of the project, or if a
@@ -62,7 +59,6 @@ class AndroidSdkConfig {
   AndroidSdkConfig({
     this.versions,
     this.sdkRoot,
-    this.includeSources = false,
     this.addGradleDeps = false,
     this.androidExample,
   }) {
@@ -83,9 +79,6 @@ class AndroidSdkConfig {
   /// command line or by setting `ANDROID_SDK_ROOT`, since this varies from
   /// system to system.
   String? sdkRoot;
-
-  /// Include downloaded android SDK sources in source path.
-  bool includeSources;
 
   /// Attempt to determine exact compile time dependencies by running a gradle
   /// stub in android subproject of this project.
@@ -306,6 +299,10 @@ class Config {
   /// Additional options for the summarizer component
   final SummarizerOptions? summarizerOptions;
 
+  /// Directory containing the YAML configuration file, if any.
+  Uri? get configRoot => _configRoot;
+  Uri? _configRoot;
+
   /// Log verbosity. The possible values in decreasing order of verbosity
   /// are verbose > debug > info > warning > error. Defaults to [LogLevel.info]
   Level logLevel = Level.INFO;
@@ -320,7 +317,9 @@ class Config {
 
   static Config parseArgs(List<String> args) {
     final prov = YamlReader.parseArgs(args);
+
     final List<String> missingValues = [];
+
     T must<T>(T? Function(String) f, T ifNull, String property) {
       final res = f(property);
       if (res == null) {
@@ -366,15 +365,19 @@ class Config {
       return level;
     }
 
+    final configRoot = prov.getConfigRoot();
+    String resolveFromConfigRoot(String reference) =>
+        configRoot?.resolve(reference).toFilePath() ?? reference;
+
     final config = Config(
-      sourcePath: _toUris(prov.getStringList(_Props.sourcePath)),
-      classPath: _toUris(prov.getStringList(_Props.classPath)),
+      sourcePath: _toUris(prov.getPathList(_Props.sourcePath)),
+      classPath: _toUris(prov.getPathList(_Props.classPath)),
       classes: must(prov.getStringList, [], _Props.classes),
       summarizerOptions: SummarizerOptions(
         extraArgs: prov.getStringList(_Props.summarizerArgs) ?? const [],
         backend: prov.getString(_Props.backend),
         workingDirectory:
-            directoryUri(prov.getString(_Props.summarizerWorkingDir)),
+            directoryUri(prov.getPath(_Props.summarizerWorkingDir)),
       ),
       exclude: BindingExclusions(
         methods: regexFilter<Method>(_Props.excludeMethods),
@@ -388,12 +391,12 @@ class Config {
         cConfig: prov.hasValue(_Props.cCodeOutputConfig)
             ? CCodeOutputConfig(
                 libraryName: must(prov.getString, '', _Props.libraryName),
-                path: Uri.file(must(prov.getString, '.', _Props.cRoot)),
+                path: Uri.file(must(prov.getPath, '.', _Props.cRoot)),
                 subdir: prov.getString(_Props.cSubdir),
               )
             : null,
         dartConfig: DartCodeOutputConfig(
-          path: Uri.file(must(prov.getString, '.', _Props.dartRoot)),
+          path: Uri.file(must(prov.getPath, '.', _Props.dartRoot)),
           structure: getOutputStructure(
             prov.getString(_Props.outputStructure),
             OutputStructure.packageStructure,
@@ -405,11 +408,11 @@ class Config {
       mavenDownloads: prov.hasValue(_Props.mavenDownloads)
           ? MavenDownloads(
               sourceDeps: prov.getStringList(_Props.sourceDeps) ?? const [],
-              sourceDir: prov.getString(_Props.mavenSourceDir) ??
-                  MavenDownloads.defaultMavenSourceDir,
+              sourceDir: prov.getPath(_Props.mavenSourceDir) ??
+                  resolveFromConfigRoot(MavenDownloads.defaultMavenSourceDir),
               jarOnlyDeps: prov.getStringList(_Props.jarOnlyDeps) ?? const [],
-              jarDir: prov.getString(_Props.mavenJarDir) ??
-                  MavenDownloads.defaultMavenJarDir,
+              jarDir: prov.getPath(_Props.mavenJarDir) ??
+                  resolveFromConfigRoot(MavenDownloads.defaultMavenJarDir),
             )
           : null,
       androidSdkConfig: prov.hasValue(_Props.androidSdkConfig)
@@ -419,9 +422,9 @@ class Config {
                   ?.map(int.parse)
                   .toList(),
               sdkRoot: getSdkRoot(),
-              includeSources:
-                  prov.getBool(_Props.includeAndroidSources) ?? false,
               addGradleDeps: prov.getBool(_Props.addGradleDeps) ?? false,
+              // Leaving this as getString instead of getPath, because
+              // it's resolved later in android_sdk_tools.
               androidExample: prov.getString(_Props.androidExample),
             )
           : null,
@@ -446,6 +449,7 @@ class Config {
       }
       exit(1);
     }
+    config._configRoot = configRoot;
     return config;
   }
 }
@@ -485,7 +489,6 @@ class _Props {
   static const androidSdkConfig = 'android_sdk_config';
   static const androidSdkRoot = '$androidSdkConfig.sdk_root';
   static const androidSdkVersions = '$androidSdkConfig.versions';
-  static const includeAndroidSources = '$androidSdkConfig.include_sources';
   static const addGradleDeps = '$androidSdkConfig.add_gradle_deps';
   static const androidExample = '$androidSdkConfig.android_example';
 }

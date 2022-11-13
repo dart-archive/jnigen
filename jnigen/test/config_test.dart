@@ -52,8 +52,6 @@ void expectConfigsAreEqual(Config a, Config b) {
     expect(ba, isNotNull, reason: "androidSdkConfig");
     expect(aa.versions, ba!.versions, reason: "androidSdkConfig.versions");
     expect(aa.sdkRoot, ba.sdkRoot, reason: "androidSdkConfig.sdkRoot");
-    expect(aa.includeSources, ba.includeSources,
-        reason: "androidSdkConfig.includeSources");
   } else {
     expect(ba, isNull, reason: "androidSdkConfig");
   }

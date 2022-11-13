@@ -85,8 +85,12 @@ task listDependencies(type: Copy) {
   ///
   /// If current project is not directly buildable by gradle, eg: a plugin,
   /// a relative path to other project can be specified using [androidProject].
-  static List<String> getGradleClasspaths([String androidProject = '.']) {
+  static List<String> getGradleClasspaths(
+      {Uri? configRoot, String androidProject = '.'}) {
     log.info('trying to obtain gradle classpaths...');
+    if (configRoot != null) {
+      androidProject = join(configRoot.toFilePath(), androidProject);
+    }
     final android = join(androidProject, 'android');
     final buildGradle = join(android, 'build.gradle');
     final buildGradleOld = join(android, 'build.gradle.old');
