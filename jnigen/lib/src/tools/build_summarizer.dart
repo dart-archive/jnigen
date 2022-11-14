@@ -2,6 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// TODO(#43): Address concurrently building summarizer.
+//
+// In the current state summarizer has to be built before tests, which run
+// concurrently. Ignoring coverage for this file until that issue is addressed.
+//
 // coverage:ignore-file
 
 import 'dart:io';
