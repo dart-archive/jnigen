@@ -3,7 +3,7 @@
 ## Introduction
 Experimental bindings generator for Java bindings through dart:ffi and JNI.
 
-It generates C and Dart bindings which enable calling Java libraries from Dart.
+It generates C and Dart bindings which enable calling Java libraries from Dart. C bindings call the Java code through JNI, Dart bindings in turn call these C bindings through FFI.
 
 ## Example
 It's possible to generate bindings for libraries, or any Java source files.
@@ -26,26 +26,6 @@ public abstract class AndroidUtils {
     mainActivity.runOnUiThread(() -> Toast.makeText(mainActivity, text, duration).show());
   }
 }
-```
-
-Dart bindings can be generated using a YAML configuration.
-
-```yaml
-android_sdk_config:
-  add_gradle_deps: true
-
-output:
-  c:
-    library_name: android_utils
-    path: src/android_utils/
-  dart:
-    path: lib/android_utils.dart
-    structure: single_file
-
-source_path:
-  - 'android/app/src/main/java'
-classes:
-  - 'com.example.in_app_java.AndroidUtils'
 ```
 
 This produces the following Dart bindings:
@@ -73,7 +53,6 @@ class AndroidUtils extends jni.JniObject {
 }
 ```
 
-As well as the C bindings called by the dart bindings.
 ```c
 // Some boilerplate is omitted for clarity.
 
@@ -100,17 +79,37 @@ JniResult AndroidUtils__showToast(jobject mainActivity,
 }
 ```
 
+The YAML configuration used to generate the above code looks like this:
+
+```yaml
+android_sdk_config:
+  add_gradle_deps: true
+
+output:
+  c:
+    library_name: android_utils
+    path: src/android_utils/
+  dart:
+    path: lib/android_utils.dart
+    structure: single_file
+
+source_path:
+  - 'android/app/src/main/java'
+classes:
+  - 'com.example.in_app_java.AndroidUtils'
+```
+
 The complete example can be found in [jnigen/example/in_app_java](jnigen/example/in_app_java). The complete example adds one more class to the configuration to demonstrate using JAR files instead of sources.
 
 More examples can be found in [jnigen/example/](jnigen/example/).
 
 ## Supported platforms
-| Platform | Dart Standalone | Flutter |
-| -------- | --------------- | ------- |
-| Android  | N/A             | YES     |
-| Linux    | YES             | YES     |
-| Windows  | YES             | YES     |
-| MacOS    | YES             | NO      |
+| Platform | Dart Standalone | Flutter       |
+| -------- | --------------- | ------------- |
+| Android  | n/a             | Supported     |
+| Linux    | Supported       | Supported     |
+| Windows  | Supported       | Supported     |
+| MacOS    | Supported       | Not Yet       |
 
 On Android, the flutter application runs embedded in Android JVM. On other platforms, a JVM needs to be explicitly spawned using `Jni.spawn`. `package:jni` provides the infrastructure for initializing and managing the JNI on both Android and Non-Android platforms.
 
@@ -121,13 +120,13 @@ This repository contains two packages: `package:jni` (support library) and `pack
 
 The generated code relies on common infrastructure provided by `package:jni` support library.
 
-For building a description of Java API, it needs complete source code or JAR files of the corresponding library. `jnigen` can use either complete sources or compiled classes from JAR files to build this API description. These are to be provided in the configuration as `class_path` and `source_path` respectively.
+For building a description of Java API, `jnigen` needs complete source code or JAR files of the corresponding library. `jnigen` can use either complete sources or compiled classes from JAR files to build this API description. These are to be provided in the configuration as `class_path` and `source_path` respectively.
 
 It's possible to generate Java code mirroring source layout with each class having a separate dart file, or all classes into a same dart file.
 
 C code is always generated into a directory with it's own build configuration. It's built as a separate dynamic library.
 
-As a proof-of-concept, pure dart bindings which do not require C code (apart from `package:jni` dependency) are supported. Trade-offs are listed at the end of this document.
+As a proof-of-concept, pure dart bindings which do not require C code (apart from `package:jni` dependency) are supported. Trade-offs are listed at the end of this README.
 
 ## Usage
 There are 2 ways to use `jnigen`:
@@ -140,7 +139,7 @@ Both approaches are almost identical. When using YAML, it's possible to selectiv
 ## Java features support
 Currently basic features of the Java language are supported in the bindings. Each Java class is mapped to a Dart class. Bindings are generated for methods, constructors and fields. Exceptions thrown in Java are rethrown in Dart with stack trace from Java.
 
-More advanced features like callbacks, generics and subtyping are not supported yet.
+More advanced features are not supported yet. Support for these features is tracked in the [issue tracker](https://github.com/dart-lang/jnigen/issues).
 
 ### Note on Dart (standalone) target
 `package:jni` is an FFI plugin containing native code, and any bindings generated from jnigen contains native code too.
@@ -178,7 +177,7 @@ It's recommended to have `clang-format` installed for formatting the generated C
 ## Contributing
 See the wiki for architecture-related documents.
 
-## Appendix A: YAML Configuration Reference
+## YAML Configuration Reference
 Keys ending with a colon (`:`) denote subsections.
 
 The typical invocation with YAML configuration is
@@ -196,16 +195,16 @@ A `*` denotes required configuration.
 | `preamble`             | Text          | Text to be pasted in the start of each generated file.                  |
 | `source_path`          | List of directory paths | Directories to search for source files. Note: source_path for dependencies downloaded using `maven_downloads` configuration is added automatically without the need to specify here. |
 | `class_path`           | List of directory / JAR paths | Classpath for API summary generation. This should include any JAR dependencies of the source files in `source_path`. |
-| * `classes`            | List of qualified class / package names | List of qualified class / package names. `source_path` will be scanned assuming the sources follow standard java-ish hierarchy. That is a.b.c either maps to a directory `a/b/c` or a class file `a/b/c.java`.  |
-| * `output:`            | [Subsection] | This subsection will contain configuration related to output files. |
+| `classes` *            | List of qualified class / package names | List of qualified class / package names. `source_path` will be scanned assuming the sources follow standard java-ish hierarchy. That is a.b.c either maps to a directory `a/b/c` or a class file `a/b/c.java`.  |
+| `output:`              | [Subsection] | This subsection will contain configuration related to output files. |
 | `output:` >> `bindings_type` | `c_based` (default) or `dart_only` | Binding generation strategy. Tradeoffs are explained at the end of this document. |
-| * `output:` >> `c:`    | [Subsection] | This subsection specified C output configuration. Required if `bindings_type` is `c_based`. |
-| *`output:` >> `c:` >> path       | Directory path | Directory to write C bindings. Usually `src/` in case of an FFI plugin template. |
+| `output:` >> `c:`      | [Subsection] | This subsection specified C output configuration. Required if `bindings_type` is `c_based`. |
+| `output:` >> `c:` >> path *       | Directory path | Directory to write C bindings. Usually `src/` in case of an FFI plugin template. |
 | `output:` >> `c:` >> subdir       | Directory path | If specified, C bindings will be written to `subdir` resolved relative to `path`. This is useful when bindings are supposed to be under source's license, and written to a subdirectory such as `third_party`. |
-| * `output:` >> `c:` >> library_name | Identifier (snake_case) | Name for generated C library.
-| * `output:` >> `dart:` | [Subsection] | This subsection specifies Dart output configuration. |
+| `output:` >> `c:` >> `library_name` *| Identifier (snake_case) | Name for generated C library.
+| `output:` >> `dart:` | [Subsection] | This subsection specifies Dart output configuration. |
 | `output:` >> `dart:` >> `structure` | `package_structure` / `single_file` | Whether to map resulting dart bindings to file-per-class source layout, or write all bindings to single file.
-| * `output:` >> `dart:` >> `path` | Directory path or File path | Path to write Dart bindings. Should end in `.dart` for `single_file` configurations, and end in `/` for `package_structure` (default) configuration. |
+| `output:` >> `dart:` >> `path` * | Directory path or File path | Path to write Dart bindings. Should end in `.dart` for `single_file` configurations, and end in `/` for `package_structure` (default) configuration. |
 | `maven_downloads:`     | [Subsection] | This subsection will contain configuration for automatically downloading Java dependencies (source and JAR) through maven. |
 | `maven_downloads:` >> `source_deps` | List of maven package coordinates | Source packages to download and unpack using maven. The names should be valid maven artifact coordinates. (Eg: `org.apache.pdfbox:pdfbox:2.0.26`). The downloads do not include transitive dependencies. |
 | `maven_downloads"` >> `source_dir` | Path | Directory in which maven sources are extracted. Defaults to `mvn_java`. It's not required to list this explicitly in source_path. |
@@ -228,7 +227,7 @@ It's possible to use the programmatic API instead of YAML.
 * import `package:jnigen/jnigen.dart`
 * construct a `Config` object and pass it to `generateJniBindings` function. The parameters are similar to the ones described above.
 
-## Appendix B: Pure dart Bindings
+## Pure dart Bindings
 It's possible to generate bindings that do not rely on an intermediate layer of C code. Bindings will still depend on `package:jni` and its support library written in C. But this approach avoids large C bindings.
 
 To enable pure dart bindings, specify
@@ -241,7 +240,7 @@ Any C output configuration will be ignored.
 
 However, pure dart bindings will require additional allocations and check runtimeType of the arguments. This will be the case until Variadic arguments land in Dart FFI.
 
-## Appendix C: Android core libraries
+## Android core libraries
 These days, Android projects depend heavily on AndroidX and other libraries downloaded via gradle. We have a tracking issue to improve detection of android SDK and dependencies. (#31). Currently we can fetch the JAR dependencies of an android project, by running a gradle stub, if `android_sdk_config` >> `add_gradle_deps` is specified. 
 
 But core libraries (the `android.**` namespace) is not downloaded through gradle. The core libraries are shipped as stub JARs with the Android SDK. (`$SDK_ROOT/platforms/android-$VERSION/android-stubs-src.jar`).
