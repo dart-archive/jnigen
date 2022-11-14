@@ -30,6 +30,7 @@ class Notifications extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const jni.JObjType<Notifications> type = _$NotificationsType();
+
   static final _ctor = jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
           "Notifications__ctor")
       .asFunction<jni.JniResult Function()>();

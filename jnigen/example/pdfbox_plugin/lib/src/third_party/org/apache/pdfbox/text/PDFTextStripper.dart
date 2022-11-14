@@ -50,6 +50,7 @@ class PDFTextStripper extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const jni.JObjType<PDFTextStripper> type = _$PDFTextStripperType();
+
   static final _get_LINE_SEPARATOR = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(

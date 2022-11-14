@@ -1528,6 +1528,7 @@ class JsonFactory_Feature extends jni.JObject {
   /// The type which includes information such as the signature of this class.
   static const jni.JObjType<JsonFactory_Feature> type =
       _$JsonFactory_FeatureType();
+
   static final _id_values = jniAccessors.getStaticMethodIDOf(_classRef,
       "values", "()[Lcom/fasterxml/jackson/core/JsonFactory\$Feature;");
 

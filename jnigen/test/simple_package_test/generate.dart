@@ -24,6 +24,7 @@ var javaFiles = [
   join(javaPrefix, 'simple_package', 'Example.java'),
   join(javaPrefix, 'pkg2', 'C2.java'),
   join(javaPrefix, 'pkg2', 'Example.java'),
+  join(javaPrefix, 'generics', 'MyStack.java'),
 ];
 
 void compileJavaSources(String workingDir, List<String> files) async {
@@ -44,6 +45,7 @@ Config getConfig() {
     classes: [
       'com.github.dart_lang.jnigen.simple_package',
       'com.github.dart_lang.jnigen.pkg2',
+      'com.github.dart_lang.jnigen.generics',
     ],
     outputConfig: OutputConfig(
       cConfig: CCodeOutputConfig(

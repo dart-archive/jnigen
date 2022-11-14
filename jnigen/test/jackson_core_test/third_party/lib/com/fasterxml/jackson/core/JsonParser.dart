@@ -50,6 +50,7 @@ class JsonParser extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const jni.JObjType<JsonParser> type = _$JsonParserType();
+
   static final _id_DEFAULT_READ_CAPABILITIES = jniAccessors.getStaticFieldIDOf(
       _classRef,
       "DEFAULT_READ_CAPABILITIES",
@@ -2118,6 +2119,7 @@ class JsonParser_Feature extends jni.JObject {
   /// The type which includes information such as the signature of this class.
   static const jni.JObjType<JsonParser_Feature> type =
       _$JsonParser_FeatureType();
+
   static final _id_values = jniAccessors.getStaticMethodIDOf(_classRef,
       "values", "()[Lcom/fasterxml/jackson/core/JsonParser\$Feature;");
 
@@ -2209,6 +2211,7 @@ class JsonParser_NumberType extends jni.JObject {
   /// The type which includes information such as the signature of this class.
   static const jni.JObjType<JsonParser_NumberType> type =
       _$JsonParser_NumberTypeType();
+
   static final _id_values = jniAccessors.getStaticMethodIDOf(_classRef,
       "values", "()[Lcom/fasterxml/jackson/core/JsonParser\$NumberType;");
 

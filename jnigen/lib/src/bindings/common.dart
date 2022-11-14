@@ -90,6 +90,27 @@ abstract class BindingsGenerator {
     return args.join(', ');
   }
 
+  String dartTypeParams(ClassDecl decl, {required bool includeExtends}) {
+    if (decl.typeParams.isEmpty) return '';
+    // TODO(HosseinYousefi): resolve the actual type if any
+    final ifExtendsIncluded = includeExtends ? ' extends $jniObjectType' : '';
+    final typeParams =
+        decl.typeParams.map((e) => '${e.name}$ifExtendsIncluded').join(' ,');
+    return '<$typeParams>';
+  }
+
+  String dartClassDefinition(ClassDecl decl, SymbolResolver resolver) {
+    final name = decl.finalName;
+    var superName = jniObjectType;
+    if (decl.superclass != null) {
+      superName = resolver
+              .resolve((decl.superclass!.type as DeclaredType).binaryName) ??
+          jniObjectType;
+    }
+    final typeParams = dartTypeParams(decl, includeExtends: true);
+    return 'class $name$typeParams extends $superName';
+  }
+
   String dartSigForField(Field f,
       {bool isSetter = false, required bool isFfiSig}) {
     final conv = isFfiSig ? getDartFfiType : getDartInnerType;
@@ -102,11 +123,13 @@ abstract class BindingsGenerator {
 
   String dartArrayExtension(ClassDecl decl) {
     final name = decl.finalName;
-    return '\nextension \$${name}Array on $jniArrayType<$name> {\n'
-        '$indent$name operator [](int index) {\n'
+    final typeParamsWithExtend = dartTypeParams(decl, includeExtends: true);
+    final typeParams = dartTypeParams(decl, includeExtends: false);
+    return '\nextension \$${name}Array$typeParamsWithExtend on $jniArrayType<$name$typeParams> {\n'
+        '$indent$name$typeParams operator [](int index) {\n'
         '${indent * 2}return $name.fromRef(elementAt(index, ${jni}JniCallType.objectType).object);\n'
         '$indent}\n\n'
-        '${indent}void operator []=(int index, $name value) {\n'
+        '${indent}void operator []=(int index, $name$typeParams value) {\n'
         '${indent * 2}(this as $jniArrayType<$jniObjectType>)[index] = value;\n'
         '$indent}\n'
         '}\n';
@@ -116,20 +139,49 @@ abstract class BindingsGenerator {
     final name = decl.finalName;
     final signature = getSignature(decl.binaryName);
     final typeClassName = '$typeClassPrefix$name$typeClassSuffix';
-    return '\nclass $typeClassName extends $jniTypeType<$name> {\n'
-        '${indent}const $typeClassName();\n\n'
+    final typeParamsWithExtend = dartTypeParams(decl, includeExtends: true);
+    final typeParams = dartTypeParams(decl, includeExtends: false);
+    final innerTypeDefinitions = decl.typeParams
+        .map((e) => '${indent}final $jniTypeType<${e.name}> \$${e.name};\n')
+        .join();
+    final ctorArgs =
+        decl.typeParams.map((e) => '${indent * 2}this.\$${e.name},\n').join();
+
+    return '\nclass $typeClassName$typeParamsWithExtend extends $jniTypeType<$name$typeParams> {\n'
+        '$innerTypeDefinitions\n'
+        '${indent}const $typeClassName(\n'
+        '$ctorArgs'
+        '$indent);\n\n'
         '$indent@override\n'
         '${indent}String get signature => r"$signature";\n\n'
         '$indent@override\n'
-        '$indent$name fromRef($jobjectType ref) => $name.fromRef(ref);\n'
+        '$indent$name$typeParams fromRef($jobjectType ref) => $name.fromRef(ref);\n'
         '}\n';
   }
 
   String dartStaticTypeGetter(ClassDecl decl) {
     final name = decl.finalName;
     final typeClassName = '$typeClassPrefix$name$typeClassSuffix';
-    return '\n$indent/// The type which includes information such as the signature of this class.\n'
-        '${indent}static const $jniTypeType<$name> type = $typeClassName();\n';
+    const docs =
+        '/// The type which includes information such as the signature of this class.';
+    if (decl.typeParams.isEmpty) {
+      return '$indent$docs\n'
+          '${indent}static const $jniTypeType<$name> type = $typeClassName();\n\n';
+    }
+    final typeParams = dartTypeParams(decl, includeExtends: false);
+    final methodArgs = decl.typeParams
+        .map((e) => '${indent * 2}$jniTypeType<${e.name}> \$${e.name},\n')
+        .join();
+    final ctorArgs =
+        decl.typeParams.map((e) => '${indent * 3}\$${e.name},\n').join();
+    return '$indent$docs\n'
+        '$indent$jniTypeType<$name$typeParams> type(\n'
+        '$methodArgs'
+        '$indent) {\n'
+        '${indent * 2}return $typeClassName(\n'
+        '$ctorArgs'
+        '${indent * 2});\n'
+        '$indent}\n\n';
   }
 
   String dartSigForMethod(Method m, {required bool isFfiSig}) {

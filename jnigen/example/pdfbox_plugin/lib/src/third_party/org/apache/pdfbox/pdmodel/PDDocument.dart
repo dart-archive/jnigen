@@ -46,6 +46,7 @@ class PDDocument extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const jni.JObjType<PDDocument> type = _$PDDocumentType();
+
   static final _ctor = jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
           "PDDocument__ctor")
       .asFunction<jni.JniResult Function()>();

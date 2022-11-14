@@ -424,3 +424,35 @@ JniResult Example1__whichExample(jobject self_) {
       (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Example1__whichExample);
   return (JniResult){.result = {.i = _result}, .exception = check_exception()};
 }
+
+// com.github.dart_lang.jnigen.generics.MyStack
+jclass _c_MyStack = NULL;
+
+jmethodID _m_MyStack__push = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyStack__push(jobject self_, jobject item) {
+  load_env();
+  load_class_gr(&_c_MyStack, "com/github/dart_lang/jnigen/generics/MyStack");
+  if (_c_MyStack == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyStack, &_m_MyStack__push, "push", "(Ljava/lang/Object;)V");
+  if (_m_MyStack__push == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_MyStack__push, item);
+  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+}
+
+jmethodID _m_MyStack__pop = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyStack__pop(jobject self_) {
+  load_env();
+  load_class_gr(&_c_MyStack, "com/github/dart_lang/jnigen/generics/MyStack");
+  if (_c_MyStack == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyStack, &_m_MyStack__pop, "pop", "()Ljava/lang/Object;");
+  if (_m_MyStack__pop == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_MyStack__pop);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}

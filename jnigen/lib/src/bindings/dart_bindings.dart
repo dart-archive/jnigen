@@ -49,16 +49,11 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
 
     s.write('/// from: ${decl.binaryName}\n');
     s.write(breakDocComment(decl.javadoc, depth: ''));
+
     final name = decl.finalName;
 
-    var superName = jniObjectType;
-    if (decl.superclass != null) {
-      superName = resolver
-              .resolve((decl.superclass!.type as DeclaredType).binaryName) ??
-          jniObjectType;
-    }
-
-    s.write('class $name extends $superName {\n'
+    s.write(dartClassDefinition(decl, resolver));
+    s.write(' {\n'
         '$indent$name.fromRef($voidPointer ref) : super.fromRef(ref);\n\n');
     s.write(dartStaticTypeGetter(decl));
     for (var field in decl.fields) {

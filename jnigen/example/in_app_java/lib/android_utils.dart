@@ -26,6 +26,7 @@ class AndroidUtils extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const jni.JObjType<AndroidUtils> type = _$AndroidUtilsType();
+
   static final _showToast = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>,
@@ -67,6 +68,7 @@ class Build extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const jni.JObjType<Build> type = _$BuildType();
+
   static final _get_BOARD =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_Build__BOARD")

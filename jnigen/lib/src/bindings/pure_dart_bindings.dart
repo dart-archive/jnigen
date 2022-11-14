@@ -55,18 +55,14 @@ class PureDartBindingsGenerator extends BindingsGenerator {
 
     s.write('/// from: ${decl.binaryName}\n');
     s.write(breakDocComment(decl.javadoc, depth: ''));
-    final name = decl.finalName;
 
-    var superName = jniObjectType;
-    if (decl.superclass != null) {
-      superName = resolver
-              .resolve((decl.superclass!.type as DeclaredType).binaryName) ??
-          jniObjectType;
-    }
+    final name = decl.finalName;
     final internalName = escapeDollarSign(getInternalName(decl.binaryName));
-    s.write('class $name extends $superName {\n'
-        '  static final $classRef = $accessors.getClassOf("$internalName");\n'
-        '  $indent$name.fromRef($jobjectType ref) : super.fromRef(ref);\n'
+
+    s.write(dartClassDefinition(decl, resolver));
+    s.write(' {\n'
+        '${indent}static final $classRef = $accessors.getClassOf("$internalName");\n'
+        '$indent$name.fromRef($jobjectType ref) : super.fromRef(ref);\n'
         '\n');
     s.write(dartStaticTypeGetter(decl));
     for (var field in decl.fields) {

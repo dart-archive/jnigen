@@ -200,6 +200,7 @@ class Example_Aux extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const jni.JObjType<Example_Aux> type = _$Example_AuxType();
+
   static final _get_value = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
@@ -276,6 +277,7 @@ class C2 extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const jni.JObjType<C2> type = _$C2Type();
+
   static final _get_CONSTANT =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_C2__CONSTANT")
@@ -325,6 +327,7 @@ class Example1 extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const jni.JObjType<Example1> type = _$Example1Type();
+
   static final _ctor =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("Example1__ctor")
           .asFunction<jni.JniResult Function()>();
@@ -359,6 +362,44 @@ extension $Example1Array on jni.JArray<Example1> {
   }
 
   void operator []=(int index, Example1 value) {
+    (this as jni.JArray<jni.JObject>)[index] = value;
+  }
+}
+
+/// from: com.github.dart_lang.jnigen.generics.MyStack
+class MyStack<T extends jni.JObject> extends jni.JObject {
+  MyStack.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
+
+  /// The type which includes information such as the signature of this class.
+  jni.JObjType<MyStack<T>> type(
+    jni.JObjType<T> $T,
+  ) {
+    return _$MyStackType(
+      $T,
+    );
+  }
+}
+
+class _$MyStackType<T extends jni.JObject> extends jni.JObjType<MyStack<T>> {
+  final jni.JObjType<T> $T;
+
+  const _$MyStackType(
+    this.$T,
+  );
+
+  @override
+  String get signature => r"Lcom/github/dart_lang/jnigen/generics/MyStack;";
+
+  @override
+  MyStack<T> fromRef(jni.JObjectPtr ref) => MyStack.fromRef(ref);
+}
+
+extension $MyStackArray<T extends jni.JObject> on jni.JArray<MyStack<T>> {
+  MyStack<T> operator [](int index) {
+    return MyStack.fromRef(elementAt(index, jni.JniCallType.objectType).object);
+  }
+
+  void operator []=(int index, MyStack<T> value) {
     (this as jni.JArray<jni.JObject>)[index] = value;
   }
 }
