@@ -4,8 +4,8 @@
 
 part of 'types.dart';
 
-class _JStringType extends JObjType<JString> {
-  const _JStringType();
+class JStringType extends JObjType<JString> {
+  const JStringType();
 
   @override
   String get signature => "Ljava/lang/String;";
@@ -16,7 +16,7 @@ class _JStringType extends JObjType<JString> {
 
 class JString extends JObject {
   /// The type which includes information such as the signature of this class.
-  static const JObjType<JString> type = _JStringType();
+  static const JObjType<JString> type = JStringType();
 
   /// Construct a new [JString] with [reference] as its underlying reference.
   JString.fromRef(JStringPtr reference) : super.fromRef(reference);

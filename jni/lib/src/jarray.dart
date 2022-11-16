@@ -6,10 +6,10 @@
 
 part of 'types.dart';
 
-class _JArrayType<T> extends JObjType<JArray<T>> {
+class JArrayType<T> extends JObjType<JArray<T>> {
   final JType<T> elementType;
 
-  const _JArrayType(this.elementType);
+  const JArrayType(this.elementType);
 
   @override
   String get signature => '[${elementType.signature}';
@@ -21,7 +21,7 @@ class _JArrayType<T> extends JObjType<JArray<T>> {
 class JArray<E> extends JObject {
   /// The type which includes information such as the signature of this class.
   static JObjType<JArray<T>> type<T>(JType<T> innerType) =>
-      _JArrayType(innerType);
+      JArrayType(innerType);
 
   /// Construct a new [JArray] with [reference] as its underlying reference.
   JArray.fromRef(JArrayPtr reference) : super.fromRef(reference);

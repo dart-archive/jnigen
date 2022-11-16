@@ -38,7 +38,8 @@ abstract class BindingsGenerator {
 
   static const String jniTypeType = '${jni}JObjType';
   static const String typeClassSuffix = 'Type';
-  static const String typeClassPrefix = '_\$';
+  // TODO(Hossein Yousefi): this is a temporary fix for the name collision
+  static const String typeClassPrefix = '\$';
 
   static const String jniResultType = '${jni}JniResult';
 
@@ -166,7 +167,7 @@ abstract class BindingsGenerator {
         '/// The type which includes information such as the signature of this class.';
     if (decl.typeParams.isEmpty) {
       return '$indent$docs\n'
-          '${indent}static const $jniTypeType<$name> type = $typeClassName();\n\n';
+          '${indent}static const type = $typeClassName();\n\n';
     }
     final typeParams = dartTypeParams(decl, includeExtends: false);
     final methodArgs = decl.typeParams
@@ -175,7 +176,7 @@ abstract class BindingsGenerator {
     final ctorArgs =
         decl.typeParams.map((e) => '${indent * 3}\$${e.name},\n').join();
     return '$indent$docs\n'
-        '$indent$jniTypeType<$name$typeParams> type(\n'
+        '$indent$typeClassName$typeParams type(\n'
         '$methodArgs'
         '$indent) {\n'
         '${indent * 2}return $typeClassName(\n'

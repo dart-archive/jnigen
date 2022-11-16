@@ -25,7 +25,7 @@ class AndroidUtils extends jni.JObject {
   AndroidUtils.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JObjType<AndroidUtils> type = _$AndroidUtilsType();
+  static const type = $AndroidUtilsType();
 
   static final _showToast = jniLookup<
           ffi.NativeFunction<
@@ -41,8 +41,8 @@ class AndroidUtils extends jni.JObject {
       _showToast(mainActivity.reference, text.reference, duration).check();
 }
 
-class _$AndroidUtilsType extends jni.JObjType<AndroidUtils> {
-  const _$AndroidUtilsType();
+class $AndroidUtilsType extends jni.JObjType<AndroidUtils> {
+  const $AndroidUtilsType();
 
   @override
   String get signature => r"Lcom/example/in_app_java/AndroidUtils;";
@@ -67,7 +67,7 @@ class Build extends jni.JObject {
   Build.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JObjType<Build> type = _$BuildType();
+  static const type = $BuildType();
 
   static final _get_BOARD =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -354,8 +354,8 @@ class Build extends jni.JObject {
       jni.JString.fromRef(_getRadioVersion().object);
 }
 
-class _$BuildType extends jni.JObjType<Build> {
-  const _$BuildType();
+class $BuildType extends jni.JObjType<Build> {
+  const $BuildType();
 
   @override
   String get signature => r"Landroid/os/Build;";

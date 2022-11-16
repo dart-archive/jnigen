@@ -62,7 +62,7 @@ class JsonFactory extends jni.JObject {
   JsonFactory.fromRef(jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JObjType<JsonFactory> type = _$JsonFactoryType();
+  static const type = $JsonFactoryType();
 
   /// from: static public final java.lang.String FORMAT_NAME_JSON
   ///
@@ -1495,8 +1495,8 @@ class JsonFactory extends jni.JObject {
           [out.reference]).object);
 }
 
-class _$JsonFactoryType extends jni.JObjType<JsonFactory> {
-  const _$JsonFactoryType();
+class $JsonFactoryType extends jni.JObjType<JsonFactory> {
+  const $JsonFactoryType();
 
   @override
   String get signature => r"Lcom/fasterxml/jackson/core/JsonFactory;";
@@ -1526,8 +1526,7 @@ class JsonFactory_Feature extends jni.JObject {
   JsonFactory_Feature.fromRef(jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const jni.JObjType<JsonFactory_Feature> type =
-      _$JsonFactory_FeatureType();
+  static const type = $JsonFactory_FeatureType();
 
   static final _id_values = jniAccessors.getStaticMethodIDOf(_classRef,
       "values", "()[Lcom/fasterxml/jackson/core/JsonFactory\$Feature;");
@@ -1586,8 +1585,8 @@ class JsonFactory_Feature extends jni.JObject {
       reference, _id_getMask, jni.JniCallType.intType, []).integer;
 }
 
-class _$JsonFactory_FeatureType extends jni.JObjType<JsonFactory_Feature> {
-  const _$JsonFactory_FeatureType();
+class $JsonFactory_FeatureType extends jni.JObjType<JsonFactory_Feature> {
+  const $JsonFactory_FeatureType();
 
   @override
   String get signature => r"Lcom/fasterxml/jackson/core/JsonFactory$Feature;";
