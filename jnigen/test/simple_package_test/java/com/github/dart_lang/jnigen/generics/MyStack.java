@@ -9,7 +9,7 @@ import java.util.Stack;
 public class MyStack<T> {
   private Stack<T> stack;
 
-  MyStack() {
+  public MyStack() {
     stack = new Stack<>();
   }
 

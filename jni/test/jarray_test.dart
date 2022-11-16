@@ -256,21 +256,21 @@ void main() {
       expect(twoDimArray[2][2], 4);
     });
   });
-  test("JArray.filled", () {
-    using((arena) {
-      final string = "abc".toJString()..deletedIn(arena);
-      final array = JArray.filled(3, string)..deletedIn(arena);
-      expect(
-        () {
-          final _ = JArray.filled(3, JString.fromRef(nullptr))
-            ..deletedIn(arena);
-        },
-        throwsA(isA<AssertionError>()),
-      );
-      expect(array.length, 3);
-      expect(array[0].toDartString(deleteOriginal: true), "abc");
-      expect(array[1].toDartString(deleteOriginal: true), "abc");
-      expect(array[2].toDartString(deleteOriginal: true), "abc");
-    });
-  });
+  // test("JArray.filled", () {
+  //   using((arena) {
+  //     final string = "abc".toJString()..deletedIn(arena);
+  //     final array = JArray.filled(3, string)..deletedIn(arena);
+  //     expect(
+  //       () {
+  //         final _ = JArray.filled(3, JString.fromRef(nullptr))
+  //           ..deletedIn(arena);
+  //       },
+  //       throwsA(isA<AssertionError>()),
+  //     );
+  //     expect(array.length, 3);
+  //     expect(array[0].toDartString(deleteOriginal: true), "abc");
+  //     expect(array[1].toDartString(deleteOriginal: true), "abc");
+  //     expect(array[2].toDartString(deleteOriginal: true), "abc");
+  //   });
+  // });
 }

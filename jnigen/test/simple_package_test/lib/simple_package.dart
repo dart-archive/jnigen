@@ -26,7 +26,9 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
 
 /// from: com.github.dart_lang.jnigen.simple_package.Example
 class Example extends jni.JObject {
-  Example.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
+  final $ExampleType $type;
+
+  Example.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $ExampleType();
@@ -44,7 +46,8 @@ class Example extends jni.JObject {
 
   /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux aux
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static Example_Aux get aux => Example_Aux.fromRef(_get_aux().object);
+  static Example_Aux get aux =>
+      const $Example_AuxType().fromRef(_get_aux().object);
   static final _set_aux = jniLookup<
           ffi.NativeFunction<
               jni.JThrowablePtr Function(
@@ -75,7 +78,9 @@ class Example extends jni.JObject {
           .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
-  Example() : super.fromRef(_ctor().object);
+  Example()
+      : $type = $ExampleType(),
+        super.fromRef(_ctor().object);
 
   static final _whichExample = jniLookup<
           ffi.NativeFunction<
@@ -92,7 +97,8 @@ class Example extends jni.JObject {
 
   /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux getAux()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static Example_Aux getAux() => Example_Aux.fromRef(_getAux().object);
+  static Example_Aux getAux() =>
+      const $Example_AuxType().fromRef(_getAux().object);
 
   static final _addInts = jniLookup<
               ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Int32)>>(
@@ -109,7 +115,7 @@ class Example extends jni.JObject {
   /// from: static public int[] getArr()
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JArray<jni.JInt> getArr() =>
-      jni.JArray<jni.JInt>.fromRef(_getArr().object);
+      const jni.JArrayType(jni.JIntType()).fromRef(_getArr().object);
 
   static final _addAll = jniLookup<
           ffi.NativeFunction<
@@ -127,7 +133,7 @@ class Example extends jni.JObject {
 
   /// from: public com.github.dart_lang.jnigen.simple_package.Example getSelf()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Example getSelf() => Example.fromRef(_getSelf(reference).object);
+  Example getSelf() => const $ExampleType().fromRef(_getSelf(reference).object);
 
   static final _getNum = jniLookup<
           ffi.NativeFunction<
@@ -181,12 +187,13 @@ class $ExampleType extends jni.JObjType<Example> {
       r"Lcom/github/dart_lang/jnigen/simple_package/Example;";
 
   @override
-  Example fromRef(jni.JObjectPtr ref) => Example.fromRef(ref);
+  Example fromRef(jni.JObjectPtr ref) => Example.fromRef(this, ref);
 }
 
 extension $ExampleArray on jni.JArray<Example> {
   Example operator [](int index) {
-    return Example.fromRef(elementAt(index, jni.JniCallType.objectType).object);
+    return ($type.elementType as $ExampleType)
+        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Example value) {
@@ -196,7 +203,9 @@ extension $ExampleArray on jni.JArray<Example> {
 
 /// from: com.github.dart_lang.jnigen.simple_package.Example$Aux
 class Example_Aux extends jni.JObject {
-  Example_Aux.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
+  final $Example_AuxType $type;
+
+  Example_Aux.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $Example_AuxType();
@@ -228,7 +237,9 @@ class Example_Aux extends jni.JObject {
           .asFunction<jni.JniResult Function(int)>();
 
   /// from: public void <init>(boolean value)
-  Example_Aux(bool value) : super.fromRef(_ctor(value ? 1 : 0).object);
+  Example_Aux(bool value)
+      : $type = $Example_AuxType(),
+        super.fromRef(_ctor(value ? 1 : 0).object);
 
   static final _getValue = jniLookup<
           ffi.NativeFunction<
@@ -257,13 +268,13 @@ class $Example_AuxType extends jni.JObjType<Example_Aux> {
       r"Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;";
 
   @override
-  Example_Aux fromRef(jni.JObjectPtr ref) => Example_Aux.fromRef(ref);
+  Example_Aux fromRef(jni.JObjectPtr ref) => Example_Aux.fromRef(this, ref);
 }
 
 extension $Example_AuxArray on jni.JArray<Example_Aux> {
   Example_Aux operator [](int index) {
-    return Example_Aux.fromRef(
-        elementAt(index, jni.JniCallType.objectType).object);
+    return ($type.elementType as $Example_AuxType)
+        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Example_Aux value) {
@@ -273,7 +284,9 @@ extension $Example_AuxArray on jni.JArray<Example_Aux> {
 
 /// from: com.github.dart_lang.jnigen.pkg2.C2
 class C2 extends jni.JObject {
-  C2.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
+  final $C2Type $type;
+
+  C2.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $C2Type();
@@ -298,7 +311,9 @@ class C2 extends jni.JObject {
           .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
-  C2() : super.fromRef(_ctor().object);
+  C2()
+      : $type = $C2Type(),
+        super.fromRef(_ctor().object);
 }
 
 class $C2Type extends jni.JObjType<C2> {
@@ -308,12 +323,13 @@ class $C2Type extends jni.JObjType<C2> {
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/C2;";
 
   @override
-  C2 fromRef(jni.JObjectPtr ref) => C2.fromRef(ref);
+  C2 fromRef(jni.JObjectPtr ref) => C2.fromRef(this, ref);
 }
 
 extension $C2Array on jni.JArray<C2> {
   C2 operator [](int index) {
-    return C2.fromRef(elementAt(index, jni.JniCallType.objectType).object);
+    return ($type.elementType as $C2Type)
+        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, C2 value) {
@@ -323,7 +339,9 @@ extension $C2Array on jni.JArray<C2> {
 
 /// from: com.github.dart_lang.jnigen.pkg2.Example
 class Example1 extends jni.JObject {
-  Example1.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
+  final $Example1Type $type;
+
+  Example1.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $Example1Type();
@@ -333,7 +351,9 @@ class Example1 extends jni.JObject {
           .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
-  Example1() : super.fromRef(_ctor().object);
+  Example1()
+      : $type = $Example1Type(),
+        super.fromRef(_ctor().object);
 
   static final _whichExample = jniLookup<
           ffi.NativeFunction<
@@ -352,13 +372,13 @@ class $Example1Type extends jni.JObjType<Example1> {
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/Example;";
 
   @override
-  Example1 fromRef(jni.JObjectPtr ref) => Example1.fromRef(ref);
+  Example1 fromRef(jni.JObjectPtr ref) => Example1.fromRef(this, ref);
 }
 
 extension $Example1Array on jni.JArray<Example1> {
   Example1 operator [](int index) {
-    return Example1.fromRef(
-        elementAt(index, jni.JniCallType.objectType).object);
+    return ($type.elementType as $Example1Type)
+        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Example1 value) {
@@ -368,16 +388,49 @@ extension $Example1Array on jni.JArray<Example1> {
 
 /// from: com.github.dart_lang.jnigen.generics.MyStack
 class MyStack<T extends jni.JObject> extends jni.JObject {
-  MyStack.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
+  final $MyStackType<T> $type;
+
+  MyStack.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  $MyStackType<T> type(
+  static $MyStackType<T> type<T extends jni.JObject>(
     jni.JObjType<T> $T,
   ) {
     return $MyStackType(
       $T,
     );
   }
+
+  static final _ctor =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("MyStack__ctor")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: public void <init>()
+  MyStack(jni.JObjType<T> $T)
+      : $type = $MyStackType(
+          $T,
+        ),
+        super.fromRef(_ctor().object);
+
+  static final _push = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("MyStack__push")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void push(T item)
+  void push(T item) => _push(reference, item.reference).check();
+
+  static final _pop = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("MyStack__pop")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public T pop()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  T pop() => $type.$T.fromRef(_pop(reference).object);
 }
 
 class $MyStackType<T extends jni.JObject> extends jni.JObjType<MyStack<T>> {
@@ -391,12 +444,13 @@ class $MyStackType<T extends jni.JObject> extends jni.JObjType<MyStack<T>> {
   String get signature => r"Lcom/github/dart_lang/jnigen/generics/MyStack;";
 
   @override
-  MyStack<T> fromRef(jni.JObjectPtr ref) => MyStack.fromRef(ref);
+  MyStack<T> fromRef(jni.JObjectPtr ref) => MyStack.fromRef(this, ref);
 }
 
 extension $MyStackArray<T extends jni.JObject> on jni.JArray<MyStack<T>> {
   MyStack<T> operator [](int index) {
-    return MyStack.fromRef(elementAt(index, jni.JniCallType.objectType).object);
+    return ($type.elementType as $MyStackType<T>)
+        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, MyStack<T> value) {

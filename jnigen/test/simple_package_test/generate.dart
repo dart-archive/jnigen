@@ -4,6 +4,7 @@
 
 import 'dart:io';
 
+import 'package:logging/logging.dart';
 import 'package:path/path.dart';
 import 'package:jnigen/jnigen.dart';
 
@@ -47,6 +48,7 @@ Config getConfig() {
       'com.github.dart_lang.jnigen.pkg2',
       'com.github.dart_lang.jnigen.generics',
     ],
+    logLevel: Level.ALL,
     outputConfig: OutputConfig(
       cConfig: CCodeOutputConfig(
         path: cWrapperDir,

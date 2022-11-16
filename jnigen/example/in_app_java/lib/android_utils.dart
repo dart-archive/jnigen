@@ -22,7 +22,9 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
 
 /// from: com.example.in_app_java.AndroidUtils
 class AndroidUtils extends jni.JObject {
-  AndroidUtils.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
+  final $AndroidUtilsType $type;
+
+  AndroidUtils.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $AndroidUtilsType();
@@ -48,13 +50,13 @@ class $AndroidUtilsType extends jni.JObjType<AndroidUtils> {
   String get signature => r"Lcom/example/in_app_java/AndroidUtils;";
 
   @override
-  AndroidUtils fromRef(jni.JObjectPtr ref) => AndroidUtils.fromRef(ref);
+  AndroidUtils fromRef(jni.JObjectPtr ref) => AndroidUtils.fromRef(this, ref);
 }
 
 extension $AndroidUtilsArray on jni.JArray<AndroidUtils> {
   AndroidUtils operator [](int index) {
-    return AndroidUtils.fromRef(
-        elementAt(index, jni.JniCallType.objectType).object);
+    return ($type.elementType as $AndroidUtilsType)
+        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, AndroidUtils value) {
@@ -64,7 +66,9 @@ extension $AndroidUtilsArray on jni.JArray<AndroidUtils> {
 
 /// from: android.os.Build
 class Build extends jni.JObject {
-  Build.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
+  final $BuildType $type;
+
+  Build.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $BuildType();
@@ -76,7 +80,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String BOARD
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get BOARD => jni.JString.fromRef(_get_BOARD().object);
+  static jni.JString get BOARD =>
+      const jni.JStringType().fromRef(_get_BOARD().object);
 
   static final _get_BOOTLOADER =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -86,7 +91,7 @@ class Build extends jni.JObject {
   /// from: static public final java.lang.String BOOTLOADER
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JString get BOOTLOADER =>
-      jni.JString.fromRef(_get_BOOTLOADER().object);
+      const jni.JStringType().fromRef(_get_BOOTLOADER().object);
 
   static final _get_BRAND =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -95,7 +100,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String BRAND
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get BRAND => jni.JString.fromRef(_get_BRAND().object);
+  static jni.JString get BRAND =>
+      const jni.JStringType().fromRef(_get_BRAND().object);
 
   static final _get_CPU_ABI =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -104,7 +110,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String CPU_ABI
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get CPU_ABI => jni.JString.fromRef(_get_CPU_ABI().object);
+  static jni.JString get CPU_ABI =>
+      const jni.JStringType().fromRef(_get_CPU_ABI().object);
 
   static final _get_CPU_ABI2 =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -114,7 +121,7 @@ class Build extends jni.JObject {
   /// from: static public final java.lang.String CPU_ABI2
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JString get CPU_ABI2 =>
-      jni.JString.fromRef(_get_CPU_ABI2().object);
+      const jni.JStringType().fromRef(_get_CPU_ABI2().object);
 
   static final _get_DEVICE =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -123,7 +130,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String DEVICE
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get DEVICE => jni.JString.fromRef(_get_DEVICE().object);
+  static jni.JString get DEVICE =>
+      const jni.JStringType().fromRef(_get_DEVICE().object);
 
   static final _get_DISPLAY =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -132,7 +140,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String DISPLAY
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get DISPLAY => jni.JString.fromRef(_get_DISPLAY().object);
+  static jni.JString get DISPLAY =>
+      const jni.JStringType().fromRef(_get_DISPLAY().object);
 
   static final _get_FINGERPRINT =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -142,7 +151,7 @@ class Build extends jni.JObject {
   /// from: static public final java.lang.String FINGERPRINT
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JString get FINGERPRINT =>
-      jni.JString.fromRef(_get_FINGERPRINT().object);
+      const jni.JStringType().fromRef(_get_FINGERPRINT().object);
 
   static final _get_HARDWARE =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -152,7 +161,7 @@ class Build extends jni.JObject {
   /// from: static public final java.lang.String HARDWARE
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JString get HARDWARE =>
-      jni.JString.fromRef(_get_HARDWARE().object);
+      const jni.JStringType().fromRef(_get_HARDWARE().object);
 
   static final _get_HOST =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("get_Build__HOST")
@@ -160,7 +169,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String HOST
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get HOST => jni.JString.fromRef(_get_HOST().object);
+  static jni.JString get HOST =>
+      const jni.JStringType().fromRef(_get_HOST().object);
 
   static final _get_ID =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("get_Build__ID")
@@ -168,7 +178,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String ID
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get ID => jni.JString.fromRef(_get_ID().object);
+  static jni.JString get ID =>
+      const jni.JStringType().fromRef(_get_ID().object);
 
   static final _get_MANUFACTURER =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -178,7 +189,7 @@ class Build extends jni.JObject {
   /// from: static public final java.lang.String MANUFACTURER
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JString get MANUFACTURER =>
-      jni.JString.fromRef(_get_MANUFACTURER().object);
+      const jni.JStringType().fromRef(_get_MANUFACTURER().object);
 
   static final _get_MODEL =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -187,7 +198,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String MODEL
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get MODEL => jni.JString.fromRef(_get_MODEL().object);
+  static jni.JString get MODEL =>
+      const jni.JStringType().fromRef(_get_MODEL().object);
 
   static final _get_ODM_SKU =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -196,7 +208,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String ODM_SKU
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get ODM_SKU => jni.JString.fromRef(_get_ODM_SKU().object);
+  static jni.JString get ODM_SKU =>
+      const jni.JStringType().fromRef(_get_ODM_SKU().object);
 
   static final _get_PRODUCT =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -205,7 +218,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String PRODUCT
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get PRODUCT => jni.JString.fromRef(_get_PRODUCT().object);
+  static jni.JString get PRODUCT =>
+      const jni.JStringType().fromRef(_get_PRODUCT().object);
 
   static final _get_RADIO =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -214,7 +228,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String RADIO
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get RADIO => jni.JString.fromRef(_get_RADIO().object);
+  static jni.JString get RADIO =>
+      const jni.JStringType().fromRef(_get_RADIO().object);
 
   static final _get_SERIAL =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -223,7 +238,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String SERIAL
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get SERIAL => jni.JString.fromRef(_get_SERIAL().object);
+  static jni.JString get SERIAL =>
+      const jni.JStringType().fromRef(_get_SERIAL().object);
 
   static final _get_SKU =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("get_Build__SKU")
@@ -231,7 +247,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String SKU
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get SKU => jni.JString.fromRef(_get_SKU().object);
+  static jni.JString get SKU =>
+      const jni.JStringType().fromRef(_get_SKU().object);
 
   static final _get_SOC_MANUFACTURER =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -241,7 +258,7 @@ class Build extends jni.JObject {
   /// from: static public final java.lang.String SOC_MANUFACTURER
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JString get SOC_MANUFACTURER =>
-      jni.JString.fromRef(_get_SOC_MANUFACTURER().object);
+      const jni.JStringType().fromRef(_get_SOC_MANUFACTURER().object);
 
   static final _get_SOC_MODEL =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -251,7 +268,7 @@ class Build extends jni.JObject {
   /// from: static public final java.lang.String SOC_MODEL
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JString get SOC_MODEL =>
-      jni.JString.fromRef(_get_SOC_MODEL().object);
+      const jni.JStringType().fromRef(_get_SOC_MODEL().object);
 
   static final _get_SUPPORTED_32_BIT_ABIS =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -261,7 +278,8 @@ class Build extends jni.JObject {
   /// from: static public final java.lang.String[] SUPPORTED_32_BIT_ABIS
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JArray<jni.JString> get SUPPORTED_32_BIT_ABIS =>
-      jni.JArray<jni.JString>.fromRef(_get_SUPPORTED_32_BIT_ABIS().object);
+      const jni.JArrayType(jni.JStringType())
+          .fromRef(_get_SUPPORTED_32_BIT_ABIS().object);
 
   static final _get_SUPPORTED_64_BIT_ABIS =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -271,7 +289,8 @@ class Build extends jni.JObject {
   /// from: static public final java.lang.String[] SUPPORTED_64_BIT_ABIS
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JArray<jni.JString> get SUPPORTED_64_BIT_ABIS =>
-      jni.JArray<jni.JString>.fromRef(_get_SUPPORTED_64_BIT_ABIS().object);
+      const jni.JArrayType(jni.JStringType())
+          .fromRef(_get_SUPPORTED_64_BIT_ABIS().object);
 
   static final _get_SUPPORTED_ABIS =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -281,7 +300,8 @@ class Build extends jni.JObject {
   /// from: static public final java.lang.String[] SUPPORTED_ABIS
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JArray<jni.JString> get SUPPORTED_ABIS =>
-      jni.JArray<jni.JString>.fromRef(_get_SUPPORTED_ABIS().object);
+      const jni.JArrayType(jni.JStringType())
+          .fromRef(_get_SUPPORTED_ABIS().object);
 
   static final _get_TAGS =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("get_Build__TAGS")
@@ -289,7 +309,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String TAGS
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get TAGS => jni.JString.fromRef(_get_TAGS().object);
+  static jni.JString get TAGS =>
+      const jni.JStringType().fromRef(_get_TAGS().object);
 
   static final _get_TIME =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("get_Build__TIME")
@@ -304,7 +325,8 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String TYPE
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get TYPE => jni.JString.fromRef(_get_TYPE().object);
+  static jni.JString get TYPE =>
+      const jni.JStringType().fromRef(_get_TYPE().object);
 
   /// from: static public final java.lang.String UNKNOWN
   static const UNKNOWN = "unknown";
@@ -315,14 +337,17 @@ class Build extends jni.JObject {
 
   /// from: static public final java.lang.String USER
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get USER => jni.JString.fromRef(_get_USER().object);
+  static jni.JString get USER =>
+      const jni.JStringType().fromRef(_get_USER().object);
 
   static final _ctor =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("Build__ctor")
           .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
-  Build() : super.fromRef(_ctor().object);
+  Build()
+      : $type = $BuildType(),
+        super.fromRef(_ctor().object);
 
   static final _getSerial =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -331,7 +356,8 @@ class Build extends jni.JObject {
 
   /// from: static public java.lang.String getSerial()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString getSerial() => jni.JString.fromRef(_getSerial().object);
+  static jni.JString getSerial() =>
+      const jni.JStringType().fromRef(_getSerial().object);
 
   static final _getFingerprintedPartitions =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -341,7 +367,7 @@ class Build extends jni.JObject {
   /// from: static public java.util.List getFingerprintedPartitions()
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject getFingerprintedPartitions() =>
-      jni.JObject.fromRef(_getFingerprintedPartitions().object);
+      const jni.JObjectType().fromRef(_getFingerprintedPartitions().object);
 
   static final _getRadioVersion =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -351,7 +377,7 @@ class Build extends jni.JObject {
   /// from: static public java.lang.String getRadioVersion()
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JString getRadioVersion() =>
-      jni.JString.fromRef(_getRadioVersion().object);
+      const jni.JStringType().fromRef(_getRadioVersion().object);
 }
 
 class $BuildType extends jni.JObjType<Build> {
@@ -361,12 +387,13 @@ class $BuildType extends jni.JObjType<Build> {
   String get signature => r"Landroid/os/Build;";
 
   @override
-  Build fromRef(jni.JObjectPtr ref) => Build.fromRef(ref);
+  Build fromRef(jni.JObjectPtr ref) => Build.fromRef(this, ref);
 }
 
 extension $BuildArray on jni.JArray<Build> {
   Build operator [](int index) {
-    return Build.fromRef(elementAt(index, jni.JniCallType.objectType).object);
+    return ($type.elementType as $BuildType)
+        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, Build value) {

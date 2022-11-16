@@ -56,14 +56,12 @@ class PureDartBindingsGenerator extends BindingsGenerator {
     s.write('/// from: ${decl.binaryName}\n');
     s.write(breakDocComment(decl.javadoc, depth: ''));
 
-    final name = decl.finalName;
     final internalName = escapeDollarSign(getInternalName(decl.binaryName));
 
     s.write(dartClassDefinition(decl, resolver));
-    s.write(' {\n'
-        '${indent}static final $classRef = $accessors.getClassOf("$internalName");\n'
-        '$indent$name.fromRef($jobjectType ref) : super.fromRef(ref);\n'
-        '\n');
+    s.write(
+        '${indent}static final $classRef = $accessors.getClassOf("$internalName");\n');
+
     s.write(dartStaticTypeGetter(decl));
     for (var field in decl.fields) {
       if (!field.isIncluded) continue;
@@ -102,14 +100,6 @@ class PureDartBindingsGenerator extends BindingsGenerator {
   }
 
   @override
-  String toDartResult(String expr, TypeUsage type, String dartType) {
-    if (isPrimitive(type)) {
-      return expr;
-    }
-    return '$dartType.fromRef($expr)';
-  }
-
-  @override
   String actualArgs(Method m, {bool addSelf = false}) {
     return super.actualArgs(m, addSelf: addSelf);
   }
@@ -128,6 +118,15 @@ class PureDartBindingsGenerator extends BindingsGenerator {
     // Different logic for constructor and method;
     // For constructor, we want return type to be new object.
     final returnType = getDartOuterType(m.returnType, resolver);
+    var returnTypeClass = getDartTypeClass(m.returnType, resolver);
+    if (m.returnType.type is TypeVar &&
+        !m.typeParams
+            .map((e) => e.name)
+            .contains((m.returnType.type as TypeVar).name)) {
+      // If the return type is variable and it comes from the class, prepend $.type
+      returnTypeClass =
+          '${BindingsGenerator.instanceTypeGetter}.$returnTypeClass';
+    }
     s.write('$indent/// from: ${getOriginalMethodHeader(m)}\n');
     if (!isPrimitive(m.returnType) || isCtor(m)) {
       s.write(_deleteInstruction);
@@ -138,8 +137,11 @@ class PureDartBindingsGenerator extends BindingsGenerator {
           '$accessors.newObjectWithArgs($classRef, $mID, [${actualArgs(m)}]).object';
       final className = c.finalName;
       final ctorFnName = name == 'ctor' ? className : '$className.$name';
-      s.write('$ctorFnName(${getFormalArgs(m, resolver)}) : '
-          'super.fromRef($wrapperExpr);\n');
+      s.write(
+        '$ctorFnName(${getFormalArgs(c, m, resolver)}) : '
+        '${dartInitType(c)}, '
+        'super.fromRef($wrapperExpr);\n',
+      );
       return s.toString();
     }
 
@@ -150,12 +152,14 @@ class PureDartBindingsGenerator extends BindingsGenerator {
     final selfArgument = isStatic ? classRef : selfPointer;
     final callType = getCallType(m.returnType);
     final resultGetter = getResultGetterName(m.returnType);
+    final typeParamsWithExtend =
+        dartTypeParams(m.typeParams, includeExtends: true);
     var wrapperExpr = '$accessors.call${ifStatic}MethodWithArgs'
         '($selfArgument, $mID, $callType, [${actualArgs(m)}])'
         '.$resultGetter';
-    wrapperExpr = toDartResult(wrapperExpr, m.returnType, returnType);
+    wrapperExpr = toDartResult(wrapperExpr, m.returnType, returnTypeClass);
     s.write(
-        '$returnType $name(${getFormalArgs(m, resolver)}) => $wrapperExpr;\n');
+        '$returnType $name$typeParamsWithExtend(${getFormalArgs(c, m, resolver)}) => $wrapperExpr;\n');
     return s.toString();
   }
 
