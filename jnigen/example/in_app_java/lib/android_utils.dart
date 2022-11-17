@@ -24,7 +24,10 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
 class AndroidUtils extends jni.JObject {
   final $AndroidUtilsType $type;
 
-  AndroidUtils.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+  AndroidUtils.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $AndroidUtilsType();
@@ -50,7 +53,7 @@ class $AndroidUtilsType extends jni.JObjType<AndroidUtils> {
   String get signature => r"Lcom/example/in_app_java/AndroidUtils;";
 
   @override
-  AndroidUtils fromRef(jni.JObjectPtr ref) => AndroidUtils.fromRef(this, ref);
+  AndroidUtils fromRef(jni.JObjectPtr ref) => AndroidUtils.fromRef(ref);
 }
 
 extension $AndroidUtilsArray on jni.JArray<AndroidUtils> {
@@ -68,7 +71,10 @@ extension $AndroidUtilsArray on jni.JArray<AndroidUtils> {
 class Build extends jni.JObject {
   final $BuildType $type;
 
-  Build.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+  Build.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $BuildType();
@@ -387,7 +393,7 @@ class $BuildType extends jni.JObjType<Build> {
   String get signature => r"Landroid/os/Build;";
 
   @override
-  Build fromRef(jni.JObjectPtr ref) => Build.fromRef(this, ref);
+  Build fromRef(jni.JObjectPtr ref) => Build.fromRef(ref);
 }
 
 extension $BuildArray on jni.JArray<Build> {

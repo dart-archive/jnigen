@@ -28,7 +28,10 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
 class Example extends jni.JObject {
   final $ExampleType $type;
 
-  Example.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+  Example.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $ExampleType();
@@ -187,7 +190,7 @@ class $ExampleType extends jni.JObjType<Example> {
       r"Lcom/github/dart_lang/jnigen/simple_package/Example;";
 
   @override
-  Example fromRef(jni.JObjectPtr ref) => Example.fromRef(this, ref);
+  Example fromRef(jni.JObjectPtr ref) => Example.fromRef(ref);
 }
 
 extension $ExampleArray on jni.JArray<Example> {
@@ -205,7 +208,10 @@ extension $ExampleArray on jni.JArray<Example> {
 class Example_Aux extends jni.JObject {
   final $Example_AuxType $type;
 
-  Example_Aux.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+  Example_Aux.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $Example_AuxType();
@@ -268,7 +274,7 @@ class $Example_AuxType extends jni.JObjType<Example_Aux> {
       r"Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;";
 
   @override
-  Example_Aux fromRef(jni.JObjectPtr ref) => Example_Aux.fromRef(this, ref);
+  Example_Aux fromRef(jni.JObjectPtr ref) => Example_Aux.fromRef(ref);
 }
 
 extension $Example_AuxArray on jni.JArray<Example_Aux> {
@@ -286,7 +292,10 @@ extension $Example_AuxArray on jni.JArray<Example_Aux> {
 class C2 extends jni.JObject {
   final $C2Type $type;
 
-  C2.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+  C2.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $C2Type();
@@ -323,7 +332,7 @@ class $C2Type extends jni.JObjType<C2> {
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/C2;";
 
   @override
-  C2 fromRef(jni.JObjectPtr ref) => C2.fromRef(this, ref);
+  C2 fromRef(jni.JObjectPtr ref) => C2.fromRef(ref);
 }
 
 extension $C2Array on jni.JArray<C2> {
@@ -341,7 +350,10 @@ extension $C2Array on jni.JArray<C2> {
 class Example1 extends jni.JObject {
   final $Example1Type $type;
 
-  Example1.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+  Example1.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $Example1Type();
@@ -372,7 +384,7 @@ class $Example1Type extends jni.JObjType<Example1> {
   String get signature => r"Lcom/github/dart_lang/jnigen/pkg2/Example;";
 
   @override
-  Example1 fromRef(jni.JObjectPtr ref) => Example1.fromRef(this, ref);
+  Example1 fromRef(jni.JObjectPtr ref) => Example1.fromRef(ref);
 }
 
 extension $Example1Array on jni.JArray<Example1> {
@@ -390,7 +402,18 @@ extension $Example1Array on jni.JArray<Example1> {
 class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
   final $MyMapType<K, V> $type;
 
-  MyMap.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+  final jni.JObjType<K> $K;
+  final jni.JObjType<V> $V;
+
+  MyMap.fromRef(
+    this.$K,
+    this.$V,
+    jni.JObjectPtr ref,
+  )   : $type = type(
+          $K,
+          $V,
+        ),
+        super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static $MyMapType<K, V> type<K extends jni.JObject, V extends jni.JObject>(
@@ -408,7 +431,7 @@ class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
           .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
-  MyMap(jni.JObjType<K> $K, jni.JObjType<V> $V)
+  MyMap(this.$K, this.$V)
       : $type = $MyMapType(
           $K,
           $V,
@@ -425,7 +448,7 @@ class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
 
   /// from: public V get(K key)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  V get0(K key) => $type.$V.fromRef(_get0(reference, key.reference).object);
+  V get0(K key) => $V.fromRef(_get0(reference, key.reference).object);
 
   static final _put = jniLookup<
           ffi.NativeFunction<
@@ -438,7 +461,7 @@ class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
   /// from: public V put(K key, V value)
   /// The returned object must be deleted after use, by calling the `delete` method.
   V put(K key, V value) =>
-      $type.$V.fromRef(_put(reference, key.reference, value.reference).object);
+      $V.fromRef(_put(reference, key.reference, value.reference).object);
 
   static final _remove = jniLookup<
           ffi.NativeFunction<
@@ -450,7 +473,7 @@ class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
 
   /// from: public V remove(K key)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  V remove(K key) => $type.$V.fromRef(_remove(reference, key.reference).object);
+  V remove(K key) => $V.fromRef(_remove(reference, key.reference).object);
 }
 
 class $MyMapType<K extends jni.JObject, V extends jni.JObject>
@@ -467,7 +490,7 @@ class $MyMapType<K extends jni.JObject, V extends jni.JObject>
   String get signature => r"Lcom/github/dart_lang/jnigen/generics/MyMap;";
 
   @override
-  MyMap<K, V> fromRef(jni.JObjectPtr ref) => MyMap.fromRef(this, ref);
+  MyMap<K, V> fromRef(jni.JObjectPtr ref) => MyMap.fromRef($K, $V, ref);
 }
 
 extension $MyMapArray<K extends jni.JObject, V extends jni.JObject>
@@ -482,11 +505,145 @@ extension $MyMapArray<K extends jni.JObject, V extends jni.JObject>
   }
 }
 
+/// from: com.github.dart_lang.jnigen.generics.MyMap$MyEntry
+class MyMap_MyEntry<K extends jni.JObject, V extends jni.JObject>
+    extends jni.JObject {
+  final $MyMap_MyEntryType<K, V> $type;
+
+  final jni.JObjType<K> $K;
+  final jni.JObjType<V> $V;
+
+  MyMap_MyEntry.fromRef(
+    this.$K,
+    this.$V,
+    jni.JObjectPtr ref,
+  )   : $type = type(
+          $K,
+          $V,
+        ),
+        super.fromRef(ref);
+
+  /// The type which includes information such as the signature of this class.
+  static $MyMap_MyEntryType<K, V>
+      type<K extends jni.JObject, V extends jni.JObject>(
+    jni.JObjType<K> $K,
+    jni.JObjType<V> $V,
+  ) {
+    return $MyMap_MyEntryType(
+      $K,
+      $V,
+    );
+  }
+
+  static final _get_key = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+    jni.JObjectPtr,
+  )>>("get_MyMap_MyEntry__key")
+      .asFunction<
+          jni.JniResult Function(
+    jni.JObjectPtr,
+  )>();
+
+  /// from: public K key
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  K get key => $K.fromRef(_get_key(reference).object);
+  static final _set_key = jniLookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(jni.JObjectPtr,
+                  ffi.Pointer<ffi.Void>)>>("set_MyMap_MyEntry__key")
+      .asFunction<
+          jni.JThrowablePtr Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public K key
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set key(K value) => _set_key(reference, value.reference);
+
+  static final _get_value = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+    jni.JObjectPtr,
+  )>>("get_MyMap_MyEntry__value")
+      .asFunction<
+          jni.JniResult Function(
+    jni.JObjectPtr,
+  )>();
+
+  /// from: public V value
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V get value => $V.fromRef(_get_value(reference).object);
+  static final _set_value = jniLookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(jni.JObjectPtr,
+                  ffi.Pointer<ffi.Void>)>>("set_MyMap_MyEntry__value")
+      .asFunction<
+          jni.JThrowablePtr Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V value
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set value(V value) => _set_value(reference, value.reference);
+
+  static final _ctor = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("MyMap_MyEntry__ctor")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(K key, V value)
+  MyMap_MyEntry(this.$K, this.$V, K key, V value)
+      : $type = $MyMap_MyEntryType(
+          $K,
+          $V,
+        ),
+        super.fromRef(_ctor(key.reference, value.reference).object);
+}
+
+class $MyMap_MyEntryType<K extends jni.JObject, V extends jni.JObject>
+    extends jni.JObjType<MyMap_MyEntry<K, V>> {
+  final jni.JObjType<K> $K;
+  final jni.JObjType<V> $V;
+
+  const $MyMap_MyEntryType(
+    this.$K,
+    this.$V,
+  );
+
+  @override
+  String get signature =>
+      r"Lcom/github/dart_lang/jnigen/generics/MyMap$MyEntry;";
+
+  @override
+  MyMap_MyEntry<K, V> fromRef(jni.JObjectPtr ref) =>
+      MyMap_MyEntry.fromRef($K, $V, ref);
+}
+
+extension $MyMap_MyEntryArray<K extends jni.JObject, V extends jni.JObject>
+    on jni.JArray<MyMap_MyEntry<K, V>> {
+  MyMap_MyEntry<K, V> operator [](int index) {
+    return ($type.elementType as $MyMap_MyEntryType<K, V>)
+        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
+  }
+
+  void operator []=(int index, MyMap_MyEntry<K, V> value) {
+    (this as jni.JArray<jni.JObject>)[index] = value;
+  }
+}
+
 /// from: com.github.dart_lang.jnigen.generics.MyStack
 class MyStack<T extends jni.JObject> extends jni.JObject {
   final $MyStackType<T> $type;
 
-  MyStack.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+  final jni.JObjType<T> $T;
+
+  MyStack.fromRef(
+    this.$T,
+    jni.JObjectPtr ref,
+  )   : $type = type(
+          $T,
+        ),
+        super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static $MyStackType<T> type<T extends jni.JObject>(
@@ -502,7 +659,7 @@ class MyStack<T extends jni.JObject> extends jni.JObject {
           .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
-  MyStack(jni.JObjType<T> $T)
+  MyStack(this.$T)
       : $type = $MyStackType(
           $T,
         ),
@@ -526,7 +683,7 @@ class MyStack<T extends jni.JObject> extends jni.JObject {
 
   /// from: public T pop()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  T pop() => $type.$T.fromRef(_pop(reference).object);
+  T pop() => $T.fromRef(_pop(reference).object);
 }
 
 class $MyStackType<T extends jni.JObject> extends jni.JObjType<MyStack<T>> {
@@ -540,7 +697,7 @@ class $MyStackType<T extends jni.JObject> extends jni.JObjType<MyStack<T>> {
   String get signature => r"Lcom/github/dart_lang/jnigen/generics/MyStack;";
 
   @override
-  MyStack<T> fromRef(jni.JObjectPtr ref) => MyStack.fromRef(this, ref);
+  MyStack<T> fromRef(jni.JObjectPtr ref) => MyStack.fromRef($T, ref);
 }
 
 extension $MyStackArray<T extends jni.JObject> on jni.JArray<MyStack<T>> {

@@ -43,7 +43,10 @@ import "../../../../_init.dart" show jniEnv, jniAccessors;
 class JsonToken extends jni.JObject {
   final $JsonTokenType $type;
 
-  JsonToken.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+  JsonToken.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonToken");
@@ -178,7 +181,7 @@ class $JsonTokenType extends jni.JObjType<JsonToken> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonToken;";
 
   @override
-  JsonToken fromRef(jni.JObjectPtr ref) => JsonToken.fromRef(this, ref);
+  JsonToken fromRef(jni.JObjectPtr ref) => JsonToken.fromRef(ref);
 }
 
 extension $JsonTokenArray on jni.JArray<JsonToken> {

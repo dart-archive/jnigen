@@ -46,7 +46,10 @@ import "../../../../_init.dart" show jniEnv, jniAccessors;
 class JsonParser extends jni.JObject {
   final $JsonParserType $type;
 
-  JsonParser.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+  JsonParser.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonParser");
@@ -2139,8 +2142,7 @@ class JsonParser extends jni.JObject {
   ///@return Iterator for reading multiple Java values from content
   ///@throws IOException if there is either an underlying I/O problem or decoding
   ///    issue at format layer
-  jni.JObject readValuesAs<T extends jni.JObject>(
-          jni.JObjType<T> $T, jni.JObject valueType) =>
+  jni.JObject readValuesAs<T extends jni.JObject>(jni.JObject valueType) =>
       const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_readValuesAs,
@@ -2163,8 +2165,7 @@ class JsonParser extends jni.JObject {
   ///@return Iterator for reading multiple Java values from content
   ///@throws IOException if there is either an underlying I/O problem or decoding
   ///    issue at format layer
-  jni.JObject readValuesAs1<T extends jni.JObject>(
-          jni.JObjType<T> $T, jni.JObject valueTypeRef) =>
+  jni.JObject readValuesAs1<T extends jni.JObject>(jni.JObject valueTypeRef) =>
       const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_readValuesAs1,
@@ -2198,7 +2199,7 @@ class $JsonParserType extends jni.JObjType<JsonParser> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonParser;";
 
   @override
-  JsonParser fromRef(jni.JObjectPtr ref) => JsonParser.fromRef(this, ref);
+  JsonParser fromRef(jni.JObjectPtr ref) => JsonParser.fromRef(ref);
 }
 
 extension $JsonParserArray on jni.JArray<JsonParser> {
@@ -2218,8 +2219,10 @@ extension $JsonParserArray on jni.JArray<JsonParser> {
 class JsonParser_Feature extends jni.JObject {
   final $JsonParser_FeatureType $type;
 
-  JsonParser_Feature.fromRef(this.$type, jni.JObjectPtr ref)
-      : super.fromRef(ref);
+  JsonParser_Feature.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonParser\$Feature");
@@ -2290,7 +2293,7 @@ class $JsonParser_FeatureType extends jni.JObjType<JsonParser_Feature> {
 
   @override
   JsonParser_Feature fromRef(jni.JObjectPtr ref) =>
-      JsonParser_Feature.fromRef(this, ref);
+      JsonParser_Feature.fromRef(ref);
 }
 
 extension $JsonParser_FeatureArray on jni.JArray<JsonParser_Feature> {
@@ -2311,8 +2314,10 @@ extension $JsonParser_FeatureArray on jni.JArray<JsonParser_Feature> {
 class JsonParser_NumberType extends jni.JObject {
   final $JsonParser_NumberTypeType $type;
 
-  JsonParser_NumberType.fromRef(this.$type, jni.JObjectPtr ref)
-      : super.fromRef(ref);
+  JsonParser_NumberType.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   static final _classRef = jniAccessors
       .getClassOf("com/fasterxml/jackson/core/JsonParser\$NumberType");
@@ -2351,7 +2356,7 @@ class $JsonParser_NumberTypeType extends jni.JObjType<JsonParser_NumberType> {
 
   @override
   JsonParser_NumberType fromRef(jni.JObjectPtr ref) =>
-      JsonParser_NumberType.fromRef(this, ref);
+      JsonParser_NumberType.fromRef(ref);
 }
 
 extension $JsonParser_NumberTypeArray on jni.JArray<JsonParser_NumberType> {

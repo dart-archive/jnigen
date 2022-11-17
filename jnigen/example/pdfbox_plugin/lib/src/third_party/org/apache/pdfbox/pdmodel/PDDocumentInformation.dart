@@ -45,8 +45,10 @@ import "../../../../_init.dart" show jniLookup;
 class PDDocumentInformation extends jni.JObject {
   final $PDDocumentInformationType $type;
 
-  PDDocumentInformation.fromRef(this.$type, jni.JObjectPtr ref)
-      : super.fromRef(ref);
+  PDDocumentInformation.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $PDDocumentInformationType();
@@ -443,7 +445,7 @@ class $PDDocumentInformationType extends jni.JObjType<PDDocumentInformation> {
 
   @override
   PDDocumentInformation fromRef(jni.JObjectPtr ref) =>
-      PDDocumentInformation.fromRef(this, ref);
+      PDDocumentInformation.fromRef(ref);
 }
 
 extension $PDDocumentInformationArray on jni.JArray<PDDocumentInformation> {

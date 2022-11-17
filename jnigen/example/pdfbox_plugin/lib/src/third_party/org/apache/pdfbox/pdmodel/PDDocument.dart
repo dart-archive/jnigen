@@ -44,7 +44,10 @@ import "../../../../_init.dart" show jniLookup;
 class PDDocument extends jni.JObject {
   final $PDDocumentType $type;
 
-  PDDocument.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+  PDDocument.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $PDDocumentType();
@@ -1324,7 +1327,7 @@ class $PDDocumentType extends jni.JObjType<PDDocument> {
   String get signature => r"Lorg/apache/pdfbox/pdmodel/PDDocument;";
 
   @override
-  PDDocument fromRef(jni.JObjectPtr ref) => PDDocument.fromRef(this, ref);
+  PDDocument fromRef(jni.JObjectPtr ref) => PDDocument.fromRef(ref);
 }
 
 extension $PDDocumentArray on jni.JArray<PDDocument> {

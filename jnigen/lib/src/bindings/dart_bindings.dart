@@ -91,15 +91,7 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
     final ffiSig = dartSigForMethod(m, isFfiSig: true);
     final dartSig = dartSigForMethod(m, isFfiSig: false);
     final returnType = getDartOuterType(m.returnType, resolver);
-    var returnTypeClass = getDartTypeClass(m.returnType, resolver);
-    if (m.returnType.type is TypeVar &&
-        !m.typeParams
-            .map((e) => e.name)
-            .contains((m.returnType.type as TypeVar).name)) {
-      // If the return type is variable and it comes from the class, prepend $.type
-      returnTypeClass =
-          '${BindingsGenerator.instanceTypeGetter}.$returnTypeClass';
-    }
+    final returnTypeClass = getDartTypeClass(m.returnType, resolver);
     final ifStaticMethod = isStaticMethod(m) ? 'static' : '';
 
     // Load corresponding C method.

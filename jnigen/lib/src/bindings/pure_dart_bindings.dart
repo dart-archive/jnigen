@@ -118,15 +118,7 @@ class PureDartBindingsGenerator extends BindingsGenerator {
     // Different logic for constructor and method;
     // For constructor, we want return type to be new object.
     final returnType = getDartOuterType(m.returnType, resolver);
-    var returnTypeClass = getDartTypeClass(m.returnType, resolver);
-    if (m.returnType.type is TypeVar &&
-        !m.typeParams
-            .map((e) => e.name)
-            .contains((m.returnType.type as TypeVar).name)) {
-      // If the return type is variable and it comes from the class, prepend $.type
-      returnTypeClass =
-          '${BindingsGenerator.instanceTypeGetter}.$returnTypeClass';
-    }
+    final returnTypeClass = getDartTypeClass(m.returnType, resolver);
     s.write('$indent/// from: ${getOriginalMethodHeader(m)}\n');
     if (!isPrimitive(m.returnType) || isCtor(m)) {
       s.write(_deleteInstruction);

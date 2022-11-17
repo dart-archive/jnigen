@@ -49,7 +49,7 @@ Config getConfig() {
       'com.github.dart_lang.jnigen.pkg2',
       'com.github.dart_lang.jnigen.generics',
     ],
-    logLevel: Level.ALL,
+    logLevel: Level.INFO,
     outputConfig: OutputConfig(
       cConfig: CCodeOutputConfig(
         path: cWrapperDir,

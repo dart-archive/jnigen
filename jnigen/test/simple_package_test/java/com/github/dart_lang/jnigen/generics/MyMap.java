@@ -9,15 +9,15 @@ import java.util.Map;
 
 public class MyMap<K, V> {
 
-  // public class MyEntry {
-  //   public K key;
-  //   public V value;
+  public class MyEntry {
+    public K key;
+    public V value;
 
-  //   public MyEntry(K key, V value) {
-  //     this.key = key;
-  //     this.value = value;
-  //   }
-  // }
+    public MyEntry(K key, V value) {
+      this.key = key;
+      this.value = value;
+    }
+  }
 
   private Map<K, V> map;
 

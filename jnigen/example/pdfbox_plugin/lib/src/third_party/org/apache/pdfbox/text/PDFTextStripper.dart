@@ -48,7 +48,10 @@ import "../../../../_init.dart" show jniLookup;
 class PDFTextStripper extends jni.JObject {
   final $PDFTextStripperType $type;
 
-  PDFTextStripper.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+  PDFTextStripper.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $PDFTextStripperType();
@@ -1223,8 +1226,7 @@ class $PDFTextStripperType extends jni.JObjType<PDFTextStripper> {
   String get signature => r"Lorg/apache/pdfbox/text/PDFTextStripper;";
 
   @override
-  PDFTextStripper fromRef(jni.JObjectPtr ref) =>
-      PDFTextStripper.fromRef(this, ref);
+  PDFTextStripper fromRef(jni.JObjectPtr ref) => PDFTextStripper.fromRef(ref);
 }
 
 extension $PDFTextStripperArray on jni.JArray<PDFTextStripper> {

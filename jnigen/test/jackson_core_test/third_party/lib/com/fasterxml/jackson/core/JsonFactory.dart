@@ -59,7 +59,10 @@ import "../../../../_init.dart" show jniEnv, jniAccessors;
 class JsonFactory extends jni.JObject {
   final $JsonFactoryType $type;
 
-  JsonFactory.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+  JsonFactory.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonFactory");
@@ -1515,7 +1518,7 @@ class $JsonFactoryType extends jni.JObjType<JsonFactory> {
   String get signature => r"Lcom/fasterxml/jackson/core/JsonFactory;";
 
   @override
-  JsonFactory fromRef(jni.JObjectPtr ref) => JsonFactory.fromRef(this, ref);
+  JsonFactory fromRef(jni.JObjectPtr ref) => JsonFactory.fromRef(ref);
 }
 
 extension $JsonFactoryArray on jni.JArray<JsonFactory> {
@@ -1536,8 +1539,10 @@ extension $JsonFactoryArray on jni.JArray<JsonFactory> {
 class JsonFactory_Feature extends jni.JObject {
   final $JsonFactory_FeatureType $type;
 
-  JsonFactory_Feature.fromRef(this.$type, jni.JObjectPtr ref)
-      : super.fromRef(ref);
+  JsonFactory_Feature.fromRef(
+    jni.JObjectPtr ref,
+  )   : $type = type,
+        super.fromRef(ref);
 
   static final _classRef = jniAccessors
       .getClassOf("com/fasterxml/jackson/core/JsonFactory\$Feature");
@@ -1608,7 +1613,7 @@ class $JsonFactory_FeatureType extends jni.JObjType<JsonFactory_Feature> {
 
   @override
   JsonFactory_Feature fromRef(jni.JObjectPtr ref) =>
-      JsonFactory_Feature.fromRef(this, ref);
+      JsonFactory_Feature.fromRef(ref);
 }
 
 extension $JsonFactory_FeatureArray on jni.JArray<JsonFactory_Feature> {
