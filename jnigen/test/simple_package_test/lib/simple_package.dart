@@ -386,6 +386,102 @@ extension $Example1Array on jni.JArray<Example1> {
   }
 }
 
+/// from: com.github.dart_lang.jnigen.generics.MyMap
+class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
+  final $MyMapType<K, V> $type;
+
+  MyMap.fromRef(this.$type, jni.JObjectPtr ref) : super.fromRef(ref);
+
+  /// The type which includes information such as the signature of this class.
+  static $MyMapType<K, V> type<K extends jni.JObject, V extends jni.JObject>(
+    jni.JObjType<K> $K,
+    jni.JObjType<V> $V,
+  ) {
+    return $MyMapType(
+      $K,
+      $V,
+    );
+  }
+
+  static final _ctor =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("MyMap__ctor")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: public void <init>()
+  MyMap(jni.JObjType<K> $K, jni.JObjType<V> $V)
+      : $type = $MyMapType(
+          $K,
+          $V,
+        ),
+        super.fromRef(_ctor().object);
+
+  static final _get0 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>("MyMap__get0")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V get(K key)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V get0(K key) => $type.$V.fromRef(_get0(reference, key.reference).object);
+
+  static final _put = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>("MyMap__put")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V put(K key, V value)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V put(K key, V value) =>
+      $type.$V.fromRef(_put(reference, key.reference, value.reference).object);
+
+  static final _remove = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("MyMap__remove")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V remove(K key)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V remove(K key) => $type.$V.fromRef(_remove(reference, key.reference).object);
+}
+
+class $MyMapType<K extends jni.JObject, V extends jni.JObject>
+    extends jni.JObjType<MyMap<K, V>> {
+  final jni.JObjType<K> $K;
+  final jni.JObjType<V> $V;
+
+  const $MyMapType(
+    this.$K,
+    this.$V,
+  );
+
+  @override
+  String get signature => r"Lcom/github/dart_lang/jnigen/generics/MyMap;";
+
+  @override
+  MyMap<K, V> fromRef(jni.JObjectPtr ref) => MyMap.fromRef(this, ref);
+}
+
+extension $MyMapArray<K extends jni.JObject, V extends jni.JObject>
+    on jni.JArray<MyMap<K, V>> {
+  MyMap<K, V> operator [](int index) {
+    return ($type.elementType as $MyMapType<K, V>)
+        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
+  }
+
+  void operator []=(int index, MyMap<K, V> value) {
+    (this as jni.JArray<jni.JObject>)[index] = value;
+  }
+}
+
 /// from: com.github.dart_lang.jnigen.generics.MyStack
 class MyStack<T extends jni.JObject> extends jni.JObject {
   final $MyStackType<T> $type;

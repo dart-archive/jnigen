@@ -149,4 +149,38 @@ void main() async {
   test('exceptions', () {
     expect(() => Example.throwException(), throwsException);
   });
+  group('generics', () {
+    test('MyStack<T>', () {
+      using((arena) {
+        final stack = MyStack(JString.type)..deletedIn(arena);
+        stack.push('Hello'.toJString()..deletedIn(arena));
+        stack.push('World'.toJString()..deletedIn(arena));
+        expect(stack.pop().toDartString(deleteOriginal: true), 'World');
+        expect(stack.pop().toDartString(deleteOriginal: true), 'Hello');
+      });
+    });
+    test('MyMap<K, V>', () {
+      using((arena) {
+        final map = MyMap(JString.type, Example.type)..deletedIn(arena);
+        final helloExample = Example()
+          ..setInternal(1)
+          ..deletedIn(arena);
+        final worldExample = Example()
+          ..setInternal(2)
+          ..deletedIn(arena);
+        map.put('Hello'.toJString()..deletedIn(arena), helloExample);
+        map.put('World'.toJString()..deletedIn(arena), worldExample);
+        expect(
+          (map.get0('Hello'.toJString()..deletedIn(arena))..deletedIn(arena))
+              .getInternal(),
+          1,
+        );
+        expect(
+          (map.get0('World'.toJString()..deletedIn(arena))..deletedIn(arena))
+              .getInternal(),
+          2,
+        );
+      });
+    });
+  });
 }

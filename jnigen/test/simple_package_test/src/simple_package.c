@@ -425,6 +425,75 @@ JniResult Example1__whichExample(jobject self_) {
   return (JniResult){.result = {.i = _result}, .exception = check_exception()};
 }
 
+// com.github.dart_lang.jnigen.generics.MyMap
+jclass _c_MyMap = NULL;
+
+jmethodID _m_MyMap__ctor = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyMap__ctor() {
+  load_env();
+  load_class_gr(&_c_MyMap, "com/github/dart_lang/jnigen/generics/MyMap");
+  if (_c_MyMap == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyMap, &_m_MyMap__ctor, "<init>", "()V");
+  if (_m_MyMap__ctor == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->NewObject(jniEnv, _c_MyMap, _m_MyMap__ctor);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_MyMap__get0 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyMap__get0(jobject self_, jobject key) {
+  load_env();
+  load_class_gr(&_c_MyMap, "com/github/dart_lang/jnigen/generics/MyMap");
+  if (_c_MyMap == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyMap, &_m_MyMap__get0, "get",
+              "(Ljava/lang/Object;)Ljava/lang/Object;");
+  if (_m_MyMap__get0 == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_MyMap__get0, key);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_MyMap__put = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyMap__put(jobject self_, jobject key, jobject value) {
+  load_env();
+  load_class_gr(&_c_MyMap, "com/github/dart_lang/jnigen/generics/MyMap");
+  if (_c_MyMap == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyMap, &_m_MyMap__put, "put",
+              "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
+  if (_m_MyMap__put == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_MyMap__put, key, value);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_MyMap__remove = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyMap__remove(jobject self_, jobject key) {
+  load_env();
+  load_class_gr(&_c_MyMap, "com/github/dart_lang/jnigen/generics/MyMap");
+  if (_c_MyMap == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyMap, &_m_MyMap__remove, "remove",
+              "(Ljava/lang/Object;)Ljava/lang/Object;");
+  if (_m_MyMap__remove == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_MyMap__remove, key);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
 // com.github.dart_lang.jnigen.generics.MyStack
 jclass _c_MyStack = NULL;
 

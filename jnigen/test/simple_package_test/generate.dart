@@ -26,6 +26,7 @@ var javaFiles = [
   join(javaPrefix, 'pkg2', 'C2.java'),
   join(javaPrefix, 'pkg2', 'Example.java'),
   join(javaPrefix, 'generics', 'MyStack.java'),
+  join(javaPrefix, 'generics', 'MyMap.java'),
 ];
 
 void compileJavaSources(String workingDir, List<String> files) async {
