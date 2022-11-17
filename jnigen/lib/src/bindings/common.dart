@@ -153,8 +153,8 @@ abstract class BindingsGenerator {
 
   String dartSigForField(Field f,
       {bool isSetter = false, required bool isFfiSig}) {
-    final conv = isFfiSig ? getDartFfiType : getDartInnerType;
     final ref = f.modifiers.contains('static') ? '' : '$jobjectType, ';
+    final conv = isFfiSig ? getDartFfiType : getDartInnerType;
     if (isSetter) {
       return '$jthrowableType Function($ref${conv(f.type)})';
     }
@@ -262,7 +262,10 @@ abstract class BindingsGenerator {
     return '$jniResultType Function (${argTypes.join(", ")})';
   }
 
-  String _dartType(TypeUsage t, {SymbolResolver? resolver}) {
+  String _dartType(
+    TypeUsage t, {
+    SymbolResolver? resolver,
+  }) {
     // if resolver == null, looking for inner fn type, type of fn reference
     // else looking for outer fn type, that's what user of the library sees.
     const primitives = {
@@ -308,8 +311,18 @@ abstract class BindingsGenerator {
         return voidPointer;
       case Kind.declared:
         if (resolver != null) {
-          return resolver.resolve((t.type as DeclaredType).binaryName) ??
-              jniObjectType;
+          final resolved =
+              resolver.resolve((t.type as DeclaredType).binaryName);
+          if (resolved == null) {
+            return jniObjectType;
+          }
+          final args = resolver
+              .resolveClass((t.type as DeclaredType).binaryName)
+              ?.allTypeParams
+              .map((e) => e.name)
+              .join(',');
+          final ifArgs = (args?.isNotEmpty ?? false) ? '<$args>' : '';
+          return '$resolved$ifArgs';
         }
         return voidPointer;
     }
@@ -317,8 +330,15 @@ abstract class BindingsGenerator {
 
   String getDartTypeClass(
     TypeUsage t,
+    SymbolResolver resolver,
+  ) {
+    return _getDartTypeClass(t, resolver, addConst: true).name;
+  }
+
+  _TypeClass _getDartTypeClass(
+    TypeUsage t,
     SymbolResolver resolver, {
-    bool addConst = true,
+    required bool addConst,
   }) {
     const primitives = {
       'byte': 'JByteType',
@@ -331,42 +351,59 @@ abstract class BindingsGenerator {
       'boolean': 'JBooleanType',
       'void': 'JVoidType', // This will never be in the generated code.
     };
-    final ifConst = addConst ? 'const ' : '';
     switch (t.kind) {
       case Kind.primitive:
-        return '$ifConst$jni${primitives[(t.type as PrimitiveType).name]}()';
+        final ifConst = addConst ? 'const ' : '';
+        return _TypeClass(
+          '$ifConst$jni${primitives[(t.type as PrimitiveType).name]}()',
+          true,
+        );
       case Kind.typeVariable:
-        return '$typeParamPrefix${(t.type as TypeVar).name}';
+        return _TypeClass(
+          '$typeParamPrefix${(t.type as TypeVar).name}',
+          false,
+        );
       case Kind.wildcard:
         throw SkipException('Wildcards are not yet supported');
       case Kind.array:
         final innerType = (t.type as ArrayType).type;
-        final innerTypeClass = getDartTypeClass(
+        final innerTypeClass = _getDartTypeClass(
           innerType,
           resolver,
           addConst: false,
         );
-        return '$ifConst$jniArrayTypeClass($innerTypeClass)';
+        final ifConst = addConst && innerTypeClass.canBeConst ? 'const ' : '';
+        return _TypeClass(
+          '$ifConst$jniArrayTypeClass(${innerTypeClass.name})',
+          innerTypeClass.canBeConst,
+        );
       case Kind.declared:
         final resolved = resolver.resolve((t.type as DeclaredType).binaryName);
-        final args = (t.type as DeclaredType)
-            .params
-            .map(
-              (e) => getDartTypeClass(t, resolver, addConst: false),
-            )
+        final args = resolver
+            .resolveClass((t.type as DeclaredType).binaryName)
+            ?.allTypeParams
+            .map((e) => '$typeParamPrefix${e.name}')
             .join(',');
+        final canBeConst = (args?.isEmpty ?? true);
+        final ifConst = addConst && canBeConst ? 'const ' : '';
         if (resolved == null || resolved == jniObjectType) {
-          return '$ifConst$jniObjectTypeClass()';
+          return _TypeClass('$ifConst$jniObjectTypeClass()', true);
         } else if (resolved == jniStringType) {
-          return '$ifConst$jniStringTypeClass()';
+          return _TypeClass('$ifConst$jniStringTypeClass()', true);
         } else if (resolved.contains('.')) {
           // It is in form of jni.SomeClass which should be converted to jni.$SomeClassType
           final dotIndex = resolved.indexOf('.');
           final module = resolved.substring(0, dotIndex);
           final clazz = resolved.substring(dotIndex + 1);
-          return '$ifConst$module.${_dartTypeClassName(clazz)}($args)';
+          return _TypeClass(
+            '$ifConst$module.${_dartTypeClassName(clazz)}($args)',
+            canBeConst,
+          );
         }
-        return '$ifConst${_dartTypeClassName(resolved)}($args)';
+        return _TypeClass(
+          '$ifConst${_dartTypeClassName(resolved)}($args)',
+          canBeConst,
+        );
     }
   }
 
@@ -670,4 +707,11 @@ String getJniSignatureForMethod(Method m) {
   final returnType = getDescriptor(m.returnType);
   s.write(returnType);
   return s.toString();
+}
+
+class _TypeClass {
+  final String name;
+  final bool canBeConst;
+
+  _TypeClass(this.name, this.canBeConst);
 }

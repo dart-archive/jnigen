@@ -4,11 +4,11 @@
 
 package com.github.dart_lang.jnigen.generics;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MyMap<K, V> {
-
   public class MyEntry {
     public K key;
     public V value;
@@ -37,8 +37,9 @@ public class MyMap<K, V> {
     return map.remove(key);
   }
 
-  // public MyEntry[] entryArray() {
-  //   return (MyEntry[])
-  //       map.entrySet().stream().map((e) -> new MyEntry(e.getKey(), e.getValue())).toArray();
-  // }
+  public MyEntry[] entryArray() {
+    return map.entrySet().stream()
+        .map((e) -> new MyEntry(e.getKey(), e.getValue()))
+        .toArray(size -> (MyEntry[]) Array.newInstance(MyEntry.class, size));
+  }
 }

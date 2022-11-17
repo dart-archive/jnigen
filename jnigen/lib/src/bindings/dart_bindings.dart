@@ -28,7 +28,8 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
   static const jniObjectType = BindingsGenerator.jniObjectType;
 
   CBasedDartBindingsGenerator(this.config);
-  Config config;
+
+  final Config config;
 
   @override
   String generateBindings(ClassDecl decl, SymbolResolver resolver) {

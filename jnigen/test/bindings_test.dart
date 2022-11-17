@@ -180,6 +180,7 @@ void main() async {
               .getInternal(),
           2,
         );
+        expect((map.entryArray()..deletedIn(arena)).length, 2);
       });
     });
   });

@@ -24,6 +24,7 @@ abstract class ApiPreprocessor {
       }
       _preprocess(c, classes, config);
     }
+    // Adding type params of outer classes to the nested classes
     final visited = <ClassDecl>{};
     for (final c in classes.values) {
       _traverseAddTypeParams(visited, c);
@@ -98,6 +99,8 @@ abstract class ApiPreprocessor {
 
   /// Gathers all the type params from ancestors of a [ClassDecl] and store
   /// them in [allTypeParams].
+  ///
+  /// Class A is a parent of Class B when B is nested inside A.
   static void _traverseAddTypeParams(Set<ClassDecl> visited, ClassDecl decl) {
     if (visited.contains(decl)) {
       // The type params of its ancestors have already been added.

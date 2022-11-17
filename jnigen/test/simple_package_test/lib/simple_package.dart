@@ -474,6 +474,18 @@ class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
   /// from: public V remove(K key)
   /// The returned object must be deleted after use, by calling the `delete` method.
   V remove(K key) => $V.fromRef(_remove(reference, key.reference).object);
+
+  static final _entryArray = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("MyMap__entryArray")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public com.github.dart_lang.jnigen.generics.MyMap<K,V>.MyEntry[] entryArray()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JArray<MyMap_MyEntry<K, V>> entryArray() =>
+      jni.JArrayType($MyMap_MyEntryType($K, $V))
+          .fromRef(_entryArray(reference).object);
 }
 
 class $MyMapType<K extends jni.JObject, V extends jni.JObject>

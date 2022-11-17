@@ -33,7 +33,7 @@ class PureDartBindingsGenerator extends BindingsGenerator {
   String escapeDollarSign(String s) => s.replaceAll('\$', '\\\$');
 
   PureDartBindingsGenerator(this.config);
-  Config config;
+  final Config config;
 
   @override
   String generateBindings(ClassDecl decl, SymbolResolver resolver) {

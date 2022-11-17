@@ -494,6 +494,23 @@ JniResult MyMap__remove(jobject self_, jobject key) {
                      .exception = check_exception()};
 }
 
+jmethodID _m_MyMap__entryArray = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyMap__entryArray(jobject self_) {
+  load_env();
+  load_class_gr(&_c_MyMap, "com/github/dart_lang/jnigen/generics/MyMap");
+  if (_c_MyMap == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyMap, &_m_MyMap__entryArray, "entryArray",
+              "()[Lcom/github/dart_lang/jnigen/generics/MyMap$MyEntry;");
+  if (_m_MyMap__entryArray == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_MyMap__entryArray);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
 // com.github.dart_lang.jnigen.generics.MyMap$MyEntry
 jclass _c_MyMap_MyEntry = NULL;
 

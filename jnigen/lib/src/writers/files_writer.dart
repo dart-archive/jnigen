@@ -24,6 +24,7 @@ String getFileClassName(String binaryName) {
 /// is mirrored.
 class FilePathResolver implements SymbolResolver {
   FilePathResolver(
+    this.classes,
     this.importMap,
     this.currentClass,
     this.inputClassNames,
@@ -32,6 +33,9 @@ class FilePathResolver implements SymbolResolver {
   static const Map<String, String> predefined = {
     'java.lang.String': 'jni.JString',
   };
+
+  /// A map of all classes by their names
+  final Map<String, ClassDecl> classes;
 
   /// Class corresponding to currently writing file.
   final String currentClass;
@@ -158,6 +162,11 @@ class FilePathResolver implements SymbolResolver {
   List<String> getImportStrings() {
     return importStrings;
   }
+
+  @override
+  ClassDecl? resolveClass(String binaryName) {
+    return classes[binaryName];
+  }
 }
 
 /// Writer which executes custom callback on passed class elements.
@@ -235,6 +244,7 @@ class FilesWriter extends BindingsWriter {
       final dartFile = await File.fromUri(dartFileUri).create(recursive: true);
       log.fine('$fileClassName -> ${dartFile.path}');
       final resolver = FilePathResolver(
+        classesByName,
         config.importMap ?? const {},
         fileClassName,
         classNames,

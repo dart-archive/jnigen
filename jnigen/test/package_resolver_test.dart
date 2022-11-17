@@ -14,6 +14,7 @@ class ResolverTest {
 
 void main() {
   final resolver = FilePathResolver(
+      {},
       {
         'org.apache.pdfbox': 'package:pdfbox/pdfbox.dart',
         'android.os.Process': 'package:android/os.dart',
