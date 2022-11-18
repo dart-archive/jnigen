@@ -114,7 +114,7 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
       final wrapperExpr = '$sym(${actualArgs(m)})';
       s.write(
         '$ctorFnName(${getFormalArgs(c, m, resolver)}) : '
-        'super.fromRef($wrapperExpr.object);\n',
+        'super.fromRef(${dartSuperArgs(c, resolver)}$wrapperExpr.object);\n',
       );
       return s.toString();
     }
@@ -207,7 +207,7 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
       'import "package:jni/internal_helpers_for_jnigen.dart";\n'
       'import "package:jni/jni.dart" as jni;\n\n';
   static const defaultLintSuppressions =
-      '// ignore_for_file: annotate_overrides\n'
+      '// ignore_for_file: annotate_overrides, overridden_fields\n'
       '// ignore_for_file: camel_case_extensions\n'
       '// ignore_for_file: camel_case_types\n'
       '// ignore_for_file: constant_identifier_names\n'

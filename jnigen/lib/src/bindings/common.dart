@@ -128,27 +128,22 @@ abstract class BindingsGenerator {
     final name = decl.finalName;
     var superName = jniObjectType;
     if (decl.superclass != null) {
-      superName = resolver
-              .resolve((decl.superclass!.type as DeclaredType).binaryName) ??
-          jniObjectType;
+      superName = _dartType(decl.superclass!, resolver: resolver);
     }
     final typeParamsWithExtend =
         dartTypeParams(decl.allTypeParams, includeExtends: true);
-    final typeParams =
-        dartTypeParams(decl.allTypeParams, includeExtends: false);
-    final typeClassName = _dartTypeClassName(name);
     final ifSomeArgs =
         decl.allTypeParams.isNotEmpty ? '(${_typeParamArgs(decl)})' : '';
     return 'class $name$typeParamsWithExtend extends $superName {\n'
-        'late final $typeClassName$typeParams? _$instanceTypeGetter;\n'
+        'late final $jniTypeType? _$instanceTypeGetter;\n'
         '@override\n'
-        '$typeClassName$typeParams get $instanceTypeGetter => '
+        '$jniTypeType get $instanceTypeGetter => '
         '_$instanceTypeGetter ??= type$ifSomeArgs;\n\n'
         '${_typeParamDefs(decl)}\n'
         '$indent$name.fromRef(\n'
         '${_typeParamCtorArgs(decl)}'
         '$jobjectType ref,'
-        '): super.fromRef(ref);\n\n';
+        '): super.fromRef(${dartSuperArgs(decl, resolver)}ref);\n\n';
   }
 
   String dartSigForField(Field f,
@@ -159,6 +154,18 @@ abstract class BindingsGenerator {
       return '$jthrowableType Function($ref${conv(f.type)})';
     }
     return '$jniResultType Function($ref)';
+  }
+
+  String dartSuperArgs(ClassDecl decl, SymbolResolver resolver) {
+    if (decl.superclass == null ||
+        resolver.resolve((decl.superclass!.type as DeclaredType).binaryName) ==
+            null) {
+      return '';
+    }
+    return (decl.superclass!.type as DeclaredType)
+        .params
+        .map((param) => '${getDartTypeClass(param, resolver)},')
+        .join();
   }
 
   String dartArrayExtension(ClassDecl decl) {

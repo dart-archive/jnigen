@@ -28,6 +28,9 @@ var javaFiles = [
   join(javaPrefix, 'generics', 'MyStack.java'),
   join(javaPrefix, 'generics', 'MyMap.java'),
   join(javaPrefix, 'generics', 'GrandParent.java'),
+  join(javaPrefix, 'generics', 'StringStack.java'),
+  join(javaPrefix, 'generics', 'StringValuedMap.java'),
+  join(javaPrefix, 'generics', 'StringKeyedMap.java'),
 ];
 
 void compileJavaSources(String workingDir, List<String> files) async {
@@ -38,7 +41,7 @@ void compileJavaSources(String workingDir, List<String> files) async {
   }
 }
 
-Config getConfig() {
+Config getConfig([BindingsType bindingsType = BindingsType.cBased]) {
   compileJavaSources(javaPath, javaFiles);
   final cWrapperDir = Uri.directory(join(testRoot, "src"));
   final dartWrappersRoot = Uri.directory(join(testRoot, "lib"));
@@ -52,6 +55,7 @@ Config getConfig() {
     ],
     logLevel: Level.INFO,
     outputConfig: OutputConfig(
+      bindingsType: bindingsType,
       cConfig: CCodeOutputConfig(
         path: cWrapperDir,
         libraryName: 'simple_package',

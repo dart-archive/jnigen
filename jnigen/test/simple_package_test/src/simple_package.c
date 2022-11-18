@@ -1113,3 +1113,63 @@ JniResult MyStack__pop(jobject self_) {
   return (JniResult){.result = {.l = to_global_ref(_result)},
                      .exception = check_exception()};
 }
+
+// com.github.dart_lang.jnigen.generics.StringKeyedMap
+jclass _c_StringKeyedMap = NULL;
+
+jmethodID _m_StringKeyedMap__ctor = NULL;
+FFI_PLUGIN_EXPORT
+JniResult StringKeyedMap__ctor() {
+  load_env();
+  load_class_gr(&_c_StringKeyedMap,
+                "com/github/dart_lang/jnigen/generics/StringKeyedMap");
+  if (_c_StringKeyedMap == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_StringKeyedMap, &_m_StringKeyedMap__ctor, "<init>", "()V");
+  if (_m_StringKeyedMap__ctor == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->NewObject(jniEnv, _c_StringKeyedMap, _m_StringKeyedMap__ctor);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+// com.github.dart_lang.jnigen.generics.StringStack
+jclass _c_StringStack = NULL;
+
+jmethodID _m_StringStack__ctor = NULL;
+FFI_PLUGIN_EXPORT
+JniResult StringStack__ctor() {
+  load_env();
+  load_class_gr(&_c_StringStack,
+                "com/github/dart_lang/jnigen/generics/StringStack");
+  if (_c_StringStack == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_StringStack, &_m_StringStack__ctor, "<init>", "()V");
+  if (_m_StringStack__ctor == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->NewObject(jniEnv, _c_StringStack, _m_StringStack__ctor);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+// com.github.dart_lang.jnigen.generics.StringValuedMap
+jclass _c_StringValuedMap = NULL;
+
+jmethodID _m_StringValuedMap__ctor = NULL;
+FFI_PLUGIN_EXPORT
+JniResult StringValuedMap__ctor() {
+  load_env();
+  load_class_gr(&_c_StringValuedMap,
+                "com/github/dart_lang/jnigen/generics/StringValuedMap");
+  if (_c_StringValuedMap == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_StringValuedMap, &_m_StringValuedMap__ctor, "<init>", "()V");
+  if (_m_StringValuedMap__ctor == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->NewObject(jniEnv, _c_StringValuedMap,
+                                         _m_StringValuedMap__ctor);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}

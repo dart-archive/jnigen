@@ -42,6 +42,9 @@ Future<void> setupDylibsAndClasses() async {
         join(group, 'generics', 'MyMap.java'),
         join(group, 'generics', 'MyStack.java'),
         join(group, 'generics', 'GrandParent.java'),
+        join(group, 'generics', 'StringStack.java'),
+        join(group, 'generics', 'StringValuedMap.java'),
+        join(group, 'generics', 'StringKeyedMap.java'),
         join(group, 'pkg2', 'C2.java'),
         join(group, 'pkg2', 'Example.java'),
       ],
@@ -191,6 +194,38 @@ void main() async {
         );
       });
     });
+    group('classes extending generics', () {
+      test('StringStack', () {
+        using((arena) {
+          final stringStack = StringStack()..deletedIn(arena);
+          stringStack.push('Hello'.toJString()..deletedIn(arena));
+          expect(stringStack.pop().toDartString(deleteOriginal: true), 'Hello');
+        });
+      });
+      test('StringKeyedMap', () {
+        using((arena) {
+          final map = StringKeyedMap(Example.type)..deletedIn(arena);
+          final example = Example()..deletedIn(arena);
+          map.put('Hello'.toJString()..deletedIn(arena), example);
+          expect(
+            (map.get0('Hello'.toJString()..deletedIn(arena))..deletedIn(arena))
+                .getInternal(),
+            0,
+          );
+        });
+      });
+      test('StringValuedMap', () {
+        using((arena) {
+          final map = StringValuedMap(Example.type)..deletedIn(arena);
+          final example = Example()..deletedIn(arena);
+          map.put(example, 'Hello'.toJString()..deletedIn(arena));
+          expect(
+            map.get0(example).toDartString(deleteOriginal: true),
+            'Hello',
+          );
+        });
+      });
+    });
     test('nested generics', () {
       using((arena) {
         final grandParent =
@@ -237,7 +272,7 @@ void main() async {
           (exampleParent.value..deletedIn(arena)).getInternal(),
           0,
         );
-        // TODO(HosseinYousefi): test constructing Child, currently does not work dues
+        // TODO(HosseinYousefi): test constructing Child, currently does not work due
         // to a problem with C-bindings
       });
     });
