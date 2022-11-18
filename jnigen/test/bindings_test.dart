@@ -39,6 +39,9 @@ Future<void> setupDylibsAndClasses() async {
       'javac',
       [
         join(group, 'simple_package', 'Example.java'),
+        join(group, 'generics', 'MyMap.java'),
+        join(group, 'generics', 'MyStack.java'),
+        join(group, 'generics', 'GrandParent.java'),
         join(group, 'pkg2', 'C2.java'),
         join(group, 'pkg2', 'Example.java'),
       ],
@@ -187,6 +190,56 @@ void main() async {
               .toDartString(deleteOriginal: true),
           anyOf('Hello', 'World'),
         );
+      });
+    });
+    test('nested generics', () {
+      using((arena) {
+        final grandParent =
+            GrandParent(JString.type, "!".toJString()..deletedIn(arena))
+              ..deletedIn(arena);
+        expect(
+          grandParent.value.toDartString(deleteOriginal: true),
+          "!",
+        );
+
+        final strStaticParent = GrandParent.stringStaticParent()
+          ..deletedIn(arena);
+        expect(
+          strStaticParent.value.toDartString(deleteOriginal: true),
+          "Hello",
+        );
+
+        final exampleStaticParent = GrandParent.varStaticParent(
+            Example.type, Example()..deletedIn(arena))
+          ..deletedIn(arena);
+        expect(
+          (exampleStaticParent.value..deletedIn(arena)).getInternal(),
+          0,
+        );
+
+        final strParent = grandParent.stringParent()..deletedIn(arena);
+        expect(
+          strParent.parentValue.toDartString(deleteOriginal: true),
+          "!",
+        );
+        expect(
+          strParent.value.toDartString(deleteOriginal: true),
+          "Hello",
+        );
+
+        final exampleParent = grandParent.varParent(
+            Example.type, Example()..deletedIn(arena))
+          ..deletedIn(arena);
+        expect(
+          exampleParent.parentValue.toDartString(deleteOriginal: true),
+          "!",
+        );
+        expect(
+          (exampleParent.value..deletedIn(arena)).getInternal(),
+          0,
+        );
+        // TODO(HosseinYousefi): test constructing Child, currently does not work dues
+        // to a problem with C-bindings
       });
     });
   });

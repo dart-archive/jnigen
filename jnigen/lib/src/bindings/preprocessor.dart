@@ -112,11 +112,13 @@ abstract class ApiPreprocessor {
       if (!visited.contains(decl.parent) && decl.parent != decl) {
         _traverseAddTypeParams(visited, decl.parent!);
       }
-      // Adding the type params of ancestors.
-      for (final typeParam in decl.parent!.typeParams) {
-        if (!decl.typeParams.contains(typeParam)) {
-          // Add only if it's not shadowing another type param.
-          allTypeParams.add(typeParam);
+      // Adding the type params of ancestors if the class is not static.
+      if (!decl.modifiers.contains('static')) {
+        for (final typeParam in decl.parent!.allTypeParams) {
+          if (!decl.allTypeParams.contains(typeParam)) {
+            // Add only if it's not shadowing another type param.
+            allTypeParams.add(typeParam);
+          }
         }
       }
     }

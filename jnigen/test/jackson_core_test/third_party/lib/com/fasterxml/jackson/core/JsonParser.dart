@@ -44,12 +44,13 @@ import "../../../../_init.dart" show jniEnv, jniAccessors;
 /// a JsonFactory instance.
 ///@author Tatu Saloranta
 class JsonParser extends jni.JObject {
-  final $JsonParserType $type;
+  late final $JsonParserType? _$type;
+  @override
+  $JsonParserType get $type => _$type ??= type;
 
   JsonParser.fromRef(
     jni.JObjectPtr ref,
-  )   : $type = type,
-        super.fromRef(ref);
+  ) : super.fromRef(ref);
 
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonParser");
@@ -81,8 +82,7 @@ class JsonParser extends jni.JObject {
   /// from: protected void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
   JsonParser()
-      : $type = $JsonParserType(),
-        super.fromRef(
+      : super.fromRef(
             jniAccessors.newObjectWithArgs(_classRef, _id_ctor, []).object);
 
   static final _id_ctor1 =
@@ -91,8 +91,7 @@ class JsonParser extends jni.JObject {
   /// from: protected void <init>(int features)
   /// The returned object must be deleted after use, by calling the `delete` method.
   JsonParser.ctor1(int features)
-      : $type = $JsonParserType(),
-        super.fromRef(jniAccessors
+      : super.fromRef(jniAccessors
             .newObjectWithArgs(_classRef, _id_ctor1, [features]).object);
 
   static final _id_getCodec = jniAccessors.getMethodIDOf(
@@ -305,7 +304,7 @@ class JsonParser extends jni.JObject {
   ///@return Set of read capabilities for content to read via this parser
   ///@since 2.12
   jni.JObject getReadCapabilities() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
+      jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
           _id_getReadCapabilities, jni.JniCallType.objectType, []).object);
 
   static final _id_version = jniAccessors.getMethodIDOf(
@@ -2142,8 +2141,9 @@ class JsonParser extends jni.JObject {
   ///@return Iterator for reading multiple Java values from content
   ///@throws IOException if there is either an underlying I/O problem or decoding
   ///    issue at format layer
-  jni.JObject readValuesAs<T extends jni.JObject>(jni.JObject valueType) =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
+  jni.JObject readValuesAs<T extends jni.JObject>(
+          jni.JObjType<T> $T, jni.JObject valueType) =>
+      jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_readValuesAs,
           jni.JniCallType.objectType,
@@ -2165,8 +2165,9 @@ class JsonParser extends jni.JObject {
   ///@return Iterator for reading multiple Java values from content
   ///@throws IOException if there is either an underlying I/O problem or decoding
   ///    issue at format layer
-  jni.JObject readValuesAs1<T extends jni.JObject>(jni.JObject valueTypeRef) =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
+  jni.JObject readValuesAs1<T extends jni.JObject>(
+          jni.JObjType<T> $T, jni.JObject valueTypeRef) =>
+      jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_readValuesAs1,
           jni.JniCallType.objectType,
@@ -2204,7 +2205,7 @@ class $JsonParserType extends jni.JObjType<JsonParser> {
 
 extension $JsonParserArray on jni.JArray<JsonParser> {
   JsonParser operator [](int index) {
-    return ($type.elementType as $JsonParserType)
+    return (elementType as $JsonParserType)
         .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
@@ -2217,12 +2218,13 @@ extension $JsonParserArray on jni.JArray<JsonParser> {
 ///
 /// Enumeration that defines all on/off features for parsers.
 class JsonParser_Feature extends jni.JObject {
-  final $JsonParser_FeatureType $type;
+  late final $JsonParser_FeatureType? _$type;
+  @override
+  $JsonParser_FeatureType get $type => _$type ??= type;
 
   JsonParser_Feature.fromRef(
     jni.JObjectPtr ref,
-  )   : $type = type,
-        super.fromRef(ref);
+  ) : super.fromRef(ref);
 
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonParser\$Feature");
@@ -2298,7 +2300,7 @@ class $JsonParser_FeatureType extends jni.JObjType<JsonParser_Feature> {
 
 extension $JsonParser_FeatureArray on jni.JArray<JsonParser_Feature> {
   JsonParser_Feature operator [](int index) {
-    return ($type.elementType as $JsonParser_FeatureType)
+    return (elementType as $JsonParser_FeatureType)
         .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
@@ -2312,12 +2314,13 @@ extension $JsonParser_FeatureArray on jni.JArray<JsonParser_Feature> {
 /// Enumeration of possible "native" (optimal) types that can be
 /// used for numbers.
 class JsonParser_NumberType extends jni.JObject {
-  final $JsonParser_NumberTypeType $type;
+  late final $JsonParser_NumberTypeType? _$type;
+  @override
+  $JsonParser_NumberTypeType get $type => _$type ??= type;
 
   JsonParser_NumberType.fromRef(
     jni.JObjectPtr ref,
-  )   : $type = type,
-        super.fromRef(ref);
+  ) : super.fromRef(ref);
 
   static final _classRef = jniAccessors
       .getClassOf("com/fasterxml/jackson/core/JsonParser\$NumberType");
@@ -2361,7 +2364,7 @@ class $JsonParser_NumberTypeType extends jni.JObjType<JsonParser_NumberType> {
 
 extension $JsonParser_NumberTypeArray on jni.JArray<JsonParser_NumberType> {
   JsonParser_NumberType operator [](int index) {
-    return ($type.elementType as $JsonParser_NumberTypeType)
+    return (elementType as $JsonParser_NumberTypeType)
         .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 

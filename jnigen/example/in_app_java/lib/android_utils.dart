@@ -22,12 +22,13 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
 
 /// from: com.example.in_app_java.AndroidUtils
 class AndroidUtils extends jni.JObject {
-  final $AndroidUtilsType $type;
+  late final $AndroidUtilsType? _$type;
+  @override
+  $AndroidUtilsType get $type => _$type ??= type;
 
   AndroidUtils.fromRef(
     jni.JObjectPtr ref,
-  )   : $type = type,
-        super.fromRef(ref);
+  ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $AndroidUtilsType();
@@ -58,7 +59,7 @@ class $AndroidUtilsType extends jni.JObjType<AndroidUtils> {
 
 extension $AndroidUtilsArray on jni.JArray<AndroidUtils> {
   AndroidUtils operator [](int index) {
-    return ($type.elementType as $AndroidUtilsType)
+    return (elementType as $AndroidUtilsType)
         .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
@@ -69,12 +70,13 @@ extension $AndroidUtilsArray on jni.JArray<AndroidUtils> {
 
 /// from: android.os.Build
 class Build extends jni.JObject {
-  final $BuildType $type;
+  late final $BuildType? _$type;
+  @override
+  $BuildType get $type => _$type ??= type;
 
   Build.fromRef(
     jni.JObjectPtr ref,
-  )   : $type = type,
-        super.fromRef(ref);
+  ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $BuildType();
@@ -351,9 +353,7 @@ class Build extends jni.JObject {
           .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
-  Build()
-      : $type = $BuildType(),
-        super.fromRef(_ctor().object);
+  Build() : super.fromRef(_ctor().object);
 
   static final _getSerial =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -398,7 +398,7 @@ class $BuildType extends jni.JObjType<Build> {
 
 extension $BuildArray on jni.JArray<Build> {
   Build operator [](int index) {
-    return ($type.elementType as $BuildType)
+    return (elementType as $BuildType)
         .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 

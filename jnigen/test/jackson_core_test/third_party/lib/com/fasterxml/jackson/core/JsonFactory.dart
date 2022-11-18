@@ -57,12 +57,13 @@ import "../../../../_init.dart" show jniEnv, jniAccessors;
 /// instances.
 ///@author Tatu Saloranta
 class JsonFactory extends jni.JObject {
-  final $JsonFactoryType $type;
+  late final $JsonFactoryType? _$type;
+  @override
+  $JsonFactoryType get $type => _$type ??= type;
 
   JsonFactory.fromRef(
     jni.JObjectPtr ref,
-  )   : $type = type,
-        super.fromRef(ref);
+  ) : super.fromRef(ref);
 
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonFactory");
@@ -138,8 +139,7 @@ class JsonFactory extends jni.JObject {
   /// and this reuse only works within context of a single
   /// factory instance.
   JsonFactory()
-      : $type = $JsonFactoryType(),
-        super.fromRef(
+      : super.fromRef(
             jniAccessors.newObjectWithArgs(_classRef, _id_ctor, []).object);
 
   static final _id_ctor1 = jniAccessors.getMethodIDOf(
@@ -148,8 +148,7 @@ class JsonFactory extends jni.JObject {
   /// from: public void <init>(com.fasterxml.jackson.core.ObjectCodec oc)
   /// The returned object must be deleted after use, by calling the `delete` method.
   JsonFactory.ctor1(jni.JObject oc)
-      : $type = $JsonFactoryType(),
-        super.fromRef(jniAccessors
+      : super.fromRef(jniAccessors
             .newObjectWithArgs(_classRef, _id_ctor1, [oc.reference]).object);
 
   static final _id_ctor2 = jniAccessors.getMethodIDOf(_classRef, "<init>",
@@ -163,8 +162,7 @@ class JsonFactory extends jni.JObject {
   ///@param codec Databinding-level codec to use, if any
   ///@since 2.2.1
   JsonFactory.ctor2(JsonFactory src, jni.JObject codec)
-      : $type = $JsonFactoryType(),
-        super.fromRef(jniAccessors.newObjectWithArgs(
+      : super.fromRef(jniAccessors.newObjectWithArgs(
             _classRef, _id_ctor2, [src.reference, codec.reference]).object);
 
   static final _id_ctor3 = jniAccessors.getMethodIDOf(_classRef, "<init>",
@@ -177,8 +175,7 @@ class JsonFactory extends jni.JObject {
   ///@param b Builder that contains settings to use
   ///@since 2.10
   JsonFactory.ctor3(jni.JObject b)
-      : $type = $JsonFactoryType(),
-        super.fromRef(jniAccessors
+      : super.fromRef(jniAccessors
             .newObjectWithArgs(_classRef, _id_ctor3, [b.reference]).object);
 
   static final _id_ctor4 = jniAccessors.getMethodIDOf(
@@ -193,8 +190,7 @@ class JsonFactory extends jni.JObject {
   ///@param b Builder that contains settings to use
   ///@param bogus Argument only needed to separate constructor signature; ignored
   JsonFactory.ctor4(jni.JObject b, bool bogus)
-      : $type = $JsonFactoryType(),
-        super.fromRef(jniAccessors.newObjectWithArgs(
+      : super.fromRef(jniAccessors.newObjectWithArgs(
             _classRef, _id_ctor4, [b.reference, bogus]).object);
 
   static final _id_rebuild = jniAccessors.getMethodIDOf(
@@ -208,7 +204,7 @@ class JsonFactory extends jni.JObject {
   ///@return Builder instance to use
   ///@since 2.10
   jni.JObject rebuild() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
+      jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
           reference, _id_rebuild, jni.JniCallType.objectType, []).object);
 
   static final _id_builder = jniAccessors.getStaticMethodIDOf(
@@ -226,7 +222,7 @@ class JsonFactory extends jni.JObject {
   /// will be fixed in 3.0.
   ///@return Builder instance to use
   static jni.JObject builder() =>
-      const jni.JObjectType().fromRef(jniAccessors.callStaticMethodWithArgs(
+      jni.JObjectType().fromRef(jniAccessors.callStaticMethodWithArgs(
           _classRef, _id_builder, jni.JniCallType.objectType, []).object);
 
   static final _id_copy = jniAccessors.getMethodIDOf(
@@ -348,7 +344,7 @@ class JsonFactory extends jni.JObject {
   /// from: public java.lang.Class<? extends com.fasterxml.jackson.core.FormatFeature> getFormatReadFeatureType()
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JObject getFormatReadFeatureType() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
+      jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
           _id_getFormatReadFeatureType, jni.JniCallType.objectType, []).object);
 
   static final _id_getFormatWriteFeatureType = jniAccessors.getMethodIDOf(
@@ -357,7 +353,7 @@ class JsonFactory extends jni.JObject {
   /// from: public java.lang.Class<? extends com.fasterxml.jackson.core.FormatFeature> getFormatWriteFeatureType()
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JObject getFormatWriteFeatureType() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
+      jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_getFormatWriteFeatureType,
           jni.JniCallType.objectType, []).object);
@@ -1523,7 +1519,7 @@ class $JsonFactoryType extends jni.JObjType<JsonFactory> {
 
 extension $JsonFactoryArray on jni.JArray<JsonFactory> {
   JsonFactory operator [](int index) {
-    return ($type.elementType as $JsonFactoryType)
+    return (elementType as $JsonFactoryType)
         .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 
@@ -1537,12 +1533,13 @@ extension $JsonFactoryArray on jni.JArray<JsonFactory> {
 /// Enumeration that defines all on/off features that can only be
 /// changed for JsonFactory.
 class JsonFactory_Feature extends jni.JObject {
-  final $JsonFactory_FeatureType $type;
+  late final $JsonFactory_FeatureType? _$type;
+  @override
+  $JsonFactory_FeatureType get $type => _$type ??= type;
 
   JsonFactory_Feature.fromRef(
     jni.JObjectPtr ref,
-  )   : $type = type,
-        super.fromRef(ref);
+  ) : super.fromRef(ref);
 
   static final _classRef = jniAccessors
       .getClassOf("com/fasterxml/jackson/core/JsonFactory\$Feature");
@@ -1618,7 +1615,7 @@ class $JsonFactory_FeatureType extends jni.JObjType<JsonFactory_Feature> {
 
 extension $JsonFactory_FeatureArray on jni.JArray<JsonFactory_Feature> {
   JsonFactory_Feature operator [](int index) {
-    return ($type.elementType as $JsonFactory_FeatureType)
+    return (elementType as $JsonFactory_FeatureType)
         .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 

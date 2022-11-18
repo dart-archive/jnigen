@@ -131,7 +131,6 @@ class PureDartBindingsGenerator extends BindingsGenerator {
       final ctorFnName = name == 'ctor' ? className : '$className.$name';
       s.write(
         '$ctorFnName(${getFormalArgs(c, m, resolver)}) : '
-        '${dartInitType(c)}, '
         'super.fromRef($wrapperExpr);\n',
       );
       return s.toString();

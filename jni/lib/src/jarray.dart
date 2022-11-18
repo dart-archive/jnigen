@@ -15,18 +15,22 @@ class JArrayType<T> extends JObjType<JArray<T>> {
   String get signature => '[${elementType.signature}';
 
   @override
-  JArray<T> fromRef(Pointer<Void> ref) => JArray.fromRef(this, ref);
+  JArray<T> fromRef(Pointer<Void> ref) => JArray.fromRef(elementType, ref);
 }
 
 class JArray<E> extends JObject {
-  final JArrayType<E> $type;
+  final JType<E> elementType;
+
+  @override
+  JArrayType<E> get $type => (_$type ??= type(elementType)) as JArrayType<E>;
 
   /// The type which includes information such as the signature of this class.
   static JObjType<JArray<T>> type<T>(JType<T> innerType) =>
       JArrayType(innerType);
 
   /// Construct a new [JArray] with [reference] as its underlying reference.
-  JArray.fromRef(this.$type, JArrayPtr reference) : super.fromRef(reference);
+  JArray.fromRef(this.elementType, JArrayPtr reference)
+      : super.fromRef(reference);
 
   /// Creates a [JArray] of the given length from the given [type].
   ///
@@ -35,34 +39,34 @@ class JArray<E> extends JObject {
     if (type._type == JniCallType.objectType) {
       final clazz = type._getClass();
       final array = JArray<E>.fromRef(
-        JArrayType(type),
+        type,
         _accessors.newObjectArray(length, clazz.reference, nullptr).checkedRef,
       );
       clazz.delete();
       return array;
     }
     return JArray.fromRef(
-      JArrayType(type),
+      type,
       _accessors.newPrimitiveArray(length, type._type).checkedRef,
     );
   }
 
-  // TODO(Hossein Yousefi): bring .filled back! using fill.$type
   /// Creates a [JArray] of the given length with [fill] at each position.
   ///
   /// The [length] must be a non-negative integer.
   /// The [fill] must be a non-null [JObject].
-  // static JArray<E> filled<E extends JObject>(int length, E fill) {
-  //   assert(!fill.isNull, "fill must not be null.");
-  //   final clazz = fill.getClass();
-  //   final array = JArray<E>.fromRef(
-  //     _accessors
-  //         .newObjectArray(length, clazz.reference, fill.reference)
-  //         .checkedRef,
-  //   );
-  //   clazz.delete();
-  //   return array;
-  // }
+  static JArray<E> filled<E extends JObject>(int length, E fill) {
+    assert(!fill.isNull, "fill must not be null.");
+    final clazz = fill.getClass();
+    final array = JArray<E>.fromRef(
+      fill.$type as JType<E>,
+      _accessors
+          .newObjectArray(length, clazz.reference, fill.reference)
+          .checkedRef,
+    );
+    clazz.delete();
+    return array;
+  }
 
   int? _length;
 
@@ -331,7 +335,7 @@ extension ObjectArray<T extends JObject> on JArray<T> {
 extension ArrayArray<T> on JArray<JArray<T>> {
   JArray<T> operator [](int index) {
     return JArray<T>.fromRef(
-      $type.elementType as JArrayType<T>,
+      (elementType as JArrayType<T>).elementType,
       elementAt(index, JniCallType.objectType).object,
     );
   }

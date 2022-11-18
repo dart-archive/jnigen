@@ -33,10 +33,6 @@ public class MyMap<K, V> {
     return map.put(key, value);
   }
 
-  public V remove(K key) {
-    return map.remove(key);
-  }
-
   public MyEntry[] entryArray() {
     return map.entrySet().stream()
         .map((e) -> new MyEntry(e.getKey(), e.getValue()))

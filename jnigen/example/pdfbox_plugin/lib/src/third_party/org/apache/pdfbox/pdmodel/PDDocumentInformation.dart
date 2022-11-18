@@ -43,12 +43,13 @@ import "../../../../_init.dart" show jniLookup;
 ///@author Ben Litchfield
 ///@author Gerardo Ortiz
 class PDDocumentInformation extends jni.JObject {
-  final $PDDocumentInformationType $type;
+  late final $PDDocumentInformationType? _$type;
+  @override
+  $PDDocumentInformationType get $type => _$type ??= type;
 
   PDDocumentInformation.fromRef(
     jni.JObjectPtr ref,
-  )   : $type = type,
-        super.fromRef(ref);
+  ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $PDDocumentInformationType();
@@ -60,9 +61,7 @@ class PDDocumentInformation extends jni.JObject {
   /// from: public void <init>()
   ///
   /// Default Constructor.
-  PDDocumentInformation()
-      : $type = $PDDocumentInformationType(),
-        super.fromRef(_ctor().object);
+  PDDocumentInformation() : super.fromRef(_ctor().object);
 
   static final _ctor1 = jniLookup<
           ffi.NativeFunction<
@@ -75,8 +74,7 @@ class PDDocumentInformation extends jni.JObject {
   /// Constructor that is used for a preexisting dictionary.
   ///@param dic The underlying dictionary.
   PDDocumentInformation.ctor1(jni.JObject dic)
-      : $type = $PDDocumentInformationType(),
-        super.fromRef(_ctor1(dic.reference).object);
+      : super.fromRef(_ctor1(dic.reference).object);
 
   static final _getCOSObject = jniLookup<
               ffi.NativeFunction<
@@ -378,7 +376,7 @@ class PDDocumentInformation extends jni.JObject {
   ///@return all metadata key strings.
   ///@since Apache PDFBox 1.3.0
   jni.JObject getMetadataKeys() =>
-      const jni.JObjectType().fromRef(_getMetadataKeys(reference).object);
+      jni.JObjectType().fromRef(_getMetadataKeys(reference).object);
 
   static final _getCustomMetadataValue = jniLookup<
               ffi.NativeFunction<
@@ -450,7 +448,7 @@ class $PDDocumentInformationType extends jni.JObjType<PDDocumentInformation> {
 
 extension $PDDocumentInformationArray on jni.JArray<PDDocumentInformation> {
   PDDocumentInformation operator [](int index) {
-    return ($type.elementType as $PDDocumentInformationType)
+    return (elementType as $PDDocumentInformationType)
         .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 

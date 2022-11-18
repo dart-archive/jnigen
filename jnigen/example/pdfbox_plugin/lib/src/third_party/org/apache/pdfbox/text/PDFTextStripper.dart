@@ -46,12 +46,13 @@ import "../../../../_init.dart" show jniLookup;
 /// smaller and smaller chunks of the page. Eventually, we fully process each page and then print it.
 ///@author Ben Litchfield
 class PDFTextStripper extends jni.JObject {
-  final $PDFTextStripperType $type;
+  late final $PDFTextStripperType? _$type;
+  @override
+  $PDFTextStripperType get $type => _$type ??= type;
 
   PDFTextStripper.fromRef(
     jni.JObjectPtr ref,
-  )   : $type = type,
-        super.fromRef(ref);
+  ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $PDFTextStripperType();
@@ -98,8 +99,8 @@ class PDFTextStripper extends jni.JObject {
   /// text after second article
   ///
   /// Most PDFs won't have any beads, so charactersByArticle will contain a single entry.
-  jni.JObject get charactersByArticle => const jni.JObjectType()
-      .fromRef(_get_charactersByArticle(reference).object);
+  jni.JObject get charactersByArticle =>
+      jni.JObjectType().fromRef(_get_charactersByArticle(reference).object);
   static final _set_charactersByArticle = jniLookup<
               ffi.NativeFunction<
                   jni.JThrowablePtr Function(
@@ -185,9 +186,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// Instantiate a new PDFTextStripper object.
   ///@throws IOException If there is an error loading the properties.
-  PDFTextStripper()
-      : $type = $PDFTextStripperType(),
-        super.fromRef(_ctor().object);
+  PDFTextStripper() : super.fromRef(_ctor().object);
 
   static final _getText = jniLookup<
           ffi.NativeFunction<
@@ -642,8 +641,8 @@ class PDFTextStripper extends jni.JObject {
   /// Character strings are grouped by articles. It is quite common that there will only be a single article. This
   /// returns a List that contains List objects, the inner lists will contain TextPosition objects.
   ///@return A double List of TextPositions for all text strings on the page.
-  jni.JObject getCharactersByArticle() => const jni.JObjectType()
-      .fromRef(_getCharactersByArticle(reference).object);
+  jni.JObject getCharactersByArticle() =>
+      jni.JObjectType().fromRef(_getCharactersByArticle(reference).object);
 
   static final _setSuppressDuplicateOverlappingText = jniLookup<
               ffi.NativeFunction<
@@ -1191,7 +1190,7 @@ class PDFTextStripper extends jni.JObject {
   /// This method returns a list of such regular expression Patterns.
   ///@return a list of Pattern objects.
   jni.JObject getListItemPatterns() =>
-      const jni.JObjectType().fromRef(_getListItemPatterns(reference).object);
+      jni.JObjectType().fromRef(_getListItemPatterns(reference).object);
 
   static final _matchPattern = jniLookup<
           ffi.NativeFunction<
@@ -1231,7 +1230,7 @@ class $PDFTextStripperType extends jni.JObjType<PDFTextStripper> {
 
 extension $PDFTextStripperArray on jni.JArray<PDFTextStripper> {
   PDFTextStripper operator [](int index) {
-    return ($type.elementType as $PDFTextStripperType)
+    return (elementType as $PDFTextStripperType)
         .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 

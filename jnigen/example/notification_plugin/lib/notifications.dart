@@ -26,12 +26,13 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
 
 /// from: com.example.notification_plugin.Notifications
 class Notifications extends jni.JObject {
-  final $NotificationsType $type;
+  late final $NotificationsType? _$type;
+  @override
+  $NotificationsType get $type => _$type ??= type;
 
   Notifications.fromRef(
     jni.JObjectPtr ref,
-  )   : $type = type,
-        super.fromRef(ref);
+  ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $NotificationsType();
@@ -41,9 +42,7 @@ class Notifications extends jni.JObject {
       .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
-  Notifications()
-      : $type = $NotificationsType(),
-        super.fromRef(_ctor().object);
+  Notifications() : super.fromRef(_ctor().object);
 
   static final _showNotification = jniLookup<
           ffi.NativeFunction<
@@ -76,7 +75,7 @@ class $NotificationsType extends jni.JObjType<Notifications> {
 
 extension $NotificationsArray on jni.JArray<Notifications> {
   Notifications operator [](int index) {
-    return ($type.elementType as $NotificationsType)
+    return (elementType as $NotificationsType)
         .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 

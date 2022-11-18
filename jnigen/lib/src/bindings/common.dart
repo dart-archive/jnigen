@@ -43,7 +43,7 @@ abstract class BindingsGenerator {
 
   static const String jniTypeType = '${jni}JObjType';
   static const String typeClassSuffix = 'Type';
-  // TODO(Hossein Yousefi): this is a temporary fix for the name collision
+  // TODO(HosseinYousefi): this is a temporary fix for the name collision
   static const String typeClassPrefix = '\$';
 
   static const String instanceTypeGetter = '\$type';
@@ -85,18 +85,15 @@ abstract class BindingsGenerator {
     final List<String> args = [];
     // Prepending the parameters with type parameters
     if (isCtor(m)) {
-      for (var typeParam in c.allTypeParams) {
+      for (final typeParam in c.allTypeParams) {
         args.add('this.$typeParamPrefix${typeParam.name}');
       }
     }
-    if (m.returnType.type is TypeVar &&
-        m.typeParams
-            .map((e) => e.name)
-            .contains((m.returnType.type as TypeVar).name)) {
+    for (final typeParam in m.typeParams) {
       args.add(
-          '$jniTypeType<${m.returnType.name}> $typeParamPrefix${m.returnType.name}');
+          '$jniTypeType<${typeParam.name}> $typeParamPrefix${typeParam.name}');
     }
-    for (var param in m.params) {
+    for (final param in m.params) {
       args.add(
           '${getDartOuterType(param.type, resolver)} ${kwRename(param.name)}');
     }
@@ -143,12 +140,15 @@ abstract class BindingsGenerator {
     final ifSomeArgs =
         decl.allTypeParams.isNotEmpty ? '(${_typeParamArgs(decl)})' : '';
     return 'class $name$typeParamsWithExtend extends $superName {\n'
-        'final $typeClassName$typeParams $instanceTypeGetter;\n\n'
+        'late final $typeClassName$typeParams? _$instanceTypeGetter;\n'
+        '@override\n'
+        '$typeClassName$typeParams get $instanceTypeGetter => '
+        '_$instanceTypeGetter ??= type$ifSomeArgs;\n\n'
         '${_typeParamDefs(decl)}\n'
         '$indent$name.fromRef(\n'
         '${_typeParamCtorArgs(decl)}'
         '$jobjectType ref,'
-        ') : $instanceTypeGetter = type$ifSomeArgs, super.fromRef(ref);\n\n';
+        '): super.fromRef(ref);\n\n';
   }
 
   String dartSigForField(Field f,
@@ -170,7 +170,7 @@ abstract class BindingsGenerator {
     final typeClassName = _dartTypeClassName(name);
     return '\nextension \$${name}Array$typeParamsWithExtend on $jniArrayType<$name$typeParams> {\n'
         '$indent$name$typeParams operator [](int index) {\n'
-        '${indent * 2}return ($instanceTypeGetter.elementType as $typeClassName$typeParams)'
+        '${indent * 2}return (elementType as $typeClassName$typeParams)'
         '.fromRef(elementAt(index, ${jni}JniCallType.objectType).object);\n'
         '$indent}\n\n'
         '${indent}void operator []=(int index, $name$typeParams value) {\n'
@@ -311,17 +311,33 @@ abstract class BindingsGenerator {
         return voidPointer;
       case Kind.declared:
         if (resolver != null) {
-          final resolved =
-              resolver.resolve((t.type as DeclaredType).binaryName);
+          final type = t.type as DeclaredType;
+          final resolved = resolver.resolve(type.binaryName);
           if (resolved == null) {
             return jniObjectType;
           }
-          final args = resolver
-              .resolveClass((t.type as DeclaredType).binaryName)
-              ?.allTypeParams
-              .map((e) => e.name)
-              .join(',');
-          final ifArgs = (args?.isNotEmpty ?? false) ? '<$args>' : '';
+
+          // All type parameters of this type
+          final allTypeParams =
+              (resolver.resolveClass(type.binaryName)?.allTypeParams ?? [])
+                  .map((param) => param.name)
+                  .toList();
+
+          // The ones that are declared.
+          final paramTypeClasses =
+              type.params.map((param) => _dartType(param, resolver: resolver));
+
+          // Replacing the declared ones. They come at the end.
+          if (allTypeParams.length >= type.params.length) {
+            allTypeParams.replaceRange(
+              allTypeParams.length - type.params.length,
+              allTypeParams.length,
+              paramTypeClasses,
+            );
+          }
+
+          final args = allTypeParams.join(',');
+          final ifArgs = args.isNotEmpty ? '<$args>' : '';
           return '$resolved$ifArgs';
         }
         return voidPointer;
@@ -378,14 +394,35 @@ abstract class BindingsGenerator {
           innerTypeClass.canBeConst,
         );
       case Kind.declared:
-        final resolved = resolver.resolve((t.type as DeclaredType).binaryName);
-        final args = resolver
-            .resolveClass((t.type as DeclaredType).binaryName)
-            ?.allTypeParams
-            .map((e) => '$typeParamPrefix${e.name}')
-            .join(',');
-        final canBeConst = (args?.isEmpty ?? true);
+        final type = (t.type as DeclaredType);
+        final resolved = resolver.resolve(type.binaryName);
+        final resolvedClass = resolver.resolveClass(type.binaryName);
+
+        // All type params of this type
+        final allTypeParams = resolvedClass?.allTypeParams
+                .map((param) => '$typeParamPrefix${param.name}')
+                .toList() ??
+            [];
+
+        // The ones that are declared.
+        final paramTypeClasses = type.params.map(
+            (param) => _getDartTypeClass(param, resolver, addConst: false));
+
+        // Replacing the declared ones. They come at the end.
+        if (allTypeParams.length >= type.params.length) {
+          allTypeParams.replaceRange(
+            allTypeParams.length - type.params.length,
+            allTypeParams.length,
+            paramTypeClasses.map((param) => param.name),
+          );
+        }
+
+        final args = allTypeParams.join(',');
+
+        final canBeConst = allTypeParams.length == paramTypeClasses.length &&
+            paramTypeClasses.every((e) => e.canBeConst);
         final ifConst = addConst && canBeConst ? 'const ' : '';
+
         if (resolved == null || resolved == jniObjectType) {
           return _TypeClass('$ifConst$jniObjectTypeClass()', true);
         } else if (resolved == jniStringType) {

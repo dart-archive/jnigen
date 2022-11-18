@@ -41,12 +41,13 @@ import "../../../../_init.dart" show jniEnv, jniAccessors;
 /// Enumeration for basic token types used for returning results
 /// of parsing JSON content.
 class JsonToken extends jni.JObject {
-  final $JsonTokenType $type;
+  late final $JsonTokenType? _$type;
+  @override
+  $JsonTokenType get $type => _$type ??= type;
 
   JsonToken.fromRef(
     jni.JObjectPtr ref,
-  )   : $type = type,
-        super.fromRef(ref);
+  ) : super.fromRef(ref);
 
   static final _classRef =
       jniAccessors.getClassOf("com/fasterxml/jackson/core/JsonToken");
@@ -186,7 +187,7 @@ class $JsonTokenType extends jni.JObjType<JsonToken> {
 
 extension $JsonTokenArray on jni.JArray<JsonToken> {
   JsonToken operator [](int index) {
-    return ($type.elementType as $JsonTokenType)
+    return (elementType as $JsonTokenType)
         .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 

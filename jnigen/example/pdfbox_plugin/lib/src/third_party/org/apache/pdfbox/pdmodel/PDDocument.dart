@@ -42,12 +42,13 @@ import "../../../../_init.dart" show jniLookup;
 /// The \#close() method must be called once the document is no longer needed.
 ///@author Ben Litchfield
 class PDDocument extends jni.JObject {
-  final $PDDocumentType $type;
+  late final $PDDocumentType? _$type;
+  @override
+  $PDDocumentType get $type => _$type ??= type;
 
   PDDocument.fromRef(
     jni.JObjectPtr ref,
-  )   : $type = type,
-        super.fromRef(ref);
+  ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
   static const type = $PDDocumentType();
@@ -60,9 +61,7 @@ class PDDocument extends jni.JObject {
   ///
   /// Creates an empty PDF document.
   /// You need to add at least one page for the document to be valid.
-  PDDocument()
-      : $type = $PDDocumentType(),
-        super.fromRef(_ctor().object);
+  PDDocument() : super.fromRef(_ctor().object);
 
   static final _ctor1 = jniLookup<
           ffi.NativeFunction<
@@ -76,8 +75,7 @@ class PDDocument extends jni.JObject {
   /// You need to add at least one page for the document to be valid.
   ///@param memUsageSetting defines how memory is used for buffering PDF streams
   PDDocument.ctor1(jni.JObject memUsageSetting)
-      : $type = $PDDocumentType(),
-        super.fromRef(_ctor1(memUsageSetting.reference).object);
+      : super.fromRef(_ctor1(memUsageSetting.reference).object);
 
   static final _ctor2 = jniLookup<
           ffi.NativeFunction<
@@ -90,8 +88,7 @@ class PDDocument extends jni.JObject {
   /// Constructor that uses an existing document. The COSDocument that is passed in must be valid.
   ///@param doc The COSDocument that this document wraps.
   PDDocument.ctor2(jni.JObject doc)
-      : $type = $PDDocumentType(),
-        super.fromRef(_ctor2(doc.reference).object);
+      : super.fromRef(_ctor2(doc.reference).object);
 
   static final _ctor3 = jniLookup<
           ffi.NativeFunction<
@@ -107,8 +104,7 @@ class PDDocument extends jni.JObject {
   ///@param doc The COSDocument that this document wraps.
   ///@param source the parser which is used to read the pdf
   PDDocument.ctor3(jni.JObject doc, jni.JObject source)
-      : $type = $PDDocumentType(),
-        super.fromRef(_ctor3(doc.reference, source.reference).object);
+      : super.fromRef(_ctor3(doc.reference, source.reference).object);
 
   static final _ctor4 = jniLookup<
           ffi.NativeFunction<
@@ -127,8 +123,7 @@ class PDDocument extends jni.JObject {
   ///@param source the parser which is used to read the pdf
   ///@param permission he access permissions of the pdf
   PDDocument.ctor4(jni.JObject doc, jni.JObject source, jni.JObject permission)
-      : $type = $PDDocumentType(),
-        super.fromRef(
+      : super.fromRef(
             _ctor4(doc.reference, source.reference, permission.reference)
                 .object);
 
@@ -488,7 +483,7 @@ class PDDocument extends jni.JObject {
   ///@return a <code>List</code> of <code>PDSignatureField</code>s
   ///@throws IOException if no document catalog can be found.
   jni.JObject getSignatureFields() =>
-      const jni.JObjectType().fromRef(_getSignatureFields(reference).object);
+      jni.JObjectType().fromRef(_getSignatureFields(reference).object);
 
   static final _getSignatureDictionaries = jniLookup<
               ffi.NativeFunction<
@@ -502,8 +497,8 @@ class PDDocument extends jni.JObject {
   /// Retrieve all signature dictionaries from the document.
   ///@return a <code>List</code> of <code>PDSignatureField</code>s
   ///@throws IOException if no document catalog can be found.
-  jni.JObject getSignatureDictionaries() => const jni.JObjectType()
-      .fromRef(_getSignatureDictionaries(reference).object);
+  jni.JObject getSignatureDictionaries() =>
+      jni.JObjectType().fromRef(_getSignatureDictionaries(reference).object);
 
   static final _registerTrueTypeFontForClosing = jniLookup<
               ffi.NativeFunction<
@@ -1332,7 +1327,7 @@ class $PDDocumentType extends jni.JObjType<PDDocument> {
 
 extension $PDDocumentArray on jni.JArray<PDDocument> {
   PDDocument operator [](int index) {
-    return ($type.elementType as $PDDocumentType)
+    return (elementType as $PDDocumentType)
         .fromRef(elementAt(index, jni.JniCallType.objectType).object);
   }
 

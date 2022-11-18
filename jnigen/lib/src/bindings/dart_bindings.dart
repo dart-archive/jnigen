@@ -114,7 +114,6 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
       final wrapperExpr = '$sym(${actualArgs(m)})';
       s.write(
         '$ctorFnName(${getFormalArgs(c, m, resolver)}) : '
-        '${dartInitType(c)}, '
         'super.fromRef($wrapperExpr.object);\n',
       );
       return s.toString();
