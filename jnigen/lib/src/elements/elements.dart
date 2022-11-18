@@ -24,7 +24,7 @@ enum DeclKind {
 // JSON. this allows us to reduce JSON size by providing Include.NON_NULL
 // option in java.
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(createToJson: false)
 class ClassDecl {
   /// Methods & properties already defined by dart JObject base class.
   static const Map<String, int> _definedSyms = {
@@ -90,7 +90,6 @@ class ClassDecl {
 
   factory ClassDecl.fromJson(Map<String, dynamic> json) =>
       _$ClassDeclFromJson(json);
-  Map<String, dynamic> toJson() => _$ClassDeclToJson(this);
 
   String get internalName => binaryName.replaceAll(".", "/");
 
@@ -149,7 +148,7 @@ enum Kind {
   array,
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(createToJson: false)
 class TypeUsage {
   TypeUsage({
     required this.shorthand,
@@ -190,14 +189,13 @@ class TypeUsage {
     }
     return t;
   }
-  Map<String, dynamic> toJson() => _$TypeUsageToJson(this);
 }
 
 abstract class ReferredType {
   String get name;
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(createToJson: false)
 class PrimitiveType implements ReferredType {
   PrimitiveType({required this.name});
 
@@ -206,10 +204,9 @@ class PrimitiveType implements ReferredType {
 
   factory PrimitiveType.fromJson(Map<String, dynamic> json) =>
       _$PrimitiveTypeFromJson(json);
-  Map<String, dynamic> toJson() => _$PrimitiveTypeToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(createToJson: false)
 class DeclaredType implements ReferredType {
   DeclaredType({
     required this.binaryName,
@@ -224,10 +221,9 @@ class DeclaredType implements ReferredType {
 
   factory DeclaredType.fromJson(Map<String, dynamic> json) =>
       _$DeclaredTypeFromJson(json);
-  Map<String, dynamic> toJson() => _$DeclaredTypeToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(createToJson: false)
 class TypeVar implements ReferredType {
   TypeVar({required this.name});
   @override
@@ -235,10 +231,9 @@ class TypeVar implements ReferredType {
 
   factory TypeVar.fromJson(Map<String, dynamic> json) =>
       _$TypeVarFromJson(json);
-  Map<String, dynamic> toJson() => _$TypeVarToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(createToJson: false)
 class Wildcard implements ReferredType {
   Wildcard({this.extendsBound, this.superBound});
   TypeUsage? extendsBound, superBound;
@@ -248,10 +243,9 @@ class Wildcard implements ReferredType {
 
   factory Wildcard.fromJson(Map<String, dynamic> json) =>
       _$WildcardFromJson(json);
-  Map<String, dynamic> toJson() => _$WildcardToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(createToJson: false)
 class ArrayType implements ReferredType {
   ArrayType({required this.type});
   TypeUsage type;
@@ -261,14 +255,13 @@ class ArrayType implements ReferredType {
 
   factory ArrayType.fromJson(Map<String, dynamic> json) =>
       _$ArrayTypeFromJson(json);
-  Map<String, dynamic> toJson() => _$ArrayTypeToJson(this);
 }
 
 abstract class ClassMember {
   String get name;
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(createToJson: false)
 class Method implements ClassMember {
   Method(
       {this.annotations = const [],
@@ -305,10 +298,9 @@ class Method implements ClassMember {
   }
 
   factory Method.fromJson(Map<String, dynamic> json) => _$MethodFromJson(json);
-  Map<String, dynamic> toJson() => _$MethodToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(createToJson: false)
 class Param {
   Param(
       {this.annotations = const [],
@@ -322,10 +314,9 @@ class Param {
   TypeUsage type;
 
   factory Param.fromJson(Map<String, dynamic> json) => _$ParamFromJson(json);
-  Map<String, dynamic> toJson() => _$ParamToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(createToJson: false)
 class Field implements ClassMember {
   Field(
       {this.annotations = const [],
@@ -352,10 +343,9 @@ class Field implements ClassMember {
   bool isIncluded = true;
 
   factory Field.fromJson(Map<String, dynamic> json) => _$FieldFromJson(json);
-  Map<String, dynamic> toJson() => _$FieldToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(createToJson: false)
 class TypeParam {
   TypeParam({required this.name, this.bounds = const []});
   String name;
@@ -366,10 +356,9 @@ class TypeParam {
 
   factory TypeParam.fromJson(Map<String, dynamic> json) =>
       _$TypeParamFromJson(json);
-  Map<String, dynamic> toJson() => _$TypeParamToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(createToJson: false)
 class JavaDocComment {
   JavaDocComment({String? comment}) : comment = comment ?? '';
   String comment;
@@ -379,10 +368,9 @@ class JavaDocComment {
 
   factory JavaDocComment.fromJson(Map<String, dynamic> json) =>
       _$JavaDocCommentFromJson(json);
-  Map<String, dynamic> toJson() => _$JavaDocCommentToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(createToJson: false)
 class Annotation {
   Annotation(
       {required this.simpleName,
@@ -394,5 +382,4 @@ class Annotation {
 
   factory Annotation.fromJson(Map<String, dynamic> json) =>
       _$AnnotationFromJson(json);
-  Map<String, dynamic> toJson() => _$AnnotationToJson(this);
 }
