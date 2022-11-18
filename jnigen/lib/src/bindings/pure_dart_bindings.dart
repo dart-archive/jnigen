@@ -99,6 +99,11 @@ class PureDartBindingsGenerator extends BindingsGenerator {
         .toNativeArg(name, type, convertBooleanToInt: convertBooleanToInt);
   }
 
+  @override
+  String actualArgs(Method m, {bool addSelf = false}) {
+    return super.actualArgs(m, addSelf: addSelf);
+  }
+
   String _method(ClassDecl c, Method m, SymbolResolver resolver) {
     final name = m.finalName;
     final isStatic = isStaticMethod(m);

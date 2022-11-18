@@ -105,8 +105,8 @@ class JsonParser extends jni.JObject {
   /// method (and its variants).
   ///@return Codec assigned to this parser, if any; {@code null} if none
   jni.JObject getCodec() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_getCodec, jni.JniCallType.objectType, [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
+          reference, _id_getCodec, jni.JniCallType.objectType, []).object);
 
   static final _id_setCodec = jniAccessors.getMethodIDOf(
       _classRef, "setCodec", "(Lcom/fasterxml/jackson/core/ObjectCodec;)V");
@@ -117,11 +117,8 @@ class JsonParser extends jni.JObject {
   /// parser, if any. Codec is used by \#readValueAs(Class)
   /// method (and its variants).
   ///@param oc Codec to assign, if any; {@code null} if none
-  void setCodec(jni.JObject oc) => jniAccessors.callMethodWithArgs(
-      reference,
-      _id_setCodec,
-      jni.JniCallType.voidType,
-      [reference, oc.reference]).check();
+  void setCodec(jni.JObject oc) => jniAccessors.callMethodWithArgs(reference,
+      _id_setCodec, jni.JniCallType.voidType, [oc.reference]).check();
 
   static final _id_getInputSource = jniAccessors.getMethodIDOf(
       _classRef, "getInputSource", "()Ljava/lang/Object;");
@@ -145,7 +142,7 @@ class JsonParser extends jni.JObject {
   ///@return Input source this parser was configured with
   jni.JObject getInputSource() =>
       const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_getInputSource, jni.JniCallType.objectType, [reference]).object);
+          _id_getInputSource, jni.JniCallType.objectType, []).object);
 
   static final _id_setRequestPayloadOnError = jniAccessors.getMethodIDOf(
       _classRef,
@@ -159,7 +156,7 @@ class JsonParser extends jni.JObject {
   ///@since 2.8
   void setRequestPayloadOnError(jni.JObject payload) =>
       jniAccessors.callMethodWithArgs(reference, _id_setRequestPayloadOnError,
-          jni.JniCallType.voidType, [reference, payload.reference]).check();
+          jni.JniCallType.voidType, [payload.reference]).check();
 
   static final _id_setRequestPayloadOnError1 = jniAccessors.getMethodIDOf(
       _classRef, "setRequestPayloadOnError", "([BLjava/lang/String;)V");
@@ -176,7 +173,7 @@ class JsonParser extends jni.JObject {
           reference,
           _id_setRequestPayloadOnError1,
           jni.JniCallType.voidType,
-          [reference, payload.reference, charset.reference]).check();
+          [payload.reference, charset.reference]).check();
 
   static final _id_setRequestPayloadOnError2 = jniAccessors.getMethodIDOf(
       _classRef, "setRequestPayloadOnError", "(Ljava/lang/String;)V");
@@ -188,7 +185,7 @@ class JsonParser extends jni.JObject {
   ///@since 2.8
   void setRequestPayloadOnError2(jni.JString payload) =>
       jniAccessors.callMethodWithArgs(reference, _id_setRequestPayloadOnError2,
-          jni.JniCallType.voidType, [reference, payload.reference]).check();
+          jni.JniCallType.voidType, [payload.reference]).check();
 
   static final _id_setSchema = jniAccessors.getMethodIDOf(
       _classRef, "setSchema", "(Lcom/fasterxml/jackson/core/FormatSchema;)V");
@@ -209,7 +206,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_setSchema,
       jni.JniCallType.voidType,
-      [reference, schema.reference]).check();
+      [schema.reference]).check();
 
   static final _id_getSchema = jniAccessors.getMethodIDOf(
       _classRef, "getSchema", "()Lcom/fasterxml/jackson/core/FormatSchema;");
@@ -222,8 +219,8 @@ class JsonParser extends jni.JObject {
   ///@return Schema in use by this parser, if any; {@code null} if none
   ///@since 2.1
   jni.JObject getSchema() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_getSchema, jni.JniCallType.objectType, [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
+          reference, _id_getSchema, jni.JniCallType.objectType, []).object);
 
   static final _id_canUseSchema = jniAccessors.getMethodIDOf(_classRef,
       "canUseSchema", "(Lcom/fasterxml/jackson/core/FormatSchema;)Z");
@@ -238,7 +235,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_canUseSchema,
       jni.JniCallType.booleanType,
-      [reference, schema.reference]).boolean;
+      [schema.reference]).boolean;
 
   static final _id_requiresCustomCodec =
       jniAccessors.getMethodIDOf(_classRef, "requiresCustomCodec", "()Z");
@@ -253,11 +250,8 @@ class JsonParser extends jni.JObject {
   ///@return True if format-specific codec is needed with this parser; false if a general
   ///   ObjectCodec is enough
   ///@since 2.1
-  bool requiresCustomCodec() => jniAccessors.callMethodWithArgs(
-      reference,
-      _id_requiresCustomCodec,
-      jni.JniCallType.booleanType,
-      [reference]).boolean;
+  bool requiresCustomCodec() => jniAccessors.callMethodWithArgs(reference,
+      _id_requiresCustomCodec, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_canParseAsync =
       jniAccessors.getMethodIDOf(_classRef, "canParseAsync", "()Z");
@@ -275,8 +269,8 @@ class JsonParser extends jni.JObject {
   /// input is read by blocking
   ///@return True if this is a non-blocking ("asynchronous") parser
   ///@since 2.9
-  bool canParseAsync() => jniAccessors.callMethodWithArgs(reference,
-      _id_canParseAsync, jni.JniCallType.booleanType, [reference]).boolean;
+  bool canParseAsync() => jniAccessors.callMethodWithArgs(
+      reference, _id_canParseAsync, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_getNonBlockingInputFeeder = jniAccessors.getMethodIDOf(
       _classRef,
@@ -295,8 +289,7 @@ class JsonParser extends jni.JObject {
       const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_getNonBlockingInputFeeder,
-          jni.JniCallType.objectType,
-          [reference]).object);
+          jni.JniCallType.objectType, []).object);
 
   static final _id_getReadCapabilities = jniAccessors.getMethodIDOf(
       _classRef,
@@ -311,11 +304,8 @@ class JsonParser extends jni.JObject {
   ///@return Set of read capabilities for content to read via this parser
   ///@since 2.12
   jni.JObject getReadCapabilities() =>
-      jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_getReadCapabilities,
-          jni.JniCallType.objectType,
-          [reference]).object);
+      jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_getReadCapabilities, jni.JniCallType.objectType, []).object);
 
   static final _id_version = jniAccessors.getMethodIDOf(
       _classRef, "version", "()Lcom/fasterxml/jackson/core/Version;");
@@ -328,8 +318,8 @@ class JsonParser extends jni.JObject {
   ///@return Version of this generator (derived from version declared for
   ///   {@code jackson-core} jar that contains the class
   jni.JObject version() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_version, jni.JniCallType.objectType, [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
+          reference, _id_version, jni.JniCallType.objectType, []).object);
 
   static final _id_close =
       jniAccessors.getMethodIDOf(_classRef, "close", "()V");
@@ -351,7 +341,7 @@ class JsonParser extends jni.JObject {
   /// stream or reader it does own them.
   ///@throws IOException if there is either an underlying I/O problem
   void close() => jniAccessors.callMethodWithArgs(
-      reference, _id_close, jni.JniCallType.voidType, [reference]).check();
+      reference, _id_close, jni.JniCallType.voidType, []).check();
 
   static final _id_isClosed =
       jniAccessors.getMethodIDOf(_classRef, "isClosed", "()Z");
@@ -365,8 +355,8 @@ class JsonParser extends jni.JObject {
   /// call to \#close or because parser has encountered
   /// end of input.
   ///@return {@code True} if this parser instance has been closed
-  bool isClosed() => jniAccessors.callMethodWithArgs(reference, _id_isClosed,
-      jni.JniCallType.booleanType, [reference]).boolean;
+  bool isClosed() => jniAccessors.callMethodWithArgs(
+      reference, _id_isClosed, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_getParsingContext = jniAccessors.getMethodIDOf(_classRef,
       "getParsingContext", "()Lcom/fasterxml/jackson/core/JsonStreamContext;");
@@ -384,11 +374,8 @@ class JsonParser extends jni.JObject {
   /// input, if so desired.
   ///@return Stream input context (JsonStreamContext) associated with this parser
   jni.JObject getParsingContext() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_getParsingContext,
-          jni.JniCallType.objectType,
-          [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_getParsingContext, jni.JniCallType.objectType, []).object);
 
   static final _id_currentLocation = jniAccessors.getMethodIDOf(_classRef,
       "currentLocation", "()Lcom/fasterxml/jackson/core/JsonLocation;");
@@ -410,7 +397,7 @@ class JsonParser extends jni.JObject {
   ///@since 2.13
   jni.JObject currentLocation() =>
       const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_currentLocation, jni.JniCallType.objectType, [reference]).object);
+          _id_currentLocation, jni.JniCallType.objectType, []).object);
 
   static final _id_currentTokenLocation = jniAccessors.getMethodIDOf(_classRef,
       "currentTokenLocation", "()Lcom/fasterxml/jackson/core/JsonLocation;");
@@ -431,11 +418,8 @@ class JsonParser extends jni.JObject {
   ///@return Starting location of the token parser currently points to
   ///@since 2.13 (will eventually replace \#getTokenLocation)
   jni.JObject currentTokenLocation() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_currentTokenLocation,
-          jni.JniCallType.objectType,
-          [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_currentTokenLocation, jni.JniCallType.objectType, []).object);
 
   static final _id_getCurrentLocation = jniAccessors.getMethodIDOf(_classRef,
       "getCurrentLocation", "()Lcom/fasterxml/jackson/core/JsonLocation;");
@@ -447,11 +431,8 @@ class JsonParser extends jni.JObject {
   /// Jackson 2.x versions (and removed from Jackson 3.0).
   ///@return Location of the last processed input unit (byte or character)
   jni.JObject getCurrentLocation() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_getCurrentLocation,
-          jni.JniCallType.objectType,
-          [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_getCurrentLocation, jni.JniCallType.objectType, []).object);
 
   static final _id_getTokenLocation = jniAccessors.getMethodIDOf(_classRef,
       "getTokenLocation", "()Lcom/fasterxml/jackson/core/JsonLocation;");
@@ -463,11 +444,8 @@ class JsonParser extends jni.JObject {
   /// Jackson 2.x versions (and removed from Jackson 3.0).
   ///@return Starting location of the token parser currently points to
   jni.JObject getTokenLocation() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_getTokenLocation,
-          jni.JniCallType.objectType,
-          [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_getTokenLocation, jni.JniCallType.objectType, []).object);
 
   static final _id_currentValue = jniAccessors.getMethodIDOf(
       _classRef, "currentValue", "()Ljava/lang/Object;");
@@ -487,8 +465,8 @@ class JsonParser extends jni.JObject {
   ///@return "Current value" associated with the current input context (state) of this parser
   ///@since 2.13 (added as replacement for older \#getCurrentValue()
   jni.JObject currentValue() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_currentValue, jni.JniCallType.objectType, [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
+          reference, _id_currentValue, jni.JniCallType.objectType, []).object);
 
   static final _id_assignCurrentValue = jniAccessors.getMethodIDOf(
       _classRef, "assignCurrentValue", "(Ljava/lang/Object;)V");
@@ -505,7 +483,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_assignCurrentValue,
       jni.JniCallType.voidType,
-      [reference, v.reference]).check();
+      [v.reference]).check();
 
   static final _id_getCurrentValue = jniAccessors.getMethodIDOf(
       _classRef, "getCurrentValue", "()Ljava/lang/Object;");
@@ -518,7 +496,7 @@ class JsonParser extends jni.JObject {
   ///@return Location of the last processed input unit (byte or character)
   jni.JObject getCurrentValue() =>
       const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_getCurrentValue, jni.JniCallType.objectType, [reference]).object);
+          _id_getCurrentValue, jni.JniCallType.objectType, []).object);
 
   static final _id_setCurrentValue = jniAccessors.getMethodIDOf(
       _classRef, "setCurrentValue", "(Ljava/lang/Object;)V");
@@ -532,7 +510,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_setCurrentValue,
       jni.JniCallType.voidType,
-      [reference, v.reference]).check();
+      [v.reference]).check();
 
   static final _id_releaseBuffered = jniAccessors.getMethodIDOf(
       _classRef, "releaseBuffered", "(Ljava/io/OutputStream;)I");
@@ -554,7 +532,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_releaseBuffered,
       jni.JniCallType.intType,
-      [reference, out.reference]).integer;
+      [out.reference]).integer;
 
   static final _id_releaseBuffered1 = jniAccessors.getMethodIDOf(
       _classRef, "releaseBuffered", "(Ljava/io/Writer;)I");
@@ -577,7 +555,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_releaseBuffered1,
       jni.JniCallType.intType,
-      [reference, w.reference]).integer;
+      [w.reference]).integer;
 
   static final _id_enable = jniAccessors.getMethodIDOf(_classRef, "enable",
       "(Lcom/fasterxml/jackson/core/JsonParser\$Feature;)Lcom/fasterxml/jackson/core/JsonParser;");
@@ -590,11 +568,8 @@ class JsonParser extends jni.JObject {
   ///@param f Feature to enable
   ///@return This parser, to allow call chaining
   JsonParser enable(JsonParser_Feature f) =>
-      const $JsonParserType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_enable,
-          jni.JniCallType.objectType,
-          [reference, f.reference]).object);
+      const $JsonParserType().fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_enable, jni.JniCallType.objectType, [f.reference]).object);
 
   static final _id_disable = jniAccessors.getMethodIDOf(_classRef, "disable",
       "(Lcom/fasterxml/jackson/core/JsonParser\$Feature;)Lcom/fasterxml/jackson/core/JsonParser;");
@@ -607,11 +582,8 @@ class JsonParser extends jni.JObject {
   ///@param f Feature to disable
   ///@return This parser, to allow call chaining
   JsonParser disable(JsonParser_Feature f) =>
-      const $JsonParserType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_disable,
-          jni.JniCallType.objectType,
-          [reference, f.reference]).object);
+      const $JsonParserType().fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_disable, jni.JniCallType.objectType, [f.reference]).object);
 
   static final _id_configure = jniAccessors.getMethodIDOf(
       _classRef,
@@ -631,7 +603,7 @@ class JsonParser extends jni.JObject {
           reference,
           _id_configure,
           jni.JniCallType.objectType,
-          [reference, f.reference, state]).object);
+          [f.reference, state]).object);
 
   static final _id_isEnabled = jniAccessors.getMethodIDOf(_classRef,
       "isEnabled", "(Lcom/fasterxml/jackson/core/JsonParser\$Feature;)Z");
@@ -645,7 +617,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_isEnabled,
       jni.JniCallType.booleanType,
-      [reference, f.reference]).boolean;
+      [f.reference]).boolean;
 
   static final _id_isEnabled1 = jniAccessors.getMethodIDOf(_classRef,
       "isEnabled", "(Lcom/fasterxml/jackson/core/StreamReadFeature;)Z");
@@ -656,11 +628,8 @@ class JsonParser extends jni.JObject {
   ///@param f Feature to check
   ///@return {@code True} if feature is enabled; {@code false} otherwise
   ///@since 2.10
-  bool isEnabled1(jni.JObject f) => jniAccessors.callMethodWithArgs(
-      reference,
-      _id_isEnabled1,
-      jni.JniCallType.booleanType,
-      [reference, f.reference]).boolean;
+  bool isEnabled1(jni.JObject f) => jniAccessors.callMethodWithArgs(reference,
+      _id_isEnabled1, jni.JniCallType.booleanType, [f.reference]).boolean;
 
   static final _id_getFeatureMask =
       jniAccessors.getMethodIDOf(_classRef, "getFeatureMask", "()I");
@@ -670,8 +639,8 @@ class JsonParser extends jni.JObject {
   /// Bulk access method for getting state of all standard Features.
   ///@return Bit mask that defines current states of all standard Features.
   ///@since 2.3
-  int getFeatureMask() => jniAccessors.callMethodWithArgs(reference,
-      _id_getFeatureMask, jni.JniCallType.intType, [reference]).integer;
+  int getFeatureMask() => jniAccessors.callMethodWithArgs(
+      reference, _id_getFeatureMask, jni.JniCallType.intType, []).integer;
 
   static final _id_setFeatureMask = jniAccessors.getMethodIDOf(_classRef,
       "setFeatureMask", "(I)Lcom/fasterxml/jackson/core/JsonParser;");
@@ -685,11 +654,8 @@ class JsonParser extends jni.JObject {
   ///@since 2.3
   ///@deprecated Since 2.7, use \#overrideStdFeatures(int, int) instead
   JsonParser setFeatureMask(int mask) =>
-      const $JsonParserType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_setFeatureMask,
-          jni.JniCallType.objectType,
-          [reference, mask]).object);
+      const $JsonParserType().fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_setFeatureMask, jni.JniCallType.objectType, [mask]).object);
 
   static final _id_overrideStdFeatures = jniAccessors.getMethodIDOf(_classRef,
       "overrideStdFeatures", "(II)Lcom/fasterxml/jackson/core/JsonParser;");
@@ -714,7 +680,7 @@ class JsonParser extends jni.JObject {
           reference,
           _id_overrideStdFeatures,
           jni.JniCallType.objectType,
-          [reference, values, mask]).object);
+          [values, mask]).object);
 
   static final _id_getFormatFeatures =
       jniAccessors.getMethodIDOf(_classRef, "getFormatFeatures", "()I");
@@ -725,8 +691,8 @@ class JsonParser extends jni.JObject {
   /// on/off configuration settings.
   ///@return Bit mask that defines current states of all standard FormatFeatures.
   ///@since 2.6
-  int getFormatFeatures() => jniAccessors.callMethodWithArgs(reference,
-      _id_getFormatFeatures, jni.JniCallType.intType, [reference]).integer;
+  int getFormatFeatures() => jniAccessors.callMethodWithArgs(
+      reference, _id_getFormatFeatures, jni.JniCallType.intType, []).integer;
 
   static final _id_overrideFormatFeatures = jniAccessors.getMethodIDOf(
       _classRef,
@@ -751,7 +717,7 @@ class JsonParser extends jni.JObject {
           reference,
           _id_overrideFormatFeatures,
           jni.JniCallType.objectType,
-          [reference, values, mask]).object);
+          [values, mask]).object);
 
   static final _id_nextToken = jniAccessors.getMethodIDOf(
       _classRef, "nextToken", "()Lcom/fasterxml/jackson/core/JsonToken;");
@@ -769,10 +735,7 @@ class JsonParser extends jni.JObject {
   ///   JsonParseException for decoding problems
   jsontoken_.JsonToken nextToken() =>
       const jsontoken_.$JsonTokenType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_nextToken,
-          jni.JniCallType.objectType,
-          [reference]).object);
+          reference, _id_nextToken, jni.JniCallType.objectType, []).object);
 
   static final _id_nextValue = jniAccessors.getMethodIDOf(
       _classRef, "nextValue", "()Lcom/fasterxml/jackson/core/JsonToken;");
@@ -798,10 +761,7 @@ class JsonParser extends jni.JObject {
   ///   JsonParseException for decoding problems
   jsontoken_.JsonToken nextValue() =>
       const jsontoken_.$JsonTokenType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_nextValue,
-          jni.JniCallType.objectType,
-          [reference]).object);
+          reference, _id_nextValue, jni.JniCallType.objectType, []).object);
 
   static final _id_nextFieldName = jniAccessors.getMethodIDOf(_classRef,
       "nextFieldName", "(Lcom/fasterxml/jackson/core/SerializableString;)Z");
@@ -827,7 +787,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_nextFieldName,
       jni.JniCallType.booleanType,
-      [reference, str.reference]).boolean;
+      [str.reference]).boolean;
 
   static final _id_nextFieldName1 = jniAccessors.getMethodIDOf(
       _classRef, "nextFieldName", "()Ljava/lang/String;");
@@ -845,7 +805,7 @@ class JsonParser extends jni.JObject {
   ///@since 2.5
   jni.JString nextFieldName1() =>
       const jni.JStringType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_nextFieldName1, jni.JniCallType.objectType, [reference]).object);
+          _id_nextFieldName1, jni.JniCallType.objectType, []).object);
 
   static final _id_nextTextValue = jniAccessors.getMethodIDOf(
       _classRef, "nextTextValue", "()Ljava/lang/String;");
@@ -867,8 +827,8 @@ class JsonParser extends jni.JObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   jni.JString nextTextValue() =>
-      const jni.JStringType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_nextTextValue, jni.JniCallType.objectType, [reference]).object);
+      const jni.JStringType().fromRef(jniAccessors.callMethodWithArgs(
+          reference, _id_nextTextValue, jni.JniCallType.objectType, []).object);
 
   static final _id_nextIntValue =
       jniAccessors.getMethodIDOf(_classRef, "nextIntValue", "(I)I");
@@ -896,7 +856,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_nextIntValue,
       jni.JniCallType.intType,
-      [reference, defaultValue]).integer;
+      [defaultValue]).integer;
 
   static final _id_nextLongValue =
       jniAccessors.getMethodIDOf(_classRef, "nextLongValue", "(J)J");
@@ -924,7 +884,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_nextLongValue,
       jni.JniCallType.longType,
-      [reference, defaultValue]).long;
+      [defaultValue]).long;
 
   static final _id_nextBooleanValue = jniAccessors.getMethodIDOf(
       _classRef, "nextBooleanValue", "()Ljava/lang/Boolean;");
@@ -949,11 +909,8 @@ class JsonParser extends jni.JObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   jni.JObject nextBooleanValue() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_nextBooleanValue,
-          jni.JniCallType.objectType,
-          [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_nextBooleanValue, jni.JniCallType.objectType, []).object);
 
   static final _id_skipChildren = jniAccessors.getMethodIDOf(
       _classRef, "skipChildren", "()Lcom/fasterxml/jackson/core/JsonParser;");
@@ -977,8 +934,8 @@ class JsonParser extends jni.JObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   JsonParser skipChildren() =>
-      const $JsonParserType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_skipChildren, jni.JniCallType.objectType, [reference]).object);
+      const $JsonParserType().fromRef(jniAccessors.callMethodWithArgs(
+          reference, _id_skipChildren, jni.JniCallType.objectType, []).object);
 
   static final _id_finishToken =
       jniAccessors.getMethodIDOf(_classRef, "finishToken", "()V");
@@ -998,8 +955,8 @@ class JsonParser extends jni.JObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   ///@since 2.8
-  void finishToken() => jniAccessors.callMethodWithArgs(reference,
-      _id_finishToken, jni.JniCallType.voidType, [reference]).check();
+  void finishToken() => jniAccessors.callMethodWithArgs(
+      reference, _id_finishToken, jni.JniCallType.voidType, []).check();
 
   static final _id_currentToken = jniAccessors.getMethodIDOf(
       _classRef, "currentToken", "()Lcom/fasterxml/jackson/core/JsonToken;");
@@ -1018,10 +975,7 @@ class JsonParser extends jni.JObject {
   ///@since 2.8
   jsontoken_.JsonToken currentToken() =>
       const jsontoken_.$JsonTokenType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_currentToken,
-          jni.JniCallType.objectType,
-          [reference]).object);
+          reference, _id_currentToken, jni.JniCallType.objectType, []).object);
 
   static final _id_currentTokenId =
       jniAccessors.getMethodIDOf(_classRef, "currentTokenId", "()I");
@@ -1037,8 +991,8 @@ class JsonParser extends jni.JObject {
   /// to profile performance before deciding to use this method.
   ///@since 2.8
   ///@return {@code int} matching one of constants from JsonTokenId.
-  int currentTokenId() => jniAccessors.callMethodWithArgs(reference,
-      _id_currentTokenId, jni.JniCallType.intType, [reference]).integer;
+  int currentTokenId() => jniAccessors.callMethodWithArgs(
+      reference, _id_currentTokenId, jni.JniCallType.intType, []).integer;
 
   static final _id_getCurrentToken = jniAccessors.getMethodIDOf(
       _classRef, "getCurrentToken", "()Lcom/fasterxml/jackson/core/JsonToken;");
@@ -1054,8 +1008,7 @@ class JsonParser extends jni.JObject {
       const jsontoken_.$JsonTokenType().fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_getCurrentToken,
-          jni.JniCallType.objectType,
-          [reference]).object);
+          jni.JniCallType.objectType, []).object);
 
   static final _id_getCurrentTokenId =
       jniAccessors.getMethodIDOf(_classRef, "getCurrentTokenId", "()I");
@@ -1065,8 +1018,8 @@ class JsonParser extends jni.JObject {
   /// Deprecated alias for \#currentTokenId().
   ///@return {@code int} matching one of constants from JsonTokenId.
   ///@deprecated Since 2.12 use \#currentTokenId instead
-  int getCurrentTokenId() => jniAccessors.callMethodWithArgs(reference,
-      _id_getCurrentTokenId, jni.JniCallType.intType, [reference]).integer;
+  int getCurrentTokenId() => jniAccessors.callMethodWithArgs(
+      reference, _id_getCurrentTokenId, jni.JniCallType.intType, []).integer;
 
   static final _id_hasCurrentToken =
       jniAccessors.getMethodIDOf(_classRef, "hasCurrentToken", "()Z");
@@ -1081,8 +1034,8 @@ class JsonParser extends jni.JObject {
   ///   was just constructed, encountered end-of-input
   ///   and returned null from \#nextToken, or the token
   ///   has been consumed)
-  bool hasCurrentToken() => jniAccessors.callMethodWithArgs(reference,
-      _id_hasCurrentToken, jni.JniCallType.booleanType, [reference]).boolean;
+  bool hasCurrentToken() => jniAccessors.callMethodWithArgs(
+      reference, _id_hasCurrentToken, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_hasTokenId =
       jniAccessors.getMethodIDOf(_classRef, "hasTokenId", "(I)Z");
@@ -1101,8 +1054,8 @@ class JsonParser extends jni.JObject {
   ///@param id Token id to match (from (@link JsonTokenId})
   ///@return {@code True} if the parser current points to specified token
   ///@since 2.5
-  bool hasTokenId(int id) => jniAccessors.callMethodWithArgs(reference,
-      _id_hasTokenId, jni.JniCallType.booleanType, [reference, id]).boolean;
+  bool hasTokenId(int id) => jniAccessors.callMethodWithArgs(
+      reference, _id_hasTokenId, jni.JniCallType.booleanType, [id]).boolean;
 
   static final _id_hasToken = jniAccessors.getMethodIDOf(
       _classRef, "hasToken", "(Lcom/fasterxml/jackson/core/JsonToken;)Z");
@@ -1125,7 +1078,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_hasToken,
       jni.JniCallType.booleanType,
-      [reference, t.reference]).boolean;
+      [t.reference]).boolean;
 
   static final _id_isExpectedStartArrayToken =
       jniAccessors.getMethodIDOf(_classRef, "isExpectedStartArrayToken", "()Z");
@@ -1148,11 +1101,8 @@ class JsonParser extends jni.JObject {
   ///@return True if the current token can be considered as a
   ///   start-array marker (such JsonToken\#START_ARRAY);
   ///   {@code false} if not
-  bool isExpectedStartArrayToken() => jniAccessors.callMethodWithArgs(
-      reference,
-      _id_isExpectedStartArrayToken,
-      jni.JniCallType.booleanType,
-      [reference]).boolean;
+  bool isExpectedStartArrayToken() => jniAccessors.callMethodWithArgs(reference,
+      _id_isExpectedStartArrayToken, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_isExpectedStartObjectToken = jniAccessors.getMethodIDOf(
       _classRef, "isExpectedStartObjectToken", "()Z");
@@ -1168,8 +1118,7 @@ class JsonParser extends jni.JObject {
   bool isExpectedStartObjectToken() => jniAccessors.callMethodWithArgs(
       reference,
       _id_isExpectedStartObjectToken,
-      jni.JniCallType.booleanType,
-      [reference]).boolean;
+      jni.JniCallType.booleanType, []).boolean;
 
   static final _id_isExpectedNumberIntToken =
       jniAccessors.getMethodIDOf(_classRef, "isExpectedNumberIntToken", "()Z");
@@ -1185,11 +1134,8 @@ class JsonParser extends jni.JObject {
   ///   start-array marker (such JsonToken\#VALUE_NUMBER_INT);
   ///   {@code false} if not
   ///@since 2.12
-  bool isExpectedNumberIntToken() => jniAccessors.callMethodWithArgs(
-      reference,
-      _id_isExpectedNumberIntToken,
-      jni.JniCallType.booleanType,
-      [reference]).boolean;
+  bool isExpectedNumberIntToken() => jniAccessors.callMethodWithArgs(reference,
+      _id_isExpectedNumberIntToken, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_isNaN =
       jniAccessors.getMethodIDOf(_classRef, "isNaN", "()Z");
@@ -1209,7 +1155,7 @@ class JsonParser extends jni.JObject {
   ///   JsonParseException for decoding problems
   ///@since 2.9
   bool isNaN() => jniAccessors.callMethodWithArgs(
-      reference, _id_isNaN, jni.JniCallType.booleanType, [reference]).boolean;
+      reference, _id_isNaN, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_clearCurrentToken =
       jniAccessors.getMethodIDOf(_classRef, "clearCurrentToken", "()V");
@@ -1226,8 +1172,8 @@ class JsonParser extends jni.JObject {
   /// Method was added to be used by the optional data binder, since
   /// it has to be able to consume last token used for binding (so that
   /// it will not be used again).
-  void clearCurrentToken() => jniAccessors.callMethodWithArgs(reference,
-      _id_clearCurrentToken, jni.JniCallType.voidType, [reference]).check();
+  void clearCurrentToken() => jniAccessors.callMethodWithArgs(
+      reference, _id_clearCurrentToken, jni.JniCallType.voidType, []).check();
 
   static final _id_getLastClearedToken = jniAccessors.getMethodIDOf(_classRef,
       "getLastClearedToken", "()Lcom/fasterxml/jackson/core/JsonToken;");
@@ -1245,8 +1191,7 @@ class JsonParser extends jni.JObject {
       const jsontoken_.$JsonTokenType().fromRef(jniAccessors.callMethodWithArgs(
           reference,
           _id_getLastClearedToken,
-          jni.JniCallType.objectType,
-          [reference]).object);
+          jni.JniCallType.objectType, []).object);
 
   static final _id_overrideCurrentName = jniAccessors.getMethodIDOf(
       _classRef, "overrideCurrentName", "(Ljava/lang/String;)V");
@@ -1265,7 +1210,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_overrideCurrentName,
       jni.JniCallType.voidType,
-      [reference, name.reference]).check();
+      [name.reference]).check();
 
   static final _id_getCurrentName = jniAccessors.getMethodIDOf(
       _classRef, "getCurrentName", "()Ljava/lang/String;");
@@ -1279,7 +1224,7 @@ class JsonParser extends jni.JObject {
   ///   JsonParseException for decoding problems
   jni.JString getCurrentName() =>
       const jni.JStringType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_getCurrentName, jni.JniCallType.objectType, [reference]).object);
+          _id_getCurrentName, jni.JniCallType.objectType, []).object);
 
   static final _id_currentName = jniAccessors.getMethodIDOf(
       _classRef, "currentName", "()Ljava/lang/String;");
@@ -1297,8 +1242,8 @@ class JsonParser extends jni.JObject {
   ///   JsonParseException for decoding problems
   ///@since 2.10
   jni.JString currentName() =>
-      const jni.JStringType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_currentName, jni.JniCallType.objectType, [reference]).object);
+      const jni.JStringType().fromRef(jniAccessors.callMethodWithArgs(
+          reference, _id_currentName, jni.JniCallType.objectType, []).object);
 
   static final _id_getText =
       jniAccessors.getMethodIDOf(_classRef, "getText", "()Ljava/lang/String;");
@@ -1315,8 +1260,8 @@ class JsonParser extends jni.JObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   jni.JString getText() =>
-      const jni.JStringType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_getText, jni.JniCallType.objectType, [reference]).object);
+      const jni.JStringType().fromRef(jniAccessors.callMethodWithArgs(
+          reference, _id_getText, jni.JniCallType.objectType, []).object);
 
   static final _id_getText1 =
       jniAccessors.getMethodIDOf(_classRef, "getText", "(Ljava/io/Writer;)I");
@@ -1338,11 +1283,8 @@ class JsonParser extends jni.JObject {
   ///   {@code writer}, or
   ///   JsonParseException for decoding problems
   ///@since 2.8
-  int getText1(jni.JObject writer) => jniAccessors.callMethodWithArgs(
-      reference,
-      _id_getText1,
-      jni.JniCallType.intType,
-      [reference, writer.reference]).integer;
+  int getText1(jni.JObject writer) => jniAccessors.callMethodWithArgs(reference,
+      _id_getText1, jni.JniCallType.intType, [writer.reference]).integer;
 
   static final _id_getTextCharacters =
       jniAccessors.getMethodIDOf(_classRef, "getTextCharacters", "()[C");
@@ -1380,7 +1322,7 @@ class JsonParser extends jni.JObject {
   jni.JArray<jni.JChar> getTextCharacters() =>
       const jni.JArrayType(jni.JCharType()).fromRef(jniAccessors
           .callMethodWithArgs(reference, _id_getTextCharacters,
-              jni.JniCallType.objectType, [reference]).object);
+              jni.JniCallType.objectType, []).object);
 
   static final _id_getTextLength =
       jniAccessors.getMethodIDOf(_classRef, "getTextLength", "()I");
@@ -1394,8 +1336,8 @@ class JsonParser extends jni.JObject {
   ///   textual content of the current token.
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getTextLength() => jniAccessors.callMethodWithArgs(reference,
-      _id_getTextLength, jni.JniCallType.intType, [reference]).integer;
+  int getTextLength() => jniAccessors.callMethodWithArgs(
+      reference, _id_getTextLength, jni.JniCallType.intType, []).integer;
 
   static final _id_getTextOffset =
       jniAccessors.getMethodIDOf(_classRef, "getTextOffset", "()I");
@@ -1409,8 +1351,8 @@ class JsonParser extends jni.JObject {
   ///   textual content of the current token.
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getTextOffset() => jniAccessors.callMethodWithArgs(reference,
-      _id_getTextOffset, jni.JniCallType.intType, [reference]).integer;
+  int getTextOffset() => jniAccessors.callMethodWithArgs(
+      reference, _id_getTextOffset, jni.JniCallType.intType, []).integer;
 
   static final _id_hasTextCharacters =
       jniAccessors.getMethodIDOf(_classRef, "hasTextCharacters", "()Z");
@@ -1432,7 +1374,7 @@ class JsonParser extends jni.JObject {
   ///   be efficiently returned via \#getTextCharacters; false
   ///   means that it may or may not exist
   bool hasTextCharacters() => jniAccessors.callMethodWithArgs(reference,
-      _id_hasTextCharacters, jni.JniCallType.booleanType, [reference]).boolean;
+      _id_hasTextCharacters, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_getNumberValue = jniAccessors.getMethodIDOf(
       _classRef, "getNumberValue", "()Ljava/lang/Number;");
@@ -1452,7 +1394,7 @@ class JsonParser extends jni.JObject {
   ///    content read fails (possible if values are extracted lazily)
   jni.JObject getNumberValue() =>
       const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_getNumberValue, jni.JniCallType.objectType, [reference]).object);
+          _id_getNumberValue, jni.JniCallType.objectType, []).object);
 
   static final _id_getNumberValueExact = jniAccessors.getMethodIDOf(
       _classRef, "getNumberValueExact", "()Ljava/lang/Number;");
@@ -1475,11 +1417,8 @@ class JsonParser extends jni.JObject {
   ///    content read fails (possible if values are extracted lazily)
   ///@since 2.12
   jni.JObject getNumberValueExact() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_getNumberValueExact,
-          jni.JniCallType.objectType,
-          [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_getNumberValueExact, jni.JniCallType.objectType, []).object);
 
   static final _id_getNumberType = jniAccessors.getMethodIDOf(_classRef,
       "getNumberType", "()Lcom/fasterxml/jackson/core/JsonParser\$NumberType;");
@@ -1495,8 +1434,8 @@ class JsonParser extends jni.JObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   JsonParser_NumberType getNumberType() => const $JsonParser_NumberTypeType()
-      .fromRef(jniAccessors.callMethodWithArgs(reference, _id_getNumberType,
-          jni.JniCallType.objectType, [reference]).object);
+      .fromRef(jniAccessors.callMethodWithArgs(
+          reference, _id_getNumberType, jni.JniCallType.objectType, []).object);
 
   static final _id_getByteValue =
       jniAccessors.getMethodIDOf(_classRef, "getByteValue", "()B");
@@ -1525,7 +1464,7 @@ class JsonParser extends jni.JObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   int getByteValue() => jniAccessors.callMethodWithArgs(
-      reference, _id_getByteValue, jni.JniCallType.byteType, [reference]).byte;
+      reference, _id_getByteValue, jni.JniCallType.byteType, []).byte;
 
   static final _id_getShortValue =
       jniAccessors.getMethodIDOf(_classRef, "getShortValue", "()S");
@@ -1547,8 +1486,8 @@ class JsonParser extends jni.JObject {
   ///   Java 16-bit signed {@code short} range); otherwise exception thrown
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getShortValue() => jniAccessors.callMethodWithArgs(reference,
-      _id_getShortValue, jni.JniCallType.shortType, [reference]).short;
+  int getShortValue() => jniAccessors.callMethodWithArgs(
+      reference, _id_getShortValue, jni.JniCallType.shortType, []).short;
 
   static final _id_getIntValue =
       jniAccessors.getMethodIDOf(_classRef, "getIntValue", "()I");
@@ -1571,7 +1510,7 @@ class JsonParser extends jni.JObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   int getIntValue() => jniAccessors.callMethodWithArgs(
-      reference, _id_getIntValue, jni.JniCallType.intType, [reference]).integer;
+      reference, _id_getIntValue, jni.JniCallType.intType, []).integer;
 
   static final _id_getLongValue =
       jniAccessors.getMethodIDOf(_classRef, "getLongValue", "()J");
@@ -1594,7 +1533,7 @@ class JsonParser extends jni.JObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   int getLongValue() => jniAccessors.callMethodWithArgs(
-      reference, _id_getLongValue, jni.JniCallType.longType, [reference]).long;
+      reference, _id_getLongValue, jni.JniCallType.longType, []).long;
 
   static final _id_getBigIntegerValue = jniAccessors.getMethodIDOf(
       _classRef, "getBigIntegerValue", "()Ljava/math/BigInteger;");
@@ -1614,11 +1553,8 @@ class JsonParser extends jni.JObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   jni.JObject getBigIntegerValue() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_getBigIntegerValue,
-          jni.JniCallType.objectType,
-          [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_getBigIntegerValue, jni.JniCallType.objectType, []).object);
 
   static final _id_getFloatValue =
       jniAccessors.getMethodIDOf(_classRef, "getFloatValue", "()F");
@@ -1640,8 +1576,8 @@ class JsonParser extends jni.JObject {
   ///   Java {@code float} range); otherwise exception thrown
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  double getFloatValue() => jniAccessors.callMethodWithArgs(reference,
-      _id_getFloatValue, jni.JniCallType.floatType, [reference]).float;
+  double getFloatValue() => jniAccessors.callMethodWithArgs(
+      reference, _id_getFloatValue, jni.JniCallType.floatType, []).float;
 
   static final _id_getDoubleValue =
       jniAccessors.getMethodIDOf(_classRef, "getDoubleValue", "()D");
@@ -1664,7 +1600,7 @@ class JsonParser extends jni.JObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   double getDoubleValue() => jniAccessors.callMethodWithArgs(reference,
-      _id_getDoubleValue, jni.JniCallType.doubleType, [reference]).doubleFloat;
+      _id_getDoubleValue, jni.JniCallType.doubleType, []).doubleFloat;
 
   static final _id_getDecimalValue = jniAccessors.getMethodIDOf(
       _classRef, "getDecimalValue", "()Ljava/math/BigDecimal;");
@@ -1682,7 +1618,7 @@ class JsonParser extends jni.JObject {
   ///   JsonParseException for decoding problems
   jni.JObject getDecimalValue() =>
       const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_getDecimalValue, jni.JniCallType.objectType, [reference]).object);
+          _id_getDecimalValue, jni.JniCallType.objectType, []).object);
 
   static final _id_getBooleanValue =
       jniAccessors.getMethodIDOf(_classRef, "getBooleanValue", "()Z");
@@ -1700,8 +1636,8 @@ class JsonParser extends jni.JObject {
   ///   otherwise throws JsonParseException
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  bool getBooleanValue() => jniAccessors.callMethodWithArgs(reference,
-      _id_getBooleanValue, jni.JniCallType.booleanType, [reference]).boolean;
+  bool getBooleanValue() => jniAccessors.callMethodWithArgs(
+      reference, _id_getBooleanValue, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_getEmbeddedObject = jniAccessors.getMethodIDOf(
       _classRef, "getEmbeddedObject", "()Ljava/lang/Object;");
@@ -1724,11 +1660,8 @@ class JsonParser extends jni.JObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   jni.JObject getEmbeddedObject() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_getEmbeddedObject,
-          jni.JniCallType.objectType,
-          [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_getEmbeddedObject, jni.JniCallType.objectType, []).object);
 
   static final _id_getBinaryValue = jniAccessors.getMethodIDOf(_classRef,
       "getBinaryValue", "(Lcom/fasterxml/jackson/core/Base64Variant;)[B");
@@ -1759,7 +1692,7 @@ class JsonParser extends jni.JObject {
   jni.JArray<jni.JByte> getBinaryValue(jni.JObject bv) =>
       const jni.JArrayType(jni.JByteType()).fromRef(jniAccessors
           .callMethodWithArgs(reference, _id_getBinaryValue,
-              jni.JniCallType.objectType, [reference, bv.reference]).object);
+              jni.JniCallType.objectType, [bv.reference]).object);
 
   static final _id_getBinaryValue1 =
       jniAccessors.getMethodIDOf(_classRef, "getBinaryValue", "()[B");
@@ -1776,7 +1709,7 @@ class JsonParser extends jni.JObject {
   jni.JArray<jni.JByte> getBinaryValue1() =>
       const jni.JArrayType(jni.JByteType()).fromRef(jniAccessors
           .callMethodWithArgs(reference, _id_getBinaryValue1,
-              jni.JniCallType.objectType, [reference]).object);
+              jni.JniCallType.objectType, []).object);
 
   static final _id_readBinaryValue = jniAccessors.getMethodIDOf(
       _classRef, "readBinaryValue", "(Ljava/io/OutputStream;)I");
@@ -1798,7 +1731,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_readBinaryValue,
       jni.JniCallType.intType,
-      [reference, out.reference]).integer;
+      [out.reference]).integer;
 
   static final _id_readBinaryValue1 = jniAccessors.getMethodIDOf(
       _classRef,
@@ -1816,11 +1749,8 @@ class JsonParser extends jni.JObject {
   ///   JsonParseException for decoding problems
   ///@since 2.1
   int readBinaryValue1(jni.JObject bv, jni.JObject out) =>
-      jniAccessors.callMethodWithArgs(
-          reference,
-          _id_readBinaryValue1,
-          jni.JniCallType.intType,
-          [reference, bv.reference, out.reference]).integer;
+      jniAccessors.callMethodWithArgs(reference, _id_readBinaryValue1,
+          jni.JniCallType.intType, [bv.reference, out.reference]).integer;
 
   static final _id_getValueAsInt =
       jniAccessors.getMethodIDOf(_classRef, "getValueAsInt", "()I");
@@ -1840,8 +1770,8 @@ class JsonParser extends jni.JObject {
   ///    otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getValueAsInt() => jniAccessors.callMethodWithArgs(reference,
-      _id_getValueAsInt, jni.JniCallType.intType, [reference]).integer;
+  int getValueAsInt() => jniAccessors.callMethodWithArgs(
+      reference, _id_getValueAsInt, jni.JniCallType.intType, []).integer;
 
   static final _id_getValueAsInt1 =
       jniAccessors.getMethodIDOf(_classRef, "getValueAsInt", "(I)I");
@@ -1861,8 +1791,8 @@ class JsonParser extends jni.JObject {
   ///@return {@code int} value current token is converted to, if possible; {@code def} otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getValueAsInt1(int def) => jniAccessors.callMethodWithArgs(reference,
-      _id_getValueAsInt1, jni.JniCallType.intType, [reference, def]).integer;
+  int getValueAsInt1(int def) => jniAccessors.callMethodWithArgs(
+      reference, _id_getValueAsInt1, jni.JniCallType.intType, [def]).integer;
 
   static final _id_getValueAsLong =
       jniAccessors.getMethodIDOf(_classRef, "getValueAsLong", "()J");
@@ -1882,8 +1812,8 @@ class JsonParser extends jni.JObject {
   ///    otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getValueAsLong() => jniAccessors.callMethodWithArgs(reference,
-      _id_getValueAsLong, jni.JniCallType.longType, [reference]).long;
+  int getValueAsLong() => jniAccessors.callMethodWithArgs(
+      reference, _id_getValueAsLong, jni.JniCallType.longType, []).long;
 
   static final _id_getValueAsLong1 =
       jniAccessors.getMethodIDOf(_classRef, "getValueAsLong", "(J)J");
@@ -1903,8 +1833,8 @@ class JsonParser extends jni.JObject {
   ///@return {@code long} value current token is converted to, if possible; {@code def} otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  int getValueAsLong1(int def) => jniAccessors.callMethodWithArgs(reference,
-      _id_getValueAsLong1, jni.JniCallType.longType, [reference, def]).long;
+  int getValueAsLong1(int def) => jniAccessors.callMethodWithArgs(
+      reference, _id_getValueAsLong1, jni.JniCallType.longType, [def]).long;
 
   static final _id_getValueAsDouble =
       jniAccessors.getMethodIDOf(_classRef, "getValueAsDouble", "()D");
@@ -1924,11 +1854,8 @@ class JsonParser extends jni.JObject {
   ///    otherwise
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  double getValueAsDouble() => jniAccessors.callMethodWithArgs(
-      reference,
-      _id_getValueAsDouble,
-      jni.JniCallType.doubleType,
-      [reference]).doubleFloat;
+  double getValueAsDouble() => jniAccessors.callMethodWithArgs(reference,
+      _id_getValueAsDouble, jni.JniCallType.doubleType, []).doubleFloat;
 
   static final _id_getValueAsDouble1 =
       jniAccessors.getMethodIDOf(_classRef, "getValueAsDouble", "(D)D");
@@ -1952,7 +1879,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_getValueAsDouble1,
       jni.JniCallType.doubleType,
-      [reference, def]).doubleFloat;
+      [def]).doubleFloat;
 
   static final _id_getValueAsBoolean =
       jniAccessors.getMethodIDOf(_classRef, "getValueAsBoolean", "()Z");
@@ -1973,7 +1900,7 @@ class JsonParser extends jni.JObject {
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
   bool getValueAsBoolean() => jniAccessors.callMethodWithArgs(reference,
-      _id_getValueAsBoolean, jni.JniCallType.booleanType, [reference]).boolean;
+      _id_getValueAsBoolean, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_getValueAsBoolean1 =
       jniAccessors.getMethodIDOf(_classRef, "getValueAsBoolean", "(Z)Z");
@@ -1997,7 +1924,7 @@ class JsonParser extends jni.JObject {
       reference,
       _id_getValueAsBoolean1,
       jni.JniCallType.booleanType,
-      [reference, def]).boolean;
+      [def]).boolean;
 
   static final _id_getValueAsString = jniAccessors.getMethodIDOf(
       _classRef, "getValueAsString", "()Ljava/lang/String;");
@@ -2017,11 +1944,8 @@ class JsonParser extends jni.JObject {
   ///   JsonParseException for decoding problems
   ///@since 2.1
   jni.JString getValueAsString() =>
-      const jni.JStringType().fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_getValueAsString,
-          jni.JniCallType.objectType,
-          [reference]).object);
+      const jni.JStringType().fromRef(jniAccessors.callMethodWithArgs(reference,
+          _id_getValueAsString, jni.JniCallType.objectType, []).object);
 
   static final _id_getValueAsString1 = jniAccessors.getMethodIDOf(
       _classRef, "getValueAsString", "(Ljava/lang/String;)Ljava/lang/String;");
@@ -2046,7 +1970,7 @@ class JsonParser extends jni.JObject {
           reference,
           _id_getValueAsString1,
           jni.JniCallType.objectType,
-          [reference, def.reference]).object);
+          [def.reference]).object);
 
   static final _id_canReadObjectId =
       jniAccessors.getMethodIDOf(_classRef, "canReadObjectId", "()Z");
@@ -2064,8 +1988,8 @@ class JsonParser extends jni.JObject {
   ///@return {@code True} if the format being read supports native Object Ids;
   ///    {@code false} if not
   ///@since 2.3
-  bool canReadObjectId() => jniAccessors.callMethodWithArgs(reference,
-      _id_canReadObjectId, jni.JniCallType.booleanType, [reference]).boolean;
+  bool canReadObjectId() => jniAccessors.callMethodWithArgs(
+      reference, _id_canReadObjectId, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_canReadTypeId =
       jniAccessors.getMethodIDOf(_classRef, "canReadTypeId", "()Z");
@@ -2083,8 +2007,8 @@ class JsonParser extends jni.JObject {
   ///@return {@code True} if the format being read supports native Type Ids;
   ///    {@code false} if not
   ///@since 2.3
-  bool canReadTypeId() => jniAccessors.callMethodWithArgs(reference,
-      _id_canReadTypeId, jni.JniCallType.booleanType, [reference]).boolean;
+  bool canReadTypeId() => jniAccessors.callMethodWithArgs(
+      reference, _id_canReadTypeId, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_getObjectId = jniAccessors.getMethodIDOf(
       _classRef, "getObjectId", "()Ljava/lang/Object;");
@@ -2106,8 +2030,8 @@ class JsonParser extends jni.JObject {
   ///   JsonParseException for decoding problems
   ///@since 2.3
   jni.JObject getObjectId() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_getObjectId, jni.JniCallType.objectType, [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
+          reference, _id_getObjectId, jni.JniCallType.objectType, []).object);
 
   static final _id_getTypeId = jniAccessors.getMethodIDOf(
       _classRef, "getTypeId", "()Ljava/lang/Object;");
@@ -2129,8 +2053,8 @@ class JsonParser extends jni.JObject {
   ///   JsonParseException for decoding problems
   ///@since 2.3
   jni.JObject getTypeId() =>
-      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(reference,
-          _id_getTypeId, jni.JniCallType.objectType, [reference]).object);
+      const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
+          reference, _id_getTypeId, jni.JniCallType.objectType, []).object);
 
   static final _id_readValueAs = jniAccessors.getMethodIDOf(
       _classRef, "readValueAs", "(Ljava/lang/Class;)Ljava/lang/Object;");
@@ -2166,7 +2090,7 @@ class JsonParser extends jni.JObject {
   T readValueAs<T extends jni.JObject>(
           jni.JObjType<T> $T, jni.JObject valueType) =>
       $T.fromRef(jniAccessors.callMethodWithArgs(reference, _id_readValueAs,
-          jni.JniCallType.objectType, [reference, valueType.reference]).object);
+          jni.JniCallType.objectType, [valueType.reference]).object);
 
   static final _id_readValueAs1 = jniAccessors.getMethodIDOf(
       _classRef,
@@ -2200,11 +2124,8 @@ class JsonParser extends jni.JObject {
   ///    issue at format layer
   T readValueAs1<T extends jni.JObject>(
           jni.JObjType<T> $T, jni.JObject valueTypeRef) =>
-      $T.fromRef(jniAccessors.callMethodWithArgs(
-          reference,
-          _id_readValueAs1,
-          jni.JniCallType.objectType,
-          [reference, valueTypeRef.reference]).object);
+      $T.fromRef(jniAccessors.callMethodWithArgs(reference, _id_readValueAs1,
+          jni.JniCallType.objectType, [valueTypeRef.reference]).object);
 
   static final _id_readValuesAs = jniAccessors.getMethodIDOf(
       _classRef, "readValuesAs", "(Ljava/lang/Class;)Ljava/util/Iterator;");
@@ -2226,7 +2147,7 @@ class JsonParser extends jni.JObject {
           reference,
           _id_readValuesAs,
           jni.JniCallType.objectType,
-          [reference, valueType.reference]).object);
+          [valueType.reference]).object);
 
   static final _id_readValuesAs1 = jniAccessors.getMethodIDOf(
       _classRef,
@@ -2250,7 +2171,7 @@ class JsonParser extends jni.JObject {
           reference,
           _id_readValuesAs1,
           jni.JniCallType.objectType,
-          [reference, valueTypeRef.reference]).object);
+          [valueTypeRef.reference]).object);
 
   static final _id_readValueAsTree = jniAccessors.getMethodIDOf(
       _classRef, "readValueAsTree", "()Ljava/lang/Object;");
@@ -2269,7 +2190,7 @@ class JsonParser extends jni.JObject {
   ///    issue at format layer
   T readValueAsTree<T extends jni.JObject>(jni.JObjType<T> $T) =>
       $T.fromRef(jniAccessors.callMethodWithArgs(reference, _id_readValueAsTree,
-          jni.JniCallType.objectType, [reference]).object);
+          jni.JniCallType.objectType, []).object);
 }
 
 class $JsonParserType extends jni.JObjType<JsonParser> {
@@ -2348,22 +2269,22 @@ class JsonParser_Feature extends jni.JObject {
       jniAccessors.getMethodIDOf(_classRef, "enabledByDefault", "()Z");
 
   /// from: public boolean enabledByDefault()
-  bool enabledByDefault() => jniAccessors.callMethodWithArgs(reference,
-      _id_enabledByDefault, jni.JniCallType.booleanType, [reference]).boolean;
+  bool enabledByDefault() => jniAccessors.callMethodWithArgs(
+      reference, _id_enabledByDefault, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_enabledIn =
       jniAccessors.getMethodIDOf(_classRef, "enabledIn", "(I)Z");
 
   /// from: public boolean enabledIn(int flags)
-  bool enabledIn(int flags) => jniAccessors.callMethodWithArgs(reference,
-      _id_enabledIn, jni.JniCallType.booleanType, [reference, flags]).boolean;
+  bool enabledIn(int flags) => jniAccessors.callMethodWithArgs(
+      reference, _id_enabledIn, jni.JniCallType.booleanType, [flags]).boolean;
 
   static final _id_getMask =
       jniAccessors.getMethodIDOf(_classRef, "getMask", "()I");
 
   /// from: public int getMask()
   int getMask() => jniAccessors.callMethodWithArgs(
-      reference, _id_getMask, jni.JniCallType.intType, [reference]).integer;
+      reference, _id_getMask, jni.JniCallType.intType, []).integer;
 }
 
 class $JsonParser_FeatureType extends jni.JObjType<JsonParser_Feature> {
