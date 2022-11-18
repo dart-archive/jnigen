@@ -181,6 +181,12 @@ void main() async {
           2,
         );
         expect((map.entryArray()..deletedIn(arena)).length, 2);
+        expect(
+          (map.entryArray()..deletedIn(arena))[0]
+              .key
+              .toDartString(deleteOriginal: true),
+          anyOf('Hello', 'World'),
+        );
       });
     });
   });
