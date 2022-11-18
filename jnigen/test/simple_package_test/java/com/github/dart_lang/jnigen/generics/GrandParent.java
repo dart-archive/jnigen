@@ -28,7 +28,7 @@ public class GrandParent<T> {
   }
 
   public StaticParent<T> staticParentWithSameType() {
-    return new StaticParent(value);
+    return new StaticParent<>(value);
   }
 
   // This doesn't have access to T

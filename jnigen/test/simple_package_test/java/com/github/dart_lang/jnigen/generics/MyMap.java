@@ -4,7 +4,6 @@
 
 package com.github.dart_lang.jnigen.generics;
 
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,12 +30,6 @@ public class MyMap<K, V> {
 
   public V put(K key, V value) {
     return map.put(key, value);
-  }
-
-  public MyEntry[] entryArray() {
-    return map.entrySet().stream()
-        .map(e -> new MyEntry(e.getKey(), e.getValue()))
-        .toArray(size -> (MyEntry[]) Array.newInstance(MyEntry.class, size));
   }
 
   public MyStack<MyEntry> entryStack() {
