@@ -35,7 +35,15 @@ public class MyMap<K, V> {
 
   public MyEntry[] entryArray() {
     return map.entrySet().stream()
-        .map((e) -> new MyEntry(e.getKey(), e.getValue()))
+        .map(e -> new MyEntry(e.getKey(), e.getValue()))
         .toArray(size -> (MyEntry[]) Array.newInstance(MyEntry.class, size));
+  }
+
+  public MyStack<MyEntry> entryStack() {
+    var stack = new MyStack<MyEntry>();
+    map.entrySet().stream()
+        .map(e -> new MyEntry(e.getKey(), e.getValue()))
+        .forEach(e -> stack.push(e));
+    return stack;
   }
 }

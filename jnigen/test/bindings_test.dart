@@ -185,7 +185,13 @@ void main() async {
         );
         expect((map.entryArray()..deletedIn(arena)).length, 2);
         expect(
-          (map.entryArray()..deletedIn(arena))[0]
+          ((map.entryArray()..deletedIn(arena))[0]..deletedIn(arena))
+              .key
+              .toDartString(deleteOriginal: true),
+          anyOf('Hello', 'World'),
+        );
+        expect(
+          ((map.entryStack()..deletedIn(arena)).pop()..deletedIn(arena))
               .key
               .toDartString(deleteOriginal: true),
           anyOf('Hello', 'World'),
