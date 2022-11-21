@@ -43,7 +43,7 @@ abstract class BindingsGenerator {
 
   static const String jniTypeType = '${jni}JObjType';
   static const String typeClassSuffix = 'Type';
-  // TODO(HosseinYousefi): this is a temporary fix for the name collision [#143](https://github.com/dart-lang/jnigen/issues/143).
+  // TODO(#143): this is a temporary fix for the name collision.
   static const String typeClassPrefix = '\$';
 
   static const String instanceTypeGetter = '\$type';
@@ -117,7 +117,7 @@ abstract class BindingsGenerator {
   String dartTypeParams(List<TypeParam> typeParams,
       {required bool includeExtends}) {
     if (typeParams.isEmpty) return '';
-    // TODO(HosseinYousefi): resolve the actual type being extended, if any (#144)[https://github.com/dart-lang/jnigen/issues/144]
+    // TODO(#144): resolve the actual type being extended, if any.
     final ifExtendsIncluded = includeExtends ? ' extends $jniObjectType' : '';
     final args =
         typeParams.map((e) => '${e.name}$ifExtendsIncluded').join(' ,');

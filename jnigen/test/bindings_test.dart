@@ -268,8 +268,8 @@ void main() async {
           (exampleParent.value..deletedIn(arena)).getInternal(),
           0,
         );
-        // TODO(HosseinYousefi): test constructing Child, currently does not work due
-        // to a problem with C-bindings (#139)[https://github.com/dart-lang/jnigen/issues/139].
+        // TODO(#139): test constructing Child, currently does not work due
+        // to a problem with C-bindings.
       });
     });
   });

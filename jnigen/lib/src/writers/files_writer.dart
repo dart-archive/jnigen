@@ -23,12 +23,12 @@ String getFileClassName(String binaryName) {
 /// Resolver for file-per-package mapping, in which the java package hierarchy
 /// is mirrored.
 class FilePathResolver implements SymbolResolver {
-  FilePathResolver(
-    this.classes,
-    this.importMap,
-    this.currentClass,
-    this.inputClassNames,
-  );
+  FilePathResolver({
+    this.classes = const {},
+    this.importMap = const {},
+    required this.currentClass,
+    this.inputClassNames = const {},
+  });
 
   static const Map<String, String> predefined = {
     'java.lang.String': 'jni.JString',
@@ -244,10 +244,10 @@ class FilesWriter extends BindingsWriter {
       final dartFile = await File.fromUri(dartFileUri).create(recursive: true);
       log.fine('$fileClassName -> ${dartFile.path}');
       final resolver = FilePathResolver(
-        classesByName,
-        config.importMap ?? const {},
-        fileClassName,
-        classNames,
+        classes: classesByName,
+        importMap: config.importMap ?? const {},
+        currentClass: fileClassName,
+        inputClassNames: classNames,
       );
 
       final classesInFile = files[fileClassName]!;
