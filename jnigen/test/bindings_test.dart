@@ -168,12 +168,8 @@ void main() async {
     test('MyMap<K, V>', () {
       using((arena) {
         final map = MyMap(JString.type, Example.type)..deletedIn(arena);
-        final helloExample = Example()
-          ..setInternal(1)
-          ..deletedIn(arena);
-        final worldExample = Example()
-          ..setInternal(2)
-          ..deletedIn(arena);
+        final helloExample = Example.ctor1(1)..deletedIn(arena);
+        final worldExample = Example.ctor1(2)..deletedIn(arena);
         map.put('Hello'.toJString()..deletedIn(arena), helloExample);
         map.put('World'.toJString()..deletedIn(arena), worldExample);
         expect(
@@ -273,7 +269,7 @@ void main() async {
           0,
         );
         // TODO(HosseinYousefi): test constructing Child, currently does not work due
-        // to a problem with C-bindings
+        // to a problem with C-bindings (#139)[https://github.com/dart-lang/jnigen/issues/139].
       });
     });
   });

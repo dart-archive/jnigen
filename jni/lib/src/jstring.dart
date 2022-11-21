@@ -15,6 +15,9 @@ class JStringType extends JObjType<JString> {
 }
 
 class JString extends JObject {
+  @override
+  JObjType<JObject> get $type => _$type ??= type;
+
   /// The type which includes information such as the signature of this class.
   static const JObjType<JString> type = JStringType();
 

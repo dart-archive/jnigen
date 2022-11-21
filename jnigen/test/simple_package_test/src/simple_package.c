@@ -38,6 +38,23 @@ JniResult Example__ctor() {
                      .exception = check_exception()};
 }
 
+jmethodID _m_Example__ctor1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__ctor1(int32_t internal) {
+  load_env();
+  load_class_gr(&_c_Example,
+                "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Example, &_m_Example__ctor1, "<init>", "(I)V");
+  if (_m_Example__ctor1 == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->NewObject(jniEnv, _c_Example, _m_Example__ctor1, internal);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
 jmethodID _m_Example__whichExample = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Example__whichExample(jobject self_) {

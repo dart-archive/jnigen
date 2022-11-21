@@ -59,7 +59,7 @@ class JArray<E> extends JObject {
     assert(!fill.isNull, "fill must not be null.");
     final clazz = fill.getClass();
     final array = JArray<E>.fromRef(
-      fill.$type as JType<E>,
+      fill.$type as JObjType<E>,
       _accessors
           .newObjectArray(length, clazz.reference, fill.reference)
           .checkedRef,
