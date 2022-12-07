@@ -426,8 +426,9 @@ abstract class BindingsGenerator {
 
         final args = allTypeParams.join(',');
 
-        final canBeConst = allTypeParams.length == paramTypeClasses.length &&
-            paramTypeClasses.every((e) => e.canBeConst);
+        final canBeConst = (allTypeParams.length == paramTypeClasses.length &&
+                paramTypeClasses.every((e) => e.canBeConst)) ||
+            allTypeParams.isEmpty;
         final ifConst = addConst && canBeConst ? 'const ' : '';
 
         if (resolved == null || resolved == jniObjectType) {

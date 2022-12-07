@@ -407,3 +407,925 @@ extension $BuildArray on jni.JArray<Build> {
     (this as jni.JArray<jni.JObject>)[index] = value;
   }
 }
+
+/// from: java.util.HashMap
+class HashMap<K extends jni.JObject, V extends jni.JObject>
+    extends jni.JObject {
+  late final jni.JObjType? _$type;
+  @override
+  jni.JObjType get $type => _$type ??= type(
+        $K,
+        $V,
+      );
+
+  final jni.JObjType<K> $K;
+  final jni.JObjType<V> $V;
+
+  HashMap.fromRef(
+    this.$K,
+    this.$V,
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  /// The type which includes information such as the signature of this class.
+  static $HashMapType<K, V> type<K extends jni.JObject, V extends jni.JObject>(
+    jni.JObjType<K> $K,
+    jni.JObjType<V> $V,
+  ) {
+    return $HashMapType(
+      $K,
+      $V,
+    );
+  }
+
+  static final _ctor = jniLookup<
+              ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Float)>>(
+          "HashMap__ctor")
+      .asFunction<jni.JniResult Function(int, double)>();
+
+  /// from: public void <init>(int i, float f)
+  HashMap(this.$K, this.$V, int i, double f)
+      : super.fromRef(_ctor(i, f).object);
+
+  static final _ctor1 =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "HashMap__ctor1")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: public void <init>(int i)
+  HashMap.ctor1(this.$K, this.$V, int i) : super.fromRef(_ctor1(i).object);
+
+  static final _ctor2 =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("HashMap__ctor2")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: public void <init>()
+  HashMap.ctor2(this.$K, this.$V) : super.fromRef(_ctor2().object);
+
+  static final _ctor3 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("HashMap__ctor3")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(java.util.Map map)
+  HashMap.ctor3(this.$K, this.$V, jni.JObject map)
+      : super.fromRef(_ctor3(map.reference).object);
+
+  static final _size = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("HashMap__size")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int size()
+  int size() => _size(reference).integer;
+
+  static final _isEmpty = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("HashMap__isEmpty")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public boolean isEmpty()
+  bool isEmpty() => _isEmpty(reference).boolean;
+
+  static final _get0 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__get0")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V get(java.lang.Object object)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V get0(jni.JObject object) =>
+      $V.fromRef(_get0(reference, object.reference).object);
+
+  static final _containsKey = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__containsKey")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public boolean containsKey(java.lang.Object object)
+  bool containsKey(jni.JObject object) =>
+      _containsKey(reference, object.reference).boolean;
+
+  static final _put = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__put")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V put(K object, V object1)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V put(K object, V object1) =>
+      $V.fromRef(_put(reference, object.reference, object1.reference).object);
+
+  static final _putAll = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__putAll")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void putAll(java.util.Map map)
+  void putAll(jni.JObject map) => _putAll(reference, map.reference).check();
+
+  static final _remove = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__remove")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V remove(java.lang.Object object)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V remove(jni.JObject object) =>
+      $V.fromRef(_remove(reference, object.reference).object);
+
+  static final _clear = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("HashMap__clear")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void clear()
+  void clear() => _clear(reference).check();
+
+  static final _containsValue = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__containsValue")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public boolean containsValue(java.lang.Object object)
+  bool containsValue(jni.JObject object) =>
+      _containsValue(reference, object.reference).boolean;
+
+  static final _keySet = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("HashMap__keySet")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.util.Set keySet()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject keySet() =>
+      const jni.JObjectType().fromRef(_keySet(reference).object);
+
+  static final _values = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("HashMap__values")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.util.Collection values()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject values() =>
+      const jni.JObjectType().fromRef(_values(reference).object);
+
+  static final _entrySet = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("HashMap__entrySet")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.util.Set entrySet()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject entrySet() =>
+      const jni.JObjectType().fromRef(_entrySet(reference).object);
+
+  static final _getOrDefault = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__getOrDefault")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V getOrDefault(java.lang.Object object, V object1)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V getOrDefault(jni.JObject object, V object1) => $V.fromRef(
+      _getOrDefault(reference, object.reference, object1.reference).object);
+
+  static final _putIfAbsent = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__putIfAbsent")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V putIfAbsent(K object, V object1)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V putIfAbsent(K object, V object1) => $V.fromRef(
+      _putIfAbsent(reference, object.reference, object1.reference).object);
+
+  static final _remove1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__remove1")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public boolean remove(java.lang.Object object, java.lang.Object object1)
+  bool remove1(jni.JObject object, jni.JObject object1) =>
+      _remove1(reference, object.reference, object1.reference).boolean;
+
+  static final _replace = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__replace")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public boolean replace(K object, V object1, V object2)
+  bool replace(K object, V object1, V object2) => _replace(
+          reference, object.reference, object1.reference, object2.reference)
+      .boolean;
+
+  static final _replace1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__replace1")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V replace(K object, V object1)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V replace1(K object, V object1) => $V.fromRef(
+      _replace1(reference, object.reference, object1.reference).object);
+
+  static final _computeIfAbsent = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__computeIfAbsent")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V computeIfAbsent(K object, java.util.function.Function function)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V computeIfAbsent(K object, jni.JObject function) => $V.fromRef(
+      _computeIfAbsent(reference, object.reference, function.reference).object);
+
+  static final _computeIfPresent = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__computeIfPresent")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V computeIfPresent(K object, java.util.function.BiFunction biFunction)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V computeIfPresent(K object, jni.JObject biFunction) => $V.fromRef(
+      _computeIfPresent(reference, object.reference, biFunction.reference)
+          .object);
+
+  static final _compute = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__compute")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V compute(K object, java.util.function.BiFunction biFunction)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V compute(K object, jni.JObject biFunction) => $V.fromRef(
+      _compute(reference, object.reference, biFunction.reference).object);
+
+  static final _merge = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__merge")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public V merge(K object, V object1, java.util.function.BiFunction biFunction)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  V merge(K object, V object1, jni.JObject biFunction) => $V.fromRef(_merge(
+          reference, object.reference, object1.reference, biFunction.reference)
+      .object);
+
+  static final _forEach = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__forEach")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void forEach(java.util.function.BiConsumer biConsumer)
+  void forEach(jni.JObject biConsumer) =>
+      _forEach(reference, biConsumer.reference).check();
+
+  static final _replaceAll = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("HashMap__replaceAll")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void replaceAll(java.util.function.BiFunction biFunction)
+  void replaceAll(jni.JObject biFunction) =>
+      _replaceAll(reference, biFunction.reference).check();
+
+  static final _clone = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("HashMap__clone")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.Object clone()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject clone() =>
+      const jni.JObjectType().fromRef(_clone(reference).object);
+}
+
+class $HashMapType<K extends jni.JObject, V extends jni.JObject>
+    extends jni.JObjType<HashMap<K, V>> {
+  final jni.JObjType<K> $K;
+  final jni.JObjType<V> $V;
+
+  const $HashMapType(
+    this.$K,
+    this.$V,
+  );
+
+  @override
+  String get signature => r"Ljava/util/HashMap;";
+
+  @override
+  HashMap<K, V> fromRef(jni.JObjectPtr ref) => HashMap.fromRef($K, $V, ref);
+}
+
+extension $HashMapArray<K extends jni.JObject, V extends jni.JObject>
+    on jni.JArray<HashMap<K, V>> {
+  HashMap<K, V> operator [](int index) {
+    return (elementType as $HashMapType<K, V>)
+        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
+  }
+
+  void operator []=(int index, HashMap<K, V> value) {
+    (this as jni.JArray<jni.JObject>)[index] = value;
+  }
+}
+
+/// from: java.lang.Integer
+class Integer extends jni.JObject {
+  late final jni.JObjType? _$type;
+  @override
+  jni.JObjType get $type => _$type ??= type;
+
+  Integer.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $IntegerType();
+
+  /// from: static public final int BYTES
+  static const BYTES = 4;
+
+  /// from: static public final int MAX_VALUE
+  static const MAX_VALUE = 2147483647;
+
+  /// from: static public final int MIN_VALUE
+  static const MIN_VALUE = -2147483648;
+
+  /// from: static public final int SIZE
+  static const SIZE = 32;
+
+  static final _get_TYPE =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "get_Integer__TYPE")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: static public final java.lang.Class TYPE
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JObject get TYPE =>
+      const jni.JObjectType().fromRef(_get_TYPE().object);
+
+  static final _ctor =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__ctor")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: public void <init>(int i)
+  Integer(int i) : super.fromRef(_ctor(i).object);
+
+  static final _ctor1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("Integer__ctor1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(java.lang.String string)
+  Integer.ctor1(jni.JString string)
+      : super.fromRef(_ctor1(string.reference).object);
+
+  static final _toString1 = jniLookup<
+              ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Int32)>>(
+          "Integer__toString1")
+      .asFunction<jni.JniResult Function(int, int)>();
+
+  /// from: static public java.lang.String toString(int i, int i1)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JString toString1(int i, int i1) =>
+      const jni.JStringType().fromRef(_toString1(i, i1).object);
+
+  static final _toUnsignedString = jniLookup<
+              ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Int32)>>(
+          "Integer__toUnsignedString")
+      .asFunction<jni.JniResult Function(int, int)>();
+
+  /// from: static public java.lang.String toUnsignedString(int i, int i1)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JString toUnsignedString(int i, int i1) =>
+      const jni.JStringType().fromRef(_toUnsignedString(i, i1).object);
+
+  static final _toHexString =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__toHexString")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public java.lang.String toHexString(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JString toHexString(int i) =>
+      const jni.JStringType().fromRef(_toHexString(i).object);
+
+  static final _toOctalString =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__toOctalString")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public java.lang.String toOctalString(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JString toOctalString(int i) =>
+      const jni.JStringType().fromRef(_toOctalString(i).object);
+
+  static final _toBinaryString =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__toBinaryString")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public java.lang.String toBinaryString(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JString toBinaryString(int i) =>
+      const jni.JStringType().fromRef(_toBinaryString(i).object);
+
+  static final _toString2 =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__toString2")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public java.lang.String toString(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JString toString2(int i) =>
+      const jni.JStringType().fromRef(_toString2(i).object);
+
+  static final _toUnsignedString1 =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__toUnsignedString1")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public java.lang.String toUnsignedString(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JString toUnsignedString1(int i) =>
+      const jni.JStringType().fromRef(_toUnsignedString1(i).object);
+
+  static final _parseInt = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("Integer__parseInt")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: static public int parseInt(java.lang.String string, int i)
+  static int parseInt(jni.JString string, int i) =>
+      _parseInt(string.reference, i).integer;
+
+  static final _parseInt1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Integer__parseInt1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public int parseInt(java.lang.String string)
+  static int parseInt1(jni.JString string) =>
+      _parseInt1(string.reference).integer;
+
+  static final _parseUnsignedInt = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Int32)>>("Integer__parseUnsignedInt")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: static public int parseUnsignedInt(java.lang.String string, int i)
+  static int parseUnsignedInt(jni.JString string, int i) =>
+      _parseUnsignedInt(string.reference, i).integer;
+
+  static final _parseUnsignedInt1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Integer__parseUnsignedInt1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public int parseUnsignedInt(java.lang.String string)
+  static int parseUnsignedInt1(jni.JString string) =>
+      _parseUnsignedInt1(string.reference).integer;
+
+  static final _valueOf = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("Integer__valueOf")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: static public java.lang.Integer valueOf(java.lang.String string, int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static Integer valueOf(jni.JString string, int i) =>
+      const $IntegerType().fromRef(_valueOf(string.reference, i).object);
+
+  static final _valueOf1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Integer__valueOf1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public java.lang.Integer valueOf(java.lang.String string)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static Integer valueOf1(jni.JString string) =>
+      const $IntegerType().fromRef(_valueOf1(string.reference).object);
+
+  static final _valueOf2 =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__valueOf2")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public java.lang.Integer valueOf(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static Integer valueOf2(int i) =>
+      const $IntegerType().fromRef(_valueOf2(i).object);
+
+  static final _byteValue = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Integer__byteValue")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public byte byteValue()
+  int byteValue() => _byteValue(reference).byte;
+
+  static final _shortValue = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Integer__shortValue")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public short shortValue()
+  int shortValue() => _shortValue(reference).short;
+
+  static final _intValue = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Integer__intValue")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int intValue()
+  int intValue() => _intValue(reference).integer;
+
+  static final _longValue = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Integer__longValue")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public long longValue()
+  int longValue() => _longValue(reference).long;
+
+  static final _floatValue = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Integer__floatValue")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public float floatValue()
+  double floatValue() => _floatValue(reference).float;
+
+  static final _doubleValue = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Integer__doubleValue")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public double doubleValue()
+  double doubleValue() => _doubleValue(reference).doubleFloat;
+
+  static final _toString3 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Integer__toString3")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.String toString()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JString toString3() =>
+      const jni.JStringType().fromRef(_toString3(reference).object);
+
+  static final _hashCode1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Integer__hashCode1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int hashCode()
+  int hashCode1() => _hashCode1(reference).integer;
+
+  static final _hashCode2 =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__hashCode2")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public int hashCode(int i)
+  static int hashCode2(int i) => _hashCode2(i).integer;
+
+  static final _equals1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("Integer__equals1")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public boolean equals(java.lang.Object object)
+  bool equals1(jni.JObject object) =>
+      _equals1(reference, object.reference).boolean;
+
+  static final _getInteger = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Integer__getInteger")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public java.lang.Integer getInteger(java.lang.String string)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static Integer getInteger(jni.JString string) =>
+      const $IntegerType().fromRef(_getInteger(string.reference).object);
+
+  static final _getInteger1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("Integer__getInteger1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: static public java.lang.Integer getInteger(java.lang.String string, int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static Integer getInteger1(jni.JString string, int i) =>
+      const $IntegerType().fromRef(_getInteger1(string.reference, i).object);
+
+  static final _getInteger2 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("Integer__getInteger2")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public java.lang.Integer getInteger(java.lang.String string, java.lang.Integer integer)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static Integer getInteger2(jni.JString string, Integer integer) =>
+      const $IntegerType()
+          .fromRef(_getInteger2(string.reference, integer.reference).object);
+
+  static final _decode = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("Integer__decode")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public java.lang.Integer decode(java.lang.String string)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static Integer decode(jni.JString string) =>
+      const $IntegerType().fromRef(_decode(string.reference).object);
+
+  static final _compareTo = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("Integer__compareTo")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int compareTo(java.lang.Integer integer)
+  int compareTo(Integer integer) =>
+      _compareTo(reference, integer.reference).integer;
+
+  static final _compare = jniLookup<
+              ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Int32)>>(
+          "Integer__compare")
+      .asFunction<jni.JniResult Function(int, int)>();
+
+  /// from: static public int compare(int i, int i1)
+  static int compare(int i, int i1) => _compare(i, i1).integer;
+
+  static final _compareUnsigned = jniLookup<
+              ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Int32)>>(
+          "Integer__compareUnsigned")
+      .asFunction<jni.JniResult Function(int, int)>();
+
+  /// from: static public int compareUnsigned(int i, int i1)
+  static int compareUnsigned(int i, int i1) => _compareUnsigned(i, i1).integer;
+
+  static final _toUnsignedLong =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__toUnsignedLong")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public long toUnsignedLong(int i)
+  static int toUnsignedLong(int i) => _toUnsignedLong(i).long;
+
+  static final _divideUnsigned = jniLookup<
+              ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Int32)>>(
+          "Integer__divideUnsigned")
+      .asFunction<jni.JniResult Function(int, int)>();
+
+  /// from: static public int divideUnsigned(int i, int i1)
+  static int divideUnsigned(int i, int i1) => _divideUnsigned(i, i1).integer;
+
+  static final _remainderUnsigned = jniLookup<
+              ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Int32)>>(
+          "Integer__remainderUnsigned")
+      .asFunction<jni.JniResult Function(int, int)>();
+
+  /// from: static public int remainderUnsigned(int i, int i1)
+  static int remainderUnsigned(int i, int i1) =>
+      _remainderUnsigned(i, i1).integer;
+
+  static final _highestOneBit =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__highestOneBit")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public int highestOneBit(int i)
+  static int highestOneBit(int i) => _highestOneBit(i).integer;
+
+  static final _lowestOneBit =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__lowestOneBit")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public int lowestOneBit(int i)
+  static int lowestOneBit(int i) => _lowestOneBit(i).integer;
+
+  static final _numberOfLeadingZeros =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__numberOfLeadingZeros")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public int numberOfLeadingZeros(int i)
+  static int numberOfLeadingZeros(int i) => _numberOfLeadingZeros(i).integer;
+
+  static final _numberOfTrailingZeros =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__numberOfTrailingZeros")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public int numberOfTrailingZeros(int i)
+  static int numberOfTrailingZeros(int i) => _numberOfTrailingZeros(i).integer;
+
+  static final _bitCount =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__bitCount")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public int bitCount(int i)
+  static int bitCount(int i) => _bitCount(i).integer;
+
+  static final _rotateLeft = jniLookup<
+              ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Int32)>>(
+          "Integer__rotateLeft")
+      .asFunction<jni.JniResult Function(int, int)>();
+
+  /// from: static public int rotateLeft(int i, int i1)
+  static int rotateLeft(int i, int i1) => _rotateLeft(i, i1).integer;
+
+  static final _rotateRight = jniLookup<
+              ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Int32)>>(
+          "Integer__rotateRight")
+      .asFunction<jni.JniResult Function(int, int)>();
+
+  /// from: static public int rotateRight(int i, int i1)
+  static int rotateRight(int i, int i1) => _rotateRight(i, i1).integer;
+
+  static final _reverse =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__reverse")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public int reverse(int i)
+  static int reverse(int i) => _reverse(i).integer;
+
+  static final _signum =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__signum")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public int signum(int i)
+  static int signum(int i) => _signum(i).integer;
+
+  static final _reverseBytes =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Integer__reverseBytes")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public int reverseBytes(int i)
+  static int reverseBytes(int i) => _reverseBytes(i).integer;
+
+  static final _sum = jniLookup<
+              ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Int32)>>(
+          "Integer__sum")
+      .asFunction<jni.JniResult Function(int, int)>();
+
+  /// from: static public int sum(int i, int i1)
+  static int sum(int i, int i1) => _sum(i, i1).integer;
+
+  static final _max = jniLookup<
+              ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Int32)>>(
+          "Integer__max")
+      .asFunction<jni.JniResult Function(int, int)>();
+
+  /// from: static public int max(int i, int i1)
+  static int max(int i, int i1) => _max(i, i1).integer;
+
+  static final _min = jniLookup<
+              ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Int32)>>(
+          "Integer__min")
+      .asFunction<jni.JniResult Function(int, int)>();
+
+  /// from: static public int min(int i, int i1)
+  static int min(int i, int i1) => _min(i, i1).integer;
+
+  static final _compareTo1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("Integer__compareTo1")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int compareTo(java.lang.Object object)
+  int compareTo1(jni.JObject object) =>
+      _compareTo1(reference, object.reference).integer;
+}
+
+class $IntegerType extends jni.JObjType<Integer> {
+  const $IntegerType();
+
+  @override
+  String get signature => r"Ljava/lang/Integer;";
+
+  @override
+  Integer fromRef(jni.JObjectPtr ref) => Integer.fromRef(ref);
+}
+
+extension $IntegerArray on jni.JArray<Integer> {
+  Integer operator [](int index) {
+    return (elementType as $IntegerType)
+        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
+  }
+
+  void operator []=(int index, Integer value) {
+    (this as jni.JArray<jni.JObject>)[index] = value;
+  }
+}
