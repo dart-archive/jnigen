@@ -10,43 +10,43 @@ import com.github.dart_lang.jnigen.apisummarizer.elements.TypeUsage;
 import org.objectweb.asm.signature.SignatureVisitor;
 
 public class AsmClassSignatureVisitor extends SignatureVisitor {
-    private final ClassDecl decl;
-    private int interfaceIndex = -1;
+  private final ClassDecl decl;
+  private int interfaceIndex = -1;
 
-    public AsmClassSignatureVisitor(ClassDecl decl) {
-        super(AsmConstants.API);
-        this.decl = decl;
-    }
+  public AsmClassSignatureVisitor(ClassDecl decl) {
+    super(AsmConstants.API);
+    this.decl = decl;
+  }
 
-    @Override
-    public void visitFormalTypeParameter(String name) {
-        var typeParam = new TypeParam();
-        typeParam.name = name;
-        decl.typeParams.add(typeParam);
-    }
+  @Override
+  public void visitFormalTypeParameter(String name) {
+    var typeParam = new TypeParam();
+    typeParam.name = name;
+    decl.typeParams.add(typeParam);
+  }
 
-    @Override
-    public SignatureVisitor visitClassBound() {
-        var typeUsage = new TypeUsage();
-        decl.typeParams.get(decl.typeParams.size() - 1).bounds.add(typeUsage);
-        return new AsmTypeUsageSignatureVisitor(typeUsage);
-    }
+  @Override
+  public SignatureVisitor visitClassBound() {
+    var typeUsage = new TypeUsage();
+    decl.typeParams.get(decl.typeParams.size() - 1).bounds.add(typeUsage);
+    return new AsmTypeUsageSignatureVisitor(typeUsage);
+  }
 
-    @Override
-    public SignatureVisitor visitInterfaceBound() {
-        var typeUsage = new TypeUsage();
-        decl.typeParams.get(decl.typeParams.size() - 1).bounds.add(typeUsage);
-        return new AsmTypeUsageSignatureVisitor(typeUsage);
-    }
+  @Override
+  public SignatureVisitor visitInterfaceBound() {
+    var typeUsage = new TypeUsage();
+    decl.typeParams.get(decl.typeParams.size() - 1).bounds.add(typeUsage);
+    return new AsmTypeUsageSignatureVisitor(typeUsage);
+  }
 
-    @Override
-    public SignatureVisitor visitSuperclass() {
-        return new AsmTypeUsageSignatureVisitor(decl.superclass);
-    }
+  @Override
+  public SignatureVisitor visitSuperclass() {
+    return new AsmTypeUsageSignatureVisitor(decl.superclass);
+  }
 
-    @Override
-    public SignatureVisitor visitInterface() {
-        interfaceIndex++;
-        return new AsmTypeUsageSignatureVisitor(decl.interfaces.get(interfaceIndex));
-    }
+  @Override
+  public SignatureVisitor visitInterface() {
+    interfaceIndex++;
+    return new AsmTypeUsageSignatureVisitor(decl.interfaces.get(interfaceIndex));
+  }
 }

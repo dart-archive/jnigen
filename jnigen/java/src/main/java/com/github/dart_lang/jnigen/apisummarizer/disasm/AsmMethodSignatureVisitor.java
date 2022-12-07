@@ -5,51 +5,50 @@
 package com.github.dart_lang.jnigen.apisummarizer.disasm;
 
 import com.github.dart_lang.jnigen.apisummarizer.elements.Method;
-import com.github.dart_lang.jnigen.apisummarizer.elements.Param;
 import com.github.dart_lang.jnigen.apisummarizer.elements.TypeParam;
 import com.github.dart_lang.jnigen.apisummarizer.elements.TypeUsage;
 import org.objectweb.asm.signature.SignatureVisitor;
 
 public class AsmMethodSignatureVisitor extends SignatureVisitor {
-    private final Method method;
-    private int paramIndex = -1;
+  private final Method method;
+  private int paramIndex = -1;
 
-    public AsmMethodSignatureVisitor(Method method) {
-        super(AsmConstants.API);
-        this.method = method;
-    }
+  public AsmMethodSignatureVisitor(Method method) {
+    super(AsmConstants.API);
+    this.method = method;
+  }
 
-    @Override
-    public void visitFormalTypeParameter(String name) {
-        var typeParam = new TypeParam();
-        typeParam.name = name;
-        method.typeParams.add(typeParam);
-    }
+  @Override
+  public void visitFormalTypeParameter(String name) {
+    var typeParam = new TypeParam();
+    typeParam.name = name;
+    method.typeParams.add(typeParam);
+  }
 
-    @Override
-    public SignatureVisitor visitClassBound() {
-        var typeUsage = new TypeUsage();
-        method.typeParams.get(method.typeParams.size() - 1).bounds.add(typeUsage);
-        return new AsmTypeUsageSignatureVisitor(typeUsage);
-    }
+  @Override
+  public SignatureVisitor visitClassBound() {
+    var typeUsage = new TypeUsage();
+    method.typeParams.get(method.typeParams.size() - 1).bounds.add(typeUsage);
+    return new AsmTypeUsageSignatureVisitor(typeUsage);
+  }
 
-    @Override
-    public SignatureVisitor visitInterfaceBound() {
-        var typeUsage = new TypeUsage();
-        method.typeParams.get(method.typeParams.size() - 1).bounds.add(typeUsage);
-        return new AsmTypeUsageSignatureVisitor(typeUsage);
-    }
+  @Override
+  public SignatureVisitor visitInterfaceBound() {
+    var typeUsage = new TypeUsage();
+    method.typeParams.get(method.typeParams.size() - 1).bounds.add(typeUsage);
+    return new AsmTypeUsageSignatureVisitor(typeUsage);
+  }
 
-    @Override
-    public SignatureVisitor visitReturnType() {
-        var typeUsage = new TypeUsage();
-        method.returnType = typeUsage;
-        return new AsmTypeUsageSignatureVisitor(typeUsage);
-    }
+  @Override
+  public SignatureVisitor visitReturnType() {
+    var typeUsage = new TypeUsage();
+    method.returnType = typeUsage;
+    return new AsmTypeUsageSignatureVisitor(typeUsage);
+  }
 
-    @Override
-    public SignatureVisitor visitParameterType() {
-        paramIndex++;
-        return new AsmTypeUsageSignatureVisitor(method.params.get(paramIndex).type);
-    }
+  @Override
+  public SignatureVisitor visitParameterType() {
+    paramIndex++;
+    return new AsmTypeUsageSignatureVisitor(method.params.get(paramIndex).type);
+  }
 }
