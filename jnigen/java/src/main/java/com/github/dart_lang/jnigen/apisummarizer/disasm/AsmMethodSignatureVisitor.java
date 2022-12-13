@@ -28,6 +28,8 @@ public class AsmMethodSignatureVisitor extends SignatureVisitor {
   @Override
   public SignatureVisitor visitClassBound() {
     var typeUsage = new TypeUsage();
+    // Method initially has no type parameters. In visitFormalTypeParameter we add them
+    // and sequentially visitClassBound and visitInterfaceBound.
     method.typeParams.get(method.typeParams.size() - 1).bounds.add(typeUsage);
     return new AsmTypeUsageSignatureVisitor(typeUsage);
   }
@@ -41,14 +43,18 @@ public class AsmMethodSignatureVisitor extends SignatureVisitor {
 
   @Override
   public SignatureVisitor visitReturnType() {
-    var typeUsage = new TypeUsage();
-    method.returnType = typeUsage;
-    return new AsmTypeUsageSignatureVisitor(typeUsage);
+    return new AsmTypeUsageSignatureVisitor(method.returnType);
   }
 
   @Override
   public SignatureVisitor visitParameterType() {
     paramIndex++;
     return new AsmTypeUsageSignatureVisitor(method.params.get(paramIndex).type);
+  }
+
+  @Override
+  public SignatureVisitor visitExceptionType() {
+    // Do nothing.
+    return new AsmTypeUsageSignatureVisitor(new TypeUsage());
   }
 }

@@ -28,6 +28,8 @@ public class AsmClassSignatureVisitor extends SignatureVisitor {
   @Override
   public SignatureVisitor visitClassBound() {
     var typeUsage = new TypeUsage();
+    // ClassDecl initially has no type parameters. In visitFormalTypeParameter we add them
+    // and sequentially visitClassBound and visitInterfaceBound.
     decl.typeParams.get(decl.typeParams.size() - 1).bounds.add(typeUsage);
     return new AsmTypeUsageSignatureVisitor(typeUsage);
   }
