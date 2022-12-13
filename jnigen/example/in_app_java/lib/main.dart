@@ -11,17 +11,11 @@ import 'android_utils.dart';
 
 JObject activity = JObject.fromRef(Jni.getCurrentActivity());
 
-final hashmap = HashMap.ctor2(JString.type, Integer.type);
-
-extension IntegerX on Integer {
-  Integer operator +(int val) {
-    return Integer(intValue() + val);
-  }
-}
+final hashmap = HashMap.ctor2(JString.type, JString.type);
 
 extension IntX on int {
-  Integer toJInteger() {
-    return Integer(this);
+  JString toJString() {
+    return toString().toJString();
   }
 }
 
@@ -29,9 +23,11 @@ extension IntX on int {
 /// as Toast.
 void showToast() {
   final toastCount =
-      hashmap.getOrDefault("toastCount".toJString(), 0.toJInteger()) + 1;
-  hashmap.put("toastCount".toJString(), toastCount);
-  final message = '${toastCount.intValue()} - ${Build.MODEL.toDartString()}';
+      hashmap.getOrDefault("toastCount".toJString(), 0.toJString());
+  final newToastCount = (int.parse(toastCount.toDartString()) + 1).toJString();
+  hashmap.put("toastCount".toJString(), newToastCount);
+  final message =
+      '${newToastCount.toDartString()} - ${Build.MODEL.toDartString()}';
   AndroidUtils.showToast(activity, message.toJString(), 0);
 }
 
