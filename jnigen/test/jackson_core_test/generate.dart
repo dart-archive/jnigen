@@ -56,6 +56,7 @@ Config getConfig(
           ],
     logLevel: Level.INFO,
     exclude: BindingExclusions(
+        // TODO(#31): Remove field exclusions.
         fields: excludeAll<Field>([
           ['com.fasterxml.jackson.core.JsonFactory', 'DEFAULT_QUOTE_CHAR'],
           ['com.fasterxml.jackson.core.Base64Variant', 'PADDING_CHAR_NONE'],
