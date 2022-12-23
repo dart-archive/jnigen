@@ -80,3 +80,59 @@ jclass _c_SuspendFun_sayHello_1 = NULL;
 
 // com.github.dart_lang.jnigen.SuspendFun$sayHello$2
 jclass _c_SuspendFun_sayHello_2 = NULL;
+
+// com.github.dart_lang.jni.PortContinuation
+jclass _c_PortContinuation = NULL;
+
+jmethodID _m_PortContinuation__ctor = NULL;
+FFI_PLUGIN_EXPORT
+JniResult PortContinuation__ctor(int64_t j) {
+  load_env();
+  load_class_gr(&_c_PortContinuation,
+                "com/github/dart_lang/jni/PortContinuation");
+  if (_c_PortContinuation == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_PortContinuation, &_m_PortContinuation__ctor, "<init>",
+              "(J)V");
+  if (_m_PortContinuation__ctor == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->NewObject(jniEnv, _c_PortContinuation,
+                                         _m_PortContinuation__ctor, j);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_PortContinuation__getContext = NULL;
+FFI_PLUGIN_EXPORT
+JniResult PortContinuation__getContext(jobject self_) {
+  load_env();
+  load_class_gr(&_c_PortContinuation,
+                "com/github/dart_lang/jni/PortContinuation");
+  if (_c_PortContinuation == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_PortContinuation, &_m_PortContinuation__getContext,
+              "getContext", "()Lkotlin/coroutines/CoroutineContext;");
+  if (_m_PortContinuation__getContext == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(
+      jniEnv, self_, _m_PortContinuation__getContext);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_PortContinuation__resumeWith = NULL;
+FFI_PLUGIN_EXPORT
+JniResult PortContinuation__resumeWith(jobject self_, jobject object) {
+  load_env();
+  load_class_gr(&_c_PortContinuation,
+                "com/github/dart_lang/jni/PortContinuation");
+  if (_c_PortContinuation == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_PortContinuation, &_m_PortContinuation__resumeWith,
+              "resumeWith", "(Ljava/lang/Object;)V");
+  if (_m_PortContinuation__resumeWith == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_PortContinuation__resumeWith,
+                            object);
+  return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+}

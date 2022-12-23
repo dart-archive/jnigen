@@ -61,6 +61,13 @@ abstract class Jni {
     _dylibDir = dylibDir;
   }
 
+  static Future<void> initDLApi() async {
+    // Initializing DartApiDL used for Continuations.
+    final initializeApi = _dylib.lookupFunction<IntPtr Function(Pointer<Void>),
+        int Function(Pointer<Void>)>("InitDartApiDL");
+    assert(initializeApi(NativeApi.initializeApiDLData) == 0);
+  }
+
   /// Spawn an instance of JVM using JNI. This method should be called at the
   /// beginning of the program with appropriate options, before other isolates
   /// are spawned.
@@ -79,7 +86,7 @@ abstract class Jni {
     bool ignoreUnrecognized = false,
     int jniVersion = JNI_VERSION_1_6,
   }) =>
-      using((arena) {
+      using((arena) async {
         _dylibDir = dylibDir;
         final existVm = _bindings.GetJavaVM();
         if (existVm != nullptr) {
@@ -89,6 +96,7 @@ abstract class Jni {
           options: jvmOptions,
           classPath: classPath,
           version: jniVersion,
+          dylibPath: dylibDir,
           ignoreUnrecognized: ignoreUnrecognized,
           allocator: arena,
         );
@@ -98,18 +106,28 @@ abstract class Jni {
   static Pointer<JavaVMInitArgs> _createVMArgs({
     List<String> options = const [],
     List<String> classPath = const [],
+    String? dylibPath,
     bool ignoreUnrecognized = false,
     int version = JNI_VERSION_1_6,
     required Allocator allocator,
   }) {
     final args = allocator<JavaVMInitArgs>();
     if (options.isNotEmpty || classPath.isNotEmpty) {
-      final count = options.length + (classPath.isNotEmpty ? 1 : 0);
+      final count = options.length +
+          (dylibPath != null ? 1 : 0) +
+          (classPath.isNotEmpty ? 1 : 0);
       final optsPtr = (count != 0) ? allocator<JavaVMOption>(count) : nullptr;
       args.ref.options = optsPtr;
       for (int i = 0; i < options.length; i++) {
         optsPtr.elementAt(i).ref.optionString =
             options[i].toNativeChars(allocator);
+      }
+      if (dylibPath != null) {
+        optsPtr
+                .elementAt(count - 1 - (classPath.isNotEmpty ? 1 : 0))
+                .ref
+                .optionString =
+            "-Djava.library.path=$dylibPath".toNativeChars(allocator);
       }
       if (classPath.isNotEmpty) {
         final classPathString = classPath.join(Platform.isWindows ? ';' : ":");

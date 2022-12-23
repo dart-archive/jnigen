@@ -287,6 +287,8 @@ class Method implements ClassMember {
   @JsonKey(ignore: true)
   late bool isOverridden;
   @JsonKey(ignore: true)
+  late TypeUsage? asyncReturnType;
+  @JsonKey(ignore: true)
   bool isIncluded = true;
 
   @JsonKey(ignore: true)

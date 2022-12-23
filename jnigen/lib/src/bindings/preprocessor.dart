@@ -11,6 +11,8 @@ import 'common.dart';
 
 /// Preprocessor which fills information needed by both Dart and C generators.
 abstract class ApiPreprocessor {
+  static const kotlinContinutationType = 'kotlin.coroutines.Continuation';
+
   static void preprocessAll(Map<String, ClassDecl> classes, Config config,
       {bool renameClasses = false}) {
     final classNameCounts = <String, int>{};
@@ -78,6 +80,15 @@ abstract class ApiPreprocessor {
         log.fine('exclude method ${decl.binaryName}#${method.name}');
         continue;
       }
+      if (method.params.isNotEmpty &&
+          method.params.last.type.kind == Kind.declared &&
+          method.params.last.type.shorthand == kotlinContinutationType) {
+        final continuationType = method.params.last.type.type as DeclaredType;
+        method.asyncReturnType = continuationType.params.first;
+      } else {
+        method.asyncReturnType = null;
+      }
+
       var realName = method.name;
       if (isCtor(method)) {
         realName = 'ctor';

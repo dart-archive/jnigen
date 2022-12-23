@@ -97,6 +97,10 @@ abstract class BindingsGenerator {
       args.add(
           '${getDartOuterType(param.type, resolver)} ${kwRename(param.name)}');
     }
+    if (m.asyncReturnType != null) {
+      // Remove the continuation object in async methods.
+      args.removeLast();
+    }
     return args.join(', ');
   }
 
@@ -688,6 +692,10 @@ String getDescriptor(TypeUsage usage, {bool escapeDollarSign = false}) {
       }
       return 'Ljava/lang/Object;';
   }
+}
+
+String toFuture(String type) {
+  return 'Future<$type>';
 }
 
 bool isPrimitive(TypeUsage t) => t.kind == Kind.primitive;

@@ -91,7 +91,13 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
     final sym = '_$name';
     final ffiSig = dartSigForMethod(m, isFfiSig: true);
     final dartSig = dartSigForMethod(m, isFfiSig: false);
-    final returnType = getDartOuterType(m.returnType, resolver);
+    var returnType = getDartOuterType(
+      m.asyncReturnType ?? m.returnType,
+      resolver,
+    );
+    if (m.asyncReturnType != null) {
+      returnType = toFuture(returnType);
+    }
     final returnTypeClass = getDartTypeClass(m.returnType, resolver);
     final ifStaticMethod = isStaticMethod(m) ? 'static' : '';
 

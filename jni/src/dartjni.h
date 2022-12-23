@@ -10,6 +10,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "include/dart_api.h"
+#include "include/dart_native_api.h"
+
+#include "include/dart_api_dl.h"
+
 #if _WIN32
 #include <windows.h>
 #else
@@ -260,3 +265,11 @@ static inline jthrowable check_exception() {
   if (exception == NULL) return NULL;
   return to_global_ref(exception);
 }
+
+DART_EXPORT intptr_t InitDartApiDL(void* data);
+
+JNIEXPORT void JNICALL
+Java_com_github_dart_1lang_jni_PortContinuation__1resumeWith(JNIEnv* env,
+                                                             jobject thiz,
+                                                             jlong port,
+                                                             jobject result);
