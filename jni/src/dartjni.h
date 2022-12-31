@@ -39,6 +39,8 @@
 #define __ENVP_CAST (void**)
 #endif
 
+#include "lock.h"
+
 /// Represents the error when dart-jni layer has already spawned singleton VM.
 #define DART_JNI_SINGLETON_EXISTS (-99);
 
@@ -56,6 +58,16 @@ typedef struct JniContext {
 extern thread_local JNIEnv* jniEnv;
 
 extern JniContext jni;
+
+/// Stores anything related to locking
+typedef struct JniLocks {
+  MutexLock classLoadingLock;
+  MutexLock methodLoadingLock;
+  MutexLock fieldLoadingLock;
+} JniLocks;
+
+/// To be defined by generated code, for the time being.
+extern JniLocks locks;
 
 /// Types used by JNI API to distinguish between primitive types.
 enum JniType {
@@ -179,14 +191,19 @@ static inline void __load_class_into(jclass* cls, const char* name) {
 
 static inline void load_class(jclass* cls, const char* name) {
   if (*cls == NULL) {
+    _acquireLock(&locks.classLoadingLock);
     __load_class_into(cls, name);
+    _releaseLock(&locks.classLoadingLock);
   }
 }
 
 static inline void load_class_gr(jclass* cls, const char* name) {
   if (*cls == NULL) {
+    _acquireLock(&locks.classLoadingLock);
     jclass tmp;
     __load_class_into(&tmp, name);
+    _releaseLock(&locks.classLoadingLock);
+
     *cls = (*jniEnv)->NewGlobalRef(jniEnv, tmp);
     (*jniEnv)->DeleteLocalRef(jniEnv, tmp);
   }
@@ -203,7 +220,9 @@ static inline void load_method(jclass cls,
                                const char* name,
                                const char* sig) {
   if (*res == NULL) {
+    _acquireLock(&locks.methodLoadingLock);
     *res = (*jniEnv)->GetMethodID(jniEnv, cls, name, sig);
+    _releaseLock(&locks.methodLoadingLock);
   }
 }
 
@@ -212,7 +231,9 @@ static inline void load_static_method(jclass cls,
                                       const char* name,
                                       const char* sig) {
   if (*res == NULL) {
+    _acquireLock(&locks.methodLoadingLock);
     *res = (*jniEnv)->GetStaticMethodID(jniEnv, cls, name, sig);
+    _releaseLock(&locks.methodLoadingLock);
   }
 }
 
@@ -221,7 +242,9 @@ static inline void load_field(jclass cls,
                               const char* name,
                               const char* sig) {
   if (*res == NULL) {
+    _acquireLock(&locks.fieldLoadingLock);
     *res = (*jniEnv)->GetFieldID(jniEnv, cls, name, sig);
+    _releaseLock(&locks.fieldLoadingLock);
   }
 }
 
@@ -230,7 +253,9 @@ static inline void load_static_field(jclass cls,
                                      const char* name,
                                      const char* sig) {
   if (*res == NULL) {
+    _acquireLock(&locks.fieldLoadingLock);
     *res = (*jniEnv)->GetStaticFieldID(jniEnv, cls, name, sig);
+    _releaseLock(&locks.fieldLoadingLock);
   }
 }
 

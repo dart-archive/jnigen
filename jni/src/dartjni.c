@@ -7,6 +7,15 @@
 #include <stdint.h>
 
 #include "dartjni.h"
+#include "lock.h"
+
+JniLocks locks;
+
+void initAllLocks(JniLocks* locks) {
+  _initLock(&locks->classLoadingLock);
+  _initLock(&locks->fieldLoadingLock);
+  _initLock(&locks->methodLoadingLock);
+}
 
 #include "include/dart_api_dl.h"
 
@@ -25,7 +34,7 @@ thread_local JNIEnv* jniEnv = NULL;
 
 JniExceptionMethods exceptionMethods;
 
-void initializeExceptionMethods(JniExceptionMethods* methods) {
+void initExceptionHandling(JniExceptionMethods* methods) {
   methods->objectClass = LoadClass("java/lang/Object");
   methods->exceptionClass = LoadClass("java/lang/Exception");
   methods->printStreamClass = LoadClass("java/io/PrintStream");
@@ -104,7 +113,8 @@ Java_com_github_dart_1lang_jni_JniPlugin_initializeJni(JNIEnv* env,
   jni.loadClassMethod =
       (*env)->GetMethodID(env, classLoaderClass, "loadClass",
                           "(Ljava/lang/String;)Ljava/lang/Class;");
-  initializeExceptionMethods(&exceptionMethods);
+  initAllLocks(&locks);
+  initExceptionHandling(&exceptionMethods);
 }
 
 JNIEXPORT void JNICALL
@@ -146,7 +156,8 @@ int SpawnJvm(JavaVMInitArgs* initArgs) {
   if (flag != JNI_OK) {
     return flag;
   }
-  initializeExceptionMethods(&exceptionMethods);
+  initAllLocks(&locks);
+  initExceptionHandling(&exceptionMethods);
   return JNI_OK;
 }
 #endif
