@@ -49,6 +49,7 @@ Config getConfig([BindingsType bindingsType = BindingsType.cBased]) {
       'com.github.dart_lang.jnigen',
       'com.github.dart_lang.jni',
     ],
+    suspendFunToAsync: true,
     logLevel: Level.ALL,
     outputConfig: OutputConfig(
       bindingsType: bindingsType,

@@ -80,7 +80,8 @@ abstract class ApiPreprocessor {
         log.fine('exclude method ${decl.binaryName}#${method.name}');
         continue;
       }
-      if (method.params.isNotEmpty &&
+      if (config.suspendFunToAsync &&
+          method.params.isNotEmpty &&
           method.params.last.type.kind == Kind.declared &&
           method.params.last.type.shorthand == kotlinContinutationType) {
         final continuationType = method.params.last.type.type as DeclaredType;
