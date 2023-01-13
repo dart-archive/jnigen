@@ -209,6 +209,7 @@ void main() async {
         expect(
           ((map.entryStack()..deletedIn(arena)).pop()..deletedIn(arena))
               .key
+              .castTo(JString.type, deleteOriginal: true)
               .toDartString(deleteOriginal: true),
           anyOf('Hello', 'World'),
         );
@@ -273,7 +274,9 @@ void main() async {
 
         final strParent = grandParent.stringParent()..deletedIn(arena);
         expect(
-          strParent.parentValue.toDartString(deleteOriginal: true),
+          strParent.parentValue
+              .castTo(JString.type, deleteOriginal: true)
+              .toDartString(deleteOriginal: true),
           "!",
         );
         expect(
@@ -285,7 +288,9 @@ void main() async {
             Example.type, Example()..deletedIn(arena))
           ..deletedIn(arena);
         expect(
-          exampleParent.parentValue.toDartString(deleteOriginal: true),
+          exampleParent.parentValue
+              .castTo(JString.type, deleteOriginal: true)
+              .toDartString(deleteOriginal: true),
           "!",
         );
         expect(
