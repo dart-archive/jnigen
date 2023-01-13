@@ -62,7 +62,7 @@ abstract class Jni {
     _dylibDir = dylibDir;
   }
 
-  static Future<void> initDLApi() async {
+  static void initDLApi() {
     // Initializing DartApiDL used for Continuations.
     assert(_bindings.InitDartApiDL(NativeApi.initializeApiDLData) == 0);
   }
