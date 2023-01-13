@@ -469,7 +469,7 @@ class GrandParent<T extends jni.JObject> extends jni.JObject {
 
   /// from: public com.github.dart_lang.jnigen.generics.GrandParent<T>.Parent<java.lang.String> stringParent()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  GrandParent_Parent<T, jni.JString> stringParent() =>
+  GrandParent_Parent<jni.JObject, jni.JString> stringParent() =>
       $GrandParent_ParentType($T, jni.JStringType())
           .fromRef(_stringParent(reference).object);
 
@@ -483,7 +483,7 @@ class GrandParent<T extends jni.JObject> extends jni.JObject {
 
   /// from: public com.github.dart_lang.jnigen.generics.GrandParent<T>.Parent<S> varParent(S nestedValue)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  GrandParent_Parent<T, S> varParent<S extends jni.JObject>(
+  GrandParent_Parent<jni.JObject, S> varParent<S extends jni.JObject>(
           jni.JObjType<S> $S, S nestedValue) =>
       $GrandParent_ParentType($T, $S)
           .fromRef(_varParent(reference, nestedValue.reference).object);
@@ -1127,7 +1127,7 @@ class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
 
   /// from: public com.github.dart_lang.jnigen.generics.MyStack<com.github.dart_lang.jnigen.generics.MyMap<K,V>.MyEntry> entryStack()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  MyStack<MyMap_MyEntry<K, V>> entryStack() =>
+  MyStack<MyMap_MyEntry<jni.JObject, jni.JObject>> entryStack() =>
       $MyStackType($MyMap_MyEntryType($K, $V))
           .fromRef(_entryStack(reference).object);
 }

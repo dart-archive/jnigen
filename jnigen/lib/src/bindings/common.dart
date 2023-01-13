@@ -344,7 +344,16 @@ abstract class BindingsGenerator {
               type.params.map((param) => _dartType(param, resolver: resolver));
 
           // Replacing the declared ones. They come at the end.
+          // The rest will be JObject.
           if (allTypeParams.length >= type.params.length) {
+            allTypeParams.replaceRange(
+              0,
+              allTypeParams.length - type.params.length,
+              List.filled(
+                allTypeParams.length - type.params.length,
+                jniObjectType,
+              ),
+            );
             allTypeParams.replaceRange(
               allTypeParams.length - type.params.length,
               allTypeParams.length,
