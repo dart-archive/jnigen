@@ -530,3 +530,23 @@ Java_com_github_dart_1lang_jni_PortContinuation__1resumeWith(JNIEnv* env,
   dartPtr.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, result));
   Dart_PostCObject_DL(port, &dartPtr);
 }
+
+// com.github.dart_lang.jni.PortContinuation
+jclass _c_PortContinuation = NULL;
+
+jmethodID _m_PortContinuation__ctor = NULL;
+FFI_PLUGIN_EXPORT
+JniResult PortContinuation__ctor(int64_t j) {
+  load_class_gr(&_c_PortContinuation,
+                "com/github/dart_lang/jni/PortContinuation");
+  if (_c_PortContinuation == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_PortContinuation, &_m_PortContinuation__ctor, "<init>",
+              "(J)V");
+  if (_m_PortContinuation__ctor == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->NewObject(jniEnv, _c_PortContinuation,
+                                         _m_PortContinuation__ctor, j);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}

@@ -16,8 +16,8 @@
 // ignore_for_file: unused_element
 // ignore_for_file: unused_import
 
+import "dart:isolate" show ReceivePort;
 import "dart:ffi" as ffi;
-import 'dart:isolate';
 import "package:jni/internal_helpers_for_jnigen.dart";
 import "package:jni/jni.dart" as jni;
 
@@ -57,12 +57,11 @@ class SuspendFun extends jni.JObject {
   /// from: public final java.lang.Object sayHello(kotlin.coroutines.Continuation continuation)
   /// The returned object must be deleted after use, by calling the `delete` method.
   Future<jni.JString> sayHello() async {
-    final receivePort = ReceivePort();
-    final nativePort = receivePort.sendPort.nativePort;
-    final $c = PortContinuation(const jni.JObjectType(), nativePort);
-    const jni.JObjectType().fromRef(_sayHello(reference, $c.reference).object);
-    final ptr = ffi.Pointer<ffi.Void>.fromAddress(await receivePort.first);
-    return const jni.JStringType().fromRef(ptr);
+    final port = ReceivePort();
+    final $c = jni.Jni.newPortContinuation(port);
+    _sayHello(reference, $c).object;
+    return const jni.JStringType()
+        .fromRef(ffi.Pointer<ffi.Void>.fromAddress(await port.first));
   }
 
   static final _sayHello1 = jniLookup<
@@ -78,13 +77,11 @@ class SuspendFun extends jni.JObject {
   /// from: public final java.lang.Object sayHello(java.lang.String string, kotlin.coroutines.Continuation continuation)
   /// The returned object must be deleted after use, by calling the `delete` method.
   Future<jni.JString> sayHello1(jni.JString string) async {
-    final receivePort = ReceivePort();
-    final nativePort = receivePort.sendPort.nativePort;
-    final $c = PortContinuation(const jni.JObjectType(), nativePort);
-    const jni.JObjectType()
-        .fromRef(_sayHello1(reference, string.reference, $c.reference).object);
-    final ptr = ffi.Pointer<ffi.Void>.fromAddress(await receivePort.first);
-    return const jni.JStringType().fromRef(ptr);
+    final port = ReceivePort();
+    final $c = jni.Jni.newPortContinuation(port);
+    _sayHello1(reference, string.reference, $c).object;
+    return const jni.JStringType()
+        .fromRef(ffi.Pointer<ffi.Void>.fromAddress(await port.first));
   }
 }
 

@@ -273,3 +273,6 @@ Java_com_github_dart_1lang_jni_PortContinuation__1resumeWith(JNIEnv* env,
                                                              jobject thiz,
                                                              jlong port,
                                                              jobject result);
+FFI_PLUGIN_EXPORT
+JniResult PortContinuation__ctor(int64_t j);
+

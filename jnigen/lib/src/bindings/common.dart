@@ -111,6 +111,10 @@ abstract class BindingsGenerator {
       final paramName = kwRename(param.name);
       args.add(toNativeArg(paramName, param.type));
     }
+    if (m.asyncReturnType != null) {
+      // Change the continuation object in async methods.
+      args.last = '\$c';
+    }
     return args.join(', ');
   }
 

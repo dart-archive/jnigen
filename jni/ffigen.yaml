@@ -28,6 +28,7 @@ functions:
     - 'GetJniContext'
     - 'setJniGetters'
     - 'jni_log'
+    - 'Java_com_github_dart_1lang_jni_PortContinuation__1resumeWith'
 structs:
   exclude:
     - 'JniContext'

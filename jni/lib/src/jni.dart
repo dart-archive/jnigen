@@ -4,6 +4,7 @@
 
 import 'dart:ffi';
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:ffi/ffi.dart';
 import 'package:path/path.dart';
@@ -63,9 +64,7 @@ abstract class Jni {
 
   static Future<void> initDLApi() async {
     // Initializing DartApiDL used for Continuations.
-    final initializeApi = _dylib.lookupFunction<IntPtr Function(Pointer<Void>),
-        int Function(Pointer<Void>)>("InitDartApiDL");
-    assert(initializeApi(NativeApi.initializeApiDLData) == 0);
+    assert(_bindings.InitDartApiDL(NativeApi.initializeApiDLData) == 0);
   }
 
   /// Spawn an instance of JVM using JNI. This method should be called at the
@@ -167,6 +166,11 @@ abstract class Jni {
   }
 
   static Pointer<JniAccessors> get accessors => _bindings.GetAccessors();
+
+  /// Returns a new PortContinuation.
+  static JObjectPtr newPortContinuation(ReceivePort port) {
+    return _bindings.PortContinuation__ctor(port.sendPort.nativePort).object;
+  }
 
   /// Returns current application context on Android.
   static JObjectPtr getCachedApplicationContext() {
