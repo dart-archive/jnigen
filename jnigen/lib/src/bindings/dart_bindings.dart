@@ -142,13 +142,14 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
         'async {\n'
         '${indent * 2}final \$p = ReceivePort();\n'
         '${indent * 2}final \$c = ${jni}Jni.newPortContinuation(\$p);\n'
-        '${indent * 2}final \$o = $wrapperExpr;\n'
+        '${indent * 2}$wrapperExpr;\n'
+        '${indent * 2}final \$o = $voidPointer.fromAddress(await \$p.first);\n'
         '${indent * 2}final \$k = $returnTypeClass.getClass().reference;\n'
         '${indent * 2}if (${jni}Jni.env.IsInstanceOf(\$o, \$k) == 0) {\n'
         '${indent * 3}throw "Failed";\n'
         '${indent * 2}}\n'
         '${indent * 2}return ${toDartResult(
-          '$voidPointer.fromAddress(await \$p.first)',
+          '\$o',
           m.returnType,
           returnTypeClass,
         )};\n'

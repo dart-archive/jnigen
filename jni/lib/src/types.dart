@@ -31,8 +31,6 @@ abstract class JType<T> {
   int get _type;
 
   String get signature;
-
-  JniClass getClass() => Jni.findJniClass(signature);
 }
 
 abstract class JObjType<T extends JObject> extends JType<T> {
@@ -43,4 +41,7 @@ abstract class JObjType<T extends JObject> extends JType<T> {
 
   /// Creates an object from this type using the reference.
   T fromRef(Pointer<Void> ref);
+
+  JniClass getClass() =>
+      Jni.findJniClass(signature.substring(1, signature.length - 1));
 }

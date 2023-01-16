@@ -59,13 +59,13 @@ class SuspendFun extends jni.JObject {
   Future<jni.JString> sayHello() async {
     final $p = ReceivePort();
     final $c = jni.Jni.newPortContinuation($p);
-    final $o = _sayHello(reference, $c).object;
+    _sayHello(reference, $c).object;
+    final $o = ffi.Pointer<ffi.Void>.fromAddress(await $p.first);
     final $k = const jni.JStringType().getClass().reference;
     if (jni.Jni.env.IsInstanceOf($o, $k) == 0) {
       throw "Failed";
     }
-    return const jni.JStringType()
-        .fromRef(ffi.Pointer<ffi.Void>.fromAddress(await $p.first));
+    return const jni.JStringType().fromRef($o);
   }
 
   static final _sayHello1 = jniLookup<
@@ -83,13 +83,13 @@ class SuspendFun extends jni.JObject {
   Future<jni.JString> sayHello1(jni.JString string) async {
     final $p = ReceivePort();
     final $c = jni.Jni.newPortContinuation($p);
-    final $o = _sayHello1(reference, string.reference, $c).object;
+    _sayHello1(reference, string.reference, $c).object;
+    final $o = ffi.Pointer<ffi.Void>.fromAddress(await $p.first);
     final $k = const jni.JStringType().getClass().reference;
     if (jni.Jni.env.IsInstanceOf($o, $k) == 0) {
       throw "Failed";
     }
-    return const jni.JStringType()
-        .fromRef(ffi.Pointer<ffi.Void>.fromAddress(await $p.first));
+    return const jni.JStringType().fromRef($o);
   }
 }
 
