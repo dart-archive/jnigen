@@ -85,7 +85,7 @@ abstract class Jni {
     bool ignoreUnrecognized = false,
     int jniVersion = JNI_VERSION_1_6,
   }) =>
-      using((arena) async {
+      using((arena) {
         _dylibDir = dylibDir;
         final existVm = _bindings.GetJavaVM();
         if (existVm != nullptr) {
