@@ -87,7 +87,7 @@ Future<void> setupDylibsAndClasses() async {
     ]);
   }
 
-  await Jni.initDLApi();
+  Jni.initDLApi();
 }
 
 void main() async {

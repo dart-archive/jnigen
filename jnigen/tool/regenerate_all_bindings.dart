@@ -13,6 +13,7 @@ import 'command_runner.dart';
 const scripts = [
   "test/jackson_core_test/generate.dart",
   "test/simple_package_test/generate.dart",
+  "test/kotlin_test/generate.dart",
 ];
 
 const yamlBasedExamples = [

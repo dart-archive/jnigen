@@ -57,11 +57,15 @@ class SuspendFun extends jni.JObject {
   /// from: public final java.lang.Object sayHello(kotlin.coroutines.Continuation continuation)
   /// The returned object must be deleted after use, by calling the `delete` method.
   Future<jni.JString> sayHello() async {
-    final port = ReceivePort();
-    final $c = jni.Jni.newPortContinuation(port);
-    _sayHello(reference, $c).object;
+    final $p = ReceivePort();
+    final $c = jni.Jni.newPortContinuation($p);
+    final $o = _sayHello(reference, $c).object;
+    final $k = jni.Jni.findClass("kotlin.Result\$Failure");
+    if (jni.Jni.env.IsInstanceOf($o, $k) != 0) {
+      throw "Failed";
+    }
     return const jni.JStringType()
-        .fromRef(ffi.Pointer<ffi.Void>.fromAddress(await port.first));
+        .fromRef(ffi.Pointer<ffi.Void>.fromAddress(await $p.first));
   }
 
   static final _sayHello1 = jniLookup<
@@ -77,11 +81,15 @@ class SuspendFun extends jni.JObject {
   /// from: public final java.lang.Object sayHello(java.lang.String string, kotlin.coroutines.Continuation continuation)
   /// The returned object must be deleted after use, by calling the `delete` method.
   Future<jni.JString> sayHello1(jni.JString string) async {
-    final port = ReceivePort();
-    final $c = jni.Jni.newPortContinuation(port);
-    _sayHello1(reference, string.reference, $c).object;
+    final $p = ReceivePort();
+    final $c = jni.Jni.newPortContinuation($p);
+    final $o = _sayHello1(reference, string.reference, $c).object;
+    final $k = jni.Jni.findClass("kotlin.Result\$Failure");
+    if (jni.Jni.env.IsInstanceOf($o, $k) != 0) {
+      throw "Failed";
+    }
     return const jni.JStringType()
-        .fromRef(ffi.Pointer<ffi.Void>.fromAddress(await port.first));
+        .fromRef(ffi.Pointer<ffi.Void>.fromAddress(await $p.first));
   }
 }
 
