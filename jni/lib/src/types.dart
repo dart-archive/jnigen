@@ -32,7 +32,7 @@ abstract class JType<T> {
 
   String get signature;
 
-  JniClass _getClass() => Jni.findJniClass(signature);
+  JniClass getClass() => Jni.findJniClass(signature);
 }
 
 abstract class JObjType<T extends JObject> extends JType<T> {

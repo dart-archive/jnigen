@@ -60,8 +60,8 @@ class SuspendFun extends jni.JObject {
     final $p = ReceivePort();
     final $c = jni.Jni.newPortContinuation($p);
     final $o = _sayHello(reference, $c).object;
-    final $k = jni.Jni.findClass("kotlin.Result\$Failure");
-    if (jni.Jni.env.IsInstanceOf($o, $k) != 0) {
+    final $k = const jni.JStringType().getClass().reference;
+    if (jni.Jni.env.IsInstanceOf($o, $k) == 0) {
       throw "Failed";
     }
     return const jni.JStringType()
@@ -84,8 +84,8 @@ class SuspendFun extends jni.JObject {
     final $p = ReceivePort();
     final $c = jni.Jni.newPortContinuation($p);
     final $o = _sayHello1(reference, string.reference, $c).object;
-    final $k = jni.Jni.findClass("kotlin.Result\$Failure");
-    if (jni.Jni.env.IsInstanceOf($o, $k) != 0) {
+    final $k = const jni.JStringType().getClass().reference;
+    if (jni.Jni.env.IsInstanceOf($o, $k) == 0) {
       throw "Failed";
     }
     return const jni.JStringType()

@@ -132,7 +132,8 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
         dartTypeParams(m.typeParams, includeExtends: true);
     final params = getFormalArgs(c, m, resolver);
     s.write(
-        '$indent$ifStaticMethod $returnType $name$typeParamsWithExtend($params) ');
+      '$indent$ifStaticMethod $returnType $name$typeParamsWithExtend($params) ',
+    );
     if (m.asyncReturnType == null) {
       wrapperExpr = toDartResult(wrapperExpr, m.returnType, returnTypeClass);
       s.write('=> $wrapperExpr;\n');
@@ -142,10 +143,10 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
         '${indent * 2}final \$p = ReceivePort();\n'
         '${indent * 2}final \$c = ${jni}Jni.newPortContinuation(\$p);\n'
         '${indent * 2}final \$o = $wrapperExpr;\n'
-        '${indent * 2}final \$k = ${jni}Jni.findClass("kotlin.Result\\\$Failure");\n'
-        '${indent * 2}if (${jni}Jni.env.IsInstanceOf(\$o, \$k) != 0) {'
-        '${indent * 2}  throw "Failed";'
-        '${indent * 2}}'
+        '${indent * 2}final \$k = $returnTypeClass.getClass().reference;\n'
+        '${indent * 2}if (${jni}Jni.env.IsInstanceOf(\$o, \$k) == 0) {\n'
+        '${indent * 3}throw "Failed";\n'
+        '${indent * 2}}\n'
         '${indent * 2}return ${toDartResult(
           '$voidPointer.fromAddress(await \$p.first)',
           m.returnType,
