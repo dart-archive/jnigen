@@ -8,6 +8,7 @@ import 'package:jnigen/jnigen.dart';
 import 'package:jnigen/src/logging/logging.dart';
 import 'package:jnigen/src/util/find_package.dart';
 import 'package:jnigen/src/bindings/c_bindings.dart';
+import 'package:path/path.dart';
 
 abstract class BindingsWriter {
   Future<void> writeBindings(List<ClassDecl> classes);
@@ -42,6 +43,23 @@ Future<void> _copyFileFromPackage(String package, String relPath, Uri target,
   }
 }
 
+Future<void> _copyDirectoryFromPackage(
+  String package,
+  String relPath,
+  Uri target,
+) async {
+  final packagePath = await findPackageRoot(package);
+  if (packagePath != null) {
+    final sourceDir = Directory.fromUri(packagePath.resolve(relPath));
+    final targetDirectory =
+        await Directory.fromUri(target).create(recursive: true);
+    sourceDir.copyTo(targetDirectory);
+  } else {
+    log.warning('package $package not found! '
+        'skipped copying ${target.toFilePath()}');
+  }
+}
+
 Future<void> writeCBindings(Config config, List<ClassDecl> classes) async {
   // write C file and init file
   final cConfig = config.outputConfig.cConfig!;
@@ -69,6 +87,8 @@ Future<void> writeCBindings(Config config, List<ClassDecl> classes) async {
   log.info('Copying auxiliary files...');
   await _copyFileFromPackage(
       'jni', 'src/dartjni.h', cRoot.resolve('$subdir/dartjni.h'));
+  await _copyDirectoryFromPackage(
+      'jni', 'src/include', cRoot.resolve('$subdir/include'));
   await _copyFileFromPackage(
       'jni', 'src/.clang-format', cRoot.resolve('$subdir/.clang-format'));
   await _copyFileFromPackage(
@@ -87,5 +107,21 @@ Future<void> writeCBindings(Config config, List<ClassDecl> classes) async {
     }
   } on ProcessException catch (e) {
     log.warning('cannot run clang-format: $e');
+  }
+}
+
+extension _DirectoryX on Directory {
+  /// Recursively copies a directory into another directory.
+  void copyTo(final Directory destination) {
+    for (final entity in listSync()) {
+      if (entity is Directory) {
+        final newDirectory =
+            Directory(join(destination.absolute.path, basename(entity.path)));
+        newDirectory.createSync();
+        entity.absolute.copyTo(newDirectory);
+      } else if (entity is File) {
+        entity.copySync(join(destination.path, basename(entity.path)));
+      }
+    }
   }
 }
