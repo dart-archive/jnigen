@@ -64,7 +64,8 @@ abstract class Jni {
 
   static void initDLApi() {
     // Initializing DartApiDL used for Continuations.
-    assert(_bindings.InitDartApiDL(NativeApi.initializeApiDLData) == 0);
+    final result = _bindings.InitDartApiDL(NativeApi.initializeApiDLData);
+    assert(result == 0);
   }
 
   /// Spawn an instance of JVM using JNI. This method should be called at the
