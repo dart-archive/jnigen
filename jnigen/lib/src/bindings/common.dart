@@ -442,7 +442,16 @@ abstract class BindingsGenerator {
             (param) => _getDartTypeClass(param, resolver, addConst: false));
 
         // Replacing the declared ones. They come at the end.
+        // The rest will be JObject.
         if (allTypeParams.length >= type.params.length) {
+          allTypeParams.replaceRange(
+            0,
+            allTypeParams.length - type.params.length,
+            List.filled(
+              allTypeParams.length - type.params.length,
+              'const $jniObjectTypeClass()',
+            ),
+          );
           allTypeParams.replaceRange(
             allTypeParams.length - type.params.length,
             allTypeParams.length,
