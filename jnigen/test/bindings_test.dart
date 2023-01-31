@@ -25,7 +25,7 @@ import 'test_util/test_util.dart';
 final simplePackageTest = join('test', 'simple_package_test');
 final jacksonCoreTest = join('test', 'jackson_core_test');
 final kotlinTest = join('test', 'kotlin_test');
-final jniJar = join(kotlinTest, 'src', 'jni.jar');
+final jniJar = join(kotlinTest, 'jni.jar');
 
 final simplePackageTestJava = join(simplePackageTest, 'java');
 final kotlinTestKotlin = join(kotlinTest, 'kotlin');
@@ -73,7 +73,6 @@ Future<void> setupDylibsAndClasses() async {
     '-s',
     join(kotlinTest, 'src'),
   ]);
-  print(kotlinTestKotlin);
   await runCommand('mvn', ['package'], workingDirectory: kotlinTestKotlin);
   // Jar including Kotlin runtime and dependencies.
   final kotlinTestJar =

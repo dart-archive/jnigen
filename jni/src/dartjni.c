@@ -524,7 +524,6 @@ Java_com_github_dart_1lang_jni_PortContinuation__1resumeWith(JNIEnv* env,
                                                              jobject thiz,
                                                              jlong port,
                                                              jobject result) {
-  printf("resumeWith called in C on port #%ld\n", port);
   Dart_CObject dartPtr;
   dartPtr.type = Dart_CObject_kInt64;
   dartPtr.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, result));

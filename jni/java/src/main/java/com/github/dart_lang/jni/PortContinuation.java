@@ -7,7 +7,6 @@ package com.github.dart_lang.jni;
 import kotlin.coroutines.Continuation;
 import kotlin.coroutines.CoroutineContext;
 import kotlinx.coroutines.Dispatchers;
-import org.jetbrains.annotations.NotNull;
 
 public class PortContinuation<T> implements Continuation<T> {
   static {
@@ -17,21 +16,17 @@ public class PortContinuation<T> implements Continuation<T> {
   private final long port;
 
   public PortContinuation(long port) {
-    System.out.println("Setting up cont. w/ port #" + port);
     this.port = port;
   }
 
-  @NotNull
   @Override
   public CoroutineContext getContext() {
     return (CoroutineContext) Dispatchers.getIO();
   }
 
   @Override
-  public void resumeWith(@NotNull Object o) {
-    System.out.println("Resume with called on port #" + port);
+  public void resumeWith(Object o) {
     _resumeWith(port, o);
-    System.out.println("Called native function on port #" + port);
   }
 
   private native void _resumeWith(long port, Object result);

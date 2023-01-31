@@ -60,7 +60,7 @@ class SuspendFun extends jni.JObject {
     final $p = ReceivePort();
     final $c = jni.Jni.newPortContinuation($p);
     _sayHello(reference, $c).object;
-    final $o = ffi.Pointer<ffi.Void>.fromAddress(await $p.first);
+    final $o = jni.JObjectPtr.fromAddress(await $p.first);
     final $k = const jni.JStringType().getClass().reference;
     if (jni.Jni.env.IsInstanceOf($o, $k) == 0) {
       throw "Failed";
@@ -84,7 +84,7 @@ class SuspendFun extends jni.JObject {
     final $p = ReceivePort();
     final $c = jni.Jni.newPortContinuation($p);
     _sayHello1(reference, string.reference, $c).object;
-    final $o = ffi.Pointer<ffi.Void>.fromAddress(await $p.first);
+    final $o = jni.JObjectPtr.fromAddress(await $p.first);
     final $k = const jni.JStringType().getClass().reference;
     if (jni.Jni.env.IsInstanceOf($o, $k) == 0) {
       throw "Failed";
@@ -110,90 +110,6 @@ extension $SuspendFunArray on jni.JArray<SuspendFun> {
   }
 
   void operator []=(int index, SuspendFun value) {
-    (this as jni.JArray<jni.JObject>)[index] = value;
-  }
-}
-
-/// from: com.github.dart_lang.jni.PortContinuation
-class PortContinuation<T extends jni.JObject> extends jni.JObject {
-  late final jni.JObjType? _$type;
-  @override
-  jni.JObjType get $type => _$type ??= type(
-        $T,
-      );
-
-  final jni.JObjType<T> $T;
-
-  PortContinuation.fromRef(
-    this.$T,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
-
-  /// The type which includes information such as the signature of this class.
-  static $PortContinuationType<T> type<T extends jni.JObject>(
-    jni.JObjType<T> $T,
-  ) {
-    return $PortContinuationType(
-      $T,
-    );
-  }
-
-  static final _ctor =
-      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int64)>>(
-              "PortContinuation__ctor")
-          .asFunction<jni.JniResult Function(int)>();
-
-  /// from: public void <init>(long j)
-  PortContinuation(this.$T, int j) : super.fromRef(_ctor(j).object);
-
-  static final _getContext = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>)>>("PortContinuation__getContext")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
-
-  /// from: public kotlin.coroutines.CoroutineContext getContext()
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject getContext() =>
-      const jni.JObjectType().fromRef(_getContext(reference).object);
-
-  static final _resumeWith = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>,
-                  ffi.Pointer<ffi.Void>)>>("PortContinuation__resumeWith")
-      .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
-
-  /// from: public void resumeWith(java.lang.Object object)
-  void resumeWith(jni.JObject object) =>
-      _resumeWith(reference, object.reference).check();
-}
-
-class $PortContinuationType<T extends jni.JObject>
-    extends jni.JObjType<PortContinuation<T>> {
-  final jni.JObjType<T> $T;
-
-  const $PortContinuationType(
-    this.$T,
-  );
-
-  @override
-  String get signature => r"Lcom/github/dart_lang/jni/PortContinuation;";
-
-  @override
-  PortContinuation<T> fromRef(jni.JObjectPtr ref) =>
-      PortContinuation.fromRef($T, ref);
-}
-
-extension $PortContinuationArray<T extends jni.JObject>
-    on jni.JArray<PortContinuation<T>> {
-  PortContinuation<T> operator [](int index) {
-    return (elementType as $PortContinuationType<T>)
-        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
-  }
-
-  void operator []=(int index, PortContinuation<T> value) {
     (this as jni.JArray<jni.JObject>)[index] = value;
   }
 }

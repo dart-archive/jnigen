@@ -21,7 +21,7 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
 
   static final indent = ' ' * 2;
 
-  static const voidPointer = BindingsGenerator.voidPointer;
+  static const voidPointer = BindingsGenerator.jobjectType;
 
   static const ffiVoidType = BindingsGenerator.ffiVoidType;
 
