@@ -74,9 +74,3 @@ JniResult SuspendFun__sayHello1(jobject self_,
   return (JniResult){.result = {.l = to_global_ref(_result)},
                      .exception = check_exception()};
 }
-
-// com.github.dart_lang.jnigen.SuspendFun$sayHello$1
-jclass _c_SuspendFun_sayHello_1 = NULL;
-
-// com.github.dart_lang.jnigen.SuspendFun$sayHello$2
-jclass _c_SuspendFun_sayHello_2 = NULL;
