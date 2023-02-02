@@ -248,6 +248,7 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       - run: mvn -v
+      - run: which mvn
       - run: git config --global core.autocrlf true
       - run: Add-Content $env:GITHUB_PATH "$env:JAVA_HOME\bin\server"
       - run: dart pub get
