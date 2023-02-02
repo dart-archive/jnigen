@@ -8,6 +8,11 @@
 
 #include "dartjni.h"
 
+#include "include/dart_api.h"
+#include "include/dart_native_api.h"
+
+#include "include/dart_api_dl.h"
+
 /// Stores class and method references for obtaining exception details
 typedef struct JniExceptionMethods {
   jclass objectClass, exceptionClass, printStreamClass;
