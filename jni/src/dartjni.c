@@ -520,7 +520,7 @@ FFI_PLUGIN_EXPORT JNIEnv* GetJniEnv() {
   return jniEnv;
 }
 
-DART_EXPORT intptr_t InitDartApiDL(void* data) {
+static intptr_t InitDartApiDL(void* data) {
   return Dart_InitializeApiDL(data);
 }
 
