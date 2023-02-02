@@ -8,7 +8,6 @@ import 'package:jnigen/jnigen.dart';
 import 'package:jnigen/src/logging/logging.dart';
 import 'package:jnigen/src/util/find_package.dart';
 import 'package:jnigen/src/bindings/c_bindings.dart';
-import 'package:path/path.dart';
 
 abstract class BindingsWriter {
   Future<void> writeBindings(List<ClassDecl> classes);
@@ -88,21 +87,5 @@ Future<void> writeCBindings(Config config, List<ClassDecl> classes) async {
     }
   } on ProcessException catch (e) {
     log.warning('cannot run clang-format: $e');
-  }
-}
-
-extension _DirectoryX on Directory {
-  /// Recursively copies a directory into another directory.
-  void copyTo(final Directory destination) {
-    for (final entity in listSync()) {
-      if (entity is Directory) {
-        final newDirectory =
-            Directory(join(destination.absolute.path, basename(entity.path)));
-        newDirectory.createSync();
-        entity.absolute.copyTo(newDirectory);
-      } else if (entity is File) {
-        entity.copySync(join(destination.path, basename(entity.path)));
-      }
-    }
   }
 }
