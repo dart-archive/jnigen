@@ -73,9 +73,12 @@ Future<void> setupDylibsAndClasses() async {
     '-s',
     join(kotlinTest, 'src'),
   ]);
-  await runCommand('mvn', ['-v'], workingDirectory: kotlinTestKotlin);
-  print('so far so good!');
-  await runCommand('mvn', ['package'], workingDirectory: kotlinTestKotlin);
+  await runCommand(
+    'mvn',
+    ['package'],
+    workingDirectory: kotlinTestKotlin,
+    runInShell: true,
+  );
   // Jar including Kotlin runtime and dependencies.
   final kotlinTestJar =
       join(kotlinTestKotlin, 'target', 'kotlin_test-jar-with-dependencies.jar');
