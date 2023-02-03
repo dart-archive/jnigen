@@ -8,9 +8,6 @@
 
 #include "dartjni.h"
 
-#include "include/dart_api.h"
-#include "include/dart_native_api.h"
-
 #include "include/dart_api_dl.h"
 
 /// Stores class and method references for obtaining exception details
@@ -520,7 +517,7 @@ FFI_PLUGIN_EXPORT JNIEnv* GetJniEnv() {
   return jniEnv;
 }
 
-static intptr_t InitDartApiDL(void* data) {
+FFI_PLUGIN_EXPORT intptr_t InitDartApiDL(void* data) {
   return Dart_InitializeApiDL(data);
 }
 
