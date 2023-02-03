@@ -286,6 +286,11 @@ class Method implements ClassMember {
   late String finalName;
   @JsonKey(includeFromJson: false)
   late bool isOverridden;
+
+  /// This gets populated in the preprocessing stage.
+  ///
+  /// It will contain a type only when the suspendFunToAsync flag is on
+  /// and the method has a `kotlin.coroutines.Continuation` final argument.
   @JsonKey(includeFromJson: false)
   late TypeUsage? asyncReturnType;
   @JsonKey(includeFromJson: false)
