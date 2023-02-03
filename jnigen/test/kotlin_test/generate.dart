@@ -27,6 +27,7 @@ void compileKotlinSources(String workingDir) async {
     'mvn',
     ['package'],
     workingDirectory: workingDir,
+    runInShell: true,
   );
   if (procRes.exitCode != 0) {
     throw "mvn exited with ${procRes.exitCode}\n"
