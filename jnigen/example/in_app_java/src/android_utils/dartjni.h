@@ -261,7 +261,7 @@ static inline jthrowable check_exception() {
   return to_global_ref(exception);
 }
 
-intptr_t InitDartApiDL(void* data);
+static intptr_t InitDartApiDL(void* data);
 
 JNIEXPORT void JNICALL
 Java_com_github_dart_1lang_jni_PortContinuation__1resumeWith(JNIEnv* env,
