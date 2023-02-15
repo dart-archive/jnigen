@@ -56,8 +56,7 @@ class Example extends jni.JObject {
     final $p = ReceivePort();
     final $c = jni.Jni.newPortContinuation($p);
     _thinkBeforeAnswering(reference, $c).object;
-    final $a = await $p.first;
-    final $o = jni.JObjectPtr.fromAddress($a);
+    final $o = jni.JObjectPtr.fromAddress(await $p.first);
     final $k = const jni.JStringType().getClass().reference;
     if (jni.Jni.env.IsInstanceOf($o, $k) == 0) {
       throw "Failed";

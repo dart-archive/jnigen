@@ -20,6 +20,7 @@ const yamlBasedExamples = [
   "example/in_app_java",
   "example/pdfbox_plugin",
   "example/notification_plugin",
+  "example/kotlin_plugin",
 ];
 
 void main() async {
