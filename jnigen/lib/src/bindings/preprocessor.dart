@@ -36,10 +36,11 @@ abstract class ApiPreprocessor {
   static void _preprocess(
       ClassDecl decl, Map<String, ClassDecl> classes, Config config) {
     if (decl.isPreprocessed) return;
+
     if (!_isClassIncluded(decl, config)) {
       decl.isIncluded = false;
-      log.fine('exclude class ${decl.binaryName}');
       decl.isPreprocessed = true;
+      log.fine('exclude class ${decl.binaryName}');
       // Excluding all the class's methods and fields
       for (final method in decl.methods) {
         method.isIncluded = false;
@@ -85,7 +86,9 @@ abstract class ApiPreprocessor {
           method.params.last.type.kind == Kind.declared &&
           method.params.last.type.shorthand == kotlinContinutationType) {
         final continuationType = method.params.last.type.type as DeclaredType;
-        method.asyncReturnType = continuationType.params.first;
+        method.asyncReturnType = continuationType.params.isEmpty
+            ? TypeUsage.object
+            : continuationType.params.first;
       } else {
         method.asyncReturnType = null;
       }

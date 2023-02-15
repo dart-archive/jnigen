@@ -8,6 +8,11 @@ import kotlin.coroutines.Continuation;
 import kotlin.coroutines.CoroutineContext;
 import kotlinx.coroutines.Dispatchers;
 
+/// An implementation of kotlin.coroutines.Continuation which sends the address
+/// of the object to Dart through a native port.
+///
+/// This allows converting Kotlin coroutines to Dart async methods.
+/// The implementation of native void _resumeWith is located in `dartjni.c`.
 public class PortContinuation<T> implements Continuation<T> {
   static {
     System.loadLibrary("dartjni");

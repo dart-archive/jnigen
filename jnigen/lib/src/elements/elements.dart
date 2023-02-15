@@ -58,7 +58,7 @@ class ClassDecl {
     this.modifiers = const {},
     required this.simpleName,
     required this.binaryName,
-    required this.packageName,
+    this.packageName = '',
     this.parentName,
     this.typeParams = const [],
     this.methods = const [],
@@ -154,6 +154,12 @@ class TypeUsage {
     required this.shorthand,
     required this.kind,
     required this.typeJson,
+  });
+
+  static TypeUsage object = TypeUsage.fromJson({
+    "shorthand": "java.lang.Object",
+    "kind": "DECLARED",
+    "type": {"binaryName": "java.lang.Object", "simpleName": "Object"}
   });
 
   String shorthand;
