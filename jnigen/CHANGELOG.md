@@ -1,5 +1,5 @@
 ## 0.3.0
-* Added the option to convert Kotlin `suspend fun` to Dart async methods. Add `suspend_fun_to_async: true` to `jnigen.yaml`
+* Added the option to convert Kotlin `suspend fun` to Dart async methods. Add `suspend_fun_to_async: true` to `jnigen.yaml`.
 
 ## 0.2.0
 * Support generating bindings for generics.
