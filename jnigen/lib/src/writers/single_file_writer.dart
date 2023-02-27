@@ -4,10 +4,11 @@
 
 import 'dart:io';
 
-import 'package:jnigen/jnigen.dart';
-import 'package:jnigen/src/bindings/bindings.dart';
-import 'package:jnigen/src/logging/logging.dart';
-import 'package:jnigen/src/writers/bindings_writer.dart';
+import '../bindings/bindings.dart';
+import '../config/config.dart';
+import '../elements/elements.dart';
+import '../logging/logging.dart';
+import '../writers/bindings_writer.dart';
 
 /// Resolver for single-file mapping of input classes.
 class SingleFileResolver implements SymbolResolver {
@@ -19,9 +20,7 @@ class SingleFileResolver implements SymbolResolver {
       binaryName: 'java.lang.String',
       packageName: 'java.lang',
       simpleName: 'String',
-    )
-      ..isIncluded = true
-      ..isPreprocessed = true,
+    ),
   };
   Map<String, ClassDecl> inputClasses;
   SingleFileResolver(this.inputClasses);
@@ -61,10 +60,11 @@ class SingleFileWriter extends BindingsWriter {
       packages[c.packageName]!.add(c);
     }
 
-    ApiPreprocessor.preprocessAll(classesByName, config, renameClasses: true);
+    final c = Classes(classesByName);
+    ApiPreprocessor.preprocessAll(c, config);
 
     if (cBased) {
-      await writeCBindings(config, classesByName.values.toList());
+      await writeCBindings(config, c.decls.values.toList());
     }
     log.info("Generating ${cBased ? "C + Dart" : "Pure Dart"} Bindings");
     final generator = cBased
@@ -73,11 +73,11 @@ class SingleFileWriter extends BindingsWriter {
     final file = File.fromUri(config.outputConfig.dartConfig.path);
     await file.create(recursive: true);
     final fileStream = file.openWrite();
-    final resolver = SingleFileResolver(classesByName);
+    final resolver = SingleFileResolver(c.decls);
 
     // Have to generate bindings beforehand so that imports are all figured
     // out.
-    final bindings = classesByName.values
+    final bindings = c.decls.values
         .map((decl) => generator.generateBindings(decl, resolver))
         .join("\n");
 

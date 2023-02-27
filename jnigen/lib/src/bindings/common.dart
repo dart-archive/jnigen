@@ -2,8 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:jnigen/src/elements/elements.dart';
-import 'package:jnigen/src/util/rename_conflict.dart';
+import '../elements/elements.dart';
 
 import 'symbol_resolver.dart';
 
@@ -94,8 +93,7 @@ abstract class BindingsGenerator {
           '$jniTypeType<${typeParam.name}> $typeParamPrefix${typeParam.name}');
     }
     for (final param in m.params) {
-      args.add(
-          '${getDartOuterType(param.type, resolver)} ${kwRename(param.name)}');
+      args.add('${getDartOuterType(param.type, resolver)} ${param.finalName}');
     }
     if (m.asyncReturnType != null) {
       // Remove the continuation object in async methods.
@@ -108,7 +106,7 @@ abstract class BindingsGenerator {
   String actualArgs(Method m, {bool addSelf = true}) {
     final List<String> args = [if (hasSelfParam(m) && addSelf) selfPointer];
     for (var param in m.params) {
-      final paramName = kwRename(param.name);
+      final paramName = param.finalName;
       args.add(toNativeArg(paramName, param.type));
     }
     if (m.asyncReturnType != null) {
@@ -329,9 +327,7 @@ abstract class BindingsGenerator {
           final type = t.type as DeclaredType;
           final resolved = resolver.resolve(type.binaryName);
           final resolvedClass = resolver.resolveClass(type.binaryName);
-          if (resolved == null ||
-              resolvedClass == null ||
-              !resolvedClass.isIncluded) {
+          if (resolved == null || resolvedClass == null) {
             return jniObjectType;
           }
 
@@ -423,9 +419,7 @@ abstract class BindingsGenerator {
         final resolved = resolver.resolve(type.binaryName);
         final resolvedClass = resolver.resolveClass(type.binaryName);
 
-        if (resolved == null ||
-            resolvedClass == null ||
-            !resolvedClass.isIncluded) {
+        if (resolved == null || resolvedClass == null) {
           return _TypeClass(
             '${addConst ? 'const ' : ''}$jniObjectTypeClass()',
             true,
@@ -607,9 +601,6 @@ String breakDocComment(JavaDocComment? javadoc, {String depth = '    '}) {
 /// class name canonicalized for C bindings, by replacing "." with "_" and
 /// "$" with "__".
 String getUniqueClassName(ClassDecl decl) {
-  if (!decl.isPreprocessed) {
-    throw StateError("class not preprocessed: ${decl.binaryName}");
-  }
   return decl.uniqueName;
 }
 
@@ -736,12 +727,6 @@ bool hasSelfParam(Method m) => !isStaticMethod(m) && !isCtor(m);
 
 bool isObjectField(Field f) => !isPrimitive(f.type);
 bool isObjectMethod(Method m) => !isPrimitive(m.returnType);
-
-/// Returns class name as useful in dart.
-///
-/// Eg -> a.b.X.Y -> X_Y
-String getSimplifiedClassName(String binaryName) =>
-    binaryName.split('.').last.replaceAll('\$', '_');
 
 // Marker exception when a method or class cannot be translated
 // The inner functions may not know how much context has to be skipped in case

@@ -5,12 +5,12 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:jnigen/src/bindings/bindings.dart';
-import 'package:jnigen/src/logging/logging.dart';
-import 'package:jnigen/src/elements/elements.dart';
-import 'package:jnigen/src/config/config.dart';
-import 'package:jnigen/src/util/name_utils.dart';
-import 'package:jnigen/src/writers/bindings_writer.dart';
+import '../bindings/bindings.dart';
+import '../logging/logging.dart';
+import '../elements/elements.dart';
+import '../config/config.dart';
+import '../util/name_utils.dart';
+import '../writers/bindings_writer.dart';
 
 String getFileClassName(String binaryName) {
   final dollarSign = binaryName.indexOf('\$');
@@ -24,7 +24,7 @@ String getFileClassName(String binaryName) {
 /// is mirrored.
 class FilePathResolver implements SymbolResolver {
   FilePathResolver({
-    this.classes = const {},
+    this.classes = const Classes({}),
     this.importMap = const {},
     required this.currentClass,
     this.inputClassNames = const {},
@@ -39,13 +39,11 @@ class FilePathResolver implements SymbolResolver {
       binaryName: 'java.lang.String',
       packageName: 'java.lang',
       simpleName: 'String',
-    )
-      ..isIncluded = true
-      ..isPreprocessed = true,
+    ),
   };
 
   /// A map of all classes by their names
-  final Map<String, ClassDecl> classes;
+  final Classes classes;
 
   /// Class corresponding to currently writing file.
   final String currentClass;
@@ -178,7 +176,7 @@ class FilePathResolver implements SymbolResolver {
     if (predefinedClasses.containsKey(binaryName)) {
       return predefinedClasses[binaryName];
     }
-    return classes[binaryName];
+    return classes.decls[binaryName];
   }
 }
 
@@ -215,19 +213,23 @@ class FilesWriter extends BindingsWriter {
     final Map<String, List<ClassDecl>> files = {};
     final Map<String, ClassDecl> classesByName = {};
     final Map<String, Set<String>> packages = {};
-    for (var c in classes) {
+    for (final c in classes) {
       classesByName.putIfAbsent(c.binaryName, () => c);
-      final fileClass = getFileClassName(c.binaryName);
-
-      files.putIfAbsent(fileClass, () => <ClassDecl>[]);
-      files[fileClass]!.add(c);
-
-      packages.putIfAbsent(c.packageName, () => {});
-      packages[c.packageName]!.add(fileClass.split('.').last);
     }
 
-    final classNames = classesByName.keys.toSet();
-    ApiPreprocessor.preprocessAll(classesByName, config);
+    final c = Classes(classesByName);
+    final classNames = c.decls.keys.toSet();
+    ApiPreprocessor.preprocessAll(c, config);
+
+    for (final classDecl in c.decls.values) {
+      final fileClass = getFileClassName(classDecl.binaryName);
+
+      files.putIfAbsent(fileClass, () => <ClassDecl>[]);
+      files[fileClass]!.add(classDecl);
+
+      packages.putIfAbsent(classDecl.packageName, () => {});
+      packages[classDecl.packageName]!.add(fileClass.split('.').last);
+    }
 
     final dartRoot = config.outputConfig.dartConfig.path;
     log.info("Using dart root = $dartRoot");
@@ -236,7 +238,7 @@ class FilesWriter extends BindingsWriter {
         : PureDartBindingsGenerator(config);
 
     if (cBased) {
-      await writeCBindings(config, classesByName.values.toList());
+      await writeCBindings(config, c.decls.values.toList());
     }
 
     // Write init file
@@ -257,7 +259,7 @@ class FilesWriter extends BindingsWriter {
       final dartFile = await File.fromUri(dartFileUri).create(recursive: true);
       log.fine('$fileClassName -> ${dartFile.path}');
       final resolver = FilePathResolver(
-        classes: classesByName,
+        classes: c,
         importMap: config.importMap ?? const {},
         currentClass: fileClassName,
         inputClassNames: classNames,

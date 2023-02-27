@@ -35,9 +35,6 @@ class CBindingGenerator {
   String generateBinding(ClassDecl c) => _class(c);
 
   String _class(ClassDecl c) {
-    if (!c.isIncluded) {
-      return '';
-    }
     final s = StringBuffer();
     final classNameInC = getUniqueClassName(c);
     // global variable in C that holds the reference to class
@@ -46,17 +43,11 @@ class CBindingGenerator {
         'jclass $classVar = NULL;\n\n');
 
     for (var m in c.methods) {
-      if (!m.isIncluded) {
-        continue;
-      }
       s.write(_method(c, m));
       s.writeln();
     }
 
     for (var f in c.fields) {
-      if (!f.isIncluded) {
-        continue;
-      }
       final fieldBinding = _field(c, f);
       s.write(fieldBinding);
       // Fields are skipped if they're static final. In that case

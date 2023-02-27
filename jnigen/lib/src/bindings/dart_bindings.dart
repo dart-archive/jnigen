@@ -2,12 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:jnigen/src/elements/elements.dart';
-import 'package:jnigen/src/config/config.dart';
-import 'package:jnigen/src/logging/logging.dart';
-
-import 'symbol_resolver.dart';
+import '../config/config.dart';
+import '../elements/elements.dart';
+import '../logging/logging.dart';
 import 'common.dart';
+import 'symbol_resolver.dart';
 
 class CBasedDartBindingsGenerator extends BindingsGenerator {
   static const selfPointer = BindingsGenerator.selfPointer;
@@ -33,13 +32,6 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
 
   @override
   String generateBindings(ClassDecl decl, SymbolResolver resolver) {
-    if (!decl.isPreprocessed) {
-      throw StateError('Java class declaration must be preprocessed before'
-          'being passed to bindings generator');
-    }
-    if (!decl.isIncluded) {
-      return '';
-    }
     final bindings = _class(decl, resolver);
     log.finest('generated bindings for class ${decl.binaryName}');
     return bindings;
@@ -54,9 +46,6 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
     s.write(dartClassDefinition(decl, resolver));
     s.write(dartStaticTypeGetter(decl));
     for (var field in decl.fields) {
-      if (!field.isIncluded) {
-        continue;
-      }
       try {
         s.write(_field(decl, field, resolver));
         s.writeln();
@@ -67,9 +56,6 @@ class CBasedDartBindingsGenerator extends BindingsGenerator {
     }
 
     for (var method in decl.methods) {
-      if (!method.isIncluded) {
-        continue;
-      }
       try {
         s.write(_method(decl, method, resolver));
         s.writeln();

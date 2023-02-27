@@ -36,14 +36,6 @@ class PureDartBindingsGenerator extends BindingsGenerator {
 
   @override
   String generateBindings(ClassDecl decl, SymbolResolver resolver) {
-    if (!decl.isPreprocessed) {
-      throw StateError(
-          'Java class declaration ${decl.binaryName} must be preprocessed before'
-          'being passed to bindings generator');
-    }
-    if (!decl.isIncluded) {
-      return '';
-    }
     final bindings = _class(decl, resolver);
     log.fine('generated bindings for class ${decl.binaryName}');
     return bindings;
@@ -63,7 +55,6 @@ class PureDartBindingsGenerator extends BindingsGenerator {
 
     s.write(dartStaticTypeGetter(decl));
     for (var field in decl.fields) {
-      if (!field.isIncluded) continue;
       try {
         s.write(_field(decl, field, resolver));
         s.writeln();
@@ -74,9 +65,6 @@ class PureDartBindingsGenerator extends BindingsGenerator {
     }
 
     for (var method in decl.methods) {
-      if (!method.isIncluded) {
-        continue;
-      }
       try {
         s.write(_method(decl, method, resolver));
         s.writeln();
