@@ -60,7 +60,6 @@ class Linker extends ElementVisitor<void> {
     classDecl.superclass!.type.accept(this);
     final superclass = (classDecl.superclass!.type as DeclaredType).classDecl;
     superclass.accept(this);
-    classDecl.nameCounts.addAll(superclass.nameCounts);
 
     for (final field in classDecl.fields) {
       field.classDecl = classDecl;

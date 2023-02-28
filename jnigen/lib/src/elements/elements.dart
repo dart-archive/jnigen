@@ -51,32 +51,6 @@ class Classes implements Element {
 
 @JsonSerializable(createToJson: false)
 class ClassDecl implements Element {
-  /// Methods & properties already defined by dart JObject base class.
-  static const Map<String, int> _definedSyms = {
-    'equals': 1,
-    'toString': 1,
-    'hashCode': 1,
-    'runtimeType': 1,
-    'noSuchMethod': 1,
-    'reference': 1,
-    'isDeleted': 1,
-    'isNull': 1,
-    'use': 1,
-    'delete': 1,
-    'getFieldID': 1,
-    'getStaticFieldID': 1,
-    'getMethodID': 1,
-    'getStaticMethodID': 1,
-    'getField': 1,
-    'getFieldByName': 1,
-    'getStaticField': 1,
-    'getStaticFieldByName': 1,
-    'callMethod': 1,
-    'callMethodByName': 1,
-    'callStaticMethod': 1,
-    'callStaticMethodByName': 1,
-  };
-
   ClassDecl({
     this.annotations = const [],
     this.javadoc,
@@ -138,19 +112,6 @@ class ClassDecl implements Element {
   /// Will be populated by [Renamer].
   @JsonKey(includeFromJson: false)
   late final String uniqueName;
-
-  /// Contains number with which certain overload of a method is renamed to,
-  /// so the overriding method in subclass can be renamed to same final name.
-  ///
-  /// Will be populated by [Renamer].
-  @JsonKey(includeFromJson: false)
-  var methodNumsAfterRenaming = <String, int>{};
-
-  /// Name counts map, it's a field so that it can be later used by subclasses.
-  ///
-  /// Will be populated by [Renamer].
-  @JsonKey(includeFromJson: false)
-  var nameCounts = {..._definedSyms};
 
   /// Type parameters including the ones from its ancestors
   ///
