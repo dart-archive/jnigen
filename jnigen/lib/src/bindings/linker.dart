@@ -2,145 +2,173 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import '../bindings/element_visitor.dart';
+import 'visitor.dart';
 import '../config/config.dart';
 import '../elements/elements.dart';
 
+typedef _Resolver = ClassDecl Function(String? binaryName);
+
 /// Adds references from child elements back to their parent elements.
-class Linker extends ElementVisitor<void> {
+class Linker extends Visitor<Classes> {
   Linker(this.config);
 
   final Config config;
-  late final Map<String, ClassDecl> _classes;
-  final _linked = <ClassDecl>{};
-
-  ClassDecl _resolve(String? name) {
-    return _classes[name] ?? ClassDecl.object;
-  }
 
   @override
-  void visitAnnotation(Annotation annotation) {
-    throw UnsupportedError('Does not need linking.');
-  }
-
-  @override
-  void visitArrayType(ArrayType type) {
-    type.type.accept(this);
-  }
-
-  @override
-  void visitClasses(Classes classes) {
-    _classes = classes.decls;
-    for (final classDecl in classes.decls.values) {
-      classDecl.accept(this);
+  void visit(Classes node) {
+    final classLinker = _ClassLinker(config, (binaryName) {
+      return node.decls[binaryName] ?? ClassDecl.object;
+    });
+    for (final classDecl in node.decls.values) {
+      classDecl.accept(classLinker);
     }
   }
+}
+
+class _ClassLinker extends Visitor<ClassDecl> {
+  _ClassLinker(this.config, this.resolve);
+
+  final Config config;
+  final _Resolver resolve;
+  final Set<ClassDecl> _linked = {};
 
   @override
-  void visitClassDecl(ClassDecl classDecl) {
-    if (_linked.contains(classDecl)) return;
-    _linked.add(classDecl);
+  void visit(ClassDecl node) {
+    if (_linked.contains(node)) return;
+    _linked.add(node);
 
-    classDecl.parent = _resolve(classDecl.parentName);
-    classDecl.parent!.accept(this);
+    node.parent = resolve(node.parentName);
+    node.parent!.accept(this);
     // Adding type params of outer classes to the nested classes
     final allTypeParams = <TypeParam>[];
-    if (!classDecl.modifiers.contains('static')) {
-      for (final typeParam in classDecl.parent!.allTypeParams) {
-        if (!classDecl.allTypeParams.contains(typeParam)) {
+    if (!node.modifiers.contains('static')) {
+      for (final typeParam in node.parent!.allTypeParams) {
+        if (!node.allTypeParams.contains(typeParam)) {
           // Add only if it's not shadowing another type param.
           allTypeParams.add(typeParam);
         }
       }
     }
-    allTypeParams.addAll(classDecl.typeParams);
-    classDecl.allTypeParams = allTypeParams;
+    allTypeParams.addAll(node.typeParams);
+    node.allTypeParams = allTypeParams;
 
-    classDecl.superclass ??= TypeUsage.object;
-    classDecl.superclass!.type.accept(this);
-    final superclass = (classDecl.superclass!.type as DeclaredType).classDecl;
+    final typeLinker = _TypeLinker(resolve);
+
+    node.superclass ??= TypeUsage.object;
+    node.superclass!.type.accept(typeLinker);
+    final superclass = (node.superclass!.type as DeclaredType).classDecl;
     superclass.accept(this);
 
-    for (final field in classDecl.fields) {
-      field.classDecl = classDecl;
-      field.accept(this);
+    final fieldLinker = _FieldLinker(typeLinker);
+    for (final field in node.fields) {
+      field.classDecl = node;
+      field.accept(fieldLinker);
     }
-    for (final method in classDecl.methods) {
-      method.classDecl = classDecl;
-      method.accept(this);
+    final methodLinker = _MethodLinker(config, typeLinker);
+    for (final method in node.methods) {
+      method.classDecl = node;
+      method.accept(methodLinker);
     }
   }
+}
+
+class _MethodLinker extends Visitor<Method> {
+  _MethodLinker(this.config, this.typeVisitor);
+
+  final Config config;
+  final TypeVisitor typeVisitor;
 
   @override
-  void visitDeclaredType(DeclaredType type) {
-    type.classDecl = _resolve(type.binaryName);
-  }
-
-  @override
-  void visitField(Field field) {
-    field.type.accept(this);
-  }
-
-  @override
-  void visitJavaDocComment(JavaDocComment comment) {
-    throw UnsupportedError('Does not need linking.');
-  }
-
-  @override
-  void visitMethod(Method method) {
-    method.returnType.accept(this);
-    for (final typeParam in method.typeParams) {
-      typeParam.accept(this);
+  void visit(Method node) {
+    node.returnType.accept(typeVisitor);
+    final typeParamLinker = _TypeParamLinker(typeVisitor);
+    for (final typeParam in node.typeParams) {
+      typeParam.accept(typeParamLinker);
     }
-    for (final param in method.params) {
-      param.accept(this);
+    final paramLinker = _ParamLinker(typeVisitor);
+    for (final param in node.params) {
+      param.accept(paramLinker);
     }
     // Kotlin specific
     const kotlinContinutationType = 'kotlin.coroutines.Continuation';
     if (config.suspendFunToAsync &&
-        method.params.isNotEmpty &&
-        method.params.last.type.kind == Kind.declared &&
-        method.params.last.type.shorthand == kotlinContinutationType) {
-      final continuationType = method.params.last.type.type as DeclaredType;
-      method.asyncReturnType = continuationType.params.isEmpty
+        node.params.isNotEmpty &&
+        node.params.last.type.kind == Kind.declared &&
+        node.params.last.type.shorthand == kotlinContinutationType) {
+      final continuationType = node.params.last.type.type as DeclaredType;
+      node.asyncReturnType = continuationType.params.isEmpty
           ? TypeUsage.object
           : continuationType.params.first;
     } else {
-      method.asyncReturnType = null;
+      node.asyncReturnType = null;
     }
-    method.asyncReturnType?.accept(this);
+    node.asyncReturnType?.accept(typeVisitor);
+  }
+}
+
+class _TypeLinker extends TypeVisitor {
+  _TypeLinker(this.resolve);
+
+  final _Resolver resolve;
+
+  @override
+  void visitDeclaredType(DeclaredType node) {
+    node.classDecl = resolve(node.binaryName);
   }
 
   @override
-  void visitParam(Param param) {
-    param.type.accept(this);
+  void visitWildcard(Wildcard node) {
+    node.superBound?.type.accept(this);
+    node.extendsBound?.type.accept(this);
   }
 
   @override
-  void visitPrimitiveType(PrimitiveType type) {
-    // Do nothing.
+  void visitArrayType(ArrayType node) {
+    node.type.accept(this);
   }
 
   @override
-  void visitTypeParam(TypeParam typeParam) {
-    for (final bound in typeParam.bounds) {
-      bound.accept(this);
+  void visitPrimitiveType(PrimitiveType node) {
+    // Do nothing
+  }
+
+  @override
+  void visitTypeVar(TypeVar node) {
+    // Do nothing
+  }
+}
+
+class _FieldLinker extends Visitor<Field> {
+  _FieldLinker(this.typeVisitor);
+
+  final TypeVisitor typeVisitor;
+
+  @override
+  void visit(Field node) {
+    node.type.accept(typeVisitor);
+  }
+}
+
+class _TypeParamLinker extends Visitor<TypeParam> {
+  _TypeParamLinker(this.typeVisitor);
+
+  final TypeVisitor typeVisitor;
+
+  @override
+  void visit(TypeParam node) {
+    for (final bound in node.bounds) {
+      bound.accept(typeVisitor);
     }
   }
+}
+
+class _ParamLinker extends Visitor<Param> {
+  _ParamLinker(this.typeVisitor);
+
+  final TypeVisitor typeVisitor;
 
   @override
-  void visitTypeUsage(TypeUsage typeUsage) {
-    typeUsage.type.accept(this);
-  }
-
-  @override
-  void visitTypeVar(TypeVar type) {
-    // Do nothing.
-  }
-
-  @override
-  void visitWildcard(Wildcard wildcard) {
-    wildcard.superBound?.accept(this);
-    wildcard.extendsBound?.accept(this);
+  void visit(Param node) {
+    node.type.accept(typeVisitor);
   }
 }

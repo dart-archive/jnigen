@@ -4,13 +4,15 @@
 
 // Types to describe java API elements
 
-import 'package:jnigen/src/bindings/element_visitor.dart';
+import 'package:jnigen/src/bindings/visitor.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'elements.g.dart';
 
-abstract class Element {
-  T accept<T>(ElementVisitor<T> e);
+abstract class Element<T extends Element<T>> {
+  const Element();
+
+  void accept(Visitor<T> v);
 }
 
 @JsonEnum()
@@ -25,7 +27,7 @@ enum DeclKind {
   enumKind,
 }
 
-class Classes implements Element {
+class Classes implements Element<Classes> {
   const Classes(this.decls);
 
   final Map<String, ClassDecl> decls;
@@ -40,8 +42,8 @@ class Classes implements Element {
   }
 
   @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitClasses(this);
+  void accept(Visitor<Classes> v) {
+    v.visit(this);
   }
 }
 
@@ -50,7 +52,7 @@ class Classes implements Element {
 // option in java.
 
 @JsonSerializable(createToJson: false)
-class ClassDecl implements Element {
+class ClassDecl implements Element<ClassDecl> {
   ClassDecl({
     this.annotations = const [],
     this.javadoc,
@@ -134,8 +136,8 @@ class ClassDecl implements Element {
       _$ClassDeclFromJson(json);
 
   @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitClassDecl(this);
+  void accept(Visitor<ClassDecl> v) {
+    v.visit(this);
   }
 }
 
@@ -154,7 +156,7 @@ enum Kind {
 }
 
 @JsonSerializable(createToJson: false)
-class TypeUsage implements Element {
+class TypeUsage {
   TypeUsage({
     required this.shorthand,
     required this.kind,
@@ -208,19 +210,20 @@ class TypeUsage implements Element {
     return t;
   }
 
-  @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitTypeUsage(this);
+  void accept(TypeVisitor v) {
+    type.accept(v);
   }
 }
 
-abstract class ReferredType implements Element {
+abstract class ReferredType<T extends ReferredType<T>> {
   const ReferredType();
   String get name;
+
+  void accept(TypeVisitor v);
 }
 
 @JsonSerializable(createToJson: false)
-class PrimitiveType implements ReferredType {
+class PrimitiveType extends ReferredType<PrimitiveType> {
   const PrimitiveType({required this.name});
 
   @override
@@ -230,13 +233,13 @@ class PrimitiveType implements ReferredType {
       _$PrimitiveTypeFromJson(json);
 
   @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitPrimitiveType(this);
+  void accept(TypeVisitor v) {
+    v.visitPrimitiveType(this);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class DeclaredType implements ReferredType {
+class DeclaredType extends ReferredType<DeclaredType> {
   DeclaredType({
     required this.binaryName,
     required this.simpleName,
@@ -257,13 +260,13 @@ class DeclaredType implements ReferredType {
       _$DeclaredTypeFromJson(json);
 
   @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitDeclaredType(this);
+  void accept(TypeVisitor v) {
+    v.visitDeclaredType(this);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class TypeVar implements ReferredType {
+class TypeVar extends ReferredType<TypeVar> {
   TypeVar({required this.name});
 
   @override
@@ -273,13 +276,13 @@ class TypeVar implements ReferredType {
       _$TypeVarFromJson(json);
 
   @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitTypeVar(this);
+  void accept(TypeVisitor v) {
+    v.visitTypeVar(this);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class Wildcard implements ReferredType {
+class Wildcard extends ReferredType<Wildcard> {
   Wildcard({this.extendsBound, this.superBound});
   TypeUsage? extendsBound, superBound;
 
@@ -290,13 +293,13 @@ class Wildcard implements ReferredType {
       _$WildcardFromJson(json);
 
   @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitWildcard(this);
+  void accept(TypeVisitor v) {
+    v.visitWildcard(this);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class ArrayType implements ReferredType {
+class ArrayType extends ReferredType<ArrayType> {
   ArrayType({required this.type});
   TypeUsage type;
 
@@ -307,18 +310,18 @@ class ArrayType implements ReferredType {
       _$ArrayTypeFromJson(json);
 
   @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitArrayType(this);
+  void accept(TypeVisitor v) {
+    v.visitArrayType(this);
   }
 }
 
-abstract class ClassMember implements Element {
+abstract class ClassMember {
   String get name;
   ClassDecl get classDecl;
 }
 
 @JsonSerializable(createToJson: false)
-class Method implements ClassMember {
+class Method extends ClassMember implements Element<Method> {
   Method({
     this.annotations = const [],
     this.javadoc,
@@ -370,13 +373,13 @@ class Method implements ClassMember {
   factory Method.fromJson(Map<String, dynamic> json) => _$MethodFromJson(json);
 
   @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitMethod(this);
+  void accept(Visitor<Method> v) {
+    v.visit(this);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class Param implements Element {
+class Param implements Element<Param> {
   Param({
     this.annotations = const [],
     this.javadoc,
@@ -396,13 +399,13 @@ class Param implements Element {
   factory Param.fromJson(Map<String, dynamic> json) => _$ParamFromJson(json);
 
   @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitParam(this);
+  void accept(Visitor<Param> v) {
+    v.visit(this);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class Field implements ClassMember {
+class Field extends ClassMember implements Element<Field> {
   Field({
     this.annotations = const [],
     this.javadoc,
@@ -434,13 +437,13 @@ class Field implements ClassMember {
   factory Field.fromJson(Map<String, dynamic> json) => _$FieldFromJson(json);
 
   @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitField(this);
+  void accept(Visitor<Field> v) {
+    v.visit(this);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class TypeParam implements Element {
+class TypeParam implements Element<TypeParam> {
   TypeParam({required this.name, this.bounds = const []});
 
   final String name;
@@ -453,13 +456,13 @@ class TypeParam implements Element {
       _$TypeParamFromJson(json);
 
   @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitTypeParam(this);
+  void accept(Visitor<TypeParam> v) {
+    v.visit(this);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class JavaDocComment implements Element {
+class JavaDocComment implements Element<JavaDocComment> {
   JavaDocComment({this.comment = ''});
 
   final String comment;
@@ -471,13 +474,13 @@ class JavaDocComment implements Element {
       _$JavaDocCommentFromJson(json);
 
   @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitJavaDocComment(this);
+  void accept(Visitor<JavaDocComment> v) {
+    v.visit(this);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class Annotation implements Element {
+class Annotation implements Element<Annotation> {
   Annotation({
     required this.simpleName,
     required this.binaryName,
@@ -492,7 +495,7 @@ class Annotation implements Element {
       _$AnnotationFromJson(json);
 
   @override
-  T accept<T>(ElementVisitor<T> e) {
-    return e.visitAnnotation(this);
+  void accept(Visitor<Annotation> v) {
+    v.visit(this);
   }
 }
