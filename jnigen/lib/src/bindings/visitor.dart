@@ -4,18 +4,37 @@
 
 import '../elements/elements.dart';
 
-abstract class Visitor<T extends Element<T>> {
+abstract class Visitor<T extends Element<T>, R> {
   const Visitor();
 
-  void visit(T node);
+  R visit(T node);
 }
 
-abstract class TypeVisitor {
+abstract class TypeVisitor<R> {
   const TypeVisitor();
 
-  void visitPrimitiveType(PrimitiveType node);
-  void visitArrayType(ArrayType node);
-  void visitDeclaredType(DeclaredType node);
-  void visitTypeVar(TypeVar node);
-  void visitWildcard(Wildcard node);
+  R visitPrimitiveType(PrimitiveType node);
+  R visitArrayType(ArrayType node);
+  R visitDeclaredType(DeclaredType node);
+  R visitTypeVar(TypeVar node);
+  R visitWildcard(Wildcard node);
+}
+
+extension MultiVisitor<T extends Element<T>> on Iterable<Element<T>> {
+  Iterable<R> accept<R>(Visitor<T, R> v) {
+    return map((e) => e.accept(v));
+  }
+}
+
+extension MultiTypeVisitor<T extends ReferredType<T>>
+    on Iterable<ReferredType<T>> {
+  Iterable<R> accept<R>(TypeVisitor<R> v) {
+    return map((e) => e.accept(v));
+  }
+}
+
+extension MultiTypeUsageVisitor on Iterable<TypeUsage> {
+  Iterable<R> accept<R>(TypeVisitor<R> v) {
+    return map((e) => e.type.accept(v));
+  }
 }

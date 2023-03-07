@@ -12,7 +12,7 @@ part 'elements.g.dart';
 abstract class Element<T extends Element<T>> {
   const Element();
 
-  void accept(Visitor<T> v);
+  R accept<R>(Visitor<T, R> v);
 }
 
 @JsonEnum()
@@ -42,8 +42,8 @@ class Classes implements Element<Classes> {
   }
 
   @override
-  void accept(Visitor<Classes> v) {
-    v.visit(this);
+  R accept<R>(Visitor<Classes, R> v) {
+    return v.visit(this);
   }
 }
 
@@ -52,7 +52,7 @@ class Classes implements Element<Classes> {
 // option in java.
 
 @JsonSerializable(createToJson: false)
-class ClassDecl implements Element<ClassDecl> {
+class ClassDecl extends ClassMember implements Element<ClassDecl> {
   ClassDecl({
     this.annotations = const [],
     this.javadoc,
@@ -71,9 +71,11 @@ class ClassDecl implements Element<ClassDecl> {
     this.values,
   });
 
+  @override
+  final Set<String> modifiers;
+
   final List<Annotation> annotations;
   final JavaDocComment? javadoc;
-  final Set<String> modifiers;
   final String simpleName;
   final String binaryName;
   final String? parentName;
@@ -126,6 +128,8 @@ class ClassDecl implements Element<ClassDecl> {
     return 'Java class declaration for $binaryName';
   }
 
+  String get signature => 'L${binaryName.replaceAll(".", "/")};';
+
   static final object = ClassDecl(
     binaryName: 'java.lang.Object',
     packageName: 'java.lang',
@@ -136,9 +140,15 @@ class ClassDecl implements Element<ClassDecl> {
       _$ClassDeclFromJson(json);
 
   @override
-  void accept(Visitor<ClassDecl> v) {
-    v.visit(this);
+  R accept<R>(Visitor<ClassDecl, R> v) {
+    return v.visit(this);
   }
+
+  @override
+  ClassDecl get classDecl => this;
+
+  @override
+  String get name => finalName;
 }
 
 @JsonEnum()
@@ -210,8 +220,8 @@ class TypeUsage {
     return t;
   }
 
-  void accept(TypeVisitor v) {
-    type.accept(v);
+  R accept<R>(TypeVisitor<R> v) {
+    return type.accept(v);
   }
 }
 
@@ -219,22 +229,88 @@ abstract class ReferredType<T extends ReferredType<T>> {
   const ReferredType();
   String get name;
 
-  void accept(TypeVisitor v);
+  R accept<R>(TypeVisitor<R> v);
 }
 
-@JsonSerializable(createToJson: false)
 class PrimitiveType extends ReferredType<PrimitiveType> {
-  const PrimitiveType({required this.name});
+  static const _primitives = {
+    'byte': PrimitiveType._(
+      name: 'byte',
+      dartType: 'int',
+      jniType: 'JByte',
+      cType: 'int8_t',
+    ),
+    'short': PrimitiveType._(
+      name: 'short',
+      dartType: 'int',
+      jniType: 'JShort',
+      cType: 'int16_t',
+    ),
+    'char': PrimitiveType._(
+      name: 'char',
+      dartType: 'int',
+      jniType: 'JChar',
+      cType: 'char',
+    ),
+    'int': PrimitiveType._(
+      name: 'int',
+      dartType: 'int',
+      jniType: 'JInt',
+      cType: 'int32_t',
+    ),
+    'long': PrimitiveType._(
+      name: 'long',
+      dartType: 'int',
+      jniType: 'JLong',
+      cType: 'int64_t',
+    ),
+    'float': PrimitiveType._(
+      name: 'float',
+      dartType: 'double',
+      jniType: 'JFloat',
+      cType: '',
+    ),
+    'double': PrimitiveType._(
+      name: 'double',
+      dartType: 'double',
+      jniType: 'JDouble',
+      cType: 'double',
+    ),
+    'boolean': PrimitiveType._(
+      name: 'boolean',
+      dartType: 'bool',
+      jniType: 'JBoolean',
+      cType: 'uint8_t',
+    ),
+    'void': PrimitiveType._(
+      name: 'void',
+      dartType: 'void',
+      jniType: 'JVoid', // Never used
+      cType: 'void',
+    ),
+  };
+
+  const PrimitiveType._({
+    required this.name,
+    required this.dartType,
+    required this.jniType,
+    required this.cType,
+  });
 
   @override
   final String name;
 
-  factory PrimitiveType.fromJson(Map<String, dynamic> json) =>
-      _$PrimitiveTypeFromJson(json);
+  final String dartType;
+  final String jniType;
+  final String cType;
+
+  factory PrimitiveType.fromJson(Map<String, dynamic> json) {
+    return _primitives[json['name']]!;
+  }
 
   @override
-  void accept(TypeVisitor v) {
-    v.visitPrimitiveType(this);
+  R accept<R>(TypeVisitor<R> v) {
+    return v.visitPrimitiveType(this);
   }
 }
 
@@ -260,8 +336,8 @@ class DeclaredType extends ReferredType<DeclaredType> {
       _$DeclaredTypeFromJson(json);
 
   @override
-  void accept(TypeVisitor v) {
-    v.visitDeclaredType(this);
+  R accept<R>(TypeVisitor<R> v) {
+    return v.visitDeclaredType(this);
   }
 }
 
@@ -276,8 +352,8 @@ class TypeVar extends ReferredType<TypeVar> {
       _$TypeVarFromJson(json);
 
   @override
-  void accept(TypeVisitor v) {
-    v.visitTypeVar(this);
+  R accept<R>(TypeVisitor<R> v) {
+    return v.visitTypeVar(this);
   }
 }
 
@@ -293,8 +369,8 @@ class Wildcard extends ReferredType<Wildcard> {
       _$WildcardFromJson(json);
 
   @override
-  void accept(TypeVisitor v) {
-    v.visitWildcard(this);
+  R accept<R>(TypeVisitor<R> v) {
+    return v.visitWildcard(this);
   }
 }
 
@@ -310,14 +386,20 @@ class ArrayType extends ReferredType<ArrayType> {
       _$ArrayTypeFromJson(json);
 
   @override
-  void accept(TypeVisitor v) {
-    v.visitArrayType(this);
+  R accept<R>(TypeVisitor<R> v) {
+    return v.visitArrayType(this);
   }
 }
 
 abstract class ClassMember {
   String get name;
   ClassDecl get classDecl;
+  Set<String> get modifiers;
+
+  bool get isStatic => modifiers.contains('static');
+  bool get isFinal => modifiers.contains('final');
+  bool get isPublic => modifiers.contains('public');
+  bool get isProtected => modifiers.contains('protected');
 }
 
 @JsonSerializable(createToJson: false)
@@ -334,9 +416,11 @@ class Method extends ClassMember implements Element<Method> {
 
   @override
   final String name;
+  @override
+  final Set<String> modifiers;
+
   final List<Annotation> annotations;
   final JavaDocComment? javadoc;
-  final Set<String> modifiers;
   final List<TypeParam> typeParams;
   final List<Param> params;
   final TypeUsage returnType;
@@ -373,8 +457,8 @@ class Method extends ClassMember implements Element<Method> {
   factory Method.fromJson(Map<String, dynamic> json) => _$MethodFromJson(json);
 
   @override
-  void accept(Visitor<Method> v) {
-    v.visit(this);
+  R accept<R>(Visitor<Method, R> v) {
+    return v.visit(this);
   }
 }
 
@@ -399,8 +483,8 @@ class Param implements Element<Param> {
   factory Param.fromJson(Map<String, dynamic> json) => _$ParamFromJson(json);
 
   @override
-  void accept(Visitor<Param> v) {
-    v.visit(this);
+  R accept<R>(Visitor<Param, R> v) {
+    return v.visit(this);
   }
 }
 
@@ -417,9 +501,11 @@ class Field extends ClassMember implements Element<Field> {
 
   @override
   final String name;
+  @override
+  final Set<String> modifiers;
+
   final List<Annotation> annotations;
   final JavaDocComment? javadoc;
-  final Set<String> modifiers;
   final TypeUsage type;
   final Object? defaultValue;
 
@@ -437,8 +523,8 @@ class Field extends ClassMember implements Element<Field> {
   factory Field.fromJson(Map<String, dynamic> json) => _$FieldFromJson(json);
 
   @override
-  void accept(Visitor<Field> v) {
-    v.visit(this);
+  R accept<R>(Visitor<Field, R> v) {
+    return v.visit(this);
   }
 }
 
@@ -456,8 +542,8 @@ class TypeParam implements Element<TypeParam> {
       _$TypeParamFromJson(json);
 
   @override
-  void accept(Visitor<TypeParam> v) {
-    v.visit(this);
+  R accept<R>(Visitor<TypeParam, R> v) {
+    return v.visit(this);
   }
 }
 
@@ -474,8 +560,8 @@ class JavaDocComment implements Element<JavaDocComment> {
       _$JavaDocCommentFromJson(json);
 
   @override
-  void accept(Visitor<JavaDocComment> v) {
-    v.visit(this);
+  R accept<R>(Visitor<JavaDocComment, R> v) {
+    return v.visit(this);
   }
 }
 
@@ -495,7 +581,7 @@ class Annotation implements Element<Annotation> {
       _$AnnotationFromJson(json);
 
   @override
-  void accept(Visitor<Annotation> v) {
-    v.visit(this);
+  R accept<R>(Visitor<Annotation, R> v) {
+    return v.visit(this);
   }
 }

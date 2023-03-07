@@ -6,10 +6,10 @@ import 'visitor.dart';
 import '../elements/elements.dart';
 import '../config/config.dart';
 
-bool _isPrivate(Set<String> modifiers) =>
-    !modifiers.contains("public") && !modifiers.contains("protected");
+bool _isPrivate(ClassMember classMember) =>
+    !classMember.isPublic && !classMember.isProtected;
 
-class Excluder extends Visitor<Classes> {
+class Excluder extends Visitor<Classes, void> {
   const Excluder(this.config);
 
   final Config config;
@@ -17,7 +17,7 @@ class Excluder extends Visitor<Classes> {
   @override
   void visit(Classes node) {
     node.decls.removeWhere((_, classDecl) {
-      return _isPrivate(classDecl.modifiers) ||
+      return _isPrivate(classDecl) ||
           (config.exclude?.classes?.included(classDecl) ?? false);
     });
     final classExcluder = _ClassExcluder(config);
@@ -27,7 +27,7 @@ class Excluder extends Visitor<Classes> {
   }
 }
 
-class _ClassExcluder extends Visitor<ClassDecl> {
+class _ClassExcluder extends Visitor<ClassDecl, void> {
   _ClassExcluder(this.config);
 
   final Config config;
@@ -35,12 +35,12 @@ class _ClassExcluder extends Visitor<ClassDecl> {
   @override
   void visit(ClassDecl node) {
     node.methods = node.methods.where((method) {
-      return !_isPrivate(method.modifiers) &&
+      return !_isPrivate(method) &&
           !method.name.startsWith('_') &&
           (config.exclude?.methods?.included(node, method) ?? true);
     }).toList();
     node.fields = node.fields.where((field) {
-      return !_isPrivate(field.modifiers) &&
+      return !_isPrivate(field) &&
           !field.name.startsWith('_') &&
           (config.exclude?.fields?.included(node, field) ?? true);
     }).toList();

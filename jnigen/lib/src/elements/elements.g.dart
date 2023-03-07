@@ -61,11 +61,6 @@ const _$KindEnumMap = {
   Kind.array: 'ARRAY',
 };
 
-PrimitiveType _$PrimitiveTypeFromJson(Map<String, dynamic> json) =>
-    PrimitiveType(
-      name: json['name'] as String,
-    );
-
 DeclaredType _$DeclaredTypeFromJson(Map<String, dynamic> json) => DeclaredType(
       binaryName: json['binaryName'] as String,
       simpleName: json['simpleName'] as String,

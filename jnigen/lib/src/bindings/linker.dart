@@ -9,7 +9,7 @@ import '../elements/elements.dart';
 typedef _Resolver = ClassDecl Function(String? binaryName);
 
 /// Adds references from child elements back to their parent elements.
-class Linker extends Visitor<Classes> {
+class Linker extends Visitor<Classes, void> {
   Linker(this.config);
 
   final Config config;
@@ -25,7 +25,7 @@ class Linker extends Visitor<Classes> {
   }
 }
 
-class _ClassLinker extends Visitor<ClassDecl> {
+class _ClassLinker extends Visitor<ClassDecl, void> {
   _ClassLinker(this.config, this.resolve);
 
   final Config config;
@@ -72,11 +72,11 @@ class _ClassLinker extends Visitor<ClassDecl> {
   }
 }
 
-class _MethodLinker extends Visitor<Method> {
+class _MethodLinker extends Visitor<Method, void> {
   _MethodLinker(this.config, this.typeVisitor);
 
   final Config config;
-  final TypeVisitor typeVisitor;
+  final TypeVisitor<void> typeVisitor;
 
   @override
   void visit(Method node) {
@@ -106,7 +106,7 @@ class _MethodLinker extends Visitor<Method> {
   }
 }
 
-class _TypeLinker extends TypeVisitor {
+class _TypeLinker extends TypeVisitor<void> {
   _TypeLinker(this.resolve);
 
   final _Resolver resolve;
@@ -138,10 +138,10 @@ class _TypeLinker extends TypeVisitor {
   }
 }
 
-class _FieldLinker extends Visitor<Field> {
+class _FieldLinker extends Visitor<Field, void> {
   _FieldLinker(this.typeVisitor);
 
-  final TypeVisitor typeVisitor;
+  final TypeVisitor<void> typeVisitor;
 
   @override
   void visit(Field node) {
@@ -149,10 +149,10 @@ class _FieldLinker extends Visitor<Field> {
   }
 }
 
-class _TypeParamLinker extends Visitor<TypeParam> {
+class _TypeParamLinker extends Visitor<TypeParam, void> {
   _TypeParamLinker(this.typeVisitor);
 
-  final TypeVisitor typeVisitor;
+  final TypeVisitor<void> typeVisitor;
 
   @override
   void visit(TypeParam node) {
@@ -162,10 +162,10 @@ class _TypeParamLinker extends Visitor<TypeParam> {
   }
 }
 
-class _ParamLinker extends Visitor<Param> {
+class _ParamLinker extends Visitor<Param, void> {
   _ParamLinker(this.typeVisitor);
 
-  final TypeVisitor typeVisitor;
+  final TypeVisitor<void> typeVisitor;
 
   @override
   void visit(Param node) {

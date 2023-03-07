@@ -17,6 +17,7 @@ class SingleFileResolver implements SymbolResolver {
   };
   static final predefinedClasses = {
     'java.lang.String': ClassDecl(
+      superclass: TypeUsage.object,
       binaryName: 'java.lang.String',
       packageName: 'java.lang',
       simpleName: 'String',

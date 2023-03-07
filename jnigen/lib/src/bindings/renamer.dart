@@ -120,7 +120,7 @@ String _renameConflict(Map<String, int> counts, String name) {
   return _keywordRename(name);
 }
 
-class Renamer implements Visitor<Classes> {
+class Renamer implements Visitor<Classes, void> {
   Renamer(this.config);
   final Config config;
 
@@ -134,7 +134,7 @@ class Renamer implements Visitor<Classes> {
   }
 }
 
-class _ClassRenamer implements Visitor<ClassDecl> {
+class _ClassRenamer implements Visitor<ClassDecl, void> {
   _ClassRenamer(
     this.config,
   );
@@ -187,7 +187,7 @@ class _ClassRenamer implements Visitor<ClassDecl> {
   }
 }
 
-class _MethodRenamer implements Visitor<Method> {
+class _MethodRenamer implements Visitor<Method, void> {
   _MethodRenamer(this.config, this.nameCounts, this.methodNumsAfterRenaming);
 
   final Config config;
@@ -224,7 +224,7 @@ class _MethodRenamer implements Visitor<Method> {
   }
 }
 
-class _FieldRenamer implements Visitor<Field> {
+class _FieldRenamer implements Visitor<Field, void> {
   _FieldRenamer(this.config, this.nameCounts);
 
   final Config config;
@@ -239,7 +239,7 @@ class _FieldRenamer implements Visitor<Field> {
   }
 }
 
-class _ParamRenamer implements Visitor<Param> {
+class _ParamRenamer implements Visitor<Param, void> {
   _ParamRenamer(this.config);
 
   final Config config;
