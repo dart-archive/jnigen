@@ -554,12 +554,9 @@ abstract class BindingsGenerator {
     return [...m.modifiers, declStmt].join(' ');
   }
 
-  String toNativeArg(String name, TypeUsage type,
-      {bool convertBooleanToInt = true}) {
+  String toNativeArg(String name, TypeUsage type) {
     if (isPrimitive(type)) {
-      return (type.name == 'boolean' && convertBooleanToInt)
-          ? '$name ? 1 : 0'
-          : name;
+      return (type.name == 'boolean') ? '$name ? 1 : 0' : name;
     }
     return '$name.$selfPointer';
   }

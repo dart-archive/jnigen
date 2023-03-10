@@ -133,7 +133,7 @@ class _TypeLinker extends TypeVisitor<void> {
   }
 
   @override
-  void visitTypeVar(TypeVar node) {
+  void visitNonPrimitiveType(ReferredType node) {
     // Do nothing
   }
 }

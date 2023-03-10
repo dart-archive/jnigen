@@ -80,10 +80,11 @@ class PureDartBindingsGenerator extends BindingsGenerator {
   }
 
   @override
-  String toNativeArg(String name, TypeUsage type,
-      {bool convertBooleanToInt = false}) {
-    return super
-        .toNativeArg(name, type, convertBooleanToInt: convertBooleanToInt);
+  String toNativeArg(
+    String name,
+    TypeUsage type,
+  ) {
+    return super.toNativeArg(name, type);
   }
 
   @override
@@ -208,7 +209,7 @@ class PureDartBindingsGenerator extends BindingsGenerator {
         final fieldType = getTypeNameAtCallSite(f.type);
         s.write('set $name($outerType value) => $env.Set$ifStatic'
             '${fieldType}Field($selfArgument, $fID, '
-            '${toNativeArg("value", f.type, convertBooleanToInt: true)});\n');
+            '${toNativeArg("value", f.type)});\n');
       } else {
         final outer = getDartOuterType(f.type, resolver);
         final typeClass = getDartTypeClass(f.type, resolver);

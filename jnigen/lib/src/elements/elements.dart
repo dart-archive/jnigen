@@ -225,84 +225,106 @@ class TypeUsage {
   }
 }
 
-abstract class ReferredType<T extends ReferredType<T>> {
+abstract class ReferredType {
   const ReferredType();
   String get name;
 
   R accept<R>(TypeVisitor<R> v);
 }
 
-class PrimitiveType extends ReferredType<PrimitiveType> {
+class PrimitiveType extends ReferredType {
   static const _primitives = {
     'byte': PrimitiveType._(
       name: 'byte',
+      signature: 'B',
       dartType: 'int',
       jniType: 'JByte',
       cType: 'int8_t',
+      ffiType: 'Int8',
     ),
     'short': PrimitiveType._(
       name: 'short',
+      signature: 'S',
       dartType: 'int',
       jniType: 'JShort',
       cType: 'int16_t',
+      ffiType: 'Int16',
     ),
     'char': PrimitiveType._(
       name: 'char',
+      signature: 'C',
       dartType: 'int',
       jniType: 'JChar',
       cType: 'char',
+      ffiType: 'UInt16',
     ),
     'int': PrimitiveType._(
       name: 'int',
+      signature: 'I',
       dartType: 'int',
       jniType: 'JInt',
       cType: 'int32_t',
+      ffiType: 'Int32',
     ),
     'long': PrimitiveType._(
       name: 'long',
+      signature: 'J',
       dartType: 'int',
       jniType: 'JLong',
       cType: 'int64_t',
+      ffiType: 'Int64',
     ),
     'float': PrimitiveType._(
       name: 'float',
+      signature: 'F',
       dartType: 'double',
       jniType: 'JFloat',
-      cType: '',
+      cType: 'float',
+      ffiType: 'Float',
     ),
     'double': PrimitiveType._(
       name: 'double',
+      signature: 'D',
       dartType: 'double',
       jniType: 'JDouble',
       cType: 'double',
+      ffiType: 'Double',
     ),
     'boolean': PrimitiveType._(
       name: 'boolean',
+      signature: 'Z',
       dartType: 'bool',
       jniType: 'JBoolean',
       cType: 'uint8_t',
+      ffiType: 'Uint8',
     ),
     'void': PrimitiveType._(
       name: 'void',
+      signature: 'V',
       dartType: 'void',
       jniType: 'JVoid', // Never used
       cType: 'void',
+      ffiType: 'Void',
     ),
   };
 
   const PrimitiveType._({
     required this.name,
+    required this.signature,
     required this.dartType,
     required this.jniType,
     required this.cType,
+    required this.ffiType,
   });
 
   @override
   final String name;
 
+  final String signature;
   final String dartType;
   final String jniType;
   final String cType;
+  final String ffiType;
 
   factory PrimitiveType.fromJson(Map<String, dynamic> json) {
     return _primitives[json['name']]!;
@@ -315,7 +337,7 @@ class PrimitiveType extends ReferredType<PrimitiveType> {
 }
 
 @JsonSerializable(createToJson: false)
-class DeclaredType extends ReferredType<DeclaredType> {
+class DeclaredType extends ReferredType {
   DeclaredType({
     required this.binaryName,
     required this.simpleName,
@@ -342,7 +364,7 @@ class DeclaredType extends ReferredType<DeclaredType> {
 }
 
 @JsonSerializable(createToJson: false)
-class TypeVar extends ReferredType<TypeVar> {
+class TypeVar extends ReferredType {
   TypeVar({required this.name});
 
   @override
@@ -358,7 +380,7 @@ class TypeVar extends ReferredType<TypeVar> {
 }
 
 @JsonSerializable(createToJson: false)
-class Wildcard extends ReferredType<Wildcard> {
+class Wildcard extends ReferredType {
   Wildcard({this.extendsBound, this.superBound});
   TypeUsage? extendsBound, superBound;
 
@@ -375,7 +397,7 @@ class Wildcard extends ReferredType<Wildcard> {
 }
 
 @JsonSerializable(createToJson: false)
-class ArrayType extends ReferredType<ArrayType> {
+class ArrayType extends ReferredType {
   ArrayType({required this.type});
   TypeUsage type;
 

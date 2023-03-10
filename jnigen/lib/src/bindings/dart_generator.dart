@@ -6,21 +6,56 @@ import '../config/config.dart';
 import '../elements/elements.dart';
 import 'visitor.dart';
 
+// Import prefixes
 const _jni = 'jni';
+const _ffi = 'ffi';
 
+// package:jni types
 const _jType = '$_jni.JObjType';
 const _jPointer = '$_jni.JObjectPtr';
 const _jArray = '$_jni.JArray';
 const _jObject = '$_jni.JObject';
+const _jThrowable = '$_jni.JThrowablePtr';
+const _jResult = '$_jni.JniResult';
+const _jCallType = '$_jni.JniCallType';
 
+// package:ffi types
+const _voidPointer = '$_ffi.Pointer<$_ffi.Void>';
+
+// Prefixes and suffixes
 const _typeParamPrefix = '\$';
-
 const _typeClassPrefix = '\$';
 const _typeClassSuffix = 'Type';
 
+// Dart only related
+const _classRef = '_classRef';
+const _env = 'jniEnv';
+const _accessors = 'jniAccessors';
+
+// Docs
 const _deleteInstruction =
     '  /// The returned object must be deleted after use, '
     'by calling the `delete` method.';
+
+const _lookup = 'jniLookup';
+const _selfPointer = 'reference';
+
+extension _StringX on String {
+  String capitalize() {
+    return '${this[0].toUpperCase()}${substring(1)}';
+  }
+}
+
+/// Encloses [inside] in the middle of [open] and [close]
+/// if [inside] is not empty.
+String _encloseIfNotEmpty(String open, String inside, String close) {
+  if (inside == '') return '';
+  return '$open$inside$close';
+}
+
+String _newLine({int depth = 0}) {
+  return '\n${'  ' * depth}';
+}
 
 // **Naming Convention**
 //
@@ -46,17 +81,6 @@ const _deleteInstruction =
 // * `fTypeClassesDef` refers to `JType<T> $T, JType<U> $U`.
 // * `fTypeClassesCall` refers to `$T, $U` when calling the method.
 
-/// Encloses [inside] in the middle of [open] and [close]
-/// if [inside] is not empty.
-String _encloseIfNotEmpty(String open, String inside, String close) {
-  if (inside == '') return '';
-  return '$open$inside$close';
-}
-
-String _newLine({int depth = 0}) {
-  return '\n${'  ' * depth}';
-}
-
 class DartGenerator extends Visitor<Classes, void> {
   @override
   void visit(Classes node) {}
@@ -76,6 +100,9 @@ class _ClassGenerator extends Visitor<ClassDecl, void> {
 
   @override
   void visit(ClassDecl node) {
+    final isDartOnly =
+        config.outputConfig.bindingsType == BindingsType.dartOnly;
+
     // Docs
     s.write('/// from: ${node.binaryName}\n');
     node.javadoc?.accept(_DocGenerator(s, depth: 0));
@@ -128,6 +155,14 @@ class $name$typeParamsDef extends $superName {
   );
 
 ''');
+
+    if (isDartOnly) {
+      final internalName = node.binaryName.replaceAll('.', '/');
+      s.write('''
+  static final $_classRef = $_accessors.getClassOf(r"$internalName");
+
+''');
+    }
 
     // Static TypeClass getter
     s.write(
@@ -209,10 +244,10 @@ extension $arrayExtensionPrefix$name$arrayExtensionSuffix on $_jArray<$name$type
 }
 
 class _DocGenerator extends Visitor<JavaDocComment, void> {
+  const _DocGenerator(this.s, {required this.depth});
+
   final StringBuffer s;
   final int depth;
-
-  _DocGenerator(this.s, {required this.depth});
 
   @override
   void visit(JavaDocComment node) {
@@ -292,15 +327,20 @@ class _TypeGenerator extends TypeVisitor<String> {
   @override
   String visitWildcard(Wildcard node) {
     // TODO(#141): Support wildcards
+    return super.visitWildcard(node);
+  }
+
+  @override
+  String visitNonPrimitiveType(ReferredType node) {
     return _jObject;
   }
 }
 
 class _TypeClass {
+  const _TypeClass(this.name, this.canBeConst);
+
   final String name;
   final bool canBeConst;
-
-  _TypeClass(this.name, this.canBeConst);
 }
 
 class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
@@ -378,14 +418,19 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
   @override
   _TypeClass visitWildcard(Wildcard node) {
     // TODO(#141): Support wildcards
+    return super.visitWildcard(node);
+  }
+
+  @override
+  _TypeClass visitNonPrimitiveType(ReferredType node) {
     return _TypeClass('$_jObject$_typeClassSuffix', true);
   }
 }
 
 class _TypeParamGenerator extends Visitor<TypeParam, String> {
-  final bool withExtends;
-
   const _TypeParamGenerator({required this.withExtends});
+
+  final bool withExtends;
 
   @override
   String visit(TypeParam node) {
@@ -397,31 +442,237 @@ class _TypeParamGenerator extends Visitor<TypeParam, String> {
   }
 }
 
-enum _SetOrGet { setter, getter }
+class _JniResultGetter extends TypeVisitor<String> {
+  const _JniResultGetter();
+
+  @override
+  String visitPrimitiveType(PrimitiveType node) {
+    if (node.name == 'void') return 'check()';
+    if (node.name == 'double') return 'doubleFloat';
+    return node.name;
+  }
+
+  @override
+  String visitNonPrimitiveType(ReferredType node) {
+    return 'object';
+  }
+}
+
+class _Descriptor extends TypeVisitor<String> {
+  const _Descriptor();
+
+  @override
+  String visitArrayType(ArrayType node) {
+    final inner = node.type.accept(this);
+    return '[$inner';
+  }
+
+  @override
+  String visitDeclaredType(DeclaredType node) {
+    final internalName = node.binaryName.replaceAll('.', '/');
+    return 'L$internalName;';
+  }
+
+  @override
+  String visitPrimitiveType(PrimitiveType node) {
+    return node.signature;
+  }
+
+  @override
+  String visitTypeVar(TypeVar node) {
+    // It should be possible to compute the erasure of a type
+    // in parser itself.
+    // TODO(#23): Use erasure of the type variable here.
+    // This is just a (wrong) placeholder
+    return super.visitTypeVar(node);
+  }
+
+  @override
+  String visitWildcard(Wildcard node) {
+    final extendsBound = node.extendsBound?.accept(this);
+    return extendsBound ?? 'Ljava/lang/Object;';
+  }
+
+  @override
+  String visitNonPrimitiveType(ReferredType node) {
+    return "Ljava/lang/Object;";
+  }
+}
+
+class _FfiTypeSig extends TypeVisitor<String> {
+  const _FfiTypeSig();
+
+  @override
+  String visitPrimitiveType(PrimitiveType node) {
+    return '$_ffi${node.ffiType}';
+  }
+
+  @override
+  String visitNonPrimitiveType(ReferredType node) {
+    return _voidPointer;
+  }
+}
+
+class _DartTypeSig extends TypeVisitor<String> {
+  const _DartTypeSig();
+
+  @override
+  String visitPrimitiveType(PrimitiveType node) {
+    return node.dartType;
+  }
+
+  @override
+  String visitNonPrimitiveType(ReferredType node) {
+    return _voidPointer;
+  }
+}
+
+class _TypeName extends TypeVisitor<String> {
+  const _TypeName();
+
+  @override
+  String visitPrimitiveType(PrimitiveType node) {
+    return node.name;
+  }
+
+  @override
+  String visitNonPrimitiveType(ReferredType node) {
+    return 'object';
+  }
+}
+
+class _ToNativeSuffix extends TypeVisitor<String> {
+  const _ToNativeSuffix();
+
+  @override
+  String visitPrimitiveType(PrimitiveType node) {
+    if (node.name == 'boolean') {
+      return ' ? 1 : 0';
+    }
+    return '';
+  }
+
+  @override
+  String visitNonPrimitiveType(ReferredType node) {
+    return '.$_selfPointer';
+  }
+}
+
+class _FromNative extends TypeVisitor<String> {
+  final String value;
+
+  const _FromNative(this.value);
+
+  @override
+  String visitPrimitiveType(PrimitiveType node) {
+    return value;
+  }
+
+  @override
+  String visitNonPrimitiveType(ReferredType node) {
+    final typeClass = node.accept(const _TypeClassGenerator()).name;
+    return '$typeClass.fromRef($value)';
+  }
+}
 
 class _FieldGenerator extends Visitor<Field, void> {
-  _FieldGenerator(this.config, this.s);
+  const _FieldGenerator(this.config, this.s);
 
   final Config config;
   final StringBuffer s;
 
+  void writeCAccessor(Field node) {
+    final name = '${node.classDecl.uniqueName}__${node.finalName}';
+    final ifRef = node.isStatic ? '' : '$_voidPointer, ';
+
+    s.write('''
+  static final _get_$name =
+      $_lookup<$_ffi.NativeFunction<$_jResult Function($ifRef)>>(
+              "get_$name")
+          .asFunction<$_jResult Function()>();
+
+''');
+
+    if (!node.isFinal) {
+      final ffiSig = node.type.accept(const _FfiTypeSig());
+      final dartSig = node.type.accept(const _DartTypeSig());
+      s.write('''
+  static final _set_$name =
+      $_lookup<$_ffi.NativeFunction<$_jThrowable Function($ifRef$ffiSig)>>(
+              "set_$name")
+          .asFunction<$_jThrowable Function($ifRef$dartSig)>();
+
+''');
+    }
+  }
+
+  String cGetter(Field node) {
+    final name = node.finalName;
+    final getter = node.type.accept(_JniResultGetter());
+    final self = node.isStatic ? '' : _selfPointer;
+    return '_get_$name($self).$getter';
+  }
+
+  String cSetter(Field node) {
+    final name = node.finalName;
+    final self = node.isStatic ? '' : '$_selfPointer, ';
+    final toNativeSuffix = node.type.accept(const _ToNativeSuffix());
+    return '_set_$name(${self}value$toNativeSuffix)';
+  }
+
+  void writeDartOnlyAccessor(Field node) {
+    final name = node.finalName;
+    final ifStatic = node.isStatic ? 'Static' : '';
+    final descriptor = node.type.accept(const _Descriptor());
+    s.write('''
+  static final _id_$name = 
+      $_accessors.get${ifStatic}FieldIDOf(
+        $_classRef, 
+        "${node.name}",
+        "$descriptor",
+      );
+''');
+  }
+
+  String dartOnlyGetter(Field node) {
+    final name = node.finalName;
+    final self = node.isStatic ? _classRef : _selfPointer;
+    final ifStatic = node.isStatic ? 'Static' : '';
+    final callType = '$_jCallType.${node.type.accept(const _TypeName())}Type';
+    final resultGetter = node.type.accept(const _JniResultGetter());
+    return '$_accessors.get${ifStatic}Field($self, _id_$name, $callType)'
+        '.$resultGetter;';
+  }
+
+  String dartOnlySetter(Field node) {
+    final name = node.finalName;
+    final self = node.isStatic ? _classRef : _selfPointer;
+    final ifStatic = node.isStatic ? 'Static' : '';
+    final fieldType = node.type.accept(const _TypeName()).capitalize();
+    final toNativeSuffix = node.type.accept(const _ToNativeSuffix());
+    return '$_env.Set$ifStatic${fieldType}Field($self, _id_$name, value$toNativeSuffix);';
+  }
+
+  void writeDocs(Field node) {
+    final originalDecl = '${node.type.shorthand} ${node.name}';
+    s.writeln('  /// from: ${node.modifiers.join(' ')} $originalDecl');
+    node.javadoc?.accept(_DocGenerator(s, depth: 1));
+  }
+
   @override
   void visit(Field node) {
-    final name = node.finalName;
+    final isCBased = config.outputConfig.bindingsType == BindingsType.cBased;
 
-    // Docs
-    final originalDecl = '${node.type.shorthand} ${node.name}';
-    s.write('  /// from: ${node.modifiers.join(' ')} $originalDecl');
-    node.javadoc?.accept(_DocGenerator(s, depth: 1));
-
-    // Check if it can be a `static const` getter.
+    // Check if it should be a `static const` getter.
     if (node.isFinal && node.isStatic && node.defaultValue != null) {
+      final name = node.finalName;
       final value = node.defaultValue!;
       // TODO(#31): Should we leave String as a normal getter instead?
       if (value is String || value is num || value is bool) {
+        writeDocs(node);
         s.write('  static const $name = ');
         if (value is String) {
-          s.write('r"$value"');
+          s.write('r"""$value"""');
         } else {
           s.write(value);
         }
@@ -430,16 +681,35 @@ class _FieldGenerator extends Visitor<Field, void> {
       }
     }
 
+    // Accessors
+    (isCBased ? writeCAccessor : writeDartOnlyAccessor)(node);
+
+    // Docs
+    writeDocs(node);
     if (node.type.kind != Kind.primitive) {
       s.writeln(_deleteInstruction);
+    }
+
+    final name = node.finalName;
+    final ifStatic = node.isStatic ? 'static ' : '';
+    final type = node.type.accept(const _TypeGenerator());
+    s.write('$ifStatic$type get $name => ');
+    s.write(node.type.accept(
+      _FromNative((isCBased ? cGetter : dartOnlyGetter)(node)),
+    ));
+    if (!node.isFinal) {
+      s.write('${ifStatic}set $name($type value) => ');
+      s.write(node.type.accept(
+        _FromNative((isCBased ? cSetter : dartOnlySetter)(node)),
+      ));
     }
   }
 }
 
 class _MethodGenerator extends Visitor<Method, void> {
-  final StringBuffer s;
+  const _MethodGenerator(this.s);
 
-  _MethodGenerator(this.s);
+  final StringBuffer s;
 
   @override
   void visit(Method node) {
