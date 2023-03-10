@@ -5,4 +5,4 @@
 import 'dart:convert';
 
 void collectOutputStream(Stream<List<int>> stream, StringBuffer buffer) =>
-    stream.transform(Utf8Decoder()).forEach(buffer.write);
+    stream.transform(const Utf8Decoder()).forEach(buffer.write);

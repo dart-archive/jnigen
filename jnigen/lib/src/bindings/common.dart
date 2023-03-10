@@ -435,6 +435,8 @@ abstract class BindingsGenerator {
         final paramTypeClasses = type.params.map(
             (param) => _getDartTypeClass(param, resolver, addConst: false));
 
+        final canBeConst = paramTypeClasses.every((e) => e.canBeConst);
+
         // Replacing the declared ones. They come at the end.
         // The rest will be JObject.
         if (allTypeParams.length >= type.params.length) {
@@ -443,7 +445,7 @@ abstract class BindingsGenerator {
             allTypeParams.length - type.params.length,
             List.filled(
               allTypeParams.length - type.params.length,
-              'const $jniObjectTypeClass()',
+              '${canBeConst ? '' : 'const '}$jniObjectTypeClass()',
             ),
           );
           allTypeParams.replaceRange(
@@ -455,9 +457,6 @@ abstract class BindingsGenerator {
 
         final args = allTypeParams.join(',');
 
-        final canBeConst = (allTypeParams.length == paramTypeClasses.length &&
-                paramTypeClasses.every((e) => e.canBeConst)) ||
-            allTypeParams.isEmpty;
         final ifConst = addConst && canBeConst ? 'const ' : '';
 
         if (resolved == jniObjectType) {

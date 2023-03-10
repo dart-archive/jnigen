@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:jnigen/src/bindings/c_generator.dart';
+
 import '../config/config.dart';
 import '../elements/elements.dart';
 import 'visitor.dart';
@@ -195,7 +197,7 @@ class $name$typeParamsDef extends $superName {
     for (final field in node.fields) {
       field.accept(fieldGenerator);
     }
-    final methodGenerator = _MethodGenerator(s);
+    final methodGenerator = _MethodGenerator(config, s);
     for (final method in node.methods) {
       method.accept(methodGenerator);
     }
@@ -372,8 +374,7 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
 
     // Can be const if all the type parameters are defined and each of them are
     // also const.
-    final canBeConst = allTypeParams.length == definedTypeClasses.length &&
-        definedTypeClasses.every((e) => e.canBeConst);
+    final canBeConst = definedTypeClasses.every((e) => e.canBeConst);
 
     // Adding const to `JObjectType`s if the entire expression is not const.
     final constJObject = canBeConst ? '' : 'const ';
@@ -423,7 +424,7 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
 
   @override
   _TypeClass visitNonPrimitiveType(ReferredType node) {
-    return _TypeClass('$_jObject$_typeClassSuffix', true);
+    return const _TypeClass('$_jObject$_typeClassSuffix', true);
   }
 }
 
@@ -499,26 +500,14 @@ class _Descriptor extends TypeVisitor<String> {
   }
 }
 
-class _FfiTypeSig extends TypeVisitor<String> {
-  const _FfiTypeSig();
+class _TypeSig extends TypeVisitor<String> {
+  const _TypeSig({required this.isFfi});
+
+  final bool isFfi;
 
   @override
   String visitPrimitiveType(PrimitiveType node) {
-    return '$_ffi${node.ffiType}';
-  }
-
-  @override
-  String visitNonPrimitiveType(ReferredType node) {
-    return _voidPointer;
-  }
-}
-
-class _DartTypeSig extends TypeVisitor<String> {
-  const _DartTypeSig();
-
-  @override
-  String visitPrimitiveType(PrimitiveType node) {
-    return node.dartType;
+    return isFfi ? '$_ffi${node.ffiType}' : node.dartType;
   }
 
   @override
@@ -582,24 +571,25 @@ class _FieldGenerator extends Visitor<Field, void> {
   final StringBuffer s;
 
   void writeCAccessor(Field node) {
-    final name = '${node.classDecl.uniqueName}__${node.finalName}';
+    final name = node.finalName;
+    final cName = node.accept(const CFieldName());
     final ifRef = node.isStatic ? '' : '$_voidPointer, ';
 
     s.write('''
   static final _get_$name =
       $_lookup<$_ffi.NativeFunction<$_jResult Function($ifRef)>>(
-              "get_$name")
+              "get_$cName")
           .asFunction<$_jResult Function()>();
 
 ''');
 
     if (!node.isFinal) {
-      final ffiSig = node.type.accept(const _FfiTypeSig());
-      final dartSig = node.type.accept(const _DartTypeSig());
+      final ffiSig = node.type.accept(const _TypeSig(isFfi: true));
+      final dartSig = node.type.accept(const _TypeSig(isFfi: false));
       s.write('''
   static final _set_$name =
       $_lookup<$_ffi.NativeFunction<$_jThrowable Function($ifRef$ffiSig)>>(
-              "set_$name")
+              "set_$cName")
           .asFunction<$_jThrowable Function($ifRef$dartSig)>();
 
 ''');
@@ -608,7 +598,7 @@ class _FieldGenerator extends Visitor<Field, void> {
 
   String cGetter(Field node) {
     final name = node.finalName;
-    final getter = node.type.accept(_JniResultGetter());
+    final getter = node.type.accept(const _JniResultGetter());
     final self = node.isStatic ? '' : _selfPointer;
     return '_get_$name($self).$getter';
   }
@@ -706,13 +696,89 @@ class _FieldGenerator extends Visitor<Field, void> {
   }
 }
 
-class _MethodGenerator extends Visitor<Method, void> {
-  const _MethodGenerator(this.s);
+class _MethodTypeSig extends Visitor<Method, String> {
+  const _MethodTypeSig({required this.isFfi});
 
+  final bool isFfi;
+
+  @override
+  String visit(Method node) {
+    final args = node.params
+        .map((param) => param.type)
+        .accept(_TypeSig(isFfi: isFfi))
+        .join(', ');
+    return '$_jResult Function($args)';
+  }
+}
+
+class _MethodSignature extends Visitor<Method, String> {
+  const _MethodSignature();
+
+  @override
+  String visit(Method node) {
+    final s = StringBuffer();
+    s.write('(');
+    s.write(node.params
+        .map((param) => param.type)
+        .accept(const _Descriptor())
+        .join());
+    s.write(')');
+    final returnType = node.returnType.accept(const _Descriptor());
+    s.write(returnType);
+    return s.toString();
+  }
+}
+
+class _MethodGenerator extends Visitor<Method, void> {
+  const _MethodGenerator(this.config, this.s);
+
+  final Config config;
   final StringBuffer s;
+
+  void writeCAccessor(Method node) {
+    final name = node.finalName;
+    final cName = node.accept(const CMethodName());
+    final ffiSig = node.accept(const _MethodTypeSig(isFfi: true));
+    final dartSig = node.accept(const _MethodTypeSig(isFfi: false));
+    s.write('''
+  static final _$name =
+          $_lookup<${_ffi}NativeFunction<$ffiSig>>("$cName")
+      .asFunction<$dartSig>();
+
+''');
+  }
+
+  void writeDartOnlyAccessor(Method node) {
+    final name = node.finalName;
+    final ifStatic = node.isStatic ? 'Static' : '';
+    final signature = node.accept(const _MethodSignature());
+    s.write('''
+  static final _id_$name = $_accessors.get${ifStatic}MethodIDOf('
+          '$_classRef, "${node.name}", "$signature");
+
+''');
+  }
+
+  bool isCtor(Method node) {
+    return node.name == '<init>';
+  }
 
   @override
   void visit(Method node) {
-    // TODO: implement visit
+    final isCBased = config.outputConfig.bindingsType == BindingsType.cBased;
+
+    // Accessors
+    (isCBased ? writeCAccessor : writeDartOnlyAccessor)(node);
+
+    // Docs
+    s.write('  /// from: ');
+    s.writeAll(node.modifiers.map((m) => '$m '));
+    s.write('${node.returnType.shorthand} ${node.name}(');
+    s.writeAll(node.params.map((p) => '${p.type.shorthand} ${p.name}'), ', ');
+    s.writeln(')');
+    if (node.returnType.kind != Kind.primitive || isCtor(node)) {
+      s.writeln(_deleteInstruction);
+    }
+    node.javadoc?.accept(_DocGenerator(s, depth: 1));
   }
 }

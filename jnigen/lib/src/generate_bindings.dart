@@ -81,7 +81,7 @@ Future<void> generateJniBindings(Config config) async {
   }
   final errorLog = StringBuffer();
   collectOutputStream(process.stderr, errorLog);
-  final stream = JsonDecoder().bind(Utf8Decoder().bind(input));
+  final stream = const JsonDecoder().bind(const Utf8Decoder().bind(input));
   dynamic json;
   try {
     json = await stream.single;

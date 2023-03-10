@@ -80,14 +80,6 @@ class PureDartBindingsGenerator extends BindingsGenerator {
   }
 
   @override
-  String toNativeArg(
-    String name,
-    TypeUsage type,
-  ) {
-    return super.toNativeArg(name, type);
-  }
-
-  @override
   String actualArgs(Method m, {bool addSelf = false}) {
     return super.actualArgs(m, addSelf: addSelf);
   }
