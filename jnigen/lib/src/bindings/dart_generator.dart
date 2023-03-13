@@ -82,9 +82,47 @@ String _newLine({int depth = 0}) {
 // * `fTypeClassesDef` refers to `JType<T> $T, JType<U> $U`.
 // * `fTypeClassesCall` refers to `$T, $U` when calling the method.
 
-class DartGenerator extends Visitor<Classes, void> {
+class GeneratedFile {
+  final Uri uri;
+  final String content;
+
+  GeneratedFile({
+    required this.uri,
+    required this.content,
+  });
+}
+
+class DartGenerator extends Visitor<Classes, List<GeneratedFile>> {
+  final Config config;
+
+  DartGenerator(this.config);
+
+  String getFileClassName(String binaryName) {
+    final dollarSign = binaryName.indexOf('\$');
+    if (dollarSign != -1) {
+      return binaryName.substring(0, dollarSign);
+    }
+    return binaryName;
+  }
+
   @override
-  void visit(Classes node) {}
+  List<GeneratedFile> visit(Classes node) {
+    final uri = config.outputConfig.dartConfig.path;
+    if (config.outputConfig.dartConfig.structure ==
+        OutputStructure.singleFile) {
+      final s = StringBuffer();
+      final classGenerator = _ClassGenerator(config, s);
+      node.decls.values.accept(classGenerator).toList();
+      return [
+        GeneratedFile(
+          uri: uri,
+          content: s.toString(),
+        ),
+      ];
+    }
+    // TODO
+    return [];
+  }
 }
 
 /// Generates the Dart class definition, type class, and the array extension
@@ -134,15 +172,16 @@ class _ClassGenerator extends Visitor<ClassDecl, void> {
     final ctorTypeClassesDef = typeParams
         .map((typeParam) => 'this.$_typeParamPrefix$typeParam,')
         .join(_newLine(depth: 2));
-    final superTypeClassesCall = (node.superclass!.type as DeclaredType)
-        .params
-        .accept(const _TypeClassGenerator())
-        .map((typeClass) => '$typeClass,')
-        .join(_newLine(depth: 2));
+    final superClass = (node.classDecl.superclass!.type as DeclaredType);
+    final superTypeClassesCall = superClass.classDecl == ClassDecl.object
+        ? ''
+        : superClass.params
+            .accept(const _TypeClassGenerator())
+            .map((typeClass) => '${typeClass.name},')
+            .join(_newLine(depth: 2));
     s.write('''
 class $name$typeParamsDef extends $superName {
   late final $_jType? _$instanceTypeGetter;
-
   @override
   $_jType get $instanceTypeGetter => _$instanceTypeGetter ??= $staticTypeGetter$staticTypeGetterCallArgs;
 
@@ -153,7 +192,7 @@ class $name$typeParamsDef extends $superName {
     $_jPointer ref,
   ): super.fromRef(
     $superTypeClassesCall
-    ref,
+    ref
   );
 
 ''');
@@ -167,11 +206,11 @@ class $name$typeParamsDef extends $superName {
     }
 
     // Static TypeClass getter
-    s.write(
+    s.writeln(
         '  /// The type which includes information such as the signature of this class.');
     final typeClassName = '$_typeClassPrefix$name$_typeClassSuffix';
     if (typeParams.isEmpty) {
-      s.write('static const $staticTypeGetter = $typeClassName();\n');
+      s.writeln('static const $staticTypeGetter = $typeClassName();');
     } else {
       final staticTypeGetterTypeClassesDef = typeParams
           .map(
@@ -203,7 +242,7 @@ class $name$typeParamsDef extends $superName {
     }
 
     // End of Class definition
-    s.write('}');
+    s.writeln('}');
 
     // TypeClass definition
     final typeClassesCall = typeParams
@@ -222,7 +261,7 @@ class $typeClassName$typeParamsDef extends $_jType<$name$typeParamsCall> {
   String get signature => r"$signature";
 
   @override
-  $name$typeParams fromRef($_jPointer ref) => $name.fromRef(
+  $name$typeParamsCall fromRef($_jPointer ref) => $name.fromRef(
     $typeClassesCall
     ref
   );
@@ -232,9 +271,10 @@ class $typeClassName$typeParamsDef extends $_jType<$name$typeParamsCall> {
 
     // Array extension
     s.write('''
-extension $arrayExtensionPrefix$name$arrayExtensionSuffix on $_jArray<$name$typeParamsCall> {
+extension $arrayExtensionPrefix$name$arrayExtensionSuffix$typeParamsDef on $_jArray<$name$typeParamsCall> {
   $name$typeParamsCall operator [](int index) {
-    return (elementType as $typeClassName$typeParamsCall);
+    return (elementType as $typeClassName$typeParamsCall)
+        .fromRef(elementAt(index, $_jni.JniCallType.objectType).object);
   }
 
   void operator []=(int index, $name$typeParamsCall value) {
@@ -245,6 +285,7 @@ extension $arrayExtensionPrefix$name$arrayExtensionSuffix on $_jArray<$name$type
   }
 }
 
+/// Generates the JavaDoc comments.
 class _DocGenerator extends Visitor<JavaDocComment, void> {
   const _DocGenerator(this.s, {required this.depth});
 
@@ -273,6 +314,7 @@ $indent/// $comments
   }
 }
 
+/// Generates the user-facing Dart type.
 class _TypeGenerator extends TypeVisitor<String> {
   const _TypeGenerator();
 
@@ -280,7 +322,7 @@ class _TypeGenerator extends TypeVisitor<String> {
   String visitArrayType(ArrayType node) {
     final innerType = node.type;
     if (innerType.kind == Kind.primitive) {
-      return '$_jArray<${(innerType.type as PrimitiveType).jniType}>';
+      return '$_jArray<$_jni.${(innerType.type as PrimitiveType).jniType}>';
     }
     return '$_jArray<${innerType.accept(this)}>';
   }
@@ -313,7 +355,7 @@ class _TypeGenerator extends TypeVisitor<String> {
     }
 
     final typeParams = _encloseIfNotEmpty('<', allTypeParams.join(', '), '>');
-    return '${node.classDecl.finalName}$typeParams';
+    return '${node.classDecl.completeName}$typeParams';
   }
 
   @override
@@ -345,6 +387,7 @@ class _TypeClass {
   final bool canBeConst;
 }
 
+/// Generates the type class.
 class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
   final bool isConst;
 
@@ -356,13 +399,19 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
         node.type.accept(const _TypeClassGenerator(isConst: false));
     final ifConst = innerTypeClass.canBeConst && isConst ? 'const ' : '';
     return _TypeClass(
-      '$ifConst$_jArray$_typeClassSuffix<${innerTypeClass.name}>',
+      '$ifConst$_jArray$_typeClassSuffix(${innerTypeClass.name})',
       innerTypeClass.canBeConst,
     );
   }
 
   @override
   _TypeClass visitDeclaredType(DeclaredType node) {
+    if (node.binaryName == 'java.lang.Object' ||
+        node.binaryName == 'java.lang.String') {
+      final ifConst = isConst ? 'const ' : '';
+      return _TypeClass(
+          '$ifConst$_jni.J${node.simpleName}$_typeClassSuffix()', true);
+    }
     final allTypeParams = node.classDecl.allTypeParams
         .accept(const _TypeParamGenerator(withExtends: false))
         .map((typeParam) => '$_typeParamPrefix$typeParam')
@@ -408,7 +457,7 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
   @override
   _TypeClass visitPrimitiveType(PrimitiveType node) {
     final ifConst = isConst ? 'const ' : '';
-    return _TypeClass('$ifConst${node.jniType}$_typeClassSuffix', true);
+    return _TypeClass('$ifConst$_jni.${node.jniType}$_typeClassSuffix()', true);
   }
 
   @override
@@ -450,6 +499,7 @@ class _JniResultGetter extends TypeVisitor<String> {
   String visitPrimitiveType(PrimitiveType node) {
     if (node.name == 'void') return 'check()';
     if (node.name == 'double') return 'doubleFloat';
+    if (node.name == 'int') return 'integer';
     return node.name;
   }
 
@@ -503,6 +553,17 @@ class _Descriptor extends TypeVisitor<String> {
   }
 }
 
+/// Type signature for C-based bindings.
+///
+/// When `isFFi` is `true`, it generates the ffi type signature and when it's
+/// false, it generates the dart type signature.
+///
+/// For example `ffi.Int32` is an ffi type signature while `int` is a Dart one:
+/// ```dart
+/// jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Int32)>>(
+///       "sum")
+///   .asFunction<jni.JniResult Function(int, int)>();
+/// ```
 class _TypeSig extends TypeVisitor<String> {
   const _TypeSig({required this.isFfi});
 
@@ -510,7 +571,9 @@ class _TypeSig extends TypeVisitor<String> {
 
   @override
   String visitPrimitiveType(PrimitiveType node) {
-    return isFfi ? '$_ffi${node.ffiType}' : node.dartType;
+    if (isFfi) return '$_ffi.${node.ffiType}';
+    if (node.name == 'boolean') return 'int';
+    return node.dartType;
   }
 
   @override
@@ -590,13 +653,13 @@ class _FieldGenerator extends Visitor<Field, void> {
   void writeCAccessor(Field node) {
     final name = node.finalName;
     final cName = node.accept(const CFieldName());
-    final ifRef = node.isStatic ? '' : '$_voidPointer, ';
+    final ifRef = node.isStatic ? '' : '$_jPointer, ';
 
     s.write('''
   static final _get_$name =
       $_lookup<$_ffi.NativeFunction<$_jResult Function($ifRef)>>(
               "get_$cName")
-          .asFunction<$_jResult Function()>();
+          .asFunction<$_jResult Function($ifRef)>();
 
 ''');
 
@@ -683,7 +746,7 @@ class _FieldGenerator extends Visitor<Field, void> {
         } else {
           s.write(value);
         }
-        s.write(';\n');
+        s.writeln(';\n');
         return;
       }
     }
@@ -691,7 +754,7 @@ class _FieldGenerator extends Visitor<Field, void> {
     // Accessors
     (isCBased ? writeCAccessor : writeDartOnlyAccessor)(node);
 
-    // Docs
+    // Getter docs
     writeDocs(node);
     if (node.type.kind != Kind.primitive) {
       s.writeln(_deleteInstruction);
@@ -704,11 +767,19 @@ class _FieldGenerator extends Visitor<Field, void> {
     s.write(node.type.accept(
       _FromNative((isCBased ? cGetter : dartOnlyGetter)(node)),
     ));
+    s.writeln(';\n');
     if (!node.isFinal) {
+      // Setter docs
+      writeDocs(node);
+      if (node.type.kind != Kind.primitive) {
+        s.writeln(_deleteInstruction);
+      }
+
       s.write('${ifStatic}set $name($type value) => ');
       s.write(node.type.accept(
         _FromNative((isCBased ? cSetter : dartOnlySetter)(node)),
       ));
+      s.writeln(';\n');
     }
   }
 }
@@ -720,14 +791,20 @@ class _MethodTypeSig extends Visitor<Method, String> {
 
   @override
   String visit(Method node) {
-    final args = node.params
-        .map((param) => param.type)
-        .accept(_TypeSig(isFfi: isFfi))
-        .join(', ');
+    final args = [
+      if (!node.isCtor && !node.isStatic) _voidPointer,
+      ...node.params.map((param) => param.type).accept(
+            _TypeSig(isFfi: isFfi),
+          )
+    ].join(', ');
     return '$_jResult Function($args)';
   }
 }
 
+/// Generates JNI Method signatures.
+///
+/// https://docs.oracle.com/en/java/javase/18/docs/specs/jni/types.html#type-signatures
+/// Also see: [_Descriptor]
 class _MethodSignature extends Visitor<Method, String> {
   const _MethodSignature();
 
@@ -746,6 +823,7 @@ class _MethodSignature extends Visitor<Method, String> {
   }
 }
 
+/// Generates Dart bindings for Java methods.
 class _MethodGenerator extends Visitor<Method, void> {
   const _MethodGenerator(this.config, this.s);
 
@@ -759,7 +837,7 @@ class _MethodGenerator extends Visitor<Method, void> {
     final dartSig = node.accept(const _MethodTypeSig(isFfi: false));
     s.write('''
   static final _$name =
-          $_lookup<${_ffi}NativeFunction<$ffiSig>>("$cName")
+          $_lookup<$_ffi.NativeFunction<$ffiSig>>("$cName")
       .asFunction<$dartSig>();
 
 ''');
@@ -774,10 +852,6 @@ class _MethodGenerator extends Visitor<Method, void> {
           '$_classRef, "${node.name}", "$signature");
 
 ''');
-  }
-
-  bool isCtor(Method node) {
-    return node.name == '<init>';
   }
 
   bool isSuspendFun(Method node) {
@@ -803,7 +877,7 @@ class _MethodGenerator extends Visitor<Method, void> {
       ...node.params.accept(const _ParamCall()),
     ].join(', ');
     final resultGetter = node.returnType.accept(const _JniResultGetter());
-    return '$name($params).$resultGetter';
+    return '_$name($params).$resultGetter';
   }
 
   String dartOnlyMethodCall(Method node) {
@@ -829,12 +903,12 @@ class _MethodGenerator extends Visitor<Method, void> {
     s.write('${node.returnType.shorthand} ${node.name}(');
     s.writeAll(node.params.map((p) => '${p.type.shorthand} ${p.name}'), ', ');
     s.writeln(')');
-    if (node.returnType.kind != Kind.primitive || isCtor(node)) {
+    if (node.returnType.kind != Kind.primitive || node.isCtor) {
       s.writeln(_deleteInstruction);
     }
     node.javadoc?.accept(_DocGenerator(s, depth: 1));
 
-    if (isCtor(node)) {
+    if (node.isCtor) {
       final className = node.classDecl.finalName;
       final name = node.finalName;
       final ctorName = name == 'ctor' ? className : '$className.$name';
@@ -842,11 +916,12 @@ class _MethodGenerator extends Visitor<Method, void> {
         ...node.classDecl.allTypeParams.accept(const _ClassTypeParamDef()),
         ...node.params.accept(const _ParamDef()),
       ].join(', ');
-      final superTypeClassesCall =
-          (node.classDecl.superclass!.type as DeclaredType)
-              .params
+      final superClass = (node.classDecl.superclass!.type as DeclaredType);
+      final superTypeClassesCall = superClass.classDecl == ClassDecl.object
+          ? ''
+          : superClass.params
               .accept(const _TypeClassGenerator())
-              .map((typeClass) => '$typeClass,')
+              .map((typeClass) => '${typeClass.name},')
               .join(_newLine(depth: 2));
       final ctorExpr = (isCBased ? cCtor : dartOnlyCtor)(node);
       s.write('''
@@ -890,7 +965,7 @@ class _MethodGenerator extends Visitor<Method, void> {
     final \$p = ReceivePort();
     final \$c = ${_jni}Jni.newPortContinuation(\$p);
     $callExpr;
-    final \$o = $_voidPointer.fromAddress(await \$p.first);
+    final \$o = $_jPointer.fromAddress(await \$p.first);
     final \$k = $returnTypeClass.getClass().reference;
     if (${_jni}Jni.env.IsInstanceOf(\$o, \$k) == 0) {
       throw "Failed";\n'
@@ -901,7 +976,7 @@ class _MethodGenerator extends Visitor<Method, void> {
 ''');
     } else {
       final returning = node.returnType.accept(_FromNative(callExpr));
-      s.writeln('=> $returning;');
+      s.writeln('=> $returning;\n');
     }
   }
 }

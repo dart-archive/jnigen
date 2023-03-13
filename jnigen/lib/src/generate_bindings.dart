@@ -95,6 +95,7 @@ Future<void> generateJniBindings(Config config) async {
     return;
   }
   final list = json as List;
+  final classes = Classes.fromJson(list);
   final outputStructure = config.outputConfig.dartConfig.structure;
   BindingsWriter outputWriter;
   if (outputStructure == OutputStructure.packageStructure) {
@@ -103,8 +104,7 @@ Future<void> generateJniBindings(Config config) async {
     outputWriter = SingleFileWriter(config);
   }
   try {
-    await outputWriter
-        .writeBindings(list.map((c) => ClassDecl.fromJson(c)).toList());
+    await outputWriter.writeBindings(classes);
   } on Exception catch (e, trace) {
     stderr.writeln(trace);
     log.fatal('Error while writing bindings: $e');

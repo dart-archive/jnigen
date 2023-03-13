@@ -5,6 +5,7 @@
 // Types to describe java API elements
 
 import 'package:jnigen/src/bindings/visitor.dart';
+import 'package:jnigen/src/logging/logging.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'elements.g.dart';
@@ -28,7 +29,7 @@ enum DeclKind {
 }
 
 class Classes implements Element<Classes> {
-  const Classes(this.decls);
+  const Classes._(this.decls);
 
   final Map<String, ClassDecl> decls;
 
@@ -38,7 +39,7 @@ class Classes implements Element<Classes> {
       final classDecl = ClassDecl.fromJson(declJson);
       decls[classDecl.binaryName] = classDecl;
     }
-    return Classes(decls);
+    return Classes._(decls);
   }
 
   @override
@@ -117,6 +118,14 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
   @JsonKey(includeFromJson: false)
   late final String uniqueName;
 
+  /// The prefix when this file is included, contains the leading dot.
+  ///
+  /// For `package.Foo`, importPrefix is `package.`.
+  ///
+  /// Will be populated by [Renamer].
+  @JsonKey(includeFromJson: false)
+  late final String importPrefix;
+
   /// Type parameters including the ones from its ancestors
   ///
   /// Will be populated by [Linker].
@@ -130,11 +139,29 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
 
   String get signature => 'L${binaryName.replaceAll(".", "/")};';
 
+  String get completeName => '$importPrefix$finalName';
+
   static final object = ClassDecl(
     binaryName: 'java.lang.Object',
     packageName: 'java.lang',
     simpleName: 'Object',
-  );
+  )
+    ..finalName = 'JObject'
+    ..importPrefix = 'jni.';
+
+  static final string = ClassDecl(
+    superclass: TypeUsage.object,
+    binaryName: 'java.lang.String',
+    packageName: 'java.lang',
+    simpleName: 'String',
+  )
+    ..finalName = 'JString'
+    ..importPrefix = 'jni.';
+
+  static final predefined = {
+    'java.lang.Object': object,
+    'java.lang.String': string,
+  };
 
   factory ClassDecl.fromJson(Map<String, dynamic> json) =>
       _$ClassDeclFromJson(json);
@@ -475,6 +502,8 @@ class Method extends ClassMember implements Element<Method> {
     final paramNames = params.map((p) => p.type.name).join(', ');
     return '${returnType.name} $name($paramNames)';
   }
+
+  bool get isCtor => name == '<init>';
 
   factory Method.fromJson(Map<String, dynamic> json) => _$MethodFromJson(json);
 

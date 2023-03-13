@@ -50,10 +50,6 @@ class Example extends jni.JObject {
               "get_Example__aux")
           .asFunction<jni.JniResult Function()>();
 
-  /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux aux
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static Example_Aux get aux =>
-      const $Example_AuxType().fromRef(_get_aux().object);
   static final _set_aux = jniLookup<
           ffi.NativeFunction<
               jni.JThrowablePtr Function(
@@ -62,19 +58,26 @@ class Example extends jni.JObject {
 
   /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux aux
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static set aux(Example_Aux value) => _set_aux(value.reference);
+  static Example_Aux get aux =>
+      const $Example_AuxType().fromRef(_get_aux().object);
+
+  /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux aux
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static set aux(Example_Aux value) =>
+      const $Example_AuxType().fromRef(_set_aux(value.reference));
 
   static final _get_num =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_Example__num")
           .asFunction<jni.JniResult Function()>();
 
-  /// from: static public int num
-  static int get num => _get_num().integer;
   static final _set_num =
       jniLookup<ffi.NativeFunction<jni.JThrowablePtr Function(ffi.Int32)>>(
               "set_Example__num")
           .asFunction<jni.JThrowablePtr Function(int)>();
+
+  /// from: static public int num
+  static int get num => _get_num().integer;
 
   /// from: static public int num
   static set num(int value) => _set_num(value);
@@ -84,6 +87,7 @@ class Example extends jni.JObject {
           .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
   Example() : super.fromRef(_ctor().object);
 
   static final _ctor1 =
@@ -92,6 +96,7 @@ class Example extends jni.JObject {
           .asFunction<jni.JniResult Function(int)>();
 
   /// from: public void <init>(int internal)
+  /// The returned object must be deleted after use, by calling the `delete` method.
   Example.ctor1(int internal) : super.fromRef(_ctor1(internal).object);
 
   static final _whichExample = jniLookup<
@@ -225,7 +230,6 @@ class Example_Aux extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const type = $Example_AuxType();
-
   static final _get_value = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
@@ -236,13 +240,14 @@ class Example_Aux extends jni.JObject {
     jni.JObjectPtr,
   )>();
 
-  /// from: public boolean value
-  bool get value => _get_value(reference).boolean;
   static final _set_value = jniLookup<
           ffi.NativeFunction<
               jni.JThrowablePtr Function(
                   jni.JObjectPtr, ffi.Uint8)>>("set_Example_Aux__value")
       .asFunction<jni.JThrowablePtr Function(jni.JObjectPtr, int)>();
+
+  /// from: public boolean value
+  bool get value => _get_value(reference).boolean;
 
   /// from: public boolean value
   set value(bool value) => _set_value(reference, value ? 1 : 0);
@@ -253,6 +258,7 @@ class Example_Aux extends jni.JObject {
           .asFunction<jni.JniResult Function(int)>();
 
   /// from: public void <init>(boolean value)
+  /// The returned object must be deleted after use, by calling the `delete` method.
   Example_Aux(bool value) : super.fromRef(_ctor(value ? 1 : 0).object);
 
   static final _getValue = jniLookup<
@@ -308,18 +314,18 @@ class C2 extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const type = $C2Type();
-
   static final _get_CONSTANT =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_C2__CONSTANT")
           .asFunction<jni.JniResult Function()>();
 
-  /// from: static public int CONSTANT
-  static int get CONSTANT => _get_CONSTANT().integer;
   static final _set_CONSTANT =
       jniLookup<ffi.NativeFunction<jni.JThrowablePtr Function(ffi.Int32)>>(
               "set_C2__CONSTANT")
           .asFunction<jni.JThrowablePtr Function(int)>();
+
+  /// from: static public int CONSTANT
+  static int get CONSTANT => _get_CONSTANT().integer;
 
   /// from: static public int CONSTANT
   static set CONSTANT(int value) => _set_CONSTANT(value);
@@ -329,6 +335,7 @@ class C2 extends jni.JObject {
           .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
   C2() : super.fromRef(_ctor().object);
 }
 
@@ -365,12 +372,12 @@ class Example1 extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const type = $Example1Type();
-
   static final _ctor =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("Example1__ctor")
           .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
   Example1() : super.fromRef(_ctor().object);
 
   static final _whichExample = jniLookup<
@@ -408,9 +415,7 @@ extension $Example1Array on jni.JArray<Example1> {
 class GrandParent<T extends jni.JObject> extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type(
-        $T,
-      );
+  jni.JObjType get $type => _$type ??= type($T);
 
   final jni.JObjType<T> $T;
 
@@ -438,9 +443,6 @@ class GrandParent<T extends jni.JObject> extends jni.JObject {
     jni.JObjectPtr,
   )>();
 
-  /// from: public T value
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  T get value => $T.fromRef(_get_value(reference).object);
   static final _set_value = jniLookup<
           ffi.NativeFunction<
               jni.JThrowablePtr Function(jni.JObjectPtr,
@@ -450,7 +452,11 @@ class GrandParent<T extends jni.JObject> extends jni.JObject {
 
   /// from: public T value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(T value) => _set_value(reference, value.reference);
+  T get value => $T.fromRef(_get_value(reference).object);
+
+  /// from: public T value
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set value(T value) => $T.fromRef(_set_value(reference, value.reference));
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -459,6 +465,7 @@ class GrandParent<T extends jni.JObject> extends jni.JObject {
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public void <init>(T value)
+  /// The returned object must be deleted after use, by calling the `delete` method.
   GrandParent(this.$T, T value) : super.fromRef(_ctor(value.reference).object);
 
   static final _stringParent = jniLookup<
@@ -557,10 +564,7 @@ class GrandParent_Parent<T extends jni.JObject, S extends jni.JObject>
     extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type(
-        $T,
-        $S,
-      );
+  jni.JObjType get $type => _$type ??= type($T, $S);
 
   final jni.JObjType<T> $T;
   final jni.JObjType<S> $S;
@@ -593,9 +597,6 @@ class GrandParent_Parent<T extends jni.JObject, S extends jni.JObject>
     jni.JObjectPtr,
   )>();
 
-  /// from: public T parentValue
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  T get parentValue => $T.fromRef(_get_parentValue(reference).object);
   static final _set_parentValue = jniLookup<
               ffi.NativeFunction<
                   jni.JThrowablePtr Function(
@@ -606,7 +607,12 @@ class GrandParent_Parent<T extends jni.JObject, S extends jni.JObject>
 
   /// from: public T parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set parentValue(T value) => _set_parentValue(reference, value.reference);
+  T get parentValue => $T.fromRef(_get_parentValue(reference).object);
+
+  /// from: public T parentValue
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set parentValue(T value) =>
+      $T.fromRef(_set_parentValue(reference, value.reference));
 
   static final _get_value = jniLookup<
           ffi.NativeFunction<
@@ -618,9 +624,6 @@ class GrandParent_Parent<T extends jni.JObject, S extends jni.JObject>
     jni.JObjectPtr,
   )>();
 
-  /// from: public S value
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  S get value => $S.fromRef(_get_value(reference).object);
   static final _set_value = jniLookup<
           ffi.NativeFunction<
               jni.JThrowablePtr Function(jni.JObjectPtr,
@@ -630,7 +633,11 @@ class GrandParent_Parent<T extends jni.JObject, S extends jni.JObject>
 
   /// from: public S value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(S value) => _set_value(reference, value.reference);
+  S get value => $S.fromRef(_get_value(reference).object);
+
+  /// from: public S value
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set value(S value) => $S.fromRef(_set_value(reference, value.reference));
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -641,6 +648,7 @@ class GrandParent_Parent<T extends jni.JObject, S extends jni.JObject>
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: public void <init>(T parentValue, S value)
+  /// The returned object must be deleted after use, by calling the `delete` method.
   GrandParent_Parent(this.$T, this.$S, T parentValue, S value)
       : super.fromRef(_ctor(parentValue.reference, value.reference).object);
 }
@@ -681,11 +689,7 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
     U extends jni.JObject> extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type(
-        $T,
-        $S,
-        $U,
-      );
+  jni.JObjType get $type => _$type ??= type($T, $S, $U);
 
   final jni.JObjType<T> $T;
   final jni.JObjType<S> $S;
@@ -722,9 +726,6 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
     jni.JObjectPtr,
   )>();
 
-  /// from: public T grandParentValue
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  T get grandParentValue => $T.fromRef(_get_grandParentValue(reference).object);
   static final _set_grandParentValue = jniLookup<
               ffi.NativeFunction<
                   jni.JThrowablePtr Function(
@@ -735,8 +736,12 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
 
   /// from: public T grandParentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
+  T get grandParentValue => $T.fromRef(_get_grandParentValue(reference).object);
+
+  /// from: public T grandParentValue
+  /// The returned object must be deleted after use, by calling the `delete` method.
   set grandParentValue(T value) =>
-      _set_grandParentValue(reference, value.reference);
+      $T.fromRef(_set_grandParentValue(reference, value.reference));
 
   static final _get_parentValue = jniLookup<
           ffi.NativeFunction<
@@ -748,9 +753,6 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
     jni.JObjectPtr,
   )>();
 
-  /// from: public S parentValue
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  S get parentValue => $S.fromRef(_get_parentValue(reference).object);
   static final _set_parentValue = jniLookup<
               ffi.NativeFunction<
                   jni.JThrowablePtr Function(
@@ -761,7 +763,12 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
 
   /// from: public S parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set parentValue(S value) => _set_parentValue(reference, value.reference);
+  S get parentValue => $S.fromRef(_get_parentValue(reference).object);
+
+  /// from: public S parentValue
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set parentValue(S value) =>
+      $S.fromRef(_set_parentValue(reference, value.reference));
 
   static final _get_value = jniLookup<
           ffi.NativeFunction<
@@ -773,9 +780,6 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
     jni.JObjectPtr,
   )>();
 
-  /// from: public U value
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  U get value => $U.fromRef(_get_value(reference).object);
   static final _set_value = jniLookup<
               ffi.NativeFunction<
                   jni.JThrowablePtr Function(
@@ -786,7 +790,11 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
 
   /// from: public U value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(U value) => _set_value(reference, value.reference);
+  U get value => $U.fromRef(_get_value(reference).object);
+
+  /// from: public U value
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set value(U value) => $U.fromRef(_set_value(reference, value.reference));
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -799,6 +807,7 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
               ffi.Pointer<ffi.Void>)>();
 
   /// from: public void <init>(T grandParentValue, S parentValue, U value)
+  /// The returned object must be deleted after use, by calling the `delete` method.
   GrandParent_Parent_Child(
       this.$T, this.$S, this.$U, T grandParentValue, S parentValue, U value)
       : super.fromRef(_ctor(grandParentValue.reference, parentValue.reference,
@@ -846,9 +855,7 @@ extension $GrandParent_Parent_ChildArray<
 class GrandParent_StaticParent<S extends jni.JObject> extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type(
-        $S,
-      );
+  jni.JObjType get $type => _$type ??= type($S);
 
   final jni.JObjType<S> $S;
 
@@ -876,9 +883,6 @@ class GrandParent_StaticParent<S extends jni.JObject> extends jni.JObject {
     jni.JObjectPtr,
   )>();
 
-  /// from: public S value
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  S get value => $S.fromRef(_get_value(reference).object);
   static final _set_value = jniLookup<
               ffi.NativeFunction<
                   jni.JThrowablePtr Function(
@@ -889,7 +893,11 @@ class GrandParent_StaticParent<S extends jni.JObject> extends jni.JObject {
 
   /// from: public S value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(S value) => _set_value(reference, value.reference);
+  S get value => $S.fromRef(_get_value(reference).object);
+
+  /// from: public S value
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set value(S value) => $S.fromRef(_set_value(reference, value.reference));
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -898,6 +906,7 @@ class GrandParent_StaticParent<S extends jni.JObject> extends jni.JObject {
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public void <init>(S value)
+  /// The returned object must be deleted after use, by calling the `delete` method.
   GrandParent_StaticParent(this.$S, S value)
       : super.fromRef(_ctor(value.reference).object);
 }
@@ -936,10 +945,7 @@ class GrandParent_StaticParent_Child<S extends jni.JObject,
     U extends jni.JObject> extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type(
-        $S,
-        $U,
-      );
+  jni.JObjType get $type => _$type ??= type($S, $U);
 
   final jni.JObjType<S> $S;
   final jni.JObjType<U> $U;
@@ -972,9 +978,6 @@ class GrandParent_StaticParent_Child<S extends jni.JObject,
     jni.JObjectPtr,
   )>();
 
-  /// from: public S parentValue
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  S get parentValue => $S.fromRef(_get_parentValue(reference).object);
   static final _set_parentValue = jniLookup<
               ffi.NativeFunction<
                   jni.JThrowablePtr Function(
@@ -985,7 +988,12 @@ class GrandParent_StaticParent_Child<S extends jni.JObject,
 
   /// from: public S parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set parentValue(S value) => _set_parentValue(reference, value.reference);
+  S get parentValue => $S.fromRef(_get_parentValue(reference).object);
+
+  /// from: public S parentValue
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set parentValue(S value) =>
+      $S.fromRef(_set_parentValue(reference, value.reference));
 
   static final _get_value = jniLookup<
           ffi.NativeFunction<
@@ -997,9 +1005,6 @@ class GrandParent_StaticParent_Child<S extends jni.JObject,
     jni.JObjectPtr,
   )>();
 
-  /// from: public U value
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  U get value => $U.fromRef(_get_value(reference).object);
   static final _set_value = jniLookup<
               ffi.NativeFunction<
                   jni.JThrowablePtr Function(
@@ -1010,7 +1015,11 @@ class GrandParent_StaticParent_Child<S extends jni.JObject,
 
   /// from: public U value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(U value) => _set_value(reference, value.reference);
+  U get value => $U.fromRef(_get_value(reference).object);
+
+  /// from: public U value
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set value(U value) => $U.fromRef(_set_value(reference, value.reference));
 
   static final _ctor = jniLookup<
               ffi.NativeFunction<
@@ -1022,6 +1031,7 @@ class GrandParent_StaticParent_Child<S extends jni.JObject,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: public void <init>(S parentValue, U value)
+  /// The returned object must be deleted after use, by calling the `delete` method.
   GrandParent_StaticParent_Child(this.$S, this.$U, S parentValue, U value)
       : super.fromRef(_ctor(parentValue.reference, value.reference).object);
 }
@@ -1062,10 +1072,7 @@ extension $GrandParent_StaticParent_ChildArray<S extends jni.JObject,
 class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type(
-        $K,
-        $V,
-      );
+  jni.JObjType get $type => _$type ??= type($K, $V);
 
   final jni.JObjType<K> $K;
   final jni.JObjType<V> $V;
@@ -1092,6 +1099,7 @@ class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
           .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
   MyMap(this.$K, this.$V) : super.fromRef(_ctor().object);
 
   static final _get0 = jniLookup<
@@ -1167,10 +1175,7 @@ class MyMap_MyEntry<K extends jni.JObject, V extends jni.JObject>
     extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type(
-        $K,
-        $V,
-      );
+  jni.JObjType get $type => _$type ??= type($K, $V);
 
   final jni.JObjType<K> $K;
   final jni.JObjType<V> $V;
@@ -1203,9 +1208,6 @@ class MyMap_MyEntry<K extends jni.JObject, V extends jni.JObject>
     jni.JObjectPtr,
   )>();
 
-  /// from: public K key
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  K get key => $K.fromRef(_get_key(reference).object);
   static final _set_key = jniLookup<
           ffi.NativeFunction<
               jni.JThrowablePtr Function(jni.JObjectPtr,
@@ -1215,7 +1217,11 @@ class MyMap_MyEntry<K extends jni.JObject, V extends jni.JObject>
 
   /// from: public K key
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set key(K value) => _set_key(reference, value.reference);
+  K get key => $K.fromRef(_get_key(reference).object);
+
+  /// from: public K key
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set key(K value) => $K.fromRef(_set_key(reference, value.reference));
 
   static final _get_value = jniLookup<
           ffi.NativeFunction<
@@ -1227,9 +1233,6 @@ class MyMap_MyEntry<K extends jni.JObject, V extends jni.JObject>
     jni.JObjectPtr,
   )>();
 
-  /// from: public V value
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  V get value => $V.fromRef(_get_value(reference).object);
   static final _set_value = jniLookup<
           ffi.NativeFunction<
               jni.JThrowablePtr Function(jni.JObjectPtr,
@@ -1239,7 +1242,11 @@ class MyMap_MyEntry<K extends jni.JObject, V extends jni.JObject>
 
   /// from: public V value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(V value) => _set_value(reference, value.reference);
+  V get value => $V.fromRef(_get_value(reference).object);
+
+  /// from: public V value
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set value(V value) => $V.fromRef(_set_value(reference, value.reference));
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -1250,6 +1257,7 @@ class MyMap_MyEntry<K extends jni.JObject, V extends jni.JObject>
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: public void <init>(K key, V value)
+  /// The returned object must be deleted after use, by calling the `delete` method.
   MyMap_MyEntry(this.$K, this.$V, K key, V value)
       : super.fromRef(_ctor(key.reference, value.reference).object);
 }
@@ -1289,9 +1297,7 @@ extension $MyMap_MyEntryArray<K extends jni.JObject, V extends jni.JObject>
 class MyStack<T extends jni.JObject> extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type(
-        $T,
-      );
+  jni.JObjType get $type => _$type ??= type($T);
 
   final jni.JObjType<T> $T;
 
@@ -1314,6 +1320,7 @@ class MyStack<T extends jni.JObject> extends jni.JObject {
           .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
   MyStack(this.$T) : super.fromRef(_ctor().object);
 
   static final _push = jniLookup<
@@ -1366,9 +1373,7 @@ extension $MyStackArray<T extends jni.JObject> on jni.JArray<MyStack<T>> {
 class StringKeyedMap<V extends jni.JObject> extends MyMap<jni.JString, V> {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type(
-        $V,
-      );
+  jni.JObjType get $type => _$type ??= type($V);
 
   final jni.JObjType<V> $V;
 
@@ -1391,6 +1396,7 @@ class StringKeyedMap<V extends jni.JObject> extends MyMap<jni.JString, V> {
       .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
   StringKeyedMap(this.$V)
       : super.fromRef(const jni.JStringType(), $V, _ctor().object);
 }
@@ -1436,12 +1442,12 @@ class StringStack extends MyStack<jni.JString> {
 
   /// The type which includes information such as the signature of this class.
   static const type = $StringStackType();
-
   static final _ctor = jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
           "StringStack__ctor")
       .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
   StringStack() : super.fromRef(const jni.JStringType(), _ctor().object);
 }
 
@@ -1470,9 +1476,7 @@ extension $StringStackArray on jni.JArray<StringStack> {
 class StringValuedMap<K extends jni.JObject> extends MyMap<K, jni.JString> {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type(
-        $K,
-      );
+  jni.JObjType get $type => _$type ??= type($K);
 
   final jni.JObjType<K> $K;
 
@@ -1495,6 +1499,7 @@ class StringValuedMap<K extends jni.JObject> extends MyMap<K, jni.JString> {
       .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
   StringValuedMap(this.$K)
       : super.fromRef($K, const jni.JStringType(), _ctor().object);
 }
@@ -1540,7 +1545,6 @@ class JsonSerializable_Case extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const type = $JsonSerializable_CaseType();
-
   static final _values =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "JsonSerializable_Case__values")
@@ -1600,12 +1604,12 @@ class MyDataClass extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const type = $MyDataClassType();
-
   static final _ctor = jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
           "MyDataClass__ctor")
       .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
   MyDataClass() : super.fromRef(_ctor().object);
 }
 

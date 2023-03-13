@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:jnigen/src/logging/logging.dart';
-
 import '../config/config.dart';
 import '../elements/elements.dart';
 
@@ -141,8 +139,12 @@ class _ClassRenamer implements Visitor<ClassDecl, void> {
 
   final Config config;
   final Map<String, int> classNameCounts = {};
-  final Set<ClassDecl> renamed = {};
-  final Map<ClassDecl, Map<String, int>> nameCounts = {};
+  final Set<ClassDecl> renamed = {...ClassDecl.predefined.values};
+  final Map<ClassDecl, Map<String, int>> nameCounts = {
+    for (final predefined in ClassDecl.predefined.values) ...{
+      predefined: {..._definedSyms},
+    }
+  };
   final Map<ClassDecl, Map<String, int>> methodNumsAfterRenaming = {};
 
   /// Returns class name as useful in dart.
@@ -167,6 +169,8 @@ class _ClassRenamer implements Visitor<ClassDecl, void> {
     final uniquifyName =
         config.outputConfig.dartConfig.structure == OutputStructure.singleFile;
     node.finalName = uniquifyName ? node.uniqueName : className;
+    // TODO
+    node.importPrefix = '';
 
     final superClass = (node.superclass!.type as DeclaredType).classDecl;
     superClass.accept(this);
@@ -202,9 +206,6 @@ class _MethodRenamer implements Visitor<Method, void> {
     final superClass =
         (node.classDecl.superclass!.type as DeclaredType).classDecl;
     final superNum = methodNumsAfterRenaming[superClass]?[sig];
-    if (node.classDecl.finalName == 'StringKeyedMap') {
-      log.info(superNum);
-    }
     if (superNum != null) {
       // Don't rename if superNum == 0
       // Unless the node name is a keyword.

@@ -24,7 +24,7 @@ String getFileClassName(String binaryName) {
 /// is mirrored.
 class FilePathResolver implements SymbolResolver {
   FilePathResolver({
-    this.classes = const Classes({}),
+    required this.classes,
     this.importMap = const {},
     required this.currentClass,
     this.inputClassNames = const {},
@@ -186,9 +186,9 @@ class FilePathResolver implements SymbolResolver {
 /// This class is provided for debugging purposes.
 class CallbackWriter implements BindingsWriter {
   CallbackWriter(this.callback);
-  Future<void> Function(Iterable<ClassDecl>) callback;
+  Future<void> Function(Classes) callback;
   @override
-  Future<void> writeBindings(Iterable<ClassDecl> classes) async {
+  Future<void> writeBindings(Classes classes) async {
     await callback(classes);
   }
 }
@@ -208,21 +208,16 @@ class FilesWriter extends BindingsWriter {
   Config config;
 
   @override
-  Future<void> writeBindings(List<ClassDecl> classes) async {
+  Future<void> writeBindings(Classes classes) async {
     final cBased = config.outputConfig.bindingsType == BindingsType.cBased;
     final preamble = config.preamble;
     final Map<String, List<ClassDecl>> files = {};
-    final Map<String, ClassDecl> classesByName = {};
     final Map<String, Set<String>> packages = {};
-    for (final c in classes) {
-      classesByName.putIfAbsent(c.binaryName, () => c);
-    }
 
-    final c = Classes(classesByName);
-    final classNames = c.decls.keys.toSet();
-    ApiPreprocessor.preprocessAll(c, config);
+    final classNames = classes.decls.keys.toSet();
+    ApiPreprocessor.preprocessAll(classes, config);
 
-    for (final classDecl in c.decls.values) {
+    for (final classDecl in classes.decls.values) {
       final fileClass = getFileClassName(classDecl.binaryName);
 
       files.putIfAbsent(fileClass, () => <ClassDecl>[]);
@@ -239,7 +234,7 @@ class FilesWriter extends BindingsWriter {
         : PureDartBindingsGenerator(config);
 
     if (cBased) {
-      await writeCBindings(config, c.decls.values.toList());
+      await writeCBindings(config, classes.decls.values.toList());
     }
 
     // Write init file
@@ -260,7 +255,7 @@ class FilesWriter extends BindingsWriter {
       final dartFile = await File.fromUri(dartFileUri).create(recursive: true);
       log.fine('$fileClassName -> ${dartFile.path}');
       final resolver = FilePathResolver(
-        classes: c,
+        classes: classes,
         importMap: config.importMap ?? const {},
         currentClass: fileClassName,
         inputClassNames: classNames,

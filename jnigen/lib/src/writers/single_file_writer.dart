@@ -4,6 +4,8 @@
 
 import 'dart:io';
 
+import 'package:jnigen/src/bindings/dart_generator.dart';
+
 import '../bindings/bindings.dart';
 import '../config/config.dart';
 import '../elements/elements.dart';
@@ -49,23 +51,22 @@ class SingleFileWriter extends BindingsWriter {
   SingleFileWriter(this.config);
   Config config;
   @override
-  Future<void> writeBindings(List<ClassDecl> classes) async {
+  Future<void> writeBindings(Classes classes) async {
     final cBased = config.outputConfig.bindingsType == BindingsType.cBased;
     final preamble = config.preamble;
     final Map<String, List<ClassDecl>> packages = {};
     final Map<String, ClassDecl> classesByName = {};
 
-    for (var c in classes) {
+    for (var c in classes.decls.values) {
       classesByName.putIfAbsent(c.binaryName, () => c);
       packages.putIfAbsent(c.packageName, () => <ClassDecl>[]);
       packages[c.packageName]!.add(c);
     }
 
-    final c = Classes(classesByName);
-    ApiPreprocessor.preprocessAll(c, config);
+    ApiPreprocessor.preprocessAll(classes, config);
 
     if (cBased) {
-      await writeCBindings(config, c.decls.values.toList());
+      await writeCBindings(config, classes.decls.values.toList());
     }
     log.info("Generating ${cBased ? "C + Dart" : "Pure Dart"} Bindings");
     final generator = cBased
@@ -74,13 +75,14 @@ class SingleFileWriter extends BindingsWriter {
     final file = File.fromUri(config.outputConfig.dartConfig.path);
     await file.create(recursive: true);
     final fileStream = file.openWrite();
-    final resolver = SingleFileResolver(c.decls);
+    final resolver = SingleFileResolver(classes.decls);
 
     // Have to generate bindings beforehand so that imports are all figured
     // out.
-    final bindings = c.decls.values
-        .map((decl) => generator.generateBindings(decl, resolver))
-        .join("\n");
+    final bindings = classes.accept(DartGenerator(config))[0].content;
+    // final bindings = c.decls.values
+    //     .map((decl) => generator.generateBindings(decl, resolver))
+    //     .join("\n");
 
     log.info("Writing Dart bindings to file: ${file.path}");
     fileStream

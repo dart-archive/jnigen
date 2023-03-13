@@ -11,7 +11,7 @@ import '../logging/logging.dart';
 import '../util/find_package.dart';
 
 abstract class BindingsWriter {
-  Future<void> writeBindings(List<ClassDecl> classes);
+  Future<void> writeBindings(Classes classes);
 }
 
 /// Run dart format command on [path].

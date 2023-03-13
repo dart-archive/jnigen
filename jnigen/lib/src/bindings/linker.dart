@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:jnigen/src/logging/logging.dart';
+
 import 'visitor.dart';
 import '../config/config.dart';
 import '../elements/elements.dart';
@@ -17,7 +19,9 @@ class Linker extends Visitor<Classes, void> {
   @override
   void visit(Classes node) {
     final classLinker = _ClassLinker(config, (binaryName) {
-      return node.decls[binaryName] ?? ClassDecl.object;
+      return ClassDecl.predefined[binaryName] ??
+          node.decls[binaryName] ??
+          ClassDecl.object;
     });
     for (final classDecl in node.decls.values) {
       classDecl.accept(classLinker);
@@ -30,7 +34,7 @@ class _ClassLinker extends Visitor<ClassDecl, void> {
 
   final Config config;
   final _Resolver resolve;
-  final Set<ClassDecl> _linked = {};
+  final Set<ClassDecl> _linked = {...ClassDecl.predefined.values};
 
   @override
   void visit(ClassDecl node) {
@@ -53,7 +57,6 @@ class _ClassLinker extends Visitor<ClassDecl, void> {
     node.allTypeParams = allTypeParams;
 
     final typeLinker = _TypeLinker(resolve);
-
     node.superclass ??= TypeUsage.object;
     node.superclass!.type.accept(typeLinker);
     final superclass = (node.superclass!.type as DeclaredType).classDecl;
@@ -69,6 +72,8 @@ class _ClassLinker extends Visitor<ClassDecl, void> {
       method.classDecl = node;
       method.accept(methodLinker);
     }
+    node.interfaces.accept(typeLinker).toList();
+    node.typeParams.accept(_TypeParamLinker(typeLinker)).toList();
   }
 }
 
@@ -82,13 +87,9 @@ class _MethodLinker extends Visitor<Method, void> {
   void visit(Method node) {
     node.returnType.accept(typeVisitor);
     final typeParamLinker = _TypeParamLinker(typeVisitor);
-    for (final typeParam in node.typeParams) {
-      typeParam.accept(typeParamLinker);
-    }
     final paramLinker = _ParamLinker(typeVisitor);
-    for (final param in node.params) {
-      param.accept(paramLinker);
-    }
+    node.typeParams.accept(typeParamLinker).toList();
+    node.params.accept(paramLinker).toList();
     // Kotlin specific
     const kotlinContinutationType = 'kotlin.coroutines.Continuation';
     if (config.suspendFunToAsync &&
@@ -107,12 +108,13 @@ class _MethodLinker extends Visitor<Method, void> {
 }
 
 class _TypeLinker extends TypeVisitor<void> {
-  _TypeLinker(this.resolve);
+  const _TypeLinker(this.resolve);
 
   final _Resolver resolve;
 
   @override
   void visitDeclaredType(DeclaredType node) {
+    node.params.accept(this).toList();
     node.classDecl = resolve(node.binaryName);
   }
 

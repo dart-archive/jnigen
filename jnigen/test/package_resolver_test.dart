@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:jnigen/jnigen.dart';
 import 'package:jnigen/src/writers/files_writer.dart';
 import 'package:test/test.dart';
 
@@ -14,6 +15,7 @@ class ResolverTest {
 
 void main() {
   final resolver = FilePathResolver(
+      classes: Classes.fromJson([]),
       importMap: {
         'org.apache.pdfbox': 'package:pdfbox/pdfbox.dart',
         'android.os.Process': 'package:android/os.dart',
