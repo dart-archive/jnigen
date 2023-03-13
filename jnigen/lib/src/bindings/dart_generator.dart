@@ -866,8 +866,11 @@ class _MethodGenerator extends Visitor<Method, void> {
 
   String dartOnlyCtor(Method node) {
     final name = node.finalName;
-    final params = node.params.accept(const _ParamCall()).join(', ');
-    return '$_accessors.newObjectWithArgs($_classRef, _id_$name, [$params])';
+    final params = node.params.accept(const _ParamCall()).toList();
+    if (isSuspendFun(node)) {
+      params.last = '\$c';
+    }
+    return '$_accessors.newObjectWithArgs($_classRef, _id_$name, [${params.join(', ')}])';
   }
 
   String cMethodCall(Method node) {
@@ -875,9 +878,12 @@ class _MethodGenerator extends Visitor<Method, void> {
     final params = [
       if (!node.isStatic) _selfPointer,
       ...node.params.accept(const _ParamCall()),
-    ].join(', ');
+    ];
+    if (isSuspendFun(node)) {
+      params.last = '\$c';
+    }
     final resultGetter = node.returnType.accept(const _JniResultGetter());
-    return '_$name($params).$resultGetter';
+    return '_$name(${params.join(', ')}).$resultGetter';
   }
 
   String dartOnlyMethodCall(Method node) {
@@ -963,14 +969,14 @@ class _MethodGenerator extends Visitor<Method, void> {
       final returning = node.asyncReturnType!.accept(const _FromNative('\$o'));
       s.write('''async {
     final \$p = ReceivePort();
-    final \$c = ${_jni}Jni.newPortContinuation(\$p);
+    final \$c = $_jni.Jni.newPortContinuation(\$p);
     $callExpr;
     final \$o = $_jPointer.fromAddress(await \$p.first);
     final \$k = $returnTypeClass.getClass().reference;
-    if (${_jni}Jni.env.IsInstanceOf(\$o, \$k) == 0) {
-      throw "Failed";\n'
-    }'
-    return $returning;',
+    if ($_jni.Jni.env.IsInstanceOf(\$o, \$k) == 0) {
+      throw "Failed";
+    }
+    return $returning;
   }
 
 ''');
