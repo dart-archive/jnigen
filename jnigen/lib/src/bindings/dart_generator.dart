@@ -29,18 +29,17 @@ const _typeParamPrefix = '\$';
 const _typeClassPrefix = '\$';
 const _typeClassSuffix = 'Type';
 
-// Dart only related
+// Misc.
 const _classRef = '_classRef';
 const _env = 'jniEnv';
 const _accessors = 'jniAccessors';
+const _lookup = 'jniLookup';
+const _selfPointer = 'reference';
 
 // Docs
 const _deleteInstruction =
     '  /// The returned object must be deleted after use, '
     'by calling the `delete` method.';
-
-const _lookup = 'jniLookup';
-const _selfPointer = 'reference';
 
 extension _StringX on String {
   String capitalize() {
@@ -88,6 +87,7 @@ class DartGenerator extends Visitor<Classes, void> {
   void visit(Classes node) {}
 }
 
+/// Generates the Dart class definition, type class, and the array extension
 class _ClassGenerator extends Visitor<ClassDecl, void> {
   _ClassGenerator(this.config, this.s);
 
@@ -459,6 +459,9 @@ class _JniResultGetter extends TypeVisitor<String> {
   }
 }
 
+/// JVM representation of type signatures.
+///
+/// https://docs.oracle.com/en/java/javase/18/docs/specs/jni/types.html#type-signatures
 class _Descriptor extends TypeVisitor<String> {
   const _Descriptor();
 
@@ -527,6 +530,20 @@ class _TypeName extends TypeVisitor<String> {
   @override
   String visitNonPrimitiveType(ReferredType node) {
     return 'object';
+  }
+}
+
+class _CallType extends TypeVisitor<String> {
+  const _CallType();
+
+  @override
+  String visitPrimitiveType(PrimitiveType node) {
+    return '$_jCallType.${node.name}Type';
+  }
+
+  @override
+  String visitNonPrimitiveType(ReferredType node) {
+    return '$_jCallType.objectType';
   }
 }
 
@@ -628,7 +645,7 @@ class _FieldGenerator extends Visitor<Field, void> {
     final name = node.finalName;
     final self = node.isStatic ? _classRef : _selfPointer;
     final ifStatic = node.isStatic ? 'Static' : '';
-    final callType = '$_jCallType.${node.type.accept(const _TypeName())}Type';
+    final callType = node.type.accept(const _CallType());
     final resultGetter = node.type.accept(const _JniResultGetter());
     return '$_accessors.get${ifStatic}Field($self, _id_$name, $callType)'
         '.$resultGetter;';
@@ -763,6 +780,42 @@ class _MethodGenerator extends Visitor<Method, void> {
     return node.name == '<init>';
   }
 
+  bool isSuspendFun(Method node) {
+    return node.asyncReturnType != null;
+  }
+
+  String cCtor(Method node) {
+    final name = node.finalName;
+    final params = node.params.accept(const _ParamCall()).join(', ');
+    return '_$name($params)';
+  }
+
+  String dartOnlyCtor(Method node) {
+    final name = node.finalName;
+    final params = node.params.accept(const _ParamCall()).join(', ');
+    return '$_accessors.newObjectWithArgs($_classRef, _id_$name, [$params])';
+  }
+
+  String cMethodCall(Method node) {
+    final name = node.finalName;
+    final params = [
+      if (!node.isStatic) _selfPointer,
+      ...node.params.accept(const _ParamCall()),
+    ].join(', ');
+    final resultGetter = node.returnType.accept(const _JniResultGetter());
+    return '$name($params).$resultGetter';
+  }
+
+  String dartOnlyMethodCall(Method node) {
+    final name = node.finalName;
+    final ifStatic = node.isStatic ? 'Static' : '';
+    final self = node.isStatic ? _classRef : _selfPointer;
+    final callType = node.returnType.accept(const _CallType());
+    final params = node.params.accept(const _ParamCall()).join(', ');
+    final resultGetter = node.returnType.accept(const _JniResultGetter());
+    return '$_accessors.call${ifStatic}MethodWithArgs($self, _id_$name, $callType, [$params]).$resultGetter';
+  }
+
   @override
   void visit(Method node) {
     final isCBased = config.outputConfig.bindingsType == BindingsType.cBased;
@@ -780,5 +833,140 @@ class _MethodGenerator extends Visitor<Method, void> {
       s.writeln(_deleteInstruction);
     }
     node.javadoc?.accept(_DocGenerator(s, depth: 1));
+
+    if (isCtor(node)) {
+      final className = node.classDecl.finalName;
+      final name = node.finalName;
+      final ctorName = name == 'ctor' ? className : '$className.$name';
+      final paramsDef = [
+        ...node.classDecl.allTypeParams.accept(const _ClassTypeParamDef()),
+        ...node.params.accept(const _ParamDef()),
+      ].join(', ');
+      final superTypeClassesCall =
+          (node.classDecl.superclass!.type as DeclaredType)
+              .params
+              .accept(const _TypeClassGenerator())
+              .map((typeClass) => '$typeClass,')
+              .join(_newLine(depth: 2));
+      final ctorExpr = (isCBased ? cCtor : dartOnlyCtor)(node);
+      s.write('''
+  $ctorName($paramsDef) : super.fromRef(
+    $superTypeClassesCall
+    $ctorExpr.object
+  );
+
+''');
+      return;
+    }
+
+    final name = node.finalName;
+    final returnType = isSuspendFun(node)
+        ? 'Future<${node.asyncReturnType!.accept(const _TypeGenerator())}>'
+        : node.returnType.accept(const _TypeGenerator());
+    final returnTypeClass = (node.asyncReturnType ?? node.returnType)
+        .accept(const _TypeClassGenerator())
+        .name;
+    final ifStatic = node.isStatic ? 'static ' : '';
+    final defArgs = [
+      ...node.typeParams.accept(const _MethodTypeParamDef()),
+      ...node.params.accept(const _ParamDef())
+    ];
+    final typeParamsDef = _encloseIfNotEmpty(
+      '<',
+      node.typeParams
+          .accept(const _TypeParamGenerator(withExtends: true))
+          .join(', '),
+      '>',
+    );
+    if (isSuspendFun(node)) {
+      defArgs.removeLast();
+    }
+    final params = defArgs.join(', ');
+    s.write('  $ifStatic$returnType $name$typeParamsDef($params) ');
+    final callExpr = (isCBased ? cMethodCall : dartOnlyMethodCall)(node);
+    if (isSuspendFun(node)) {
+      final returning = node.asyncReturnType!.accept(const _FromNative('\$o'));
+      s.write('''async {
+    final \$p = ReceivePort();
+    final \$c = ${_jni}Jni.newPortContinuation(\$p);
+    $callExpr;
+    final \$o = $_voidPointer.fromAddress(await \$p.first);
+    final \$k = $returnTypeClass.getClass().reference;
+    if (${_jni}Jni.env.IsInstanceOf(\$o, \$k) == 0) {
+      throw "Failed";\n'
+    }'
+    return $returning;',
+  }
+
+''');
+    } else {
+      final returning = node.returnType.accept(_FromNative(callExpr));
+      s.writeln('=> $returning;');
+    }
+  }
+}
+
+/// Generates the method type param definition.
+///
+/// For example `JObjType<T> $T` in:
+/// ```dart
+/// void bar(JObjType<T> $T, ...) => ...
+/// ```
+class _MethodTypeParamDef extends Visitor<TypeParam, String> {
+  const _MethodTypeParamDef();
+
+  @override
+  String visit(TypeParam node) {
+    return '$_jType<${node.name}> $_typeParamPrefix${node.name}';
+  }
+}
+
+/// Generates the class type param definition. Used only in constructors.
+///
+/// For example `this.$T` in:
+/// ```dart
+/// class Foo {
+///   final JObjType<T> $T;
+///   Foo(this.$T, ...) => ...
+/// }
+/// ```
+class _ClassTypeParamDef extends Visitor<TypeParam, String> {
+  const _ClassTypeParamDef();
+
+  @override
+  String visit(TypeParam node) {
+    return 'this.$_typeParamPrefix${node.name}';
+  }
+}
+
+/// Method parameter's definition.
+///
+/// For example `Foo foo` in:
+/// ```dart
+/// void bar(Foo foo) => ...
+/// ```
+class _ParamDef extends Visitor<Param, String> {
+  const _ParamDef();
+
+  @override
+  String visit(Param node) {
+    final type = node.type.accept(const _TypeGenerator());
+    return '$type ${node.finalName}';
+  }
+}
+
+/// Method parameter used in calling the native method.
+///
+/// For example `foo.reference` in:
+/// ```dart
+/// void bar(Foo foo) => _bar(foo.reference);
+/// ```
+class _ParamCall extends Visitor<Param, String> {
+  const _ParamCall();
+
+  @override
+  String visit(Param node) {
+    final nativeSuffix = node.type.accept(const _ToNativeSuffix());
+    return '${node.finalName}$nativeSuffix';
   }
 }
