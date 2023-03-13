@@ -63,8 +63,7 @@ class Example extends jni.JObject {
 
   /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux aux
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static set aux(Example_Aux value) =>
-      const $Example_AuxType().fromRef(_set_aux(value.reference));
+  static set aux(Example_Aux value) => _set_aux(value.reference);
 
   static final _get_num =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -456,7 +455,7 @@ class GrandParent<T extends jni.JObject> extends jni.JObject {
 
   /// from: public T value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(T value) => $T.fromRef(_set_value(reference, value.reference));
+  set value(T value) => _set_value(reference, value.reference);
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -611,8 +610,7 @@ class GrandParent_Parent<T extends jni.JObject, S extends jni.JObject>
 
   /// from: public T parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set parentValue(T value) =>
-      $T.fromRef(_set_parentValue(reference, value.reference));
+  set parentValue(T value) => _set_parentValue(reference, value.reference);
 
   static final _get_value = jniLookup<
           ffi.NativeFunction<
@@ -637,7 +635,7 @@ class GrandParent_Parent<T extends jni.JObject, S extends jni.JObject>
 
   /// from: public S value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(S value) => $S.fromRef(_set_value(reference, value.reference));
+  set value(S value) => _set_value(reference, value.reference);
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -741,7 +739,7 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
   /// from: public T grandParentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
   set grandParentValue(T value) =>
-      $T.fromRef(_set_grandParentValue(reference, value.reference));
+      _set_grandParentValue(reference, value.reference);
 
   static final _get_parentValue = jniLookup<
           ffi.NativeFunction<
@@ -767,8 +765,7 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
 
   /// from: public S parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set parentValue(S value) =>
-      $S.fromRef(_set_parentValue(reference, value.reference));
+  set parentValue(S value) => _set_parentValue(reference, value.reference);
 
   static final _get_value = jniLookup<
           ffi.NativeFunction<
@@ -794,7 +791,7 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
 
   /// from: public U value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(U value) => $U.fromRef(_set_value(reference, value.reference));
+  set value(U value) => _set_value(reference, value.reference);
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -897,7 +894,7 @@ class GrandParent_StaticParent<S extends jni.JObject> extends jni.JObject {
 
   /// from: public S value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(S value) => $S.fromRef(_set_value(reference, value.reference));
+  set value(S value) => _set_value(reference, value.reference);
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -992,8 +989,7 @@ class GrandParent_StaticParent_Child<S extends jni.JObject,
 
   /// from: public S parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set parentValue(S value) =>
-      $S.fromRef(_set_parentValue(reference, value.reference));
+  set parentValue(S value) => _set_parentValue(reference, value.reference);
 
   static final _get_value = jniLookup<
           ffi.NativeFunction<
@@ -1019,7 +1015,7 @@ class GrandParent_StaticParent_Child<S extends jni.JObject,
 
   /// from: public U value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(U value) => $U.fromRef(_set_value(reference, value.reference));
+  set value(U value) => _set_value(reference, value.reference);
 
   static final _ctor = jniLookup<
               ffi.NativeFunction<
@@ -1221,7 +1217,7 @@ class MyMap_MyEntry<K extends jni.JObject, V extends jni.JObject>
 
   /// from: public K key
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set key(K value) => $K.fromRef(_set_key(reference, value.reference));
+  set key(K value) => _set_key(reference, value.reference);
 
   static final _get_value = jniLookup<
           ffi.NativeFunction<
@@ -1246,7 +1242,7 @@ class MyMap_MyEntry<K extends jni.JObject, V extends jni.JObject>
 
   /// from: public V value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(V value) => $V.fromRef(_set_value(reference, value.reference));
+  set value(V value) => _set_value(reference, value.reference);
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
