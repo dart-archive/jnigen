@@ -74,6 +74,7 @@ class JsonFactory extends jni.JObject {
   static const type = $JsonFactoryType();
 
   /// from: static public final java.lang.String FORMAT_NAME_JSON
+  /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// Name used to identify JSON format
   /// (and returned by \#getFormatName()

@@ -813,6 +813,9 @@ class _FieldGenerator extends Visitor<Field, void> {
   void writeDocs(Field node) {
     final originalDecl = '${node.type.shorthand} ${node.name}';
     s.writeln('  /// from: ${node.modifiers.join(' ')} $originalDecl');
+    if (node.type.kind != Kind.primitive) {
+      s.writeln(_deleteInstruction);
+    }
     node.javadoc?.accept(_DocGenerator(s, depth: 1));
   }
 
@@ -843,9 +846,6 @@ class _FieldGenerator extends Visitor<Field, void> {
 
     // Getter docs
     writeDocs(node);
-    if (node.type.kind != Kind.primitive) {
-      s.writeln(_deleteInstruction);
-    }
 
     final name = node.finalName;
     final ifStatic = node.isStatic ? 'static ' : '';
@@ -858,9 +858,6 @@ class _FieldGenerator extends Visitor<Field, void> {
     if (!node.isFinal) {
       // Setter docs
       writeDocs(node);
-      if (node.type.kind != Kind.primitive) {
-        s.writeln(_deleteInstruction);
-      }
 
       s.write('${ifStatic}set $name($type value) => ');
       s.write((isCBased ? cSetter : dartOnlySetter)(node));

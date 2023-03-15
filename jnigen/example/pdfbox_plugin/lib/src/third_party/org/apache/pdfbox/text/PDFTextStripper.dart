@@ -71,9 +71,9 @@ class PDFTextStripper extends jni.JObject {
   )>();
 
   /// from: protected final java.lang.String LINE_SEPARATOR
+  /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// The platform's line separator.
-  /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JString get LINE_SEPARATOR =>
       const jni.JStringType().fromRef(_get_LINE_SEPARATOR(reference).object);
 
@@ -96,6 +96,7 @@ class PDFTextStripper extends jni.JObject {
           jni.JThrowablePtr Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
 
   /// from: protected java.util.ArrayList<java.util.List<org.apache.pdfbox.text.TextPosition>> charactersByArticle
+  /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// The charactersByArticle is used to extract text by article divisions. For example a PDF that has two columns like
   /// a newspaper, we want to extract the first column and then the second column. In this example the PDF would have 2
@@ -109,11 +110,11 @@ class PDFTextStripper extends jni.JObject {
   /// text after second article
   ///
   /// Most PDFs won't have any beads, so charactersByArticle will contain a single entry.
-  /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JObject get charactersByArticle => const jni.JObjectType()
       .fromRef(_get_charactersByArticle(reference).object);
 
   /// from: protected java.util.ArrayList<java.util.List<org.apache.pdfbox.text.TextPosition>> charactersByArticle
+  /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// The charactersByArticle is used to extract text by article divisions. For example a PDF that has two columns like
   /// a newspaper, we want to extract the first column and then the second column. In this example the PDF would have 2
@@ -127,7 +128,6 @@ class PDFTextStripper extends jni.JObject {
   /// text after second article
   ///
   /// Most PDFs won't have any beads, so charactersByArticle will contain a single entry.
-  /// The returned object must be deleted after use, by calling the `delete` method.
   set charactersByArticle(jni.JObject value) =>
       _set_charactersByArticle(reference, value.reference);
 

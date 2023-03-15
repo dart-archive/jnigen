@@ -66,12 +66,12 @@ class JsonParser extends jni.JObject {
   );
 
   /// from: static protected final com.fasterxml.jackson.core.util.JacksonFeatureSet<com.fasterxml.jackson.core.StreamReadCapability> DEFAULT_READ_CAPABILITIES
+  /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// Default set of StreamReadCapabilityies that may be used as
   /// basis for format-specific readers (or as bogus instance if non-null
   /// set needs to be passed).
   ///@since 2.12
-  /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject get DEFAULT_READ_CAPABILITIES =>
       const jni.JObjectType().fromRef(jniAccessors
           .getStaticField(_classRef, _id_DEFAULT_READ_CAPABILITIES,
