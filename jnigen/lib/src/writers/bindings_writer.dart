@@ -10,10 +10,6 @@ import '../elements/elements.dart';
 import '../logging/logging.dart';
 import '../util/find_package.dart';
 
-abstract class BindingsWriter {
-  Future<void> writeBindings(Classes classes);
-}
-
 /// Run dart format command on [path].
 Future<void> runDartFormat(String path) async {
   log.info('Running dart format...');

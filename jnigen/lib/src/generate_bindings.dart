@@ -5,8 +5,6 @@
 import 'dart:io';
 import 'dart:convert';
 
-import 'package:jnigen/src/util/command_output.dart';
-
 import 'bindings/dart_generator.dart';
 import 'bindings/excluder.dart';
 import 'bindings/linker.dart';
@@ -18,6 +16,8 @@ import 'tools/tools.dart';
 import 'writers/bindings_writer.dart';
 import 'logging/logging.dart';
 
+void collectOutputStream(Stream<List<int>> stream, StringBuffer buffer) =>
+    stream.transform(const Utf8Decoder()).forEach(buffer.write);
 Future<void> generateJniBindings(Config config) async {
   setLoggingLevel(config.logLevel);
 
