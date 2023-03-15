@@ -28,7 +28,9 @@
 // ignore_for_file: overridden_fields
 // ignore_for_file: unnecessary_cast
 // ignore_for_file: unused_element
+// ignore_for_file: unused_field
 // ignore_for_file: unused_import
+// ignore_for_file: unused_shown_name
 
 import "dart:isolate" show ReceivePort;
 import "dart:ffi" as ffi;
@@ -36,7 +38,7 @@ import "package:jni/internal_helpers_for_jnigen.dart";
 import "package:jni/jni.dart" as jni;
 
 import "../pdmodel/PDDocument.dart" as pddocument_;
-import "../../../../_init.dart" show jniLookup;
+import "../../../../_init.dart";
 
 /// from: org.apache.pdfbox.text.PDFTextStripper
 ///
@@ -58,7 +60,6 @@ class PDFTextStripper extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const type = $PDFTextStripperType();
-
   static final _get_LINE_SEPARATOR = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
@@ -70,9 +71,9 @@ class PDFTextStripper extends jni.JObject {
   )>();
 
   /// from: protected final java.lang.String LINE_SEPARATOR
-  /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// The platform's line separator.
+  /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JString get LINE_SEPARATOR =>
       const jni.JStringType().fromRef(_get_LINE_SEPARATOR(reference).object);
 
@@ -86,23 +87,6 @@ class PDFTextStripper extends jni.JObject {
     jni.JObjectPtr,
   )>();
 
-  /// from: protected java.util.ArrayList<java.util.List<org.apache.pdfbox.text.TextPosition>> charactersByArticle
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  ///
-  /// The charactersByArticle is used to extract text by article divisions. For example a PDF that has two columns like
-  /// a newspaper, we want to extract the first column and then the second column. In this example the PDF would have 2
-  /// beads(or articles), one for each column. The size of the charactersByArticle would be 5, because not all text on
-  /// the screen will fall into one of the articles. The five divisions are shown below
-  ///
-  /// Text before first article
-  /// first article text
-  /// text between first article and second article
-  /// second article text
-  /// text after second article
-  ///
-  /// Most PDFs won't have any beads, so charactersByArticle will contain a single entry.
-  jni.JObject get charactersByArticle => const jni.JObjectType()
-      .fromRef(_get_charactersByArticle(reference).object);
   static final _set_charactersByArticle = jniLookup<
               ffi.NativeFunction<
                   jni.JThrowablePtr Function(
@@ -112,7 +96,6 @@ class PDFTextStripper extends jni.JObject {
           jni.JThrowablePtr Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
 
   /// from: protected java.util.ArrayList<java.util.List<org.apache.pdfbox.text.TextPosition>> charactersByArticle
-  /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// The charactersByArticle is used to extract text by article divisions. For example a PDF that has two columns like
   /// a newspaper, we want to extract the first column and then the second column. In this example the PDF would have 2
@@ -126,6 +109,25 @@ class PDFTextStripper extends jni.JObject {
   /// text after second article
   ///
   /// Most PDFs won't have any beads, so charactersByArticle will contain a single entry.
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject get charactersByArticle => const jni.JObjectType()
+      .fromRef(_get_charactersByArticle(reference).object);
+
+  /// from: protected java.util.ArrayList<java.util.List<org.apache.pdfbox.text.TextPosition>> charactersByArticle
+  ///
+  /// The charactersByArticle is used to extract text by article divisions. For example a PDF that has two columns like
+  /// a newspaper, we want to extract the first column and then the second column. In this example the PDF would have 2
+  /// beads(or articles), one for each column. The size of the charactersByArticle would be 5, because not all text on
+  /// the screen will fall into one of the articles. The five divisions are shown below
+  ///
+  /// Text before first article
+  /// first article text
+  /// text between first article and second article
+  /// second article text
+  /// text after second article
+  ///
+  /// Most PDFs won't have any beads, so charactersByArticle will contain a single entry.
+  /// The returned object must be deleted after use, by calling the `delete` method.
   set charactersByArticle(jni.JObject value) =>
       _set_charactersByArticle(reference, value.reference);
 
@@ -139,16 +141,17 @@ class PDFTextStripper extends jni.JObject {
     jni.JObjectPtr,
   )>();
 
-  /// from: protected org.apache.pdfbox.pdmodel.PDDocument document
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  pddocument_.PDDocument get document => const pddocument_.$PDDocumentType()
-      .fromRef(_get_document(reference).object);
   static final _set_document = jniLookup<
           ffi.NativeFunction<
               jni.JThrowablePtr Function(jni.JObjectPtr,
                   ffi.Pointer<ffi.Void>)>>("set_PDFTextStripper__document")
       .asFunction<
           jni.JThrowablePtr Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
+
+  /// from: protected org.apache.pdfbox.pdmodel.PDDocument document
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  pddocument_.PDDocument get document => const pddocument_.$PDDocumentType()
+      .fromRef(_get_document(reference).object);
 
   /// from: protected org.apache.pdfbox.pdmodel.PDDocument document
   /// The returned object must be deleted after use, by calling the `delete` method.
@@ -165,16 +168,17 @@ class PDFTextStripper extends jni.JObject {
     jni.JObjectPtr,
   )>();
 
-  /// from: protected java.io.Writer output
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject get output =>
-      const jni.JObjectType().fromRef(_get_output(reference).object);
   static final _set_output = jniLookup<
           ffi.NativeFunction<
               jni.JThrowablePtr Function(jni.JObjectPtr,
                   ffi.Pointer<ffi.Void>)>>("set_PDFTextStripper__output")
       .asFunction<
           jni.JThrowablePtr Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
+
+  /// from: protected java.io.Writer output
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject get output =>
+      const jni.JObjectType().fromRef(_get_output(reference).object);
 
   /// from: protected java.io.Writer output
   /// The returned object must be deleted after use, by calling the `delete` method.
@@ -185,6 +189,7 @@ class PDFTextStripper extends jni.JObject {
       .asFunction<jni.JniResult Function()>();
 
   /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// Instantiate a new PDFTextStripper object.
   ///@throws IOException If there is an error loading the properties.

@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:jnigen/src/logging/logging.dart';
+
 import 'visitor.dart';
 import '../elements/elements.dart';
 import '../config/config.dart';
@@ -17,8 +19,12 @@ class Excluder extends Visitor<Classes, void> {
   @override
   void visit(Classes node) {
     node.decls.removeWhere((_, classDecl) {
-      return _isPrivate(classDecl) ||
-          (config.exclude?.classes?.included(classDecl) ?? false);
+      final excluded = _isPrivate(classDecl) ||
+          !(config.exclude?.classes?.included(classDecl) ?? true);
+      if (excluded) {
+        log.fine('Excluded class ${classDecl.binaryName}');
+      }
+      return excluded;
     });
     final classExcluder = _ClassExcluder(config);
     for (final classDecl in node.decls.values) {
@@ -35,14 +41,22 @@ class _ClassExcluder extends Visitor<ClassDecl, void> {
   @override
   void visit(ClassDecl node) {
     node.methods = node.methods.where((method) {
-      return !_isPrivate(method) &&
+      final included = !_isPrivate(method) &&
           !method.name.startsWith('_') &&
           (config.exclude?.methods?.included(node, method) ?? true);
+      if (!included) {
+        log.fine('Excluded method ${node.binaryName}#${method.name}');
+      }
+      return included;
     }).toList();
     node.fields = node.fields.where((field) {
-      return !_isPrivate(field) &&
+      final included = !_isPrivate(field) &&
           !field.name.startsWith('_') &&
           (config.exclude?.fields?.included(node, field) ?? true);
+      if (!included) {
+        log.fine('Excluded field ${node.binaryName}#${field.name}');
+      }
+      return included;
     }).toList();
   }
 }

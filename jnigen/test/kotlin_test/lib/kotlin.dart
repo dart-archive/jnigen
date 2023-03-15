@@ -14,7 +14,9 @@
 // ignore_for_file: overridden_fields
 // ignore_for_file: unnecessary_cast
 // ignore_for_file: unused_element
+// ignore_for_file: unused_field
 // ignore_for_file: unused_import
+// ignore_for_file: unused_shown_name
 
 import "dart:isolate" show ReceivePort;
 import "dart:ffi" as ffi;
@@ -58,8 +60,8 @@ class SuspendFun extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   Future<jni.JString> sayHello() async {
     final $p = ReceivePort();
-    final $c = jni.Jni.newPortContinuation($p);
-    _sayHello(reference, $c).object;
+    final $c = jni.JObject.fromRef(jni.Jni.newPortContinuation($p));
+    _sayHello(reference, $c.reference).object;
     final $o = jni.JObjectPtr.fromAddress(await $p.first);
     final $k = const jni.JStringType().getClass().reference;
     if (jni.Jni.env.IsInstanceOf($o, $k) == 0) {
@@ -82,8 +84,8 @@ class SuspendFun extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   Future<jni.JString> sayHello1(jni.JString string) async {
     final $p = ReceivePort();
-    final $c = jni.Jni.newPortContinuation($p);
-    _sayHello1(reference, string.reference, $c).object;
+    final $c = jni.JObject.fromRef(jni.Jni.newPortContinuation($p));
+    _sayHello1(reference, string.reference, $c.reference).object;
     final $o = jni.JObjectPtr.fromAddress(await $p.first);
     final $k = const jni.JStringType().getClass().reference;
     if (jni.Jni.env.IsInstanceOf($o, $k) == 0) {

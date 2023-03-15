@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:jnigen/src/logging/logging.dart';
+
 import '../config/config.dart';
 import '../elements/elements.dart';
 
@@ -169,8 +171,7 @@ class _ClassRenamer implements Visitor<ClassDecl, void> {
     final uniquifyName =
         config.outputConfig.dartConfig.structure == OutputStructure.singleFile;
     node.finalName = uniquifyName ? node.uniqueName : className;
-    // TODO
-    node.importPrefix = '';
+    log.fine('Class ${node.binaryName} is named ${node.finalName}');
 
     final superClass = (node.superclass!.type as DeclaredType).classDecl;
     superClass.accept(this);
@@ -217,10 +218,19 @@ class _MethodRenamer implements Visitor<Method, void> {
       node.finalName = _renameConflict(nameCounts, name);
       methodNumsAfterRenaming[node.classDecl]?[sig] = nameCounts[name]! - 1;
     }
+    log.fine(
+        'Method ${node.classDecl.binaryName}#${node.name} is named ${node.finalName}');
 
     final paramRenamer = _ParamRenamer(config);
     for (final param in node.params) {
       param.accept(paramRenamer);
+    }
+
+    // Kotlin specific
+    if (node.asyncReturnType != null) {
+      // It's a suspend fun so the continuation parameter
+      // should be named $c instead
+      node.params.last.finalName = '\$c';
     }
   }
 }
@@ -237,6 +247,8 @@ class _FieldRenamer implements Visitor<Field, void> {
       nameCounts,
       node.name,
     );
+    log.fine(
+        'Field ${node.classDecl.binaryName}#${node.name} is named ${node.finalName}');
   }
 }
 

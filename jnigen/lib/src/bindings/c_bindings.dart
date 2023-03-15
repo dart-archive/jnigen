@@ -2,10 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:jnigen/src/elements/elements.dart';
-import 'package:jnigen/src/config/config.dart';
-
-import 'common.dart';
+import '../config/config.dart';
+import '../elements/elements.dart';
+import 'c_generator.dart';
 
 class CBindingGenerator {
   static const classVarPrefix = '_c';
@@ -36,7 +35,7 @@ class CBindingGenerator {
 
   String _class(ClassDecl c) {
     final s = StringBuffer();
-    final classNameInC = getUniqueClassName(c);
+    final classNameInC = c.uniqueName;
     // global variable in C that holds the reference to class
     final classVar = '${classVarPrefix}_$classNameInC';
     s.write('// ${c.binaryName}\n'
@@ -57,19 +56,42 @@ class CBindingGenerator {
     return s.toString();
   }
 
+  String getCType(String binaryName) {
+    switch (binaryName) {
+      case "void":
+        return "void";
+      case "byte":
+        return "int8_t";
+      case "char":
+        return "char";
+      case "double":
+        return "double";
+      case "float":
+        return "float";
+      case "int":
+        return "int32_t";
+      case "long":
+        return "int64_t";
+      case "short":
+        return "int16_t";
+      case "boolean":
+        return "uint8_t";
+      default:
+        return "jobject";
+    }
+  }
+
   String _method(ClassDecl c, Method m) {
-    final classNameInC = getUniqueClassName(c);
-    final isACtor = isCtor(m);
-    final isStatic = isStaticMethod(m);
+    final classNameInC = c.uniqueName;
+    final isACtor = m.isCtor;
+    final isStatic = m.isStatic;
 
     final s = StringBuffer();
-    final name = m.finalName;
-    final functionName = getMemberNameInC(c, name);
+    final cMethodName = m.accept(const CMethodName());
     final classRef = '${classVarPrefix}_$classNameInC';
-    final methodID = '${methodVarPrefix}_$functionName';
-    final cMethodName = getMemberNameInC(c, name);
+    final methodID = '${methodVarPrefix}_$cMethodName';
     final cMethodParams = _formalArgs(m);
-    final jniSignature = getJniSignatureForMethod(m);
+    final jniSignature = m.accept(const MethodSignature());
     final ifStaticMethodID = isStatic ? 'static_' : '';
 
     var javaReturnType = m.returnType.name;
@@ -93,7 +115,7 @@ jmethodID $methodID = NULL;
 FFI_PLUGIN_EXPORT
 $jniResultType $cMethodName($cMethodParams) {
     $_loadEnvCall
-    ${_loadClassCall(classRef, getInternalName(c.binaryName))}
+    ${_loadClassCall(classRef, c.internalName)}
     load_${ifStaticMethodID}method($classRef,
       &$methodID, "${m.name}", "$jniSignature");
     if ($methodID == NULL) return $ifError;
@@ -104,16 +126,16 @@ $jniResultType $cMethodName($cMethodParams) {
   }
 
   String _field(ClassDecl c, Field f) {
-    final cClassName = getUniqueClassName(c);
-    final isStatic = isStaticField(f);
+    final cClassName = c.uniqueName;
+    final isStatic = f.isStatic;
 
     final fieldName = f.finalName;
-    final fieldNameInC = getMemberNameInC(c, fieldName);
+    final fieldNameInC = f.accept(const CFieldName());
     final fieldVar = "${fieldVarPrefix}_$fieldNameInC";
 
     // If the field is final and default is assigned, then no need to wrap
     // this field. It should then be a constant in dart code.
-    if (isStatic && isFinalField(f) && f.defaultValue != null) {
+    if (isStatic && f.isFinal && f.defaultValue != null) {
       return "";
     }
 
@@ -143,7 +165,7 @@ $jniResultType $cMethodName($cMethodParams) {
       } else {
         var getterExpr = '(*jniEnv)->Get$ifStaticCall${callType}Field(jniEnv, '
             '$objectArgument, $fieldVar)';
-        if (!isPrimitive(f.type)) {
+        if (f.type.kind != Kind.primitive) {
           getterExpr = 'to_global_ref($getterExpr)';
         }
         final cResultType = getCType(f.type.name);
@@ -157,15 +179,15 @@ $jniResultType $cMethodName($cMethodParams) {
 FFI_PLUGIN_EXPORT
 $cReturnType ${cMethodPrefix}_$fieldNameInC($formalArgs) {
     $_loadEnvCall
-    ${_loadClassCall(classVar, getInternalName(c.binaryName))}
+    ${_loadClassCall(classVar, c.internalName)}
     load_${ifStaticField}field($classVar, &$fieldVar, "$fieldName",
-      "${getDescriptor(f.type)}");
+      "${f.type.accept(const Descriptor())}");
 $accessorStatements
 }\n\n''');
     }
 
     writeAccessor(isSetter: false);
-    if (isFinalField(f)) {
+    if (f.isFinal) {
       return s.toString();
     }
     writeAccessor(isSetter: true);
@@ -181,7 +203,7 @@ $accessorStatements
 
   String _formalArgs(Method m) {
     final args = <String>[];
-    if (hasSelfParam(m)) {
+    if (!m.isCtor && !m.isStatic) {
       // The underscore-suffixed name prevents accidental collision with
       // parameter named self, if any.
       args.add('jobject self_');
@@ -207,7 +229,7 @@ $accessorStatements
       'double': 'd',
       'void': 'j', // in case of void return, just write 0 to largest field.
     };
-    if (isPrimitive(type)) {
+    if (type.kind == Kind.primitive) {
       return primitives[type.name]!;
     }
     return 'l';
@@ -216,7 +238,7 @@ $accessorStatements
   // Returns arguments at call site, concatenated by `,`.
   String _callArgs(Method m, String classVar, String methodVar) {
     final args = ['jniEnv'];
-    if (hasSelfParam(m)) {
+    if (!m.isCtor && !m.isStatic) {
       args.add('self_');
     } else {
       args.add(classVar);
@@ -233,7 +255,7 @@ $accessorStatements
     final cReturnType = getCType(m.returnType.name);
     String valuePart;
     String unionField;
-    if (cReturnType == 'jobject' || isCtor(m)) {
+    if (cReturnType == 'jobject' || m.isCtor) {
       unionField = 'l';
       valuePart = 'to_global_ref(_result)';
     } else if (cReturnType == 'void') {
@@ -252,7 +274,7 @@ $accessorStatements
   /// Returns capitalized java type name to be used as in call${type}Method
   /// or get${type}Field etc..
   String _typeNameAtCallSite(TypeUsage type) {
-    if (isPrimitive(type)) {
+    if (type.kind == Kind.primitive) {
       return type.name.substring(0, 1).toUpperCase() + type.name.substring(1);
     }
     return "Object";

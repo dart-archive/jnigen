@@ -7,11 +7,15 @@ import 'dart:convert';
 
 import 'package:jnigen/src/util/command_output.dart';
 
+import 'bindings/dart_generator.dart';
+import 'bindings/excluder.dart';
+import 'bindings/linker.dart';
+import 'bindings/renamer.dart';
 import 'elements/elements.dart';
 import 'summary/summary.dart';
 import 'config/config.dart';
 import 'tools/tools.dart';
-import 'writers/writers.dart';
+import 'writers/bindings_writer.dart';
 import 'logging/logging.dart';
 
 Future<void> generateJniBindings(Config config) async {
@@ -96,15 +100,19 @@ Future<void> generateJniBindings(Config config) async {
   }
   final list = json as List;
   final classes = Classes.fromJson(list);
-  final outputStructure = config.outputConfig.dartConfig.structure;
-  BindingsWriter outputWriter;
-  if (outputStructure == OutputStructure.packageStructure) {
-    outputWriter = FilesWriter(config);
-  } else {
-    outputWriter = SingleFileWriter(config);
+  final cBased = config.outputConfig.bindingsType == BindingsType.cBased;
+  classes
+    ..accept(Excluder(config))
+    ..accept(Linker(config))
+    ..accept(Renamer(config));
+
+  if (cBased) {
+    await writeCBindings(config, classes.decls.values.toList());
   }
+
   try {
-    await outputWriter.writeBindings(classes);
+    await classes.accept(DartGenerator(config));
+    log.info('Completed');
   } on Exception catch (e, trace) {
     stderr.writeln(trace);
     log.fatal('Error while writing bindings: $e');

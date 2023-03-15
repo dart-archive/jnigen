@@ -5,7 +5,6 @@
 // Types to describe java API elements
 
 import 'package:jnigen/src/bindings/visitor.dart';
-import 'package:jnigen/src/logging/logging.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'elements.g.dart';
@@ -118,14 +117,6 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
   @JsonKey(includeFromJson: false)
   late final String uniqueName;
 
-  /// The prefix when this file is included, contains the leading dot.
-  ///
-  /// For `package.Foo`, importPrefix is `package.`.
-  ///
-  /// Will be populated by [Renamer].
-  @JsonKey(includeFromJson: false)
-  late final String importPrefix;
-
   /// Type parameters including the ones from its ancestors
   ///
   /// Will be populated by [Linker].
@@ -137,26 +128,20 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
     return 'Java class declaration for $binaryName';
   }
 
-  String get signature => 'L${binaryName.replaceAll(".", "/")};';
-
-  String get completeName => '$importPrefix$finalName';
+  String get signature => 'L$internalName;';
 
   static final object = ClassDecl(
     binaryName: 'java.lang.Object',
     packageName: 'java.lang',
     simpleName: 'Object',
-  )
-    ..finalName = 'JObject'
-    ..importPrefix = 'jni.';
+  )..finalName = 'JObject';
 
   static final string = ClassDecl(
     superclass: TypeUsage.object,
     binaryName: 'java.lang.String',
     packageName: 'java.lang',
     simpleName: 'String',
-  )
-    ..finalName = 'JString'
-    ..importPrefix = 'jni.';
+  )..finalName = 'JString';
 
   static final predefined = {
     'java.lang.Object': object,
@@ -529,7 +514,7 @@ class Param implements Element<Param> {
 
   /// Will be populated by [Renamer].
   @JsonKey(includeFromJson: false)
-  late final String finalName;
+  late String finalName;
 
   factory Param.fromJson(Map<String, dynamic> json) => _$ParamFromJson(json);
 
