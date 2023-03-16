@@ -2,11 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:jnigen/src/logging/logging.dart';
-
-import 'visitor.dart';
-import '../elements/elements.dart';
 import '../config/config.dart';
+import '../elements/elements.dart';
+import '../logging/logging.dart';
+import 'visitor.dart';
 
 bool _isPrivate(ClassMember classMember) =>
     !classMember.isPublic && !classMember.isProtected;

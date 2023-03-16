@@ -2,10 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:json_annotation/json_annotation.dart';
+
 // Types to describe java API elements
 
-import 'package:jnigen/src/bindings/visitor.dart';
-import 'package:json_annotation/json_annotation.dart';
+import '../bindings/visitor.dart';
 
 part 'elements.g.dart';
 

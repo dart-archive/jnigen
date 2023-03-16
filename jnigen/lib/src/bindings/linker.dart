@@ -9,6 +9,7 @@ import '../elements/elements.dart';
 typedef _Resolver = ClassDecl Function(String? binaryName);
 
 /// Adds references from child elements back to their parent elements.
+/// Resolves Kotlin specific `asyncReturnType` for methods.
 class Linker extends Visitor<Classes, void> {
   Linker(this.config);
 

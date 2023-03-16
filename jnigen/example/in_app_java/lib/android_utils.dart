@@ -339,7 +339,6 @@ class Build extends jni.JObject {
       const jni.JStringType().fromRef(_get_TYPE().object);
 
   /// from: static public final java.lang.String UNKNOWN
-  /// The returned object must be deleted after use, by calling the `delete` method.
   static const UNKNOWN = r"""unknown""";
 
   static final _get_USER =
