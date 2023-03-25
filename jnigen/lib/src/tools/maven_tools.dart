@@ -50,7 +50,7 @@ class MavenDependencyCachingTools {
   static bool _isNewestFile(String directoryPath, String filename) {
     final dir = Directory(directoryPath);
     final referenceFile = File(join(directoryPath, filename));
-    final referenceLastModified = referenceFile.lastModifiedSync();
+    final referenceLastModified = referenceFile.statSync().modified;
     final files = dir.listSync(recursive: true);
     for (final file in files) {
       if (file.statSync().modified.isAfter(referenceLastModified)) {
