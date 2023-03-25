@@ -120,5 +120,11 @@ class MavenDependency {
     }
     return MavenDependency(components[0], components[1], components[2]);
   }
+
+  @override
+  String toString() {
+    return '$groupID:$artifactID:$version';
+  }
+
   String groupID, artifactID, version;
 }
