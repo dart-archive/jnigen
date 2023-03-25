@@ -2,6 +2,7 @@ package com.github.dart_lang.jnigen.apisummarizer.util;
 
 import javax.tools.SimpleJavaFileObject;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -13,7 +14,7 @@ class JarEntryFileObject extends SimpleJavaFileObject {
     String relativePath;
 
     protected JarEntryFileObject(JarFile jarFile, ZipEntry entry) {
-        super(URI.create(jarFile.getName() + "!" + entry.getName()), Kind.SOURCE);
+        super(URI.create(new File(jarFile.getName()).toURI() + "/" + entry.getName()), Kind.SOURCE);
         this.jarFile = jarFile;
         this.relativePath = entry.getName();
     }
