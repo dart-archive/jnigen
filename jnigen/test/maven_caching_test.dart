@@ -53,7 +53,7 @@ void main() {
     final deps = [jacksonDependency];
     const artifactType = MavenArtifactType.jar;
     final cacheRecord = CachingTools.computeCacheRecord(artifactType, deps);
-    final tempDir = currentDir.createTempSync("mvn_cache_test");
+    final tempDir = currentDir.createTempSync("mvn_cache_test_");
 
     String createTargetDir() {
       final target = tempDir.createTempSync("mvn_jar_");
