@@ -81,8 +81,6 @@ class MavenDependencyCachingTools {
       final currentCache = record.readAsStringSync();
       if (currentCache == cacheRecord &&
           _isNewestFile(directoryPath, recordName)) {
-        log.info('Cached maven ${artifactType.name} dependencies found'
-            ' in $directoryPath');
         return true;
       } else {
         record.deleteSync();
@@ -102,6 +100,8 @@ class MavenDependencyCachingTools {
   ) async {
     final cacheRecord = computeCacheRecord(artifactType, deps);
     if (validateCache(targetDir, artifactType, cacheRecord)) {
+      log.info('Cached maven ${artifactType.name} dependencies found'
+          ' in $targetDir');
       return;
     }
     await downloaderCallback(deps, targetDir);
