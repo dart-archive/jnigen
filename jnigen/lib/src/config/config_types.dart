@@ -241,6 +241,7 @@ class Config {
     this.importMap,
     this.androidSdkConfig,
     this.mavenDownloads,
+    this.invalidateCaches = false,
     this.summarizerOptions,
     this.logLevel = Level.INFO,
     this.dumpJsonTo,
@@ -304,6 +305,12 @@ class Config {
 
   /// Additional options for the summarizer component
   final SummarizerOptions? summarizerOptions;
+
+  /// Invalidate auxiliary caches (Eg: downloaded maven artifacts) during
+  /// this invocation.
+  ///
+  /// This can be only passed through command line.
+  final bool invalidateCaches;
 
   /// Directory containing the YAML configuration file, if any.
   Uri? get configRoot => _configRoot;
@@ -435,6 +442,7 @@ class Config {
               androidExample: prov.getString(_Props.androidExample),
             )
           : null,
+      invalidateCaches: prov.commandLineOnlyOptions.invalidateCaches,
       logLevel: logLevelFromString(
         prov.getOneOf(
           _Props.logLevel,

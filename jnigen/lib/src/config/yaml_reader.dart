@@ -9,10 +9,22 @@ import 'package:yaml/yaml.dart';
 
 import 'config_exception.dart';
 
+/// Options that can be only passed through command line
+class CommandLineOnlyOptions {
+  CommandLineOnlyOptions({required this.invalidateCaches});
+  final bool invalidateCaches;
+}
+
 /// YAML Reader which enables to override specific values from command line.
 class YamlReader {
-  YamlReader.of(this.cli, this.yaml, this.yamlFile);
-  Map<String, String> cli;
+  YamlReader.of(
+    this.overrides,
+    this.yaml,
+    this.commandLineOnlyOptions,
+    this.yamlFile,
+  );
+  CommandLineOnlyOptions commandLineOnlyOptions;
+  Map<String, String> overrides;
   Map<dynamic, dynamic> yaml;
   File? yamlFile;
 
@@ -37,6 +49,11 @@ class YamlReader {
       parser.addOption('config', abbr: 'c', help: 'Path to YAML config.');
     }
 
+    parser.addFlag(
+      'invalidate-caches',
+      help: 'Invalidate auxiliary caches (Eg: downloaded maven artifacts).',
+    );
+
     final results = parser.parse(args);
     if (results['help']) {
       stderr.writeln(parser.usage);
@@ -57,6 +74,9 @@ class YamlReader {
         stderr.writeln('cannot read $configFile: $e');
       }
     }
+    final commandLineOnlyOptions = CommandLineOnlyOptions(
+      invalidateCaches: results['invalidate-caches'] ?? false,
+    );
     final regex = RegExp('([a-z-_.]+)=(.+)');
     final properties = <String, String>{};
     for (var prop in results['override']) {
@@ -70,12 +90,16 @@ class YamlReader {
       }
     }
     return YamlReader.of(
-        properties, yamlMap, configFile != null ? File(configFile) : null);
+      properties,
+      yamlMap,
+      commandLineOnlyOptions,
+      configFile != null ? File(configFile) : null,
+    );
   }
 
   bool? getBool(String property) {
-    if (cli.containsKey(property)) {
-      final v = cli[property]!;
+    if (overrides.containsKey(property)) {
+      final v = overrides[property]!;
       if (v == 'true') {
         return true;
       }
@@ -88,14 +112,14 @@ class YamlReader {
   }
 
   String? getString(String property) {
-    final configValue = cli[property] ?? getYamlValue<String>(property);
+    final configValue = overrides[property] ?? getYamlValue<String>(property);
     return configValue;
   }
 
   /// Same as [getString] but path is resolved relative to YAML config if it's
   /// from YAML config.
   String? getPath(String property) {
-    final cliOverride = cli[property];
+    final cliOverride = overrides[property];
     if (cliOverride != null) return cliOverride;
     final path = getYamlValue<String>(property);
     if (path == null) return null;
@@ -107,13 +131,13 @@ class YamlReader {
   }
 
   List<String>? getStringList(String property) {
-    final configValue = cli[property]?.split(';') ??
+    final configValue = overrides[property]?.split(';') ??
         getYamlValue<YamlList>(property)?.cast<String>();
     return configValue;
   }
 
   List<String>? getPathList(String property) {
-    final cliOverride = cli[property]?.split(';');
+    final cliOverride = overrides[property]?.split(';');
     if (cliOverride != null) return cliOverride;
     final paths = getYamlValue<YamlList>(property)?.cast<String>();
     if (paths == null) return null;
@@ -124,7 +148,7 @@ class YamlReader {
   }
 
   String? getOneOf(String property, Set<String> values) {
-    final value = cli[property] ?? getYamlValue<String>(property);
+    final value = overrides[property] ?? getYamlValue<String>(property);
     if (value == null || values.contains(value)) {
       return value;
     }

@@ -55,6 +55,7 @@ void expectConfigsAreEqual(Config a, Config b) {
   } else {
     expect(ba, isNull, reason: "androidSdkConfig");
   }
+  expect(a.invalidateCaches, equals(b.invalidateCaches));
   final aso = a.summarizerOptions;
   final bso = b.summarizerOptions;
   if (aso != null) {
@@ -120,5 +121,14 @@ void main() {
       name: 'Invalid log level',
       overrides: ['-Dlog_level=inf'],
     );
+  });
+
+  test('check invalidate-caches flag is applied in final config', () {
+    final config = Config.parseArgs([
+      '--config',
+      jnigenYaml,
+      '--invalidate-caches',
+    ]);
+    expect(config.invalidateCaches, isTrue);
   });
 }
