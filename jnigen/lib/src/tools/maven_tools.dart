@@ -12,15 +12,102 @@ import '../logging/logging.dart';
 /// Type of downloaded artifact (JAR or sources.)
 ///
 /// It does not correspond to maven's formal notion of artifact type.
-enum _MavenArtifactType {
+enum MavenArtifactType {
   jar,
   sources,
 }
 
 const _cacheRecordNames = {
-  _MavenArtifactType.jar: 'jnigen_maven_jar_cache.json',
-  _MavenArtifactType.sources: 'jnigen_maven_src_cache.json',
+  MavenArtifactType.jar: 'jnigen_maven_jar_cache.json',
+  MavenArtifactType.sources: 'jnigen_maven_src_cache.json',
 };
+
+class MavenDependencyCachingTools {
+  static String computeCacheRecord(
+    MavenArtifactType artifactType,
+    List<MavenDependency> mavenDeps,
+  ) {
+    return jsonEncode({
+      'artifactType': artifactType.name.toString(),
+      'dependencies': mavenDeps.map((e) => e.toString()).toList(),
+    });
+  }
+
+  /// Write the cache record for the folder in a JSON file.
+  ///
+  /// This be invoked after maven dependencies are downloaded.
+  static void writeCacheRecord(
+    String directoryPath,
+    MavenArtifactType artifactType,
+    String cacheRecord,
+  ) {
+    final recordPath = join(directoryPath, _cacheRecordNames[artifactType]);
+    final record = File(recordPath);
+    record.writeAsStringSync(cacheRecord);
+  }
+
+  /// Returns true if there is any file newer than [filename] in directoryPath.
+  static bool _isNewestFile(String directoryPath, String filename) {
+    final dir = Directory(directoryPath);
+    final referenceFile = File(join(directoryPath, filename));
+    final referenceLastModified = referenceFile.lastModifiedSync();
+    final files = dir.listSync(recursive: true);
+    for (final file in files) {
+      if (file.statSync().modified.isAfter(referenceLastModified)) {
+        return false;
+      }
+    }
+    // If any file was deleted later, the directory last write time will have
+    // changed.
+    if (dir.statSync().modified.isAfter(referenceLastModified)) {
+      return false;
+    }
+    return true;
+  }
+
+  /// Compares existing cache record to required one.
+  ///
+  /// If cache is stale, deletes the existing record and returns false.
+  /// Otherwise, returns true.
+  static bool validateCache(
+    String directoryPath,
+    MavenArtifactType artifactType,
+    String cacheRecord,
+  ) {
+    final recordName = _cacheRecordNames[artifactType]!;
+    final recordPath = join(directoryPath, recordName);
+    final record = File(recordPath);
+    if (record.existsSync()) {
+      final currentCache = record.readAsStringSync();
+      if (currentCache == cacheRecord &&
+          _isNewestFile(directoryPath, recordName)) {
+        log.info('Cached maven ${artifactType.name} dependencies found'
+            ' in $directoryPath');
+        return true;
+      } else {
+        record.deleteSync();
+        return false;
+      }
+    }
+    return false;
+  }
+
+  /// Runs [downloaderCallback] wrapped in cache record checks.
+  static Future<void> downloadWithCaching(
+    String targetDir,
+    List<MavenDependency> deps,
+    MavenArtifactType artifactType,
+    Future<void> Function(List<MavenDependency> deps, String targetDir)
+        downloaderCallback,
+  ) async {
+    final cacheRecord = computeCacheRecord(artifactType, deps);
+    if (validateCache(targetDir, artifactType, cacheRecord)) {
+      return;
+    }
+    await downloaderCallback(deps, targetDir);
+    writeCacheRecord(targetDir, artifactType, cacheRecord);
+  }
+}
 
 /// This class provides some utility methods to download a sources / jars
 /// using maven along with transitive dependencies.
@@ -40,16 +127,16 @@ class MavenTools {
 
   static void invalidateCacheRecords({String? jarDir, String? sourceDir}) {
     if (jarDir != null) {
-      _invalidateCacheRecord(jarDir, _MavenArtifactType.jar);
+      _invalidateCacheRecord(jarDir, MavenArtifactType.jar);
     }
     if (sourceDir != null) {
-      _invalidateCacheRecord(sourceDir, _MavenArtifactType.sources);
+      _invalidateCacheRecord(sourceDir, MavenArtifactType.sources);
     }
   }
 
   static void _invalidateCacheRecord(
     String directoryPath,
-    _MavenArtifactType artifactType,
+    MavenArtifactType artifactType,
   ) {
     final recordFile = File(join(
       directoryPath,
@@ -60,72 +147,6 @@ class MavenTools {
           'artifacts in $directoryPath');
       recordFile.deleteSync();
     }
-  }
-
-  static String _computeCacheRecord(
-    _MavenArtifactType artifactType,
-    List<MavenDependency> mavenDeps,
-  ) {
-    return jsonEncode({
-      'artifactType': artifactType.name.toString(),
-      'dependencies': mavenDeps.map((e) => e.toString()).toList(),
-    });
-  }
-
-  /// Write the cache record for the folder in a JSON file.
-  ///
-  /// This be invoked after maven dependencies are downloaded.
-  static void _writeCacheRecord(
-    String directoryPath,
-    _MavenArtifactType artifactType,
-    String cacheRecord,
-  ) {
-    final recordPath = join(directoryPath, _cacheRecordNames[artifactType]);
-    final record = File(recordPath);
-    record.writeAsStringSync(cacheRecord);
-  }
-
-  /// Returns true if there is any file newer than [filename] in directoryPath.
-  ///
-  /// TODO(PR): Handle the case where files in the directory are deleted manually.
-  static bool _isNewestFile(String directoryPath, String filename) {
-    final dir = Directory(directoryPath);
-    final referenceFile = File(join(directoryPath, filename));
-    final referenceLastModified = referenceFile.lastModifiedSync();
-    final files = dir.listSync(recursive: true);
-    for (final file in files) {
-      if (file.statSync().modified.isAfter(referenceLastModified)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  /// Compares existing cache record to required one.
-  ///
-  /// If cache is stale, deletes the existing record and returns false.
-  /// Otherwise, returns true.
-  static bool _validateCache(
-    String directoryPath,
-    _MavenArtifactType artifactType,
-    String cacheRecord,
-  ) {
-    final recordName = _cacheRecordNames[artifactType]!;
-    final recordPath = join(directoryPath, recordName);
-    final record = File(recordPath);
-    if (record.existsSync()) {
-      final currentCache = record.readAsStringSync();
-      if (currentCache == cacheRecord &&
-          _isNewestFile(directoryPath, recordName)) {
-        log.info('Cached maven ${artifactType.name} dependencies found'
-            ' in $directoryPath');
-        return true;
-      } else {
-        record.deleteSync();
-        return false;
-      }
-    }
-    return false;
   }
 
   static Future<void> _runMavenCommand(
@@ -151,11 +172,6 @@ class MavenTools {
   /// Downloads and unpacks source files of [deps] into [targetDir].
   static Future<void> _fetchMavenSources(
       List<MavenDependency> deps, String targetDir) async {
-    const artifactType = _MavenArtifactType.sources;
-    final cacheRecord = _computeCacheRecord(artifactType, deps);
-    if (_validateCache(targetDir, artifactType, cacheRecord)) {
-      return;
-    }
     final tempDir = await currentDir.createTemp("maven_temp_");
     await _runMavenCommand(
       deps,
@@ -168,7 +184,6 @@ class MavenTools {
       tempDir,
     );
     await tempDir.delete(recursive: true);
-    _writeCacheRecord(targetDir, artifactType, cacheRecord);
   }
 
   /// Downloads JAR files of all [deps] transitively into [targetDir].
@@ -186,36 +201,20 @@ class MavenTools {
     await tempDir.delete(recursive: true);
   }
 
-  /// Runs [downloaderCallback] wrapped in cache record checks.
-  static Future<void> _downloadWithCaching(
-    String targetDir,
-    List<MavenDependency> deps,
-    _MavenArtifactType artifactType,
-    Future<void> Function(List<MavenDependency> deps, String targetDir)
-        downloaderCallback,
-  ) async {
-    final cacheRecord = _computeCacheRecord(artifactType, deps);
-    if (_validateCache(targetDir, artifactType, cacheRecord)) {
-      return;
-    }
-    await downloaderCallback(deps, targetDir);
-    _writeCacheRecord(targetDir, artifactType, cacheRecord);
-  }
-
   /// Downloads and unpacks source files of [deps] into [targetDir], making use
   /// of caching when possible.
   static Future<void> downloadMavenSources(
       List<MavenDependency> deps, String targetDir) async {
-    await _downloadWithCaching(
-        targetDir, deps, _MavenArtifactType.sources, _fetchMavenSources);
+    await MavenDependencyCachingTools.downloadWithCaching(
+        targetDir, deps, MavenArtifactType.sources, _fetchMavenSources);
   }
 
   /// Downloads JAR files of all [deps] transitively into [targetDir], making
   /// use of caching when possible.
   static Future<void> downloadMavenJars(
       List<MavenDependency> deps, String targetDir) async {
-    await _downloadWithCaching(
-        targetDir, deps, _MavenArtifactType.jar, _fetchMavenJars);
+    await MavenDependencyCachingTools.downloadWithCaching(
+        targetDir, deps, MavenArtifactType.jar, _fetchMavenJars);
   }
 
   static String _getStubPom(List<MavenDependency> deps,
