@@ -67,6 +67,7 @@ void main() {
         [jacksonDependency],
         MavenArtifactType.jar,
         (deps, targetDir) async => writeDummyJars(targetDir),
+        logCacheHit: false, // Prevent user logs from being printed in test.
       );
     }
 

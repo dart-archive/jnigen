@@ -92,16 +92,18 @@ class MavenDependencyCachingTools {
 
   /// Runs [downloaderCallback] wrapped in cache record checks.
   static Future<void> downloadWithCaching(
-    String targetDir,
-    List<MavenDependency> deps,
-    MavenArtifactType artifactType,
-    Future<void> Function(List<MavenDependency> deps, String targetDir)
-        downloaderCallback,
-  ) async {
+      String targetDir,
+      List<MavenDependency> deps,
+      MavenArtifactType artifactType,
+      Future<void> Function(List<MavenDependency> deps, String targetDir)
+          downloaderCallback,
+      {bool logCacheHit = true}) async {
     final cacheRecord = computeCacheRecord(artifactType, deps);
     if (validateCache(targetDir, artifactType, cacheRecord)) {
-      log.info('Cached maven ${artifactType.name} dependencies found'
-          ' in $targetDir');
+      if (logCacheHit) {
+        log.info('Cached maven ${artifactType.name} dependencies found'
+            ' in $targetDir');
+      }
       return;
     }
     await downloaderCallback(deps, targetDir);
