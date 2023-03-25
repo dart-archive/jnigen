@@ -40,7 +40,7 @@ Future<void> generateJniBindings(Config config) async {
     if (config.invalidateCaches) {
       MavenTools.invalidateCacheRecords(
         jarDir: mavenDl.jarDir,
-        sourcesDir: mavenDl.sourceDir,
+        sourceDir: mavenDl.sourceDir,
       );
     }
 

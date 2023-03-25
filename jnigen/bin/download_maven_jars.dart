@@ -16,7 +16,7 @@ void main(List<String> args) async {
   if (mavenDownloads != null) {
     MavenTools.invalidateCacheRecords(
       jarDir: mavenDownloads.jarDir,
-      sourcesDir: mavenDownloads.sourceDir,
+      sourceDir: mavenDownloads.sourceDir,
     );
     await MavenTools.downloadMavenJars(
         MavenTools.deps(mavenDownloads.jarOnlyDeps + mavenDownloads.sourceDeps),

@@ -38,12 +38,12 @@ class MavenTools {
     return proc.exitCode;
   }
 
-  static void invalidateCacheRecords({String? jarDir, String? sourcesDir}) {
+  static void invalidateCacheRecords({String? jarDir, String? sourceDir}) {
     if (jarDir != null) {
       _invalidateCacheRecord(jarDir, _MavenArtifactType.jar);
     }
-    if (sourcesDir != null) {
-      _invalidateCacheRecord(sourcesDir, _MavenArtifactType.sources);
+    if (sourceDir != null) {
+      _invalidateCacheRecord(sourceDir, _MavenArtifactType.sources);
     }
   }
 
