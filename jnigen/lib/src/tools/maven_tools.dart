@@ -86,6 +86,8 @@ class MavenTools {
   }
 
   /// Returns true if there is any file newer than [filename] in directoryPath.
+  ///
+  /// TODO(PR): Handle the case where files in the directory are deleted manually.
   static bool _isNewestFile(String directoryPath, String filename) {
     final dir = Directory(directoryPath);
     final referenceFile = File(join(directoryPath, filename));
