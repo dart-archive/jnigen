@@ -37,6 +37,13 @@ Future<void> generateJniBindings(Config config) async {
   final extraJars = <Uri>[];
   final mavenDl = config.mavenDownloads;
   if (mavenDl != null) {
+    if (config.invalidateCaches) {
+      MavenTools.invalidateCacheRecords(
+        jarDir: mavenDl.jarDir,
+        sourcesDir: mavenDl.sourceDir,
+      );
+    }
+
     final sourcePath = mavenDl.sourceDir;
     await Directory(sourcePath).create(recursive: true);
     await MavenTools.downloadMavenSources(

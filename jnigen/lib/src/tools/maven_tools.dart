@@ -38,6 +38,30 @@ class MavenTools {
     return proc.exitCode;
   }
 
+  static void invalidateCacheRecords({String? jarDir, String? sourcesDir}) {
+    if (jarDir != null) {
+      _invalidateCacheRecord(jarDir, _MavenArtifactType.jar);
+    }
+    if (sourcesDir != null) {
+      _invalidateCacheRecord(sourcesDir, _MavenArtifactType.sources);
+    }
+  }
+
+  static void _invalidateCacheRecord(
+    String directoryPath,
+    _MavenArtifactType artifactType,
+  ) {
+    final recordFile = File(join(
+      directoryPath,
+      _cacheRecordNames[artifactType],
+    ));
+    if (recordFile.existsSync()) {
+      log.info('Invalidating caches for maven ${artifactType.name} '
+          'artifacts in $directoryPath');
+      recordFile.deleteSync();
+    }
+  }
+
   static String _computeCacheRecord(
     _MavenArtifactType artifactType,
     List<MavenDependency> mavenDeps,
