@@ -80,20 +80,11 @@ class MavenTools {
       {String javaVersion = '11'}) {
     final depDecls = <String>[];
     for (var dep in deps) {
-      final otherTags = StringBuffer();
-      for (var entry in dep.otherTags.entries) {
-        otherTags.write('''
-      <${entry.key}>
-        ${entry.value}
-      </${entry.key}>
-      ''');
-      }
       depDecls.add('''
       <dependency>
         <groupId>${dep.groupID}</groupId>
         <artifactId>${dep.artifactID}</artifactId>
         <version>${dep.version}</version>
-        ${otherTags.toString()}
       </dependency>''');
     }
     return '''
@@ -121,8 +112,7 @@ ${depDecls.join("\n")}
 
 /// Maven dependency with group ID, artifact ID, and version.
 class MavenDependency {
-  MavenDependency(this.groupID, this.artifactID, this.version,
-      {this.otherTags = const {}});
+  MavenDependency(this.groupID, this.artifactID, this.version);
   factory MavenDependency.fromString(String fullName) {
     final components = fullName.split(':');
     if (components.length != 3) {
@@ -131,5 +121,4 @@ class MavenDependency {
     return MavenDependency(components[0], components[1], components[2]);
   }
   String groupID, artifactID, version;
-  Map<String, String> otherTags;
 }
