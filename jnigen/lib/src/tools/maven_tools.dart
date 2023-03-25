@@ -51,7 +51,7 @@ class MavenTools {
     await _runMavenCommand(
       deps,
       [
-        'dependency:unpack-dependencies',
+        'dependency:copy-dependencies',
         '-DexcludeTransitive=true',
         '-DoutputDirectory=../$targetDir',
         '-Dclassifier=sources',
