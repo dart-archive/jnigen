@@ -17,6 +17,16 @@ enum MavenArtifactType {
   sources,
 }
 
+/// In order to avoid invoking maven every time, jnigen writes a record of
+/// downloaded dependencies to the target folder, and uses that file to
+/// determine when re-invoking maven is needed. (Eg when dependencies change).
+///
+/// This is the version string used to indicate breaking changes in layout of
+/// cached / downloaded maven dependencies.
+///
+/// Increment this version to force invalidation.
+const _cacheVersion = 'jnigen-maven-cache-v1';
+
 const _cacheRecordNames = {
   MavenArtifactType.jar: 'jnigen_maven_jar_cache.json',
   MavenArtifactType.sources: 'jnigen_maven_src_cache.json',
@@ -28,6 +38,7 @@ class MavenDependencyCachingTools {
     List<MavenDependency> mavenDeps,
   ) {
     return jsonEncode({
+      'cacheVersion': _cacheVersion,
       'artifactType': artifactType.name.toString(),
       'dependencies': mavenDeps.map((e) => e.toString()).toList(),
     });
