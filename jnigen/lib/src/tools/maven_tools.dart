@@ -269,5 +269,5 @@ class MavenDependency {
     return '$groupID:$artifactID:$version';
   }
 
-  String groupID, artifactID, version;
+  final String groupID, artifactID, version;
 }
