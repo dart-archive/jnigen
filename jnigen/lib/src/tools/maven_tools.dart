@@ -9,6 +9,13 @@ import 'package:path/path.dart';
 
 import '../logging/logging.dart';
 
+/// Deletes all files in the directory, but leaves the directory intact.
+void _cleanDirectory(String directoryPath) {
+  Directory(directoryPath)
+      .listSync()
+      .forEach((entry) => entry.deleteSync(recursive: true));
+}
+
 /// Type of downloaded artifact (JAR or sources.)
 ///
 /// It does not correspond to maven's formal notion of artifact type.
@@ -94,11 +101,21 @@ class MavenDependencyCachingTools {
           _isNewestFile(directoryPath, recordName)) {
         return true;
       } else {
-        record.deleteSync();
+        log.info('Cache stale in $directoryPath');
+        _cleanDirectory(directoryPath);
         return false;
       }
     }
     return false;
+  }
+
+  /// Ensures the target directory exists and is empty.
+  static void _ensureEmptyTargetDir(String targetDirPath) {
+    final targetDir = Directory(targetDirPath);
+    targetDir.createSync(recursive: true);
+    if (targetDir.listSync().isNotEmpty) {
+      log.severe("Maven target directory not empty.");
+    }
   }
 
   /// Runs [downloaderCallback] wrapped in cache record checks.
@@ -117,6 +134,8 @@ class MavenDependencyCachingTools {
       }
       return;
     }
+    _ensureEmptyTargetDir(targetDir);
+
     await downloaderCallback(deps, targetDir);
     writeCacheRecord(targetDir, artifactType, cacheRecord);
   }
@@ -140,25 +159,12 @@ class MavenTools {
 
   static void invalidateCacheRecords({String? jarDir, String? sourceDir}) {
     if (jarDir != null) {
-      _invalidateCacheRecord(jarDir, MavenArtifactType.jar);
+      log.info('Invalidating cached JARs in $jarDir');
+      _cleanDirectory(jarDir);
     }
     if (sourceDir != null) {
-      _invalidateCacheRecord(sourceDir, MavenArtifactType.sources);
-    }
-  }
-
-  static void _invalidateCacheRecord(
-    String directoryPath,
-    MavenArtifactType artifactType,
-  ) {
-    final recordFile = File(join(
-      directoryPath,
-      _cacheRecordNames[artifactType],
-    ));
-    if (recordFile.existsSync()) {
-      log.info('Invalidating caches for maven ${artifactType.name} '
-          'artifacts in $directoryPath');
-      recordFile.deleteSync();
+      log.info('Invalidating cached sources in $sourceDir');
+      _cleanDirectory(sourceDir);
     }
   }
 
