@@ -14,10 +14,12 @@ void main(List<String> args) async {
   final config = Config.parseArgs(args);
   final mavenDownloads = config.mavenDownloads;
   if (mavenDownloads != null) {
-    MavenTools.invalidateCacheRecords(
-      jarDir: mavenDownloads.jarDir,
-      sourceDir: mavenDownloads.sourceDir,
-    );
+    if (config.invalidateCaches) {
+      MavenTools.invalidateCacheRecords(
+        jarDir: mavenDownloads.jarDir,
+        sourceDir: mavenDownloads.sourceDir,
+      );
+    }
     await MavenTools.downloadMavenJars(
         MavenTools.deps(mavenDownloads.jarOnlyDeps + mavenDownloads.sourceDeps),
         mavenDownloads.jarDir);

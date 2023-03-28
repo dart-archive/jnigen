@@ -11,9 +11,10 @@ import '../logging/logging.dart';
 
 /// Deletes all files in the directory, but leaves the directory intact.
 void _cleanDirectory(String directoryPath) {
-  Directory(directoryPath)
-      .listSync()
-      .forEach((entry) => entry.deleteSync(recursive: true));
+  final dir = Directory(directoryPath);
+  if (dir.existsSync()) {
+    dir.listSync().forEach((entry) => entry.deleteSync(recursive: true));
+  }
 }
 
 /// Type of downloaded artifact (JAR or sources.)
@@ -158,11 +159,11 @@ class MavenTools {
   }
 
   static void invalidateCacheRecords({String? jarDir, String? sourceDir}) {
-    if (jarDir != null) {
+    if (jarDir != null && Directory(jarDir).existsSync()) {
       log.info('Invalidating cached JARs in $jarDir');
       _cleanDirectory(jarDir);
     }
-    if (sourceDir != null) {
+    if (sourceDir != null && Directory(sourceDir).existsSync()) {
       log.info('Invalidating cached sources in $sourceDir');
       _cleanDirectory(sourceDir);
     }
@@ -267,6 +268,28 @@ ${depDecls.join("\n")}
       <directory>\${project.basedir}/target</directory>
     </build>
 </project>''';
+  }
+
+  static void cleanCaches(Directory root) {
+    final children = root.listSync(recursive: true);
+    final toDelete = <FileSystemEntity>[];
+    final recordNames = _cacheRecordNames.values.toSet();
+    for (final child in children) {
+      final filename = basename(child.path);
+      if (child.statSync().type == FileSystemEntityType.file &&
+          recordNames.contains(filename)) {
+        toDelete.add(child);
+      }
+    }
+    for (final record in toDelete) {
+      final parent = record.parent;
+      if (!parent.existsSync()) {
+        log.warning("Cannot delete ${parent.path}: directory does not exist");
+      } else {
+        log.info("Purge directory contents: ${parent.path}");
+        _cleanDirectory(parent.path);
+      }
+    }
   }
 }
 
