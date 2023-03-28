@@ -130,8 +130,13 @@ public class Main {
                 JsonUtil.writeJSON(AsmSummarizer.run(classStreamProviders), output);
                 break;
             case AUTO:
-                var decls = runDoclet(javaDoc, sourceFiles, options);
-                decls.addAll(AsmSummarizer.run(classStreamProviders));
+                List<ClassDecl> decls = new ArrayList<>();
+                if (!sourceFiles.isEmpty()) {
+                    decls.addAll(runDoclet(javaDoc, sourceFiles, options));
+                }
+                if (!classStreamProviders.isEmpty()) {
+                    decls.addAll(AsmSummarizer.run(classStreamProviders));
+                }
                 JsonUtil.writeJSON(decls, output);
                 break;
         }

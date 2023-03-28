@@ -31,6 +31,9 @@ public class SummarizerOptions {
         opts.verbose = cmd.hasOption("verbose");
         opts.outputFile = cmd.getOptionValue("output-file", null);
         opts.args = cmd.getArgs();
+        if (opts.args.length == 0) {
+            throw new IllegalArgumentException("Need one or more class or package names as arguments");
+        }
         return opts;
     }
 
