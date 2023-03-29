@@ -1,4 +1,4 @@
-# Experimental generator for FFI+JNI bindings.
+# Experimental generator for FFI + JNI bindings.
 
 This package consists of the code generator `package:jnigen` and a few [examples](example).
 
