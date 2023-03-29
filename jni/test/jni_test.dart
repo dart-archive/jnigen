@@ -61,7 +61,7 @@ void main() {
             final hexMethod = env.GetStaticMethodID(
                 integerClass,
                 "toHexString".toNativeChars(arena),
-                "(J)Ljava/lang/String;".toNativeChars(arena));
+                "(I)Ljava/lang/String;".toNativeChars(arena));
 
             for (var i in [1, 80, 13, 76, 11344]) {
               // if your argument is int, bool, or JObject (`Pointer<Void>`)
