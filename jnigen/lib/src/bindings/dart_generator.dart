@@ -256,9 +256,6 @@ class _ClassGenerator extends Visitor<ClassDecl, void> {
   static const staticTypeGetter = 'type';
   static const instanceTypeGetter = '\$$staticTypeGetter';
 
-  static const arrayExtensionPrefix = '\$';
-  static const arrayExtensionSuffix = 'Array';
-
   @override
   void visit(ClassDecl node) {
     final isDartOnly =
