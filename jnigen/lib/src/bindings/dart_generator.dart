@@ -925,13 +925,15 @@ class _MethodGenerator extends Visitor<Method, void> {
 
   String cCtor(Method node) {
     final name = node.finalName;
-    final params = node.params.accept(_ParamCall(config)).join(', ');
+    final params =
+        node.params.accept(const _ParamCall(isCBased: true)).join(', ');
     return '_$name($params)';
   }
 
   String dartOnlyCtor(Method node) {
     final name = node.finalName;
-    final params = node.params.accept(_ParamCall(config)).join(', ');
+    final params =
+        node.params.accept(const _ParamCall(isCBased: false)).join(', ');
     return '$_accessors.newObjectWithArgs($_classRef, _id_$name, [$params])';
   }
 
@@ -939,7 +941,7 @@ class _MethodGenerator extends Visitor<Method, void> {
     final name = node.finalName;
     final params = [
       if (!node.isStatic) _selfPointer,
-      ...node.params.accept(_ParamCall(config)),
+      ...node.params.accept(const _ParamCall(isCBased: true)),
     ].join(', ');
     final resultGetter = node.returnType.accept(const _JniResultGetter());
     return '_$name($params).$resultGetter';
@@ -950,7 +952,8 @@ class _MethodGenerator extends Visitor<Method, void> {
     final ifStatic = node.isStatic ? 'Static' : '';
     final self = node.isStatic ? _classRef : _selfPointer;
     final callType = node.returnType.accept(const _CallType());
-    final params = node.params.accept(_ParamCall(config)).join(', ');
+    final params =
+        node.params.accept(const _ParamCall(isCBased: false)).join(', ');
     final resultGetter = node.returnType.accept(const _JniResultGetter());
     return '$_accessors.call${ifStatic}MethodWithArgs($self, _id_$name, $callType, [$params]).$resultGetter';
   }
@@ -1105,15 +1108,15 @@ class _ParamDef extends Visitor<Param, String> {
 /// void bar(Foo foo) => _bar(foo.reference);
 /// ```
 class _ParamCall extends Visitor<Param, String> {
-  final Config config;
+  final bool isCBased;
 
-  const _ParamCall(this.config);
+  const _ParamCall({required this.isCBased});
 
   @override
   String visit(Param node) {
     final nativeSuffix = node.type.accept(const _ToNativeSuffix());
     final paramCall = '${node.finalName}$nativeSuffix';
-    if (config.outputConfig.bindingsType == BindingsType.dartOnly) {
+    if (!isCBased) {
       // We need to wrap [paramCall] in the appropriate wrapper class.
       return node.type.accept(_JValueWrapper(paramCall));
     }
