@@ -317,13 +317,12 @@ extension ObjectArray<T extends JObject> on JArray<T> {
         .fromRef(elementAt(index, JniCallType.objectType).object);
   }
 
-  void operator []=(int index, JObject value) {
+  void operator []=(int index, T value) {
     RangeError.checkValidIndex(index, this);
     _env.SetObjectArrayElement(reference, index, value.reference);
   }
 
-  void setRange(int start, int end, Iterable<JObject> iterable,
-      [int skipCount = 0]) {
+  void setRange(int start, int end, Iterable<T> iterable, [int skipCount = 0]) {
     RangeError.checkValidRange(start, end, length);
     final size = end - start;
     final it = iterable.skip(skipCount).take(size);
