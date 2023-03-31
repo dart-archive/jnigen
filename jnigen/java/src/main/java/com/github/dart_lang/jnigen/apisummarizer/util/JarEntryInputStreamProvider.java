@@ -7,23 +7,23 @@ import java.util.zip.ZipEntry;
 
 public class JarEntryInputStreamProvider implements InputStreamProvider {
 
-    private final JarFile jarFile;
-    private final ZipEntry zipEntry;
+  private final JarFile jarFile;
+  private final ZipEntry zipEntry;
 
-    public JarEntryInputStreamProvider(JarFile jarFile, ZipEntry zipEntry) {
-        this.jarFile = jarFile;
-        this.zipEntry = zipEntry;
+  public JarEntryInputStreamProvider(JarFile jarFile, ZipEntry zipEntry) {
+    this.jarFile = jarFile;
+    this.zipEntry = zipEntry;
+  }
+
+  @Override
+  public InputStream getInputStream() {
+    try {
+      return jarFile.getInputStream(zipEntry);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    @Override
-    public InputStream getInputStream() {
-        try {
-            return jarFile.getInputStream(zipEntry);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void close() {}
+  @Override
+  public void close() {}
 }
