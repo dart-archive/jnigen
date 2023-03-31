@@ -367,6 +367,7 @@ class $name$typeParamsDef extends $superName {
         .map((typeParam) => '$_typeParamPrefix$typeParam,')
         .join(_newLine(depth: 2));
     final signature = node.signature;
+    final superTypeClass = superClass.accept(_TypeClassGenerator(resolver));
     s.write('''
 class $typeClassName$typeParamsDef extends $_jType<$name$typeParamsCall> {
   $typeClassDefinitions
@@ -383,6 +384,9 @@ class $typeClassName$typeParamsDef extends $_jType<$name$typeParamsCall> {
     $typeClassesCall
     ref
   );
+
+  @override
+  $_jType get parent => ${superTypeClass.name};
 }
 
 ''');
@@ -539,9 +543,6 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
     // also const.
     final canBeConst = definedTypeClasses.every((e) => e.canBeConst);
 
-    // Adding const to `JObjectType`s if the entire expression is not const.
-    final constJObject = canBeConst ? '' : 'const ';
-
     // Replacing the declared ones. They come at the end.
     // The rest will be `JObjectType`.
     if (allTypeParams.length >= node.params.length) {
@@ -550,13 +551,16 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
         allTypeParams.length - node.params.length,
         List.filled(
           allTypeParams.length - node.params.length,
-          '$constJObject$_jObject$_typeClassSuffix()',
+          // Adding const to subexpressions if the entire expression is not const.
+          '${canBeConst ? '' : 'const '}$_jObject$_typeClassSuffix()',
         ),
       );
       allTypeParams.replaceRange(
         allTypeParams.length - node.params.length,
         allTypeParams.length,
-        definedTypeClasses.map((param) => param.name),
+        // Adding const to subexpressions if the entire expression is not const.
+        definedTypeClasses.map((param) =>
+            '${param.canBeConst && !canBeConst ? 'const ' : ''}${param.name}'),
       );
     }
 

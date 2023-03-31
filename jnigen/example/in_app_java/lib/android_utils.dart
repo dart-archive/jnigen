@@ -58,6 +58,9 @@ class $AndroidUtilsType extends jni.JObjType<AndroidUtils> {
 
   @override
   AndroidUtils fromRef(jni.JObjectPtr ref) => AndroidUtils.fromRef(ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: androidx.emoji2.text.EmojiCompat
@@ -2305,6 +2308,9 @@ class $BuildType extends jni.JObjType<Build> {
 
   @override
   Build fromRef(jni.JObjectPtr ref) => Build.fromRef(ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: java.util.HashMap
@@ -2691,4 +2697,7 @@ class $HashMapType<K extends jni.JObject, V extends jni.JObject>
 
   @override
   HashMap<K, V> fromRef(jni.JObjectPtr ref) => HashMap.fromRef($K, $V, ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }

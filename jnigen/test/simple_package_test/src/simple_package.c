@@ -1151,6 +1151,26 @@ JniResult StringKeyedMap__ctor() {
                      .exception = check_exception()};
 }
 
+// com.github.dart_lang.jnigen.generics.StringMap
+jclass _c_StringMap = NULL;
+
+jmethodID _m_StringMap__ctor = NULL;
+FFI_PLUGIN_EXPORT
+JniResult StringMap__ctor() {
+  load_env();
+  load_class_gr(&_c_StringMap,
+                "com/github/dart_lang/jnigen/generics/StringMap");
+  if (_c_StringMap == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_StringMap, &_m_StringMap__ctor, "<init>", "()V");
+  if (_m_StringMap__ctor == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->NewObject(jniEnv, _c_StringMap, _m_StringMap__ctor);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
 // com.github.dart_lang.jnigen.generics.StringStack
 jclass _c_StringStack = NULL;
 

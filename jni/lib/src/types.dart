@@ -34,6 +34,8 @@ abstract class JType<T> {
 }
 
 abstract class JObjType<T extends JObject> extends JType<T> {
+  JObjType get parent;
+
   const JObjType();
 
   @override

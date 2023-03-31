@@ -16,6 +16,9 @@ class JArrayType<T> extends JObjType<JArray<T>> {
 
   @override
   JArray<T> fromRef(Pointer<Void> ref) => JArray.fromRef(elementType, ref);
+
+  @override
+  JObjType get parent => const JObjectType();
 }
 
 class JArray<E> extends JObject {

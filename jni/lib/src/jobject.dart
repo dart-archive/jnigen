@@ -12,15 +12,19 @@ class JObjectType extends JObjType<JObject> {
 
   @override
   JObject fromRef(Pointer<Void> ref) => JObject.fromRef(ref);
+
+  @override
+  JObjType get parent => const JObjectType();
 }
 
 Pointer<T> _getID<T extends NativeType>(
-    JniPointerResult Function(
-            Pointer<Void> ptr, Pointer<Char> name, Pointer<Char> sig)
-        f,
-    Pointer<Void> ptr,
-    String name,
-    String sig) {
+  JniPointerResult Function(
+          Pointer<Void> ptr, Pointer<Char> name, Pointer<Char> sig)
+      f,
+  Pointer<Void> ptr,
+  String name,
+  String sig,
+) {
   final result = using(
       (arena) => f(ptr, name.toNativeChars(arena), sig.toNativeChars(arena)));
   if (result.exception != nullptr) {

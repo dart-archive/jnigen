@@ -251,6 +251,19 @@ void main() async {
           );
         });
       });
+      test('StringMap', () {
+        using((arena) {
+          final map = StringMap()..deletedIn(arena);
+          map.put('hello'.toJString()..deletedIn(arena),
+              'world'.toJString()..deletedIn(arena));
+          expect(
+            map
+                .get0('world'.toJString()..deletedIn(arena))
+                .toDartString(deleteOriginal: true),
+            'hello',
+          );
+        });
+      });
     });
     test('nested generics', () {
       using((arena) {

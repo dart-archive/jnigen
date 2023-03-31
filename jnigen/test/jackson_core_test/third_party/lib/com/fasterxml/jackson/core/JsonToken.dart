@@ -186,4 +186,7 @@ class $JsonTokenType extends jni.JObjType<JsonToken> {
 
   @override
   JsonToken fromRef(jni.JObjectPtr ref) => JsonToken.fromRef(ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }

@@ -12,6 +12,9 @@ class JStringType extends JObjType<JString> {
 
   @override
   JString fromRef(Pointer<Void> ref) => JString.fromRef(ref);
+
+  @override
+  JObjType get parent => const JObjectType();
 }
 
 class JString extends JObject {

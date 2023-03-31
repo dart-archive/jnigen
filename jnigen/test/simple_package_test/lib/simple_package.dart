@@ -206,6 +206,9 @@ class $ExampleType extends jni.JObjType<Example> {
 
   @override
   Example fromRef(jni.JObjectPtr ref) => Example.fromRef(ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.simple_package.Example$Aux
@@ -279,6 +282,9 @@ class $Example_AuxType extends jni.JObjType<Example_Aux> {
 
   @override
   Example_Aux fromRef(jni.JObjectPtr ref) => Example_Aux.fromRef(ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.pkg2.C2
@@ -326,6 +332,9 @@ class $C2Type extends jni.JObjType<C2> {
 
   @override
   C2 fromRef(jni.JObjectPtr ref) => C2.fromRef(ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.pkg2.Example
@@ -366,6 +375,9 @@ class $Example1Type extends jni.JObjType<Example1> {
 
   @override
   Example1 fromRef(jni.JObjectPtr ref) => Example1.fromRef(ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent
@@ -502,6 +514,9 @@ class $GrandParentType<T extends jni.JObject>
 
   @override
   GrandParent<T> fromRef(jni.JObjectPtr ref) => GrandParent.fromRef($T, ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$Parent
@@ -614,6 +629,9 @@ class $GrandParent_ParentType<T extends jni.JObject, S extends jni.JObject>
   @override
   GrandParent_Parent<T, S> fromRef(jni.JObjectPtr ref) =>
       GrandParent_Parent.fromRef($T, $S, ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$Parent$Child
@@ -766,6 +784,9 @@ class $GrandParent_Parent_ChildType<T extends jni.JObject,
   @override
   GrandParent_Parent_Child<T, S, U> fromRef(jni.JObjectPtr ref) =>
       GrandParent_Parent_Child.fromRef($T, $S, $U, ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$StaticParent
@@ -843,6 +864,9 @@ class $GrandParent_StaticParentType<S extends jni.JObject>
   @override
   GrandParent_StaticParent<S> fromRef(jni.JObjectPtr ref) =>
       GrandParent_StaticParent.fromRef($S, ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$StaticParent$Child
@@ -958,6 +982,9 @@ class $GrandParent_StaticParent_ChildType<S extends jni.JObject,
   @override
   GrandParent_StaticParent_Child<S, U> fromRef(jni.JObjectPtr ref) =>
       GrandParent_StaticParent_Child.fromRef($S, $U, ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.MyMap
@@ -1048,6 +1075,9 @@ class $MyMapType<K extends jni.JObject, V extends jni.JObject>
 
   @override
   MyMap<K, V> fromRef(jni.JObjectPtr ref) => MyMap.fromRef($K, $V, ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.MyMap$MyEntry
@@ -1159,6 +1189,9 @@ class $MyMap_MyEntryType<K extends jni.JObject, V extends jni.JObject>
   @override
   MyMap_MyEntry<K, V> fromRef(jni.JObjectPtr ref) =>
       MyMap_MyEntry.fromRef($K, $V, ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.MyStack
@@ -1224,6 +1257,9 @@ class $MyStackType<T extends jni.JObject> extends jni.JObjType<MyStack<T>> {
 
   @override
   MyStack<T> fromRef(jni.JObjectPtr ref) => MyStack.fromRef($T, ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringKeyedMap
@@ -1273,6 +1309,43 @@ class $StringKeyedMapType<V extends jni.JObject>
   @override
   StringKeyedMap<V> fromRef(jni.JObjectPtr ref) =>
       StringKeyedMap.fromRef($V, ref);
+
+  @override
+  jni.JObjType get parent => $MyMapType(const jni.JStringType(), $V);
+}
+
+/// from: com.github.dart_lang.jnigen.generics.StringMap
+class StringMap extends StringKeyedMap<jni.JString> {
+  late final jni.JObjType? _$type;
+  @override
+  jni.JObjType get $type => _$type ??= type;
+
+  StringMap.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(const jni.JStringType(), ref);
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $StringMapType();
+  static final _ctor =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("StringMap__ctor")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  StringMap() : super.fromRef(const jni.JStringType(), _ctor().object);
+}
+
+class $StringMapType extends jni.JObjType<StringMap> {
+  const $StringMapType();
+
+  @override
+  String get signature => r"Lcom/github/dart_lang/jnigen/generics/StringMap;";
+
+  @override
+  StringMap fromRef(jni.JObjectPtr ref) => StringMap.fromRef(ref);
+
+  @override
+  jni.JObjType get parent => const $StringKeyedMapType(jni.JStringType());
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringStack
@@ -1304,6 +1377,9 @@ class $StringStackType extends jni.JObjType<StringStack> {
 
   @override
   StringStack fromRef(jni.JObjectPtr ref) => StringStack.fromRef(ref);
+
+  @override
+  jni.JObjType get parent => const $MyStackType(jni.JStringType());
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringValuedMap
@@ -1353,6 +1429,9 @@ class $StringValuedMapType<K extends jni.JObject>
   @override
   StringValuedMap<K> fromRef(jni.JObjectPtr ref) =>
       StringValuedMap.fromRef($K, ref);
+
+  @override
+  jni.JObjType get parent => $MyMapType($K, const jni.JStringType());
 }
 
 /// from: com.github.dart_lang.jnigen.annotations.JsonSerializable$Case
@@ -1401,6 +1480,9 @@ class $JsonSerializable_CaseType extends jni.JObjType<JsonSerializable_Case> {
   @override
   JsonSerializable_Case fromRef(jni.JObjectPtr ref) =>
       JsonSerializable_Case.fromRef(ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.annotations.MyDataClass
@@ -1433,4 +1515,7 @@ class $MyDataClassType extends jni.JObjType<MyDataClass> {
 
   @override
   MyDataClass fromRef(jni.JObjectPtr ref) => MyDataClass.fromRef(ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }

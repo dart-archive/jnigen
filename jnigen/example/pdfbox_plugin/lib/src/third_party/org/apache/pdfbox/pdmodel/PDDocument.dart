@@ -1331,4 +1331,7 @@ class $PDDocumentType extends jni.JObjType<PDDocument> {
 
   @override
   PDDocument fromRef(jni.JObjectPtr ref) => PDDocument.fromRef(ref);
+
+  @override
+  jni.JObjType get parent => const jni.JObjectType();
 }
