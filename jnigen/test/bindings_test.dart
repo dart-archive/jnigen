@@ -187,7 +187,7 @@ void main() async {
   group('generics', () {
     test('MyStack<T>', () {
       using((arena) {
-        final stack = MyStack(JString.type)..deletedIn(arena);
+        final stack = MyStack(T: JString.type)..deletedIn(arena);
         stack.push('Hello'.toJString()..deletedIn(arena));
         stack.push('World'.toJString()..deletedIn(arena));
         expect(stack.pop().toDartString(deleteOriginal: true), 'World');
@@ -196,7 +196,7 @@ void main() async {
     });
     test('MyMap<K, V>', () {
       using((arena) {
-        final map = MyMap(JString.type, Example.type)..deletedIn(arena);
+        final map = MyMap(K: JString.type, V: Example.type)..deletedIn(arena);
         final helloExample = Example.ctor1(1)..deletedIn(arena);
         final worldExample = Example.ctor1(2)..deletedIn(arena);
         map.put('Hello'.toJString()..deletedIn(arena), helloExample);
@@ -230,7 +230,7 @@ void main() async {
       });
       test('StringKeyedMap', () {
         using((arena) {
-          final map = StringKeyedMap(Example.type)..deletedIn(arena);
+          final map = StringKeyedMap(V: Example.type)..deletedIn(arena);
           final example = Example()..deletedIn(arena);
           map.put('Hello'.toJString()..deletedIn(arena), example);
           expect(
@@ -242,7 +242,7 @@ void main() async {
       });
       test('StringValuedMap', () {
         using((arena) {
-          final map = StringValuedMap(Example.type)..deletedIn(arena);
+          final map = StringValuedMap(K: Example.type)..deletedIn(arena);
           final example = Example()..deletedIn(arena);
           map.put(example, 'Hello'.toJString()..deletedIn(arena));
           expect(
@@ -268,7 +268,7 @@ void main() async {
     test('nested generics', () {
       using((arena) {
         final grandParent =
-            GrandParent(JString.type, "!".toJString()..deletedIn(arena))
+            GrandParent(T: JString.type, "!".toJString()..deletedIn(arena))
               ..deletedIn(arena);
         expect(
           grandParent.value.toDartString(deleteOriginal: true),
@@ -283,7 +283,7 @@ void main() async {
         );
 
         final exampleStaticParent = GrandParent.varStaticParent(
-            Example.type, Example()..deletedIn(arena))
+            S: Example.type, Example()..deletedIn(arena))
           ..deletedIn(arena);
         expect(
           (exampleStaticParent.value..deletedIn(arena)).getInternal(),
@@ -303,7 +303,7 @@ void main() async {
         );
 
         final exampleParent = grandParent.varParent(
-            Example.type, Example()..deletedIn(arena))
+            S: Example.type, Example()..deletedIn(arena))
           ..deletedIn(arena);
         expect(
           exampleParent.parentValue

@@ -98,7 +98,9 @@ class Example extends jni.JObject {
 
   /// from: public void <init>(int internal)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Example.ctor1(int internal) : super.fromRef(_ctor1(internal).object);
+  Example.ctor1(
+    int internal,
+  ) : super.fromRef(_ctor1(internal).object);
 
   static final _whichExample = jniLookup<
           ffi.NativeFunction<
@@ -124,7 +126,11 @@ class Example extends jni.JObject {
       .asFunction<jni.JniResult Function(int, int)>();
 
   /// from: static public int addInts(int a, int b)
-  static int addInts(int a, int b) => _addInts(a, b).integer;
+  static int addInts(
+    int a,
+    int b,
+  ) =>
+      _addInts(a, b).integer;
 
   static final _getArr =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("Example__getArr")
@@ -141,7 +147,10 @@ class Example extends jni.JObject {
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public int addAll(int[] arr)
-  static int addAll(jni.JArray<jni.JInt> arr) => _addAll(arr.reference).integer;
+  static int addAll(
+    jni.JArray<jni.JInt> arr,
+  ) =>
+      _addAll(arr.reference).integer;
 
   static final _getSelf = jniLookup<
           ffi.NativeFunction<
@@ -168,7 +177,10 @@ class Example extends jni.JObject {
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public void setNum(int num)
-  void setNum(int num) => _setNum(reference, num).check();
+  void setNum(
+    int num,
+  ) =>
+      _setNum(reference, num).check();
 
   static final _getInternal = jniLookup<
           ffi.NativeFunction<
@@ -186,7 +198,10 @@ class Example extends jni.JObject {
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public void setInternal(int internal)
-  void setInternal(int internal) => _setInternal(reference, internal).check();
+  void setInternal(
+    int internal,
+  ) =>
+      _setInternal(reference, internal).check();
 
   static final _throwException =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -252,7 +267,9 @@ class Example_Aux extends jni.JObject {
 
   /// from: public void <init>(boolean value)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Example_Aux(bool value) : super.fromRef(_ctor(value ? 1 : 0).object);
+  Example_Aux(
+    bool value,
+  ) : super.fromRef(_ctor(value ? 1 : 0).object);
 
   static final _getValue = jniLookup<
           ffi.NativeFunction<
@@ -270,7 +287,10 @@ class Example_Aux extends jni.JObject {
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public void setValue(boolean value)
-  void setValue(bool value) => _setValue(reference, value ? 1 : 0).check();
+  void setValue(
+    bool value,
+  ) =>
+      _setValue(reference, value ? 1 : 0).check();
 }
 
 class $Example_AuxType extends jni.JObjType<Example_Aux> {
@@ -381,24 +401,24 @@ class $Example1Type extends jni.JObjType<Example1> {
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent
-class GrandParent<T extends jni.JObject> extends jni.JObject {
+class GrandParent<$T extends jni.JObject> extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type($T);
+  jni.JObjType get $type => _$type ??= type(T);
 
-  final jni.JObjType<T> $T;
+  final jni.JObjType<$T> T;
 
   GrandParent.fromRef(
-    this.$T,
+    this.T,
     jni.JObjectPtr ref,
   ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static $GrandParentType<T> type<T extends jni.JObject>(
-    jni.JObjType<T> $T,
+  static $GrandParentType<$T> type<$T extends jni.JObject>(
+    jni.JObjType<$T> T,
   ) {
     return $GrandParentType(
-      $T,
+      T,
     );
   }
 
@@ -421,11 +441,11 @@ class GrandParent<T extends jni.JObject> extends jni.JObject {
 
   /// from: public T value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  T get value => $T.fromRef(_get_value(reference).object);
+  $T get value => T.fromRef(_get_value(reference).object);
 
   /// from: public T value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(T value) => _set_value(reference, value.reference);
+  set value($T value) => _set_value(reference, value.reference);
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -435,7 +455,10 @@ class GrandParent<T extends jni.JObject> extends jni.JObject {
 
   /// from: public void <init>(T value)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  GrandParent(this.$T, T value) : super.fromRef(_ctor(value.reference).object);
+  GrandParent(
+    $T value, {
+    required this.T,
+  }) : super.fromRef(_ctor(value.reference).object);
 
   static final _stringParent = jniLookup<
           ffi.NativeFunction<
@@ -459,9 +482,11 @@ class GrandParent<T extends jni.JObject> extends jni.JObject {
 
   /// from: public com.github.dart_lang.jnigen.generics.GrandParent<T>.Parent<S> varParent(S nestedValue)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  GrandParent_Parent<jni.JObject, S> varParent<S extends jni.JObject>(
-          jni.JObjType<S> $S, S nestedValue) =>
-      $GrandParent_ParentType(const jni.JObjectType(), $S)
+  GrandParent_Parent<jni.JObject, $S> varParent<$S extends jni.JObject>(
+    $S nestedValue, {
+    required jni.JObjType<$S> S,
+  }) =>
+      $GrandParent_ParentType(const jni.JObjectType(), S)
           .fromRef(_varParent(reference, nestedValue.reference).object);
 
   static final _stringStaticParent =
@@ -483,9 +508,11 @@ class GrandParent<T extends jni.JObject> extends jni.JObject {
 
   /// from: static public com.github.dart_lang.jnigen.generics.GrandParent.StaticParent<S> varStaticParent(S value)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static GrandParent_StaticParent<S> varStaticParent<S extends jni.JObject>(
-          jni.JObjType<S> $S, S value) =>
-      $GrandParent_StaticParentType($S)
+  static GrandParent_StaticParent<$S> varStaticParent<$S extends jni.JObject>(
+    $S value, {
+    required jni.JObjType<$S> S,
+  }) =>
+      $GrandParent_StaticParentType(S)
           .fromRef(_varStaticParent(value.reference).object);
 
   static final _staticParentWithSameType = jniLookup<
@@ -496,54 +523,54 @@ class GrandParent<T extends jni.JObject> extends jni.JObject {
 
   /// from: public com.github.dart_lang.jnigen.generics.GrandParent.StaticParent<T> staticParentWithSameType()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  GrandParent_StaticParent<T> staticParentWithSameType() =>
-      $GrandParent_StaticParentType($T)
+  GrandParent_StaticParent<$T> staticParentWithSameType() =>
+      $GrandParent_StaticParentType(T)
           .fromRef(_staticParentWithSameType(reference).object);
 }
 
-class $GrandParentType<T extends jni.JObject>
-    extends jni.JObjType<GrandParent<T>> {
-  final jni.JObjType<T> $T;
+class $GrandParentType<$T extends jni.JObject>
+    extends jni.JObjType<GrandParent<$T>> {
+  final jni.JObjType<$T> T;
 
   const $GrandParentType(
-    this.$T,
+    this.T,
   );
 
   @override
   String get signature => r"Lcom/github/dart_lang/jnigen/generics/GrandParent;";
 
   @override
-  GrandParent<T> fromRef(jni.JObjectPtr ref) => GrandParent.fromRef($T, ref);
+  GrandParent<$T> fromRef(jni.JObjectPtr ref) => GrandParent.fromRef(T, ref);
 
   @override
   jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$Parent
-class GrandParent_Parent<T extends jni.JObject, S extends jni.JObject>
+class GrandParent_Parent<$T extends jni.JObject, $S extends jni.JObject>
     extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type($T, $S);
+  jni.JObjType get $type => _$type ??= type(T, S);
 
-  final jni.JObjType<T> $T;
-  final jni.JObjType<S> $S;
+  final jni.JObjType<$T> T;
+  final jni.JObjType<$S> S;
 
   GrandParent_Parent.fromRef(
-    this.$T,
-    this.$S,
+    this.T,
+    this.S,
     jni.JObjectPtr ref,
   ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static $GrandParent_ParentType<T, S>
-      type<T extends jni.JObject, S extends jni.JObject>(
-    jni.JObjType<T> $T,
-    jni.JObjType<S> $S,
+  static $GrandParent_ParentType<$T, $S>
+      type<$T extends jni.JObject, $S extends jni.JObject>(
+    jni.JObjType<$T> T,
+    jni.JObjType<$S> S,
   ) {
     return $GrandParent_ParentType(
-      $T,
-      $S,
+      T,
+      S,
     );
   }
 
@@ -567,11 +594,11 @@ class GrandParent_Parent<T extends jni.JObject, S extends jni.JObject>
 
   /// from: public T parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  T get parentValue => $T.fromRef(_get_parentValue(reference).object);
+  $T get parentValue => T.fromRef(_get_parentValue(reference).object);
 
   /// from: public T parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set parentValue(T value) => _set_parentValue(reference, value.reference);
+  set parentValue($T value) => _set_parentValue(reference, value.reference);
 
   static final _get_value = jniLookup<
           ffi.NativeFunction<
@@ -592,11 +619,11 @@ class GrandParent_Parent<T extends jni.JObject, S extends jni.JObject>
 
   /// from: public S value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  S get value => $S.fromRef(_get_value(reference).object);
+  $S get value => S.fromRef(_get_value(reference).object);
 
   /// from: public S value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(S value) => _set_value(reference, value.reference);
+  set value($S value) => _set_value(reference, value.reference);
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -608,18 +635,22 @@ class GrandParent_Parent<T extends jni.JObject, S extends jni.JObject>
 
   /// from: public void <init>(T parentValue, S value)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  GrandParent_Parent(this.$T, this.$S, T parentValue, S value)
-      : super.fromRef(_ctor(parentValue.reference, value.reference).object);
+  GrandParent_Parent(
+    $T parentValue,
+    $S value, {
+    required this.T,
+    required this.S,
+  }) : super.fromRef(_ctor(parentValue.reference, value.reference).object);
 }
 
-class $GrandParent_ParentType<T extends jni.JObject, S extends jni.JObject>
-    extends jni.JObjType<GrandParent_Parent<T, S>> {
-  final jni.JObjType<T> $T;
-  final jni.JObjType<S> $S;
+class $GrandParent_ParentType<$T extends jni.JObject, $S extends jni.JObject>
+    extends jni.JObjType<GrandParent_Parent<$T, $S>> {
+  final jni.JObjType<$T> T;
+  final jni.JObjType<$S> S;
 
   const $GrandParent_ParentType(
-    this.$T,
-    this.$S,
+    this.T,
+    this.S,
   );
 
   @override
@@ -627,42 +658,42 @@ class $GrandParent_ParentType<T extends jni.JObject, S extends jni.JObject>
       r"Lcom/github/dart_lang/jnigen/generics/GrandParent$Parent;";
 
   @override
-  GrandParent_Parent<T, S> fromRef(jni.JObjectPtr ref) =>
-      GrandParent_Parent.fromRef($T, $S, ref);
+  GrandParent_Parent<$T, $S> fromRef(jni.JObjectPtr ref) =>
+      GrandParent_Parent.fromRef(T, S, ref);
 
   @override
   jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$Parent$Child
-class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
-    U extends jni.JObject> extends jni.JObject {
+class GrandParent_Parent_Child<$T extends jni.JObject, $S extends jni.JObject,
+    $U extends jni.JObject> extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type($T, $S, $U);
+  jni.JObjType get $type => _$type ??= type(T, S, U);
 
-  final jni.JObjType<T> $T;
-  final jni.JObjType<S> $S;
-  final jni.JObjType<U> $U;
+  final jni.JObjType<$T> T;
+  final jni.JObjType<$S> S;
+  final jni.JObjType<$U> U;
 
   GrandParent_Parent_Child.fromRef(
-    this.$T,
-    this.$S,
-    this.$U,
+    this.T,
+    this.S,
+    this.U,
     jni.JObjectPtr ref,
   ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static $GrandParent_Parent_ChildType<T, S, U>
-      type<T extends jni.JObject, S extends jni.JObject, U extends jni.JObject>(
-    jni.JObjType<T> $T,
-    jni.JObjType<S> $S,
-    jni.JObjType<U> $U,
+  static $GrandParent_Parent_ChildType<$T, $S, $U> type<$T extends jni.JObject,
+      $S extends jni.JObject, $U extends jni.JObject>(
+    jni.JObjType<$T> T,
+    jni.JObjType<$S> S,
+    jni.JObjType<$U> U,
   ) {
     return $GrandParent_Parent_ChildType(
-      $T,
-      $S,
-      $U,
+      T,
+      S,
+      U,
     );
   }
 
@@ -686,11 +717,11 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
 
   /// from: public T grandParentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  T get grandParentValue => $T.fromRef(_get_grandParentValue(reference).object);
+  $T get grandParentValue => T.fromRef(_get_grandParentValue(reference).object);
 
   /// from: public T grandParentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set grandParentValue(T value) =>
+  set grandParentValue($T value) =>
       _set_grandParentValue(reference, value.reference);
 
   static final _get_parentValue = jniLookup<
@@ -713,11 +744,11 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
 
   /// from: public S parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  S get parentValue => $S.fromRef(_get_parentValue(reference).object);
+  $S get parentValue => S.fromRef(_get_parentValue(reference).object);
 
   /// from: public S parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set parentValue(S value) => _set_parentValue(reference, value.reference);
+  set parentValue($S value) => _set_parentValue(reference, value.reference);
 
   static final _get_value = jniLookup<
           ffi.NativeFunction<
@@ -739,11 +770,11 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
 
   /// from: public U value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  U get value => $U.fromRef(_get_value(reference).object);
+  $U get value => U.fromRef(_get_value(reference).object);
 
   /// from: public U value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(U value) => _set_value(reference, value.reference);
+  set value($U value) => _set_value(reference, value.reference);
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -758,23 +789,28 @@ class GrandParent_Parent_Child<T extends jni.JObject, S extends jni.JObject,
   /// from: public void <init>(T grandParentValue, S parentValue, U value)
   /// The returned object must be deleted after use, by calling the `delete` method.
   GrandParent_Parent_Child(
-      this.$T, this.$S, this.$U, T grandParentValue, S parentValue, U value)
-      : super.fromRef(_ctor(grandParentValue.reference, parentValue.reference,
+    $T grandParentValue,
+    $S parentValue,
+    $U value, {
+    required this.T,
+    required this.S,
+    required this.U,
+  }) : super.fromRef(_ctor(grandParentValue.reference, parentValue.reference,
                 value.reference)
             .object);
 }
 
-class $GrandParent_Parent_ChildType<T extends jni.JObject,
-        S extends jni.JObject, U extends jni.JObject>
-    extends jni.JObjType<GrandParent_Parent_Child<T, S, U>> {
-  final jni.JObjType<T> $T;
-  final jni.JObjType<S> $S;
-  final jni.JObjType<U> $U;
+class $GrandParent_Parent_ChildType<$T extends jni.JObject,
+        $S extends jni.JObject, $U extends jni.JObject>
+    extends jni.JObjType<GrandParent_Parent_Child<$T, $S, $U>> {
+  final jni.JObjType<$T> T;
+  final jni.JObjType<$S> S;
+  final jni.JObjType<$U> U;
 
   const $GrandParent_Parent_ChildType(
-    this.$T,
-    this.$S,
-    this.$U,
+    this.T,
+    this.S,
+    this.U,
   );
 
   @override
@@ -782,32 +818,32 @@ class $GrandParent_Parent_ChildType<T extends jni.JObject,
       r"Lcom/github/dart_lang/jnigen/generics/GrandParent$Parent$Child;";
 
   @override
-  GrandParent_Parent_Child<T, S, U> fromRef(jni.JObjectPtr ref) =>
-      GrandParent_Parent_Child.fromRef($T, $S, $U, ref);
+  GrandParent_Parent_Child<$T, $S, $U> fromRef(jni.JObjectPtr ref) =>
+      GrandParent_Parent_Child.fromRef(T, S, U, ref);
 
   @override
   jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$StaticParent
-class GrandParent_StaticParent<S extends jni.JObject> extends jni.JObject {
+class GrandParent_StaticParent<$S extends jni.JObject> extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type($S);
+  jni.JObjType get $type => _$type ??= type(S);
 
-  final jni.JObjType<S> $S;
+  final jni.JObjType<$S> S;
 
   GrandParent_StaticParent.fromRef(
-    this.$S,
+    this.S,
     jni.JObjectPtr ref,
   ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static $GrandParent_StaticParentType<S> type<S extends jni.JObject>(
-    jni.JObjType<S> $S,
+  static $GrandParent_StaticParentType<$S> type<$S extends jni.JObject>(
+    jni.JObjType<$S> S,
   ) {
     return $GrandParent_StaticParentType(
-      $S,
+      S,
     );
   }
 
@@ -831,11 +867,11 @@ class GrandParent_StaticParent<S extends jni.JObject> extends jni.JObject {
 
   /// from: public S value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  S get value => $S.fromRef(_get_value(reference).object);
+  $S get value => S.fromRef(_get_value(reference).object);
 
   /// from: public S value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(S value) => _set_value(reference, value.reference);
+  set value($S value) => _set_value(reference, value.reference);
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -845,16 +881,18 @@ class GrandParent_StaticParent<S extends jni.JObject> extends jni.JObject {
 
   /// from: public void <init>(S value)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  GrandParent_StaticParent(this.$S, S value)
-      : super.fromRef(_ctor(value.reference).object);
+  GrandParent_StaticParent(
+    $S value, {
+    required this.S,
+  }) : super.fromRef(_ctor(value.reference).object);
 }
 
-class $GrandParent_StaticParentType<S extends jni.JObject>
-    extends jni.JObjType<GrandParent_StaticParent<S>> {
-  final jni.JObjType<S> $S;
+class $GrandParent_StaticParentType<$S extends jni.JObject>
+    extends jni.JObjType<GrandParent_StaticParent<$S>> {
+  final jni.JObjType<$S> S;
 
   const $GrandParent_StaticParentType(
-    this.$S,
+    this.S,
   );
 
   @override
@@ -862,38 +900,38 @@ class $GrandParent_StaticParentType<S extends jni.JObject>
       r"Lcom/github/dart_lang/jnigen/generics/GrandParent$StaticParent;";
 
   @override
-  GrandParent_StaticParent<S> fromRef(jni.JObjectPtr ref) =>
-      GrandParent_StaticParent.fromRef($S, ref);
+  GrandParent_StaticParent<$S> fromRef(jni.JObjectPtr ref) =>
+      GrandParent_StaticParent.fromRef(S, ref);
 
   @override
   jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$StaticParent$Child
-class GrandParent_StaticParent_Child<S extends jni.JObject,
-    U extends jni.JObject> extends jni.JObject {
+class GrandParent_StaticParent_Child<$S extends jni.JObject,
+    $U extends jni.JObject> extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type($S, $U);
+  jni.JObjType get $type => _$type ??= type(S, U);
 
-  final jni.JObjType<S> $S;
-  final jni.JObjType<U> $U;
+  final jni.JObjType<$S> S;
+  final jni.JObjType<$U> U;
 
   GrandParent_StaticParent_Child.fromRef(
-    this.$S,
-    this.$U,
+    this.S,
+    this.U,
     jni.JObjectPtr ref,
   ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static $GrandParent_StaticParent_ChildType<S, U>
-      type<S extends jni.JObject, U extends jni.JObject>(
-    jni.JObjType<S> $S,
-    jni.JObjType<U> $U,
+  static $GrandParent_StaticParent_ChildType<$S, $U>
+      type<$S extends jni.JObject, $U extends jni.JObject>(
+    jni.JObjType<$S> S,
+    jni.JObjType<$U> U,
   ) {
     return $GrandParent_StaticParent_ChildType(
-      $S,
-      $U,
+      S,
+      U,
     );
   }
 
@@ -917,11 +955,11 @@ class GrandParent_StaticParent_Child<S extends jni.JObject,
 
   /// from: public S parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  S get parentValue => $S.fromRef(_get_parentValue(reference).object);
+  $S get parentValue => S.fromRef(_get_parentValue(reference).object);
 
   /// from: public S parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set parentValue(S value) => _set_parentValue(reference, value.reference);
+  set parentValue($S value) => _set_parentValue(reference, value.reference);
 
   static final _get_value = jniLookup<
           ffi.NativeFunction<
@@ -943,11 +981,11 @@ class GrandParent_StaticParent_Child<S extends jni.JObject,
 
   /// from: public U value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  U get value => $U.fromRef(_get_value(reference).object);
+  $U get value => U.fromRef(_get_value(reference).object);
 
   /// from: public U value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(U value) => _set_value(reference, value.reference);
+  set value($U value) => _set_value(reference, value.reference);
 
   static final _ctor = jniLookup<
               ffi.NativeFunction<
@@ -960,19 +998,23 @@ class GrandParent_StaticParent_Child<S extends jni.JObject,
 
   /// from: public void <init>(S parentValue, U value)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  GrandParent_StaticParent_Child(this.$S, this.$U, S parentValue, U value)
-      : super.fromRef(_ctor(parentValue.reference, value.reference).object);
+  GrandParent_StaticParent_Child(
+    $S parentValue,
+    $U value, {
+    required this.S,
+    required this.U,
+  }) : super.fromRef(_ctor(parentValue.reference, value.reference).object);
 }
 
-class $GrandParent_StaticParent_ChildType<S extends jni.JObject,
-        U extends jni.JObject>
-    extends jni.JObjType<GrandParent_StaticParent_Child<S, U>> {
-  final jni.JObjType<S> $S;
-  final jni.JObjType<U> $U;
+class $GrandParent_StaticParent_ChildType<$S extends jni.JObject,
+        $U extends jni.JObject>
+    extends jni.JObjType<GrandParent_StaticParent_Child<$S, $U>> {
+  final jni.JObjType<$S> S;
+  final jni.JObjType<$U> U;
 
   const $GrandParent_StaticParent_ChildType(
-    this.$S,
-    this.$U,
+    this.S,
+    this.U,
   );
 
   @override
@@ -980,36 +1022,38 @@ class $GrandParent_StaticParent_ChildType<S extends jni.JObject,
       r"Lcom/github/dart_lang/jnigen/generics/GrandParent$StaticParent$Child;";
 
   @override
-  GrandParent_StaticParent_Child<S, U> fromRef(jni.JObjectPtr ref) =>
-      GrandParent_StaticParent_Child.fromRef($S, $U, ref);
+  GrandParent_StaticParent_Child<$S, $U> fromRef(jni.JObjectPtr ref) =>
+      GrandParent_StaticParent_Child.fromRef(S, U, ref);
 
   @override
   jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.MyMap
-class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
+class MyMap<$K extends jni.JObject, $V extends jni.JObject>
+    extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type($K, $V);
+  jni.JObjType get $type => _$type ??= type(K, V);
 
-  final jni.JObjType<K> $K;
-  final jni.JObjType<V> $V;
+  final jni.JObjType<$K> K;
+  final jni.JObjType<$V> V;
 
   MyMap.fromRef(
-    this.$K,
-    this.$V,
+    this.K,
+    this.V,
     jni.JObjectPtr ref,
   ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static $MyMapType<K, V> type<K extends jni.JObject, V extends jni.JObject>(
-    jni.JObjType<K> $K,
-    jni.JObjType<V> $V,
+  static $MyMapType<$K, $V>
+      type<$K extends jni.JObject, $V extends jni.JObject>(
+    jni.JObjType<$K> K,
+    jni.JObjType<$V> V,
   ) {
     return $MyMapType(
-      $K,
-      $V,
+      K,
+      V,
     );
   }
 
@@ -1019,7 +1063,10 @@ class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  MyMap(this.$K, this.$V) : super.fromRef(_ctor().object);
+  MyMap({
+    required this.K,
+    required this.V,
+  }) : super.fromRef(_ctor().object);
 
   static final _get0 = jniLookup<
           ffi.NativeFunction<
@@ -1031,7 +1078,10 @@ class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
 
   /// from: public V get(K key)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  V get0(K key) => $V.fromRef(_get0(reference, key.reference).object);
+  $V get0(
+    $K key,
+  ) =>
+      V.fromRef(_get0(reference, key.reference).object);
 
   static final _put = jniLookup<
           ffi.NativeFunction<
@@ -1043,8 +1093,11 @@ class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
 
   /// from: public V put(K key, V value)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  V put(K key, V value) =>
-      $V.fromRef(_put(reference, key.reference, value.reference).object);
+  $V put(
+    $K key,
+    $V value,
+  ) =>
+      V.fromRef(_put(reference, key.reference, value.reference).object);
 
   static final _entryStack = jniLookup<
           ffi.NativeFunction<
@@ -1060,51 +1113,51 @@ class MyMap<K extends jni.JObject, V extends jni.JObject> extends jni.JObject {
           .fromRef(_entryStack(reference).object);
 }
 
-class $MyMapType<K extends jni.JObject, V extends jni.JObject>
-    extends jni.JObjType<MyMap<K, V>> {
-  final jni.JObjType<K> $K;
-  final jni.JObjType<V> $V;
+class $MyMapType<$K extends jni.JObject, $V extends jni.JObject>
+    extends jni.JObjType<MyMap<$K, $V>> {
+  final jni.JObjType<$K> K;
+  final jni.JObjType<$V> V;
 
   const $MyMapType(
-    this.$K,
-    this.$V,
+    this.K,
+    this.V,
   );
 
   @override
   String get signature => r"Lcom/github/dart_lang/jnigen/generics/MyMap;";
 
   @override
-  MyMap<K, V> fromRef(jni.JObjectPtr ref) => MyMap.fromRef($K, $V, ref);
+  MyMap<$K, $V> fromRef(jni.JObjectPtr ref) => MyMap.fromRef(K, V, ref);
 
   @override
   jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.MyMap$MyEntry
-class MyMap_MyEntry<K extends jni.JObject, V extends jni.JObject>
+class MyMap_MyEntry<$K extends jni.JObject, $V extends jni.JObject>
     extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type($K, $V);
+  jni.JObjType get $type => _$type ??= type(K, V);
 
-  final jni.JObjType<K> $K;
-  final jni.JObjType<V> $V;
+  final jni.JObjType<$K> K;
+  final jni.JObjType<$V> V;
 
   MyMap_MyEntry.fromRef(
-    this.$K,
-    this.$V,
+    this.K,
+    this.V,
     jni.JObjectPtr ref,
   ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static $MyMap_MyEntryType<K, V>
-      type<K extends jni.JObject, V extends jni.JObject>(
-    jni.JObjType<K> $K,
-    jni.JObjType<V> $V,
+  static $MyMap_MyEntryType<$K, $V>
+      type<$K extends jni.JObject, $V extends jni.JObject>(
+    jni.JObjType<$K> K,
+    jni.JObjType<$V> V,
   ) {
     return $MyMap_MyEntryType(
-      $K,
-      $V,
+      K,
+      V,
     );
   }
 
@@ -1127,11 +1180,11 @@ class MyMap_MyEntry<K extends jni.JObject, V extends jni.JObject>
 
   /// from: public K key
   /// The returned object must be deleted after use, by calling the `delete` method.
-  K get key => $K.fromRef(_get_key(reference).object);
+  $K get key => K.fromRef(_get_key(reference).object);
 
   /// from: public K key
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set key(K value) => _set_key(reference, value.reference);
+  set key($K value) => _set_key(reference, value.reference);
 
   static final _get_value = jniLookup<
           ffi.NativeFunction<
@@ -1152,11 +1205,11 @@ class MyMap_MyEntry<K extends jni.JObject, V extends jni.JObject>
 
   /// from: public V value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  V get value => $V.fromRef(_get_value(reference).object);
+  $V get value => V.fromRef(_get_value(reference).object);
 
   /// from: public V value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value(V value) => _set_value(reference, value.reference);
+  set value($V value) => _set_value(reference, value.reference);
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
@@ -1168,18 +1221,22 @@ class MyMap_MyEntry<K extends jni.JObject, V extends jni.JObject>
 
   /// from: public void <init>(K key, V value)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  MyMap_MyEntry(this.$K, this.$V, K key, V value)
-      : super.fromRef(_ctor(key.reference, value.reference).object);
+  MyMap_MyEntry(
+    $K key,
+    $V value, {
+    required this.K,
+    required this.V,
+  }) : super.fromRef(_ctor(key.reference, value.reference).object);
 }
 
-class $MyMap_MyEntryType<K extends jni.JObject, V extends jni.JObject>
-    extends jni.JObjType<MyMap_MyEntry<K, V>> {
-  final jni.JObjType<K> $K;
-  final jni.JObjType<V> $V;
+class $MyMap_MyEntryType<$K extends jni.JObject, $V extends jni.JObject>
+    extends jni.JObjType<MyMap_MyEntry<$K, $V>> {
+  final jni.JObjType<$K> K;
+  final jni.JObjType<$V> V;
 
   const $MyMap_MyEntryType(
-    this.$K,
-    this.$V,
+    this.K,
+    this.V,
   );
 
   @override
@@ -1187,32 +1244,32 @@ class $MyMap_MyEntryType<K extends jni.JObject, V extends jni.JObject>
       r"Lcom/github/dart_lang/jnigen/generics/MyMap$MyEntry;";
 
   @override
-  MyMap_MyEntry<K, V> fromRef(jni.JObjectPtr ref) =>
-      MyMap_MyEntry.fromRef($K, $V, ref);
+  MyMap_MyEntry<$K, $V> fromRef(jni.JObjectPtr ref) =>
+      MyMap_MyEntry.fromRef(K, V, ref);
 
   @override
   jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.MyStack
-class MyStack<T extends jni.JObject> extends jni.JObject {
+class MyStack<$T extends jni.JObject> extends jni.JObject {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type($T);
+  jni.JObjType get $type => _$type ??= type(T);
 
-  final jni.JObjType<T> $T;
+  final jni.JObjType<$T> T;
 
   MyStack.fromRef(
-    this.$T,
+    this.T,
     jni.JObjectPtr ref,
   ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static $MyStackType<T> type<T extends jni.JObject>(
-    jni.JObjType<T> $T,
+  static $MyStackType<$T> type<$T extends jni.JObject>(
+    jni.JObjType<$T> T,
   ) {
     return $MyStackType(
-      $T,
+      T,
     );
   }
 
@@ -1222,7 +1279,9 @@ class MyStack<T extends jni.JObject> extends jni.JObject {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  MyStack(this.$T) : super.fromRef(_ctor().object);
+  MyStack({
+    required this.T,
+  }) : super.fromRef(_ctor().object);
 
   static final _push = jniLookup<
           ffi.NativeFunction<
@@ -1233,7 +1292,10 @@ class MyStack<T extends jni.JObject> extends jni.JObject {
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: public void push(T item)
-  void push(T item) => _push(reference, item.reference).check();
+  void push(
+    $T item,
+  ) =>
+      _push(reference, item.reference).check();
 
   static final _pop = jniLookup<
           ffi.NativeFunction<
@@ -1242,45 +1304,45 @@ class MyStack<T extends jni.JObject> extends jni.JObject {
 
   /// from: public T pop()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  T pop() => $T.fromRef(_pop(reference).object);
+  $T pop() => T.fromRef(_pop(reference).object);
 }
 
-class $MyStackType<T extends jni.JObject> extends jni.JObjType<MyStack<T>> {
-  final jni.JObjType<T> $T;
+class $MyStackType<$T extends jni.JObject> extends jni.JObjType<MyStack<$T>> {
+  final jni.JObjType<$T> T;
 
   const $MyStackType(
-    this.$T,
+    this.T,
   );
 
   @override
   String get signature => r"Lcom/github/dart_lang/jnigen/generics/MyStack;";
 
   @override
-  MyStack<T> fromRef(jni.JObjectPtr ref) => MyStack.fromRef($T, ref);
+  MyStack<$T> fromRef(jni.JObjectPtr ref) => MyStack.fromRef(T, ref);
 
   @override
   jni.JObjType get parent => const jni.JObjectType();
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringKeyedMap
-class StringKeyedMap<V extends jni.JObject> extends MyMap<jni.JString, V> {
+class StringKeyedMap<$V extends jni.JObject> extends MyMap<jni.JString, $V> {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type($V);
+  jni.JObjType get $type => _$type ??= type(V);
 
-  final jni.JObjType<V> $V;
+  final jni.JObjType<$V> V;
 
   StringKeyedMap.fromRef(
-    this.$V,
+    this.V,
     jni.JObjectPtr ref,
-  ) : super.fromRef(const jni.JStringType(), $V, ref);
+  ) : super.fromRef(const jni.JStringType(), V, ref);
 
   /// The type which includes information such as the signature of this class.
-  static $StringKeyedMapType<V> type<V extends jni.JObject>(
-    jni.JObjType<V> $V,
+  static $StringKeyedMapType<$V> type<$V extends jni.JObject>(
+    jni.JObjType<$V> V,
   ) {
     return $StringKeyedMapType(
-      $V,
+      V,
     );
   }
 
@@ -1290,16 +1352,17 @@ class StringKeyedMap<V extends jni.JObject> extends MyMap<jni.JString, V> {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  StringKeyedMap(this.$V)
-      : super.fromRef(const jni.JStringType(), $V, _ctor().object);
+  StringKeyedMap({
+    required this.V,
+  }) : super.fromRef(const jni.JStringType(), V, _ctor().object);
 }
 
-class $StringKeyedMapType<V extends jni.JObject>
-    extends jni.JObjType<StringKeyedMap<V>> {
-  final jni.JObjType<V> $V;
+class $StringKeyedMapType<$V extends jni.JObject>
+    extends jni.JObjType<StringKeyedMap<$V>> {
+  final jni.JObjType<$V> V;
 
   const $StringKeyedMapType(
-    this.$V,
+    this.V,
   );
 
   @override
@@ -1307,11 +1370,11 @@ class $StringKeyedMapType<V extends jni.JObject>
       r"Lcom/github/dart_lang/jnigen/generics/StringKeyedMap;";
 
   @override
-  StringKeyedMap<V> fromRef(jni.JObjectPtr ref) =>
-      StringKeyedMap.fromRef($V, ref);
+  StringKeyedMap<$V> fromRef(jni.JObjectPtr ref) =>
+      StringKeyedMap.fromRef(V, ref);
 
   @override
-  jni.JObjType get parent => $MyMapType(const jni.JStringType(), $V);
+  jni.JObjType get parent => $MyMapType(const jni.JStringType(), V);
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringMap
@@ -1383,24 +1446,24 @@ class $StringStackType extends jni.JObjType<StringStack> {
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringValuedMap
-class StringValuedMap<K extends jni.JObject> extends MyMap<K, jni.JString> {
+class StringValuedMap<$K extends jni.JObject> extends MyMap<$K, jni.JString> {
   late final jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type($K);
+  jni.JObjType get $type => _$type ??= type(K);
 
-  final jni.JObjType<K> $K;
+  final jni.JObjType<$K> K;
 
   StringValuedMap.fromRef(
-    this.$K,
+    this.K,
     jni.JObjectPtr ref,
-  ) : super.fromRef($K, const jni.JStringType(), ref);
+  ) : super.fromRef(K, const jni.JStringType(), ref);
 
   /// The type which includes information such as the signature of this class.
-  static $StringValuedMapType<K> type<K extends jni.JObject>(
-    jni.JObjType<K> $K,
+  static $StringValuedMapType<$K> type<$K extends jni.JObject>(
+    jni.JObjType<$K> K,
   ) {
     return $StringValuedMapType(
-      $K,
+      K,
     );
   }
 
@@ -1410,16 +1473,17 @@ class StringValuedMap<K extends jni.JObject> extends MyMap<K, jni.JString> {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  StringValuedMap(this.$K)
-      : super.fromRef($K, const jni.JStringType(), _ctor().object);
+  StringValuedMap({
+    required this.K,
+  }) : super.fromRef(K, const jni.JStringType(), _ctor().object);
 }
 
-class $StringValuedMapType<K extends jni.JObject>
-    extends jni.JObjType<StringValuedMap<K>> {
-  final jni.JObjType<K> $K;
+class $StringValuedMapType<$K extends jni.JObject>
+    extends jni.JObjType<StringValuedMap<$K>> {
+  final jni.JObjType<$K> K;
 
   const $StringValuedMapType(
-    this.$K,
+    this.K,
   );
 
   @override
@@ -1427,11 +1491,11 @@ class $StringValuedMapType<K extends jni.JObject>
       r"Lcom/github/dart_lang/jnigen/generics/StringValuedMap;";
 
   @override
-  StringValuedMap<K> fromRef(jni.JObjectPtr ref) =>
-      StringValuedMap.fromRef($K, ref);
+  StringValuedMap<$K> fromRef(jni.JObjectPtr ref) =>
+      StringValuedMap.fromRef(K, ref);
 
   @override
-  jni.JObjType get parent => $MyMapType($K, const jni.JStringType());
+  jni.JObjType get parent => $MyMapType(K, const jni.JStringType());
 }
 
 /// from: com.github.dart_lang.jnigen.annotations.JsonSerializable$Case
@@ -1465,7 +1529,9 @@ class JsonSerializable_Case extends jni.JObject {
 
   /// from: static public com.github.dart_lang.jnigen.annotations.JsonSerializable.Case valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonSerializable_Case valueOf(jni.JString name) =>
+  static JsonSerializable_Case valueOf(
+    jni.JString name,
+  ) =>
       const $JsonSerializable_CaseType()
           .fromRef(_valueOf(name.reference).object);
 }

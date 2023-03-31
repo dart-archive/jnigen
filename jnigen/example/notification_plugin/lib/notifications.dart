@@ -60,8 +60,12 @@ class Notifications extends jni.JObject {
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: static public void showNotification(android.content.Context context, int notificationID, java.lang.String title, java.lang.String text)
-  static void showNotification(jni.JObject context, int notificationID,
-          jni.JString title, jni.JString text) =>
+  static void showNotification(
+    jni.JObject context,
+    int notificationID,
+    jni.JString title,
+    jni.JString text,
+  ) =>
       _showNotification(context.reference, notificationID, title.reference,
               text.reference)
           .check();

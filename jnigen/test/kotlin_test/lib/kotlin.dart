@@ -82,7 +82,9 @@ class SuspendFun extends jni.JObject {
 
   /// from: public final java.lang.Object sayHello(java.lang.String string, kotlin.coroutines.Continuation continuation)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Future<jni.JString> sayHello1(jni.JString string) async {
+  Future<jni.JString> sayHello1(
+    jni.JString string,
+  ) async {
     final $p = ReceivePort();
     final $c = jni.JObject.fromRef(jni.Jni.newPortContinuation($p));
     _sayHello1(reference, string.reference, $c.reference).object;

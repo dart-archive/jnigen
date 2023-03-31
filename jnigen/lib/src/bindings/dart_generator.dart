@@ -52,6 +52,13 @@ extension on String {
   }
 }
 
+extension on Iterable<String> {
+  /// Similar to [join] but adds the [separator] to the end as well.
+  String delimited([String separator = '']) {
+    return map((e) => '$e$separator').join();
+  }
+}
+
 /// Encloses [inside] in the middle of [open] and [close]
 /// if [inside] is not empty.
 String _encloseIfNotEmpty(String open, String inside, String close) {
@@ -277,18 +284,22 @@ class _ClassGenerator extends Visitor<ClassDecl, void> {
     );
     final typeParams = node.allTypeParams
         .accept(const _TypeParamGenerator(withExtends: false));
-    final typeParamsCall = _encloseIfNotEmpty('<', typeParams.join(', '), '>');
+    final typeParamsCall = _encloseIfNotEmpty(
+      '<',
+      typeParams.map((typeParam) => '$_typeParamPrefix$typeParam').join(', '),
+      '>',
+    );
     final staticTypeGetterCallArgs = _encloseIfNotEmpty(
       '(',
-      typeParams.map((typeParams) => '$_typeParamPrefix$typeParams').join(', '),
+      typeParams.join(', '),
       ')',
     );
     final typeClassDefinitions = typeParams
         .map((typeParam) =>
-            'final $_jType<$typeParam> $_typeParamPrefix$typeParam;')
+            'final $_jType<$_typeParamPrefix$typeParam> $typeParam;')
         .join(_newLine(depth: 1));
     final ctorTypeClassesDef = typeParams
-        .map((typeParam) => 'this.$_typeParamPrefix$typeParam,')
+        .map((typeParam) => 'this.$typeParam,')
         .join(_newLine(depth: 2));
     final superClass = (node.classDecl.superclass!.type as DeclaredType);
     final superTypeClassesCall = superClass.classDecl == ClassDecl.object
@@ -332,11 +343,10 @@ class $name$typeParamsDef extends $superName {
     } else {
       final staticTypeGetterTypeClassesDef = typeParams
           .map(
-              (typeParam) => '$_jType<$typeParam> $_typeParamPrefix$typeParam,')
+              (typeParam) => '$_jType<$_typeParamPrefix$typeParam> $typeParam,')
           .join(_newLine(depth: 2));
-      final typeClassesCall = typeParams
-          .map((typeParam) => '$_typeParamPrefix$typeParam,')
-          .join(_newLine(depth: 3));
+      final typeClassesCall =
+          typeParams.map((typeParam) => '$typeParam,').join(_newLine(depth: 3));
       s.write('''
   static $typeClassName$typeParamsCall $staticTypeGetter$typeParamsDef(
     $staticTypeGetterTypeClassesDef
@@ -363,9 +373,8 @@ class $name$typeParamsDef extends $superName {
     s.writeln('}');
 
     // TypeClass definition
-    final typeClassesCall = typeParams
-        .map((typeParam) => '$_typeParamPrefix$typeParam,')
-        .join(_newLine(depth: 2));
+    final typeClassesCall =
+        typeParams.map((typeParam) => '$typeParam,').join(_newLine(depth: 2));
     final signature = node.signature;
     final superTypeClass = superClass.accept(_TypeClassGenerator(resolver));
     s.write('''
@@ -482,7 +491,7 @@ class _TypeGenerator extends TypeVisitor<String> {
 
   @override
   String visitTypeVar(TypeVar node) {
-    return node.name;
+    return '$_typeParamPrefix${node.name}';
   }
 
   @override
@@ -532,7 +541,6 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
     }
     final allTypeParams = node.classDecl.allTypeParams
         .accept(const _TypeParamGenerator(withExtends: false))
-        .map((typeParam) => '$_typeParamPrefix$typeParam')
         .toList();
 
     // The ones that are declared.
@@ -581,7 +589,7 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
 
   @override
   _TypeClass visitTypeVar(TypeVar node) {
-    return _TypeClass('$_typeParamPrefix${node.name}', false);
+    return _TypeClass(node.name, false);
   }
 
   @override
@@ -608,7 +616,7 @@ class _TypeParamGenerator extends Visitor<TypeParam, String> {
       return node.name;
     }
     // TODO(#144): resolve the actual type being extended, if any.
-    return '${node.name} extends $_jObject';
+    return '$_typeParamPrefix${node.name} extends $_jObject';
   }
 }
 
@@ -942,7 +950,8 @@ class _MethodGenerator extends Visitor<Method, void> {
     final params =
         node.params.accept(const _ParamCall(isCBased: false)).join(', ');
     final resultGetter = node.returnType.accept(const _JniResultGetter());
-    return '$_accessors.call${ifStatic}MethodWithArgs($self, _id_$name, $callType, [$params]).$resultGetter';
+    return '$_accessors.call${ifStatic}MethodWithArgs'
+        '($self, _id_$name, $callType, [$params]).$resultGetter';
   }
 
   @override
@@ -967,10 +976,14 @@ class _MethodGenerator extends Visitor<Method, void> {
       final className = node.classDecl.finalName;
       final name = node.finalName;
       final ctorName = name == 'ctor' ? className : '$className.$name';
-      final paramsDef = [
-        ...node.classDecl.allTypeParams.accept(const _ClassTypeParamDef()),
-        ...node.params.accept(_ParamDef(resolver)),
-      ].join(', ');
+      final paramsDef = node.params.accept(_ParamDef(resolver)).delimited(', ');
+      final typeClassDef = _encloseIfNotEmpty(
+        '{',
+        node.classDecl.allTypeParams
+            .accept(const _CtorTypeClassDef())
+            .delimited(', '),
+        '}',
+      );
       final superClass = (node.classDecl.superclass!.type as DeclaredType);
       final superTypeClassesCall = superClass.classDecl == ClassDecl.object
           ? ''
@@ -980,7 +993,7 @@ class _MethodGenerator extends Visitor<Method, void> {
               .join(_newLine(depth: 2));
       final ctorExpr = (isCBased ? cCtor : dartOnlyCtor)(node);
       s.write('''
-  $ctorName($paramsDef) : super.fromRef(
+  $ctorName($paramsDef$typeClassDef) : super.fromRef(
     $superTypeClassesCall
     $ctorExpr.object
   );
@@ -997,10 +1010,12 @@ class _MethodGenerator extends Visitor<Method, void> {
         .accept(_TypeClassGenerator(resolver))
         .name;
     final ifStatic = node.isStatic ? 'static ' : '';
-    final defArgs = [
-      ...node.typeParams.accept(const _MethodTypeParamDef()),
-      ...node.params.accept(_ParamDef(resolver))
-    ];
+    final defArgs = node.params.accept(_ParamDef(resolver)).toList();
+    final typeClassDef = _encloseIfNotEmpty(
+      '{',
+      node.typeParams.accept(const _MethodTypeClassDef()).delimited(', '),
+      '}',
+    );
     final typeParamsDef = _encloseIfNotEmpty(
       '<',
       node.typeParams
@@ -1011,8 +1026,8 @@ class _MethodGenerator extends Visitor<Method, void> {
     if (isSuspendFun(node)) {
       defArgs.removeLast();
     }
-    final params = defArgs.join(', ');
-    s.write('  $ifStatic$returnType $name$typeParamsDef($params) ');
+    final params = defArgs.delimited(', ');
+    s.write('  $ifStatic$returnType $name$typeParamsDef($params$typeClassDef)');
     final callExpr = (isCBased ? cMethodCall : dartOnlyMethodCall)(node);
     if (isSuspendFun(node)) {
       final returning =
@@ -1039,34 +1054,34 @@ class _MethodGenerator extends Visitor<Method, void> {
 
 /// Generates the method type param definition.
 ///
-/// For example `JObjType<T> $T` in:
+/// For example `required JObjType<T> $T` in:
 /// ```dart
-/// void bar(JObjType<T> $T, ...) => ...
+/// void bar(..., {required JObjType<T> $T}) => ...
 /// ```
-class _MethodTypeParamDef extends Visitor<TypeParam, String> {
-  const _MethodTypeParamDef();
+class _MethodTypeClassDef extends Visitor<TypeParam, String> {
+  const _MethodTypeClassDef();
 
   @override
   String visit(TypeParam node) {
-    return '$_jType<${node.name}> $_typeParamPrefix${node.name}';
+    return 'required $_jType<$_typeParamPrefix${node.name}> ${node.name}';
   }
 }
 
 /// Generates the class type param definition. Used only in constructors.
 ///
-/// For example `this.$T` in:
+/// For example `required this.$T` in:
 /// ```dart
 /// class Foo {
 ///   final JObjType<T> $T;
-///   Foo(this.$T, ...) => ...
+///   Foo(..., {required this.$T}) => ...
 /// }
 /// ```
-class _ClassTypeParamDef extends Visitor<TypeParam, String> {
-  const _ClassTypeParamDef();
+class _CtorTypeClassDef extends Visitor<TypeParam, String> {
+  const _CtorTypeClassDef();
 
   @override
   String visit(TypeParam node) {
-    return 'this.$_typeParamPrefix${node.name}';
+    return 'required this.${node.name}';
   }
 }
 
