@@ -93,6 +93,7 @@ class SummarizerCommand {
 }
 
 Future<Classes?> getSummary(Config config) async {
+  setLoggingLevel(config.logLevel);
   final summarizer = SummarizerCommand(
     sourcePath: config.sourcePath,
     classPath: config.classPath,
