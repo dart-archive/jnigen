@@ -9,7 +9,6 @@ import 'bindings/dart_generator.dart';
 import 'bindings/excluder.dart';
 import 'bindings/linker.dart';
 import 'bindings/renamer.dart';
-import 'elements/elements.dart';
 import 'summary/summary.dart';
 import 'config/config.dart';
 import 'tools/tools.dart';
