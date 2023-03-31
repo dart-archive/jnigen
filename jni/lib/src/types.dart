@@ -54,3 +54,18 @@ abstract class JObjType<T extends JObject> extends JType<T> {
     return Jni.findJniClass(signature);
   }
 }
+
+/// Lowest common ancestor of two types in the inheritance tree.
+JObjType commonType(JObjType a, JObjType b) {
+  while (a.superCount < b.superCount) {
+    a = a.superType;
+  }
+  while (b.superCount < a.superCount) {
+    b = b.superType;
+  }
+  while (a != b) {
+    a = a.superType;
+    b = b.superType;
+  }
+  return a;
+}
