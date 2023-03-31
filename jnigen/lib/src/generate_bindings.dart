@@ -18,16 +18,6 @@ import 'logging/logging.dart';
 
 void collectOutputStream(Stream<List<int>> stream, StringBuffer buffer) =>
     stream.transform(const Utf8Decoder()).forEach(buffer.write);
-
-/// Adds all '.jar' files in [directory] to pathList
-void _addAllJars(List<Uri> pathList, Directory directory) {
-  pathList.addAll(directory
-      .listSync()
-      .where((entry) => entry.path.endsWith('.jar'))
-      .map((entry) => entry.uri)
-      .toList());
-}
-
 Future<void> generateJniBindings(Config config) async {
   setLoggingLevel(config.logLevel);
 
@@ -47,21 +37,21 @@ Future<void> generateJniBindings(Config config) async {
   final extraJars = <Uri>[];
   final mavenDl = config.mavenDownloads;
   if (mavenDl != null) {
-    final mavenSourcePath = mavenDl.sourceDir;
-    await Directory(mavenSourcePath).create(recursive: true);
+    final sourcePath = mavenDl.sourceDir;
+    await Directory(sourcePath).create(recursive: true);
     await MavenTools.downloadMavenSources(
-        MavenTools.deps(mavenDl.sourceDeps), mavenSourcePath);
-    _addAllJars(extraSources, Directory(mavenSourcePath));
-
-    final mavenJarPath = mavenDl.jarDir;
-    await Directory(mavenJarPath).create(recursive: true);
+        MavenTools.deps(mavenDl.sourceDeps), sourcePath);
+    extraSources.add(Uri.directory(sourcePath));
+    final jarPath = mavenDl.jarDir;
+    await Directory(jarPath).create(recursive: true);
     await MavenTools.downloadMavenJars(
-      MavenTools.deps(mavenDl.sourceDeps + mavenDl.jarOnlyDeps),
-      mavenJarPath,
-    );
-    _addAllJars(extraJars, Directory(mavenJarPath));
+        MavenTools.deps(mavenDl.sourceDeps + mavenDl.jarOnlyDeps), jarPath);
+    extraJars.addAll(await Directory(jarPath)
+        .list()
+        .where((entry) => entry.path.endsWith('.jar'))
+        .map((entry) => entry.uri)
+        .toList());
   }
-
   final androidConfig = config.androidSdkConfig;
   if (androidConfig != null && androidConfig.addGradleDeps) {
     final deps = AndroidSdkTools.getGradleClasspaths(
@@ -70,7 +60,6 @@ Future<void> generateJniBindings(Config config) async {
     );
     extraJars.addAll(deps.map(Uri.file));
   }
-
   if (androidConfig != null && androidConfig.versions != null) {
     final versions = androidConfig.versions!;
     final androidSdkRoot =
