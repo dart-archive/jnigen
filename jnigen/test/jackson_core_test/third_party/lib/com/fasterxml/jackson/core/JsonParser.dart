@@ -2269,7 +2269,10 @@ class $JsonParserType extends jni.JObjType<JsonParser> {
   JsonParser fromRef(jni.JObjectPtr ref) => JsonParser.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.fasterxml.jackson.core.JsonParser$Feature
@@ -2360,7 +2363,10 @@ class $JsonParser_FeatureType extends jni.JObjType<JsonParser_Feature> {
       JsonParser_Feature.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.fasterxml.jackson.core.JsonParser$NumberType
@@ -2417,5 +2423,8 @@ class $JsonParser_NumberTypeType extends jni.JObjType<JsonParser_NumberType> {
       JsonParser_NumberType.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }

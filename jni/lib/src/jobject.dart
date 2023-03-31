@@ -14,7 +14,10 @@ class JObjectType extends JObjType<JObject> {
   JObject fromRef(Pointer<Void> ref) => JObject.fromRef(ref);
 
   @override
-  JObjType get parent => const JObjectType();
+  JObjType get superType => const JObjectType();
+
+  @override
+  final int superCount = 0;
 }
 
 Pointer<T> _getID<T extends NativeType>(

@@ -97,6 +97,12 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
 
   String get internalName => binaryName.replaceAll(".", "/");
 
+  /// The number of super classes this type has.
+  ///
+  /// Will be populated by [Linker].
+  @JsonKey(includeFromJson: false)
+  late final int superCount;
+
   /// Parent's [ClassDecl] obtained from [parentName].
   ///
   /// Will be populated by [Linker].
@@ -135,14 +141,18 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
     binaryName: 'java.lang.Object',
     packageName: 'java.lang',
     simpleName: 'Object',
-  )..finalName = 'JObject';
+  )
+    ..finalName = 'JObject'
+    ..superCount = 0;
 
   static final string = ClassDecl(
     superclass: TypeUsage.object,
     binaryName: 'java.lang.String',
     packageName: 'java.lang',
     simpleName: 'String',
-  )..finalName = 'JString';
+  )
+    ..finalName = 'JString'
+    ..superCount = 1;
 
   static final predefined = {
     'java.lang.Object': object,

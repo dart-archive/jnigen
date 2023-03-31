@@ -107,5 +107,8 @@ class $SuspendFunType extends jni.JObjType<SuspendFun> {
   SuspendFun fromRef(jni.JObjectPtr ref) => SuspendFun.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }

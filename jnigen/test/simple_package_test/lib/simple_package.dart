@@ -223,7 +223,10 @@ class $ExampleType extends jni.JObjType<Example> {
   Example fromRef(jni.JObjectPtr ref) => Example.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.github.dart_lang.jnigen.simple_package.Example$Aux
@@ -304,7 +307,10 @@ class $Example_AuxType extends jni.JObjType<Example_Aux> {
   Example_Aux fromRef(jni.JObjectPtr ref) => Example_Aux.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.github.dart_lang.jnigen.pkg2.C2
@@ -354,7 +360,10 @@ class $C2Type extends jni.JObjType<C2> {
   C2 fromRef(jni.JObjectPtr ref) => C2.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.github.dart_lang.jnigen.pkg2.Example
@@ -397,7 +406,10 @@ class $Example1Type extends jni.JObjType<Example1> {
   Example1 fromRef(jni.JObjectPtr ref) => Example1.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent
@@ -543,7 +555,10 @@ class $GrandParentType<$T extends jni.JObject>
   GrandParent<$T> fromRef(jni.JObjectPtr ref) => GrandParent.fromRef(T, ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$Parent
@@ -662,7 +677,10 @@ class $GrandParent_ParentType<$T extends jni.JObject, $S extends jni.JObject>
       GrandParent_Parent.fromRef(T, S, ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$Parent$Child
@@ -822,7 +840,10 @@ class $GrandParent_Parent_ChildType<$T extends jni.JObject,
       GrandParent_Parent_Child.fromRef(T, S, U, ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$StaticParent
@@ -904,7 +925,10 @@ class $GrandParent_StaticParentType<$S extends jni.JObject>
       GrandParent_StaticParent.fromRef(S, ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$StaticParent$Child
@@ -1026,7 +1050,10 @@ class $GrandParent_StaticParent_ChildType<$S extends jni.JObject,
       GrandParent_StaticParent_Child.fromRef(S, U, ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.github.dart_lang.jnigen.generics.MyMap
@@ -1130,7 +1157,10 @@ class $MyMapType<$K extends jni.JObject, $V extends jni.JObject>
   MyMap<$K, $V> fromRef(jni.JObjectPtr ref) => MyMap.fromRef(K, V, ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.github.dart_lang.jnigen.generics.MyMap$MyEntry
@@ -1248,7 +1278,10 @@ class $MyMap_MyEntryType<$K extends jni.JObject, $V extends jni.JObject>
       MyMap_MyEntry.fromRef(K, V, ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.github.dart_lang.jnigen.generics.MyStack
@@ -1321,7 +1354,10 @@ class $MyStackType<$T extends jni.JObject> extends jni.JObjType<MyStack<$T>> {
   MyStack<$T> fromRef(jni.JObjectPtr ref) => MyStack.fromRef(T, ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringKeyedMap
@@ -1374,7 +1410,10 @@ class $StringKeyedMapType<$V extends jni.JObject>
       StringKeyedMap.fromRef(V, ref);
 
   @override
-  jni.JObjType get parent => $MyMapType(const jni.JStringType(), V);
+  jni.JObjType get superType => $MyMapType(const jni.JStringType(), V);
+
+  @override
+  final superCount = 2;
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringMap
@@ -1408,7 +1447,10 @@ class $StringMapType extends jni.JObjType<StringMap> {
   StringMap fromRef(jni.JObjectPtr ref) => StringMap.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const $StringKeyedMapType(jni.JStringType());
+  jni.JObjType get superType => const $StringKeyedMapType(jni.JStringType());
+
+  @override
+  final superCount = 3;
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringStack
@@ -1442,7 +1484,10 @@ class $StringStackType extends jni.JObjType<StringStack> {
   StringStack fromRef(jni.JObjectPtr ref) => StringStack.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const $MyStackType(jni.JStringType());
+  jni.JObjType get superType => const $MyStackType(jni.JStringType());
+
+  @override
+  final superCount = 2;
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringValuedMap
@@ -1495,7 +1540,10 @@ class $StringValuedMapType<$K extends jni.JObject>
       StringValuedMap.fromRef(K, ref);
 
   @override
-  jni.JObjType get parent => $MyMapType(K, const jni.JStringType());
+  jni.JObjType get superType => $MyMapType(K, const jni.JStringType());
+
+  @override
+  final superCount = 2;
 }
 
 /// from: com.github.dart_lang.jnigen.annotations.JsonSerializable$Case
@@ -1548,7 +1596,10 @@ class $JsonSerializable_CaseType extends jni.JObjType<JsonSerializable_Case> {
       JsonSerializable_Case.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.github.dart_lang.jnigen.annotations.MyDataClass
@@ -1583,5 +1634,8 @@ class $MyDataClassType extends jni.JObjType<MyDataClass> {
   MyDataClass fromRef(jni.JObjectPtr ref) => MyDataClass.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }

@@ -265,6 +265,13 @@ void main() async {
         });
       });
     });
+    test('superclass count', () {
+      expect(JObject.type.superCount, 0);
+      expect(MyMap.type(JObject.type, JObject.type).superCount, 1);
+      expect(StringKeyedMap.type(JObject.type).superCount, 2);
+      expect(StringValuedMap.type(JObject.type).superCount, 2);
+      expect(StringMap.type.superCount, 3);
+    });
     test('nested generics', () {
       using((arena) {
         final grandParent =

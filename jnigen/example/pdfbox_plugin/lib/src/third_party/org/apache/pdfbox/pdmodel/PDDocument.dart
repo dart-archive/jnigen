@@ -1438,5 +1438,8 @@ class $PDDocumentType extends jni.JObjType<PDDocument> {
   PDDocument fromRef(jni.JObjectPtr ref) => PDDocument.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }

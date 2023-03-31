@@ -34,7 +34,10 @@ abstract class JType<T> {
 }
 
 abstract class JObjType<T extends JObject> extends JType<T> {
-  JObjType get parent;
+  /// Number of super types. Distance to the root type.
+  int get superCount;
+
+  JObjType get superType;
 
   const JObjType();
 

@@ -1,3 +1,8 @@
+## 0.4.0
+* **Breaking:** Type arguments are now named instead of positional.
+* Fixed a bug where passing a `long` argument truncated it to `int` in pure dart bindings.
+* Removed array extensions from the generated code.
+
 ## 0.3.0
 * Added the option to convert Kotlin `suspend fun` to Dart async methods. Add `suspend_fun_to_async: true` to `jnigen.yaml`.
 

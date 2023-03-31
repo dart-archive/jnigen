@@ -1309,5 +1309,8 @@ class $PDFTextStripperType extends jni.JObjType<PDFTextStripper> {
   PDFTextStripper fromRef(jni.JObjectPtr ref) => PDFTextStripper.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }

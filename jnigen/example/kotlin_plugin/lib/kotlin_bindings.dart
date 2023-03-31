@@ -77,5 +77,8 @@ class $ExampleType extends jni.JObjType<Example> {
   Example fromRef(jni.JObjectPtr ref) => Example.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }

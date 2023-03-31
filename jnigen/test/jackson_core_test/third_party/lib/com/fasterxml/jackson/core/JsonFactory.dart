@@ -1650,7 +1650,10 @@ class $JsonFactoryType extends jni.JObjType<JsonFactory> {
   JsonFactory fromRef(jni.JObjectPtr ref) => JsonFactory.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: com.fasterxml.jackson.core.JsonFactory$Feature
@@ -1742,5 +1745,8 @@ class $JsonFactory_FeatureType extends jni.JObjType<JsonFactory_Feature> {
       JsonFactory_Feature.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }

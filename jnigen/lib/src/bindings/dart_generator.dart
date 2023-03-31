@@ -395,7 +395,10 @@ class $typeClassName$typeParamsDef extends $_jType<$name$typeParamsCall> {
   );
 
   @override
-  $_jType get parent => ${superTypeClass.name};
+  $_jType get superType => ${superTypeClass.name};
+
+  @override
+  final superCount = ${node.superCount};
 }
 
 ''');

@@ -81,5 +81,8 @@ class $NotificationsType extends jni.JObjType<Notifications> {
   Notifications fromRef(jni.JObjectPtr ref) => Notifications.fromRef(ref);
 
   @override
-  jni.JObjType get parent => const jni.JObjectType();
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
