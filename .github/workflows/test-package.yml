@@ -89,6 +89,9 @@ jobs:
       - name: build notification_plugin example APK
         run: flutter build apk --target-platform=android-arm64
         working-directory: ./jnigen/example/notification_plugin/example
+      - name: Run summarizer tests
+        run: mvn surefire:test
+        working-directory: ./jnigen/java
       - name: Run VM tests
         run: dart test --platform vm
       - name: Install coverage
@@ -103,20 +106,6 @@ jobs:
           parallel: true
           path-to-lcov: ./jnigen/coverage/lcov.info
         if: ${{ matrix.sdk == 'stable' }}
-
-  test_summarizer:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./jnigen/java
-    steps:
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
-      - uses: actions/setup-java@ea15b3b99cdc9ac45af1882d085e3f9297a75a8b
-        with:
-          distribution: "zulu"
-          java-version: "11"
-      - name: run tests using maven surefire
-        run: mvn surefire:test
 
   analyze_jni:
     runs-on: ubuntu-latest
