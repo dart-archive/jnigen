@@ -6,45 +6,33 @@ import java.io.*;
 public class FileInputStreamProvider implements InputStreamProvider {
   File file;
   InputStream stream;
-  volatile boolean isOpen = false;
 
   public FileInputStreamProvider(File file) {
     this.file = file;
   }
 
-  private synchronized void openInputStream() {
-    // Double-checked locking
-    if (isOpen) return;
-    try {
-      stream = new FileInputStream(file);
-      isOpen = true;
-    } catch (FileNotFoundException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  private synchronized void closeInputStream() {
-    if (isOpen) {
-      try {
-        stream.close();
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      }
-    }
-  }
-
   @Override
   public InputStream getInputStream() {
-    if (!isOpen) {
-      openInputStream();
+    if (stream == null) {
+      try {
+        stream = new FileInputStream(file);
+      } catch (FileNotFoundException e) {
+        throw new RuntimeException(e);
+      }
     }
     return stream;
   }
 
   @Override
   public void close() {
-    if (isOpen) {
-      closeInputStream();
+    if (stream == null) {
+      return;
+    }
+    try {
+      stream.close();
+      stream = null;
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
   }
 }
