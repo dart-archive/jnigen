@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:jnigen/src/config/config.dart';
 import 'package:test/test.dart';
 import 'package:path/path.dart' hide equals;
@@ -10,12 +12,12 @@ import 'package:path/path.dart' as path show equals;
 import 'jackson_core_test/generate.dart';
 
 const packageTests = 'test';
-final jacksonCoreTests = join(packageTests, 'jackson_core_test');
-final thirdParty = join(jacksonCoreTests, 'third_party');
-final lib = join(thirdParty, 'lib');
-final src = join(thirdParty, 'src');
-final testLib = join(thirdParty, 'test_', 'lib');
-final testSrc = join(thirdParty, 'test_', 'src');
+final jacksonCoreTests = absolute(packageTests, 'jackson_core_test');
+final thirdParty = absolute(jacksonCoreTests, 'third_party');
+final lib = absolute(thirdParty, 'lib');
+final src = absolute(thirdParty, 'src');
+final testLib = absolute(thirdParty, 'test_', 'lib');
+final testSrc = absolute(thirdParty, 'test_', 'src');
 
 /// Compares 2 [Config] objects using [expect] to give useful errors when
 /// two fields are not equal.
@@ -95,8 +97,8 @@ void main() {
   final config = Config.parseArgs([
     '--config',
     jnigenYaml,
-    '-Doutput.c.path=$testSrc/',
-    '-Doutput.dart.path=$testLib/',
+    '-Doutput.c.path=$testSrc${Platform.pathSeparator}',
+    '-Doutput.dart.path=$testLib${Platform.pathSeparator}',
   ]);
 
   test('compare configuration values', () {
