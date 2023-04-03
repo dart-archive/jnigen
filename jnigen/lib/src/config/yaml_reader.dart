@@ -104,13 +104,8 @@ class YamlReader {
     return configResult?.map((e) => e.path).toList();
   }
 
-  String? getOneOf(String property, Set<String> values) {
-    final value = _config.optionalString(property);
-    if (value == null || values.contains(value)) {
-      return value;
-    }
-    throw ConfigException('expected one of $values for $property');
-  }
+  String? getOneOf(String property, Set<String> values) =>
+      _config.optionalString(property, validValues: values);
 
   Map<String, String>? getStringMap(String property) {
     final value = _config.valueOf<YamlMap?>(property);
