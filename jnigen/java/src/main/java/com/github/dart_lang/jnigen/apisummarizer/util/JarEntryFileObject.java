@@ -9,6 +9,7 @@ import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 import javax.tools.SimpleJavaFileObject;
 
+/** Implements JavaFileObject for use by Doclet summarizer. */
 class JarEntryFileObject extends SimpleJavaFileObject {
   JarFile jarFile;
   String relativePath;
@@ -22,7 +23,7 @@ class JarEntryFileObject extends SimpleJavaFileObject {
   private int getEntrySize(ZipEntry entry) {
     long limit = 1024L * 1024L * 16L; // Arbitrary limit, how long can be a source file?
     long size = entry.getSize();
-    return size > limit ? (int) limit : (int) size;
+    return (int) Long.max(size, limit);
   }
 
   @Override
