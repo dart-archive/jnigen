@@ -157,7 +157,7 @@ task $_gradleGetSourcesTaskName(type: Copy) {
   }) {
     log.info('trying to obtain gradle dependencies [$stubName]...');
     if (configRoot != null) {
-      androidProject = join(configRoot.toFilePath(), androidProject);
+      androidProject = configRoot.resolve(androidProject).toFilePath();
     }
     final android = join(androidProject, 'android');
     final buildGradle = join(android, 'build.gradle');
