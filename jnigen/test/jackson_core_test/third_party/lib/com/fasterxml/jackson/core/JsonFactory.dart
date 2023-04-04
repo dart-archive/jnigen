@@ -1018,10 +1018,11 @@ class JsonFactory extends jni.JObject {
           jni.JArray<jni.JByte> data, int offset, int len) =>
       const jsonparser_.$JsonParserType().fromRef(jniAccessors
           .callMethodWithArgs(
-              reference,
-              _id_createParser5,
-              jni.JniCallType.objectType,
-              [data.reference, offset, len]).object);
+              reference, _id_createParser5, jni.JniCallType.objectType, [
+        data.reference,
+        jni.JValueInt(offset),
+        jni.JValueInt(len)
+      ]).object);
 
   static final _id_createParser6 = jniAccessors.getMethodIDOf(
       _classRef,
@@ -1065,10 +1066,11 @@ class JsonFactory extends jni.JObject {
           jni.JArray<jni.JChar> content, int offset, int len) =>
       const jsonparser_.$JsonParserType().fromRef(jniAccessors
           .callMethodWithArgs(
-              reference,
-              _id_createParser8,
-              jni.JniCallType.objectType,
-              [content.reference, offset, len]).object);
+              reference, _id_createParser8, jni.JniCallType.objectType, [
+        content.reference,
+        jni.JValueInt(offset),
+        jni.JValueInt(len)
+      ]).object);
 
   static final _id_createParser9 = jniAccessors.getMethodIDOf(
       _classRef,
@@ -1414,10 +1416,11 @@ class JsonFactory extends jni.JObject {
           jni.JArray<jni.JByte> data, int offset, int len) =>
       const jsonparser_.$JsonParserType().fromRef(jniAccessors
           .callMethodWithArgs(
-              reference,
-              _id_createJsonParser5,
-              jni.JniCallType.objectType,
-              [data.reference, offset, len]).object);
+              reference, _id_createJsonParser5, jni.JniCallType.objectType, [
+        data.reference,
+        jni.JValueInt(offset),
+        jni.JValueInt(len)
+      ]).object);
 
   static final _id_createJsonParser6 = jniAccessors.getMethodIDOf(
       _classRef,
@@ -1536,17 +1539,6 @@ class $JsonFactoryType extends jni.JObjType<JsonFactory> {
   JsonFactory fromRef(jni.JObjectPtr ref) => JsonFactory.fromRef(ref);
 }
 
-extension $JsonFactoryArray on jni.JArray<JsonFactory> {
-  JsonFactory operator [](int index) {
-    return (elementType as $JsonFactoryType)
-        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
-  }
-
-  void operator []=(int index, JsonFactory value) {
-    (this as jni.JArray<jni.JObject>)[index] = value;
-  }
-}
-
 /// from: com.fasterxml.jackson.core.JsonFactory$Feature
 ///
 /// Enumeration that defines all on/off features that can only be
@@ -1610,7 +1602,10 @@ class JsonFactory_Feature extends jni.JObject {
 
   /// from: public boolean enabledIn(int flags)
   bool enabledIn(int flags) => jniAccessors.callMethodWithArgs(
-      reference, _id_enabledIn, jni.JniCallType.booleanType, [flags]).boolean;
+      reference,
+      _id_enabledIn,
+      jni.JniCallType.booleanType,
+      [jni.JValueInt(flags)]).boolean;
 
   static final _id_getMask =
       jniAccessors.getMethodIDOf(_classRef, r"getMask", r"()I");
@@ -1629,15 +1624,4 @@ class $JsonFactory_FeatureType extends jni.JObjType<JsonFactory_Feature> {
   @override
   JsonFactory_Feature fromRef(jni.JObjectPtr ref) =>
       JsonFactory_Feature.fromRef(ref);
-}
-
-extension $JsonFactory_FeatureArray on jni.JArray<JsonFactory_Feature> {
-  JsonFactory_Feature operator [](int index) {
-    return (elementType as $JsonFactory_FeatureType)
-        .fromRef(elementAt(index, jni.JniCallType.objectType).object);
-  }
-
-  void operator []=(int index, JsonFactory_Feature value) {
-    (this as jni.JArray<jni.JObject>)[index] = value;
-  }
 }
