@@ -2,16 +2,13 @@
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
 
-# DO NOT MERGE: prototype.
-publish_to: none
-
 name: jnigen
 version: 0.3.0
 description: Experimental generator for FFI+JNI bindings.
 repository: https://github.com/dart-lang/jnigen/tree/main/jnigen
 
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: '>=2.17.0 <4.0.0'
 
 dependencies:
   json_annotation: ^4.8.0
@@ -20,11 +17,7 @@ dependencies:
   args: ^2.3.0
   yaml: ^3.1.0
   logging: ^1.0.2
-  cli_config:
-    git:
-      url: https://github.com/dart-lang/tools.git
-      ref: ba179b3ed963e31baa663a17b16f1b6a63ea5b31
-      path: pkgs/cli_config/
+  cli_config: ^0.1.0
 
 dev_dependencies:
   lints: ^2.0.0
