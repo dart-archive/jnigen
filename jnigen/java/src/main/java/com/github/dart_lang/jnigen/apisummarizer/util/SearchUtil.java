@@ -14,7 +14,7 @@ import javax.tools.StandardJavaFileManager;
 public class SearchUtil {
   public static Optional<List<File>> findFilesInPath(
       String qualifiedName, String searchPath, String suffix) {
-    var s = qualifiedName.replace(".", "/");
+    var s = qualifiedName.replace(".", File.separator);
     var f = new File(searchPath, s + suffix);
     if (f.exists() && f.isFile()) {
       return Optional.of(List.of(f));
