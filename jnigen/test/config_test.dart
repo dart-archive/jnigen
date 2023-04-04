@@ -76,7 +76,7 @@ final jnigenYaml = join(jacksonCoreTests, 'jnigen.yaml');
 Config parseYamlConfig({List<String> overrides = const []}) =>
     Config.parseArgs(['--config', jnigenYaml, ...overrides]);
 
-void testForErrorChecking(
+void testForErrorChecking<T extends Exception>(
     {required String name,
     required List<String> overrides,
     dynamic Function(Config)? function}) {
@@ -88,7 +88,7 @@ void testForErrorChecking(
           function(config);
         }
       },
-      throwsA(isA<ConfigException>()),
+      throwsA(isA<T>()),
     );
   });
 }
@@ -106,19 +106,19 @@ void main() {
   });
 
   group('Test for config error checking', () {
-    testForErrorChecking(
+    testForErrorChecking<ConfigException>(
       name: 'Invalid bindings type',
       overrides: ['-Doutput.bindings_type=c_base'],
     );
-    testForErrorChecking(
+    testForErrorChecking<ConfigException>(
       name: 'Invalid output structure',
       overrides: ['-Doutput.dart.structure=singl_file'],
     );
-    testForErrorChecking(
+    testForErrorChecking<ConfigException>(
       name: 'Dart path not ending with /',
       overrides: ['-Doutput.dart.path=lib'],
     );
-    testForErrorChecking(
+    testForErrorChecking<FormatException>(
       name: 'Invalid log level',
       overrides: ['-Dlog_level=inf'],
     );
