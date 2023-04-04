@@ -92,7 +92,7 @@ class SummarizerCommand {
   }
 }
 
-Future<Classes?> getSummary(Config config) async {
+Future<Classes> getSummary(Config config) async {
   setLoggingLevel(config.logLevel);
   final summarizer = SummarizerCommand(
     sourcePath: config.sourcePath,
@@ -152,7 +152,6 @@ Future<Classes?> getSummary(Config config) async {
     input = process.stdout;
   } on Exception catch (e) {
     log.fatal('Cannot obtain API summary: $e');
-    return null;
   }
   final errorLog = StringBuffer();
   collectOutputStream(process.stderr, errorLog);
@@ -163,11 +162,9 @@ Future<Classes?> getSummary(Config config) async {
   } on Exception catch (e) {
     printError(errorLog);
     log.fatal('Cannot parse summary: $e');
-    return null;
   }
   if (json == null) {
     log.fatal('Expected JSON element from summarizer.');
-    return null;
   }
   final list = json as List;
   final classes = Classes.fromJson(list);

@@ -23,10 +23,6 @@ Future<void> generateJniBindings(Config config) async {
   await buildSummarizerIfNotExists();
 
   final classes = await getSummary(config);
-  if (classes == null) {
-    log.fatal("Error occurred while parsing inputs.");
-    return;
-  }
 
   final cBased = config.outputConfig.bindingsType == BindingsType.cBased;
   classes
