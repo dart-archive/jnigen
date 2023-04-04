@@ -47,14 +47,14 @@ public class SummarizerOptions {
             true,
             "backend to use for summary generation ('doclet', 'asm' or 'auto' (default)).");
     Option useModules = new Option("M", "use-modules", false, "use Java modules");
-    Option recursive = new Option("r", "recursive", false, "Include dependencies of classes");
+    Option recursive = new Option("r", "recursive", false, "include dependencies of classes");
     Option moduleNames =
         new Option("m", "module-names", true, "comma separated list of module names");
     Option doctoolArgs =
-        new Option("D", "doctool-args", true, "Arguments to pass to the documentation tool");
-    Option verbose = new Option("v", "verbose", false, "Enable verbose output");
+        new Option("D", "doctool-args", true, "arguments to pass to the documentation tool");
+    Option verbose = new Option("v", "verbose", false, "enable verbose output");
     Option outputFile =
-        new Option("o", "output-file", true, "Write JSON to file instead of stdout");
+        new Option("o", "output-file", true, "write JSON to file instead of stdout");
     for (Option opt :
         new Option[] {
           sources,
