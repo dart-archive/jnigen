@@ -12,7 +12,6 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 
 public class SearchUtil {
-  /// find files in path
   public static Optional<List<File>> findFilesInPath(
       String qualifiedName, String searchPath, String suffix) {
     var s = qualifiedName.replace(".", "/");
@@ -29,7 +28,6 @@ public class SearchUtil {
     return Optional.empty();
   }
 
-  /// find files in jar
   public static Optional<List<ZipEntry>> findFilesInJar(
       String qualifiedName, JarFile jar, String suffix) {
     String relativePath = qualifiedName.replace(".", "/");
@@ -54,7 +52,6 @@ public class SearchUtil {
     return Optional.empty();
   }
 
-  /// find stuff somewhere
   public static <T> Optional<List<T>> find(
       String qualifiedName,
       List<String> searchPaths,
@@ -103,7 +100,6 @@ public class SearchUtil {
     return StreamUtil.map(entries, entry -> new JarEntryInputStreamProvider(jarFile, entry));
   }
 
-  // find java files somewhere
   public static Optional<List<JavaFileObject>> findJavaSources(
       String qualifiedName, List<String> searchPaths, StandardJavaFileManager fm) {
     return find(
@@ -113,7 +109,7 @@ public class SearchUtil {
         files -> getJavaFileObjectsFromFiles(files, fm),
         SearchUtil::getJavaFileObjectsFromJar);
   }
-  // find classes somewhere
+
   public static Optional<List<InputStreamProvider>> findJavaClasses(
       String qualifiedName, List<String> searchPaths) {
     return find(
