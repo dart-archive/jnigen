@@ -23,7 +23,7 @@ class JarEntryFileObject extends SimpleJavaFileObject {
   private int getEntrySize(ZipEntry entry) {
     long limit = 1024L * 1024L * 16L; // Arbitrary limit, how long can be a source file?
     long size = entry.getSize();
-    return (int) Long.max(size, limit);
+    return (int) Long.min(size, limit);
   }
 
   @Override
