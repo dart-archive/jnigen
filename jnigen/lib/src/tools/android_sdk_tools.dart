@@ -216,7 +216,7 @@ task $_gradleGetSourcesTaskName(type: Copy) {
     final paths = (procRes.stdout as String)
         .trim()
         .split(Platform.isWindows ? '\r\n' : '\n');
-    log.info('Found ${paths.length} entries');
+    log.fine('Found ${paths.length} entries');
     return paths;
   }
 }
