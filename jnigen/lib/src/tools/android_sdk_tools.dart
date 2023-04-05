@@ -58,34 +58,50 @@ class AndroidSdkTools {
     return null;
   }
 
+  static const _gradleCannotFindJars = 'Gradle stub cannot find JAR libraries. '
+      'This might be because no APK build has happened yet.';
+
+  static const _leftOverStubWarning = 'If you are seeing this error in '
+      '`flutter build` output, it is likely that `jnigen` left some stubs in '
+      'the build.gradle file. Please restore that file from your version '
+      'control system or manually remove the stub functions named '
+      '$_gradleGetClasspathTaskName and / or $_gradleGetSourcesTaskName.';
+
   static Future<String?> getAndroidJarPath(
           {required String sdkRoot, required List<int> versionOrder}) async =>
       await _getFile(sdkRoot, 'platforms', versionOrder, 'android.jar');
 
   static const _gradleGetClasspathTaskName = 'getReleaseCompileClasspath';
+
   static const _gradleGetClasspathStub = '''
 // Gradle stub for listing dependencies in jnigen. If found in
 // android/build.gradle, please delete the following function.
 task $_gradleGetClasspathTaskName(type: Copy) {
   project.afterEvaluate {
-    def app = project(':app')
-    def android = app.android
-    def cp = [android.getBootClasspath()[0]]
-    android.applicationVariants.each { variant ->
-      if (variant.name.equals('release')) {
-        cp += variant.javaCompile.classpath.getFiles()
+    try {
+      def app = project(':app')
+      def android = app.android
+      def cp = [android.getBootClasspath()[0]]
+      android.applicationVariants.each { variant ->
+        if (variant.name.equals('release')) {
+          cp += variant.javaCompile.classpath.getFiles()
+        }
       }
+      cp.each { println it }
+    } catch (Exception e) {
+      System.err.println("$_gradleCannotFindJars")
+      System.err.println("$_leftOverStubWarning")
     }
-    cp.each { println it }
   }
 }
 ''';
 
   static const _gradleGetSourcesTaskName = 'getSources';
   // adapted from https://stackoverflow.com/questions/39975780/how-can-i-use-gradle-to-download-dependencies-and-their-source-files-and-place-t/39981143#39981143
+  // Although it appears we can use this same code for getting JAR artifacts,
+  // there is no JAR equivalent for `org.gradle.language.base.Artifact`.
+  // So it appears different methods should be used for JAR artifacts.
   static const _gradleGetSourcesStub = '''
-// Gradle stub for fetching source dependencies in jnigen. If found in
-// android/build.gradle, please delete the following function.
 // Gradle stub for fetching source dependencies in jnigen. If found in
 // android/build.gradle, please delete the following function.
 task $_gradleGetSourcesTaskName(type: Copy) {
@@ -110,6 +126,7 @@ task $_gradleGetSourcesTaskName(type: Copy) {
     }
     sourceArtifacts.forEach { println it }
   }
+  System.err.println("$_leftOverStubWarning")
 }
 ''';
 
