@@ -1,5 +1,5 @@
 android_sdk_config:
-  add_gradle_deps: true
+  add_gradle_jars: true
   android_example: 'example/'
 
 preamble: |

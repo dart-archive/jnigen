@@ -124,7 +124,7 @@ Future<Classes> getSummary(Config config) async {
         .toList());
   }
   final androidConfig = config.androidSdkConfig;
-  if (androidConfig != null && androidConfig.addGradleDeps) {
+  if (androidConfig != null && androidConfig.addGradleJars) {
     final deps = AndroidSdkTools.getGradleClasspaths(
       configRoot: config.configRoot,
       androidProject: androidConfig.androidExample ?? '.',

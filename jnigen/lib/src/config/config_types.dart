@@ -43,7 +43,7 @@ class MavenDownloads {
 /// The SDK directories for platform stub JARs and sources are searched in the
 /// same order in which [versions] are specified.
 ///
-/// If [addGradleDeps] is true, a gradle stub is run in order to collect the
+/// If [addGradleJars] is true, a gradle stub is run in order to collect the
 /// actual compile classpath of the `android/` subproject.
 /// This will fail if there was no previous build of the project, or if a
 /// `clean` task was run either through flutter or gradle wrapper. In such case,
@@ -58,7 +58,7 @@ class AndroidSdkConfig {
   AndroidSdkConfig({
     this.versions,
     this.sdkRoot,
-    this.addGradleDeps = false,
+    this.addGradleJars = false,
     this.addGradleSources = false,
     this.androidExample,
   }) {
@@ -66,8 +66,8 @@ class AndroidSdkConfig {
       throw ConfigException("No SDK Root specified for finding Android SDK "
           "from version priority list $versions");
     }
-    if (versions == null && !addGradleDeps && !addGradleSources) {
-      throw ConfigException('Neither any SDK versions nor `addGradleDeps` '
+    if (versions == null && !addGradleJars && !addGradleSources) {
+      throw ConfigException('Neither any SDK versions nor `addGradleJars` '
           'is specified. Unable to find Android libraries.');
     }
   }
@@ -91,13 +91,13 @@ class AndroidSdkConfig {
   /// application, it's not possible to determine the build classpath directly.
   /// Please provide [androidExample] pointing to an example application in
   /// that case.
-  bool addGradleDeps;
+  bool addGradleJars;
 
-  /// Similar to [addGradleDeps], runs a stub to obtain source dependencies of
+  /// Similar to [addGradleJars], runs a stub to obtain source dependencies of
   /// the Android project.
   ///
   /// This may cause additional source JAR artifacts to be downloaded. Like the
-  /// [addGradleDeps] option, plugins cannot be built so an example should be
+  /// [addGradleJars] option, plugins cannot be built so an example should be
   /// specified.
   bool addGradleSources;
 
@@ -438,7 +438,7 @@ class Config {
                   ?.map(int.parse)
                   .toList(),
               sdkRoot: getSdkRoot(),
-              addGradleDeps: prov.getBool(_Props.addGradleDeps) ?? false,
+              addGradleJars: prov.getBool(_Props.addGradleJars) ?? false,
               addGradleSources: prov.getBool(_Props.addGradleSources) ?? false,
               // Leaving this as getString instead of getPath, because
               // it's resolved later in android_sdk_tools.
@@ -508,7 +508,7 @@ class _Props {
   static const androidSdkConfig = 'android_sdk_config';
   static const androidSdkRoot = '$androidSdkConfig.sdk_root';
   static const androidSdkVersions = '$androidSdkConfig.versions';
-  static const addGradleDeps = '$androidSdkConfig.add_gradle_deps';
+  static const addGradleJars = '$androidSdkConfig.add_gradle_jars';
   static const addGradleSources = '$androidSdkConfig.add_gradle_sources';
   static const androidExample = '$androidSdkConfig.android_example';
 }
