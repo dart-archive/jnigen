@@ -1102,6 +1102,59 @@ JniResult MyStack__ctor() {
                      .exception = check_exception()};
 }
 
+jmethodID _m_MyStack__of = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyStack__of() {
+  load_env();
+  load_class_gr(&_c_MyStack, "com/github/dart_lang/jnigen/generics/MyStack");
+  if (_c_MyStack == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_MyStack, &_m_MyStack__of, "of",
+                     "()Lcom/github/dart_lang/jnigen/generics/MyStack;");
+  if (_m_MyStack__of == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_MyStack, _m_MyStack__of);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_MyStack__of1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyStack__of1(jobject obj) {
+  load_env();
+  load_class_gr(&_c_MyStack, "com/github/dart_lang/jnigen/generics/MyStack");
+  if (_c_MyStack == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_static_method(
+      _c_MyStack, &_m_MyStack__of1, "of",
+      "(Ljava/lang/Object;)Lcom/github/dart_lang/jnigen/generics/MyStack;");
+  if (_m_MyStack__of1 == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_MyStack,
+                                                      _m_MyStack__of1, obj);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_MyStack__of2 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyStack__of2(jobject obj, jobject obj2) {
+  load_env();
+  load_class_gr(&_c_MyStack, "com/github/dart_lang/jnigen/generics/MyStack");
+  if (_c_MyStack == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_MyStack, &_m_MyStack__of2, "of",
+                     "(Ljava/lang/Object;Ljava/lang/Object;)Lcom/github/"
+                     "dart_lang/jnigen/generics/MyStack;");
+  if (_m_MyStack__of2 == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_MyStack, _m_MyStack__of2, obj, obj2);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
 jmethodID _m_MyStack__push = NULL;
 FFI_PLUGIN_EXPORT
 JniResult MyStack__push(jobject self_, jobject item) {

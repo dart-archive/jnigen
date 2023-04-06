@@ -13,6 +13,23 @@ public class MyStack<T> {
     stack = new Stack<>();
   }
 
+  public static <T> MyStack<T> of() {
+    return new MyStack<>();
+  }
+
+  public static <T> MyStack<T> of(T obj) {
+    var stack = new MyStack<T>();
+    stack.push(obj);
+    return stack;
+  }
+
+  public static <T> MyStack<T> of(T obj, T obj2) {
+    var stack = new MyStack<T>();
+    stack.push(obj);
+    stack.push(obj2);
+    return stack;
+  }
+
   public void push(T item) {
     stack.push(item);
   }

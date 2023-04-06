@@ -2,7 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:jni/jni.dart';
@@ -18,8 +17,8 @@ void main() {
   }
 
   test('commonType', () {
-    expect(commonType(JObject.type, JObject.type), JObject.type);
-    expect(commonType(JString.type, JString.type), JString.type);
-    expect(commonType(JString.type, JArray.type(JLong.type)), JObject.type);
+    expect(commonType([JObject.type, JObject.type]), JObject.type);
+    expect(commonType([JString.type, JString.type]), JString.type);
+    expect(commonType([JString.type, JArray.type(JLong.type)]), JObject.type);
   });
 }

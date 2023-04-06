@@ -50,6 +50,9 @@ extension on String {
   String capitalize() {
     return '${this[0].toUpperCase()}${substring(1)}';
   }
+
+  /// Reverses an ASCII string.
+  String get reversed => split('').reversed.join();
 }
 
 extension on Iterable<String> {
@@ -68,6 +71,31 @@ String _encloseIfNotEmpty(String open, String inside, String close) {
 
 String _newLine({int depth = 0}) {
   return '\n${'  ' * depth}';
+}
+
+/// Merges two maps by adding all the values of one to the other.
+Map<K, List<V>> _mergeMapValues<K, V>(Map<K, List<V>> a, Map<K, List<V>> b) {
+  final merged = <K, List<V>>{};
+  for (final key in {...a.keys, ...b.keys}) {
+    if (!a.containsKey(key)) {
+      merged[key] = b[key]!;
+      continue;
+    }
+    if (!b.containsKey(key)) {
+      merged[key] = a[key]!;
+      continue;
+    }
+
+    // Merging the smaller one to the bigger one
+    if (a[key]!.length > b[key]!.length) {
+      merged[key] = a[key]!;
+      merged[key]!.addAll(b[key]!);
+    } else {
+      merged[key] = b[key]!;
+      merged[key]!.addAll(a[key]!);
+    }
+  }
+  return merged;
 }
 
 /// **Naming Convention**
@@ -975,6 +1003,22 @@ class _MethodGenerator extends Visitor<Method, void> {
     }
     node.javadoc?.accept(_DocGenerator(s, depth: 1));
 
+    // Used for inferring the type parameter from the given parameters.
+    final typeLocators = node.params
+        .accept(_ParamTypeLocator(resolver: resolver))
+        .fold(<String, List<String>>{}, _mergeMapValues).map(
+            (key, value) => MapEntry(
+                  key,
+                  _encloseIfNotEmpty(
+                    '[',
+                    value.delimited(', '),
+                    ']',
+                  ),
+                ));
+    bool isRequired(TypeParam typeParam) {
+      return (typeLocators[typeParam.name] ?? '').isEmpty;
+    }
+
     if (node.isCtor) {
       final className = node.classDecl.finalName;
       final name = node.finalName;
@@ -983,7 +1027,8 @@ class _MethodGenerator extends Visitor<Method, void> {
       final typeClassDef = _encloseIfNotEmpty(
         '{',
         node.classDecl.allTypeParams
-            .accept(const _CtorTypeClassDef())
+            .map((typeParam) => typeParam
+                .accept(_CtorTypeClassDef(isRequired: isRequired(typeParam))))
             .delimited(', '),
         '}',
       );
@@ -1016,9 +1061,20 @@ class _MethodGenerator extends Visitor<Method, void> {
     final defArgs = node.params.accept(_ParamDef(resolver)).toList();
     final typeClassDef = _encloseIfNotEmpty(
       '{',
-      node.typeParams.accept(const _MethodTypeClassDef()).delimited(', '),
+      node.typeParams
+          .map((typeParam) => typeParam.accept(_MethodTypeClassDef(
+                isRequired: isRequired(typeParam),
+              )))
+          .delimited(', '),
       '}',
     );
+    final typeInferrence = node.typeParams
+        .where((typeParam) => !isRequired(typeParam))
+        .map((typeParam) => typeParam.name)
+        .map((typeParam) =>
+            '$typeParam ??= $_jni.commonType(${typeLocators[typeParam]})'
+            ' as $_jType<$_typeParamPrefix$typeParam>;')
+        .join(_newLine(depth: 2));
     final typeParamsDef = _encloseIfNotEmpty(
       '<',
       node.typeParams
@@ -1036,6 +1092,7 @@ class _MethodGenerator extends Visitor<Method, void> {
       final returning =
           node.asyncReturnType!.accept(_FromNative(resolver, '\$o'));
       s.write('''async {
+    $typeInferrence
     final \$p = ReceivePort();
     final \$c = $_jObject.fromRef($_jni.Jni.newPortContinuation(\$p));
     $callExpr;
@@ -1050,7 +1107,11 @@ class _MethodGenerator extends Visitor<Method, void> {
 ''');
     } else {
       final returning = node.returnType.accept(_FromNative(resolver, callExpr));
-      s.writeln('=> $returning;\n');
+      s.writeln('''{
+    $typeInferrence
+    return $returning;
+  }
+''');
     }
   }
 }
@@ -1062,11 +1123,14 @@ class _MethodGenerator extends Visitor<Method, void> {
 /// void bar(..., {required JObjType<T> $T}) => ...
 /// ```
 class _MethodTypeClassDef extends Visitor<TypeParam, String> {
-  const _MethodTypeClassDef();
+  final bool isRequired;
+
+  const _MethodTypeClassDef({required this.isRequired});
 
   @override
   String visit(TypeParam node) {
-    return 'required $_jType<$_typeParamPrefix${node.name}> ${node.name}';
+    return '${isRequired ? 'required ' : ''}$_jType'
+        '<$_typeParamPrefix${node.name}>${isRequired ? '' : '?'} ${node.name}';
   }
 }
 
@@ -1080,7 +1144,9 @@ class _MethodTypeClassDef extends Visitor<TypeParam, String> {
 /// }
 /// ```
 class _CtorTypeClassDef extends Visitor<TypeParam, String> {
-  const _CtorTypeClassDef();
+  final bool isRequired;
+
+  const _CtorTypeClassDef({required this.isRequired});
 
   @override
   String visit(TypeParam node) {
@@ -1151,5 +1217,128 @@ class _JValueWrapper extends TypeVisitor<String> {
       return param;
     }
     return '$_jni.JValue${node.name.capitalize()}($param)';
+  }
+}
+
+/// A [StringBuffer] that prepends instead of appending on write.
+/// It also automatically adds the appropriate number of opening parenthesis
+/// at the beginning when calling [toString].
+///
+/// For example:
+/// ```dart
+/// final buffer = _PrependingStringBuffer();
+/// buffer.write(' as A).first');
+/// buffer.write(' as B).second');
+/// buffer.write('third');
+/// buffer.toString(); // ((third as B).second as A).first
+/// ```
+class _PrependingBuffer {
+  final StringBuffer _buffer;
+  var closingParenthesis = 0;
+
+  _PrependingBuffer([String content = ''])
+      : _buffer = StringBuffer(content.reversed);
+
+  void write(Object? object) {
+    final s = object.toString();
+    for (var i = 0; i < s.length; ++i) {
+      if (s[s.length - i - 1] == ')') {
+        ++closingParenthesis;
+      }
+      _buffer.write(s[s.length - i - 1]);
+    }
+  }
+
+  @override
+  String toString() {
+    _buffer.write('(' * closingParenthesis);
+    closingParenthesis = 0;
+    return _buffer.toString().reversed;
+  }
+}
+
+/// The ways to locate each type parameter.
+///
+/// For example in `JArray<JMap<$T, $T>> a`, `T` can be retreived using
+/// ```dart
+/// ((((a.$type as JArrayType).elementType) as $JMapType).K) as jni.JObjType<$T>
+/// ```
+/// and
+/// ```dart
+/// ((((a.$type as JArrayType).elementType) as $JMapType).V) as jni.JObjType<$T>
+/// ```
+class _ParamTypeLocator extends Visitor<Param, Map<String, List<String>>> {
+  _ParamTypeLocator({required this.resolver});
+
+  final Resolver? resolver;
+
+  @override
+  Map<String, List<String>> visit(Param node) {
+    return node.type.accept(_TypeVarLocator(resolver: resolver)).map(
+          (key, value) => MapEntry(
+            key,
+            value
+                .map((e) => (e..write('${node.finalName}.\$type')).toString())
+                .toList(),
+          ),
+        );
+  }
+}
+
+class _TypeVarLocator
+    extends TypeVisitor<Map<String, List<_PrependingBuffer>>> {
+  _TypeVarLocator({required this.resolver});
+
+  final Resolver? resolver;
+
+  @override
+  Map<String, List<_PrependingBuffer>> visitNonPrimitiveType(
+      ReferredType node) {
+    return {};
+  }
+
+  @override
+  Map<String, List<_PrependingBuffer>> visitWildcard(Wildcard node) {
+    // TODO(#141): Support wildcards
+    return super.visitWildcard(node);
+  }
+
+  @override
+  Map<String, List<_PrependingBuffer>> visitTypeVar(TypeVar node) {
+    return {
+      node.name: [_PrependingBuffer()],
+    };
+  }
+
+  @override
+  Map<String, List<_PrependingBuffer>> visitDeclaredType(DeclaredType node) {
+    final offset = node.classDecl.allTypeParams.length - node.params.length;
+    final result = <String, List<_PrependingBuffer>>{};
+    final typeClass = node.accept(_TypeClassGenerator(resolver)).name;
+    for (var i = 0; i < node.params.length; ++i) {
+      final typeParam = node.classDecl.allTypeParams[i + offset].name;
+      final exprs = node.params[i].accept(this);
+      for (final expr in exprs.entries) {
+        for (final buffer in expr.value) {
+          buffer.write(' as $typeClass).$typeParam');
+          result[expr.key] = (result[expr.key] ?? [])..add(buffer);
+        }
+      }
+    }
+    return result;
+  }
+
+  @override
+  Map<String, List<_PrependingBuffer>> visitArrayType(ArrayType node) {
+    final exprs = node.type.accept(this);
+    for (final e in exprs.values.expand((i) => i)) {
+      e.write(' as JArrayType).elementType');
+    }
+    return exprs;
+  }
+
+  @override
+  Map<String, List<_PrependingBuffer>> visitPrimitiveType(PrimitiveType node) {
+    return {};
   }
 }
