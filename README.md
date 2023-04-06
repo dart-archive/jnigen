@@ -171,9 +171,6 @@ CMake and a standard C toolchain are required to build `package:jni` and C bindi
 
 It's recommended to have `clang-format` installed for formatting the generated C bindings. On Windows, it's part of LLVM installation. On most Linux distributions it is available as a separate package. On MacOS, it can be installed using Homebrew.
 
-## Contributing
-See the wiki for architecture-related documents.
-
 ## FAQs
 
 #### I am getting ClassNotFoundError at runtime.
@@ -271,4 +268,7 @@ However there are 2 caveats to this caveat.
 * The API can't process the `java.**` namespaces in the Android SDK stubs, because it expects a module layout. So if you want to generate bindings for, say, `java.lang.Math`, you cannot use the Android SDK stubs. OpenJDK sources can be used instead.
 
 The JAR files (`$SDK_ROOT/platforms/android-$VERSION/android.jar`) can be used instead. But compiled JARs do not include JavaDoc and method parameter names. This JAR is automatically included by Gradle when `android_sdk_config` >> `add_gradle_deps` is specified.
+
+## Contributing
+See the wiki for architecture-related documents.
 
