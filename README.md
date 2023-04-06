@@ -222,7 +222,7 @@ A `*` denotes required configuration.
 | `output:` >> `dart:` >> `path` * | Directory path or File path | Path to write Dart bindings. Should end in `.dart` for `single_file` configurations, and end in `/` for `package_structure` (default) configuration. |
 | `maven_downloads:`     | (Subsection) | This subsection will contain configuration for automatically downloading Java dependencies (source and JAR) through maven. |
 | `maven_downloads:` >> `source_deps` | List of maven package coordinates | Source packages to download and unpack using maven. The names should be valid maven artifact coordinates. (Eg: `org.apache.pdfbox:pdfbox:2.0.26`). The downloads do not include transitive dependencies. |
-| `maven_downloads"` >> `source_dir` | Path | Directory in which maven sources are extracted. Defaults to `mvn_java`. It's not required to list this explicitly in source_path. |
+| `maven_downloads:` >> `source_dir` | Path | Directory in which maven sources are extracted. Defaults to `mvn_java`. It's not required to list this explicitly in source_path. |
 | `maven_downloads:` >> `jar_only_deps` | List of maven package coordinates | JAR dependencies to download which are not mandatory transitive dependencies of `source_deps`. Often, it's required to find and include optional dependencies so that entire source is valid for further processing. |
 | `maven_downloads:` >> `jar_dir` | Path | Directory to store downloaded JARs. Defaults to `mvn_jar`. |
 | `log_level`            | Logging level | Configure logging level. Defaults to `info`.                            |
