@@ -138,7 +138,7 @@ Currently basic features of the Java language are supported in the bindings. Eac
 
 More advanced features such as callbacks are not supported yet. Support for these features is tracked in the [issue tracker](https://github.com/dart-lang/jnigen/issues).
 
-### Note on Dart (standalone) target
+## Note on Dart (standalone) target
 `package:jni` is an FFI plugin containing native code, and any bindings generated from jnigen contains native code too.
 
 On Flutter targets, native libraries are built automatically and bundled. On standalone platforms, no such infrastructure exists yet. As a stopgap solution, running `dart run jni:setup` in a target directory builds all JNI native dependencies of the package into `build/jni_libs`. 
