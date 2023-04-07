@@ -65,7 +65,9 @@ class PDDocumentInformation extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// Default Constructor.
-  PDDocumentInformation() : super.fromRef(_ctor().object);
+  factory PDDocumentInformation() {
+    return PDDocumentInformation.fromRef(_ctor().object);
+  }
 
   static final _ctor1 = jniLookup<
           ffi.NativeFunction<
@@ -78,9 +80,11 @@ class PDDocumentInformation extends jni.JObject {
   ///
   /// Constructor that is used for a preexisting dictionary.
   ///@param dic The underlying dictionary.
-  PDDocumentInformation.ctor1(
+  factory PDDocumentInformation.ctor1(
     jni.JObject dic,
-  ) : super.fromRef(_ctor1(dic.reference).object);
+  ) {
+    return PDDocumentInformation.fromRef(_ctor1(dic.reference).object);
+  }
 
   static final _getCOSObject = jniLookup<
               ffi.NativeFunction<

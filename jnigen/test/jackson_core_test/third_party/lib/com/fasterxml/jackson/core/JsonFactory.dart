@@ -155,19 +155,22 @@ class JsonFactory extends jni.JObject {
   /// processing objects (such as symbol tables parsers use)
   /// and this reuse only works within context of a single
   /// factory instance.
-  JsonFactory()
-      : super.fromRef(
-            jniAccessors.newObjectWithArgs(_classRef, _id_ctor, []).object);
+  factory JsonFactory() {
+    return JsonFactory.fromRef(
+        jniAccessors.newObjectWithArgs(_classRef, _id_ctor, []).object);
+  }
 
   static final _id_ctor1 = jniAccessors.getMethodIDOf(
       _classRef, r"<init>", r"(Lcom/fasterxml/jackson/core/ObjectCodec;)V");
 
   /// from: public void <init>(com.fasterxml.jackson.core.ObjectCodec oc)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  JsonFactory.ctor1(
+  factory JsonFactory.ctor1(
     jni.JObject oc,
-  ) : super.fromRef(jniAccessors
-            .newObjectWithArgs(_classRef, _id_ctor1, [oc.reference]).object);
+  ) {
+    return JsonFactory.fromRef(jniAccessors
+        .newObjectWithArgs(_classRef, _id_ctor1, [oc.reference]).object);
+  }
 
   static final _id_ctor2 = jniAccessors.getMethodIDOf(_classRef, r"<init>",
       r"(Lcom/fasterxml/jackson/core/JsonFactory;Lcom/fasterxml/jackson/core/ObjectCodec;)V");
@@ -179,11 +182,13 @@ class JsonFactory extends jni.JObject {
   ///@param src Original factory to copy settings from
   ///@param codec Databinding-level codec to use, if any
   ///@since 2.2.1
-  JsonFactory.ctor2(
+  factory JsonFactory.ctor2(
     JsonFactory src,
     jni.JObject codec,
-  ) : super.fromRef(jniAccessors.newObjectWithArgs(
-            _classRef, _id_ctor2, [src.reference, codec.reference]).object);
+  ) {
+    return JsonFactory.fromRef(jniAccessors.newObjectWithArgs(
+        _classRef, _id_ctor2, [src.reference, codec.reference]).object);
+  }
 
   static final _id_ctor3 = jniAccessors.getMethodIDOf(_classRef, r"<init>",
       r"(Lcom/fasterxml/jackson/core/JsonFactoryBuilder;)V");
@@ -194,10 +199,12 @@ class JsonFactory extends jni.JObject {
   /// Constructor used by JsonFactoryBuilder for instantiation.
   ///@param b Builder that contains settings to use
   ///@since 2.10
-  JsonFactory.ctor3(
+  factory JsonFactory.ctor3(
     jni.JObject b,
-  ) : super.fromRef(jniAccessors
-            .newObjectWithArgs(_classRef, _id_ctor3, [b.reference]).object);
+  ) {
+    return JsonFactory.fromRef(jniAccessors
+        .newObjectWithArgs(_classRef, _id_ctor3, [b.reference]).object);
+  }
 
   static final _id_ctor4 = jniAccessors.getMethodIDOf(
       _classRef, r"<init>", r"(Lcom/fasterxml/jackson/core/TSFBuilder;Z)V");
@@ -210,11 +217,13 @@ class JsonFactory extends jni.JObject {
   /// implementation for json.
   ///@param b Builder that contains settings to use
   ///@param bogus Argument only needed to separate constructor signature; ignored
-  JsonFactory.ctor4(
+  factory JsonFactory.ctor4(
     jni.JObject b,
     bool bogus,
-  ) : super.fromRef(jniAccessors.newObjectWithArgs(
-            _classRef, _id_ctor4, [b.reference, bogus ? 1 : 0]).object);
+  ) {
+    return JsonFactory.fromRef(jniAccessors.newObjectWithArgs(
+        _classRef, _id_ctor4, [b.reference, bogus ? 1 : 0]).object);
+  }
 
   static final _id_rebuild = jniAccessors.getMethodIDOf(
       _classRef, r"rebuild", r"()Lcom/fasterxml/jackson/core/TSFBuilder;");

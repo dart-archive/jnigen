@@ -83,19 +83,22 @@ class JsonParser extends jni.JObject {
 
   /// from: protected void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  JsonParser()
-      : super.fromRef(
-            jniAccessors.newObjectWithArgs(_classRef, _id_ctor, []).object);
+  factory JsonParser() {
+    return JsonParser.fromRef(
+        jniAccessors.newObjectWithArgs(_classRef, _id_ctor, []).object);
+  }
 
   static final _id_ctor1 =
       jniAccessors.getMethodIDOf(_classRef, r"<init>", r"(I)V");
 
   /// from: protected void <init>(int features)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  JsonParser.ctor1(
+  factory JsonParser.ctor1(
     int features,
-  ) : super.fromRef(jniAccessors.newObjectWithArgs(
-            _classRef, _id_ctor1, [jni.JValueInt(features)]).object);
+  ) {
+    return JsonParser.fromRef(jniAccessors.newObjectWithArgs(
+        _classRef, _id_ctor1, [jni.JValueInt(features)]).object);
+  }
 
   static final _id_getCodec = jniAccessors.getMethodIDOf(
       _classRef, r"getCodec", r"()Lcom/fasterxml/jackson/core/ObjectCodec;");

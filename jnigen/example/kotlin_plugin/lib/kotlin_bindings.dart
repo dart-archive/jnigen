@@ -42,7 +42,9 @@ class Example extends jni.JObject {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Example() : super.fromRef(_ctor().object);
+  factory Example() {
+    return Example.fromRef(_ctor().object);
+  }
 
   static final _thinkBeforeAnswering = jniLookup<
           ffi.NativeFunction<

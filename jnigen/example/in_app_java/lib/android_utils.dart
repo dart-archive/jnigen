@@ -2274,7 +2274,9 @@ class Build extends jni.JObject {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Build() : super.fromRef(_ctor().object);
+  factory Build() {
+    return Build.fromRef(_ctor().object);
+  }
 
   static final _getSerial =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -2362,12 +2364,14 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
 
   /// from: public void <init>(int i, float f)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  HashMap(
+  factory HashMap(
     int i,
     double f, {
-    required this.K,
-    required this.V,
-  }) : super.fromRef(_ctor(i, f).object);
+    required jni.JObjType<$K> K,
+    required jni.JObjType<$V> V,
+  }) {
+    return HashMap.fromRef(K, V, _ctor(i, f).object);
+  }
 
   static final _ctor1 =
       jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
@@ -2376,11 +2380,13 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
 
   /// from: public void <init>(int i)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  HashMap.ctor1(
+  factory HashMap.ctor1(
     int i, {
-    required this.K,
-    required this.V,
-  }) : super.fromRef(_ctor1(i).object);
+    required jni.JObjType<$K> K,
+    required jni.JObjType<$V> V,
+  }) {
+    return HashMap.fromRef(K, V, _ctor1(i).object);
+  }
 
   static final _ctor2 =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("HashMap__ctor2")
@@ -2388,10 +2394,12 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  HashMap.ctor2({
-    required this.K,
-    required this.V,
-  }) : super.fromRef(_ctor2().object);
+  factory HashMap.ctor2({
+    required jni.JObjType<$K> K,
+    required jni.JObjType<$V> V,
+  }) {
+    return HashMap.fromRef(K, V, _ctor2().object);
+  }
 
   static final _ctor3 = jniLookup<
           ffi.NativeFunction<
@@ -2400,11 +2408,13 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
 
   /// from: public void <init>(java.util.Map map)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  HashMap.ctor3(
+  factory HashMap.ctor3(
     jni.JObject map, {
-    required this.K,
-    required this.V,
-  }) : super.fromRef(_ctor3(map.reference).object);
+    required jni.JObjType<$K> K,
+    required jni.JObjType<$V> V,
+  }) {
+    return HashMap.fromRef(K, V, _ctor3(map.reference).object);
+  }
 
   static final _size = jniLookup<
           ffi.NativeFunction<

@@ -193,7 +193,9 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// Instantiate a new PDFTextStripper object.
   ///@throws IOException If there is an error loading the properties.
-  PDFTextStripper() : super.fromRef(_ctor().object);
+  factory PDFTextStripper() {
+    return PDFTextStripper.fromRef(_ctor().object);
+  }
 
   static final _getText = jniLookup<
           ffi.NativeFunction<

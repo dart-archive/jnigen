@@ -46,7 +46,9 @@ class Notifications extends jni.JObject {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Notifications() : super.fromRef(_ctor().object);
+  factory Notifications() {
+    return Notifications.fromRef(_ctor().object);
+  }
 
   static final _showNotification = jniLookup<
           ffi.NativeFunction<

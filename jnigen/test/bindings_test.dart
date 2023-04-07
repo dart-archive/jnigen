@@ -186,6 +186,15 @@ void main() async {
     expect(() => Example.throwException(), throwsException);
   });
   group('generics', () {
+    test('GrandParent constructor', () {
+      using((arena) {
+        final grandParent = GrandParent('Hello'.toJString()..deletedIn(arena))
+          ..deletedIn(arena);
+        expect(grandParent, isA<GrandParent<JString>>());
+        expect(grandParent.$type, isA<$GrandParentType<JString>>());
+        expect(grandParent.value.toDartString(deleteOriginal: true), 'Hello');
+      });
+    });
     test('MyStack<T>', () {
       using((arena) {
         final stack = MyStack(T: JString.type)..deletedIn(arena);
@@ -259,9 +268,9 @@ void main() async {
               'world'.toJString()..deletedIn(arena));
           expect(
             map
-                .get0('world'.toJString()..deletedIn(arena))
+                .get0('hello'.toJString()..deletedIn(arena))
                 .toDartString(deleteOriginal: true),
-            'hello',
+            'world',
           );
         });
       });
@@ -405,8 +414,7 @@ void main() async {
       using((arena) {
         final firstDimention = JArray.filled(
           1,
-          GrandParent("Hello".toJString()..deletedIn(arena), T: JString.type)
-            ..deletedIn(arena),
+          GrandParent("Hello".toJString()..deletedIn(arena))..deletedIn(arena),
         )..deletedIn(arena);
         final twoDimentionalArray = JArray.filled(1, firstDimention)
           ..deletedIn(arena);

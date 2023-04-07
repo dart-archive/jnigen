@@ -46,7 +46,9 @@ class SuspendFun extends jni.JObject {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  SuspendFun() : super.fromRef(_ctor().object);
+  factory SuspendFun() {
+    return SuspendFun.fromRef(_ctor().object);
+  }
 
   static final _sayHello = jniLookup<
           ffi.NativeFunction<

@@ -1016,9 +1016,19 @@ class _MethodGenerator extends Visitor<Method, void> {
                     ']',
                   ),
                 ));
+
     bool isRequired(TypeParam typeParam) {
       return (typeLocators[typeParam.name] ?? '').isEmpty;
     }
+
+    final typeInferrence =
+        (node.isCtor ? node.classDecl.allTypeParams : node.typeParams)
+            .where((typeParam) => !isRequired(typeParam))
+            .map((typeParam) => typeParam.name)
+            .map((typeParam) =>
+                '$typeParam ??= $_jni.commonType(${typeLocators[typeParam]})'
+                ' as $_jType<$_typeParamPrefix$typeParam>;')
+            .join(_newLine(depth: 2));
 
     if (node.isCtor) {
       final className = node.classDecl.finalName;
@@ -1033,19 +1043,20 @@ class _MethodGenerator extends Visitor<Method, void> {
             .delimited(', '),
         '}',
       );
-      final superClass = (node.classDecl.superclass!.type as DeclaredType);
-      final superTypeClassesCall = superClass.classDecl == ClassDecl.object
-          ? ''
-          : superClass.params
-              .accept(_TypeClassGenerator(resolver))
-              .map((typeClass) => '${typeClass.name},')
-              .join(_newLine(depth: 2));
+      final typeClassCall = node.classDecl.allTypeParams
+          .map((typeParam) =>
+              typeParam.accept(const _TypeParamGenerator(withExtends: false)))
+          .delimited(', ');
+
       final ctorExpr = (isCBased ? cCtor : dartOnlyCtor)(node);
       s.write('''
-  $ctorName($paramsDef$typeClassDef) : super.fromRef(
-    $superTypeClassesCall
-    $ctorExpr.object
-  );
+  factory $ctorName($paramsDef$typeClassDef) {
+    $typeInferrence
+    return ${node.classDecl.finalName}.fromRef(
+      $typeClassCall
+      $ctorExpr.object
+    );
+  }
 
 ''');
       return;
@@ -1069,13 +1080,6 @@ class _MethodGenerator extends Visitor<Method, void> {
           .delimited(', '),
       '}',
     );
-    final typeInferrence = node.typeParams
-        .where((typeParam) => !isRequired(typeParam))
-        .map((typeParam) => typeParam.name)
-        .map((typeParam) =>
-            '$typeParam ??= $_jni.commonType(${typeLocators[typeParam]})'
-            ' as $_jType<$_typeParamPrefix$typeParam>;')
-        .join(_newLine(depth: 2));
     final typeParamsDef = _encloseIfNotEmpty(
       '<',
       node.typeParams
@@ -1151,7 +1155,8 @@ class _CtorTypeClassDef extends Visitor<TypeParam, String> {
 
   @override
   String visit(TypeParam node) {
-    return 'required this.${node.name}';
+    return '${isRequired ? 'required ' : ''} $_jType'
+        '<$_typeParamPrefix${node.name}>${isRequired ? '' : '?'} ${node.name}';
   }
 }
 
