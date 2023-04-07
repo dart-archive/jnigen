@@ -30,7 +30,7 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
 
 /// from: com.example.notification_plugin.Notifications
 class Notifications extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -65,10 +65,11 @@ class Notifications extends jni.JObject {
     int notificationID,
     jni.JString title,
     jni.JString text,
-  ) =>
-      _showNotification(context.reference, notificationID, title.reference,
-              text.reference)
-          .check();
+  ) {
+    return _showNotification(
+            context.reference, notificationID, title.reference, text.reference)
+        .check();
+  }
 }
 
 class $NotificationsType extends jni.JObjType<Notifications> {

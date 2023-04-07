@@ -1102,6 +1102,44 @@ JniResult MyStack__ctor() {
                      .exception = check_exception()};
 }
 
+jmethodID _m_MyStack__fromArray = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyStack__fromArray(jobject arr) {
+  load_env();
+  load_class_gr(&_c_MyStack, "com/github/dart_lang/jnigen/generics/MyStack");
+  if (_c_MyStack == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_static_method(
+      _c_MyStack, &_m_MyStack__fromArray, "fromArray",
+      "([Ljava/lang/Object;)Lcom/github/dart_lang/jnigen/generics/MyStack;");
+  if (_m_MyStack__fromArray == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_MyStack, _m_MyStack__fromArray, arr);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_MyStack__fromArrayOfArrayOfGrandParents = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyStack__fromArrayOfArrayOfGrandParents(jobject arr) {
+  load_env();
+  load_class_gr(&_c_MyStack, "com/github/dart_lang/jnigen/generics/MyStack");
+  if (_c_MyStack == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_static_method(
+      _c_MyStack, &_m_MyStack__fromArrayOfArrayOfGrandParents,
+      "fromArrayOfArrayOfGrandParents",
+      "([[Lcom/github/dart_lang/jnigen/generics/GrandParent;)Lcom/github/"
+      "dart_lang/jnigen/generics/MyStack;");
+  if (_m_MyStack__fromArrayOfArrayOfGrandParents == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_MyStack, _m_MyStack__fromArrayOfArrayOfGrandParents, arr);
+  return (JniResult){.result = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
 jmethodID _m_MyStack__of = NULL;
 FFI_PLUGIN_EXPORT
 JniResult MyStack__of() {
@@ -1182,6 +1220,20 @@ JniResult MyStack__pop(jobject self_) {
   jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_MyStack__pop);
   return (JniResult){.result = {.l = to_global_ref(_result)},
                      .exception = check_exception()};
+}
+
+jmethodID _m_MyStack__size = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyStack__size(jobject self_) {
+  load_env();
+  load_class_gr(&_c_MyStack, "com/github/dart_lang/jnigen/generics/MyStack");
+  if (_c_MyStack == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyStack, &_m_MyStack__size, "size", "()I");
+  if (_m_MyStack__size == NULL)
+    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+  int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_MyStack__size);
+  return (JniResult){.result = {.i = _result}, .exception = check_exception()};
 }
 
 // com.github.dart_lang.jnigen.generics.StringKeyedMap

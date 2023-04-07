@@ -338,7 +338,8 @@ class _ClassGenerator extends Visitor<ClassDecl, void> {
             .join(_newLine(depth: 2));
     s.write('''
 class $name$typeParamsDef extends $superName {
-  late final $_jType? _$instanceTypeGetter;
+  
+  $_jType? _$instanceTypeGetter;
   @override
   $_jType get $instanceTypeGetter => _$instanceTypeGetter ??= $staticTypeGetter$staticTypeGetterCallArgs;
 
@@ -546,10 +547,10 @@ class _TypeClass {
 
 /// Generates the type class.
 class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
+  _TypeClassGenerator(this.resolver, {this.isConst = true});
+
   final bool isConst;
   final Resolver? resolver;
-
-  _TypeClassGenerator(this.resolver, {this.isConst = true});
 
   @override
   _TypeClass visitArrayType(ArrayType node) {
@@ -1261,11 +1262,11 @@ class _PrependingBuffer {
 ///
 /// For example in `JArray<JMap<$T, $T>> a`, `T` can be retreived using
 /// ```dart
-/// ((((a.$type as JArrayType).elementType) as $JMapType).K) as jni.JObjType<$T>
+/// ((((a.$type as jni.JArrayType).elementType) as $JMapType).K) as jni.JObjType<$T>
 /// ```
 /// and
 /// ```dart
-/// ((((a.$type as JArrayType).elementType) as $JMapType).V) as jni.JObjType<$T>
+/// ((((a.$type as jni.JArrayType).elementType) as $JMapType).V) as jni.JObjType<$T>
 /// ```
 class _ParamTypeLocator extends Visitor<Param, Map<String, List<String>>> {
   _ParamTypeLocator({required this.resolver});
@@ -1306,20 +1307,29 @@ class _TypeVarLocator
   @override
   Map<String, List<_PrependingBuffer>> visitTypeVar(TypeVar node) {
     return {
-      node.name: [_PrependingBuffer()],
+      node.name: [
+        _PrependingBuffer(),
+      ],
     };
   }
 
   @override
   Map<String, List<_PrependingBuffer>> visitDeclaredType(DeclaredType node) {
+    if (node.classDecl == ClassDecl.object) {
+      return {};
+    }
     final offset = node.classDecl.allTypeParams.length - node.params.length;
     final result = <String, List<_PrependingBuffer>>{};
-    final typeClass = node.accept(_TypeClassGenerator(resolver)).name;
+    final prefix = resolver?.resolvePrefix(node.binaryName) ?? '';
+    final typeClass =
+        '$prefix$_typeClassPrefix${node.classDecl.finalName}$_typeClassSuffix';
     for (var i = 0; i < node.params.length; ++i) {
       final typeParam = node.classDecl.allTypeParams[i + offset].name;
       final exprs = node.params[i].accept(this);
       for (final expr in exprs.entries) {
         for (final buffer in expr.value) {
+          // [_PrependingBuffer] adds the correct number of openning paranthesis
+          // at the beginning.
           buffer.write(' as $typeClass).$typeParam');
           result[expr.key] = (result[expr.key] ?? [])..add(buffer);
         }
@@ -1332,7 +1342,9 @@ class _TypeVarLocator
   Map<String, List<_PrependingBuffer>> visitArrayType(ArrayType node) {
     final exprs = node.type.accept(this);
     for (final e in exprs.values.expand((i) => i)) {
-      e.write(' as JArrayType).elementType');
+      // [_PrependingBuffer] adds the correct number of openning paranthesis
+      // at the beginning.
+      e.write(' as $_jArray$_typeClassSuffix).elementType as $_jType)');
     }
     return exprs;
   }

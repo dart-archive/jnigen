@@ -50,6 +50,7 @@ Future<void> setupDylibsAndClasses() async {
         join(group, 'generics', 'StringStack.java'),
         join(group, 'generics', 'StringValuedMap.java'),
         join(group, 'generics', 'StringKeyedMap.java'),
+        join(group, 'generics', 'StringMap.java'),
         join(group, 'annotations', 'JsonSerializable.java'),
         join(group, 'annotations', 'MyDataClass.java'),
         join(group, 'pkg2', 'C2.java'),
@@ -324,6 +325,100 @@ void main() async {
         );
         // TODO(#139): test constructing Child, currently does not work due
         // to a problem with C-bindings.
+      });
+    });
+  });
+  group('Generic type inferrence', () {
+    test('MyStack.of1', () {
+      using((arena) {
+        final emptyStack = MyStack(T: JString.type)..deletedIn(arena);
+        expect(emptyStack.size(), 0);
+        final stack = MyStack.of1(
+          "Hello".toJString()..deletedIn(arena),
+        )..deletedIn(arena);
+        expect(stack, isA<MyStack<JString>>());
+        expect(stack.$type, isA<$MyStackType<JString>>());
+        expect(
+          stack.pop().toDartString(deleteOriginal: true),
+          "Hello",
+        );
+      });
+    });
+    test('MyStack.of 2 strings', () {
+      using((arena) {
+        final stack = MyStack.of2(
+          "Hello".toJString()..deletedIn(arena),
+          "World".toJString()..deletedIn(arena),
+        )..deletedIn(arena);
+        expect(stack, isA<MyStack<JString>>());
+        expect(stack.$type, isA<$MyStackType<JString>>());
+        expect(
+          stack.pop().toDartString(deleteOriginal: true),
+          "World",
+        );
+        expect(
+          stack.pop().toDartString(deleteOriginal: true),
+          "Hello",
+        );
+      });
+    });
+    test('MyStack.of a string and an array', () {
+      using((arena) {
+        final array = JArray.filled(1, "World".toJString()..deletedIn(arena))
+          ..deletedIn(arena);
+        final stack = MyStack.of2(
+          "Hello".toJString()..deletedIn(arena),
+          array,
+        )..deletedIn(arena);
+        expect(stack, isA<MyStack<JObject>>());
+        expect(stack.$type, isA<$MyStackType<JObject>>());
+        expect(
+          stack
+              .pop()
+              .castTo(JArray.type(JString.type), deleteOriginal: true)[0]
+              .toDartString(deleteOriginal: true),
+          "World",
+        );
+        expect(
+          stack
+              .pop()
+              .castTo(JString.type, deleteOriginal: true)
+              .toDartString(deleteOriginal: true),
+          "Hello",
+        );
+      });
+    });
+    test('MyStack.from array of string', () {
+      using((arena) {
+        final array = JArray.filled(1, "Hello".toJString()..deletedIn(arena))
+          ..deletedIn(arena);
+        final stack = MyStack.fromArray(array)..deletedIn(arena);
+        expect(stack, isA<MyStack<JString>>());
+        expect(stack.$type, isA<$MyStackType<JString>>());
+        expect(
+          stack.pop().toDartString(deleteOriginal: true),
+          "Hello",
+        );
+      });
+    });
+    test('MyStack.fromArrayOfArrayOfGrandParents', () {
+      using((arena) {
+        final firstDimention = JArray.filled(
+          1,
+          GrandParent("Hello".toJString()..deletedIn(arena), T: JString.type)
+            ..deletedIn(arena),
+        )..deletedIn(arena);
+        final twoDimentionalArray = JArray.filled(1, firstDimention)
+          ..deletedIn(arena);
+        final stack =
+            MyStack.fromArrayOfArrayOfGrandParents(twoDimentionalArray)
+              ..deletedIn(arena);
+        expect(stack, isA<MyStack<JString>>());
+        expect(stack.$type, isA<$MyStackType<JString>>());
+        expect(
+          stack.pop().toDartString(deleteOriginal: true),
+          "Hello",
+        );
       });
     });
   });

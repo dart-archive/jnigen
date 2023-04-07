@@ -26,7 +26,7 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
 
 /// from: com.example.in_app_java.AndroidUtils
 class AndroidUtils extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -49,8 +49,9 @@ class AndroidUtils extends jni.JObject {
     jni.JObject mainActivity,
     jni.JObject text,
     int duration,
-  ) =>
-      _showToast(mainActivity.reference, text.reference, duration).check();
+  ) {
+    return _showToast(mainActivity.reference, text.reference, duration).check();
+  }
 }
 
 class $AndroidUtilsType extends jni.JObjType<AndroidUtils> {
@@ -1990,7 +1991,7 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactoryType extends jni
 
 /// from: android.os.Build
 class Build extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -2282,8 +2283,9 @@ class Build extends jni.JObject {
 
   /// from: static public java.lang.String getSerial()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString getSerial() =>
-      const jni.JStringType().fromRef(_getSerial().object);
+  static jni.JString getSerial() {
+    return const jni.JStringType().fromRef(_getSerial().object);
+  }
 
   static final _getFingerprintedPartitions =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -2292,8 +2294,10 @@ class Build extends jni.JObject {
 
   /// from: static public java.util.List getFingerprintedPartitions()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JObject getFingerprintedPartitions() =>
-      const jni.JObjectType().fromRef(_getFingerprintedPartitions().object);
+  static jni.JObject getFingerprintedPartitions() {
+    return const jni.JObjectType()
+        .fromRef(_getFingerprintedPartitions().object);
+  }
 
   static final _getRadioVersion =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -2302,8 +2306,9 @@ class Build extends jni.JObject {
 
   /// from: static public java.lang.String getRadioVersion()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString getRadioVersion() =>
-      const jni.JStringType().fromRef(_getRadioVersion().object);
+  static jni.JString getRadioVersion() {
+    return const jni.JStringType().fromRef(_getRadioVersion().object);
+  }
 }
 
 class $BuildType extends jni.JObjType<Build> {
@@ -2325,7 +2330,7 @@ class $BuildType extends jni.JObjType<Build> {
 /// from: java.util.HashMap
 class HashMap<$K extends jni.JObject, $V extends jni.JObject>
     extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type(K, V);
 
@@ -2407,7 +2412,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public int size()
-  int size() => _size(reference).integer;
+  int size() {
+    return _size(reference).integer;
+  }
 
   static final _isEmpty = jniLookup<
           ffi.NativeFunction<
@@ -2416,7 +2423,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public boolean isEmpty()
-  bool isEmpty() => _isEmpty(reference).boolean;
+  bool isEmpty() {
+    return _isEmpty(reference).boolean;
+  }
 
   static final _get0 = jniLookup<
           ffi.NativeFunction<
@@ -2430,8 +2439,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   /// The returned object must be deleted after use, by calling the `delete` method.
   $V get0(
     jni.JObject object,
-  ) =>
-      V.fromRef(_get0(reference, object.reference).object);
+  ) {
+    return V.fromRef(_get0(reference, object.reference).object);
+  }
 
   static final _containsKey = jniLookup<
           ffi.NativeFunction<
@@ -2444,8 +2454,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   /// from: public boolean containsKey(java.lang.Object object)
   bool containsKey(
     jni.JObject object,
-  ) =>
-      _containsKey(reference, object.reference).boolean;
+  ) {
+    return _containsKey(reference, object.reference).boolean;
+  }
 
   static final _put = jniLookup<
           ffi.NativeFunction<
@@ -2462,8 +2473,10 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   $V put(
     $K object,
     $V object1,
-  ) =>
-      V.fromRef(_put(reference, object.reference, object1.reference).object);
+  ) {
+    return V
+        .fromRef(_put(reference, object.reference, object1.reference).object);
+  }
 
   static final _putAll = jniLookup<
           ffi.NativeFunction<
@@ -2476,8 +2489,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   /// from: public void putAll(java.util.Map map)
   void putAll(
     jni.JObject map,
-  ) =>
-      _putAll(reference, map.reference).check();
+  ) {
+    return _putAll(reference, map.reference).check();
+  }
 
   static final _remove = jniLookup<
           ffi.NativeFunction<
@@ -2491,8 +2505,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   /// The returned object must be deleted after use, by calling the `delete` method.
   $V remove(
     jni.JObject object,
-  ) =>
-      V.fromRef(_remove(reference, object.reference).object);
+  ) {
+    return V.fromRef(_remove(reference, object.reference).object);
+  }
 
   static final _clear = jniLookup<
           ffi.NativeFunction<
@@ -2500,7 +2515,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public void clear()
-  void clear() => _clear(reference).check();
+  void clear() {
+    return _clear(reference).check();
+  }
 
   static final _containsValue = jniLookup<
           ffi.NativeFunction<
@@ -2513,8 +2530,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   /// from: public boolean containsValue(java.lang.Object object)
   bool containsValue(
     jni.JObject object,
-  ) =>
-      _containsValue(reference, object.reference).boolean;
+  ) {
+    return _containsValue(reference, object.reference).boolean;
+  }
 
   static final _keySet = jniLookup<
           ffi.NativeFunction<
@@ -2523,8 +2541,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
 
   /// from: public java.util.Set keySet()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject keySet() =>
-      const jni.JObjectType().fromRef(_keySet(reference).object);
+  jni.JObject keySet() {
+    return const jni.JObjectType().fromRef(_keySet(reference).object);
+  }
 
   static final _values = jniLookup<
           ffi.NativeFunction<
@@ -2533,8 +2552,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
 
   /// from: public java.util.Collection values()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject values() =>
-      const jni.JObjectType().fromRef(_values(reference).object);
+  jni.JObject values() {
+    return const jni.JObjectType().fromRef(_values(reference).object);
+  }
 
   static final _entrySet = jniLookup<
           ffi.NativeFunction<
@@ -2544,8 +2564,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
 
   /// from: public java.util.Set entrySet()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject entrySet() =>
-      const jni.JObjectType().fromRef(_entrySet(reference).object);
+  jni.JObject entrySet() {
+    return const jni.JObjectType().fromRef(_entrySet(reference).object);
+  }
 
   static final _getOrDefault = jniLookup<
           ffi.NativeFunction<
@@ -2562,9 +2583,10 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   $V getOrDefault(
     jni.JObject object,
     $V object1,
-  ) =>
-      V.fromRef(
-          _getOrDefault(reference, object.reference, object1.reference).object);
+  ) {
+    return V.fromRef(
+        _getOrDefault(reference, object.reference, object1.reference).object);
+  }
 
   static final _putIfAbsent = jniLookup<
           ffi.NativeFunction<
@@ -2581,9 +2603,10 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   $V putIfAbsent(
     $K object,
     $V object1,
-  ) =>
-      V.fromRef(
-          _putIfAbsent(reference, object.reference, object1.reference).object);
+  ) {
+    return V.fromRef(
+        _putIfAbsent(reference, object.reference, object1.reference).object);
+  }
 
   static final _remove1 = jniLookup<
           ffi.NativeFunction<
@@ -2599,8 +2622,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   bool remove1(
     jni.JObject object,
     jni.JObject object1,
-  ) =>
-      _remove1(reference, object.reference, object1.reference).boolean;
+  ) {
+    return _remove1(reference, object.reference, object1.reference).boolean;
+  }
 
   static final _replace = jniLookup<
           ffi.NativeFunction<
@@ -2618,10 +2642,11 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
     $K object,
     $V object1,
     $V object2,
-  ) =>
-      _replace(
-              reference, object.reference, object1.reference, object2.reference)
-          .boolean;
+  ) {
+    return _replace(
+            reference, object.reference, object1.reference, object2.reference)
+        .boolean;
+  }
 
   static final _replace1 = jniLookup<
           ffi.NativeFunction<
@@ -2638,9 +2663,10 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   $V replace1(
     $K object,
     $V object1,
-  ) =>
-      V.fromRef(
-          _replace1(reference, object.reference, object1.reference).object);
+  ) {
+    return V.fromRef(
+        _replace1(reference, object.reference, object1.reference).object);
+  }
 
   static final _computeIfAbsent = jniLookup<
           ffi.NativeFunction<
@@ -2657,10 +2683,11 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   $V computeIfAbsent(
     $K object,
     jni.JObject function,
-  ) =>
-      V.fromRef(
-          _computeIfAbsent(reference, object.reference, function.reference)
-              .object);
+  ) {
+    return V.fromRef(
+        _computeIfAbsent(reference, object.reference, function.reference)
+            .object);
+  }
 
   static final _computeIfPresent = jniLookup<
           ffi.NativeFunction<
@@ -2677,10 +2704,11 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   $V computeIfPresent(
     $K object,
     jni.JObject biFunction,
-  ) =>
-      V.fromRef(
-          _computeIfPresent(reference, object.reference, biFunction.reference)
-              .object);
+  ) {
+    return V.fromRef(
+        _computeIfPresent(reference, object.reference, biFunction.reference)
+            .object);
+  }
 
   static final _compute = jniLookup<
           ffi.NativeFunction<
@@ -2697,9 +2725,10 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   $V compute(
     $K object,
     jni.JObject biFunction,
-  ) =>
-      V.fromRef(
-          _compute(reference, object.reference, biFunction.reference).object);
+  ) {
+    return V.fromRef(
+        _compute(reference, object.reference, biFunction.reference).object);
+  }
 
   static final _merge = jniLookup<
           ffi.NativeFunction<
@@ -2718,10 +2747,11 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
     $K object,
     $V object1,
     jni.JObject biFunction,
-  ) =>
-      V.fromRef(_merge(reference, object.reference, object1.reference,
-              biFunction.reference)
-          .object);
+  ) {
+    return V.fromRef(_merge(reference, object.reference, object1.reference,
+            biFunction.reference)
+        .object);
+  }
 
   static final _forEach = jniLookup<
           ffi.NativeFunction<
@@ -2734,8 +2764,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   /// from: public void forEach(java.util.function.BiConsumer biConsumer)
   void forEach(
     jni.JObject biConsumer,
-  ) =>
-      _forEach(reference, biConsumer.reference).check();
+  ) {
+    return _forEach(reference, biConsumer.reference).check();
+  }
 
   static final _replaceAll = jniLookup<
           ffi.NativeFunction<
@@ -2748,8 +2779,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   /// from: public void replaceAll(java.util.function.BiFunction biFunction)
   void replaceAll(
     jni.JObject biFunction,
-  ) =>
-      _replaceAll(reference, biFunction.reference).check();
+  ) {
+    return _replaceAll(reference, biFunction.reference).check();
+  }
 
   static final _clone = jniLookup<
           ffi.NativeFunction<
@@ -2758,8 +2790,9 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
 
   /// from: public java.lang.Object clone()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject clone() =>
-      const jni.JObjectType().fromRef(_clone(reference).object);
+  jni.JObject clone() {
+    return const jni.JObjectType().fromRef(_clone(reference).object);
+  }
 }
 
 class $HashMapType<$K extends jni.JObject, $V extends jni.JObject>
