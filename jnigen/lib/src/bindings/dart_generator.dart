@@ -1021,7 +1021,7 @@ class _MethodGenerator extends Visitor<Method, void> {
       return (typeLocators[typeParam.name] ?? '').isEmpty;
     }
 
-    final typeInferrence =
+    final typeInference =
         (node.isCtor ? node.classDecl.allTypeParams : node.typeParams)
             .where((typeParam) => !isRequired(typeParam))
             .map((typeParam) => typeParam.name)
@@ -1051,7 +1051,7 @@ class _MethodGenerator extends Visitor<Method, void> {
       final ctorExpr = (isCBased ? cCtor : dartOnlyCtor)(node);
       s.write('''
   factory $ctorName($paramsDef$typeClassDef) {
-    $typeInferrence
+    $typeInference
     return ${node.classDecl.finalName}.fromRef(
       $typeClassCall
       $ctorExpr.object
@@ -1097,7 +1097,7 @@ class _MethodGenerator extends Visitor<Method, void> {
       final returning =
           node.asyncReturnType!.accept(_FromNative(resolver, '\$o'));
       s.write('''async {
-    $typeInferrence
+    $typeInference
     final \$p = ReceivePort();
     final \$c = $_jObject.fromRef($_jni.Jni.newPortContinuation(\$p));
     $callExpr;
@@ -1113,7 +1113,7 @@ class _MethodGenerator extends Visitor<Method, void> {
     } else {
       final returning = node.returnType.accept(_FromNative(resolver, callExpr));
       s.writeln('''{
-    $typeInferrence
+    $typeInference
     return $returning;
   }
 ''');

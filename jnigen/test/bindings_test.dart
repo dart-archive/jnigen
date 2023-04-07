@@ -337,7 +337,7 @@ void main() async {
       });
     });
   });
-  group('Generic type inferrence', () {
+  group('Generic type inference', () {
     test('MyStack.of1', () {
       using((arena) {
         final emptyStack = MyStack(T: JString.type)..deletedIn(arena);
