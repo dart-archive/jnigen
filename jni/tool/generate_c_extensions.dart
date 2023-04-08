@@ -276,18 +276,19 @@ void generateGlobalJniEnv(Library library) {
       .writeAsStringSync('$wrapperIncludes$wrappers$structInst$wrapperGetter');
 }
 
-void main() {
-  final config = Config.fromFile(File('ffigen_exts.yaml'));
-  final library = parse(config);
-  generateGlobalJniEnv(library);
-  stderr.writeln('Running clang-format');
-  final format = Process.runSync('clang-format', [
-    '-i',
-    Paths.globalJniEnvC.toFilePath(),
-    Paths.globalJniEnvH.toFilePath(),
-  ]);
+void executeClangFormat(List<Uri> files) {
+  final paths = files.map((u) => u.toFilePath()).toList();
+  stderr.writeln('execute clang-format -i ${paths.join(" ")}');
+  final format = Process.runSync('clang-format', ['-i', ...paths]);
   if (format.exitCode != 0) {
     stderr.writeln('clang-format exited with ${format.exitCode}');
     stderr.writeln(format.stderr);
   }
+}
+
+void main() {
+  final config = Config.fromFile(File('ffigen_exts.yaml'));
+  final library = parse(config);
+  generateGlobalJniEnv(library);
+  executeClangFormat([Paths.globalJniEnvC, Paths.globalJniEnvH]);
 }
