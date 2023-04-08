@@ -153,7 +153,7 @@ JNIEnv* SpawnJvm(JavaVMInitArgs* initArgs) {
 
 JniClassLookupResult getClass(char* internalName) {
   JniClassLookupResult result = {NULL, NULL};
-  result.classRef = LoadClass(internalName);
+  result.value = LoadClass(internalName);
   result.exception = check_exception();
   return result;
 }
@@ -165,7 +165,7 @@ static inline JniPointerResult _getId(
     char* sig) {
   JniPointerResult result = {NULL, NULL};
   attach_thread();
-  result.id = getter(jniEnv, cls, name, sig);
+  result.value = getter(jniEnv, cls, name, sig);
   result.exception = check_exception();
   return result;
 }
@@ -225,7 +225,7 @@ JniResult callMethod(jobject obj,
       (*jniEnv)->CallVoidMethodA(jniEnv, obj, fieldID, args);
       break;
   }
-  JniResult jniResult = {.result = result, .exception = NULL};
+  JniResult jniResult = {.value = result, .exception = NULL};
   jniResult.exception = check_exception();
   return jniResult;
 }
@@ -272,7 +272,7 @@ JniResult callStaticMethod(jclass cls,
       (*jniEnv)->CallStaticVoidMethodA(jniEnv, cls, methodID, args);
       break;
   }
-  JniResult jniResult = {.result = result, .exception = NULL};
+  JniResult jniResult = {.value = result, .exception = NULL};
   jniResult.exception = check_exception();
   return jniResult;
 }
@@ -312,7 +312,7 @@ JniResult getField(jobject obj, jfieldID fieldID, int callType) {
       // This error should have been handled in Dart.
       break;
   }
-  JniResult jniResult = {.result = result, .exception = NULL};
+  JniResult jniResult = {.value = result, .exception = NULL};
   jniResult.exception = check_exception();
   return jniResult;
 }
@@ -356,7 +356,7 @@ JniResult getStaticField(jclass cls, jfieldID fieldID, int callType) {
       // or throw exception in Dart using Dart's C API.
       break;
   }
-  JniResult jniResult = {.result = result, .exception = NULL};
+  JniResult jniResult = {.value = result, .exception = NULL};
   jniResult.exception = check_exception();
   return jniResult;
 }
@@ -364,7 +364,7 @@ JniResult getStaticField(jclass cls, jfieldID fieldID, int callType) {
 JniResult newObject(jclass cls, jmethodID ctor, jvalue* args) {
   attach_thread();
   JniResult jniResult;
-  jniResult.result.l =
+  jniResult.value.l =
       to_global_ref((*jniEnv)->NewObjectA(jniEnv, cls, ctor, args));
   jniResult.exception = check_exception();
   return jniResult;
@@ -405,7 +405,8 @@ JniPointerResult newPrimitiveArray(jsize length, int type) {
       // or throw exception in Dart using Dart's C API.
       break;
   }
-  JniPointerResult result = {.id = to_global_ref(pointer), .exception = NULL};
+  JniPointerResult result = {.value = to_global_ref(pointer),
+                             .exception = NULL};
   result.exception = check_exception();
   return result;
 }
@@ -416,7 +417,7 @@ JniPointerResult newObjectArray(jsize length,
   attach_thread();
   jarray array = to_global_ref(
       (*jniEnv)->NewObjectArray(jniEnv, length, elementClass, initialElement));
-  JniPointerResult result = {.id = array, .exception = NULL};
+  JniPointerResult result = {.value = array, .exception = NULL};
   result.exception = check_exception();
   return result;
 }
@@ -459,7 +460,7 @@ JniResult getArrayElement(jarray array, int index, int type) {
       // or throw exception in Dart using Dart's C API.
       break;
   }
-  result.result = value;
+  result.value = value;
   result.exception = check_exception();
   return result;
 }
@@ -541,13 +542,13 @@ JniResult PortContinuation__ctor(int64_t j) {
   load_class_gr(&_c_PortContinuation,
                 "com/github/dart_lang/jni/PortContinuation");
   if (_c_PortContinuation == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_PortContinuation, &_m_PortContinuation__ctor, "<init>",
               "(J)V");
   if (_m_PortContinuation__ctor == NULL)
-    return (JniResult){.result = {.j = 0}, .exception = check_exception()};
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_PortContinuation,
                                          _m_PortContinuation__ctor, j);
-  return (JniResult){.result = {.l = to_global_ref(_result)},
+  return (JniResult){.value = {.l = to_global_ref(_result)},
                      .exception = check_exception()};
 }

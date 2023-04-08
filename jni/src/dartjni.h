@@ -73,19 +73,19 @@ enum JniType {
 /// If [exception] is null, it means the result is valid.
 /// It's assumed that the caller knows the expected type in [result].
 typedef struct JniResult {
-  jvalue result;
+  jvalue value;
   jthrowable exception;
 } JniResult;
 
 /// Similar to [JniResult] but for class lookups.
 typedef struct JniClassLookupResult {
-  jclass classRef;
+  jclass value;
   jthrowable exception;
 } JniClassLookupResult;
 
 /// Similar to [JniResult] but for method/field ID lookups.
 typedef struct JniPointerResult {
-  void* id;
+  void* value;
   jthrowable exception;
 } JniPointerResult;
 
