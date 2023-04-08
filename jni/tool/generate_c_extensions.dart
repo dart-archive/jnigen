@@ -35,12 +35,14 @@ const errorVar = '_exception';
 const jniEnvStructName = 'JNINativeInterface';
 
 const wrapperIncludes = '''
-#include "global_jni_env.h"\n
+#include "global_jni_env.h"
+
 ''';
 
 const wrapperDeclIncludes = '''
 #include <stdint.h>
 #include "../dartjni.h"
+
 ''';
 
 const wrapperGetter = '''
@@ -50,7 +52,7 @@ GlobalJniEnv* GetGlobalEnv() {
     return NULL;
   }
   return &globalJniEnv;
-}\n
+}
 ''';
 
 /// Find compound having [name] in [library].
@@ -278,4 +280,14 @@ void main() {
   final config = Config.fromFile(File('ffigen_exts.yaml'));
   final library = parse(config);
   generateGlobalJniEnv(library);
+  stderr.writeln('Running clang-format');
+  final format = Process.runSync('clang-format', [
+    '-i',
+    Paths.globalJniEnvC.toFilePath(),
+    Paths.globalJniEnvH.toFilePath(),
+  ]);
+  if (format.exitCode != 0) {
+    stderr.writeln('clang-format exited with ${format.exitCode}');
+    stderr.writeln(format.stderr);
+  }
 }
