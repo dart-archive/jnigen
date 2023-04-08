@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include "../dartjni.h"
 
-typedef struct global_jni_env {
+typedef struct GlobalJniEnv {
   void* reserved0;
   void* reserved1;
   void* reserved2;
@@ -34,7 +34,7 @@ typedef struct global_jni_env {
   jthrowable (*DeleteGlobalRef)(jobject globalRef);
   jthrowable (*DeleteLocalRef)(jobject localRef);
   JniResult (*IsSameObject)(jobject ref1, jobject ref2);
-  JniResult (*NewLocalRef)(jobject ref);
+  JniResult (*NewLocalRef)(jobject obj);
   JniResult (*EnsureLocalCapacity)(jint capacity);
   JniResult (*AllocObject)(jclass clazz);
   JniResult (*NewObject)(jclass, jmethodID);
@@ -386,3 +386,4 @@ typedef struct global_jni_env {
   JniResult (*GetDirectBufferCapacity)(jobject buf);
   JniResult (*GetObjectRefType)(jobject obj);
 } GlobalJniEnv;
+FFI_PLUGIN_EXPORT GlobalJniEnv* GetGlobalEnv();

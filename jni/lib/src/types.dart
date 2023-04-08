@@ -10,7 +10,7 @@ import 'package:ffi/ffi.dart';
 import 'accessors.dart';
 import 'jni.dart';
 import 'jvalues.dart';
-import 'third_party/jni_bindings_generated.dart';
+import 'third_party/generated_bindings.dart';
 
 part 'jarray.dart';
 part 'jexceptions.dart';

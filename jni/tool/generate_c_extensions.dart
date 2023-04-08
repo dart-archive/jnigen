@@ -5,8 +5,9 @@
 import 'dart:io';
 
 import 'package:ffigen/ffigen.dart';
-import 'package:ffigen/src/code_generator/writer.dart';
 import 'package:ffigen/src/code_generator.dart';
+
+import 'ffigen_util/ffigen_util.dart';
 
 class Paths {
   static final currentDir = Directory.current.uri;
@@ -18,13 +19,6 @@ class Paths {
   static final envExtensions = bindingsDir.resolve("env_extensions.dart");
 }
 
-final dummyWriter = Writer(
-  lookUpBindings: [],
-  ffiNativeBindings: [],
-  noLookUpBindings: [],
-  className: 'unused',
-);
-
 /// Name of variable used in wrappers to hold the result.
 const resultVar = '_result';
 
@@ -32,7 +26,10 @@ const resultVar = '_result';
 const errorVar = '_exception';
 
 /// Name of JNIEnv struct definition in JNI headers.
-const jniEnvStructName = 'JNINativeInterface';
+const envType = 'JNINativeInterface';
+
+/// Name of wrapper to JNIEnv
+const wrapperName = 'GlobalJniEnv';
 
 const wrapperIncludes = '''
 #include "global_jni_env.h"
@@ -47,7 +44,7 @@ const wrapperDeclIncludes = '''
 
 const wrapperGetter = '''
 FFI_PLUGIN_EXPORT
-GlobalJniEnv* GetGlobalEnv() {
+$wrapperName* GetGlobalEnv() {
   if (jni.jvm == NULL) {
     return NULL;
   }
@@ -55,11 +52,9 @@ GlobalJniEnv* GetGlobalEnv() {
 }
 ''';
 
-/// Find compound having [name] in [library].
-Compound findCompound(library, String name) {
-  return library.bindings.firstWhere((element) => element.name == name)
-      as Compound;
-}
+const wrapperGetterDecl = '''
+FFI_PLUGIN_EXPORT $wrapperName* GetGlobalEnv();
+''';
 
 /// Get C name of a type from its ffigen representation.
 String getCType(Type type) {
@@ -105,7 +100,7 @@ String getFunctionFieldDecl(
 }
 
 String getWrapperFuncName(Member field) {
-  return 'globalJniEnv_${field.name}';
+  return 'globalEnv_${field.name}';
 }
 
 class ResultWrapper {
@@ -252,28 +247,28 @@ String? getWrapperFunc(Member field) {
 }
 
 void generateGlobalJniEnv(Library library) {
-  final jniEnvType = findCompound(library, jniEnvStructName);
+  final jniEnvType = findCompound(library, envType);
 
   final fieldDecls = jniEnvType.members.map(getFunctionFieldDecl).join('\n');
   final structDecl =
-      'typedef struct global_jni_env {\n$fieldDecls\n} GlobalJniEnv;\n';
+      'typedef struct $wrapperName {\n$fieldDecls\n} $wrapperName;\n';
   File.fromUri(Paths.globalJniEnvH)
-      .writeAsStringSync('$wrapperDeclIncludes$structDecl');
+      .writeAsStringSync('$wrapperDeclIncludes$structDecl$wrapperGetterDecl');
 
-  final wrappers = StringBuffer();
-  final structInst = StringBuffer('GlobalJniEnv globalJniEnv = {\n');
+  final functionWrappers = StringBuffer();
+  final structInst = StringBuffer('$wrapperName globalJniEnv = {\n');
   for (final member in jniEnvType.members) {
     final wrapper = getWrapperFunc(member);
     if (wrapper == null) {
       structInst.write('.${member.name} = NULL,\n');
     } else {
       structInst.write('.${member.name} = ${getWrapperFuncName(member)},\n');
-      wrappers.write('$wrapper\n');
+      functionWrappers.write('$wrapper\n');
     }
   }
   structInst.write('};');
-  File.fromUri(Paths.globalJniEnvC)
-      .writeAsStringSync('$wrapperIncludes$wrappers$structInst$wrapperGetter');
+  File.fromUri(Paths.globalJniEnvC).writeAsStringSync(
+      '$wrapperIncludes$functionWrappers$structInst$wrapperGetter');
 }
 
 void executeClangFormat(List<Uri> files) {

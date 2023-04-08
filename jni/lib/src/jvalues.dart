@@ -5,7 +5,7 @@
 import 'dart:ffi';
 import 'package:ffi/ffi.dart';
 
-import 'third_party/jni_bindings_generated.dart';
+import 'third_party/generated_bindings.dart';
 import 'jni.dart';
 import 'types.dart';
 

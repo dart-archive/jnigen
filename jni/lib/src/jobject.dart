@@ -44,7 +44,7 @@ Pointer<T> _getID<T extends NativeType>(
   if (result.exception != nullptr) {
     _accessors.throwException(result.exception);
   }
-  return result.id.cast<T>();
+  return result.value.cast<T>();
 }
 
 int _getCallType(int? callType, int defaultType, Set<int> allowed) {

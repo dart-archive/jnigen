@@ -9,7 +9,7 @@ import 'dart:isolate';
 import 'package:ffi/ffi.dart';
 import 'package:path/path.dart';
 
-import 'third_party/jni_bindings_generated.dart';
+import 'third_party/generated_bindings.dart';
 import 'jvalues.dart';
 import 'types.dart';
 import 'accessors.dart';
@@ -84,7 +84,7 @@ abstract class Jni {
     List<String> jvmOptions = const [],
     List<String> classPath = const [],
     bool ignoreUnrecognized = false,
-    int jniVersion = JNI_VERSION_1_6,
+    int jniVersion = JniVersions.JNI_VERSION_1_6,
   }) =>
       using((arena) {
         _dylibDir = dylibDir;
@@ -108,7 +108,7 @@ abstract class Jni {
     List<String> classPath = const [],
     String? dylibPath,
     bool ignoreUnrecognized = false,
-    int version = JNI_VERSION_1_6,
+    int version = JniVersions.JNI_VERSION_1_6,
     required Allocator allocator,
   }) {
     final args = allocator<JavaVMInitArgs>();
