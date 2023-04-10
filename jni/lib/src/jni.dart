@@ -100,7 +100,17 @@ abstract class Jni {
           ignoreUnrecognized: ignoreUnrecognized,
           allocator: arena,
         );
-        _bindings.SpawnJvm(jvmArgs);
+        final status = _bindings.SpawnJvm(jvmArgs);
+        if (status == JniErrorCode.JNI_OK) {
+          return;
+        } else if (status == DART_JNI_SINGLETON_EXISTS) {
+          throw JvmExistsException();
+        } else if (status == JniErrorCode.JNI_EEXIST) {
+          sleep(const Duration(seconds: 1));
+          throw JvmExistsException();
+        } else {
+          throw SpawnException.of(status);
+        }
       });
 
   static Pointer<JavaVMInitArgs> _createVMArgs({

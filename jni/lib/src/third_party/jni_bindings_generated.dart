@@ -91,7 +91,12 @@ class JniBindings {
   late final _GetJniEnv =
       _GetJniEnvPtr.asFunction<ffi.Pointer<JniEnv> Function()>();
 
-  ffi.Pointer<JniEnv> SpawnJvm(
+  /// Spawn a JVM with given arguments.
+  ///
+  /// Returns JNI_OK on success, and one of the documented JNI error codes on
+  /// failure. It returns DART_JNI_SINGLETON_EXISTS if an attempt to spawn multiple
+  /// JVMs is made, even if the underlying API potentially supports multiple VMs.
+  int SpawnJvm(
     ffi.Pointer<JavaVMInitArgs> args,
   ) {
     return _SpawnJvm(
@@ -100,11 +105,10 @@ class JniBindings {
   }
 
   late final _SpawnJvmPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<JniEnv> Function(
-              ffi.Pointer<JavaVMInitArgs>)>>('SpawnJvm');
-  late final _SpawnJvm = _SpawnJvmPtr.asFunction<
-      ffi.Pointer<JniEnv> Function(ffi.Pointer<JavaVMInitArgs>)>();
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<JavaVMInitArgs>)>>(
+      'SpawnJvm');
+  late final _SpawnJvm =
+      _SpawnJvmPtr.asFunction<int Function(ffi.Pointer<JavaVMInitArgs>)>();
 
   JClassPtr LoadClass(
     ffi.Pointer<ffi.Char> name,
@@ -3225,3 +3229,5 @@ abstract class JniBufferWriteBack {
   /// free buffer w/o copying back
   static const int JNI_ABORT = 2;
 }
+
+const int DART_JNI_SINGLETON_EXISTS = -99;

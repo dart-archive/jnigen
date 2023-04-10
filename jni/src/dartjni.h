@@ -39,6 +39,9 @@
 #define __ENVP_CAST (void**)
 #endif
 
+/// Represents the error when dart-jni layer has already spawned singleton VM.
+#define DART_JNI_SINGLETON_EXISTS (-99);
+
 /// Stores the global state of the JNI.
 typedef struct JniContext {
   JavaVM* jvm;
@@ -142,8 +145,8 @@ FFI_PLUGIN_EXPORT JNIEnv* GetJniEnv(void);
 /// Spawn a JVM with given arguments.
 ///
 /// Returns JNI_OK on success, and one of the documented JNI error codes on
-/// failure. Notably, it returns JNI_EEXIST if an attempt to spawn multiple JVMs
-/// is made, even though the underlying API potentially supports multiple VMs.
+/// failure. It returns DART_JNI_SINGLETON_EXISTS if an attempt to spawn multiple
+/// JVMs is made, even if the underlying API potentially supports multiple VMs.
 FFI_PLUGIN_EXPORT int SpawnJvm(JavaVMInitArgs* args);
 
 FFI_PLUGIN_EXPORT jclass LoadClass(const char* name);

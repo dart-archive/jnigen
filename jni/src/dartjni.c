@@ -129,7 +129,7 @@ Java_com_github_dart_1lang_jni_JniPlugin_setJniActivity(JNIEnv* env,
 FFI_PLUGIN_EXPORT
 int SpawnJvm(JavaVMInitArgs* initArgs) {
   if (jni.jvm != NULL) {
-    return JNI_EEXIST;
+    return DART_JNI_SINGLETON_EXISTS;
   }
   JavaVMOption jvmopt[1];
   char class_path[] = "-Djava.class.path=.";
