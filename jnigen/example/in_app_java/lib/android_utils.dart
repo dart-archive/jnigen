@@ -120,7 +120,7 @@ class $AndroidUtilsType extends jni.JObjType<AndroidUtils> {
 /// loading completes use InitCallback.
 /// <p/>
 class EmojiCompat extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -338,8 +338,11 @@ class EmojiCompat extends jni.JObject {
   /// afterwords.
   ///
   ///@return Default EmojiCompat for this device, or null if there is no provider on the system.
-  static EmojiCompat init(jni.JObject context) =>
-      const $EmojiCompatType().fromRef(_init(context.reference).object);
+  static EmojiCompat init(
+    jni.JObject context,
+  ) {
+    return const $EmojiCompatType().fromRef(_init(context.reference).object);
+  }
 
   static final _init1 = jniLookup<
           ffi.NativeFunction<
@@ -354,11 +357,12 @@ class EmojiCompat extends jni.JObject {
   ///
   /// @hide
   static EmojiCompat init1(
-          jni.JObject context,
-          DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory
-              defaultFactory) =>
-      const $EmojiCompatType()
-          .fromRef(_init1(context.reference, defaultFactory.reference).object);
+    jni.JObject context,
+    DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory defaultFactory,
+  ) {
+    return const $EmojiCompatType()
+        .fromRef(_init1(context.reference, defaultFactory.reference).object);
+  }
 
   static final _init2 = jniLookup<
           ffi.NativeFunction<
@@ -375,8 +379,11 @@ class EmojiCompat extends jni.JObject {
   /// the singleton instance and any call after that will not create a new instance and return
   /// immediately.
   ///@see EmojiCompat.Config
-  static EmojiCompat init2(EmojiCompat_Config config) =>
-      const $EmojiCompatType().fromRef(_init2(config.reference).object);
+  static EmojiCompat init2(
+    EmojiCompat_Config config,
+  ) {
+    return const $EmojiCompatType().fromRef(_init2(config.reference).object);
+  }
 
   static final _isConfigured =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
@@ -394,7 +401,9 @@ class EmojiCompat extends jni.JObject {
   /// This function does not check the \#getLoadState() and will return true even if the
   /// font is still loading, or has failed to load.
   ///@return true if EmojiCompat has been successfully initialized.
-  static bool isConfigured() => _isConfigured().boolean;
+  static bool isConfigured() {
+    return _isConfigured().boolean;
+  }
 
   static final _reset = jniLookup<
           ffi.NativeFunction<
@@ -408,8 +417,11 @@ class EmojiCompat extends jni.JObject {
   /// Used by the tests to reset EmojiCompat with a new configuration. Every time it is called a
   /// new instance is created with the new configuration.
   ///@hide
-  static EmojiCompat reset(EmojiCompat_Config config) =>
-      const $EmojiCompatType().fromRef(_reset(config.reference).object);
+  static EmojiCompat reset(
+    EmojiCompat_Config config,
+  ) {
+    return const $EmojiCompatType().fromRef(_reset(config.reference).object);
+  }
 
   static final _reset1 = jniLookup<
           ffi.NativeFunction<
@@ -422,8 +434,12 @@ class EmojiCompat extends jni.JObject {
   ///
   /// Used by the tests to reset EmojiCompat with a new singleton instance.
   ///@hide
-  static EmojiCompat reset1(EmojiCompat emojiCompat) =>
-      const $EmojiCompatType().fromRef(_reset1(emojiCompat.reference).object);
+  static EmojiCompat reset1(
+    EmojiCompat emojiCompat,
+  ) {
+    return const $EmojiCompatType()
+        .fromRef(_reset1(emojiCompat.reference).object);
+  }
 
   static final _skipDefaultConfigurationLookup =
       jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Uint8)>>(
@@ -434,8 +450,11 @@ class EmojiCompat extends jni.JObject {
   ///
   /// Reset default configuration lookup flag, for tests.
   ///@hide
-  static void skipDefaultConfigurationLookup(bool shouldSkip) =>
-      _skipDefaultConfigurationLookup(shouldSkip ? 1 : 0).check();
+  static void skipDefaultConfigurationLookup(
+    bool shouldSkip,
+  ) {
+    return _skipDefaultConfigurationLookup(shouldSkip ? 1 : 0).check();
+  }
 
   static final _get0 = jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
           "EmojiCompat__get0")
@@ -448,7 +467,9 @@ class EmojiCompat extends jni.JObject {
   /// \#init(EmojiCompat.Config) is called to initialize the singleton instance.
   ///@return EmojiCompat instance
   ///@throws IllegalStateException if called before \#init(EmojiCompat.Config)
-  static EmojiCompat get0() => const $EmojiCompatType().fromRef(_get0().object);
+  static EmojiCompat get0() {
+    return const $EmojiCompatType().fromRef(_get0().object);
+  }
 
   static final _load = jniLookup<
           ffi.NativeFunction<
@@ -471,7 +492,9 @@ class EmojiCompat extends jni.JObject {
   /// </ul>
   ///@throws IllegalStateException when Config\#setMetadataLoadStrategy(int) is not set
   /// to \#LOAD_STRATEGY_MANUAL
-  void load() => _load(reference).check();
+  void load() {
+    return _load(reference).check();
+  }
 
   static final _registerInitCallback = jniLookup<
           ffi.NativeFunction<
@@ -492,8 +515,11 @@ class EmojiCompat extends jni.JObject {
   /// called.
   ///@param initCallback the initialization callback to register, cannot be {@code null}
   ///@see \#unregisterInitCallback(InitCallback)
-  void registerInitCallback(EmojiCompat_InitCallback initCallback) =>
-      _registerInitCallback(reference, initCallback.reference).check();
+  void registerInitCallback(
+    EmojiCompat_InitCallback initCallback,
+  ) {
+    return _registerInitCallback(reference, initCallback.reference).check();
+  }
 
   static final _unregisterInitCallback = jniLookup<
               ffi.NativeFunction<
@@ -508,8 +534,11 @@ class EmojiCompat extends jni.JObject {
   ///
   /// Unregisters a callback that was added before.
   ///@param initCallback the callback to be removed, cannot be {@code null}
-  void unregisterInitCallback(EmojiCompat_InitCallback initCallback) =>
-      _unregisterInitCallback(reference, initCallback.reference).check();
+  void unregisterInitCallback(
+    EmojiCompat_InitCallback initCallback,
+  ) {
+    return _unregisterInitCallback(reference, initCallback.reference).check();
+  }
 
   static final _getLoadState = jniLookup<
           ffi.NativeFunction<
@@ -523,7 +552,9 @@ class EmojiCompat extends jni.JObject {
   /// below always returns \#LOAD_STATE_SUCCEEDED.
   ///@return one of \#LOAD_STATE_DEFAULT, \#LOAD_STATE_LOADING,
   /// \#LOAD_STATE_SUCCEEDED, \#LOAD_STATE_FAILED
-  int getLoadState() => _getLoadState(reference).integer;
+  int getLoadState() {
+    return _getLoadState(reference).integer;
+  }
 
   static final _isEmojiSpanIndicatorEnabled = jniLookup<
               ffi.NativeFunction<
@@ -535,8 +566,9 @@ class EmojiCompat extends jni.JObject {
   ///
   /// @return whether a background should be drawn for the emoji for debugging
   ///@hide
-  bool isEmojiSpanIndicatorEnabled() =>
-      _isEmojiSpanIndicatorEnabled(reference).boolean;
+  bool isEmojiSpanIndicatorEnabled() {
+    return _isEmojiSpanIndicatorEnabled(reference).boolean;
+  }
 
   static final _getEmojiSpanIndicatorColor = jniLookup<
               ffi.NativeFunction<
@@ -548,8 +580,9 @@ class EmojiCompat extends jni.JObject {
   ///
   /// @return color of background drawn if EmojiCompat\#isEmojiSpanIndicatorEnabled is true
   ///@hide
-  int getEmojiSpanIndicatorColor() =>
-      _getEmojiSpanIndicatorColor(reference).integer;
+  int getEmojiSpanIndicatorColor() {
+    return _getEmojiSpanIndicatorColor(reference).integer;
+  }
 
   static final _getEmojiStart = jniLookup<
           ffi.NativeFunction<
@@ -572,8 +605,12 @@ class EmojiCompat extends jni.JObject {
   ///@param charSequence the whole sequence
   ///@param offset index of the emoji to look up
   ///@return the start index inclusively/end index exclusively
-  int getEmojiStart(jni.JObject charSequence, int offset) =>
-      _getEmojiStart(reference, charSequence.reference, offset).integer;
+  int getEmojiStart(
+    jni.JObject charSequence,
+    int offset,
+  ) {
+    return _getEmojiStart(reference, charSequence.reference, offset).integer;
+  }
 
   static final _getEmojiEnd = jniLookup<
           ffi.NativeFunction<
@@ -588,8 +625,12 @@ class EmojiCompat extends jni.JObject {
   /// from: public int getEmojiEnd(java.lang.CharSequence charSequence, int offset)
   ///
   /// see \#getEmojiStart(CharSequence, int).
-  int getEmojiEnd(jni.JObject charSequence, int offset) =>
-      _getEmojiEnd(reference, charSequence.reference, offset).integer;
+  int getEmojiEnd(
+    jni.JObject charSequence,
+    int offset,
+  ) {
+    return _getEmojiEnd(reference, charSequence.reference, offset).integer;
+  }
 
   static final _handleOnKeyDown = jniLookup<
           ffi.NativeFunction<
@@ -618,8 +659,13 @@ class EmojiCompat extends jni.JObject {
   ///              int, KeyEvent)
   ///@return {@code true} if an EmojiSpan is deleted
   static bool handleOnKeyDown(
-          jni.JObject editable, int keyCode, jni.JObject event) =>
-      _handleOnKeyDown(editable.reference, keyCode, event.reference).boolean;
+    jni.JObject editable,
+    int keyCode,
+    jni.JObject event,
+  ) {
+    return _handleOnKeyDown(editable.reference, keyCode, event.reference)
+        .boolean;
+  }
 
   static final _handleDeleteSurroundingText = jniLookup<
           ffi.NativeFunction<
@@ -650,18 +696,16 @@ class EmojiCompat extends jni.JObject {
   ///@param inCodePoints {@code true} if length parameters are in codepoints
   ///@return {@code true} if an EmojiSpan is deleted
   static bool handleDeleteSurroundingText(
-          jni.JObject inputConnection,
-          jni.JObject editable,
-          int beforeLength,
-          int afterLength,
-          bool inCodePoints) =>
-      _handleDeleteSurroundingText(
-              inputConnection.reference,
-              editable.reference,
-              beforeLength,
-              afterLength,
-              inCodePoints ? 1 : 0)
-          .boolean;
+    jni.JObject inputConnection,
+    jni.JObject editable,
+    int beforeLength,
+    int afterLength,
+    bool inCodePoints,
+  ) {
+    return _handleDeleteSurroundingText(inputConnection.reference,
+            editable.reference, beforeLength, afterLength, inCodePoints ? 1 : 0)
+        .boolean;
+  }
 
   static final _hasEmojiGlyph = jniLookup<
           ffi.NativeFunction<
@@ -679,8 +723,11 @@ class EmojiCompat extends jni.JObject {
   ///@param sequence CharSequence representing the emoji
   ///@return {@code true} if EmojiCompat can render given emoji, cannot be {@code null}
   ///@throws IllegalStateException if not initialized yet
-  bool hasEmojiGlyph(jni.JObject sequence) =>
-      _hasEmojiGlyph(reference, sequence.reference).boolean;
+  bool hasEmojiGlyph(
+    jni.JObject sequence,
+  ) {
+    return _hasEmojiGlyph(reference, sequence.reference).boolean;
+  }
 
   static final _hasEmojiGlyph1 = jniLookup<
           ffi.NativeFunction<
@@ -702,8 +749,13 @@ class EmojiCompat extends jni.JObject {
   ///                        equal to {@code 0},
   ///@return {@code true} if EmojiCompat can render given emoji, cannot be {@code null}
   ///@throws IllegalStateException if not initialized yet
-  bool hasEmojiGlyph1(jni.JObject sequence, int metadataVersion) =>
-      _hasEmojiGlyph1(reference, sequence.reference, metadataVersion).boolean;
+  bool hasEmojiGlyph1(
+    jni.JObject sequence,
+    int metadataVersion,
+  ) {
+    return _hasEmojiGlyph1(reference, sequence.reference, metadataVersion)
+        .boolean;
+  }
 
   static final _getEmojiMatch = jniLookup<
           ffi.NativeFunction<
@@ -728,8 +780,13 @@ class EmojiCompat extends jni.JObject {
   ///@param metadataVersion the metada version to check against, should be greater than or
   ///                        equal to {@code 0},
   ///@return A match result, or decomposes if replaceAll would cause partial subsequence matches.
-  int getEmojiMatch(jni.JObject sequence, int metadataVersion) =>
-      _getEmojiMatch(reference, sequence.reference, metadataVersion).integer;
+  int getEmojiMatch(
+    jni.JObject sequence,
+    int metadataVersion,
+  ) {
+    return _getEmojiMatch(reference, sequence.reference, metadataVersion)
+        .integer;
+  }
 
   static final _process = jniLookup<
           ffi.NativeFunction<
@@ -748,8 +805,12 @@ class EmojiCompat extends jni.JObject {
   ///@param charSequence CharSequence to add the EmojiSpans
   ///@throws IllegalStateException if not initialized yet
   ///@see \#process(CharSequence, int, int)
-  jni.JObject process(jni.JObject charSequence) => const jni.JObjectType()
-      .fromRef(_process(reference, charSequence.reference).object);
+  jni.JObject process(
+    jni.JObject charSequence,
+  ) {
+    return const jni.JObjectType()
+        .fromRef(_process(reference, charSequence.reference).object);
+  }
 
   static final _process1 = jniLookup<
           ffi.NativeFunction<
@@ -788,9 +849,14 @@ class EmojiCompat extends jni.JObject {
   ///                                  {@code start < 0}, {@code end < 0}, {@code end < start},
   ///                                  {@code start > charSequence.length()},
   ///                                  {@code end > charSequence.length()}
-  jni.JObject process1(jni.JObject charSequence, int start, int end) =>
-      const jni.JObjectType().fromRef(
-          _process1(reference, charSequence.reference, start, end).object);
+  jni.JObject process1(
+    jni.JObject charSequence,
+    int start,
+    int end,
+  ) {
+    return const jni.JObjectType().fromRef(
+        _process1(reference, charSequence.reference, start, end).object);
+  }
 
   static final _process2 = jniLookup<
           ffi.NativeFunction<
@@ -834,10 +900,15 @@ class EmojiCompat extends jni.JObject {
   ///                                  {@code end > charSequence.length()}
   ///                                  {@code maxEmojiCount < 0}
   jni.JObject process2(
-          jni.JObject charSequence, int start, int end, int maxEmojiCount) =>
-      const jni.JObjectType().fromRef(_process2(
-              reference, charSequence.reference, start, end, maxEmojiCount)
-          .object);
+    jni.JObject charSequence,
+    int start,
+    int end,
+    int maxEmojiCount,
+  ) {
+    return const jni.JObjectType().fromRef(
+        _process2(reference, charSequence.reference, start, end, maxEmojiCount)
+            .object);
+  }
 
   static final _process3 = jniLookup<
           ffi.NativeFunction<
@@ -885,16 +956,17 @@ class EmojiCompat extends jni.JObject {
   ///                                  {@code start > charSequence.length()},
   ///                                  {@code end > charSequence.length()}
   ///                                  {@code maxEmojiCount < 0}
-  jni.JObject process3(jni.JObject charSequence, int start, int end,
-          int maxEmojiCount, int replaceStrategy) =>
-      const jni.JObjectType().fromRef(_process3(
-              reference,
-              charSequence.reference,
-              start,
-              end,
-              maxEmojiCount,
-              replaceStrategy)
-          .object);
+  jni.JObject process3(
+    jni.JObject charSequence,
+    int start,
+    int end,
+    int maxEmojiCount,
+    int replaceStrategy,
+  ) {
+    return const jni.JObjectType().fromRef(_process3(reference,
+            charSequence.reference, start, end, maxEmojiCount, replaceStrategy)
+        .object);
+  }
 
   static final _getAssetSignature = jniLookup<
           ffi.NativeFunction<
@@ -909,8 +981,10 @@ class EmojiCompat extends jni.JObject {
   /// constructed using emoji assets. Can be used to detect if currently loaded asset is different
   /// then previous executions. When used on devices running API 18 or below, returns empty string.
   ///@throws IllegalStateException if not initialized yet
-  jni.JString getAssetSignature() =>
-      const jni.JStringType().fromRef(_getAssetSignature(reference).object);
+  jni.JString getAssetSignature() {
+    return const jni.JStringType()
+        .fromRef(_getAssetSignature(reference).object);
+  }
 
   static final _updateEditorInfo = jniLookup<
           ffi.NativeFunction<
@@ -937,8 +1011,11 @@ class EmojiCompat extends jni.JObject {
   ///                 android.widget.TextView\#onCreateInputConnection(EditorInfo)
   ///@see \#EDITOR_INFO_METAVERSION_KEY
   ///@see \#EDITOR_INFO_REPLACE_ALL_KEY
-  void updateEditorInfo(jni.JObject outAttrs) =>
-      _updateEditorInfo(reference, outAttrs.reference).check();
+  void updateEditorInfo(
+    jni.JObject outAttrs,
+  ) {
+    return _updateEditorInfo(reference, outAttrs.reference).check();
+  }
 }
 
 class $EmojiCompatType extends jni.JObjType<EmojiCompat> {
@@ -949,6 +1026,12 @@ class $EmojiCompatType extends jni.JObjType<EmojiCompat> {
 
   @override
   EmojiCompat fromRef(jni.JObjectPtr ref) => EmojiCompat.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$Config
@@ -957,7 +1040,7 @@ class $EmojiCompatType extends jni.JObjType<EmojiCompat> {
 /// \#init(Config) is called.
 ///@see \#init(EmojiCompat.Config)
 class EmojiCompat_Config extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -978,8 +1061,11 @@ class EmojiCompat_Config extends jni.JObject {
   ///
   /// Default constructor.
   ///@param metadataLoader MetadataRepoLoader instance, cannot be {@code null}
-  EmojiCompat_Config(EmojiCompat_MetadataRepoLoader metadataLoader)
-      : super.fromRef(_ctor(metadataLoader.reference).object);
+  factory EmojiCompat_Config(
+    EmojiCompat_MetadataRepoLoader metadataLoader,
+  ) {
+    return EmojiCompat_Config.fromRef(_ctor(metadataLoader.reference).object);
+  }
 
   static final _registerInitCallback = jniLookup<
               ffi.NativeFunction<
@@ -997,9 +1083,11 @@ class EmojiCompat_Config extends jni.JObject {
   ///@param initCallback the initialization callback to register, cannot be {@code null}
   ///@return EmojiCompat.Config instance
   EmojiCompat_Config registerInitCallback(
-          EmojiCompat_InitCallback initCallback) =>
-      const $EmojiCompat_ConfigType().fromRef(
-          _registerInitCallback(reference, initCallback.reference).object);
+    EmojiCompat_InitCallback initCallback,
+  ) {
+    return const $EmojiCompat_ConfigType().fromRef(
+        _registerInitCallback(reference, initCallback.reference).object);
+  }
 
   static final _unregisterInitCallback = jniLookup<
               ffi.NativeFunction<
@@ -1017,9 +1105,11 @@ class EmojiCompat_Config extends jni.JObject {
   ///@param initCallback the initialization callback to be removed, cannot be {@code null}
   ///@return EmojiCompat.Config instance
   EmojiCompat_Config unregisterInitCallback(
-          EmojiCompat_InitCallback initCallback) =>
-      const $EmojiCompat_ConfigType().fromRef(
-          _unregisterInitCallback(reference, initCallback.reference).object);
+    EmojiCompat_InitCallback initCallback,
+  ) {
+    return const $EmojiCompat_ConfigType().fromRef(
+        _unregisterInitCallback(reference, initCallback.reference).object);
+  }
 
   static final _setReplaceAll = jniLookup<
           ffi.NativeFunction<
@@ -1035,9 +1125,12 @@ class EmojiCompat_Config extends jni.JObject {
   /// can render an emoji and do not replace those emojis.
   ///@param replaceAll replace all emojis found with EmojiSpans
   ///@return EmojiCompat.Config instance
-  EmojiCompat_Config setReplaceAll(bool replaceAll) =>
-      const $EmojiCompat_ConfigType()
-          .fromRef(_setReplaceAll(reference, replaceAll ? 1 : 0).object);
+  EmojiCompat_Config setReplaceAll(
+    bool replaceAll,
+  ) {
+    return const $EmojiCompat_ConfigType()
+        .fromRef(_setReplaceAll(reference, replaceAll ? 1 : 0).object);
+  }
 
   static final _setUseEmojiAsDefaultStyle = jniLookup<
           ffi.NativeFunction<
@@ -1060,10 +1153,13 @@ class EmojiCompat_Config extends jni.JObject {
   /// exception emojis that should be still presented as text style.
   ///@param useEmojiAsDefaultStyle whether to use the emoji style presentation for all emojis
   ///                               that would be presented as text style by default
-  EmojiCompat_Config setUseEmojiAsDefaultStyle(bool useEmojiAsDefaultStyle) =>
-      const $EmojiCompat_ConfigType().fromRef(
-          _setUseEmojiAsDefaultStyle(reference, useEmojiAsDefaultStyle ? 1 : 0)
-              .object);
+  EmojiCompat_Config setUseEmojiAsDefaultStyle(
+    bool useEmojiAsDefaultStyle,
+  ) {
+    return const $EmojiCompat_ConfigType().fromRef(
+        _setUseEmojiAsDefaultStyle(reference, useEmojiAsDefaultStyle ? 1 : 0)
+            .object);
+  }
 
   static final _setUseEmojiAsDefaultStyle1 = jniLookup<
               ffi.NativeFunction<
@@ -1089,13 +1185,16 @@ class EmojiCompat_Config extends jni.JObject {
   ///                                      not. When no exception is wanted, the method
   ///                                      \#setUseEmojiAsDefaultStyle(boolean) should
   ///                                      be used instead.
-  EmojiCompat_Config setUseEmojiAsDefaultStyle1(bool useEmojiAsDefaultStyle,
-          jni.JObject emojiAsDefaultStyleExceptions) =>
-      const $EmojiCompat_ConfigType().fromRef(_setUseEmojiAsDefaultStyle1(
-              reference,
-              useEmojiAsDefaultStyle ? 1 : 0,
-              emojiAsDefaultStyleExceptions.reference)
-          .object);
+  EmojiCompat_Config setUseEmojiAsDefaultStyle1(
+    bool useEmojiAsDefaultStyle,
+    jni.JObject emojiAsDefaultStyleExceptions,
+  ) {
+    return const $EmojiCompat_ConfigType().fromRef(_setUseEmojiAsDefaultStyle1(
+            reference,
+            useEmojiAsDefaultStyle ? 1 : 0,
+            emojiAsDefaultStyleExceptions.reference)
+        .object);
+  }
 
   static final _setEmojiSpanIndicatorEnabled = jniLookup<
               ffi.NativeFunction<
@@ -1112,10 +1211,13 @@ class EmojiCompat_Config extends jni.JObject {
   ///@param emojiSpanIndicatorEnabled when {@code true} a background is drawn for each emoji
   ///                                  that is replaced
   EmojiCompat_Config setEmojiSpanIndicatorEnabled(
-          bool emojiSpanIndicatorEnabled) =>
-      const $EmojiCompat_ConfigType().fromRef(_setEmojiSpanIndicatorEnabled(
-              reference, emojiSpanIndicatorEnabled ? 1 : 0)
-          .object);
+    bool emojiSpanIndicatorEnabled,
+  ) {
+    return const $EmojiCompat_ConfigType().fromRef(
+        _setEmojiSpanIndicatorEnabled(
+                reference, emojiSpanIndicatorEnabled ? 1 : 0)
+            .object);
+  }
 
   static final _setEmojiSpanIndicatorColor = jniLookup<
           ffi.NativeFunction<
@@ -1129,9 +1231,12 @@ class EmojiCompat_Config extends jni.JObject {
   /// Sets the color used as emoji span indicator. The default value is
   /// Color\#GREEN Color.GREEN.
   ///@see \#setEmojiSpanIndicatorEnabled(boolean)
-  EmojiCompat_Config setEmojiSpanIndicatorColor(int color) =>
-      const $EmojiCompat_ConfigType()
-          .fromRef(_setEmojiSpanIndicatorColor(reference, color).object);
+  EmojiCompat_Config setEmojiSpanIndicatorColor(
+    int color,
+  ) {
+    return const $EmojiCompat_ConfigType()
+        .fromRef(_setEmojiSpanIndicatorColor(reference, color).object);
+  }
 
   static final _setMetadataLoadStrategy = jniLookup<
           ffi.NativeFunction<
@@ -1174,9 +1279,12 @@ class EmojiCompat_Config extends jni.JObject {
   /// </pre>
   ///@param strategy one of EmojiCompat\#LOAD_STRATEGY_DEFAULT,
   ///                  EmojiCompat\#LOAD_STRATEGY_MANUAL
-  EmojiCompat_Config setMetadataLoadStrategy(int strategy) =>
-      const $EmojiCompat_ConfigType()
-          .fromRef(_setMetadataLoadStrategy(reference, strategy).object);
+  EmojiCompat_Config setMetadataLoadStrategy(
+    int strategy,
+  ) {
+    return const $EmojiCompat_ConfigType()
+        .fromRef(_setMetadataLoadStrategy(reference, strategy).object);
+  }
 
   static final _setSpanFactory = jniLookup<
           ffi.NativeFunction<
@@ -1192,9 +1300,12 @@ class EmojiCompat_Config extends jni.JObject {
   /// Set the span factory used to actually draw emoji replacements.
   ///@param factory custum span factory that can draw the emoji replacements
   ///@return this
-  EmojiCompat_Config setSpanFactory(EmojiCompat_SpanFactory factory0) =>
-      const $EmojiCompat_ConfigType()
-          .fromRef(_setSpanFactory(reference, factory0.reference).object);
+  EmojiCompat_Config setSpanFactory(
+    EmojiCompat_SpanFactory factory0,
+  ) {
+    return const $EmojiCompat_ConfigType()
+        .fromRef(_setSpanFactory(reference, factory0.reference).object);
+  }
 
   static final _setGlyphChecker = jniLookup<
               ffi.NativeFunction<
@@ -1211,9 +1322,12 @@ class EmojiCompat_Config extends jni.JObject {
   /// The interface that is used by EmojiCompat in order to check if a given emoji can be
   /// rendered by the system.
   ///@param glyphChecker GlyphChecker instance to be used.
-  EmojiCompat_Config setGlyphChecker(EmojiCompat_GlyphChecker glyphChecker) =>
-      const $EmojiCompat_ConfigType()
-          .fromRef(_setGlyphChecker(reference, glyphChecker.reference).object);
+  EmojiCompat_Config setGlyphChecker(
+    EmojiCompat_GlyphChecker glyphChecker,
+  ) {
+    return const $EmojiCompat_ConfigType()
+        .fromRef(_setGlyphChecker(reference, glyphChecker.reference).object);
+  }
 
   static final _getMetadataRepoLoader = jniLookup<
               ffi.NativeFunction<
@@ -1225,9 +1339,10 @@ class EmojiCompat_Config extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// Returns the MetadataRepoLoader.
-  EmojiCompat_MetadataRepoLoader getMetadataRepoLoader() =>
-      const $EmojiCompat_MetadataRepoLoaderType()
-          .fromRef(_getMetadataRepoLoader(reference).object);
+  EmojiCompat_MetadataRepoLoader getMetadataRepoLoader() {
+    return const $EmojiCompat_MetadataRepoLoaderType()
+        .fromRef(_getMetadataRepoLoader(reference).object);
+  }
 }
 
 class $EmojiCompat_ConfigType extends jni.JObjType<EmojiCompat_Config> {
@@ -1239,6 +1354,12 @@ class $EmojiCompat_ConfigType extends jni.JObjType<EmojiCompat_Config> {
   @override
   EmojiCompat_Config fromRef(jni.JObjectPtr ref) =>
       EmojiCompat_Config.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$MetadataRepoLoaderCallback
@@ -1246,7 +1367,7 @@ class $EmojiCompat_ConfigType extends jni.JObjType<EmojiCompat_Config> {
 /// Callback to inform EmojiCompat about the state of the metadata load. Passed to
 /// MetadataRepoLoader during MetadataRepoLoader\#load(MetadataRepoLoaderCallback) call.
 class EmojiCompat_MetadataRepoLoaderCallback extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -1262,7 +1383,9 @@ class EmojiCompat_MetadataRepoLoaderCallback extends jni.JObject {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  EmojiCompat_MetadataRepoLoaderCallback() : super.fromRef(_ctor().object);
+  factory EmojiCompat_MetadataRepoLoaderCallback() {
+    return EmojiCompat_MetadataRepoLoaderCallback.fromRef(_ctor().object);
+  }
 
   static final _onLoaded = jniLookup<
               ffi.NativeFunction<
@@ -1277,8 +1400,11 @@ class EmojiCompat_MetadataRepoLoaderCallback extends jni.JObject {
   ///
   /// Called by MetadataRepoLoader when metadata is loaded successfully.
   ///@param metadataRepo MetadataRepo instance, cannot be {@code null}
-  void onLoaded(jni.JObject metadataRepo) =>
-      _onLoaded(reference, metadataRepo.reference).check();
+  void onLoaded(
+    jni.JObject metadataRepo,
+  ) {
+    return _onLoaded(reference, metadataRepo.reference).check();
+  }
 
   static final _onFailed = jniLookup<
               ffi.NativeFunction<
@@ -1293,8 +1419,11 @@ class EmojiCompat_MetadataRepoLoaderCallback extends jni.JObject {
   ///
   /// Called by MetadataRepoLoader if an error occurs while loading the metadata.
   ///@param throwable the exception that caused the failure, {@code nullable}
-  void onFailed(jni.JObject throwable) =>
-      _onFailed(reference, throwable.reference).check();
+  void onFailed(
+    jni.JObject throwable,
+  ) {
+    return _onFailed(reference, throwable.reference).check();
+  }
 }
 
 class $EmojiCompat_MetadataRepoLoaderCallbackType
@@ -1308,13 +1437,19 @@ class $EmojiCompat_MetadataRepoLoaderCallbackType
   @override
   EmojiCompat_MetadataRepoLoaderCallback fromRef(jni.JObjectPtr ref) =>
       EmojiCompat_MetadataRepoLoaderCallback.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$GlyphChecker
 ///
 /// Interface to check if a given emoji exists on the system.
 class EmojiCompat_GlyphChecker extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -1373,9 +1508,15 @@ class EmojiCompat_GlyphChecker extends jni.JObject {
   ///@param end the exclusive end offset for the emoji in the {@code charSequence}
   ///@param sdkAdded the API version that the emoji was added in AOSP
   ///@return true if the given sequence can be rendered as a single glyph, otherwise false.
-  bool hasGlyph(jni.JObject charSequence, int start, int end, int sdkAdded) =>
-      _hasGlyph(reference, charSequence.reference, start, end, sdkAdded)
-          .boolean;
+  bool hasGlyph(
+    jni.JObject charSequence,
+    int start,
+    int end,
+    int sdkAdded,
+  ) {
+    return _hasGlyph(reference, charSequence.reference, start, end, sdkAdded)
+        .boolean;
+  }
 }
 
 class $EmojiCompat_GlyphCheckerType
@@ -1388,13 +1529,19 @@ class $EmojiCompat_GlyphCheckerType
   @override
   EmojiCompat_GlyphChecker fromRef(jni.JObjectPtr ref) =>
       EmojiCompat_GlyphChecker.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$MetadataRepoLoader
 ///
 /// Interface to load emoji metadata.
 class EmojiCompat_MetadataRepoLoader extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -1419,8 +1566,11 @@ class EmojiCompat_MetadataRepoLoader extends jni.JObject {
   /// MetadataRepoLoaderCallback\#onFailed(Throwable) should be called. When used on
   /// devices running API 18 or below, this function is never called.
   ///@param loaderCallback callback to signal the loading state
-  void load(EmojiCompat_MetadataRepoLoaderCallback loaderCallback) =>
-      _load(reference, loaderCallback.reference).check();
+  void load(
+    EmojiCompat_MetadataRepoLoaderCallback loaderCallback,
+  ) {
+    return _load(reference, loaderCallback.reference).check();
+  }
 }
 
 class $EmojiCompat_MetadataRepoLoaderType
@@ -1434,13 +1584,19 @@ class $EmojiCompat_MetadataRepoLoaderType
   @override
   EmojiCompat_MetadataRepoLoader fromRef(jni.JObjectPtr ref) =>
       EmojiCompat_MetadataRepoLoader.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$InitCallback
 ///
 /// Listener class for the initialization of the EmojiCompat.
 class EmojiCompat_InitCallback extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -1456,7 +1612,9 @@ class EmojiCompat_InitCallback extends jni.JObject {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  EmojiCompat_InitCallback() : super.fromRef(_ctor().object);
+  factory EmojiCompat_InitCallback() {
+    return EmojiCompat_InitCallback.fromRef(_ctor().object);
+  }
 
   static final _onInitialized = jniLookup<
               ffi.NativeFunction<
@@ -1468,7 +1626,9 @@ class EmojiCompat_InitCallback extends jni.JObject {
   ///
   /// Called when EmojiCompat is initialized and the emoji data is loaded. When used on devices
   /// running API 18 or below, this function is always called.
-  void onInitialized() => _onInitialized(reference).check();
+  void onInitialized() {
+    return _onInitialized(reference).check();
+  }
 
   static final _onFailed = jniLookup<
           ffi.NativeFunction<
@@ -1482,8 +1642,11 @@ class EmojiCompat_InitCallback extends jni.JObject {
   ///
   /// Called when an unrecoverable error occurs during EmojiCompat initialization. When used on
   /// devices running API 18 or below, this function is never called.
-  void onFailed(jni.JObject throwable) =>
-      _onFailed(reference, throwable.reference).check();
+  void onFailed(
+    jni.JObject throwable,
+  ) {
+    return _onFailed(reference, throwable.reference).check();
+  }
 }
 
 class $EmojiCompat_InitCallbackType
@@ -1496,13 +1659,19 @@ class $EmojiCompat_InitCallbackType
   @override
   EmojiCompat_InitCallback fromRef(jni.JObjectPtr ref) =>
       EmojiCompat_InitCallback.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$DefaultSpanFactory
 ///
 /// @hide
 class EmojiCompat_DefaultSpanFactory extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -1518,7 +1687,9 @@ class EmojiCompat_DefaultSpanFactory extends jni.JObject {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  EmojiCompat_DefaultSpanFactory() : super.fromRef(_ctor().object);
+  factory EmojiCompat_DefaultSpanFactory() {
+    return EmojiCompat_DefaultSpanFactory.fromRef(_ctor().object);
+  }
 
   static final _createSpan = jniLookup<
               ffi.NativeFunction<
@@ -1536,8 +1707,12 @@ class EmojiCompat_DefaultSpanFactory extends jni.JObject {
   ///@param rasterizer TypefaceEmojiRasterizer instance, which can draw the emoji onto a
   ///                   Canvas.
   ///@return TypefaceEmojiSpan
-  jni.JObject createSpan(jni.JObject rasterizer) => const jni.JObjectType()
-      .fromRef(_createSpan(reference, rasterizer.reference).object);
+  jni.JObject createSpan(
+    jni.JObject rasterizer,
+  ) {
+    return const jni.JObjectType()
+        .fromRef(_createSpan(reference, rasterizer.reference).object);
+  }
 }
 
 class $EmojiCompat_DefaultSpanFactoryType
@@ -1551,6 +1726,12 @@ class $EmojiCompat_DefaultSpanFactoryType
   @override
   EmojiCompat_DefaultSpanFactory fromRef(jni.JObjectPtr ref) =>
       EmojiCompat_DefaultSpanFactory.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$SpanFactory
@@ -1562,7 +1743,7 @@ class $EmojiCompat_DefaultSpanFactoryType
 /// Apps should use this only if they want to control the drawing of EmojiSpans for non-standard
 /// emoji display (for example, resizing or repositioning emoji).
 class EmojiCompat_SpanFactory extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -1588,8 +1769,12 @@ class EmojiCompat_SpanFactory extends jni.JObject {
   ///@param rasterizer TypefaceEmojiRasterizer instance, which can draw the emoji onto a
   ///                   Canvas.
   ///@return EmojiSpan instance that can use TypefaceEmojiRasterizer to draw emoji.
-  jni.JObject createSpan(jni.JObject rasterizer) => const jni.JObjectType()
-      .fromRef(_createSpan(reference, rasterizer.reference).object);
+  jni.JObject createSpan(
+    jni.JObject rasterizer,
+  ) {
+    return const jni.JObjectType()
+        .fromRef(_createSpan(reference, rasterizer.reference).object);
+  }
 }
 
 class $EmojiCompat_SpanFactoryType
@@ -1602,6 +1787,12 @@ class $EmojiCompat_SpanFactoryType
   @override
   EmojiCompat_SpanFactory fromRef(jni.JObjectPtr ref) =>
       EmojiCompat_SpanFactory.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: androidx.emoji2.text.DefaultEmojiCompatConfig
@@ -1641,7 +1832,7 @@ class $EmojiCompat_SpanFactoryType
 ///  <li>It <i>MUST</i> be installed in the system image.</li>
 /// </ol>
 class DefaultEmojiCompatConfig extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -1669,8 +1860,11 @@ class DefaultEmojiCompatConfig extends jni.JObject {
   ///@param context context for lookup
   ///@return A valid config for downloading the emoji compat font, or null if no font provider
   /// could be found.
-  static jni.JObject create(jni.JObject context) =>
-      const jni.JObjectType().fromRef(_create(context.reference).object);
+  static jni.JObject create(
+    jni.JObject context,
+  ) {
+    return const jni.JObjectType().fromRef(_create(context.reference).object);
+  }
 }
 
 class $DefaultEmojiCompatConfigType
@@ -1683,6 +1877,12 @@ class $DefaultEmojiCompatConfigType
   @override
   DefaultEmojiCompatConfig fromRef(jni.JObjectPtr ref) =>
       DefaultEmojiCompatConfig.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API28
@@ -1691,7 +1891,7 @@ class $DefaultEmojiCompatConfigType
 ///@hide
 class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28
     extends DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19 {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -1708,8 +1908,10 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28()
-      : super.fromRef(_ctor().object);
+  factory DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28() {
+    return DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28
+        .fromRef(_ctor().object);
+  }
 
   static final _getSigningSignatures1 = jniLookup<
               ffi.NativeFunction<
@@ -1723,10 +1925,14 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28
   /// from: public android.content.pm.Signature[] getSigningSignatures(android.content.pm.PackageManager packageManager, java.lang.String providerPackage)
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JArray<jni.JObject> getSigningSignatures1(
-          jni.JObject packageManager, jni.JString providerPackage) =>
-      const jni.JArrayType(jni.JObjectType()).fromRef(_getSigningSignatures1(
-              reference, packageManager.reference, providerPackage.reference)
-          .object);
+    jni.JObject packageManager,
+    jni.JString providerPackage,
+  ) {
+    return const jni.JArrayType(jni.JObjectType()).fromRef(
+        _getSigningSignatures1(
+                reference, packageManager.reference, providerPackage.reference)
+            .object);
+  }
 }
 
 class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28Type
@@ -1743,6 +1949,13 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28Type
           jni.JObjectPtr ref) =>
       DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28.fromRef(
           ref);
+
+  @override
+  jni.JObjType get superType =>
+      const $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19Type();
+
+  @override
+  final superCount = 3;
 }
 
 /// from: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API19
@@ -1751,7 +1964,7 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28Type
 ///@hide
 class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19
     extends DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -1768,8 +1981,10 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19()
-      : super.fromRef(_ctor().object);
+  factory DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19() {
+    return DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19
+        .fromRef(_ctor().object);
+  }
 
   static final _queryIntentContentProviders = jniLookup<
               ffi.NativeFunction<
@@ -1786,10 +2001,14 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19
   /// from: public java.util.List<android.content.pm.ResolveInfo> queryIntentContentProviders(android.content.pm.PackageManager packageManager, android.content.Intent intent, int flags)
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JObject queryIntentContentProviders(
-          jni.JObject packageManager, jni.JObject intent, int flags) =>
-      const jni.JObjectType().fromRef(_queryIntentContentProviders(
-              reference, packageManager.reference, intent.reference, flags)
-          .object);
+    jni.JObject packageManager,
+    jni.JObject intent,
+    int flags,
+  ) {
+    return const jni.JObjectType().fromRef(_queryIntentContentProviders(
+            reference, packageManager.reference, intent.reference, flags)
+        .object);
+  }
 
   static final _getProviderInfo = jniLookup<
               ffi.NativeFunction<
@@ -1802,9 +2021,12 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19
 
   /// from: public android.content.pm.ProviderInfo getProviderInfo(android.content.pm.ResolveInfo resolveInfo)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject getProviderInfo(jni.JObject resolveInfo) =>
-      const jni.JObjectType()
-          .fromRef(_getProviderInfo(reference, resolveInfo.reference).object);
+  jni.JObject getProviderInfo(
+    jni.JObject resolveInfo,
+  ) {
+    return const jni.JObjectType()
+        .fromRef(_getProviderInfo(reference, resolveInfo.reference).object);
+  }
 }
 
 class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19Type
@@ -1821,6 +2043,13 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19Type
           jni.JObjectPtr ref) =>
       DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19.fromRef(
           ref);
+
+  @override
+  jni.JObjType get superType =>
+      const $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelperType();
+
+  @override
+  final superCount = 2;
 }
 
 /// from: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper
@@ -1829,7 +2058,7 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19Type
 ///@hide
 class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper
     extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -1846,8 +2075,10 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper()
-      : super.fromRef(_ctor().object);
+  factory DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper() {
+    return DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper.fromRef(
+        _ctor().object);
+  }
 
   static final _getSigningSignatures = jniLookup<
               ffi.NativeFunction<
@@ -1863,10 +2094,14 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper
   ///
   /// Get the signing signatures for a package in package manager.
   jni.JArray<jni.JObject> getSigningSignatures(
-          jni.JObject packageManager, jni.JString providerPackage) =>
-      const jni.JArrayType(jni.JObjectType()).fromRef(_getSigningSignatures(
-              reference, packageManager.reference, providerPackage.reference)
-          .object);
+    jni.JObject packageManager,
+    jni.JString providerPackage,
+  ) {
+    return const jni.JArrayType(jni.JObjectType()).fromRef(
+        _getSigningSignatures(
+                reference, packageManager.reference, providerPackage.reference)
+            .object);
+  }
 
   static final _queryIntentContentProviders = jniLookup<
               ffi.NativeFunction<
@@ -1885,10 +2120,14 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper
   ///
   /// Get the content provider by intent.
   jni.JObject queryIntentContentProviders(
-          jni.JObject packageManager, jni.JObject intent, int flags) =>
-      const jni.JObjectType().fromRef(_queryIntentContentProviders(
-              reference, packageManager.reference, intent.reference, flags)
-          .object);
+    jni.JObject packageManager,
+    jni.JObject intent,
+    int flags,
+  ) {
+    return const jni.JObjectType().fromRef(_queryIntentContentProviders(
+            reference, packageManager.reference, intent.reference, flags)
+        .object);
+  }
 
   static final _getProviderInfo = jniLookup<
               ffi.NativeFunction<
@@ -1905,9 +2144,12 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper
   /// Get a ProviderInfo, if present, from a ResolveInfo
   ///@param resolveInfo the subject
   ///@return resolveInfo.providerInfo above API 19
-  jni.JObject getProviderInfo(jni.JObject resolveInfo) =>
-      const jni.JObjectType()
-          .fromRef(_getProviderInfo(reference, resolveInfo.reference).object);
+  jni.JObject getProviderInfo(
+    jni.JObject resolveInfo,
+  ) {
+    return const jni.JObjectType()
+        .fromRef(_getProviderInfo(reference, resolveInfo.reference).object);
+  }
 }
 
 class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelperType extends jni
@@ -1922,6 +2164,12 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelperType extends jni
   DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper fromRef(
           jni.JObjectPtr ref) =>
       DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigFactory
@@ -1931,7 +2179,7 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelperType extends jni
 ///@hide
 class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory
     extends jni.JObject {
-  late final jni.JObjType? _$type;
+  jni.JObjType? _$type;
   @override
   jni.JObjType get $type => _$type ??= type;
 
@@ -1952,9 +2200,12 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory
   /// The returned object must be deleted after use, by calling the `delete` method.
   ///
   /// @hide
-  DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory(
-      DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper helper)
-      : super.fromRef(_ctor(helper.reference).object);
+  factory DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory(
+    DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper helper,
+  ) {
+    return DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory.fromRef(
+        _ctor(helper.reference).object);
+  }
 
   static final _create = jniLookup<
               ffi.NativeFunction<
@@ -1970,9 +2221,12 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory
   ///
   /// @see DefaultEmojiCompatConfig\#create
   ///@hide
-  EmojiCompat_Config create(jni.JObject context) =>
-      const $EmojiCompat_ConfigType()
-          .fromRef(_create(reference, context.reference).object);
+  EmojiCompat_Config create(
+    jni.JObject context,
+  ) {
+    return const $EmojiCompat_ConfigType()
+        .fromRef(_create(reference, context.reference).object);
+  }
 }
 
 class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactoryType extends jni
@@ -1987,6 +2241,12 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactoryType extends jni
   DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory fromRef(
           jni.JObjectPtr ref) =>
       DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
 }
 
 /// from: android.os.Build
