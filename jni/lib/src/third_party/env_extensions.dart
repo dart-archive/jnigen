@@ -120,6 +120,12 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
       ref.AllocObject.asFunction<JniResult Function(JClassPtr clazz)>()(clazz)
           .object;
 
+  JObjectPtr NewObject(JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.NewObject.asFunction<
+              JniResult Function(
+                  JClassPtr clazz, JMethodIDPtr methodID)>()(clazz, methodID)
+          .object;
+
   JObjectPtr NewObjectA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.NewObjectA.asFunction<
@@ -145,12 +151,24 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<ffi.Char> sig)>()(clazz, name, sig)
           .methodID;
 
+  JObjectPtr CallObjectMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      ref.CallObjectMethod.asFunction<
+              JniResult Function(
+                  JObjectPtr obj, JMethodIDPtr methodID)>()(obj, methodID)
+          .object;
+
   JObjectPtr CallObjectMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallObjectMethodA.asFunction<
               JniResult Function(JObjectPtr obj, JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(obj, methodID, args)
           .object;
+
+  bool CallBooleanMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      ref.CallBooleanMethod.asFunction<
+              JniResult Function(
+                  JObjectPtr obj, JMethodIDPtr methodID)>()(obj, methodID)
+          .boolean;
 
   bool CallBooleanMethodA(
           JObjectPtr obj, JMethodIDPtr methodId, ffi.Pointer<JValue> args) =>
@@ -159,12 +177,24 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(obj, methodId, args)
           .boolean;
 
+  int CallByteMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      ref.CallByteMethod.asFunction<
+              JniResult Function(
+                  JObjectPtr obj, JMethodIDPtr methodID)>()(obj, methodID)
+          .byte;
+
   int CallByteMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallByteMethodA.asFunction<
               JniResult Function(JObjectPtr obj, JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(obj, methodID, args)
           .byte;
+
+  int CallCharMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      ref.CallCharMethod.asFunction<
+              JniResult Function(
+                  JObjectPtr obj, JMethodIDPtr methodID)>()(obj, methodID)
+          .char;
 
   int CallCharMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -173,12 +203,24 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(obj, methodID, args)
           .char;
 
+  int CallShortMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      ref.CallShortMethod.asFunction<
+              JniResult Function(
+                  JObjectPtr obj, JMethodIDPtr methodID)>()(obj, methodID)
+          .short;
+
   int CallShortMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallShortMethodA.asFunction<
               JniResult Function(JObjectPtr obj, JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(obj, methodID, args)
           .short;
+
+  int CallIntMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      ref.CallIntMethod.asFunction<
+              JniResult Function(
+                  JObjectPtr obj, JMethodIDPtr methodID)>()(obj, methodID)
+          .integer;
 
   int CallIntMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -187,12 +229,24 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(obj, methodID, args)
           .integer;
 
+  int CallLongMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      ref.CallLongMethod.asFunction<
+              JniResult Function(
+                  JObjectPtr obj, JMethodIDPtr methodID)>()(obj, methodID)
+          .long;
+
   int CallLongMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallLongMethodA.asFunction<
               JniResult Function(JObjectPtr obj, JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(obj, methodID, args)
           .long;
+
+  double CallFloatMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      ref.CallFloatMethod.asFunction<
+              JniResult Function(
+                  JObjectPtr obj, JMethodIDPtr methodID)>()(obj, methodID)
+          .float;
 
   double CallFloatMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -201,6 +255,12 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(obj, methodID, args)
           .float;
 
+  double CallDoubleMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      ref.CallDoubleMethod.asFunction<
+              JniResult Function(
+                  JObjectPtr obj, JMethodIDPtr methodID)>()(obj, methodID)
+          .doubleFloat;
+
   double CallDoubleMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallDoubleMethodA.asFunction<
@@ -208,12 +268,25 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(obj, methodID, args)
           .doubleFloat;
 
+  void CallVoidMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      ref.CallVoidMethod.asFunction<
+              JThrowablePtr Function(
+                  JObjectPtr obj, JMethodIDPtr methodID)>()(obj, methodID)
+          .check();
+
   void CallVoidMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallVoidMethodA.asFunction<
               JThrowablePtr Function(JObjectPtr obj, JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(obj, methodID, args)
           .check();
+
+  JObjectPtr CallNonvirtualObjectMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallNonvirtualObjectMethod.asFunction<
+              JniResult Function(JObjectPtr obj, JClassPtr clazz,
+                  JMethodIDPtr methodID)>()(obj, clazz, methodID)
+          .object;
 
   JObjectPtr CallNonvirtualObjectMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -225,6 +298,13 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(obj, clazz, methodID, args)
           .object;
 
+  bool CallNonvirtualBooleanMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallNonvirtualBooleanMethod.asFunction<
+              JniResult Function(JObjectPtr obj, JClassPtr clazz,
+                  JMethodIDPtr methodID)>()(obj, clazz, methodID)
+          .boolean;
+
   bool CallNonvirtualBooleanMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallNonvirtualBooleanMethodA.asFunction<
@@ -234,6 +314,13 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(obj, clazz, methodID, args)
           .boolean;
+
+  int CallNonvirtualByteMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallNonvirtualByteMethod.asFunction<
+              JniResult Function(JObjectPtr obj, JClassPtr clazz,
+                  JMethodIDPtr methodID)>()(obj, clazz, methodID)
+          .byte;
 
   int CallNonvirtualByteMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -245,6 +332,13 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(obj, clazz, methodID, args)
           .byte;
 
+  int CallNonvirtualCharMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallNonvirtualCharMethod.asFunction<
+              JniResult Function(JObjectPtr obj, JClassPtr clazz,
+                  JMethodIDPtr methodID)>()(obj, clazz, methodID)
+          .char;
+
   int CallNonvirtualCharMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallNonvirtualCharMethodA.asFunction<
@@ -254,6 +348,13 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(obj, clazz, methodID, args)
           .char;
+
+  int CallNonvirtualShortMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallNonvirtualShortMethod.asFunction<
+              JniResult Function(JObjectPtr obj, JClassPtr clazz,
+                  JMethodIDPtr methodID)>()(obj, clazz, methodID)
+          .short;
 
   int CallNonvirtualShortMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -265,6 +366,13 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(obj, clazz, methodID, args)
           .short;
 
+  int CallNonvirtualIntMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallNonvirtualIntMethod.asFunction<
+              JniResult Function(JObjectPtr obj, JClassPtr clazz,
+                  JMethodIDPtr methodID)>()(obj, clazz, methodID)
+          .integer;
+
   int CallNonvirtualIntMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallNonvirtualIntMethodA.asFunction<
@@ -274,6 +382,13 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(obj, clazz, methodID, args)
           .integer;
+
+  int CallNonvirtualLongMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallNonvirtualLongMethod.asFunction<
+              JniResult Function(JObjectPtr obj, JClassPtr clazz,
+                  JMethodIDPtr methodID)>()(obj, clazz, methodID)
+          .long;
 
   int CallNonvirtualLongMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -285,6 +400,13 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(obj, clazz, methodID, args)
           .long;
 
+  double CallNonvirtualFloatMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallNonvirtualFloatMethod.asFunction<
+              JniResult Function(JObjectPtr obj, JClassPtr clazz,
+                  JMethodIDPtr methodID)>()(obj, clazz, methodID)
+          .float;
+
   double CallNonvirtualFloatMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallNonvirtualFloatMethodA.asFunction<
@@ -295,6 +417,13 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(obj, clazz, methodID, args)
           .float;
 
+  double CallNonvirtualDoubleMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallNonvirtualDoubleMethod.asFunction<
+              JniResult Function(JObjectPtr obj, JClassPtr clazz,
+                  JMethodIDPtr methodID)>()(obj, clazz, methodID)
+          .doubleFloat;
+
   double CallNonvirtualDoubleMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallNonvirtualDoubleMethodA.asFunction<
@@ -304,6 +433,13 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(obj, clazz, methodID, args)
           .doubleFloat;
+
+  void CallNonvirtualVoidMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallNonvirtualVoidMethod.asFunction<
+              JThrowablePtr Function(JObjectPtr obj, JClassPtr clazz,
+                  JMethodIDPtr methodID)>()(obj, clazz, methodID)
+          .check();
 
   void CallNonvirtualVoidMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -441,12 +577,24 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<ffi.Char> sig)>()(clazz, name, sig)
           .methodID;
 
+  JObjectPtr CallStaticObjectMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallStaticObjectMethod.asFunction<
+              JniResult Function(
+                  JClassPtr clazz, JMethodIDPtr methodID)>()(clazz, methodID)
+          .object;
+
   JObjectPtr CallStaticObjectMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallStaticObjectMethodA.asFunction<
               JniResult Function(JClassPtr clazz, JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(clazz, methodID, args)
           .object;
+
+  bool CallStaticBooleanMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallStaticBooleanMethod.asFunction<
+              JniResult Function(
+                  JClassPtr clazz, JMethodIDPtr methodID)>()(clazz, methodID)
+          .boolean;
 
   bool CallStaticBooleanMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -455,12 +603,24 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(clazz, methodID, args)
           .boolean;
 
+  int CallStaticByteMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallStaticByteMethod.asFunction<
+              JniResult Function(
+                  JClassPtr clazz, JMethodIDPtr methodID)>()(clazz, methodID)
+          .byte;
+
   int CallStaticByteMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallStaticByteMethodA.asFunction<
               JniResult Function(JClassPtr clazz, JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(clazz, methodID, args)
           .byte;
+
+  int CallStaticCharMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallStaticCharMethod.asFunction<
+              JniResult Function(
+                  JClassPtr clazz, JMethodIDPtr methodID)>()(clazz, methodID)
+          .char;
 
   int CallStaticCharMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -469,12 +629,24 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(clazz, methodID, args)
           .char;
 
+  int CallStaticShortMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallStaticShortMethod.asFunction<
+              JniResult Function(
+                  JClassPtr clazz, JMethodIDPtr methodID)>()(clazz, methodID)
+          .short;
+
   int CallStaticShortMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallStaticShortMethodA.asFunction<
               JniResult Function(JClassPtr clazz, JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(clazz, methodID, args)
           .short;
+
+  int CallStaticIntMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallStaticIntMethod.asFunction<
+              JniResult Function(
+                  JClassPtr clazz, JMethodIDPtr methodID)>()(clazz, methodID)
+          .integer;
 
   int CallStaticIntMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -483,12 +655,24 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(clazz, methodID, args)
           .integer;
 
+  int CallStaticLongMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallStaticLongMethod.asFunction<
+              JniResult Function(
+                  JClassPtr clazz, JMethodIDPtr methodID)>()(clazz, methodID)
+          .long;
+
   int CallStaticLongMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallStaticLongMethodA.asFunction<
               JniResult Function(JClassPtr clazz, JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(clazz, methodID, args)
           .long;
+
+  double CallStaticFloatMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallStaticFloatMethod.asFunction<
+              JniResult Function(
+                  JClassPtr clazz, JMethodIDPtr methodID)>()(clazz, methodID)
+          .float;
 
   double CallStaticFloatMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -497,12 +681,24 @@ extension EnvExtension on ffi.Pointer<GlobalJniEnv> {
                   ffi.Pointer<JValue> args)>()(clazz, methodID, args)
           .float;
 
+  double CallStaticDoubleMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallStaticDoubleMethod.asFunction<
+              JniResult Function(
+                  JClassPtr clazz, JMethodIDPtr methodID)>()(clazz, methodID)
+          .doubleFloat;
+
   double CallStaticDoubleMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       ref.CallStaticDoubleMethodA.asFunction<
               JniResult Function(JClassPtr clazz, JMethodIDPtr methodID,
                   ffi.Pointer<JValue> args)>()(clazz, methodID, args)
           .doubleFloat;
+
+  void CallStaticVoidMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      ref.CallStaticVoidMethod.asFunction<
+              JThrowablePtr Function(
+                  JClassPtr clazz, JMethodIDPtr methodID)>()(clazz, methodID)
+          .check();
 
   void CallStaticVoidMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -1283,6 +1479,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
       JObjectPtr Function(
           ffi.Pointer<JniEnv1> env, JClassPtr clazz)>()(this, clazz);
 
+  JObjectPtr NewObject(JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.NewObject.asFunction<
+          JObjectPtr Function(ffi.Pointer<JniEnv1> env, JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, clazz, methodID);
+
   JObjectPtr NewObjectA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.NewObjectA.asFunction<
@@ -1311,6 +1512,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               ffi.Pointer<ffi.Char> name,
               ffi.Pointer<ffi.Char> sig)>()(this, clazz, name, sig);
 
+  JObjectPtr CallObjectMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      value.ref.CallObjectMethod.asFunction<
+          JObjectPtr Function(ffi.Pointer<JniEnv1> env, JObjectPtr obj,
+              JMethodIDPtr methodID)>()(this, obj, methodID);
+
   JObjectPtr CallObjectMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallObjectMethodA.asFunction<
@@ -1319,6 +1525,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JObjectPtr obj,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, methodID, args);
+
+  int CallBooleanMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      value.ref.CallBooleanMethod.asFunction<
+          int Function(ffi.Pointer<JniEnv1> env, JObjectPtr obj,
+              JMethodIDPtr methodID)>()(this, obj, methodID);
 
   int CallBooleanMethodA(
           JObjectPtr obj, JMethodIDPtr methodId, ffi.Pointer<JValue> args) =>
@@ -1329,6 +1540,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodId,
               ffi.Pointer<JValue> args)>()(this, obj, methodId, args);
 
+  int CallByteMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      value.ref.CallByteMethod.asFunction<
+          int Function(ffi.Pointer<JniEnv1> env, JObjectPtr obj,
+              JMethodIDPtr methodID)>()(this, obj, methodID);
+
   int CallByteMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallByteMethodA.asFunction<
@@ -1337,6 +1553,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JObjectPtr obj,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, methodID, args);
+
+  int CallCharMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      value.ref.CallCharMethod.asFunction<
+          int Function(ffi.Pointer<JniEnv1> env, JObjectPtr obj,
+              JMethodIDPtr methodID)>()(this, obj, methodID);
 
   int CallCharMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -1347,6 +1568,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, methodID, args);
 
+  int CallShortMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      value.ref.CallShortMethod.asFunction<
+          int Function(ffi.Pointer<JniEnv1> env, JObjectPtr obj,
+              JMethodIDPtr methodID)>()(this, obj, methodID);
+
   int CallShortMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallShortMethodA.asFunction<
@@ -1355,6 +1581,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JObjectPtr obj,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, methodID, args);
+
+  int CallIntMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      value.ref.CallIntMethod.asFunction<
+          int Function(ffi.Pointer<JniEnv1> env, JObjectPtr obj,
+              JMethodIDPtr methodID)>()(this, obj, methodID);
 
   int CallIntMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -1365,6 +1596,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, methodID, args);
 
+  int CallLongMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      value.ref.CallLongMethod.asFunction<
+          int Function(ffi.Pointer<JniEnv1> env, JObjectPtr obj,
+              JMethodIDPtr methodID)>()(this, obj, methodID);
+
   int CallLongMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallLongMethodA.asFunction<
@@ -1373,6 +1609,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JObjectPtr obj,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, methodID, args);
+
+  double CallFloatMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      value.ref.CallFloatMethod.asFunction<
+          double Function(ffi.Pointer<JniEnv1> env, JObjectPtr obj,
+              JMethodIDPtr methodID)>()(this, obj, methodID);
 
   double CallFloatMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -1383,6 +1624,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, methodID, args);
 
+  double CallDoubleMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      value.ref.CallDoubleMethod.asFunction<
+          double Function(ffi.Pointer<JniEnv1> env, JObjectPtr obj,
+              JMethodIDPtr methodID)>()(this, obj, methodID);
+
   double CallDoubleMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallDoubleMethodA.asFunction<
@@ -1392,6 +1638,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, methodID, args);
 
+  void CallVoidMethod(JObjectPtr obj, JMethodIDPtr methodID) =>
+      value.ref.CallVoidMethod.asFunction<
+          void Function(ffi.Pointer<JniEnv1> env, JObjectPtr obj,
+              JMethodIDPtr methodID)>()(this, obj, methodID);
+
   void CallVoidMethodA(
           JObjectPtr obj, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallVoidMethodA.asFunction<
@@ -1400,6 +1651,15 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JObjectPtr obj,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, methodID, args);
+
+  JObjectPtr CallNonvirtualObjectMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallNonvirtualObjectMethod.asFunction<
+          JObjectPtr Function(
+              ffi.Pointer<JniEnv1> env,
+              JObjectPtr obj,
+              JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, obj, clazz, methodID);
 
   JObjectPtr CallNonvirtualObjectMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -1411,6 +1671,15 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, clazz, methodID, args);
 
+  int CallNonvirtualBooleanMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallNonvirtualBooleanMethod.asFunction<
+          int Function(
+              ffi.Pointer<JniEnv1> env,
+              JObjectPtr obj,
+              JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, obj, clazz, methodID);
+
   int CallNonvirtualBooleanMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallNonvirtualBooleanMethodA.asFunction<
@@ -1420,6 +1689,15 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JClassPtr clazz,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, clazz, methodID, args);
+
+  int CallNonvirtualByteMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallNonvirtualByteMethod.asFunction<
+          int Function(
+              ffi.Pointer<JniEnv1> env,
+              JObjectPtr obj,
+              JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, obj, clazz, methodID);
 
   int CallNonvirtualByteMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -1431,6 +1709,15 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, clazz, methodID, args);
 
+  int CallNonvirtualCharMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallNonvirtualCharMethod.asFunction<
+          int Function(
+              ffi.Pointer<JniEnv1> env,
+              JObjectPtr obj,
+              JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, obj, clazz, methodID);
+
   int CallNonvirtualCharMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallNonvirtualCharMethodA.asFunction<
@@ -1440,6 +1727,15 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JClassPtr clazz,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, clazz, methodID, args);
+
+  int CallNonvirtualShortMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallNonvirtualShortMethod.asFunction<
+          int Function(
+              ffi.Pointer<JniEnv1> env,
+              JObjectPtr obj,
+              JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, obj, clazz, methodID);
 
   int CallNonvirtualShortMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -1451,6 +1747,15 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, clazz, methodID, args);
 
+  int CallNonvirtualIntMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallNonvirtualIntMethod.asFunction<
+          int Function(
+              ffi.Pointer<JniEnv1> env,
+              JObjectPtr obj,
+              JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, obj, clazz, methodID);
+
   int CallNonvirtualIntMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallNonvirtualIntMethodA.asFunction<
@@ -1460,6 +1765,15 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JClassPtr clazz,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, clazz, methodID, args);
+
+  int CallNonvirtualLongMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallNonvirtualLongMethod.asFunction<
+          int Function(
+              ffi.Pointer<JniEnv1> env,
+              JObjectPtr obj,
+              JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, obj, clazz, methodID);
 
   int CallNonvirtualLongMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -1471,6 +1785,15 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, clazz, methodID, args);
 
+  double CallNonvirtualFloatMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallNonvirtualFloatMethod.asFunction<
+          double Function(
+              ffi.Pointer<JniEnv1> env,
+              JObjectPtr obj,
+              JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, obj, clazz, methodID);
+
   double CallNonvirtualFloatMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallNonvirtualFloatMethodA.asFunction<
@@ -1481,6 +1804,15 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, clazz, methodID, args);
 
+  double CallNonvirtualDoubleMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallNonvirtualDoubleMethod.asFunction<
+          double Function(
+              ffi.Pointer<JniEnv1> env,
+              JObjectPtr obj,
+              JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, obj, clazz, methodID);
+
   double CallNonvirtualDoubleMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallNonvirtualDoubleMethodA.asFunction<
@@ -1490,6 +1822,15 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JClassPtr clazz,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, obj, clazz, methodID, args);
+
+  void CallNonvirtualVoidMethod(
+          JObjectPtr obj, JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallNonvirtualVoidMethod.asFunction<
+          void Function(
+              ffi.Pointer<JniEnv1> env,
+              JObjectPtr obj,
+              JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, obj, clazz, methodID);
 
   void CallNonvirtualVoidMethodA(JObjectPtr obj, JClassPtr clazz,
           JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -1609,6 +1950,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               ffi.Pointer<ffi.Char> name,
               ffi.Pointer<ffi.Char> sig)>()(this, clazz, name, sig);
 
+  JObjectPtr CallStaticObjectMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallStaticObjectMethod.asFunction<
+          JObjectPtr Function(ffi.Pointer<JniEnv1> env, JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, clazz, methodID);
+
   JObjectPtr CallStaticObjectMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallStaticObjectMethodA.asFunction<
@@ -1617,6 +1963,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JClassPtr clazz,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, clazz, methodID, args);
+
+  int CallStaticBooleanMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallStaticBooleanMethod.asFunction<
+          int Function(ffi.Pointer<JniEnv1> env, JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, clazz, methodID);
 
   int CallStaticBooleanMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -1627,6 +1978,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, clazz, methodID, args);
 
+  int CallStaticByteMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallStaticByteMethod.asFunction<
+          int Function(ffi.Pointer<JniEnv1> env, JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, clazz, methodID);
+
   int CallStaticByteMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallStaticByteMethodA.asFunction<
@@ -1635,6 +1991,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JClassPtr clazz,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, clazz, methodID, args);
+
+  int CallStaticCharMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallStaticCharMethod.asFunction<
+          int Function(ffi.Pointer<JniEnv1> env, JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, clazz, methodID);
 
   int CallStaticCharMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -1645,6 +2006,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, clazz, methodID, args);
 
+  int CallStaticShortMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallStaticShortMethod.asFunction<
+          int Function(ffi.Pointer<JniEnv1> env, JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, clazz, methodID);
+
   int CallStaticShortMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallStaticShortMethodA.asFunction<
@@ -1653,6 +2019,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JClassPtr clazz,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, clazz, methodID, args);
+
+  int CallStaticIntMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallStaticIntMethod.asFunction<
+          int Function(ffi.Pointer<JniEnv1> env, JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, clazz, methodID);
 
   int CallStaticIntMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -1663,6 +2034,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, clazz, methodID, args);
 
+  int CallStaticLongMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallStaticLongMethod.asFunction<
+          int Function(ffi.Pointer<JniEnv1> env, JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, clazz, methodID);
+
   int CallStaticLongMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallStaticLongMethodA.asFunction<
@@ -1671,6 +2047,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JClassPtr clazz,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, clazz, methodID, args);
+
+  double CallStaticFloatMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallStaticFloatMethod.asFunction<
+          double Function(ffi.Pointer<JniEnv1> env, JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, clazz, methodID);
 
   double CallStaticFloatMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
@@ -1681,6 +2062,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, clazz, methodID, args);
 
+  double CallStaticDoubleMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallStaticDoubleMethod.asFunction<
+          double Function(ffi.Pointer<JniEnv1> env, JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, clazz, methodID);
+
   double CallStaticDoubleMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>
       value.ref.CallStaticDoubleMethodA.asFunction<
@@ -1689,6 +2075,11 @@ extension JniEnvExtension on ffi.Pointer<JniEnv> {
               JClassPtr clazz,
               JMethodIDPtr methodID,
               ffi.Pointer<JValue> args)>()(this, clazz, methodID, args);
+
+  void CallStaticVoidMethod(JClassPtr clazz, JMethodIDPtr methodID) =>
+      value.ref.CallStaticVoidMethod.asFunction<
+          void Function(ffi.Pointer<JniEnv1> env, JClassPtr clazz,
+              JMethodIDPtr methodID)>()(this, clazz, methodID);
 
   void CallStaticVoidMethodA(
           JClassPtr clazz, JMethodIDPtr methodID, ffi.Pointer<JValue> args) =>

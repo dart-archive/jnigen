@@ -256,6 +256,17 @@ JniResult globalEnv_AllocObject(jclass clazz) {
   return (JniResult){.value = {.l = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_NewObject(jclass clazz, jmethodID methodID) {
+  attach_thread();
+  jobject _result = (*jniEnv)->NewObject(jniEnv, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  _result = to_global_ref(_result);
+  return (JniResult){.value = {.l = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_NewObjectA(jclass clazz, jmethodID methodID, jvalue* args) {
   attach_thread();
   jobject _result = (*jniEnv)->NewObjectA(jniEnv, clazz, methodID, args);
@@ -298,6 +309,17 @@ JniPointerResult globalEnv_GetMethodID(jclass clazz, char* name, char* sig) {
   return (JniPointerResult){.value = _result, .exception = NULL};
 }
 
+JniResult globalEnv_CallObjectMethod(jobject obj, jmethodID methodID) {
+  attach_thread();
+  jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, obj, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  _result = to_global_ref(_result);
+  return (JniResult){.value = {.l = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallObjectMethodA(jobject obj,
                                       jmethodID methodID,
                                       jvalue* args) {
@@ -309,6 +331,16 @@ JniResult globalEnv_CallObjectMethodA(jobject obj,
   }
   _result = to_global_ref(_result);
   return (JniResult){.value = {.l = _result}, .exception = NULL};
+}
+
+JniResult globalEnv_CallBooleanMethod(jobject obj, jmethodID methodID) {
+  attach_thread();
+  jboolean _result = (*jniEnv)->CallBooleanMethod(jniEnv, obj, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.z = _result}, .exception = NULL};
 }
 
 JniResult globalEnv_CallBooleanMethodA(jobject obj,
@@ -323,6 +355,16 @@ JniResult globalEnv_CallBooleanMethodA(jobject obj,
   return (JniResult){.value = {.z = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallByteMethod(jobject obj, jmethodID methodID) {
+  attach_thread();
+  jbyte _result = (*jniEnv)->CallByteMethod(jniEnv, obj, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.b = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallByteMethodA(jobject obj,
                                     jmethodID methodID,
                                     jvalue* args) {
@@ -333,6 +375,16 @@ JniResult globalEnv_CallByteMethodA(jobject obj,
     return (JniResult){.value = {.j = 0}, .exception = _exception};
   }
   return (JniResult){.value = {.b = _result}, .exception = NULL};
+}
+
+JniResult globalEnv_CallCharMethod(jobject obj, jmethodID methodID) {
+  attach_thread();
+  jchar _result = (*jniEnv)->CallCharMethod(jniEnv, obj, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.c = _result}, .exception = NULL};
 }
 
 JniResult globalEnv_CallCharMethodA(jobject obj,
@@ -347,6 +399,16 @@ JniResult globalEnv_CallCharMethodA(jobject obj,
   return (JniResult){.value = {.c = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallShortMethod(jobject obj, jmethodID methodID) {
+  attach_thread();
+  jshort _result = (*jniEnv)->CallShortMethod(jniEnv, obj, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.s = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallShortMethodA(jobject obj,
                                      jmethodID methodID,
                                      jvalue* args) {
@@ -357,6 +419,16 @@ JniResult globalEnv_CallShortMethodA(jobject obj,
     return (JniResult){.value = {.j = 0}, .exception = _exception};
   }
   return (JniResult){.value = {.s = _result}, .exception = NULL};
+}
+
+JniResult globalEnv_CallIntMethod(jobject obj, jmethodID methodID) {
+  attach_thread();
+  jint _result = (*jniEnv)->CallIntMethod(jniEnv, obj, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.i = _result}, .exception = NULL};
 }
 
 JniResult globalEnv_CallIntMethodA(jobject obj,
@@ -371,6 +443,16 @@ JniResult globalEnv_CallIntMethodA(jobject obj,
   return (JniResult){.value = {.i = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallLongMethod(jobject obj, jmethodID methodID) {
+  attach_thread();
+  jlong _result = (*jniEnv)->CallLongMethod(jniEnv, obj, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.j = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallLongMethodA(jobject obj,
                                     jmethodID methodID,
                                     jvalue* args) {
@@ -381,6 +463,16 @@ JniResult globalEnv_CallLongMethodA(jobject obj,
     return (JniResult){.value = {.j = 0}, .exception = _exception};
   }
   return (JniResult){.value = {.j = _result}, .exception = NULL};
+}
+
+JniResult globalEnv_CallFloatMethod(jobject obj, jmethodID methodID) {
+  attach_thread();
+  jfloat _result = (*jniEnv)->CallFloatMethod(jniEnv, obj, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.f = _result}, .exception = NULL};
 }
 
 JniResult globalEnv_CallFloatMethodA(jobject obj,
@@ -395,6 +487,16 @@ JniResult globalEnv_CallFloatMethodA(jobject obj,
   return (JniResult){.value = {.f = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallDoubleMethod(jobject obj, jmethodID methodID) {
+  attach_thread();
+  jdouble _result = (*jniEnv)->CallDoubleMethod(jniEnv, obj, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.d = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallDoubleMethodA(jobject obj,
                                       jmethodID methodID,
                                       jvalue* args) {
@@ -407,6 +509,16 @@ JniResult globalEnv_CallDoubleMethodA(jobject obj,
   return (JniResult){.value = {.d = _result}, .exception = NULL};
 }
 
+jthrowable globalEnv_CallVoidMethod(jobject obj, jmethodID methodID) {
+  attach_thread();
+  (*jniEnv)->CallVoidMethod(jniEnv, obj, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return _exception;
+  }
+  return NULL;
+}
+
 jthrowable globalEnv_CallVoidMethodA(jobject obj,
                                      jmethodID methodID,
                                      jvalue* args) {
@@ -417,6 +529,20 @@ jthrowable globalEnv_CallVoidMethodA(jobject obj,
     return _exception;
   }
   return NULL;
+}
+
+JniResult globalEnv_CallNonvirtualObjectMethod(jobject obj,
+                                               jclass clazz,
+                                               jmethodID methodID) {
+  attach_thread();
+  jobject _result =
+      (*jniEnv)->CallNonvirtualObjectMethod(jniEnv, obj, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  _result = to_global_ref(_result);
+  return (JniResult){.value = {.l = _result}, .exception = NULL};
 }
 
 JniResult globalEnv_CallNonvirtualObjectMethodA(jobject obj,
@@ -434,6 +560,19 @@ JniResult globalEnv_CallNonvirtualObjectMethodA(jobject obj,
   return (JniResult){.value = {.l = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallNonvirtualBooleanMethod(jobject obj,
+                                                jclass clazz,
+                                                jmethodID methodID) {
+  attach_thread();
+  jboolean _result =
+      (*jniEnv)->CallNonvirtualBooleanMethod(jniEnv, obj, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.z = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallNonvirtualBooleanMethodA(jobject obj,
                                                  jclass clazz,
                                                  jmethodID methodID,
@@ -446,6 +585,19 @@ JniResult globalEnv_CallNonvirtualBooleanMethodA(jobject obj,
     return (JniResult){.value = {.j = 0}, .exception = _exception};
   }
   return (JniResult){.value = {.z = _result}, .exception = NULL};
+}
+
+JniResult globalEnv_CallNonvirtualByteMethod(jobject obj,
+                                             jclass clazz,
+                                             jmethodID methodID) {
+  attach_thread();
+  jbyte _result =
+      (*jniEnv)->CallNonvirtualByteMethod(jniEnv, obj, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.b = _result}, .exception = NULL};
 }
 
 JniResult globalEnv_CallNonvirtualByteMethodA(jobject obj,
@@ -462,6 +614,19 @@ JniResult globalEnv_CallNonvirtualByteMethodA(jobject obj,
   return (JniResult){.value = {.b = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallNonvirtualCharMethod(jobject obj,
+                                             jclass clazz,
+                                             jmethodID methodID) {
+  attach_thread();
+  jchar _result =
+      (*jniEnv)->CallNonvirtualCharMethod(jniEnv, obj, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.c = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallNonvirtualCharMethodA(jobject obj,
                                               jclass clazz,
                                               jmethodID methodID,
@@ -474,6 +639,19 @@ JniResult globalEnv_CallNonvirtualCharMethodA(jobject obj,
     return (JniResult){.value = {.j = 0}, .exception = _exception};
   }
   return (JniResult){.value = {.c = _result}, .exception = NULL};
+}
+
+JniResult globalEnv_CallNonvirtualShortMethod(jobject obj,
+                                              jclass clazz,
+                                              jmethodID methodID) {
+  attach_thread();
+  jshort _result =
+      (*jniEnv)->CallNonvirtualShortMethod(jniEnv, obj, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.s = _result}, .exception = NULL};
 }
 
 JniResult globalEnv_CallNonvirtualShortMethodA(jobject obj,
@@ -490,6 +668,19 @@ JniResult globalEnv_CallNonvirtualShortMethodA(jobject obj,
   return (JniResult){.value = {.s = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallNonvirtualIntMethod(jobject obj,
+                                            jclass clazz,
+                                            jmethodID methodID) {
+  attach_thread();
+  jint _result =
+      (*jniEnv)->CallNonvirtualIntMethod(jniEnv, obj, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.i = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallNonvirtualIntMethodA(jobject obj,
                                              jclass clazz,
                                              jmethodID methodID,
@@ -502,6 +693,19 @@ JniResult globalEnv_CallNonvirtualIntMethodA(jobject obj,
     return (JniResult){.value = {.j = 0}, .exception = _exception};
   }
   return (JniResult){.value = {.i = _result}, .exception = NULL};
+}
+
+JniResult globalEnv_CallNonvirtualLongMethod(jobject obj,
+                                             jclass clazz,
+                                             jmethodID methodID) {
+  attach_thread();
+  jlong _result =
+      (*jniEnv)->CallNonvirtualLongMethod(jniEnv, obj, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.j = _result}, .exception = NULL};
 }
 
 JniResult globalEnv_CallNonvirtualLongMethodA(jobject obj,
@@ -518,6 +722,19 @@ JniResult globalEnv_CallNonvirtualLongMethodA(jobject obj,
   return (JniResult){.value = {.j = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallNonvirtualFloatMethod(jobject obj,
+                                              jclass clazz,
+                                              jmethodID methodID) {
+  attach_thread();
+  jfloat _result =
+      (*jniEnv)->CallNonvirtualFloatMethod(jniEnv, obj, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.f = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallNonvirtualFloatMethodA(jobject obj,
                                                jclass clazz,
                                                jmethodID methodID,
@@ -532,6 +749,19 @@ JniResult globalEnv_CallNonvirtualFloatMethodA(jobject obj,
   return (JniResult){.value = {.f = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallNonvirtualDoubleMethod(jobject obj,
+                                               jclass clazz,
+                                               jmethodID methodID) {
+  attach_thread();
+  jdouble _result =
+      (*jniEnv)->CallNonvirtualDoubleMethod(jniEnv, obj, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.d = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallNonvirtualDoubleMethodA(jobject obj,
                                                 jclass clazz,
                                                 jmethodID methodID,
@@ -544,6 +774,18 @@ JniResult globalEnv_CallNonvirtualDoubleMethodA(jobject obj,
     return (JniResult){.value = {.j = 0}, .exception = _exception};
   }
   return (JniResult){.value = {.d = _result}, .exception = NULL};
+}
+
+jthrowable globalEnv_CallNonvirtualVoidMethod(jobject obj,
+                                              jclass clazz,
+                                              jmethodID methodID) {
+  attach_thread();
+  (*jniEnv)->CallNonvirtualVoidMethod(jniEnv, obj, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return _exception;
+  }
+  return NULL;
 }
 
 jthrowable globalEnv_CallNonvirtualVoidMethodA(jobject obj,
@@ -768,6 +1010,17 @@ JniPointerResult globalEnv_GetStaticMethodID(jclass clazz,
   return (JniPointerResult){.value = _result, .exception = NULL};
 }
 
+JniResult globalEnv_CallStaticObjectMethod(jclass clazz, jmethodID methodID) {
+  attach_thread();
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  _result = to_global_ref(_result);
+  return (JniResult){.value = {.l = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallStaticObjectMethodA(jclass clazz,
                                             jmethodID methodID,
                                             jvalue* args) {
@@ -780,6 +1033,17 @@ JniResult globalEnv_CallStaticObjectMethodA(jclass clazz,
   }
   _result = to_global_ref(_result);
   return (JniResult){.value = {.l = _result}, .exception = NULL};
+}
+
+JniResult globalEnv_CallStaticBooleanMethod(jclass clazz, jmethodID methodID) {
+  attach_thread();
+  jboolean _result =
+      (*jniEnv)->CallStaticBooleanMethod(jniEnv, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.z = _result}, .exception = NULL};
 }
 
 JniResult globalEnv_CallStaticBooleanMethodA(jclass clazz,
@@ -795,6 +1059,16 @@ JniResult globalEnv_CallStaticBooleanMethodA(jclass clazz,
   return (JniResult){.value = {.z = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallStaticByteMethod(jclass clazz, jmethodID methodID) {
+  attach_thread();
+  jbyte _result = (*jniEnv)->CallStaticByteMethod(jniEnv, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.b = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallStaticByteMethodA(jclass clazz,
                                           jmethodID methodID,
                                           jvalue* args) {
@@ -806,6 +1080,16 @@ JniResult globalEnv_CallStaticByteMethodA(jclass clazz,
     return (JniResult){.value = {.j = 0}, .exception = _exception};
   }
   return (JniResult){.value = {.b = _result}, .exception = NULL};
+}
+
+JniResult globalEnv_CallStaticCharMethod(jclass clazz, jmethodID methodID) {
+  attach_thread();
+  jchar _result = (*jniEnv)->CallStaticCharMethod(jniEnv, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.c = _result}, .exception = NULL};
 }
 
 JniResult globalEnv_CallStaticCharMethodA(jclass clazz,
@@ -821,6 +1105,16 @@ JniResult globalEnv_CallStaticCharMethodA(jclass clazz,
   return (JniResult){.value = {.c = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallStaticShortMethod(jclass clazz, jmethodID methodID) {
+  attach_thread();
+  jshort _result = (*jniEnv)->CallStaticShortMethod(jniEnv, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.s = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallStaticShortMethodA(jclass clazz,
                                            jmethodID methodID,
                                            jvalue* args) {
@@ -834,6 +1128,16 @@ JniResult globalEnv_CallStaticShortMethodA(jclass clazz,
   return (JniResult){.value = {.s = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallStaticIntMethod(jclass clazz, jmethodID methodID) {
+  attach_thread();
+  jint _result = (*jniEnv)->CallStaticIntMethod(jniEnv, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.i = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallStaticIntMethodA(jclass clazz,
                                          jmethodID methodID,
                                          jvalue* args) {
@@ -844,6 +1148,16 @@ JniResult globalEnv_CallStaticIntMethodA(jclass clazz,
     return (JniResult){.value = {.j = 0}, .exception = _exception};
   }
   return (JniResult){.value = {.i = _result}, .exception = NULL};
+}
+
+JniResult globalEnv_CallStaticLongMethod(jclass clazz, jmethodID methodID) {
+  attach_thread();
+  jlong _result = (*jniEnv)->CallStaticLongMethod(jniEnv, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.j = _result}, .exception = NULL};
 }
 
 JniResult globalEnv_CallStaticLongMethodA(jclass clazz,
@@ -859,6 +1173,16 @@ JniResult globalEnv_CallStaticLongMethodA(jclass clazz,
   return (JniResult){.value = {.j = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallStaticFloatMethod(jclass clazz, jmethodID methodID) {
+  attach_thread();
+  jfloat _result = (*jniEnv)->CallStaticFloatMethod(jniEnv, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.f = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallStaticFloatMethodA(jclass clazz,
                                            jmethodID methodID,
                                            jvalue* args) {
@@ -872,6 +1196,16 @@ JniResult globalEnv_CallStaticFloatMethodA(jclass clazz,
   return (JniResult){.value = {.f = _result}, .exception = NULL};
 }
 
+JniResult globalEnv_CallStaticDoubleMethod(jclass clazz, jmethodID methodID) {
+  attach_thread();
+  jdouble _result = (*jniEnv)->CallStaticDoubleMethod(jniEnv, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return (JniResult){.value = {.j = 0}, .exception = _exception};
+  }
+  return (JniResult){.value = {.d = _result}, .exception = NULL};
+}
+
 JniResult globalEnv_CallStaticDoubleMethodA(jclass clazz,
                                             jmethodID methodID,
                                             jvalue* args) {
@@ -883,6 +1217,16 @@ JniResult globalEnv_CallStaticDoubleMethodA(jclass clazz,
     return (JniResult){.value = {.j = 0}, .exception = _exception};
   }
   return (JniResult){.value = {.d = _result}, .exception = NULL};
+}
+
+jthrowable globalEnv_CallStaticVoidMethod(jclass clazz, jmethodID methodID) {
+  attach_thread();
+  (*jniEnv)->CallStaticVoidMethod(jniEnv, clazz, methodID);
+  jthrowable _exception = check_exception();
+  if (_exception != NULL) {
+    return _exception;
+  }
+  return NULL;
 }
 
 jthrowable globalEnv_CallStaticVoidMethodA(jclass clazz,
@@ -1938,70 +2282,70 @@ GlobalJniEnv globalJniEnv = {
     .NewLocalRef = globalEnv_NewLocalRef,
     .EnsureLocalCapacity = globalEnv_EnsureLocalCapacity,
     .AllocObject = globalEnv_AllocObject,
-    .NewObject = NULL,
+    .NewObject = globalEnv_NewObject,
     .NewObjectV = NULL,
     .NewObjectA = globalEnv_NewObjectA,
     .GetObjectClass = globalEnv_GetObjectClass,
     .IsInstanceOf = globalEnv_IsInstanceOf,
     .GetMethodID = globalEnv_GetMethodID,
-    .CallObjectMethod = NULL,
+    .CallObjectMethod = globalEnv_CallObjectMethod,
     .CallObjectMethodV = NULL,
     .CallObjectMethodA = globalEnv_CallObjectMethodA,
-    .CallBooleanMethod = NULL,
+    .CallBooleanMethod = globalEnv_CallBooleanMethod,
     .CallBooleanMethodV = NULL,
     .CallBooleanMethodA = globalEnv_CallBooleanMethodA,
-    .CallByteMethod = NULL,
+    .CallByteMethod = globalEnv_CallByteMethod,
     .CallByteMethodV = NULL,
     .CallByteMethodA = globalEnv_CallByteMethodA,
-    .CallCharMethod = NULL,
+    .CallCharMethod = globalEnv_CallCharMethod,
     .CallCharMethodV = NULL,
     .CallCharMethodA = globalEnv_CallCharMethodA,
-    .CallShortMethod = NULL,
+    .CallShortMethod = globalEnv_CallShortMethod,
     .CallShortMethodV = NULL,
     .CallShortMethodA = globalEnv_CallShortMethodA,
-    .CallIntMethod = NULL,
+    .CallIntMethod = globalEnv_CallIntMethod,
     .CallIntMethodV = NULL,
     .CallIntMethodA = globalEnv_CallIntMethodA,
-    .CallLongMethod = NULL,
+    .CallLongMethod = globalEnv_CallLongMethod,
     .CallLongMethodV = NULL,
     .CallLongMethodA = globalEnv_CallLongMethodA,
-    .CallFloatMethod = NULL,
+    .CallFloatMethod = globalEnv_CallFloatMethod,
     .CallFloatMethodV = NULL,
     .CallFloatMethodA = globalEnv_CallFloatMethodA,
-    .CallDoubleMethod = NULL,
+    .CallDoubleMethod = globalEnv_CallDoubleMethod,
     .CallDoubleMethodV = NULL,
     .CallDoubleMethodA = globalEnv_CallDoubleMethodA,
-    .CallVoidMethod = NULL,
+    .CallVoidMethod = globalEnv_CallVoidMethod,
     .CallVoidMethodV = NULL,
     .CallVoidMethodA = globalEnv_CallVoidMethodA,
-    .CallNonvirtualObjectMethod = NULL,
+    .CallNonvirtualObjectMethod = globalEnv_CallNonvirtualObjectMethod,
     .CallNonvirtualObjectMethodV = NULL,
     .CallNonvirtualObjectMethodA = globalEnv_CallNonvirtualObjectMethodA,
-    .CallNonvirtualBooleanMethod = NULL,
+    .CallNonvirtualBooleanMethod = globalEnv_CallNonvirtualBooleanMethod,
     .CallNonvirtualBooleanMethodV = NULL,
     .CallNonvirtualBooleanMethodA = globalEnv_CallNonvirtualBooleanMethodA,
-    .CallNonvirtualByteMethod = NULL,
+    .CallNonvirtualByteMethod = globalEnv_CallNonvirtualByteMethod,
     .CallNonvirtualByteMethodV = NULL,
     .CallNonvirtualByteMethodA = globalEnv_CallNonvirtualByteMethodA,
-    .CallNonvirtualCharMethod = NULL,
+    .CallNonvirtualCharMethod = globalEnv_CallNonvirtualCharMethod,
     .CallNonvirtualCharMethodV = NULL,
     .CallNonvirtualCharMethodA = globalEnv_CallNonvirtualCharMethodA,
-    .CallNonvirtualShortMethod = NULL,
+    .CallNonvirtualShortMethod = globalEnv_CallNonvirtualShortMethod,
     .CallNonvirtualShortMethodV = NULL,
     .CallNonvirtualShortMethodA = globalEnv_CallNonvirtualShortMethodA,
-    .CallNonvirtualIntMethod = NULL,
+    .CallNonvirtualIntMethod = globalEnv_CallNonvirtualIntMethod,
     .CallNonvirtualIntMethodV = NULL,
     .CallNonvirtualIntMethodA = globalEnv_CallNonvirtualIntMethodA,
-    .CallNonvirtualLongMethod = NULL,
+    .CallNonvirtualLongMethod = globalEnv_CallNonvirtualLongMethod,
     .CallNonvirtualLongMethodV = NULL,
     .CallNonvirtualLongMethodA = globalEnv_CallNonvirtualLongMethodA,
-    .CallNonvirtualFloatMethod = NULL,
+    .CallNonvirtualFloatMethod = globalEnv_CallNonvirtualFloatMethod,
     .CallNonvirtualFloatMethodV = NULL,
     .CallNonvirtualFloatMethodA = globalEnv_CallNonvirtualFloatMethodA,
-    .CallNonvirtualDoubleMethod = NULL,
+    .CallNonvirtualDoubleMethod = globalEnv_CallNonvirtualDoubleMethod,
     .CallNonvirtualDoubleMethodV = NULL,
     .CallNonvirtualDoubleMethodA = globalEnv_CallNonvirtualDoubleMethodA,
-    .CallNonvirtualVoidMethod = NULL,
+    .CallNonvirtualVoidMethod = globalEnv_CallNonvirtualVoidMethod,
     .CallNonvirtualVoidMethodV = NULL,
     .CallNonvirtualVoidMethodA = globalEnv_CallNonvirtualVoidMethodA,
     .GetFieldID = globalEnv_GetFieldID,
@@ -2024,34 +2368,34 @@ GlobalJniEnv globalJniEnv = {
     .SetFloatField = globalEnv_SetFloatField,
     .SetDoubleField = globalEnv_SetDoubleField,
     .GetStaticMethodID = globalEnv_GetStaticMethodID,
-    .CallStaticObjectMethod = NULL,
+    .CallStaticObjectMethod = globalEnv_CallStaticObjectMethod,
     .CallStaticObjectMethodV = NULL,
     .CallStaticObjectMethodA = globalEnv_CallStaticObjectMethodA,
-    .CallStaticBooleanMethod = NULL,
+    .CallStaticBooleanMethod = globalEnv_CallStaticBooleanMethod,
     .CallStaticBooleanMethodV = NULL,
     .CallStaticBooleanMethodA = globalEnv_CallStaticBooleanMethodA,
-    .CallStaticByteMethod = NULL,
+    .CallStaticByteMethod = globalEnv_CallStaticByteMethod,
     .CallStaticByteMethodV = NULL,
     .CallStaticByteMethodA = globalEnv_CallStaticByteMethodA,
-    .CallStaticCharMethod = NULL,
+    .CallStaticCharMethod = globalEnv_CallStaticCharMethod,
     .CallStaticCharMethodV = NULL,
     .CallStaticCharMethodA = globalEnv_CallStaticCharMethodA,
-    .CallStaticShortMethod = NULL,
+    .CallStaticShortMethod = globalEnv_CallStaticShortMethod,
     .CallStaticShortMethodV = NULL,
     .CallStaticShortMethodA = globalEnv_CallStaticShortMethodA,
-    .CallStaticIntMethod = NULL,
+    .CallStaticIntMethod = globalEnv_CallStaticIntMethod,
     .CallStaticIntMethodV = NULL,
     .CallStaticIntMethodA = globalEnv_CallStaticIntMethodA,
-    .CallStaticLongMethod = NULL,
+    .CallStaticLongMethod = globalEnv_CallStaticLongMethod,
     .CallStaticLongMethodV = NULL,
     .CallStaticLongMethodA = globalEnv_CallStaticLongMethodA,
-    .CallStaticFloatMethod = NULL,
+    .CallStaticFloatMethod = globalEnv_CallStaticFloatMethod,
     .CallStaticFloatMethodV = NULL,
     .CallStaticFloatMethodA = globalEnv_CallStaticFloatMethodA,
-    .CallStaticDoubleMethod = NULL,
+    .CallStaticDoubleMethod = globalEnv_CallStaticDoubleMethod,
     .CallStaticDoubleMethodV = NULL,
     .CallStaticDoubleMethodA = globalEnv_CallStaticDoubleMethodA,
-    .CallStaticVoidMethod = NULL,
+    .CallStaticVoidMethod = globalEnv_CallStaticVoidMethod,
     .CallStaticVoidMethodV = NULL,
     .CallStaticVoidMethodA = globalEnv_CallStaticVoidMethodA,
     .GetStaticFieldID = globalEnv_GetStaticFieldID,

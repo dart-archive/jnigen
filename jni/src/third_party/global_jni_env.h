@@ -37,51 +37,55 @@ typedef struct GlobalJniEnv {
   JniResult (*NewLocalRef)(jobject obj);
   JniResult (*EnsureLocalCapacity)(jint capacity);
   JniResult (*AllocObject)(jclass clazz);
-  JniResult (*NewObject)(jclass, jmethodID);
+  JniResult (*NewObject)(jclass clazz, jmethodID methodID);
   JniResult (*NewObjectV)(jclass, jmethodID, va_list);
   JniResult (*NewObjectA)(jclass clazz, jmethodID methodID, jvalue* args);
   JniClassLookupResult (*GetObjectClass)(jobject obj);
   JniResult (*IsInstanceOf)(jobject obj, jclass clazz);
   JniPointerResult (*GetMethodID)(jclass clazz, char* name, char* sig);
-  JniResult (*CallObjectMethod)(jobject, jmethodID);
+  JniResult (*CallObjectMethod)(jobject obj, jmethodID methodID);
   JniResult (*CallObjectMethodV)(jobject, jmethodID, va_list);
   JniResult (*CallObjectMethodA)(jobject obj, jmethodID methodID, jvalue* args);
-  JniResult (*CallBooleanMethod)(jobject, jmethodID);
+  JniResult (*CallBooleanMethod)(jobject obj, jmethodID methodID);
   JniResult (*CallBooleanMethodV)(jobject, jmethodID, va_list);
   JniResult (*CallBooleanMethodA)(jobject obj,
                                   jmethodID methodId,
                                   jvalue* args);
-  JniResult (*CallByteMethod)(jobject, jmethodID);
+  JniResult (*CallByteMethod)(jobject obj, jmethodID methodID);
   JniResult (*CallByteMethodV)(jobject, jmethodID, va_list);
   JniResult (*CallByteMethodA)(jobject obj, jmethodID methodID, jvalue* args);
-  JniResult (*CallCharMethod)(jobject, jmethodID);
+  JniResult (*CallCharMethod)(jobject obj, jmethodID methodID);
   JniResult (*CallCharMethodV)(jobject, jmethodID, va_list);
   JniResult (*CallCharMethodA)(jobject obj, jmethodID methodID, jvalue* args);
-  JniResult (*CallShortMethod)(jobject, jmethodID);
+  JniResult (*CallShortMethod)(jobject obj, jmethodID methodID);
   JniResult (*CallShortMethodV)(jobject, jmethodID, va_list);
   JniResult (*CallShortMethodA)(jobject obj, jmethodID methodID, jvalue* args);
-  JniResult (*CallIntMethod)(jobject, jmethodID);
+  JniResult (*CallIntMethod)(jobject obj, jmethodID methodID);
   JniResult (*CallIntMethodV)(jobject, jmethodID, va_list);
   JniResult (*CallIntMethodA)(jobject obj, jmethodID methodID, jvalue* args);
-  JniResult (*CallLongMethod)(jobject, jmethodID);
+  JniResult (*CallLongMethod)(jobject obj, jmethodID methodID);
   JniResult (*CallLongMethodV)(jobject, jmethodID, va_list);
   JniResult (*CallLongMethodA)(jobject obj, jmethodID methodID, jvalue* args);
-  JniResult (*CallFloatMethod)(jobject, jmethodID);
+  JniResult (*CallFloatMethod)(jobject obj, jmethodID methodID);
   JniResult (*CallFloatMethodV)(jobject, jmethodID, va_list);
   JniResult (*CallFloatMethodA)(jobject obj, jmethodID methodID, jvalue* args);
-  JniResult (*CallDoubleMethod)(jobject, jmethodID);
+  JniResult (*CallDoubleMethod)(jobject obj, jmethodID methodID);
   JniResult (*CallDoubleMethodV)(jobject, jmethodID, va_list);
   JniResult (*CallDoubleMethodA)(jobject obj, jmethodID methodID, jvalue* args);
-  jthrowable (*CallVoidMethod)(jobject, jmethodID);
+  jthrowable (*CallVoidMethod)(jobject obj, jmethodID methodID);
   jthrowable (*CallVoidMethodV)(jobject, jmethodID, va_list);
   jthrowable (*CallVoidMethodA)(jobject obj, jmethodID methodID, jvalue* args);
-  JniResult (*CallNonvirtualObjectMethod)(jobject, jclass, jmethodID);
+  JniResult (*CallNonvirtualObjectMethod)(jobject obj,
+                                          jclass clazz,
+                                          jmethodID methodID);
   JniResult (*CallNonvirtualObjectMethodV)(jobject, jclass, jmethodID, va_list);
   JniResult (*CallNonvirtualObjectMethodA)(jobject obj,
                                            jclass clazz,
                                            jmethodID methodID,
                                            jvalue* args);
-  JniResult (*CallNonvirtualBooleanMethod)(jobject, jclass, jmethodID);
+  JniResult (*CallNonvirtualBooleanMethod)(jobject obj,
+                                           jclass clazz,
+                                           jmethodID methodID);
   JniResult (*CallNonvirtualBooleanMethodV)(jobject,
                                             jclass,
                                             jmethodID,
@@ -90,49 +94,65 @@ typedef struct GlobalJniEnv {
                                             jclass clazz,
                                             jmethodID methodID,
                                             jvalue* args);
-  JniResult (*CallNonvirtualByteMethod)(jobject, jclass, jmethodID);
+  JniResult (*CallNonvirtualByteMethod)(jobject obj,
+                                        jclass clazz,
+                                        jmethodID methodID);
   JniResult (*CallNonvirtualByteMethodV)(jobject, jclass, jmethodID, va_list);
   JniResult (*CallNonvirtualByteMethodA)(jobject obj,
                                          jclass clazz,
                                          jmethodID methodID,
                                          jvalue* args);
-  JniResult (*CallNonvirtualCharMethod)(jobject, jclass, jmethodID);
+  JniResult (*CallNonvirtualCharMethod)(jobject obj,
+                                        jclass clazz,
+                                        jmethodID methodID);
   JniResult (*CallNonvirtualCharMethodV)(jobject, jclass, jmethodID, va_list);
   JniResult (*CallNonvirtualCharMethodA)(jobject obj,
                                          jclass clazz,
                                          jmethodID methodID,
                                          jvalue* args);
-  JniResult (*CallNonvirtualShortMethod)(jobject, jclass, jmethodID);
+  JniResult (*CallNonvirtualShortMethod)(jobject obj,
+                                         jclass clazz,
+                                         jmethodID methodID);
   JniResult (*CallNonvirtualShortMethodV)(jobject, jclass, jmethodID, va_list);
   JniResult (*CallNonvirtualShortMethodA)(jobject obj,
                                           jclass clazz,
                                           jmethodID methodID,
                                           jvalue* args);
-  JniResult (*CallNonvirtualIntMethod)(jobject, jclass, jmethodID);
+  JniResult (*CallNonvirtualIntMethod)(jobject obj,
+                                       jclass clazz,
+                                       jmethodID methodID);
   JniResult (*CallNonvirtualIntMethodV)(jobject, jclass, jmethodID, va_list);
   JniResult (*CallNonvirtualIntMethodA)(jobject obj,
                                         jclass clazz,
                                         jmethodID methodID,
                                         jvalue* args);
-  JniResult (*CallNonvirtualLongMethod)(jobject, jclass, jmethodID);
+  JniResult (*CallNonvirtualLongMethod)(jobject obj,
+                                        jclass clazz,
+                                        jmethodID methodID);
   JniResult (*CallNonvirtualLongMethodV)(jobject, jclass, jmethodID, va_list);
   JniResult (*CallNonvirtualLongMethodA)(jobject obj,
                                          jclass clazz,
                                          jmethodID methodID,
                                          jvalue* args);
-  JniResult (*CallNonvirtualFloatMethod)(jobject, jclass, jmethodID);
+  JniResult (*CallNonvirtualFloatMethod)(jobject obj,
+                                         jclass clazz,
+                                         jmethodID methodID);
   JniResult (*CallNonvirtualFloatMethodV)(jobject, jclass, jmethodID, va_list);
   JniResult (*CallNonvirtualFloatMethodA)(jobject obj,
                                           jclass clazz,
                                           jmethodID methodID,
                                           jvalue* args);
-  JniResult (*CallNonvirtualDoubleMethod)(jobject, jclass, jmethodID);
+  JniResult (*CallNonvirtualDoubleMethod)(jobject obj,
+                                          jclass clazz,
+                                          jmethodID methodID);
   JniResult (*CallNonvirtualDoubleMethodV)(jobject, jclass, jmethodID, va_list);
   JniResult (*CallNonvirtualDoubleMethodA)(jobject obj,
                                            jclass clazz,
                                            jmethodID methodID,
                                            jvalue* args);
-  jthrowable (*CallNonvirtualVoidMethod)(jobject, jclass, jmethodID);
+  jthrowable (*CallNonvirtualVoidMethod)(jobject obj,
+                                         jclass clazz,
+                                         jmethodID methodID);
   jthrowable (*CallNonvirtualVoidMethodV)(jobject, jclass, jmethodID, va_list);
   jthrowable (*CallNonvirtualVoidMethodA)(jobject obj,
                                           jclass clazz,
@@ -158,52 +178,52 @@ typedef struct GlobalJniEnv {
   jthrowable (*SetFloatField)(jobject obj, jfieldID fieldID, jfloat val);
   jthrowable (*SetDoubleField)(jobject obj, jfieldID fieldID, jdouble val);
   JniPointerResult (*GetStaticMethodID)(jclass clazz, char* name, char* sig);
-  JniResult (*CallStaticObjectMethod)(jclass, jmethodID);
+  JniResult (*CallStaticObjectMethod)(jclass clazz, jmethodID methodID);
   JniResult (*CallStaticObjectMethodV)(jclass, jmethodID, va_list);
   JniResult (*CallStaticObjectMethodA)(jclass clazz,
                                        jmethodID methodID,
                                        jvalue* args);
-  JniResult (*CallStaticBooleanMethod)(jclass, jmethodID);
+  JniResult (*CallStaticBooleanMethod)(jclass clazz, jmethodID methodID);
   JniResult (*CallStaticBooleanMethodV)(jclass, jmethodID, va_list);
   JniResult (*CallStaticBooleanMethodA)(jclass clazz,
                                         jmethodID methodID,
                                         jvalue* args);
-  JniResult (*CallStaticByteMethod)(jclass, jmethodID);
+  JniResult (*CallStaticByteMethod)(jclass clazz, jmethodID methodID);
   JniResult (*CallStaticByteMethodV)(jclass, jmethodID, va_list);
   JniResult (*CallStaticByteMethodA)(jclass clazz,
                                      jmethodID methodID,
                                      jvalue* args);
-  JniResult (*CallStaticCharMethod)(jclass, jmethodID);
+  JniResult (*CallStaticCharMethod)(jclass clazz, jmethodID methodID);
   JniResult (*CallStaticCharMethodV)(jclass, jmethodID, va_list);
   JniResult (*CallStaticCharMethodA)(jclass clazz,
                                      jmethodID methodID,
                                      jvalue* args);
-  JniResult (*CallStaticShortMethod)(jclass, jmethodID);
+  JniResult (*CallStaticShortMethod)(jclass clazz, jmethodID methodID);
   JniResult (*CallStaticShortMethodV)(jclass, jmethodID, va_list);
   JniResult (*CallStaticShortMethodA)(jclass clazz,
                                       jmethodID methodID,
                                       jvalue* args);
-  JniResult (*CallStaticIntMethod)(jclass, jmethodID);
+  JniResult (*CallStaticIntMethod)(jclass clazz, jmethodID methodID);
   JniResult (*CallStaticIntMethodV)(jclass, jmethodID, va_list);
   JniResult (*CallStaticIntMethodA)(jclass clazz,
                                     jmethodID methodID,
                                     jvalue* args);
-  JniResult (*CallStaticLongMethod)(jclass, jmethodID);
+  JniResult (*CallStaticLongMethod)(jclass clazz, jmethodID methodID);
   JniResult (*CallStaticLongMethodV)(jclass, jmethodID, va_list);
   JniResult (*CallStaticLongMethodA)(jclass clazz,
                                      jmethodID methodID,
                                      jvalue* args);
-  JniResult (*CallStaticFloatMethod)(jclass, jmethodID);
+  JniResult (*CallStaticFloatMethod)(jclass clazz, jmethodID methodID);
   JniResult (*CallStaticFloatMethodV)(jclass, jmethodID, va_list);
   JniResult (*CallStaticFloatMethodA)(jclass clazz,
                                       jmethodID methodID,
                                       jvalue* args);
-  JniResult (*CallStaticDoubleMethod)(jclass, jmethodID);
+  JniResult (*CallStaticDoubleMethod)(jclass clazz, jmethodID methodID);
   JniResult (*CallStaticDoubleMethodV)(jclass, jmethodID, va_list);
   JniResult (*CallStaticDoubleMethodA)(jclass clazz,
                                        jmethodID methodID,
                                        jvalue* args);
-  jthrowable (*CallStaticVoidMethod)(jclass, jmethodID);
+  jthrowable (*CallStaticVoidMethod)(jclass clazz, jmethodID methodID);
   jthrowable (*CallStaticVoidMethodV)(jclass, jmethodID, va_list);
   jthrowable (*CallStaticVoidMethodA)(jclass clazz,
                                       jmethodID methodID,
