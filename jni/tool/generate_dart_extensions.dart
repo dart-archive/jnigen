@@ -13,7 +13,12 @@ import 'ffigen_util/ffigen_util.dart';
 class Paths {
   static final currentDir = Directory.current.uri;
   static final bindingsDir = currentDir.resolve("lib/src/third_party/");
-  static final dartExtensions = bindingsDir.resolve("env_extensions.dart");
+  // Contains extensions for our C wrapper types.
+  static final globalEnvExts =
+      bindingsDir.resolve("global_env_extensions.dart");
+  // Contains extensions for JNI's struct types.
+  static final localEnvExts =
+      bindingsDir.resolve("jnienv_javavm_extensions.dart");
 }
 
 void executeDartFormat(List<Uri> files) {
@@ -106,9 +111,13 @@ void generateDartExtensions(Library library) {
 
 import "dart:ffi" as ffi;\n
 import "jni_bindings_generated.dart";
+
+''';
+  const importAccessors = '''
 import "../accessors.dart";
 
 ''';
+
   final globalEnvExtension = getGlobalEnvExtension(library);
   final accessorExtension =
       getFunctionPointerExtension(library, 'JniAccessors');
@@ -124,11 +133,10 @@ import "../accessors.dart";
     indirect: true,
     implicitThis: true,
   );
-  File.fromUri(Paths.dartExtensions).writeAsStringSync(header +
-      globalEnvExtension +
-      accessorExtension +
-      envExtension +
-      jvmExtension);
+  File.fromUri(Paths.globalEnvExts).writeAsStringSync(
+      header + importAccessors + globalEnvExtension + accessorExtension);
+  File.fromUri(Paths.localEnvExts)
+      .writeAsStringSync(header + envExtension + jvmExtension);
 }
 
 String getGlobalEnvExtension(
@@ -202,5 +210,5 @@ void main() {
   final config = Config.fromFile(File('ffigen.yaml'));
   final library = parse(config);
   generateDartExtensions(library);
-  executeDartFormat([Paths.dartExtensions]);
+  executeDartFormat([Paths.globalEnvExts, Paths.localEnvExts]);
 }
