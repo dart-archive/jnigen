@@ -139,7 +139,12 @@ FFI_PLUGIN_EXPORT JavaVM* GetJavaVM(void);
 
 FFI_PLUGIN_EXPORT JNIEnv* GetJniEnv(void);
 
-FFI_PLUGIN_EXPORT JNIEnv* SpawnJvm(JavaVMInitArgs* args);
+/// Spawn a JVM with given arguments.
+///
+/// Returns JNI_OK on success, and one of the documented JNI error codes on
+/// failure. Notably, it returns JNI_EEXIST if an attempt to spawn multiple JVMs
+/// is made, even though the underlying API potentially supports multiple VMs.
+FFI_PLUGIN_EXPORT int SpawnJvm(JavaVMInitArgs* args);
 
 FFI_PLUGIN_EXPORT jclass LoadClass(const char* name);
 

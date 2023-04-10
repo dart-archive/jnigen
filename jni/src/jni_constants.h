@@ -15,6 +15,7 @@ enum JniVersions {
 };
 
 enum JniErrorCode {
+  // Error codes from JNI
   JNI_OK = 0,         /* no error */
   JNI_ERR = -1,       /* generic error */
   JNI_EDETACHED = -2, /* thread detached from the VM */

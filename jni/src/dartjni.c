@@ -127,7 +127,10 @@ Java_com_github_dart_1lang_jni_JniPlugin_setJniActivity(JNIEnv* env,
 // on Android NDK. So IFDEF is required.
 #else
 FFI_PLUGIN_EXPORT
-JNIEnv* SpawnJvm(JavaVMInitArgs* initArgs) {
+int SpawnJvm(JavaVMInitArgs* initArgs) {
+  if (jni.jvm != NULL) {
+    return JNI_EEXIST;
+  }
   JavaVMOption jvmopt[1];
   char class_path[] = "-Djava.class.path=.";
   jvmopt[0].optionString = class_path;
@@ -140,11 +143,11 @@ JNIEnv* SpawnJvm(JavaVMInitArgs* initArgs) {
     initArgs = &vmArgs;
   }
   const long flag = JNI_CreateJavaVM(&jni.jvm, __ENVP_CAST & jniEnv, initArgs);
-  if (flag == JNI_ERR) {
-    return NULL;
+  if (flag != JNI_OK) {
+    return flag;
   }
   initializeExceptionMethods(&exceptionMethods);
-  return jniEnv;
+  return JNI_OK;
 }
 #endif
 
