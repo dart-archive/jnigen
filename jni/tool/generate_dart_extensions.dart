@@ -3,11 +3,9 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:io';
-import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:ffigen/ffigen.dart';
-import 'package:ffigen/src/code_generator/writer.dart';
 import 'package:ffigen/src/code_generator.dart';
 
 import 'ffigen_util/ffigen_util.dart';
