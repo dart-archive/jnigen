@@ -212,4 +212,12 @@ class $JsonTokenType extends jni.JObjType<JsonToken> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($JsonTokenType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $JsonTokenType && other is $JsonTokenType;
+  }
 }

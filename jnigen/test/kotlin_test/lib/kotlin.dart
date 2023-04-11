@@ -112,4 +112,12 @@ class $SuspendFunType extends jni.JObjType<SuspendFun> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($SuspendFunType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $SuspendFunType && other is $SuspendFunType;
+  }
 }

@@ -82,4 +82,12 @@ class $ExampleType extends jni.JObjType<Example> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($ExampleType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $ExampleType && other is $ExampleType;
+  }
 }

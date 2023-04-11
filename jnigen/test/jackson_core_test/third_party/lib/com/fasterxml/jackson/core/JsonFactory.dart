@@ -1756,6 +1756,14 @@ class $JsonFactoryType extends jni.JObjType<JsonFactory> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($JsonFactoryType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $JsonFactoryType && other is $JsonFactoryType;
+  }
 }
 
 /// from: com.fasterxml.jackson.core.JsonFactory$Feature
@@ -1859,4 +1867,13 @@ class $JsonFactory_FeatureType extends jni.JObjType<JsonFactory_Feature> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($JsonFactory_FeatureType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $JsonFactory_FeatureType &&
+        other is $JsonFactory_FeatureType;
+  }
 }

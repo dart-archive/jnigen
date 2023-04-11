@@ -37,6 +37,14 @@ class $AType extends JObjType<A> {
 
   @override
   JObjType<JObject> get superType => JObject.type;
+
+  @override
+  int get hashCode => ($AType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $AType && other is $AType;
+  }
 }
 
 class B extends JObject {
@@ -59,6 +67,14 @@ class $BType extends JObjType<B> {
 
   @override
   JObjType<JObject> get superType => JObject.type;
+
+  @override
+  int get hashCode => ($BType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $BType && other is $BType;
+  }
 }
 
 class C extends A {
@@ -82,6 +98,14 @@ class $CType extends JObjType<C> {
 
   @override
   JObjType<JObject> get superType => $AType();
+
+  @override
+  int get hashCode => ($CType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $CType && other is $CType;
+  }
 }
 
 class D extends A {
@@ -105,6 +129,14 @@ class $DType extends JObjType<D> {
 
   @override
   JObjType<JObject> get superType => $AType();
+
+  @override
+  int get hashCode => ($DType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $DType && other is $DType;
+  }
 }
 
 class E extends B {
@@ -128,6 +160,14 @@ class $EType extends JObjType<E> {
 
   @override
   JObjType<JObject> get superType => $BType();
+
+  @override
+  int get hashCode => ($EType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $EType && other is $EType;
+  }
 }
 
 class F extends C {
@@ -151,6 +191,14 @@ class $FType extends JObjType<F> {
 
   @override
   JObjType<JObject> get superType => $CType();
+
+  @override
+  int get hashCode => ($FType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $FType && other is $FType;
+  }
 }
 
 void main() {
@@ -180,18 +228,17 @@ void main() {
     //    C   D   E
     //   /
     //  F
-    expect(lowestCommonSuperType([$AType(), $BType()]), isA<JObjectType>());
-    expect(lowestCommonSuperType([$CType(), $BType()]), isA<JObjectType>());
-    expect(lowestCommonSuperType([$FType(), $BType()]), isA<JObjectType>());
+    expect(lowestCommonSuperType([$AType(), $BType()]), const JObjectType());
+    expect(lowestCommonSuperType([$CType(), $BType()]), const JObjectType());
+    expect(lowestCommonSuperType([$FType(), $BType()]), const JObjectType());
     expect(lowestCommonSuperType([$EType(), $CType(), $FType()]),
-        isA<JObjectType>());
+        const JObjectType());
 
-    expect(lowestCommonSuperType([$CType(), $DType()]), isA<JObjectType>());
-    expect(lowestCommonSuperType([$FType(), $DType()]), isA<$AType>());
-    expect(
-        lowestCommonSuperType([$FType(), $CType(), $DType()]), isA<$AType>());
+    expect(lowestCommonSuperType([$CType(), $DType()]), $AType());
+    expect(lowestCommonSuperType([$FType(), $DType()]), $AType());
+    expect(lowestCommonSuperType([$FType(), $CType(), $DType()]), $AType());
 
-    expect(lowestCommonSuperType([$EType(), $BType()]), isA<$BType>());
-    expect(lowestCommonSuperType([$BType(), $BType()]), isA<$BType>());
+    expect(lowestCommonSuperType([$EType(), $BType()]), $BType());
+    expect(lowestCommonSuperType([$BType(), $BType()]), $BType());
   });
 }

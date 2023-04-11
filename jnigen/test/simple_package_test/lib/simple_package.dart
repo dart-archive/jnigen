@@ -246,6 +246,14 @@ class $ExampleType extends jni.JObjType<Example> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($ExampleType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $ExampleType && other is $ExampleType;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.simple_package.Example$Aux
@@ -334,6 +342,14 @@ class $Example_AuxType extends jni.JObjType<Example_Aux> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($Example_AuxType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $Example_AuxType && other is $Example_AuxType;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.pkg2.C2
@@ -388,6 +404,14 @@ class $C2Type extends jni.JObjType<C2> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($C2Type).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $C2Type && other is $C2Type;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.pkg2.Example
@@ -437,6 +461,14 @@ class $Example1Type extends jni.JObjType<Example1> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($Example1Type).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $Example1Type && other is $Example1Type;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent
@@ -601,6 +633,16 @@ class $GrandParentType<$T extends jni.JObject>
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => Object.hash($GrandParentType, T);
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $GrandParentType &&
+        other is $GrandParentType &&
+        T == other.T;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$Parent
@@ -731,6 +773,17 @@ class $GrandParent_ParentType<$T extends jni.JObject, $S extends jni.JObject>
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => Object.hash($GrandParent_ParentType, T, S);
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $GrandParent_ParentType &&
+        other is $GrandParent_ParentType &&
+        T == other.T &&
+        S == other.S;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$Parent$Child
@@ -908,6 +961,18 @@ class $GrandParent_Parent_ChildType<$T extends jni.JObject,
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => Object.hash($GrandParent_Parent_ChildType, T, S, U);
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $GrandParent_Parent_ChildType &&
+        other is $GrandParent_Parent_ChildType &&
+        T == other.T &&
+        S == other.S &&
+        U == other.U;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$StaticParent
@@ -997,6 +1062,16 @@ class $GrandParent_StaticParentType<$S extends jni.JObject>
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => Object.hash($GrandParent_StaticParentType, S);
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $GrandParent_StaticParentType &&
+        other is $GrandParent_StaticParentType &&
+        S == other.S;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$StaticParent$Child
@@ -1130,6 +1205,17 @@ class $GrandParent_StaticParent_ChildType<$S extends jni.JObject,
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => Object.hash($GrandParent_StaticParent_ChildType, S, U);
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $GrandParent_StaticParent_ChildType &&
+        other is $GrandParent_StaticParent_ChildType &&
+        S == other.S &&
+        U == other.U;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.generics.MyMap
@@ -1241,6 +1327,17 @@ class $MyMapType<$K extends jni.JObject, $V extends jni.JObject>
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => Object.hash($MyMapType, K, V);
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $MyMapType &&
+        other is $MyMapType &&
+        K == other.K &&
+        V == other.V;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.generics.MyMap$MyEntry
@@ -1370,6 +1467,17 @@ class $MyMap_MyEntryType<$K extends jni.JObject, $V extends jni.JObject>
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => Object.hash($MyMap_MyEntryType, K, V);
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $MyMap_MyEntryType &&
+        other is $MyMap_MyEntryType &&
+        K == other.K &&
+        V == other.V;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.generics.MyStack
@@ -1551,6 +1659,16 @@ class $MyStackType<$T extends jni.JObject> extends jni.JObjType<MyStack<$T>> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => Object.hash($MyStackType, T);
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $MyStackType &&
+        other is $MyStackType &&
+        T == other.T;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringKeyedMap
@@ -1608,6 +1726,16 @@ class $StringKeyedMapType<$V extends jni.JObject>
 
   @override
   final superCount = 2;
+
+  @override
+  int get hashCode => Object.hash($StringKeyedMapType, V);
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $StringKeyedMapType &&
+        other is $StringKeyedMapType &&
+        V == other.V;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringMap
@@ -1646,6 +1774,14 @@ class $StringMapType extends jni.JObjType<StringMap> {
 
   @override
   final superCount = 3;
+
+  @override
+  int get hashCode => ($StringMapType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $StringMapType && other is $StringMapType;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringStack
@@ -1684,6 +1820,14 @@ class $StringStackType extends jni.JObjType<StringStack> {
 
   @override
   final superCount = 2;
+
+  @override
+  int get hashCode => ($StringStackType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $StringStackType && other is $StringStackType;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.generics.StringValuedMap
@@ -1741,6 +1885,16 @@ class $StringValuedMapType<$K extends jni.JObject>
 
   @override
   final superCount = 2;
+
+  @override
+  int get hashCode => Object.hash($StringValuedMapType, K);
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $StringValuedMapType &&
+        other is $StringValuedMapType &&
+        K == other.K;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.annotations.JsonSerializable$Case
@@ -1798,6 +1952,15 @@ class $JsonSerializable_CaseType extends jni.JObjType<JsonSerializable_Case> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($JsonSerializable_CaseType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $JsonSerializable_CaseType &&
+        other is $JsonSerializable_CaseType;
+  }
 }
 
 /// from: com.github.dart_lang.jnigen.annotations.MyDataClass
@@ -1837,4 +2000,12 @@ class $MyDataClassType extends jni.JObjType<MyDataClass> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($MyDataClassType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $MyDataClassType && other is $MyDataClassType;
+  }
 }

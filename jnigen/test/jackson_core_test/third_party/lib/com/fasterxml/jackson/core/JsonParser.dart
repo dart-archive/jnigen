@@ -2448,6 +2448,14 @@ class $JsonParserType extends jni.JObjType<JsonParser> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($JsonParserType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $JsonParserType && other is $JsonParserType;
+  }
 }
 
 /// from: com.fasterxml.jackson.core.JsonParser$Feature
@@ -2550,6 +2558,15 @@ class $JsonParser_FeatureType extends jni.JObjType<JsonParser_Feature> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($JsonParser_FeatureType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $JsonParser_FeatureType &&
+        other is $JsonParser_FeatureType;
+  }
 }
 
 /// from: com.fasterxml.jackson.core.JsonParser$NumberType
@@ -2611,4 +2628,13 @@ class $JsonParser_NumberTypeType extends jni.JObjType<JsonParser_NumberType> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($JsonParser_NumberTypeType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $JsonParser_NumberTypeType &&
+        other is $JsonParser_NumberTypeType;
+  }
 }

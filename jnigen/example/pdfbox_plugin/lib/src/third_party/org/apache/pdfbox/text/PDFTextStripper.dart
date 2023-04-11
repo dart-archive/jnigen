@@ -1409,4 +1409,13 @@ class $PDFTextStripperType extends jni.JObjType<PDFTextStripper> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($PDFTextStripperType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $PDFTextStripperType &&
+        other is $PDFTextStripperType;
+  }
 }

@@ -57,10 +57,10 @@ abstract class JObjType<T extends JObject> extends JType<T> {
 
 /// Lowest common ancestor of two types in the inheritance tree.
 JObjType _lowestCommonAncestor(JObjType a, JObjType b) {
-  while (a.superCount < b.superCount) {
+  while (a.superCount > b.superCount) {
     a = a.superType;
   }
-  while (b.superCount < a.superCount) {
+  while (b.superCount > a.superCount) {
     b = b.superType;
   }
   while (a != b) {

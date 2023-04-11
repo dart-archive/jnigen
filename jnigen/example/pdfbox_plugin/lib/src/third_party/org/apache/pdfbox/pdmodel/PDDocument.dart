@@ -1522,4 +1522,12 @@ class $PDDocumentType extends jni.JObjType<PDDocument> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($PDDocumentType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $PDDocumentType && other is $PDDocumentType;
+  }
 }

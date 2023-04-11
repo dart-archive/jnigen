@@ -508,4 +508,13 @@ class $PDDocumentInformationType extends jni.JObjType<PDDocumentInformation> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($PDDocumentInformationType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $PDDocumentInformationType &&
+        other is $PDDocumentInformationType;
+  }
 }

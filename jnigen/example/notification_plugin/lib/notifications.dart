@@ -87,4 +87,13 @@ class $NotificationsType extends jni.JObjType<Notifications> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($NotificationsType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $NotificationsType &&
+        other is $NotificationsType;
+  }
 }

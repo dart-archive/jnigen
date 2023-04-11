@@ -18,6 +18,14 @@ class JStringType extends JObjType<JString> {
 
   @override
   final int superCount = 1;
+
+  @override
+  int get hashCode => (JStringType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == JStringType && other is JStringType;
+  }
 }
 
 class JString extends JObject {

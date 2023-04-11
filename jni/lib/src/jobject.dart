@@ -21,6 +21,14 @@ class JObjectType extends JObjType<JObject> {
 
   @override
   final int superCount = 0;
+
+  @override
+  int get hashCode => (JObjectType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == JObjectType && other is JObjectType;
+  }
 }
 
 Pointer<T> _getID<T extends NativeType>(

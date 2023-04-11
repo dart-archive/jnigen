@@ -67,6 +67,14 @@ class $AndroidUtilsType extends jni.JObjType<AndroidUtils> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($AndroidUtilsType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $AndroidUtilsType && other is $AndroidUtilsType;
+  }
 }
 
 /// from: androidx.emoji2.text.EmojiCompat
@@ -1030,6 +1038,14 @@ class $EmojiCompatType extends jni.JObjType<EmojiCompat> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($EmojiCompatType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $EmojiCompatType && other is $EmojiCompatType;
+  }
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$Config
@@ -1357,6 +1373,15 @@ class $EmojiCompat_ConfigType extends jni.JObjType<EmojiCompat_Config> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($EmojiCompat_ConfigType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $EmojiCompat_ConfigType &&
+        other is $EmojiCompat_ConfigType;
+  }
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$MetadataRepoLoaderCallback
@@ -1439,6 +1464,15 @@ class $EmojiCompat_MetadataRepoLoaderCallbackType
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($EmojiCompat_MetadataRepoLoaderCallbackType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $EmojiCompat_MetadataRepoLoaderCallbackType &&
+        other is $EmojiCompat_MetadataRepoLoaderCallbackType;
+  }
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$GlyphChecker
@@ -1530,6 +1564,15 @@ class $EmojiCompat_GlyphCheckerType
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($EmojiCompat_GlyphCheckerType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $EmojiCompat_GlyphCheckerType &&
+        other is $EmojiCompat_GlyphCheckerType;
+  }
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$MetadataRepoLoader
@@ -1584,6 +1627,15 @@ class $EmojiCompat_MetadataRepoLoaderType
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($EmojiCompat_MetadataRepoLoaderType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $EmojiCompat_MetadataRepoLoaderType &&
+        other is $EmojiCompat_MetadataRepoLoaderType;
+  }
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$InitCallback
@@ -1658,6 +1710,15 @@ class $EmojiCompat_InitCallbackType
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($EmojiCompat_InitCallbackType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $EmojiCompat_InitCallbackType &&
+        other is $EmojiCompat_InitCallbackType;
+  }
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$DefaultSpanFactory
@@ -1724,6 +1785,15 @@ class $EmojiCompat_DefaultSpanFactoryType
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($EmojiCompat_DefaultSpanFactoryType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $EmojiCompat_DefaultSpanFactoryType &&
+        other is $EmojiCompat_DefaultSpanFactoryType;
+  }
 }
 
 /// from: androidx.emoji2.text.EmojiCompat$SpanFactory
@@ -1784,6 +1854,15 @@ class $EmojiCompat_SpanFactoryType
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($EmojiCompat_SpanFactoryType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $EmojiCompat_SpanFactoryType &&
+        other is $EmojiCompat_SpanFactoryType;
+  }
 }
 
 /// from: androidx.emoji2.text.DefaultEmojiCompatConfig
@@ -1873,6 +1952,15 @@ class $DefaultEmojiCompatConfigType
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($DefaultEmojiCompatConfigType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $DefaultEmojiCompatConfigType &&
+        other is $DefaultEmojiCompatConfigType;
+  }
 }
 
 /// from: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API28
@@ -1945,6 +2033,19 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28Type
 
   @override
   final superCount = 3;
+
+  @override
+  int get hashCode =>
+      ($DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28Type)
+          .hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType ==
+            $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28Type &&
+        other
+            is $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28Type;
+  }
 }
 
 /// from: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper_API19
@@ -2038,6 +2139,19 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19Type
 
   @override
   final superCount = 2;
+
+  @override
+  int get hashCode =>
+      ($DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19Type)
+          .hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType ==
+            $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19Type &&
+        other
+            is $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19Type;
+  }
 }
 
 /// from: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigHelper
@@ -2157,6 +2271,17 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelperType extends jni
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode =>
+      ($DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelperType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType ==
+            $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelperType &&
+        other is $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelperType;
+  }
 }
 
 /// from: androidx.emoji2.text.DefaultEmojiCompatConfig$DefaultEmojiCompatConfigFactory
@@ -2233,6 +2358,17 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactoryType extends jni
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode =>
+      ($DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactoryType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType ==
+            $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactoryType &&
+        other is $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactoryType;
+  }
 }
 
 /// from: android.os.Build
@@ -2572,6 +2708,14 @@ class $BuildType extends jni.JObjType<Build> {
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => ($BuildType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $BuildType && other is $BuildType;
+  }
 }
 
 /// from: java.util.HashMap
@@ -3070,4 +3214,15 @@ class $HashMapType<$K extends jni.JObject, $V extends jni.JObject>
 
   @override
   final superCount = 1;
+
+  @override
+  int get hashCode => Object.hash($HashMapType, K, V);
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $HashMapType &&
+        other is $HashMapType &&
+        K == other.K &&
+        V == other.V;
+  }
 }
