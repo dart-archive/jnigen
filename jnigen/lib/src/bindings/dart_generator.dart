@@ -1232,42 +1232,41 @@ class _JValueWrapper extends TypeVisitor<String> {
   }
 }
 
-/// Builds access expressions from the end to the beginning.
-///
-/// Acts as [StringBuffer] that prepends instead of appending on write.
-/// It also automatically adds the appropriate number of opening parenthesis
-/// at the beginning when calling [toString].
+/// A pair of [StringBuffer]s that can create an expression from the outer layer
+/// inwards.
 ///
 /// For example:
 /// ```dart
-/// final exprBuilder = ReverseExpressionBuilder();
-/// exprBuilder.write(' as A).first');
-/// exprBuilder.write(' as B).second');
-/// exprBuilder.write('third');
-/// exprBuilder.toString(); // ((third as B).second as A).first
+/// final buffer = OutsideInBuffer(); // asterisk (*) is used to show the middle
+/// buffer.appendLeft('f('); // f(*
+/// buffer.prependRight('x)'); // f(*x)
+/// buffer.appendLeft('g('); // f(g(*x)
+/// buffer.prependRight('y) + '); // f(g(*y) + x)
+/// buffer.toString(); // f(g(y) + x)
 /// ```
 @visibleForTesting
-class ReverseExpressionBuilder {
-  final StringBuffer _buffer;
-  var _closingParenthesis = 0;
+class OutsideInBuffer {
+  final StringBuffer _leftBuffer;
+  final StringBuffer _rightBuffer;
 
-  ReverseExpressionBuilder() : _buffer = StringBuffer();
+  OutsideInBuffer()
+      : _leftBuffer = StringBuffer(),
+        _rightBuffer = StringBuffer();
 
-  void write(Object? object) {
+  void prependRight(Object? object) {
     final s = object.toString();
     for (var i = 0; i < s.length; ++i) {
-      if (s[s.length - i - 1] == ')') {
-        ++_closingParenthesis;
-      }
-      _buffer.write(s[s.length - i - 1]);
+      _rightBuffer.write(s[s.length - i - 1]);
     }
+  }
+
+  void appendLeft(Object? object) {
+    _leftBuffer.write(object);
   }
 
   @override
   String toString() {
-    _buffer.write('(' * _closingParenthesis);
-    _closingParenthesis = 0;
-    return _buffer.toString().reversed;
+    return _leftBuffer.toString() + _rightBuffer.toString().reversed;
   }
 }
 
@@ -1292,48 +1291,46 @@ class _ParamTypeLocator extends Visitor<Param, Map<String, List<String>>> {
           (key, value) => MapEntry(
             key,
             value
-                .map((e) => (e..write('${node.finalName}.\$type')).toString())
+                .map((e) =>
+                    (e..appendLeft('${node.finalName}.\$type')).toString())
                 .toList(),
           ),
         );
   }
 }
 
-class _TypeVarLocator
-    extends TypeVisitor<Map<String, List<ReverseExpressionBuilder>>> {
+class _TypeVarLocator extends TypeVisitor<Map<String, List<OutsideInBuffer>>> {
   _TypeVarLocator({required this.resolver});
 
   final Resolver? resolver;
 
   @override
-  Map<String, List<ReverseExpressionBuilder>> visitNonPrimitiveType(
-      ReferredType node) {
+  Map<String, List<OutsideInBuffer>> visitNonPrimitiveType(ReferredType node) {
     return {};
   }
 
   @override
-  Map<String, List<ReverseExpressionBuilder>> visitWildcard(Wildcard node) {
+  Map<String, List<OutsideInBuffer>> visitWildcard(Wildcard node) {
     // TODO(#141): Support wildcards
     return super.visitWildcard(node);
   }
 
   @override
-  Map<String, List<ReverseExpressionBuilder>> visitTypeVar(TypeVar node) {
+  Map<String, List<OutsideInBuffer>> visitTypeVar(TypeVar node) {
     return {
       node.name: [
-        ReverseExpressionBuilder(),
+        OutsideInBuffer(),
       ],
     };
   }
 
   @override
-  Map<String, List<ReverseExpressionBuilder>> visitDeclaredType(
-      DeclaredType node) {
+  Map<String, List<OutsideInBuffer>> visitDeclaredType(DeclaredType node) {
     if (node.classDecl == ClassDecl.object) {
       return {};
     }
     final offset = node.classDecl.allTypeParams.length - node.params.length;
-    final result = <String, List<ReverseExpressionBuilder>>{};
+    final result = <String, List<OutsideInBuffer>>{};
     final prefix = resolver?.resolvePrefix(node.binaryName) ?? '';
     final typeClass =
         '$prefix$_typeClassPrefix${node.classDecl.finalName}$_typeClassSuffix';
@@ -1342,9 +1339,8 @@ class _TypeVarLocator
       final exprs = node.params[i].accept(this);
       for (final expr in exprs.entries) {
         for (final buffer in expr.value) {
-          // [ReverseExpressionBuilder] adds the correct number of openning
-          // parenthesis at the beginning.
-          buffer.write(' as $typeClass).$typeParam');
+          buffer.appendLeft('(');
+          buffer.prependRight(' as $typeClass).$typeParam');
           result[expr.key] = (result[expr.key] ?? [])..add(buffer);
         }
       }
@@ -1353,19 +1349,17 @@ class _TypeVarLocator
   }
 
   @override
-  Map<String, List<ReverseExpressionBuilder>> visitArrayType(ArrayType node) {
+  Map<String, List<OutsideInBuffer>> visitArrayType(ArrayType node) {
     final exprs = node.type.accept(this);
     for (final e in exprs.values.expand((i) => i)) {
-      // [ReverseExpressionBuilder] adds the correct number of openning
-      // parenthesis at the beginning.
-      e.write(' as $_jArray$_typeClassSuffix).elementType as $_jType)');
+      e.appendLeft('((');
+      e.prependRight(' as $_jArray$_typeClassSuffix).elementType as $_jType)');
     }
     return exprs;
   }
 
   @override
-  Map<String, List<ReverseExpressionBuilder>> visitPrimitiveType(
-      PrimitiveType node) {
+  Map<String, List<OutsideInBuffer>> visitPrimitiveType(PrimitiveType node) {
     return {};
   }
 }

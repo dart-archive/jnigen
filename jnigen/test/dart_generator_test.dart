@@ -6,11 +6,12 @@ import 'package:jnigen/src/bindings/dart_generator.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('ReverseExpressionBuilder', () {
-    final exprBuilder = ReverseExpressionBuilder();
-    exprBuilder.write(' as A).first');
-    exprBuilder.write(' as B).second');
-    exprBuilder.write('third');
-    expect(exprBuilder.toString(), '((third as B).second as A).first');
+  test('OutsideInBuffer', () {
+    final buffer = OutsideInBuffer();
+    buffer.appendLeft('f(');
+    buffer.prependRight('x)');
+    buffer.appendLeft('g(');
+    buffer.prependRight('y) + ');
+    expect(buffer.toString(), 'f(g(y) + x)');
   });
 }
