@@ -47,9 +47,8 @@ import "../../../../_init.dart";
 ///@author Ben Litchfield
 ///@author Gerardo Ortiz
 class PDDocumentInformation extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   PDDocumentInformation.fromRef(
     jni.JObjectPtr ref,
@@ -80,9 +79,7 @@ class PDDocumentInformation extends jni.JObject {
   ///
   /// Constructor that is used for a preexisting dictionary.
   ///@param dic The underlying dictionary.
-  factory PDDocumentInformation.ctor1(
-    jni.JObject dic,
-  ) {
+  factory PDDocumentInformation.ctor1(jni.JObject dic) {
     return PDDocumentInformation.fromRef(_ctor1(dic.reference).object);
   }
 

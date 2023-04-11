@@ -59,9 +59,8 @@ import "../../../../_init.dart";
 /// instances.
 ///@author Tatu Saloranta
 class JsonFactory extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   JsonFactory.fromRef(
     jni.JObjectPtr ref,
@@ -165,9 +164,7 @@ class JsonFactory extends jni.JObject {
 
   /// from: public void <init>(com.fasterxml.jackson.core.ObjectCodec oc)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  factory JsonFactory.ctor1(
-    jni.JObject oc,
-  ) {
+  factory JsonFactory.ctor1(jni.JObject oc) {
     return JsonFactory.fromRef(jniAccessors
         .newObjectWithArgs(_classRef, _id_ctor1, [oc.reference]).object);
   }
@@ -182,10 +179,7 @@ class JsonFactory extends jni.JObject {
   ///@param src Original factory to copy settings from
   ///@param codec Databinding-level codec to use, if any
   ///@since 2.2.1
-  factory JsonFactory.ctor2(
-    JsonFactory src,
-    jni.JObject codec,
-  ) {
+  factory JsonFactory.ctor2(JsonFactory src, jni.JObject codec) {
     return JsonFactory.fromRef(jniAccessors.newObjectWithArgs(
         _classRef, _id_ctor2, [src.reference, codec.reference]).object);
   }
@@ -199,9 +193,7 @@ class JsonFactory extends jni.JObject {
   /// Constructor used by JsonFactoryBuilder for instantiation.
   ///@param b Builder that contains settings to use
   ///@since 2.10
-  factory JsonFactory.ctor3(
-    jni.JObject b,
-  ) {
+  factory JsonFactory.ctor3(jni.JObject b) {
     return JsonFactory.fromRef(jniAccessors
         .newObjectWithArgs(_classRef, _id_ctor3, [b.reference]).object);
   }
@@ -217,10 +209,7 @@ class JsonFactory extends jni.JObject {
   /// implementation for json.
   ///@param b Builder that contains settings to use
   ///@param bogus Argument only needed to separate constructor signature; ignored
-  factory JsonFactory.ctor4(
-    jni.JObject b,
-    bool bogus,
-  ) {
+  factory JsonFactory.ctor4(jni.JObject b, bool bogus) {
     return JsonFactory.fromRef(jniAccessors.newObjectWithArgs(
         _classRef, _id_ctor4, [b.reference, bogus ? 1 : 0]).object);
   }
@@ -1764,9 +1753,8 @@ class $JsonFactoryType extends jni.JObjType<JsonFactory> {
 /// Enumeration that defines all on/off features that can only be
 /// changed for JsonFactory.
 class JsonFactory_Feature extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   JsonFactory_Feature.fromRef(
     jni.JObjectPtr ref,

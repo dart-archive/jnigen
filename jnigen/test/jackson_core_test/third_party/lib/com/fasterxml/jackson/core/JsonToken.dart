@@ -43,9 +43,8 @@ import "../../../../_init.dart";
 /// Enumeration for basic token types used for returning results
 /// of parsing JSON content.
 class JsonToken extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   JsonToken.fromRef(
     jni.JObjectPtr ref,

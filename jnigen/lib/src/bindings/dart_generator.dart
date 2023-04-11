@@ -4,6 +4,8 @@
 
 import 'dart:io';
 
+import 'package:meta/meta.dart';
+
 import '../config/config.dart';
 import '../elements/elements.dart';
 import '../logging/logging.dart';
@@ -73,7 +75,9 @@ String _newLine({int depth = 0}) {
   return '\n${'  ' * depth}';
 }
 
-/// Merges two maps by adding all the values of one to the other.
+/// Merges two maps. For the same keys, their value lists will be concatenated.
+///
+/// ** After calling this, the original maps might get modified! **
 Map<K, List<V>> _mergeMapValues<K, V>(Map<K, List<V>> a, Map<K, List<V>> b) {
   final merged = <K, List<V>>{};
   for (final key in {...a.keys, ...b.keys}) {
@@ -338,10 +342,8 @@ class _ClassGenerator extends Visitor<ClassDecl, void> {
             .join(_newLine(depth: 2));
     s.write('''
 class $name$typeParamsDef extends $superName {
-  
-  $_jType? _$instanceTypeGetter;
   @override
-  $_jType get $instanceTypeGetter => _$instanceTypeGetter ??= $staticTypeGetter$staticTypeGetterCallArgs;
+  late final $_jType $instanceTypeGetter = $staticTypeGetter$staticTypeGetterCallArgs;
 
   $typeClassDefinitions
 
@@ -1023,18 +1025,18 @@ class _MethodGenerator extends Visitor<Method, void> {
 
     final typeInference =
         (node.isCtor ? node.classDecl.allTypeParams : node.typeParams)
-            .where((typeParam) => !isRequired(typeParam))
-            .map((typeParam) => typeParam.name)
-            .map((typeParam) =>
-                '$typeParam ??= $_jni.commonType(${typeLocators[typeParam]})'
-                ' as $_jType<$_typeParamPrefix$typeParam>;')
+            .where((tp) => !isRequired(tp))
+            .map((tp) => tp.name)
+            .map((tp) => '$tp ??= $_jni.lowestCommonSuperType'
+                '(${typeLocators[tp]}) as $_jType<$_typeParamPrefix$tp>;')
             .join(_newLine(depth: 2));
 
     if (node.isCtor) {
       final className = node.classDecl.finalName;
       final name = node.finalName;
       final ctorName = name == 'ctor' ? className : '$className.$name';
-      final paramsDef = node.params.accept(_ParamDef(resolver)).delimited(', ');
+      // TODO: always have a trailing comma after PR #236 is reviewed.
+      final paramsDef = node.params.accept(_ParamDef(resolver)).join(', ');
       final typeClassDef = _encloseIfNotEmpty(
         '{',
         node.classDecl.allTypeParams
@@ -1043,6 +1045,7 @@ class _MethodGenerator extends Visitor<Method, void> {
             .delimited(', '),
         '}',
       );
+      final separator = paramsDef.isEmpty || typeClassDef.isEmpty ? '' : ', ';
       final typeClassCall = node.classDecl.allTypeParams
           .map((typeParam) =>
               typeParam.accept(const _TypeParamGenerator(withExtends: false)))
@@ -1050,7 +1053,7 @@ class _MethodGenerator extends Visitor<Method, void> {
 
       final ctorExpr = (isCBased ? cCtor : dartOnlyCtor)(node);
       s.write('''
-  factory $ctorName($paramsDef$typeClassDef) {
+  factory $ctorName($paramsDef$separator$typeClassDef) {
     $typeInference
     return ${node.classDecl.finalName}.fromRef(
       $typeClassCall
@@ -1226,30 +1229,32 @@ class _JValueWrapper extends TypeVisitor<String> {
   }
 }
 
-/// A [StringBuffer] that prepends instead of appending on write.
+/// Builds access expressions from the end to the beginning.
+///
+/// Acts as [StringBuffer] that prepends instead of appending on write.
 /// It also automatically adds the appropriate number of opening parenthesis
 /// at the beginning when calling [toString].
 ///
 /// For example:
 /// ```dart
-/// final buffer = _PrependingStringBuffer();
-/// buffer.write(' as A).first');
-/// buffer.write(' as B).second');
-/// buffer.write('third');
-/// buffer.toString(); // ((third as B).second as A).first
+/// final exprBuilder = ReverseExpressionBuilder();
+/// exprBuilder.write(' as A).first');
+/// exprBuilder.write(' as B).second');
+/// exprBuilder.write('third');
+/// exprBuilder.toString(); // ((third as B).second as A).first
 /// ```
-class _PrependingBuffer {
+@visibleForTesting
+class ReverseExpressionBuilder {
   final StringBuffer _buffer;
-  var closingParenthesis = 0;
+  var _closingParenthesis = 0;
 
-  _PrependingBuffer([String content = ''])
-      : _buffer = StringBuffer(content.reversed);
+  ReverseExpressionBuilder() : _buffer = StringBuffer();
 
   void write(Object? object) {
     final s = object.toString();
     for (var i = 0; i < s.length; ++i) {
       if (s[s.length - i - 1] == ')') {
-        ++closingParenthesis;
+        ++_closingParenthesis;
       }
       _buffer.write(s[s.length - i - 1]);
     }
@@ -1257,8 +1262,8 @@ class _PrependingBuffer {
 
   @override
   String toString() {
-    _buffer.write('(' * closingParenthesis);
-    closingParenthesis = 0;
+    _buffer.write('(' * _closingParenthesis);
+    _closingParenthesis = 0;
     return _buffer.toString().reversed;
   }
 }
@@ -1292,39 +1297,40 @@ class _ParamTypeLocator extends Visitor<Param, Map<String, List<String>>> {
 }
 
 class _TypeVarLocator
-    extends TypeVisitor<Map<String, List<_PrependingBuffer>>> {
+    extends TypeVisitor<Map<String, List<ReverseExpressionBuilder>>> {
   _TypeVarLocator({required this.resolver});
 
   final Resolver? resolver;
 
   @override
-  Map<String, List<_PrependingBuffer>> visitNonPrimitiveType(
+  Map<String, List<ReverseExpressionBuilder>> visitNonPrimitiveType(
       ReferredType node) {
     return {};
   }
 
   @override
-  Map<String, List<_PrependingBuffer>> visitWildcard(Wildcard node) {
+  Map<String, List<ReverseExpressionBuilder>> visitWildcard(Wildcard node) {
     // TODO(#141): Support wildcards
     return super.visitWildcard(node);
   }
 
   @override
-  Map<String, List<_PrependingBuffer>> visitTypeVar(TypeVar node) {
+  Map<String, List<ReverseExpressionBuilder>> visitTypeVar(TypeVar node) {
     return {
       node.name: [
-        _PrependingBuffer(),
+        ReverseExpressionBuilder(),
       ],
     };
   }
 
   @override
-  Map<String, List<_PrependingBuffer>> visitDeclaredType(DeclaredType node) {
+  Map<String, List<ReverseExpressionBuilder>> visitDeclaredType(
+      DeclaredType node) {
     if (node.classDecl == ClassDecl.object) {
       return {};
     }
     final offset = node.classDecl.allTypeParams.length - node.params.length;
-    final result = <String, List<_PrependingBuffer>>{};
+    final result = <String, List<ReverseExpressionBuilder>>{};
     final prefix = resolver?.resolvePrefix(node.binaryName) ?? '';
     final typeClass =
         '$prefix$_typeClassPrefix${node.classDecl.finalName}$_typeClassSuffix';
@@ -1333,8 +1339,8 @@ class _TypeVarLocator
       final exprs = node.params[i].accept(this);
       for (final expr in exprs.entries) {
         for (final buffer in expr.value) {
-          // [_PrependingBuffer] adds the correct number of openning paranthesis
-          // at the beginning.
+          // [ReverseExpressionBuilder] adds the correct number of openning
+          // parenthesis at the beginning.
           buffer.write(' as $typeClass).$typeParam');
           result[expr.key] = (result[expr.key] ?? [])..add(buffer);
         }
@@ -1344,18 +1350,19 @@ class _TypeVarLocator
   }
 
   @override
-  Map<String, List<_PrependingBuffer>> visitArrayType(ArrayType node) {
+  Map<String, List<ReverseExpressionBuilder>> visitArrayType(ArrayType node) {
     final exprs = node.type.accept(this);
     for (final e in exprs.values.expand((i) => i)) {
-      // [_PrependingBuffer] adds the correct number of openning paranthesis
-      // at the beginning.
+      // [ReverseExpressionBuilder] adds the correct number of openning
+      // parenthesis at the beginning.
       e.write(' as $_jArray$_typeClassSuffix).elementType as $_jType)');
     }
     return exprs;
   }
 
   @override
-  Map<String, List<_PrependingBuffer>> visitPrimitiveType(PrimitiveType node) {
+  Map<String, List<ReverseExpressionBuilder>> visitPrimitiveType(
+      PrimitiveType node) {
     return {};
   }
 }

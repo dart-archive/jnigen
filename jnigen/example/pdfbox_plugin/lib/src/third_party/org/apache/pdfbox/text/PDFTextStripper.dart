@@ -50,9 +50,8 @@ import "../../../../_init.dart";
 /// smaller and smaller chunks of the page. Eventually, we fully process each page and then print it.
 ///@author Ben Litchfield
 class PDFTextStripper extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   PDFTextStripper.fromRef(
     jni.JObjectPtr ref,

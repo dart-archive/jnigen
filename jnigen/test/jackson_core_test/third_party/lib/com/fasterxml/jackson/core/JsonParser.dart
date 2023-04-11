@@ -46,9 +46,8 @@ import "../../../../_init.dart";
 /// a JsonFactory instance.
 ///@author Tatu Saloranta
 class JsonParser extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   JsonParser.fromRef(
     jni.JObjectPtr ref,
@@ -93,9 +92,7 @@ class JsonParser extends jni.JObject {
 
   /// from: protected void <init>(int features)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  factory JsonParser.ctor1(
-    int features,
-  ) {
+  factory JsonParser.ctor1(int features) {
     return JsonParser.fromRef(jniAccessors.newObjectWithArgs(
         _classRef, _id_ctor1, [jni.JValueInt(features)]).object);
   }
@@ -2455,9 +2452,8 @@ class $JsonParserType extends jni.JObjType<JsonParser> {
 ///
 /// Enumeration that defines all on/off features for parsers.
 class JsonParser_Feature extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   JsonParser_Feature.fromRef(
     jni.JObjectPtr ref,
@@ -2559,9 +2555,8 @@ class $JsonParser_FeatureType extends jni.JObjType<JsonParser_Feature> {
 /// Enumeration of possible "native" (optimal) types that can be
 /// used for numbers.
 class JsonParser_NumberType extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   JsonParser_NumberType.fromRef(
     jni.JObjectPtr ref,

@@ -70,6 +70,6 @@ JObjType _lowestCommonAncestor(JObjType a, JObjType b) {
   return a;
 }
 
-JObjType commonType(List<JObjType> types) {
+JObjType lowestCommonSuperType(List<JObjType> types) {
   return types.reduce(_lowestCommonAncestor);
 }

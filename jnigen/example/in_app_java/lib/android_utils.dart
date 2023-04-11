@@ -26,9 +26,8 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
 
 /// from: com.example.in_app_java.AndroidUtils
 class AndroidUtils extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   AndroidUtils.fromRef(
     jni.JObjectPtr ref,
@@ -120,9 +119,8 @@ class $AndroidUtilsType extends jni.JObjType<AndroidUtils> {
 /// loading completes use InitCallback.
 /// <p/>
 class EmojiCompat extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   EmojiCompat.fromRef(
     jni.JObjectPtr ref,
@@ -1040,9 +1038,8 @@ class $EmojiCompatType extends jni.JObjType<EmojiCompat> {
 /// \#init(Config) is called.
 ///@see \#init(EmojiCompat.Config)
 class EmojiCompat_Config extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   EmojiCompat_Config.fromRef(
     jni.JObjectPtr ref,
@@ -1061,9 +1058,7 @@ class EmojiCompat_Config extends jni.JObject {
   ///
   /// Default constructor.
   ///@param metadataLoader MetadataRepoLoader instance, cannot be {@code null}
-  factory EmojiCompat_Config(
-    EmojiCompat_MetadataRepoLoader metadataLoader,
-  ) {
+  factory EmojiCompat_Config(EmojiCompat_MetadataRepoLoader metadataLoader) {
     return EmojiCompat_Config.fromRef(_ctor(metadataLoader.reference).object);
   }
 
@@ -1367,9 +1362,8 @@ class $EmojiCompat_ConfigType extends jni.JObjType<EmojiCompat_Config> {
 /// Callback to inform EmojiCompat about the state of the metadata load. Passed to
 /// MetadataRepoLoader during MetadataRepoLoader\#load(MetadataRepoLoaderCallback) call.
 class EmojiCompat_MetadataRepoLoaderCallback extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   EmojiCompat_MetadataRepoLoaderCallback.fromRef(
     jni.JObjectPtr ref,
@@ -1449,9 +1443,8 @@ class $EmojiCompat_MetadataRepoLoaderCallbackType
 ///
 /// Interface to check if a given emoji exists on the system.
 class EmojiCompat_GlyphChecker extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   EmojiCompat_GlyphChecker.fromRef(
     jni.JObjectPtr ref,
@@ -1541,9 +1534,8 @@ class $EmojiCompat_GlyphCheckerType
 ///
 /// Interface to load emoji metadata.
 class EmojiCompat_MetadataRepoLoader extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   EmojiCompat_MetadataRepoLoader.fromRef(
     jni.JObjectPtr ref,
@@ -1596,9 +1588,8 @@ class $EmojiCompat_MetadataRepoLoaderType
 ///
 /// Listener class for the initialization of the EmojiCompat.
 class EmojiCompat_InitCallback extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   EmojiCompat_InitCallback.fromRef(
     jni.JObjectPtr ref,
@@ -1671,9 +1662,8 @@ class $EmojiCompat_InitCallbackType
 ///
 /// @hide
 class EmojiCompat_DefaultSpanFactory extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   EmojiCompat_DefaultSpanFactory.fromRef(
     jni.JObjectPtr ref,
@@ -1743,9 +1733,8 @@ class $EmojiCompat_DefaultSpanFactoryType
 /// Apps should use this only if they want to control the drawing of EmojiSpans for non-standard
 /// emoji display (for example, resizing or repositioning emoji).
 class EmojiCompat_SpanFactory extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   EmojiCompat_SpanFactory.fromRef(
     jni.JObjectPtr ref,
@@ -1832,9 +1821,8 @@ class $EmojiCompat_SpanFactoryType
 ///  <li>It <i>MUST</i> be installed in the system image.</li>
 /// </ol>
 class DefaultEmojiCompatConfig extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   DefaultEmojiCompatConfig.fromRef(
     jni.JObjectPtr ref,
@@ -1891,9 +1879,8 @@ class $DefaultEmojiCompatConfigType
 ///@hide
 class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28
     extends DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19 {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28.fromRef(
     jni.JObjectPtr ref,
@@ -1964,9 +1951,8 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28Type
 ///@hide
 class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19
     extends DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19.fromRef(
     jni.JObjectPtr ref,
@@ -2058,9 +2044,8 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19Type
 ///@hide
 class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper
     extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper.fromRef(
     jni.JObjectPtr ref,
@@ -2179,9 +2164,8 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelperType extends jni
 ///@hide
 class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory
     extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory.fromRef(
     jni.JObjectPtr ref,
@@ -2201,8 +2185,7 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory
   ///
   /// @hide
   factory DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory(
-    DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper helper,
-  ) {
+      DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper helper) {
     return DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory.fromRef(
         _ctor(helper.reference).object);
   }
@@ -2251,9 +2234,8 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactoryType extends jni
 
 /// from: android.os.Build
 class Build extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   Build.fromRef(
     jni.JObjectPtr ref,
@@ -2592,9 +2574,8 @@ class $BuildType extends jni.JObjType<Build> {
 /// from: java.util.HashMap
 class HashMap<$K extends jni.JObject, $V extends jni.JObject>
     extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type(K, V);
+  late final jni.JObjType $type = type(K, V);
 
   final jni.JObjType<$K> K;
   final jni.JObjType<$V> V;

@@ -46,9 +46,8 @@ import "../../../../_init.dart";
 /// The \#close() method must be called once the document is no longer needed.
 ///@author Ben Litchfield
 class PDDocument extends jni.JObject {
-  jni.JObjType? _$type;
   @override
-  jni.JObjType get $type => _$type ??= type;
+  late final jni.JObjType $type = type;
 
   PDDocument.fromRef(
     jni.JObjectPtr ref,
@@ -81,9 +80,7 @@ class PDDocument extends jni.JObject {
   /// Creates an empty PDF document.
   /// You need to add at least one page for the document to be valid.
   ///@param memUsageSetting defines how memory is used for buffering PDF streams
-  factory PDDocument.ctor1(
-    jni.JObject memUsageSetting,
-  ) {
+  factory PDDocument.ctor1(jni.JObject memUsageSetting) {
     return PDDocument.fromRef(_ctor1(memUsageSetting.reference).object);
   }
 
@@ -98,9 +95,7 @@ class PDDocument extends jni.JObject {
   ///
   /// Constructor that uses an existing document. The COSDocument that is passed in must be valid.
   ///@param doc The COSDocument that this document wraps.
-  factory PDDocument.ctor2(
-    jni.JObject doc,
-  ) {
+  factory PDDocument.ctor2(jni.JObject doc) {
     return PDDocument.fromRef(_ctor2(doc.reference).object);
   }
 
@@ -118,10 +113,7 @@ class PDDocument extends jni.JObject {
   /// Constructor that uses an existing document. The COSDocument that is passed in must be valid.
   ///@param doc The COSDocument that this document wraps.
   ///@param source the parser which is used to read the pdf
-  factory PDDocument.ctor3(
-    jni.JObject doc,
-    jni.JObject source,
-  ) {
+  factory PDDocument.ctor3(jni.JObject doc, jni.JObject source) {
     return PDDocument.fromRef(_ctor3(doc.reference, source.reference).object);
   }
 
@@ -143,10 +135,7 @@ class PDDocument extends jni.JObject {
   ///@param source the parser which is used to read the pdf
   ///@param permission he access permissions of the pdf
   factory PDDocument.ctor4(
-    jni.JObject doc,
-    jni.JObject source,
-    jni.JObject permission,
-  ) {
+      jni.JObject doc, jni.JObject source, jni.JObject permission) {
     return PDDocument.fromRef(
         _ctor4(doc.reference, source.reference, permission.reference).object);
   }

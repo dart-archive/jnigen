@@ -16,6 +16,9 @@ class JObjectType extends JObjType<JObject> {
   @override
   JObjType get superType => const JObjectType();
 
+  // TODO(#70): Once interface implementation lands, other than [superType],
+  // we should have a list of implemented interfaces.
+
   @override
   final int superCount = 0;
 }
