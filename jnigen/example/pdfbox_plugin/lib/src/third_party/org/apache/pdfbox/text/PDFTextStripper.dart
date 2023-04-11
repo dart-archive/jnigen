@@ -217,9 +217,7 @@ class PDFTextStripper extends jni.JObject {
   ///@param doc The document to get the text from.
   ///@return The text of the PDF document.
   ///@throws IOException if the doc state is invalid or it is encrypted.
-  jni.JString getText(
-    pddocument_.PDDocument doc,
-  ) {
+  jni.JString getText(pddocument_.PDDocument doc) {
     return const jni.JStringType()
         .fromRef(_getText(reference, doc.reference).object);
   }
@@ -240,10 +238,7 @@ class PDFTextStripper extends jni.JObject {
   ///@param doc The document to get the data from.
   ///@param outputStream The location to put the text.
   ///@throws IOException If the doc is in an invalid state.
-  void writeText(
-    pddocument_.PDDocument doc,
-    jni.JObject outputStream,
-  ) {
+  void writeText(pddocument_.PDDocument doc, jni.JObject outputStream) {
     return _writeText(reference, doc.reference, outputStream.reference).check();
   }
 
@@ -260,9 +255,7 @@ class PDFTextStripper extends jni.JObject {
   /// This will process all of the pages and the text that is in them.
   ///@param pages The pages object in the document.
   ///@throws IOException If there is an error parsing the text.
-  void processPages(
-    jni.JObject pages,
-  ) {
+  void processPages(jni.JObject pages) {
     return _processPages(reference, pages.reference).check();
   }
 
@@ -279,9 +272,7 @@ class PDFTextStripper extends jni.JObject {
   /// This method is available for subclasses of this class. It will be called before processing of the document start.
   ///@param document The PDF document that is being processed.
   ///@throws IOException If an IO error occurs.
-  void startDocument(
-    pddocument_.PDDocument document,
-  ) {
+  void startDocument(pddocument_.PDDocument document) {
     return _startDocument(reference, document.reference).check();
   }
 
@@ -299,9 +290,7 @@ class PDFTextStripper extends jni.JObject {
   /// finishes.
   ///@param document The PDF document that is being processed.
   ///@throws IOException If an IO error occurs.
-  void endDocument(
-    pddocument_.PDDocument document,
-  ) {
+  void endDocument(pddocument_.PDDocument document) {
     return _endDocument(reference, document.reference).check();
   }
 
@@ -318,9 +307,7 @@ class PDFTextStripper extends jni.JObject {
   /// This will process the contents of a page.
   ///@param page The page to process.
   ///@throws IOException If there is an error processing the page.
-  void processPage(
-    jni.JObject page,
-  ) {
+  void processPage(jni.JObject page) {
     return _processPage(reference, page.reference).check();
   }
 
@@ -352,9 +339,7 @@ class PDFTextStripper extends jni.JObject {
   /// Default implementation is to do nothing. Subclasses may provide additional information.
   ///@param isLTR true if primary direction of text is left to right.
   ///@throws IOException If there is any error writing to the stream.
-  void startArticle1(
-    bool isLTR,
-  ) {
+  void startArticle1(bool isLTR) {
     return _startArticle1(reference, isLTR ? 1 : 0).check();
   }
 
@@ -385,9 +370,7 @@ class PDFTextStripper extends jni.JObject {
   /// Start a new page. Default implementation is to do nothing. Subclasses may provide additional information.
   ///@param page The page we are about to process.
   ///@throws IOException If there is any error writing to the stream.
-  void startPage(
-    jni.JObject page,
-  ) {
+  void startPage(jni.JObject page) {
     return _startPage(reference, page.reference).check();
   }
 
@@ -404,9 +387,7 @@ class PDFTextStripper extends jni.JObject {
   /// End a page. Default implementation is to do nothing. Subclasses may provide additional information.
   ///@param page The page we are about to process.
   ///@throws IOException If there is any error writing to the stream.
-  void endPage(
-    jni.JObject page,
-  ) {
+  void endPage(jni.JObject page) {
     return _endPage(reference, page.reference).check();
   }
 
@@ -467,9 +448,7 @@ class PDFTextStripper extends jni.JObject {
   /// Write the string in TextPosition to the output stream.
   ///@param text The text to write to the stream.
   ///@throws IOException If there is an error when writing the text.
-  void writeCharacters(
-    jni.JObject text,
-  ) {
+  void writeCharacters(jni.JObject text) {
     return _writeCharacters(reference, text.reference).check();
   }
 
@@ -490,10 +469,7 @@ class PDFTextStripper extends jni.JObject {
   ///@param text The text to write to the stream.
   ///@param textPositions The TextPositions belonging to the text.
   ///@throws IOException If there is an error when writing the text.
-  void writeString(
-    jni.JString text,
-    jni.JObject textPositions,
-  ) {
+  void writeString(jni.JString text, jni.JObject textPositions) {
     return _writeString(reference, text.reference, textPositions.reference)
         .check();
   }
@@ -511,9 +487,7 @@ class PDFTextStripper extends jni.JObject {
   /// Write a Java string to the output stream.
   ///@param text The text to write to the stream.
   ///@throws IOException If there is an error when writing the text.
-  void writeString1(
-    jni.JString text,
-  ) {
+  void writeString1(jni.JString text) {
     return _writeString1(reference, text.reference).check();
   }
 
@@ -531,9 +505,7 @@ class PDFTextStripper extends jni.JObject {
   /// This will process a TextPosition object and add the text to the list of characters on a page. It takes care of
   /// overlapping text.
   ///@param text The text to process.
-  void processTextPosition(
-    jni.JObject text,
-  ) {
+  void processTextPosition(jni.JObject text) {
     return _processTextPosition(reference, text.reference).check();
   }
 
@@ -563,9 +535,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// This will set the first page to be extracted by this class.
   ///@param startPageValue New value of 1-based startPage property.
-  void setStartPage(
-    int startPageValue,
-  ) {
+  void setStartPage(int startPageValue) {
     return _setStartPage(reference, startPageValue).check();
   }
 
@@ -595,9 +565,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// This will set the last page to be extracted by this class.
   ///@param endPageValue New value of 1-based endPage property.
-  void setEndPage(
-    int endPageValue,
-  ) {
+  void setEndPage(int endPageValue) {
     return _setEndPage(reference, endPageValue).check();
   }
 
@@ -614,9 +582,7 @@ class PDFTextStripper extends jni.JObject {
   /// Set the desired line separator for output text. The line.separator system property is used if the line separator
   /// preference is not set explicitly using this method.
   ///@param separator The desired line separator string.
-  void setLineSeparator(
-    jni.JString separator,
-  ) {
+  void setLineSeparator(jni.JString separator) {
     return _setLineSeparator(reference, separator.reference).check();
   }
 
@@ -665,9 +631,7 @@ class PDFTextStripper extends jni.JObject {
   /// accurate count of characters that are found in a PDF document then you might want to set the word separator to
   /// the empty string.
   ///@param separator The desired page separator string.
-  void setWordSeparator(
-    jni.JString separator,
-  ) {
+  void setWordSeparator(jni.JString separator) {
     return _setWordSeparator(reference, separator.reference).check();
   }
 
@@ -743,8 +707,7 @@ class PDFTextStripper extends jni.JObject {
   /// means that certain sections will be duplicated, but better performance will be noticed.
   ///@param suppressDuplicateOverlappingTextValue The suppressDuplicateOverlappingText to set.
   void setSuppressDuplicateOverlappingText(
-    bool suppressDuplicateOverlappingTextValue,
-  ) {
+      bool suppressDuplicateOverlappingTextValue) {
     return _setSuppressDuplicateOverlappingText(
             reference, suppressDuplicateOverlappingTextValue ? 1 : 0)
         .check();
@@ -774,9 +737,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// Set if the text stripper should group the text output by a list of beads. The default value is true!
   ///@param aShouldSeparateByBeads The new grouping of beads.
-  void setShouldSeparateByBeads(
-    bool aShouldSeparateByBeads,
-  ) {
+  void setShouldSeparateByBeads(bool aShouldSeparateByBeads) {
     return _setShouldSeparateByBeads(reference, aShouldSeparateByBeads ? 1 : 0)
         .check();
   }
@@ -808,9 +769,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// Set the bookmark where the text extraction should stop.
   ///@param aEndBookmark The ending bookmark.
-  void setEndBookmark(
-    jni.JObject aEndBookmark,
-  ) {
+  void setEndBookmark(jni.JObject aEndBookmark) {
     return _setEndBookmark(reference, aEndBookmark.reference).check();
   }
 
@@ -841,9 +800,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// Set the bookmark where text extraction should start, inclusive.
   ///@param aStartBookmark The starting bookmark.
-  void setStartBookmark(
-    jni.JObject aStartBookmark,
-  ) {
+  void setStartBookmark(jni.JObject aStartBookmark) {
     return _setStartBookmark(reference, aStartBookmark.reference).check();
   }
 
@@ -871,9 +828,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// There will some additional text formatting be added if addMoreFormatting is set to true. Default is false.
   ///@param newAddMoreFormatting Tell PDFBox to add some more text formatting
-  void setAddMoreFormatting(
-    bool newAddMoreFormatting,
-  ) {
+  void setAddMoreFormatting(bool newAddMoreFormatting) {
     return _setAddMoreFormatting(reference, newAddMoreFormatting ? 1 : 0)
         .check();
   }
@@ -908,9 +863,7 @@ class PDFTextStripper extends jni.JObject {
   /// A PDF writer could choose to write each character in a different order. By default PDFBox does __not__ sort
   /// the text tokens before processing them due to performance reasons.
   ///@param newSortByPosition Tell PDFBox to sort the text positions.
-  void setSortByPosition(
-    bool newSortByPosition,
-  ) {
+  void setSortByPosition(bool newSortByPosition) {
     return _setSortByPosition(reference, newSortByPosition ? 1 : 0).check();
   }
 
@@ -941,9 +894,7 @@ class PDFTextStripper extends jni.JObject {
   /// that the default value for this has been determined from trial and error. Setting this value larger will reduce
   /// the number of spaces added.
   ///@param spacingToleranceValue tolerance / scaling factor to use
-  void setSpacingTolerance(
-    double spacingToleranceValue,
-  ) {
+  void setSpacingTolerance(double spacingToleranceValue) {
     return _setSpacingTolerance(reference, spacingToleranceValue).check();
   }
 
@@ -974,9 +925,7 @@ class PDFTextStripper extends jni.JObject {
   /// that the default value for this has been determined from trial and error. Setting this value larger will reduce
   /// the number of spaces added.
   ///@param averageCharToleranceValue average tolerance / scaling factor to use
-  void setAverageCharTolerance(
-    double averageCharToleranceValue,
-  ) {
+  void setAverageCharTolerance(double averageCharToleranceValue) {
     return _setAverageCharTolerance(reference, averageCharToleranceValue)
         .check();
   }
@@ -1008,9 +957,7 @@ class PDFTextStripper extends jni.JObject {
   /// indented from the previous line start beyond which the current line start is considered to be a paragraph start.
   /// The default value is 2.0.
   ///@param indentThresholdValue the number of whitespace character widths to use when detecting paragraph indents.
-  void setIndentThreshold(
-    double indentThresholdValue,
-  ) {
+  void setIndentThreshold(double indentThresholdValue) {
     return _setIndentThreshold(reference, indentThresholdValue).check();
   }
 
@@ -1041,9 +988,7 @@ class PDFTextStripper extends jni.JObject {
   /// line start is considered to be a paragraph start. The default value is 2.5.
   ///@param dropThresholdValue the character height multiple for max allowed whitespace between lines in the same
   /// paragraph.
-  void setDropThreshold(
-    double dropThresholdValue,
-  ) {
+  void setDropThreshold(double dropThresholdValue) {
     return _setDropThreshold(reference, dropThresholdValue).check();
   }
 
@@ -1075,9 +1020,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// Sets the string which will be used at the beginning of a paragraph.
   ///@param s the paragraph start string
-  void setParagraphStart(
-    jni.JString s,
-  ) {
+  void setParagraphStart(jni.JString s) {
     return _setParagraphStart(reference, s.reference).check();
   }
 
@@ -1108,9 +1051,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// Sets the string which will be used at the end of a paragraph.
   ///@param s the paragraph end string
-  void setParagraphEnd(
-    jni.JString s,
-  ) {
+  void setParagraphEnd(jni.JString s) {
     return _setParagraphEnd(reference, s.reference).check();
   }
 
@@ -1141,9 +1082,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// Sets the string which will be used at the beginning of a page.
   ///@param pageStartValue the page start string
-  void setPageStart(
-    jni.JString pageStartValue,
-  ) {
+  void setPageStart(jni.JString pageStartValue) {
     return _setPageStart(reference, pageStartValue.reference).check();
   }
 
@@ -1174,9 +1113,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// Sets the string which will be used at the end of a page.
   ///@param pageEndValue the page end string
-  void setPageEnd(
-    jni.JString pageEndValue,
-  ) {
+  void setPageEnd(jni.JString pageEndValue) {
     return _setPageEnd(reference, pageEndValue.reference).check();
   }
 
@@ -1207,9 +1144,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// Sets the string which will be used at the beginning of an article.
   ///@param articleStartValue the article start string
-  void setArticleStart(
-    jni.JString articleStartValue,
-  ) {
+  void setArticleStart(jni.JString articleStartValue) {
     return _setArticleStart(reference, articleStartValue.reference).check();
   }
 
@@ -1240,9 +1175,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// Sets the string which will be used at the end of an article.
   ///@param articleEndValue the article end string
-  void setArticleEnd(
-    jni.JString articleEndValue,
-  ) {
+  void setArticleEnd(jni.JString articleEndValue) {
     return _setArticleEnd(reference, articleEndValue.reference).check();
   }
 
@@ -1329,9 +1262,7 @@ class PDFTextStripper extends jni.JObject {
   ///
   /// use to supply a different set of regular expression patterns for matching list item starts.
   ///@param patterns list of patterns
-  void setListItemPatterns(
-    jni.JObject patterns,
-  ) {
+  void setListItemPatterns(jni.JObject patterns) {
     return _setListItemPatterns(reference, patterns.reference).check();
   }
 
@@ -1386,10 +1317,7 @@ class PDFTextStripper extends jni.JObject {
   ///@param string the string to be searched
   ///@param patterns list of patterns
   ///@return matching pattern
-  static jni.JObject matchPattern(
-    jni.JString string,
-    jni.JObject patterns,
-  ) {
+  static jni.JObject matchPattern(jni.JString string, jni.JObject patterns) {
     return const jni.JObjectType()
         .fromRef(_matchPattern(string.reference, patterns.reference).object);
   }

@@ -410,9 +410,7 @@ class JsonFactory extends jni.JObject {
   ///@param schema Schema instance to check
   ///@return Whether parsers and generators constructed by this factory
   ///   can use specified format schema instance
-  bool canUseSchema(
-    jni.JObject schema,
-  ) {
+  bool canUseSchema(jni.JObject schema) {
     return jniAccessors.callMethodWithArgs(reference, _id_canUseSchema,
         jni.JniCallType.booleanType, [schema.reference]).boolean;
   }
@@ -441,9 +439,7 @@ class JsonFactory extends jni.JObject {
 
   /// from: public com.fasterxml.jackson.core.format.MatchStrength hasFormat(com.fasterxml.jackson.core.format.InputAccessor acc)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject hasFormat(
-    jni.JObject acc,
-  ) {
+  jni.JObject hasFormat(jni.JObject acc) {
     return const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_hasFormat,
@@ -477,9 +473,7 @@ class JsonFactory extends jni.JObject {
 
   /// from: protected com.fasterxml.jackson.core.format.MatchStrength hasJSONFormat(com.fasterxml.jackson.core.format.InputAccessor acc)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject hasJSONFormat(
-    jni.JObject acc,
-  ) {
+  jni.JObject hasJSONFormat(jni.JObject acc) {
     return const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_hasJSONFormat,
@@ -511,10 +505,7 @@ class JsonFactory extends jni.JObject {
   ///@param state Whether to enable or disable the feature
   ///@return This factory instance (to allow call chaining)
   ///@deprecated since 2.10 use JsonFactoryBuilder\#configure(JsonFactory.Feature, boolean) instead
-  JsonFactory configure(
-    JsonFactory_Feature f,
-    bool state,
-  ) {
+  JsonFactory configure(JsonFactory_Feature f, bool state) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_configure,
@@ -533,9 +524,7 @@ class JsonFactory extends jni.JObject {
   ///@param f Feature to enable
   ///@return This factory instance (to allow call chaining)
   ///@deprecated since 2.10 use JsonFactoryBuilder\#configure(JsonFactory.Feature, boolean) instead
-  JsonFactory enable(
-    JsonFactory_Feature f,
-  ) {
+  JsonFactory enable(JsonFactory_Feature f) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_enable,
@@ -554,9 +543,7 @@ class JsonFactory extends jni.JObject {
   ///@param f Feature to disable
   ///@return This factory instance (to allow call chaining)
   ///@deprecated since 2.10 use JsonFactoryBuilder\#configure(JsonFactory.Feature, boolean) instead
-  JsonFactory disable(
-    JsonFactory_Feature f,
-  ) {
+  JsonFactory disable(JsonFactory_Feature f) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_disable,
@@ -572,9 +559,7 @@ class JsonFactory extends jni.JObject {
   /// Checked whether specified parser feature is enabled.
   ///@param f Feature to check
   ///@return True if the specified feature is enabled
-  bool isEnabled(
-    JsonFactory_Feature f,
-  ) {
+  bool isEnabled(JsonFactory_Feature f) {
     return jniAccessors.callMethodWithArgs(reference, _id_isEnabled,
         jni.JniCallType.booleanType, [f.reference]).boolean;
   }
@@ -628,10 +613,7 @@ class JsonFactory extends jni.JObject {
   ///@param f Feature to enable/disable
   ///@param state Whether to enable or disable the feature
   ///@return This factory instance (to allow call chaining)
-  JsonFactory configure1(
-    jsonparser_.JsonParser_Feature f,
-    bool state,
-  ) {
+  JsonFactory configure1(jsonparser_.JsonParser_Feature f, bool state) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_configure1,
@@ -649,9 +631,7 @@ class JsonFactory extends jni.JObject {
   /// (check JsonParser.Feature for list of features)
   ///@param f Feature to enable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory enable1(
-    jsonparser_.JsonParser_Feature f,
-  ) {
+  JsonFactory enable1(jsonparser_.JsonParser_Feature f) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_enable1,
@@ -669,9 +649,7 @@ class JsonFactory extends jni.JObject {
   /// (check JsonParser.Feature for list of features)
   ///@param f Feature to disable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory disable1(
-    jsonparser_.JsonParser_Feature f,
-  ) {
+  JsonFactory disable1(jsonparser_.JsonParser_Feature f) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_disable1,
@@ -687,9 +665,7 @@ class JsonFactory extends jni.JObject {
   /// Method for checking if the specified parser feature is enabled.
   ///@param f Feature to check
   ///@return True if specified feature is enabled
-  bool isEnabled1(
-    jsonparser_.JsonParser_Feature f,
-  ) {
+  bool isEnabled1(jsonparser_.JsonParser_Feature f) {
     return jniAccessors.callMethodWithArgs(reference, _id_isEnabled1,
         jni.JniCallType.booleanType, [f.reference]).boolean;
   }
@@ -703,9 +679,7 @@ class JsonFactory extends jni.JObject {
   ///@param f Feature to check
   ///@return True if specified feature is enabled
   ///@since 2.10
-  bool isEnabled2(
-    jni.JObject f,
-  ) {
+  bool isEnabled2(jni.JObject f) {
     return jniAccessors.callMethodWithArgs(reference, _id_isEnabled2,
         jni.JniCallType.booleanType, [f.reference]).boolean;
   }
@@ -740,9 +714,7 @@ class JsonFactory extends jni.JObject {
   ///@param d Decorator to configure for this factory, if any ({@code null} if none)
   ///@return This factory instance (to allow call chaining)
   ///@deprecated Since 2.10 use JsonFactoryBuilder\#inputDecorator(InputDecorator) instead
-  JsonFactory setInputDecorator(
-    jni.JObject d,
-  ) {
+  JsonFactory setInputDecorator(jni.JObject d) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_setInputDecorator,
@@ -763,10 +735,7 @@ class JsonFactory extends jni.JObject {
   ///@param f Feature to enable/disable
   ///@param state Whether to enable or disable the feature
   ///@return This factory instance (to allow call chaining)
-  JsonFactory configure2(
-    jni.JObject f,
-    bool state,
-  ) {
+  JsonFactory configure2(jni.JObject f, bool state) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_configure2,
@@ -784,9 +753,7 @@ class JsonFactory extends jni.JObject {
   /// (check JsonGenerator.Feature for list of features)
   ///@param f Feature to enable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory enable2(
-    jni.JObject f,
-  ) {
+  JsonFactory enable2(jni.JObject f) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_enable2,
@@ -804,9 +771,7 @@ class JsonFactory extends jni.JObject {
   /// (check JsonGenerator.Feature for list of features)
   ///@param f Feature to disable
   ///@return This factory instance (to allow call chaining)
-  JsonFactory disable2(
-    jni.JObject f,
-  ) {
+  JsonFactory disable2(jni.JObject f) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_disable2,
@@ -822,9 +787,7 @@ class JsonFactory extends jni.JObject {
   /// Check whether specified generator feature is enabled.
   ///@param f Feature to check
   ///@return Whether specified feature is enabled
-  bool isEnabled3(
-    jni.JObject f,
-  ) {
+  bool isEnabled3(jni.JObject f) {
     return jniAccessors.callMethodWithArgs(reference, _id_isEnabled3,
         jni.JniCallType.booleanType, [f.reference]).boolean;
   }
@@ -838,9 +801,7 @@ class JsonFactory extends jni.JObject {
   ///@param f Feature to check
   ///@return Whether specified feature is enabled
   ///@since 2.10
-  bool isEnabled4(
-    jni.JObject f,
-  ) {
+  bool isEnabled4(jni.JObject f) {
     return jniAccessors.callMethodWithArgs(reference, _id_isEnabled4,
         jni.JniCallType.booleanType, [f.reference]).boolean;
   }
@@ -875,9 +836,7 @@ class JsonFactory extends jni.JObject {
   /// it creates.
   ///@param esc CharaterEscapes to set (or {@code null} for "none")
   ///@return This factory instance (to allow call chaining)
-  JsonFactory setCharacterEscapes(
-    jni.JObject esc,
-  ) {
+  JsonFactory setCharacterEscapes(jni.JObject esc) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_setCharacterEscapes,
@@ -916,9 +875,7 @@ class JsonFactory extends jni.JObject {
   ///@return This factory instance (to allow call chaining)
   ///@param d Output decorator to use, if any
   ///@deprecated Since 2.10 use JsonFactoryBuilder\#outputDecorator(OutputDecorator) instead
-  JsonFactory setOutputDecorator(
-    jni.JObject d,
-  ) {
+  JsonFactory setOutputDecorator(jni.JObject d) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_setOutputDecorator,
@@ -939,9 +896,7 @@ class JsonFactory extends jni.JObject {
   ///@param sep Separator to use, if any; null means that no separator is
   ///   automatically added
   ///@return This factory instance (to allow call chaining)
-  JsonFactory setRootValueSeparator(
-    jni.JString sep,
-  ) {
+  JsonFactory setRootValueSeparator(jni.JString sep) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_setRootValueSeparator,
@@ -976,9 +931,7 @@ class JsonFactory extends jni.JObject {
   /// of JsonParser and JsonGenerator instances.
   ///@param oc Codec to use
   ///@return This factory instance (to allow call chaining)
-  JsonFactory setCodec(
-    jni.JObject oc,
-  ) {
+  JsonFactory setCodec(jni.JObject oc) {
     return const $JsonFactoryType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_setCodec,
@@ -1020,9 +973,7 @@ class JsonFactory extends jni.JObject {
   /// the parser, since caller has no access to it.
   ///@param f File that contains JSON content to parse
   ///@since 2.1
-  jsonparser_.JsonParser createParser(
-    jni.JObject f,
-  ) {
+  jsonparser_.JsonParser createParser(jni.JObject f) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createParser,
             jni.JniCallType.objectType, [f.reference]).object);
@@ -1050,9 +1001,7 @@ class JsonFactory extends jni.JObject {
   /// the parser, since caller has no access to it.
   ///@param url URL pointing to resource that contains JSON content to parse
   ///@since 2.1
-  jsonparser_.JsonParser createParser1(
-    jni.JObject url,
-  ) {
+  jsonparser_.JsonParser createParser1(jni.JObject url) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createParser1,
             jni.JniCallType.objectType, [url.reference]).object);
@@ -1083,9 +1032,7 @@ class JsonFactory extends jni.JObject {
   /// For other charsets use \#createParser(java.io.Reader).
   ///@param in InputStream to use for reading JSON content to parse
   ///@since 2.1
-  jsonparser_.JsonParser createParser2(
-    jni.JObject in0,
-  ) {
+  jsonparser_.JsonParser createParser2(jni.JObject in0) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createParser2,
             jni.JniCallType.objectType, [in0.reference]).object);
@@ -1109,9 +1056,7 @@ class JsonFactory extends jni.JObject {
   /// is enabled.
   ///@param r Reader to use for reading JSON content to parse
   ///@since 2.1
-  jsonparser_.JsonParser createParser3(
-    jni.JObject r,
-  ) {
+  jsonparser_.JsonParser createParser3(jni.JObject r) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createParser3,
             jni.JniCallType.objectType, [r.reference]).object);
@@ -1126,9 +1071,7 @@ class JsonFactory extends jni.JObject {
   /// Method for constructing parser for parsing
   /// the contents of given byte array.
   ///@since 2.1
-  jsonparser_.JsonParser createParser4(
-    jni.JArray<jni.JByte> data,
-  ) {
+  jsonparser_.JsonParser createParser4(jni.JArray<jni.JByte> data) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createParser4,
             jni.JniCallType.objectType, [data.reference]).object);
@@ -1147,10 +1090,7 @@ class JsonFactory extends jni.JObject {
   ///@param len Length of contents to parse within buffer
   ///@since 2.1
   jsonparser_.JsonParser createParser5(
-    jni.JArray<jni.JByte> data,
-    int offset,
-    int len,
-  ) {
+      jni.JArray<jni.JByte> data, int offset, int len) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(
             reference, _id_createParser5, jni.JniCallType.objectType, [
@@ -1171,9 +1111,7 @@ class JsonFactory extends jni.JObject {
   /// Method for constructing parser for parsing
   /// contents of given String.
   ///@since 2.1
-  jsonparser_.JsonParser createParser6(
-    jni.JString content,
-  ) {
+  jsonparser_.JsonParser createParser6(jni.JString content) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createParser6,
             jni.JniCallType.objectType, [content.reference]).object);
@@ -1188,9 +1126,7 @@ class JsonFactory extends jni.JObject {
   /// Method for constructing parser for parsing
   /// contents of given char array.
   ///@since 2.4
-  jsonparser_.JsonParser createParser7(
-    jni.JArray<jni.JChar> content,
-  ) {
+  jsonparser_.JsonParser createParser7(jni.JArray<jni.JChar> content) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createParser7,
             jni.JniCallType.objectType, [content.reference]).object);
@@ -1205,10 +1141,7 @@ class JsonFactory extends jni.JObject {
   /// Method for constructing parser for parsing contents of given char array.
   ///@since 2.4
   jsonparser_.JsonParser createParser8(
-    jni.JArray<jni.JChar> content,
-    int offset,
-    int len,
-  ) {
+      jni.JArray<jni.JChar> content, int offset, int len) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(
             reference, _id_createParser8, jni.JniCallType.objectType, [
@@ -1232,9 +1165,7 @@ class JsonFactory extends jni.JObject {
   /// If this factory does not support DataInput as source,
   /// will throw UnsupportedOperationException
   ///@since 2.8
-  jsonparser_.JsonParser createParser9(
-    jni.JObject in0,
-  ) {
+  jsonparser_.JsonParser createParser9(jni.JObject in0) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createParser9,
             jni.JniCallType.objectType, [in0.reference]).object);
@@ -1292,10 +1223,7 @@ class JsonFactory extends jni.JObject {
   ///@param out OutputStream to use for writing JSON content
   ///@param enc Character encoding to use
   ///@since 2.1
-  jni.JObject createGenerator(
-    jni.JObject out,
-    jni.JObject enc,
-  ) {
+  jni.JObject createGenerator(jni.JObject out, jni.JObject enc) {
     return const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_createGenerator,
@@ -1316,9 +1244,7 @@ class JsonFactory extends jni.JObject {
   ///
   /// Note: there are formats that use fixed encoding (like most binary data formats).
   ///@since 2.1
-  jni.JObject createGenerator1(
-    jni.JObject out,
-  ) {
+  jni.JObject createGenerator1(jni.JObject out) {
     return const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_createGenerator1,
@@ -1345,9 +1271,7 @@ class JsonFactory extends jni.JObject {
   /// Using application needs to close it explicitly.
   ///@since 2.1
   ///@param w Writer to use for writing JSON content
-  jni.JObject createGenerator2(
-    jni.JObject w,
-  ) {
+  jni.JObject createGenerator2(jni.JObject w) {
     return const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_createGenerator2,
@@ -1375,10 +1299,7 @@ class JsonFactory extends jni.JObject {
   ///@param f File to write contents to
   ///@param enc Character encoding to use
   ///@since 2.1
-  jni.JObject createGenerator3(
-    jni.JObject f,
-    jni.JObject enc,
-  ) {
+  jni.JObject createGenerator3(jni.JObject f, jni.JObject enc) {
     return const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_createGenerator3,
@@ -1397,10 +1318,7 @@ class JsonFactory extends jni.JObject {
   /// Method for constructing generator for writing content using specified
   /// DataOutput instance.
   ///@since 2.8
-  jni.JObject createGenerator4(
-    jni.JObject out,
-    jni.JObject enc,
-  ) {
+  jni.JObject createGenerator4(jni.JObject out, jni.JObject enc) {
     return const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_createGenerator4,
@@ -1421,9 +1339,7 @@ class JsonFactory extends jni.JObject {
   ///
   /// Note: there are formats that use fixed encoding (like most binary data formats).
   ///@since 2.8
-  jni.JObject createGenerator5(
-    jni.JObject out,
-  ) {
+  jni.JObject createGenerator5(jni.JObject out) {
     return const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_createGenerator5,
@@ -1457,9 +1373,7 @@ class JsonFactory extends jni.JObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(File) instead.
-  jsonparser_.JsonParser createJsonParser(
-    jni.JObject f,
-  ) {
+  jsonparser_.JsonParser createJsonParser(jni.JObject f) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createJsonParser,
             jni.JniCallType.objectType, [f.reference]).object);
@@ -1490,9 +1404,7 @@ class JsonFactory extends jni.JObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(URL) instead.
-  jsonparser_.JsonParser createJsonParser1(
-    jni.JObject url,
-  ) {
+  jsonparser_.JsonParser createJsonParser1(jni.JObject url) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createJsonParser1,
             jni.JniCallType.objectType, [url.reference]).object);
@@ -1526,9 +1438,7 @@ class JsonFactory extends jni.JObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(InputStream) instead.
-  jsonparser_.JsonParser createJsonParser2(
-    jni.JObject in0,
-  ) {
+  jsonparser_.JsonParser createJsonParser2(jni.JObject in0) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createJsonParser2,
             jni.JniCallType.objectType, [in0.reference]).object);
@@ -1555,9 +1465,7 @@ class JsonFactory extends jni.JObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(Reader) instead.
-  jsonparser_.JsonParser createJsonParser3(
-    jni.JObject r,
-  ) {
+  jsonparser_.JsonParser createJsonParser3(jni.JObject r) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createJsonParser3,
             jni.JniCallType.objectType, [r.reference]).object);
@@ -1575,9 +1483,7 @@ class JsonFactory extends jni.JObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[]) instead.
-  jsonparser_.JsonParser createJsonParser4(
-    jni.JArray<jni.JByte> data,
-  ) {
+  jsonparser_.JsonParser createJsonParser4(jni.JArray<jni.JByte> data) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createJsonParser4,
             jni.JniCallType.objectType, [data.reference]).object);
@@ -1599,10 +1505,7 @@ class JsonFactory extends jni.JObject {
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[],int,int) instead.
   jsonparser_.JsonParser createJsonParser5(
-    jni.JArray<jni.JByte> data,
-    int offset,
-    int len,
-  ) {
+      jni.JArray<jni.JByte> data, int offset, int len) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(
             reference, _id_createJsonParser5, jni.JniCallType.objectType, [
@@ -1627,9 +1530,7 @@ class JsonFactory extends jni.JObject {
   ///@throws IOException if parser initialization fails due to I/O (read) problem
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(String) instead.
-  jsonparser_.JsonParser createJsonParser6(
-    jni.JString content,
-  ) {
+  jsonparser_.JsonParser createJsonParser6(jni.JString content) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createJsonParser6,
             jni.JniCallType.objectType, [content.reference]).object);
@@ -1663,10 +1564,7 @@ class JsonFactory extends jni.JObject {
   ///@return Generator constructed
   ///@throws IOException if parser initialization fails due to I/O (write) problem
   ///@deprecated Since 2.2, use \#createGenerator(OutputStream, JsonEncoding) instead.
-  jni.JObject createJsonGenerator(
-    jni.JObject out,
-    jni.JObject enc,
-  ) {
+  jni.JObject createJsonGenerator(jni.JObject out, jni.JObject enc) {
     return const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_createJsonGenerator,
@@ -1695,9 +1593,7 @@ class JsonFactory extends jni.JObject {
   ///@return Generator constructed
   ///@throws IOException if parser initialization fails due to I/O (write) problem
   ///@deprecated Since 2.2, use \#createGenerator(Writer) instead.
-  jni.JObject createJsonGenerator1(
-    jni.JObject out,
-  ) {
+  jni.JObject createJsonGenerator1(jni.JObject out) {
     return const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_createJsonGenerator1,
@@ -1721,9 +1617,7 @@ class JsonFactory extends jni.JObject {
   ///@return Generator constructed
   ///@throws IOException if parser initialization fails due to I/O (write) problem
   ///@deprecated Since 2.2, use \#createGenerator(OutputStream) instead.
-  jni.JObject createJsonGenerator2(
-    jni.JObject out,
-  ) {
+  jni.JObject createJsonGenerator2(jni.JObject out) {
     return const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
         reference,
         _id_createJsonGenerator2,
@@ -1783,9 +1677,7 @@ class JsonFactory_Feature extends jni.JObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonFactory.Feature valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonFactory_Feature valueOf(
-    jni.JString name,
-  ) {
+  static JsonFactory_Feature valueOf(jni.JString name) {
     return const $JsonFactory_FeatureType().fromRef(jniAccessors
         .callStaticMethodWithArgs(_classRef, _id_valueOf,
             jni.JniCallType.objectType, [name.reference]).object);
@@ -1817,9 +1709,7 @@ class JsonFactory_Feature extends jni.JObject {
       jniAccessors.getMethodIDOf(_classRef, r"enabledIn", r"(I)Z");
 
   /// from: public boolean enabledIn(int flags)
-  bool enabledIn(
-    int flags,
-  ) {
+  bool enabledIn(int flags) {
     return jniAccessors.callMethodWithArgs(reference, _id_enabledIn,
         jni.JniCallType.booleanType, [jni.JValueInt(flags)]).boolean;
   }

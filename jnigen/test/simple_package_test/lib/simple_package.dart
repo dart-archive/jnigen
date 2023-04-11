@@ -130,10 +130,7 @@ class Example extends jni.JObject {
       .asFunction<jni.JniResult Function(int, int)>();
 
   /// from: static public int addInts(int a, int b)
-  static int addInts(
-    int a,
-    int b,
-  ) {
+  static int addInts(int a, int b) {
     return _addInts(a, b).integer;
   }
 
@@ -153,9 +150,7 @@ class Example extends jni.JObject {
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public int addAll(int[] arr)
-  static int addAll(
-    jni.JArray<jni.JInt> arr,
-  ) {
+  static int addAll(jni.JArray<jni.JInt> arr) {
     return _addAll(arr.reference).integer;
   }
 
@@ -188,9 +183,7 @@ class Example extends jni.JObject {
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public void setNum(int num)
-  void setNum(
-    int num,
-  ) {
+  void setNum(int num) {
     return _setNum(reference, num).check();
   }
 
@@ -212,9 +205,7 @@ class Example extends jni.JObject {
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public void setInternal(int internal)
-  void setInternal(
-    int internal,
-  ) {
+  void setInternal(int internal) {
     return _setInternal(reference, internal).check();
   }
 
@@ -308,9 +299,7 @@ class Example_Aux extends jni.JObject {
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public void setValue(boolean value)
-  void setValue(
-    bool value,
-  ) {
+  void setValue(bool value) {
     return _setValue(reference, value ? 1 : 0).check();
   }
 }
@@ -1178,9 +1167,7 @@ class MyMap<$K extends jni.JObject, $V extends jni.JObject>
 
   /// from: public V get(K key)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  $V get0(
-    $K key,
-  ) {
+  $V get0($K key) {
     return V.fromRef(_get0(reference, key.reference).object);
   }
 
@@ -1194,10 +1181,7 @@ class MyMap<$K extends jni.JObject, $V extends jni.JObject>
 
   /// from: public V put(K key, V value)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  $V put(
-    $K key,
-    $V value,
-  ) {
+  $V put($K key, $V value) {
     return V.fromRef(_put(reference, key.reference, value.reference).object);
   }
 
@@ -1501,9 +1485,7 @@ class MyStack<$T extends jni.JObject> extends jni.JObject {
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
   /// from: public void push(T item)
-  void push(
-    $T item,
-  ) {
+  void push($T item) {
     return _push(reference, item.reference).check();
   }
 
@@ -1770,9 +1752,7 @@ class JsonSerializable_Case extends jni.JObject {
 
   /// from: static public com.github.dart_lang.jnigen.annotations.JsonSerializable.Case valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonSerializable_Case valueOf(
-    jni.JString name,
-  ) {
+  static JsonSerializable_Case valueOf(jni.JString name) {
     return const $JsonSerializable_CaseType()
         .fromRef(_valueOf(name.reference).object);
   }

@@ -1035,7 +1035,6 @@ class _MethodGenerator extends Visitor<Method, void> {
       final className = node.classDecl.finalName;
       final name = node.finalName;
       final ctorName = name == 'ctor' ? className : '$className.$name';
-      // TODO: always have a trailing comma after PR #236 is reviewed.
       final paramsDef = node.params.accept(_ParamDef(resolver)).join(', ');
       final typeClassDef = _encloseIfNotEmpty(
         '{',
@@ -1045,6 +1044,7 @@ class _MethodGenerator extends Visitor<Method, void> {
             .delimited(', '),
         '}',
       );
+      // TODO: always have a trailing comma after PR #236 is reviewed.
       final separator = paramsDef.isEmpty || typeClassDef.isEmpty ? '' : ', ';
       final typeClassCall = node.classDecl.allTypeParams
           .map((typeParam) =>
@@ -1093,8 +1093,11 @@ class _MethodGenerator extends Visitor<Method, void> {
     if (isSuspendFun(node)) {
       defArgs.removeLast();
     }
-    final params = defArgs.delimited(', ');
-    s.write('  $ifStatic$returnType $name$typeParamsDef($params$typeClassDef)');
+    // TODO: always have a trailing comma after PR #236 is reviewed.
+    final params = defArgs.join(', ');
+    final separator = params.isEmpty || typeClassDef.isEmpty ? '' : ', ';
+    s.write(
+        '  $ifStatic$returnType $name$typeParamsDef($params$separator$typeClassDef)');
     final callExpr = (isCBased ? cMethodCall : dartOnlyMethodCall)(node);
     if (isSuspendFun(node)) {
       final returning =
