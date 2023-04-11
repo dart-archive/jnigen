@@ -73,7 +73,9 @@ class JsonToken extends jni.JObject {
 
   /// from: static public com.fasterxml.jackson.core.JsonToken valueOf(java.lang.String name)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static JsonToken valueOf(jni.JString name) {
+  static JsonToken valueOf(
+    jni.JString name,
+  ) {
     return const $JsonTokenType().fromRef(jniAccessors.callStaticMethodWithArgs(
         _classRef,
         _id_valueOf,
