@@ -4,9 +4,9 @@
 ## Introduction
 Experimental bindings generator for Java bindings through dart:ffi and JNI.
 
-`jnigen` scans compiled JAR files or well-formed Java source code to generate a description of the API, then uses it to generate Dart annd C bindings. Dart bindings call the C bindings, which in-turn call the Java functions through JNI. Shared functionality and base classes are provided through the support library, `package:jni`.
+`jnigen` scans compiled JAR files or Java source code to generate a description of the API, then uses it to generate Dart annd C bindings. The Dart bindings call the C bindings, which in-turn call the Java functions through JNI. Shared functionality and base classes are provided through the support library, `package:jni`.
 
-The configuration for binding generation is usually provided through YAML. A programmatic API (`package:jnigen`) is also provided.
+The configuration for binding generation is usually provided through YAML.
 
 Three configuration details are needed to generate the bindings. Everything else is optional:
 
@@ -20,10 +20,10 @@ Check out the [examples](jnigen/example/) to see some sample configurations.
 
 C code is always generated into a directory with it's own build configuration. It's built as a separate dynamic library.
 
-Lastly, [dart_only bindings](#pure-dart-bindings) mode is also available as a proof-of-concept, which does not need intermediate C bindings apart from dependency on the support library `package:jni`.
+Lastly, [dart_only bindings](#pure-dart-bindings) mode is also available as a proof-of-concept. It does not need intermediate C bindings, only a dependency on the support library `package:jni`.
 
 ## Example
-It's possible to generate bindings for libraries, or Java source files.
+It's possible to generate bindings for JAR libraries, or Java source files.
 
 Here's a simple example Java file, in a Flutter Android app.
 
