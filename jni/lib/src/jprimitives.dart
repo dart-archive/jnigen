@@ -2,16 +2,20 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// The types here are mapped to primitive types in Java, so they're all in
+// lowercase.
+// ignore_for_file: camel_case_types
+
 part of 'types.dart';
 
 abstract class JPrimitive {}
 
-abstract class JByte extends JPrimitive {
-  static const type = JByteType();
+abstract class jbyte extends JPrimitive {
+  static const type = jbyteType();
 }
 
-class JByteType extends JType<JByte> {
-  const JByteType();
+class jbyteType extends JType<jbyte> {
+  const jbyteType();
 
   @override
   int get _type => JniCallType.byteType;
@@ -20,12 +24,12 @@ class JByteType extends JType<JByte> {
   String get signature => "B";
 }
 
-abstract class JBoolean extends JPrimitive {
-  static const type = JBooleanType();
+abstract class jboolean extends JPrimitive {
+  static const type = jbooleanType();
 }
 
-class JBooleanType extends JType<JBoolean> {
-  const JBooleanType();
+class jbooleanType extends JType<jboolean> {
+  const jbooleanType();
 
   @override
   int get _type => JniCallType.booleanType;
@@ -34,12 +38,12 @@ class JBooleanType extends JType<JBoolean> {
   String get signature => "Z";
 }
 
-abstract class JChar extends JPrimitive {
-  static const type = JCharType();
+abstract class jchar extends JPrimitive {
+  static const type = jcharType();
 }
 
-class JCharType extends JType<JChar> {
-  const JCharType();
+class jcharType extends JType<jchar> {
+  const jcharType();
 
   @override
   int get _type => JniCallType.charType;
@@ -48,12 +52,12 @@ class JCharType extends JType<JChar> {
   String get signature => "C";
 }
 
-abstract class JShort extends JPrimitive {
-  static const type = JShortType();
+abstract class jshort extends JPrimitive {
+  static const type = jshortType();
 }
 
-class JShortType extends JType<JShort> {
-  const JShortType();
+class jshortType extends JType<jshort> {
+  const jshortType();
 
   @override
   int get _type => JniCallType.shortType;
@@ -62,12 +66,12 @@ class JShortType extends JType<JShort> {
   String get signature => "S";
 }
 
-abstract class JInt extends JPrimitive {
-  static const type = JIntType();
+abstract class jint extends JPrimitive {
+  static const type = jintType();
 }
 
-class JIntType extends JType<JInt> {
-  const JIntType();
+class jintType extends JType<jint> {
+  const jintType();
 
   @override
   int get _type => JniCallType.intType;
@@ -76,12 +80,12 @@ class JIntType extends JType<JInt> {
   String get signature => "I";
 }
 
-abstract class JLong extends JPrimitive {
-  static const type = JLongType();
+abstract class jlong extends JPrimitive {
+  static const type = jlongType();
 }
 
-class JLongType extends JType<JLong> {
-  const JLongType();
+class jlongType extends JType<jlong> {
+  const jlongType();
 
   @override
   int get _type => JniCallType.longType;
@@ -90,12 +94,12 @@ class JLongType extends JType<JLong> {
   String get signature => "J";
 }
 
-abstract class JFloat extends JPrimitive {
-  static const type = JFloatType();
+abstract class jfloat extends JPrimitive {
+  static const type = jfloatType();
 }
 
-class JFloatType extends JType<JFloat> {
-  const JFloatType();
+class jfloatType extends JType<jfloat> {
+  const jfloatType();
 
   @override
   int get _type => JniCallType.floatType;
@@ -104,12 +108,12 @@ class JFloatType extends JType<JFloat> {
   String get signature => "F";
 }
 
-abstract class JDouble extends JPrimitive {
-  static const type = JDoubleType();
+abstract class jdouble extends JPrimitive {
+  static const type = jdoubleType();
 }
 
-class JDoubleType extends JType<JDouble> {
-  const JDoubleType();
+class jdoubleType extends JType<jdouble> {
+  const jdoubleType();
 
   @override
   int get _type => JniCallType.doubleType;

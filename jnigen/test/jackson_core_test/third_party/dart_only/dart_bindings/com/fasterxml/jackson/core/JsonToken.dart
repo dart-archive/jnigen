@@ -106,8 +106,8 @@ class JsonToken extends jni.JObject {
 
   /// from: public final char[] asCharArray()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JArray<jni.JChar> asCharArray() {
-    return const jni.JArrayType(jni.JCharType()).fromRef(jniAccessors
+  jni.JArray<jni.jchar> asCharArray() {
+    return const jni.JArrayType(jni.jcharType()).fromRef(jniAccessors
         .callMethodWithArgs(
             reference, _id_asCharArray, jni.JniCallType.objectType, []).object);
   }
@@ -117,8 +117,8 @@ class JsonToken extends jni.JObject {
 
   /// from: public final byte[] asByteArray()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JArray<jni.JByte> asByteArray() {
-    return const jni.JArrayType(jni.JByteType()).fromRef(jniAccessors
+  jni.JArray<jni.jbyte> asByteArray() {
+    return const jni.JArrayType(jni.jbyteType()).fromRef(jniAccessors
         .callMethodWithArgs(
             reference, _id_asByteArray, jni.JniCallType.objectType, []).object);
   }

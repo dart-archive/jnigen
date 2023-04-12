@@ -471,8 +471,8 @@ class Example extends jni.JObject {
 
   /// from: static public int[] getArr()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JArray<jni.JInt> getArr() {
-    return const jni.JArrayType(jni.JIntType()).fromRef(_getArr().object);
+  static jni.JArray<jni.jint> getArr() {
+    return const jni.JArrayType(jni.jintType()).fromRef(_getArr().object);
   }
 
   static final _addAll = jniLookup<
@@ -482,7 +482,7 @@ class Example extends jni.JObject {
 
   /// from: static public int addAll(int[] arr)
   static int addAll(
-    jni.JArray<jni.JInt> arr,
+    jni.JArray<jni.jint> arr,
   ) {
     return _addAll(arr.reference).integer;
   }

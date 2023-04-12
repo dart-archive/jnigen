@@ -217,7 +217,7 @@ void run({required TestRunnerCallback testRunner}) {
     expect(lowestCommonSuperType([JString.type]), JString.type);
     expect(lowestCommonSuperType([JObject.type, JObject.type]), JObject.type);
     expect(lowestCommonSuperType([JString.type, JString.type]), JString.type);
-    expect(lowestCommonSuperType([JString.type, JArray.type(JLong.type)]),
+    expect(lowestCommonSuperType([JString.type, JArray.type(jlong.type)]),
         JObject.type);
   });
 

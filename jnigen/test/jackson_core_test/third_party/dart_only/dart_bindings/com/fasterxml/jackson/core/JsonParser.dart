@@ -185,7 +185,7 @@ class JsonParser extends jni.JObject {
   ///@param charset Character encoding for (lazily) decoding payload
   ///@since 2.8
   void setRequestPayloadOnError1(
-    jni.JArray<jni.JByte> payload,
+    jni.JArray<jni.jbyte> payload,
     jni.JString charset,
   ) {
     return jniAccessors.callMethodWithArgs(
@@ -1467,8 +1467,8 @@ class JsonParser extends jni.JObject {
   ///    at offset 0, and not necessarily until the end of buffer)
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JArray<jni.JChar> getTextCharacters() {
-    return const jni.JArrayType(jni.JCharType()).fromRef(jniAccessors
+  jni.JArray<jni.jchar> getTextCharacters() {
+    return const jni.JArrayType(jni.jcharType()).fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_getTextCharacters,
             jni.JniCallType.objectType, []).object);
   }
@@ -1873,10 +1873,10 @@ class JsonParser extends jni.JObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JArray<jni.JByte> getBinaryValue(
+  jni.JArray<jni.jbyte> getBinaryValue(
     jni.JObject bv,
   ) {
-    return const jni.JArrayType(jni.JByteType()).fromRef(jniAccessors
+    return const jni.JArrayType(jni.jbyteType()).fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_getBinaryValue,
             jni.JniCallType.objectType, [bv.reference]).object);
   }
@@ -1893,8 +1893,8 @@ class JsonParser extends jni.JObject {
   ///@return Decoded binary data
   ///@throws IOException for low-level read issues, or
   ///   JsonParseException for decoding problems
-  jni.JArray<jni.JByte> getBinaryValue1() {
-    return const jni.JArrayType(jni.JByteType()).fromRef(jniAccessors
+  jni.JArray<jni.jbyte> getBinaryValue1() {
+    return const jni.JArrayType(jni.jbyteType()).fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_getBinaryValue1,
             jni.JniCallType.objectType, []).object);
   }

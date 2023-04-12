@@ -1,5 +1,6 @@
 ## 0.4.0
 * **Breaking Change** ([#145](https://github.com/dart-lang/jnigen/issues/145)): Type arguments are now named instead of positional.
+* **Breaking Change** ([#137](https://github.com/dart-lang/jnigen/issues/137)): Java primitive types are now all lowercase like `jint`, `jshort`, ...
 * Type parameters can now be inferred when possible.
 * Fixed a bug where passing a `long` argument truncated it to `int` in pure dart bindings.
 * Removed array extensions from the generated code.

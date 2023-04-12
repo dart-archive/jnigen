@@ -1137,7 +1137,7 @@ class JsonFactory extends jni.JObject {
   /// the contents of given byte array.
   ///@since 2.1
   jsonparser_.JsonParser createParser4(
-    jni.JArray<jni.JByte> data,
+    jni.JArray<jni.jbyte> data,
   ) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createParser4,
@@ -1157,7 +1157,7 @@ class JsonFactory extends jni.JObject {
   ///@param len Length of contents to parse within buffer
   ///@since 2.1
   jsonparser_.JsonParser createParser5(
-    jni.JArray<jni.JByte> data,
+    jni.JArray<jni.jbyte> data,
     int offset,
     int len,
   ) {
@@ -1199,7 +1199,7 @@ class JsonFactory extends jni.JObject {
   /// contents of given char array.
   ///@since 2.4
   jsonparser_.JsonParser createParser7(
-    jni.JArray<jni.JChar> content,
+    jni.JArray<jni.jchar> content,
   ) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createParser7,
@@ -1215,7 +1215,7 @@ class JsonFactory extends jni.JObject {
   /// Method for constructing parser for parsing contents of given char array.
   ///@since 2.4
   jsonparser_.JsonParser createParser8(
-    jni.JArray<jni.JChar> content,
+    jni.JArray<jni.jchar> content,
     int offset,
     int len,
   ) {
@@ -1586,7 +1586,7 @@ class JsonFactory extends jni.JObject {
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[]) instead.
   jsonparser_.JsonParser createJsonParser4(
-    jni.JArray<jni.JByte> data,
+    jni.JArray<jni.jbyte> data,
   ) {
     return const jsonparser_.$JsonParserType().fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_createJsonParser4,
@@ -1609,7 +1609,7 @@ class JsonFactory extends jni.JObject {
   ///@throws JsonParseException if parser initialization fails due to content decoding problem
   ///@deprecated Since 2.2, use \#createParser(byte[],int,int) instead.
   jsonparser_.JsonParser createJsonParser5(
-    jni.JArray<jni.JByte> data,
+    jni.JArray<jni.jbyte> data,
     int offset,
     int len,
   ) {
