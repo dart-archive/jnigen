@@ -8,7 +8,8 @@ import 'package:collection/collection.dart';
 import 'package:ffigen/ffigen.dart';
 import 'package:ffigen/src/code_generator.dart';
 
-import 'ffigen_util/ffigen_util.dart';
+import 'ffigen_util.dart';
+import 'logging.dart';
 
 class Paths {
   static final currentDir = Directory.current.uri;
@@ -23,10 +24,10 @@ class Paths {
 
 void executeDartFormat(List<Uri> files) {
   final paths = files.map((u) => u.toFilePath()).toList();
-  stderr.writeln('+ dart format ${paths.join(" ")}');
+  logger.info('execute dart format ${paths.join(" ")}');
   final format = Process.runSync('dart', ['format', ...paths]);
   if (format.exitCode != 0) {
-    stderr.writeln('dart format exited with ${format.exitCode}');
+    logger.severe('dart format exited with ${format.exitCode}');
     stderr.writeln(format.stderr);
   }
 }
@@ -104,7 +105,7 @@ String? getGlobalEnvExtensionFunction(Member field, Type? checkedReturnType) {
   return null;
 }
 
-void generateDartExtensions(Library library) {
+void writeDartExtensions(Library library) {
   const header = '''
 // Auto generated file. Do not edit.
 // ignore_for_file: non_constant_identifier_names
@@ -206,9 +207,7 @@ String getFunctionPointerExtension(Library library, String type,
       '{$extensionFunctions}';
 }
 
-void main() {
-  final config = Config.fromFile(File('ffigen.yaml'));
-  final library = parse(config);
-  generateDartExtensions(library);
+void generateDartExtensions(Library library) {
+  writeDartExtensions(library);
   executeDartFormat([Paths.globalEnvExts, Paths.localEnvExts]);
 }

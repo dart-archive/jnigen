@@ -7,7 +7,8 @@ import 'dart:io';
 import 'package:ffigen/ffigen.dart';
 import 'package:ffigen/src/code_generator.dart';
 
-import 'ffigen_util/ffigen_util.dart';
+import 'ffigen_util.dart';
+import 'logging.dart';
 
 class Paths {
   static final currentDir = Directory.current.uri;
@@ -246,7 +247,7 @@ String? getWrapperFunc(Member field) {
   return null;
 }
 
-void generateGlobalJniEnv(Library library) {
+void writeGlobalJniEnvWrapper(Library library) {
   final jniEnvType = findCompound(library, envType);
 
   final fieldDecls = jniEnvType.members.map(getFunctionFieldDecl).join('\n');
@@ -273,7 +274,7 @@ void generateGlobalJniEnv(Library library) {
 
 void executeClangFormat(List<Uri> files) {
   final paths = files.map((u) => u.toFilePath()).toList();
-  stderr.writeln('execute clang-format -i ${paths.join(" ")}');
+  logger.info('execute clang-format -i ${paths.join(" ")}');
   final format = Process.runSync('clang-format', ['-i', ...paths]);
   if (format.exitCode != 0) {
     stderr.writeln('clang-format exited with ${format.exitCode}');
@@ -281,9 +282,7 @@ void executeClangFormat(List<Uri> files) {
   }
 }
 
-void main() {
-  final config = Config.fromFile(File('ffigen_exts.yaml'));
-  final library = parse(config);
-  generateGlobalJniEnv(library);
+void generateCWrappers(Library minimalLibrary) {
+  writeGlobalJniEnvWrapper(minimalLibrary);
   executeClangFormat([Paths.globalJniEnvC, Paths.globalJniEnvH]);
 }
