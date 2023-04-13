@@ -5,7 +5,6 @@
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:ffigen/ffigen.dart';
 import 'package:ffigen/src/code_generator.dart';
 
 import 'ffigen_util.dart';

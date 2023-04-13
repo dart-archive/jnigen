@@ -7,8 +7,6 @@
 
 import 'dart:io';
 
-import 'package:logging/logging.dart';
-
 import 'wrapper_generators/logging.dart';
 import 'wrapper_generators/generate_c_extensions.dart';
 import 'wrapper_generators/generate_dart_extensions.dart';

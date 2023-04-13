@@ -3,9 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:io';
-import 'dart:math';
 
-import 'package:ffigen/ffigen.dart';
 import 'package:jni/jni.dart';
 import 'package:jni/src/jvalues.dart';
 import 'package:test/test.dart';
@@ -161,8 +159,9 @@ void main() {
     final globalRef = env.NewGlobalRef(localRef);
     refType = env.GetObjectRefType(globalRef);
     expect(refType, equals(JObjectRefType.JNIGlobalRefType));
-    env.DeleteLocalRef(localRef);
     env.DeleteGlobalRef(globalRef);
     env.DeleteWeakGlobalRef(weakRef);
+    env.DeleteLocalRef(localRef);
+    env.DeleteGlobalRef(systemOut);
   });
 }
