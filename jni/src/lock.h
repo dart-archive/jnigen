@@ -48,3 +48,12 @@ static inline void _destroyLock(MutexLock* lock) {
 #error "No locking support; Possibly unsupported platform"
 
 #endif
+
+typedef struct JniLocks {
+  MutexLock classLoadingLock;
+  MutexLock methodLoadingLock;
+  MutexLock fieldLoadingLock;
+} JniLocks;
+
+/// To be defined by generated code, for the time being.
+extern JniLocks locks;
