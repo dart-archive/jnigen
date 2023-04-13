@@ -113,6 +113,11 @@ T _callOrGet<T>(int? callType, JniResult Function(int) function) {
           : (T == JObject ? JObject.fromRef : JString.fromRef);
       result = ctor(ref) as T;
       break;
+    case Pointer<Void>: // JObjectPtr
+      finalCallType = _getCallType(
+          callType, JniCallType.objectType, {JniCallType.objectType});
+      result = function(finalCallType).object as T;
+      break;
     case _VoidType:
       finalCallType =
           _getCallType(callType, JniCallType.voidType, {JniCallType.voidType});
