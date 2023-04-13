@@ -39,6 +39,11 @@
 #define __ENVP_CAST (void**)
 #endif
 
+#include "lock.h"
+
+/// Represents the error when dart-jni layer has already spawned singleton VM.
+#define DART_JNI_SINGLETON_EXISTS (-99);
+
 /// Stores the global state of the JNI.
 typedef struct JniContext {
   JavaVM* jvm;
@@ -53,6 +58,16 @@ typedef struct JniContext {
 extern thread_local JNIEnv* jniEnv;
 
 extern JniContext jni;
+
+/// Stores anything related to locking
+typedef struct JniLocks {
+  MutexLock classLoadingLock;
+  MutexLock methodLoadingLock;
+  MutexLock fieldLoadingLock;
+} JniLocks;
+
+/// To be defined by generated code, for the time being.
+extern JniLocks locks;
 
 /// Types used by JNI API to distinguish between primitive types.
 enum JniType {
@@ -73,19 +88,19 @@ enum JniType {
 /// If [exception] is null, it means the result is valid.
 /// It's assumed that the caller knows the expected type in [result].
 typedef struct JniResult {
-  jvalue result;
+  jvalue value;
   jthrowable exception;
 } JniResult;
 
 /// Similar to [JniResult] but for class lookups.
 typedef struct JniClassLookupResult {
-  jclass classRef;
+  jclass value;
   jthrowable exception;
 } JniClassLookupResult;
 
 /// Similar to [JniResult] but for method/field ID lookups.
 typedef struct JniPointerResult {
-  void* id;
+  void* value;
   jthrowable exception;
 } JniPointerResult;
 
@@ -139,7 +154,12 @@ FFI_PLUGIN_EXPORT JavaVM* GetJavaVM(void);
 
 FFI_PLUGIN_EXPORT JNIEnv* GetJniEnv(void);
 
-FFI_PLUGIN_EXPORT JNIEnv* SpawnJvm(JavaVMInitArgs* args);
+/// Spawn a JVM with given arguments.
+///
+/// Returns JNI_OK on success, and one of the documented JNI error codes on
+/// failure. It returns DART_JNI_SINGLETON_EXISTS if an attempt to spawn multiple
+/// JVMs is made, even if the underlying API potentially supports multiple VMs.
+FFI_PLUGIN_EXPORT int SpawnJvm(JavaVMInitArgs* args);
 
 FFI_PLUGIN_EXPORT jclass LoadClass(const char* name);
 
@@ -171,14 +191,19 @@ static inline void __load_class_into(jclass* cls, const char* name) {
 
 static inline void load_class(jclass* cls, const char* name) {
   if (*cls == NULL) {
+    _acquireLock(&locks.classLoadingLock);
     __load_class_into(cls, name);
+    _releaseLock(&locks.classLoadingLock);
   }
 }
 
 static inline void load_class_gr(jclass* cls, const char* name) {
   if (*cls == NULL) {
+    _acquireLock(&locks.classLoadingLock);
     jclass tmp;
     __load_class_into(&tmp, name);
+    _releaseLock(&locks.classLoadingLock);
+
     *cls = (*jniEnv)->NewGlobalRef(jniEnv, tmp);
     (*jniEnv)->DeleteLocalRef(jniEnv, tmp);
   }
@@ -195,7 +220,9 @@ static inline void load_method(jclass cls,
                                const char* name,
                                const char* sig) {
   if (*res == NULL) {
+    _acquireLock(&locks.methodLoadingLock);
     *res = (*jniEnv)->GetMethodID(jniEnv, cls, name, sig);
+    _releaseLock(&locks.methodLoadingLock);
   }
 }
 
@@ -204,7 +231,9 @@ static inline void load_static_method(jclass cls,
                                       const char* name,
                                       const char* sig) {
   if (*res == NULL) {
+    _acquireLock(&locks.methodLoadingLock);
     *res = (*jniEnv)->GetStaticMethodID(jniEnv, cls, name, sig);
+    _releaseLock(&locks.methodLoadingLock);
   }
 }
 
@@ -213,7 +242,9 @@ static inline void load_field(jclass cls,
                               const char* name,
                               const char* sig) {
   if (*res == NULL) {
+    _acquireLock(&locks.fieldLoadingLock);
     *res = (*jniEnv)->GetFieldID(jniEnv, cls, name, sig);
+    _releaseLock(&locks.fieldLoadingLock);
   }
 }
 
@@ -222,7 +253,9 @@ static inline void load_static_field(jclass cls,
                                      const char* name,
                                      const char* sig) {
   if (*res == NULL) {
+    _acquireLock(&locks.fieldLoadingLock);
     *res = (*jniEnv)->GetStaticFieldID(jniEnv, cls, name, sig);
+    _releaseLock(&locks.fieldLoadingLock);
   }
 }
 
