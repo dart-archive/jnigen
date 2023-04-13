@@ -1895,7 +1895,7 @@ class JNINativeMethod extends ffi.Struct {
 
 typedef JWeakPtr = JObjectPtr;
 
-abstract class jobjectRefType {
+abstract class JObjectRefType {
   static const int JNIInvalidRefType = 0;
   static const int JNILocalRefType = 1;
   static const int JNIGlobalRefType = 2;

@@ -24,6 +24,7 @@ compiler-opts:
 enums:
   rename:
     'JniType': 'JniCallType'
+    'jobjectRefType': 'JObjectRefType'
 functions:
   exclude:
     # Exclude init functions supposed to be defined in loaded DLL, not JNI
