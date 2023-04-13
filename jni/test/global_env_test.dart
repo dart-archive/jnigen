@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:io';
+import 'dart:math';
 
 import 'package:ffigen/ffigen.dart';
 import 'package:jni/jni.dart';
@@ -146,4 +147,22 @@ void main() {
             env.CallVoidMethodA(out, println, Jni.jvalues([jstr]));
             env.deleteAllRefs([system, printStream, jstr]);
           }));
+  test('Env create reference methods should retain their default behavior', () {
+    final systemOut = Jni.retrieveStaticField<JObjectPtr>(
+        "java/lang/System", "out", "Ljava/io/PrintStream;");
+    var refType = env.GetObjectRefType(systemOut);
+    expect(refType, equals(JObjectRefType.JNIGlobalRefType));
+    final localRef = env.NewLocalRef(systemOut);
+    refType = env.GetObjectRefType(localRef);
+    expect(refType, equals(JObjectRefType.JNILocalRefType));
+    final weakRef = env.NewWeakGlobalRef(systemOut);
+    refType = env.GetObjectRefType(weakRef);
+    expect(refType, equals(JObjectRefType.JNIWeakGlobalRefType));
+    final globalRef = env.NewGlobalRef(localRef);
+    refType = env.GetObjectRefType(globalRef);
+    expect(refType, equals(JObjectRefType.JNIGlobalRefType));
+    env.DeleteLocalRef(localRef);
+    env.DeleteGlobalRef(globalRef);
+    env.DeleteWeakGlobalRef(weakRef);
+  });
 }

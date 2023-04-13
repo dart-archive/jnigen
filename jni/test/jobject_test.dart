@@ -207,6 +207,13 @@ void main() {
   test("Isolate", () {
     Isolate.spawn(doSomeWorkInIsolate, null);
   });
+
+  test("Jni.findClass should throw exceptions if class is not found", () {
+    expect(
+      () => Jni.findClass("java/lang/Sting"),
+      throwsA(isA<JniException>()),
+    );
+  });
 }
 
 void doSomeWorkInIsolate(Void? _) {
