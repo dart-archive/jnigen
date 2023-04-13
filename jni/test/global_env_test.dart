@@ -4,7 +4,9 @@
 
 import 'dart:io';
 
+import 'package:ffigen/ffigen.dart';
 import 'package:jni/jni.dart';
+import 'package:jni/src/jvalues.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -94,6 +96,22 @@ void main() {
     expect(str, equals(env.asDartString(jstr)));
     env.DeleteGlobalRef(jstr);
   });
+
+  test(
+      'GlobalJniEnv should catch exceptions',
+      () => using((arena) {
+            final integerClass =
+                env.FindClass("java/lang/Integer".toNativeChars(arena));
+            final parseIntMethod = env.GetStaticMethodID(
+                integerClass,
+                "parseInt".toNativeChars(arena),
+                "(Ljava/lang/String;)I".toNativeChars(arena));
+            final args = JValueArgs(["hello"], arena);
+            expect(
+                () => env.CallStaticIntMethodA(
+                    integerClass, parseIntMethod, args.values),
+                throwsA(isA<JniException>()));
+          }));
 
   test(
       "Convert back & forth between Dart & Java strings",
