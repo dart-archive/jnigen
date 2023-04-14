@@ -24,7 +24,7 @@ void main(List<String> args) {
     ..addOption(
       'verbose',
       defaultsTo: 'severe',
-      help: 'Set ffigen log verbosity - by default ffigen logs are suppressed',
+      help: 'Set ffigen log verbosity',
       allowed: levels.keys,
     )
     ..addFlag(
