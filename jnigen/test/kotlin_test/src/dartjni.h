@@ -59,16 +59,6 @@ extern thread_local JNIEnv* jniEnv;
 
 extern JniContext jni;
 
-/// Stores anything related to locking
-typedef struct JniLocks {
-  MutexLock classLoadingLock;
-  MutexLock methodLoadingLock;
-  MutexLock fieldLoadingLock;
-} JniLocks;
-
-/// To be defined by generated code, for the time being.
-extern JniLocks locks;
-
 /// Types used by JNI API to distinguish between primitive types.
 enum JniType {
   booleanType = 0,
