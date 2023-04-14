@@ -7,15 +7,51 @@
 
 import 'dart:io';
 
+import 'package:logging/logging.dart';
+import 'package:args/args.dart';
+
 import 'wrapper_generators/logging.dart';
 import 'wrapper_generators/generate_c_extensions.dart';
 import 'wrapper_generators/generate_dart_extensions.dart';
 
 import 'package:ffigen/ffigen.dart' as ffigen;
 
-void main() {
-  logger.info("Generating C wrappers");
+void main(List<String> args) {
+  final levels = Map.fromEntries(
+    Level.LEVELS.map((l) => MapEntry(l.name.toLowerCase(), l)),
+  );
+  final argParser = ArgParser()
+    ..addOption(
+      'verbose',
+      defaultsTo: 'severe',
+      help: 'Set ffigen log verbosity - by default ffigen logs are suppressed',
+      allowed: levels.keys,
+    )
+    ..addFlag(
+      'help',
+      negatable: false,
+      abbr: 'h',
+      defaultsTo: false,
+      help: 'display this help message',
+    );
 
+  final argResults = argParser.parse(args);
+
+  if (argResults['help']) {
+    stderr.writeln('Generates FFI bindings required for package:jni');
+    stderr.writeln(argParser.usage);
+    exitCode = 1;
+    return;
+  }
+
+  hierarchicalLoggingEnabled = true;
+  Logger.root.level = levels[argResults['verbose']]!;
+  logger.level = Level.INFO;
+  Logger.root.onRecord.listen((record) {
+    stderr.writeln('${record.level.name}: ${record.message}');
+  });
+
+  logger.info("Generating C wrappers");
   final minimalConfig = ffigen.Config.fromFile(File('ffigen_exts.yaml'));
   final minimalLibrary = ffigen.parse(minimalConfig);
   generateCWrappers(minimalLibrary);

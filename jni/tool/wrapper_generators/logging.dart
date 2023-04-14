@@ -6,12 +6,4 @@ import 'dart:io';
 
 import 'package:logging/logging.dart';
 
-final logger = () {
-  hierarchicalLoggingEnabled = true;
-  final logger = Logger('ffi_wrappers_generator');
-  Logger.root.level = Level.INFO; // defaults to Level.INFO
-  Logger.root.onRecord.listen((record) {
-    stderr.writeln('${record.level.name}: ${record.message}');
-  });
-  return logger;
-}();
+final logger = Logger('ffi_wrappers_generator');
