@@ -6,7 +6,6 @@ import 'dart:io';
 import 'dart:ffi';
 import 'dart:isolate';
 
-import 'package:jni/src/jvalues.dart';
 import 'package:test/test.dart';
 
 import 'package:jni/jni.dart';
@@ -237,14 +236,14 @@ void main() {
     expect(maxLongStr, equals('$maxLongInJava'));
   });
 
-  test('Returning `Long` values from JNI', () {
+  test('Returning long integers from JNI', () {
     final maxLong = Jni.retrieveStaticField<int>(
       "java/lang/Long",
       "MAX_VALUE",
       "J",
       JniCallType.longType,
     );
-    expect(maxLong, equals(9223372036854775807));
+    expect(maxLong, equals(maxLongInJava));
   });
 }
 
