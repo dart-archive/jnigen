@@ -10,6 +10,8 @@ import 'package:test/test.dart';
 
 import 'package:jni/jni.dart';
 
+const maxLongInJava = 9223372036854775807;
+
 void main() {
   // Don't forget to initialize JNI.
   if (!Platform.isAndroid) {
@@ -191,6 +193,7 @@ void main() {
         .use((f) => f.callMethodByName<int>("ordinal", "()I", []));
     expect(ordinal, equals(1));
   });
+
   test("casting", () {
     using((arena) {
       final str = "hello".toJString()..deletedIn(arena);
@@ -214,13 +217,41 @@ void main() {
       throwsA(isA<JniException>()),
     );
   });
+
+  test("Methods rethrow exceptions in Java as JniException", () {
+    expect(
+      () => Jni.invokeStaticMethod<int>(
+          "java/lang/Integer", "parseInt", "(Ljava/lang/String;)I", ["X"]),
+      throwsA(isA<JniException>()),
+    );
+  });
+
+  test("Passing long integer values to JNI", () {
+    final maxLongStr = Jni.invokeStaticMethod<String>(
+      "java/lang/Long",
+      "toString",
+      "(J)Ljava/lang/String;",
+      [maxLongInJava],
+    );
+    expect(maxLongStr, equals('$maxLongInJava'));
+  });
+
+  test('Returning `Long` values from JNI', () {
+    final maxLong = Jni.retrieveStaticField<int>(
+      "java/lang/Long",
+      "MAX_VALUE",
+      "J",
+      JniCallType.longType,
+    );
+    expect(maxLong, equals(9223372036854775807));
+  });
 }
 
 void doSomeWorkInIsolate(Void? _) {
   // On standalone target, make sure to call [setDylibDir] before accessing
-  // any JNI function.
+  // any JNI function in a new isolate.
   //
-  // otherwise getInstance will throw a "library not found" exception.
+  // otherwise subsequent JNI calls will throw a "library not found" exception.
   Jni.setDylibDir(dylibDir: "build/jni_libs");
   final random = Jni.newInstance("java/util/Random", "()V", []);
   // final r = random.callMethodByName<int>("nextInt", "(I)I", [256]);

@@ -8,6 +8,8 @@ import 'package:jni/jni.dart';
 import 'package:jni/src/jvalues.dart';
 import 'package:test/test.dart';
 
+const maxLongInJava = 9223372036854775807;
+
 void main() {
   // Running on Android through flutter, this plugin
   // will bind to Android runtime's JVM.
@@ -173,8 +175,23 @@ void main() {
         'J'.toNativeChars(arena),
       );
       final maxValue = env.GetStaticLongField(longClass, maxField);
-      expect(maxValue, equals(9223372036854775807));
+      expect(maxValue, equals(maxLongInJava));
       env.DeleteGlobalRef(longClass);
+    });
+  });
+
+  test('class <-> object methods', () {
+    using((arena) {
+      final systemOut = Jni.retrieveStaticField<JObjectPtr>(
+          "java/lang/System", "out", "Ljava/io/PrintStream;");
+      final systemErr = Jni.retrieveStaticField<JObjectPtr>(
+          "java/lang/System", "err", "Ljava/io/PrintStream;");
+      final outClass = env.GetObjectClass(systemOut);
+      expect(env.IsInstanceOf(systemOut, outClass), isTrue);
+      expect(env.IsInstanceOf(systemErr, outClass), isTrue);
+      final errClass = env.GetObjectClass(systemErr);
+      expect(env.IsSameObject(outClass, errClass), isTrue);
+      env.deleteAllRefs([systemOut, systemErr, outClass, errClass]);
     });
   });
 }
