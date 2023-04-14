@@ -206,7 +206,7 @@ abstract class Jni {
 
   /// Returns class for [qualifiedName] found by platform-specific mechanism,
   /// wrapped in a [JniClass].
-  static JniClass findJniClass(String qualifiedName) =>
+  static JniClass findJClass(String qualifiedName) =>
       JniClass.fromRef(findClass(qualifiedName));
 
   /// Constructs an instance of class with given arguments.
@@ -215,7 +215,7 @@ abstract class Jni {
   /// required themselves.
   static JObject newInstance(
       String qualifiedName, String ctorSignature, List<dynamic> args) {
-    final cls = findJniClass(qualifiedName);
+    final cls = findJClass(qualifiedName);
     final ctor = cls.getCtorID(ctorSignature);
     final obj = cls.newInstance(ctor, args);
     cls.delete();
@@ -238,7 +238,7 @@ abstract class Jni {
   static T retrieveStaticField<T>(
       String className, String fieldName, String signature,
       [int? callType]) {
-    final cls = findJniClass(className);
+    final cls = findJClass(className);
     final result = cls.getStaticFieldByName<T>(fieldName, signature, callType);
     cls.delete();
     return result;
@@ -252,7 +252,7 @@ abstract class Jni {
   static T invokeStaticMethod<T>(
       String className, String methodName, String signature, List<dynamic> args,
       [int? callType]) {
-    final cls = findJniClass(className);
+    final cls = findJClass(className);
     final result =
         cls.callStaticMethodByName<T>(methodName, signature, args, callType);
     cls.delete();

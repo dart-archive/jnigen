@@ -23,7 +23,7 @@ void main() {
   }
 
   testWidgets("Long.intValue() using JObject", (t) async {
-    final longClass = Jni.findJniClass("java/lang/Long");
+    final longClass = Jni.findJClass("java/lang/Long");
 
     final longCtor = longClass.getCtorID("(J)V");
 
@@ -50,7 +50,7 @@ void main() {
   });
 
   testWidgets("Example for using getMethodID", (t) async {
-    final longClass = Jni.findJniClass("java/lang/Long");
+    final longClass = Jni.findJClass("java/lang/Long");
     final bitCountMethod = longClass.getStaticMethodID("bitCount", "(J)I");
 
     final random = Jni.newInstance("java/util/Random", "()V", []);
@@ -86,7 +86,7 @@ void main() {
 
   testWidgets("Call method with null argument, expect exception",
       (tester) async {
-    final integerClass = Jni.findJniClass("java/lang/Integer");
+    final integerClass = Jni.findJClass("java/lang/Integer");
     expect(
         () => integerClass.callStaticMethodByName<int>(
             "parseInt", "(Ljava/lang/String;)I", [nullptr]),
@@ -94,7 +94,7 @@ void main() {
   });
 
   testWidgets("callStaticStringMethod", (t) async {
-    final longClass = Jni.findJniClass("java/lang/Long");
+    final longClass = Jni.findJClass("java/lang/Long");
     const n = 1223334444;
     final strFromJava = longClass.callStaticMethodByName<String>(
         "toOctalString", "(J)Ljava/lang/String;", [n]);

@@ -29,7 +29,7 @@ void main() {
   test("Long.intValue() using JObject", () {
     // JniClass wraps a local class reference, and
     // provides convenience functions.
-    final longClass = Jni.findJniClass("java/lang/Long");
+    final longClass = Jni.findJClass("java/lang/Long");
 
     // looks for a constructor with given signature.
     // equivalently you can lookup a method with name <init>
@@ -52,7 +52,7 @@ void main() {
   });
 
   test("call a static method using JniClass APIs", () {
-    final integerClass = Jni.findJniClass("java/lang/Integer");
+    final integerClass = Jni.findJClass("java/lang/Integer");
     final result = integerClass.callStaticMethodByName<JString>(
         "toHexString", "(I)Ljava/lang/String;", [JValueInt(31)]);
 
@@ -69,7 +69,7 @@ void main() {
   });
 
   test("Call method with null argument, expect exception", () {
-    final integerClass = Jni.findJniClass("java/lang/Integer");
+    final integerClass = Jni.findJClass("java/lang/Integer");
     expect(
         () => integerClass.callStaticMethodByName<int>(
             "parseInt", "(Ljava/lang/String;)I", [nullptr]),
@@ -78,13 +78,13 @@ void main() {
   });
 
   test("Try to find a non-exisiting class, expect exception", () {
-    expect(() => Jni.findJniClass("java/lang/NotExists"), throwsException);
+    expect(() => Jni.findJClass("java/lang/NotExists"), throwsException);
   });
 
   /// callMethodByName will be expensive if making same call many times
   /// Use getMethodID to get a method ID and use it in subsequent calls
   test("Example for using getMethodID", () {
-    final longClass = Jni.findJniClass("java/lang/Long");
+    final longClass = Jni.findJClass("java/lang/Long");
     final bitCountMethod = longClass.getStaticMethodID("bitCount", "(J)I");
 
     // Use newInstance if you want only one instance.
@@ -129,7 +129,7 @@ void main() {
 
   // Use callStringMethod if all you care about is a string result
   test("callStaticStringMethod", () {
-    final longClass = Jni.findJniClass("java/lang/Long");
+    final longClass = Jni.findJClass("java/lang/Long");
     const n = 1223334444;
     final strFromJava = longClass.callStaticMethodByName<String>(
         "toOctalString", "(J)Ljava/lang/String;", [n]);
@@ -173,7 +173,7 @@ void main() {
   test('Using arena', () {
     final objects = <JObject>[];
     using((arena) {
-      final r = Jni.findJniClass('java/util/Random')..deletedIn(arena);
+      final r = Jni.findJClass('java/util/Random')..deletedIn(arena);
       final ctor = r.getCtorID("()V");
       for (int i = 0; i < 10; i++) {
         objects.add(r.newInstance(ctor, [])..deletedIn(arena));
@@ -208,9 +208,9 @@ void main() {
     Isolate.spawn(doSomeWorkInIsolate, null);
   });
 
-  test("Jni.findJniClass should throw exceptions if class is not found", () {
+  test("Jni.findJClass should throw exceptions if class is not found", () {
     expect(
-      () => Jni.findJniClass("java/lang/Sting"),
+      () => Jni.findJClass("java/lang/Sting"),
       throwsA(isA<JniException>()),
     );
   });

@@ -42,14 +42,14 @@ int randomUsingEnv(int n) => using((arena) {
       return res;
     });
 double randomDouble() {
-  final math = Jni.findJniClass("java/lang/Math");
+  final math = Jni.findJClass("java/lang/Math");
   final random = math.callStaticMethodByName<double>("random", "()D", []);
   math.delete();
   return random;
 }
 
 int uptime() {
-  return Jni.findJniClass("android/os/SystemClock").use(
+  return Jni.findJClass("android/os/SystemClock").use(
     (systemClock) => systemClock.callStaticMethodByName<int>(
         "uptimeMillis", "()J", [], JniCallType.longType),
   );
