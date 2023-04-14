@@ -164,4 +164,17 @@ void main() {
     env.DeleteLocalRef(localRef);
     env.DeleteGlobalRef(systemOut);
   });
+  test('long methods return long int without loss of precision', () {
+    using((arena) {
+      final longClass = env.FindClass("java/lang/Long".toNativeChars(arena));
+      final maxField = env.GetStaticFieldID(
+        longClass,
+        'MAX_VALUE'.toNativeChars(arena),
+        'J'.toNativeChars(arena),
+      );
+      final maxValue = env.GetStaticLongField(longClass, maxField);
+      expect(maxValue, equals(9223372036854775807));
+      env.DeleteGlobalRef(longClass);
+    });
+  });
 }
