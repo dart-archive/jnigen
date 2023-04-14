@@ -6,6 +6,7 @@ import 'dart:io';
 import 'dart:ffi';
 import 'dart:isolate';
 
+import 'package:jni/src/jvalues.dart';
 import 'package:test/test.dart';
 
 import 'package:jni/jni.dart';

@@ -120,8 +120,8 @@ class JValueArgs {
   final List<JObjectPtr> createdRefs = [];
   final _env = Jni.env;
 
-  JValueArgs(List<dynamic> args, [Allocator allocator = malloc]) {
-    values = allocator<JValue>(args.length);
+  JValueArgs(List<dynamic> args, Arena arena) {
+    values = arena<JValue>(args.length);
     for (int i = 0; i < args.length; i++) {
       final arg = args[i];
       final ptr = values.elementAt(i);
@@ -132,11 +132,12 @@ class JValueArgs {
       } else {
         _fillJValue(ptr, arg);
       }
+      arena.onReleaseAll(_dispose);
     }
   }
 
   /// Deletes temporary references such as [JStringPtr]s.
-  void dispose() {
+  void _dispose() {
     for (var ref in createdRefs) {
       _env.DeleteGlobalRef(ref);
     }
