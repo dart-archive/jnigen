@@ -24,7 +24,7 @@ void main(List<String> args) {
     ..addOption(
       'verbose',
       defaultsTo: 'severe',
-      help: 'Set ffigen log verbosity',
+      help: 'set ffigen log verbosity',
       allowed: levels.keys,
     )
     ..addFlag(
