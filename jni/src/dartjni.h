@@ -46,15 +46,15 @@
 
 typedef CRITICAL_SECTION MutexLock;
 
-static inline void _initLock(MutexLock* lock) {
+static inline void init_lock(MutexLock* lock) {
   InitializeCriticalSection(lock);
 }
 
-static inline void _acquireLock(MutexLock* lock) {
+static inline void acquire_lock(MutexLock* lock) {
   EnterCriticalSection(lock);
 }
 
-static inline void _releaseLock(MutexLock* lock) {
+static inline void release_lock(MutexLock* lock) {
   LeaveCriticalSection(lock);
 }
 
@@ -68,15 +68,15 @@ static inline void _destroyLock(MutexLock* lock) {
 
 typedef pthread_mutex_t MutexLock;
 
-static inline void _initLock(MutexLock* lock) {
+static inline void init_lock(MutexLock* lock) {
   pthread_mutex_init(lock, NULL);
 }
 
-static inline void _acquireLock(MutexLock* lock) {
+static inline void acquire_lock(MutexLock* lock) {
   pthread_mutex_lock(lock);
 }
 
-static inline void _releaseLock(MutexLock* lock) {
+static inline void release_lock(MutexLock* lock) {
   pthread_mutex_unlock(lock);
 }
 
@@ -223,7 +223,7 @@ static inline void attach_thread() {
 
 static inline void load_class(jclass* cls, const char* name) {
   if (*cls == NULL) {
-    _acquireLock(&jni->locks.classLoadingLock);
+    acquire_lock(&jni->locks.classLoadingLock);
 #ifdef __ANDROID__
     jstring className = (*jniEnv)->NewStringUTF(jniEnv, name);
     *cls = (*jniEnv)->CallObjectMethod(jniEnv, jni.classLoader,
@@ -232,7 +232,7 @@ static inline void load_class(jclass* cls, const char* name) {
 #else
     *cls = (*jniEnv)->FindClass(jniEnv, name);
 #endif
-    _releaseLock(&jni->locks.classLoadingLock);
+    release_lock(&jni->locks.classLoadingLock);
   }
 }
 
@@ -250,9 +250,9 @@ static inline void load_method(jclass cls,
                                const char* name,
                                const char* sig) {
   if (*res == NULL) {
-    _acquireLock(&jni->locks.methodLoadingLock);
+    acquire_lock(&jni->locks.methodLoadingLock);
     *res = (*jniEnv)->GetMethodID(jniEnv, cls, name, sig);
-    _releaseLock(&jni->locks.methodLoadingLock);
+    release_lock(&jni->locks.methodLoadingLock);
   }
 }
 
@@ -261,9 +261,9 @@ static inline void load_static_method(jclass cls,
                                       const char* name,
                                       const char* sig) {
   if (*res == NULL) {
-    _acquireLock(&jni->locks.methodLoadingLock);
+    acquire_lock(&jni->locks.methodLoadingLock);
     *res = (*jniEnv)->GetStaticMethodID(jniEnv, cls, name, sig);
-    _releaseLock(&jni->locks.methodLoadingLock);
+    release_lock(&jni->locks.methodLoadingLock);
   }
 }
 
@@ -272,9 +272,9 @@ static inline void load_field(jclass cls,
                               const char* name,
                               const char* sig) {
   if (*res == NULL) {
-    _acquireLock(&jni->locks.fieldLoadingLock);
+    acquire_lock(&jni->locks.fieldLoadingLock);
     *res = (*jniEnv)->GetFieldID(jniEnv, cls, name, sig);
-    _releaseLock(&jni->locks.fieldLoadingLock);
+    release_lock(&jni->locks.fieldLoadingLock);
   }
 }
 
@@ -283,9 +283,9 @@ static inline void load_static_field(jclass cls,
                                      const char* name,
                                      const char* sig) {
   if (*res == NULL) {
-    _acquireLock(&jni->locks.fieldLoadingLock);
+    acquire_lock(&jni->locks.fieldLoadingLock);
     *res = (*jniEnv)->GetStaticFieldID(jniEnv, cls, name, sig);
-    _releaseLock(&jni->locks.fieldLoadingLock);
+    release_lock(&jni->locks.fieldLoadingLock);
   }
 }
 

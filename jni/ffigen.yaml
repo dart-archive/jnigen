@@ -29,13 +29,16 @@ functions:
   exclude:
     # Exclude init functions supposed to be defined in loaded DLL, not JNI
     - 'JNI_.*'
-    - 'GetJniContext'
+    - 'GetJniContextPtr'
     - 'setJniGetters'
     - 'jni_log'
     # Inline functions
-    - '__load_class_into'
+    - 'acquire_lock'
+    - 'release_lock'
+    - 'init_lock'
+    - 'destroy_ock'
     - 'load_class'
-    - 'load_class_gr'
+    - 'load_class_global_ref'
     - 'attach_thread'
     - 'load_method'
     - 'load_static_method'
@@ -49,6 +52,7 @@ functions:
 structs:
   exclude:
     - 'JniContext'
+    - 'JniLocks'
     - 'JNIEnv'
     - '_JNIEnv'
     - 'JNIInvokeInterface'

@@ -11,9 +11,9 @@
 #include "include/dart_api_dl.h"
 
 void initAllLocks(JniLocks* locks) {
-  _initLock(&locks->classLoadingLock);
-  _initLock(&locks->fieldLoadingLock);
-  _initLock(&locks->methodLoadingLock);
+  init_lock(&locks->classLoadingLock);
+  init_lock(&locks->fieldLoadingLock);
+  init_lock(&locks->methodLoadingLock);
 }
 
 /// Stores class and method references for obtaining exception details
