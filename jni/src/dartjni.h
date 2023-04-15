@@ -327,7 +327,7 @@ extern JNIEnv* (*env_getter)(void);
 
 // this function will be exported by generated code library
 // it will set above 2 variables.
-FFI_PLUGIN_EXPORT void setJniGetters(struct JniContext (*cg)(void),
+FFI_PLUGIN_EXPORT void setJniGetters(struct JniContext* (*cg)(void),
                                      JNIEnv* (*eg)(void));
 
 static inline void load_env() {
