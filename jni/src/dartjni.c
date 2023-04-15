@@ -99,14 +99,14 @@ Java_com_github_dart_1lang_jni_JniPlugin_initializeJni(JNIEnv* env,
                                                        jobject appContext,
                                                        jobject classLoader) {
   jniEnv = env;
-  (*env)->GetJavaVM(env, &jni.jvm);
-  jni.classLoader = (*env)->NewGlobalRef(env, classLoader);
-  jni.appContext = (*env)->NewGlobalRef(env, appContext);
+  (*env)->GetJavaVM(env, &jni_context.jvm);
+  jni_context.classLoader = (*env)->NewGlobalRef(env, classLoader);
+  jni_context.appContext = (*env)->NewGlobalRef(env, appContext);
   jclass classLoaderClass = (*env)->GetObjectClass(env, classLoader);
-  jni.loadClassMethod =
+  jni_context.loadClassMethod =
       (*env)->GetMethodID(env, classLoaderClass, "loadClass",
                           "(Ljava/lang/String;)Ljava/lang/Class;");
-  initAllLocks(&locks);
+  initAllLocks(&jni_context.locks);
   initExceptionHandling(&exceptionMethods);
 }
 
@@ -116,14 +116,14 @@ Java_com_github_dart_1lang_jni_JniPlugin_setJniActivity(JNIEnv* env,
                                                         jobject activity,
                                                         jobject context) {
   jniEnv = env;
-  if (jni.currentActivity != NULL) {
-    (*env)->DeleteGlobalRef(env, jni.currentActivity);
+  if (jni_context.currentActivity != NULL) {
+    (*env)->DeleteGlobalRef(env, jni_context.currentActivity);
   }
-  jni.currentActivity = (*env)->NewGlobalRef(env, activity);
-  if (jni.appContext != NULL) {
-    (*env)->DeleteGlobalRef(env, jni.appContext);
+  jni_context.currentActivity = (*env)->NewGlobalRef(env, activity);
+  if (jni_context.appContext != NULL) {
+    (*env)->DeleteGlobalRef(env, jni_context.appContext);
   }
-  jni.appContext = (*env)->NewGlobalRef(env, context);
+  jni_context.appContext = (*env)->NewGlobalRef(env, context);
 }
 
 // Sometimes you may get linker error trying to link JNI_CreateJavaVM APIs
@@ -166,11 +166,15 @@ JniClassLookupResult getClass(char* internalName) {
   return result;
 }
 
-static inline JniPointerResult _getId(
-    void* (*getter)(JNIEnv*, jclass, char*, char*),
-    jclass cls,
-    char* name,
-    char* sig) {
+typedef void* (*MemberGetter)(JNIEnv* env,
+                              jclass* clazz,
+                              char* name,
+                              char* sig);
+
+static inline JniPointerResult _getId(MemberGetter getter,
+                                      jclass cls,
+                                      char* name,
+                                      char* sig) {
   JniPointerResult result = {NULL, NULL};
   attach_thread();
   result.value = getter(jniEnv, cls, name, sig);
@@ -179,19 +183,19 @@ static inline JniPointerResult _getId(
 }
 
 JniPointerResult getMethodID(jclass cls, char* name, char* sig) {
-  return _getId((*jniEnv)->GetMethodID, cls, name, sig);
+  return _getId((MemberGetter)(*jniEnv)->GetMethodID, cls, name, sig);
 }
 
 JniPointerResult getStaticMethodID(jclass cls, char* name, char* sig) {
-  return _getId((*jniEnv)->GetStaticMethodID, cls, name, sig);
+  return _getId((MemberGetter)(*jniEnv)->GetStaticMethodID, cls, name, sig);
 }
 
 JniPointerResult getFieldID(jclass cls, char* name, char* sig) {
-  return _getId((*jniEnv)->GetFieldID, cls, name, sig);
+  return _getId((MemberGetter)(*jniEnv)->GetFieldID, cls, name, sig);
 }
 
 JniPointerResult getStaticFieldID(jclass cls, char* name, char* sig) {
-  return _getId((*jniEnv)->GetStaticFieldID, cls, name, sig);
+  return _getId((MemberGetter)(*jniEnv)->GetStaticFieldID, cls, name, sig);
 }
 
 JniResult callMethod(jobject obj,
@@ -431,7 +435,7 @@ JniPointerResult newObjectArray(jsize length,
 }
 
 JniResult getArrayElement(jarray array, int index, int type) {
-  JniResult result = {NULL, NULL};
+  JniResult result = {{.l = NULL}, NULL};
   attach_thread();
   jvalue value;
   switch (type) {

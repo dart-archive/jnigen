@@ -237,8 +237,8 @@ static inline void attach_thread() {
 static inline void load_class_platform(jclass* cls, const char* name) {
 #ifdef __ANDROID__
   jstring className = (*jniEnv)->NewStringUTF(jniEnv, name);
-  *cls = (*jniEnv)->CallObjectMethod(jniEnv, jni.classLoader,
-                                     jni.loadClassMethod, className);
+  *cls = (*jniEnv)->CallObjectMethod(jniEnv, jni->classLoader,
+                                     jni->loadClassMethod, className);
   (*jniEnv)->DeleteLocalRef(jniEnv, className);
 #else
   *cls = (*jniEnv)->FindClass(jniEnv, name);
@@ -248,7 +248,7 @@ static inline void load_class_platform(jclass* cls, const char* name) {
 static inline void load_class_local_ref(jclass* cls, const char* name) {
   if (cls == NULL) {
     acquire_lock(&jni->locks.classLoadingLock);
-    load_class_platform(&cls, name);
+    load_class_platform(cls, name);
     release_lock(&jni->locks.classLoadingLock);
   }
 }
