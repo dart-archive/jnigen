@@ -45,7 +45,7 @@ const wrapperDeclIncludes = '''
 const wrapperGetter = '''
 FFI_PLUGIN_EXPORT
 $wrapperName* GetGlobalEnv() {
-  if (jni.jvm == NULL) {
+  if (jni->jvm == NULL) {
     return NULL;
   }
   return &globalJniEnv;

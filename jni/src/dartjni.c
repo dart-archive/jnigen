@@ -9,8 +9,6 @@
 #include "dartjni.h"
 #include "lock.h"
 
-JniLocks locks;
-
 void initAllLocks(JniLocks* locks) {
   _initLock(&locks->classLoadingLock);
   _initLock(&locks->fieldLoadingLock);
@@ -28,7 +26,15 @@ typedef struct JniExceptionMethods {
 } JniExceptionMethods;
 
 // Context and shared global state. Initialized once or if thread-local, initialized once in a thread.
-JniContext jni = {NULL, NULL, NULL, NULL, NULL};
+JniContext jni_context = {
+    .jvm = NULL,
+    .classLoader = NULL,
+    .loadClassMethod = NULL,
+    .appContext = NULL,
+    .currentActivity = NULL,
+};
+
+JniContext* jni = &jni_context;
 
 thread_local JNIEnv* jniEnv = NULL;
 
@@ -54,7 +60,7 @@ void initExceptionHandling(JniExceptionMethods* methods) {
 /// Returns NULL if no JVM is running.
 FFI_PLUGIN_EXPORT
 JavaVM* GetJavaVM() {
-  return jni.jvm;
+  return jni_context.jvm;
 }
 
 /// Load class through platform-specific mechanism.
@@ -78,7 +84,7 @@ jclass LoadClass(const char* name) {
 FFI_PLUGIN_EXPORT
 jobject GetClassLoader() {
   attach_thread();
-  return (*jniEnv)->NewGlobalRef(jniEnv, jni.classLoader);
+  return (*jniEnv)->NewGlobalRef(jniEnv, jni_context.classLoader);
 }
 
 /// Returns application context on Android.
@@ -87,14 +93,14 @@ jobject GetClassLoader() {
 FFI_PLUGIN_EXPORT
 jobject GetApplicationContext() {
   attach_thread();
-  return (*jniEnv)->NewGlobalRef(jniEnv, jni.appContext);
+  return (*jniEnv)->NewGlobalRef(jniEnv, jni_context.appContext);
 }
 
 /// Returns current activity of the app
 FFI_PLUGIN_EXPORT
 jobject GetCurrentActivity() {
   attach_thread();
-  return (*jniEnv)->NewGlobalRef(jniEnv, jni.currentActivity);
+  return (*jniEnv)->NewGlobalRef(jniEnv, jni_context.currentActivity);
 }
 
 // JNI Initialization
@@ -138,7 +144,7 @@ Java_com_github_dart_1lang_jni_JniPlugin_setJniActivity(JNIEnv* env,
 #else
 FFI_PLUGIN_EXPORT
 int SpawnJvm(JavaVMInitArgs* initArgs) {
-  if (jni.jvm != NULL) {
+  if (jni_context.jvm != NULL) {
     return DART_JNI_SINGLETON_EXISTS;
   }
   JavaVMOption jvmopt[1];
@@ -152,11 +158,12 @@ int SpawnJvm(JavaVMInitArgs* initArgs) {
     vmArgs.ignoreUnrecognized = JNI_TRUE;
     initArgs = &vmArgs;
   }
-  const long flag = JNI_CreateJavaVM(&jni.jvm, __ENVP_CAST & jniEnv, initArgs);
+  const long flag =
+      JNI_CreateJavaVM(&jni_context.jvm, __ENVP_CAST & jniEnv, initArgs);
   if (flag != JNI_OK) {
     return flag;
   }
-  initAllLocks(&locks);
+  initAllLocks(&jni_context.locks);
   initExceptionHandling(&exceptionMethods);
   return JNI_OK;
 }
@@ -520,12 +527,12 @@ FFI_PLUGIN_EXPORT JniAccessors* GetAccessors() {
 }
 
 // These will not be required after migrating to Dart-only bindings.
-FFI_PLUGIN_EXPORT JniContext GetJniContext() {
+FFI_PLUGIN_EXPORT JniContext* GetJniContextPtr() {
   return jni;
 }
 
 FFI_PLUGIN_EXPORT JNIEnv* GetJniEnv() {
-  if (jni.jvm == NULL) {
+  if (jni_context.jvm == NULL) {
     return NULL;
   }
   attach_thread();
@@ -553,8 +560,8 @@ jclass _c_PortContinuation = NULL;
 jmethodID _m_PortContinuation__ctor = NULL;
 FFI_PLUGIN_EXPORT
 JniResult PortContinuation__ctor(int64_t j) {
-  load_class_gr(&_c_PortContinuation,
-                "com/github/dart_lang/jni/PortContinuation");
+  load_class_global_ref(&_c_PortContinuation,
+                        "com/github/dart_lang/jni/PortContinuation");
   if (_c_PortContinuation == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_PortContinuation, &_m_PortContinuation__ctor, "<init>",

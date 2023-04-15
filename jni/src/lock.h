@@ -54,6 +54,3 @@ typedef struct JniLocks {
   MutexLock methodLoadingLock;
   MutexLock fieldLoadingLock;
 } JniLocks;
-
-/// To be defined by generated code, for the time being.
-extern JniLocks locks;

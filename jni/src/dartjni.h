@@ -51,13 +51,14 @@ typedef struct JniContext {
   jmethodID loadClassMethod;
   jobject currentActivity;
   jobject appContext;
+  JniLocks locks;
 } JniContext;
 
 // jniEnv for this thread, used by inline functions in this header,
 // therefore declared as extern.
 extern thread_local JNIEnv* jniEnv;
 
-extern JniContext jni;
+extern JniContext* jni;
 
 /// Types used by JNI API to distinguish between primitive types.
 enum JniType {
@@ -90,7 +91,7 @@ typedef struct JniClassLookupResult {
 
 /// Similar to [JniResult] but for method/field ID lookups.
 typedef struct JniPointerResult {
-  void* value;
+  const void* value;
   jthrowable exception;
 } JniPointerResult;
 
@@ -159,49 +160,33 @@ FFI_PLUGIN_EXPORT jobject GetApplicationContext(void);
 
 FFI_PLUGIN_EXPORT jobject GetCurrentActivity(void);
 
-// Migration note: Below inline functions are required by C bindings, but can be moved to dartjni.c
-// once migration to pure dart bindings is complete.
-
-// `static inline` because `inline` doesn't work, it may still not
-// inline the function in which case a linker error may be produced.
-//
-// There has to be a better way to do this. Either to force inlining on target
-// platforms, or just leave it as normal function.
-
-static inline void __load_class_into(jclass* cls, const char* name) {
-#ifdef __ANDROID__
-  jstring className = (*jniEnv)->NewStringUTF(jniEnv, name);
-  *cls = (*jniEnv)->CallObjectMethod(jniEnv, jni.classLoader,
-                                     jni.loadClassMethod, className);
-  (*jniEnv)->DeleteLocalRef(jniEnv, className);
-#else
-  *cls = (*jniEnv)->FindClass(jniEnv, name);
-#endif
+static inline void attach_thread() {
+  if (jniEnv == NULL) {
+    (*jni->jvm)->AttachCurrentThread(jni->jvm, __ENVP_CAST & jniEnv, NULL);
+  }
 }
 
 static inline void load_class(jclass* cls, const char* name) {
   if (*cls == NULL) {
-    _acquireLock(&locks.classLoadingLock);
-    __load_class_into(cls, name);
-    _releaseLock(&locks.classLoadingLock);
+    _acquireLock(&jni->locks.classLoadingLock);
+#ifdef __ANDROID__
+    jstring className = (*jniEnv)->NewStringUTF(jniEnv, name);
+    *cls = (*jniEnv)->CallObjectMethod(jniEnv, jni.classLoader,
+                                       jni.loadClassMethod, className);
+    (*jniEnv)->DeleteLocalRef(jniEnv, className);
+#else
+    *cls = (*jniEnv)->FindClass(jniEnv, name);
+#endif
+    _releaseLock(&jni->locks.classLoadingLock);
   }
 }
 
-static inline void load_class_gr(jclass* cls, const char* name) {
+static inline void load_class_global_ref(jclass* cls, const char* name) {
   if (*cls == NULL) {
-    _acquireLock(&locks.classLoadingLock);
     jclass tmp;
-    __load_class_into(&tmp, name);
-    _releaseLock(&locks.classLoadingLock);
-
+    load_class(&tmp, name);
     *cls = (*jniEnv)->NewGlobalRef(jniEnv, tmp);
     (*jniEnv)->DeleteLocalRef(jniEnv, tmp);
-  }
-}
-
-static inline void attach_thread() {
-  if (jniEnv == NULL) {
-    (*jni.jvm)->AttachCurrentThread(jni.jvm, __ENVP_CAST & jniEnv, NULL);
   }
 }
 
@@ -210,9 +195,9 @@ static inline void load_method(jclass cls,
                                const char* name,
                                const char* sig) {
   if (*res == NULL) {
-    _acquireLock(&locks.methodLoadingLock);
+    _acquireLock(&jni->locks.methodLoadingLock);
     *res = (*jniEnv)->GetMethodID(jniEnv, cls, name, sig);
-    _releaseLock(&locks.methodLoadingLock);
+    _releaseLock(&jni->locks.methodLoadingLock);
   }
 }
 
@@ -221,9 +206,9 @@ static inline void load_static_method(jclass cls,
                                       const char* name,
                                       const char* sig) {
   if (*res == NULL) {
-    _acquireLock(&locks.methodLoadingLock);
+    _acquireLock(&jni->locks.methodLoadingLock);
     *res = (*jniEnv)->GetStaticMethodID(jniEnv, cls, name, sig);
-    _releaseLock(&locks.methodLoadingLock);
+    _releaseLock(&jni->locks.methodLoadingLock);
   }
 }
 
@@ -232,9 +217,9 @@ static inline void load_field(jclass cls,
                               const char* name,
                               const char* sig) {
   if (*res == NULL) {
-    _acquireLock(&locks.fieldLoadingLock);
+    _acquireLock(&jni->locks.fieldLoadingLock);
     *res = (*jniEnv)->GetFieldID(jniEnv, cls, name, sig);
-    _releaseLock(&locks.fieldLoadingLock);
+    _releaseLock(&jni->locks.fieldLoadingLock);
   }
 }
 
@@ -243,9 +228,9 @@ static inline void load_static_field(jclass cls,
                                      const char* name,
                                      const char* sig) {
   if (*res == NULL) {
-    _acquireLock(&locks.fieldLoadingLock);
+    _acquireLock(&jni->locks.fieldLoadingLock);
     *res = (*jniEnv)->GetStaticFieldID(jniEnv, cls, name, sig);
-    _releaseLock(&locks.fieldLoadingLock);
+    _releaseLock(&jni->locks.fieldLoadingLock);
   }
 }
 
@@ -257,12 +242,13 @@ static inline jobject to_global_ref(jobject ref) {
 
 // These functions are useful for C+Dart bindings, and not required for pure dart bindings.
 
-FFI_PLUGIN_EXPORT JniContext GetJniContext();
+FFI_PLUGIN_EXPORT JniContext* GetJniContextPtr();
+
 /// For use by jni_gen's generated code
 /// don't use these.
 
 // these 2 fn ptr vars will be defined by generated code library
-extern JniContext (*context_getter)(void);
+extern JniContext* (*context_getter)(void);
 extern JNIEnv* (*env_getter)(void);
 
 // this function will be exported by generated code library

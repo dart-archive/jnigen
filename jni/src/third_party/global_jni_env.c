@@ -2490,7 +2490,7 @@ GlobalJniEnv globalJniEnv = {
 };
 FFI_PLUGIN_EXPORT
 GlobalJniEnv* GetGlobalEnv() {
-  if (jni.jvm == NULL) {
+  if (jni->jvm == NULL) {
     return NULL;
   }
   return &globalJniEnv;

@@ -152,6 +152,17 @@ class JniBindings {
   late final _GetCurrentActivity =
       _GetCurrentActivityPtr.asFunction<JObjectPtr Function()>();
 
+  /// These functions are useful for C+Dart bindings, and not required for pure dart bindings.
+  ffi.Pointer<JniContext> GetJniContextPtr() {
+    return _GetJniContextPtr();
+  }
+
+  late final _GetJniContextPtrPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<JniContext> Function()>>(
+          'GetJniContextPtr');
+  late final _GetJniContextPtr =
+      _GetJniContextPtrPtr.asFunction<ffi.Pointer<JniContext> Function()>();
+
   int InitDartApiDL(
     ffi.Pointer<ffi.Void> data,
   ) {
@@ -1923,6 +1934,93 @@ class JavaVMOption extends ffi.Struct {
 
   external ffi.Pointer<ffi.Void> extraInfo;
 }
+
+/// Stores the global state of the JNI.
+class JniContext extends ffi.Struct {
+  external ffi.Pointer<JavaVM> jvm;
+
+  external JObjectPtr classLoader;
+
+  external JMethodIDPtr loadClassMethod;
+
+  external JObjectPtr currentActivity;
+
+  external JObjectPtr appContext;
+
+  external JniLocks locks;
+}
+
+class JniLocks extends ffi.Struct {
+  external MutexLock classLoadingLock;
+
+  external MutexLock methodLoadingLock;
+
+  external MutexLock fieldLoadingLock;
+}
+
+typedef MutexLock = CRITICAL_SECTION;
+typedef CRITICAL_SECTION = RTL_CRITICAL_SECTION;
+typedef RTL_CRITICAL_SECTION = _RTL_CRITICAL_SECTION;
+
+class _RTL_CRITICAL_SECTION extends ffi.Struct {
+  external PRTL_CRITICAL_SECTION_DEBUG DebugInfo;
+
+  @LONG()
+  external int LockCount;
+
+  @LONG()
+  external int RecursionCount;
+
+  external HANDLE OwningThread;
+
+  external HANDLE LockSemaphore;
+
+  @ULONG_PTR()
+  external int SpinCount;
+}
+
+typedef PRTL_CRITICAL_SECTION_DEBUG = ffi.Pointer<_RTL_CRITICAL_SECTION_DEBUG>;
+
+class _RTL_CRITICAL_SECTION_DEBUG extends ffi.Struct {
+  @WORD()
+  external int Type;
+
+  @WORD()
+  external int CreatorBackTraceIndex;
+
+  external ffi.Pointer<_RTL_CRITICAL_SECTION> CriticalSection;
+
+  external LIST_ENTRY ProcessLocksList;
+
+  @DWORD()
+  external int EntryCount;
+
+  @DWORD()
+  external int ContentionCount;
+
+  @DWORD()
+  external int Flags;
+
+  @WORD()
+  external int CreatorBackTraceIndexHigh;
+
+  @WORD()
+  external int SpareWORD;
+}
+
+typedef WORD = ffi.UnsignedShort;
+typedef LIST_ENTRY = _LIST_ENTRY;
+
+class _LIST_ENTRY extends ffi.Struct {
+  external ffi.Pointer<_LIST_ENTRY> Flink;
+
+  external ffi.Pointer<_LIST_ENTRY> Blink;
+}
+
+typedef DWORD = ffi.UnsignedLong;
+typedef LONG = ffi.Long;
+typedef HANDLE = ffi.Pointer<ffi.Void>;
+typedef ULONG_PTR = ffi.UnsignedLongLong;
 
 class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<ffi.Void> reserved0;
