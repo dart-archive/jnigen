@@ -207,12 +207,24 @@ FFI_PLUGIN_EXPORT JNIEnv* GetJniEnv(void);
 /// JVMs is made, even if the underlying API potentially supports multiple VMs.
 FFI_PLUGIN_EXPORT int SpawnJvm(JavaVMInitArgs* args);
 
-FFI_PLUGIN_EXPORT jclass LoadClass(const char* name);
+/// Load class through platform-specific mechanism.
+///
+/// Currently uses application classloader on android,
+/// and JNIEnv->FindClass on other platforms.
+FFI_PLUGIN_EXPORT jclass FindClass(const char* name);
 
+/// Returns Application classLoader (on Android),
+/// which can be used to load application and platform classes.
+///
+/// On other platforms, NULL is returned.
 FFI_PLUGIN_EXPORT jobject GetClassLoader(void);
 
+/// Returns application context on Android.
+///
+/// On other platforms, NULL is returned.
 FFI_PLUGIN_EXPORT jobject GetApplicationContext(void);
 
+/// Returns current activity of the app on Android.
 FFI_PLUGIN_EXPORT jobject GetCurrentActivity(void);
 
 static inline void attach_thread() {
@@ -221,27 +233,34 @@ static inline void attach_thread() {
   }
 }
 
-static inline void load_class(jclass* cls, const char* name) {
-  if (*cls == NULL) {
-    acquire_lock(&jni->locks.classLoadingLock);
+/// Load class into [cls] using platform specific mechanism
+static inline void load_class_platform(jclass* cls, const char* name) {
 #ifdef __ANDROID__
-    jstring className = (*jniEnv)->NewStringUTF(jniEnv, name);
-    *cls = (*jniEnv)->CallObjectMethod(jniEnv, jni.classLoader,
-                                       jni.loadClassMethod, className);
-    (*jniEnv)->DeleteLocalRef(jniEnv, className);
+  jstring className = (*jniEnv)->NewStringUTF(jniEnv, name);
+  *cls = (*jniEnv)->CallObjectMethod(jniEnv, jni.classLoader,
+                                     jni.loadClassMethod, className);
+  (*jniEnv)->DeleteLocalRef(jniEnv, className);
 #else
-    *cls = (*jniEnv)->FindClass(jniEnv, name);
+  *cls = (*jniEnv)->FindClass(jniEnv, name);
 #endif
+}
+
+static inline void load_class_local_ref(jclass* cls, const char* name) {
+  if (cls == NULL) {
+    acquire_lock(&jni->locks.classLoadingLock);
+    load_class_platform(&cls, name);
     release_lock(&jni->locks.classLoadingLock);
   }
 }
 
 static inline void load_class_global_ref(jclass* cls, const char* name) {
   if (*cls == NULL) {
-    jclass tmp;
-    load_class(&tmp, name);
+    jclass tmp = NULL;
+    acquire_lock(&jni->locks.classLoadingLock);
+    load_class_platform(&tmp, name);
     *cls = (*jniEnv)->NewGlobalRef(jniEnv, tmp);
     (*jniEnv)->DeleteLocalRef(jniEnv, tmp);
+    release_lock(&jni->locks.classLoadingLock);
   }
 }
 

@@ -40,11 +40,11 @@ thread_local JNIEnv* jniEnv = NULL;
 JniExceptionMethods exceptionMethods;
 
 void initExceptionHandling(JniExceptionMethods* methods) {
-  methods->objectClass = LoadClass("java/lang/Object");
-  methods->exceptionClass = LoadClass("java/lang/Exception");
-  methods->printStreamClass = LoadClass("java/io/PrintStream");
+  methods->objectClass = FindClass("java/lang/Object");
+  methods->exceptionClass = FindClass("java/lang/Exception");
+  methods->printStreamClass = FindClass("java/io/PrintStream");
   methods->byteArrayOutputStreamClass =
-      LoadClass("java/io/ByteArrayOutputStream");
+      FindClass("java/io/ByteArrayOutputStream");
   load_method(methods->objectClass, &methods->toStringMethod, "toString",
               "()Ljava/lang/String;");
   load_method(methods->exceptionClass, &methods->printStackTraceMethod,
@@ -62,40 +62,28 @@ JavaVM* GetJavaVM() {
   return jni_context.jvm;
 }
 
-/// Load class through platform-specific mechanism.
-///
-/// Currently uses application classloader on android,
-/// and JNIEnv->FindClass on other platforms.
 FFI_PLUGIN_EXPORT
-jclass LoadClass(const char* name) {
+jclass FindClass(const char* name) {
   jclass cls = NULL;
   attach_thread();
-  load_class(&cls, name);
-  return to_global_ref(cls);
+  load_class_global_ref(&cls, name);
+  return cls;
 };
 
 // Android specifics
 
-/// Returns Application classLoader (on Android),
-/// which can be used to load application and platform classes.
-/// ...
-/// On other platforms, NULL is returned.
 FFI_PLUGIN_EXPORT
 jobject GetClassLoader() {
   attach_thread();
   return (*jniEnv)->NewGlobalRef(jniEnv, jni_context.classLoader);
 }
 
-/// Returns application context on Android.
-///
-/// On other platforms, NULL is returned.
 FFI_PLUGIN_EXPORT
 jobject GetApplicationContext() {
   attach_thread();
   return (*jniEnv)->NewGlobalRef(jniEnv, jni_context.appContext);
 }
 
-/// Returns current activity of the app
 FFI_PLUGIN_EXPORT
 jobject GetCurrentActivity() {
   attach_thread();
@@ -173,7 +161,7 @@ int SpawnJvm(JavaVMInitArgs* initArgs) {
 
 JniClassLookupResult getClass(char* internalName) {
   JniClassLookupResult result = {NULL, NULL};
-  result.value = LoadClass(internalName);
+  result.value = FindClass(internalName);
   result.exception = check_exception();
   return result;
 }

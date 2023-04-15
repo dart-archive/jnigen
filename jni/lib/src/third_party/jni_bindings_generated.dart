@@ -110,20 +110,28 @@ class JniBindings {
   late final _SpawnJvm =
       _SpawnJvmPtr.asFunction<int Function(ffi.Pointer<JavaVMInitArgs>)>();
 
-  JClassPtr LoadClass(
+  /// Load class through platform-specific mechanism.
+  ///
+  /// Currently uses application classloader on android,
+  /// and JNIEnv->FindClass on other platforms.
+  JClassPtr FindClass(
     ffi.Pointer<ffi.Char> name,
   ) {
-    return _LoadClass(
+    return _FindClass(
       name,
     );
   }
 
-  late final _LoadClassPtr =
+  late final _FindClassPtr =
       _lookup<ffi.NativeFunction<JClassPtr Function(ffi.Pointer<ffi.Char>)>>(
-          'LoadClass');
-  late final _LoadClass =
-      _LoadClassPtr.asFunction<JClassPtr Function(ffi.Pointer<ffi.Char>)>();
+          'FindClass');
+  late final _FindClass =
+      _FindClassPtr.asFunction<JClassPtr Function(ffi.Pointer<ffi.Char>)>();
 
+  /// Returns Application classLoader (on Android),
+  /// which can be used to load application and platform classes.
+  ///
+  /// On other platforms, NULL is returned.
   JObjectPtr GetClassLoader() {
     return _GetClassLoader();
   }
@@ -133,6 +141,9 @@ class JniBindings {
   late final _GetClassLoader =
       _GetClassLoaderPtr.asFunction<JObjectPtr Function()>();
 
+  /// Returns application context on Android.
+  ///
+  /// On other platforms, NULL is returned.
   JObjectPtr GetApplicationContext() {
     return _GetApplicationContext();
   }
@@ -143,6 +154,7 @@ class JniBindings {
   late final _GetApplicationContext =
       _GetApplicationContextPtr.asFunction<JObjectPtr Function()>();
 
+  /// Returns current activity of the app on Android.
   JObjectPtr GetCurrentActivity() {
     return _GetCurrentActivity();
   }
