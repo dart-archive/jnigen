@@ -2049,7 +2049,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JniResult Function(
-              JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>> NewObjectV;
+              JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>> NewObjectV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -2077,7 +2077,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallObjectMethodV;
 
   external ffi.Pointer<
@@ -2093,7 +2093,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallBooleanMethodV;
 
   external ffi.Pointer<
@@ -2109,7 +2109,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallByteMethodV;
 
   external ffi.Pointer<
@@ -2125,7 +2125,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallCharMethodV;
 
   external ffi.Pointer<
@@ -2141,7 +2141,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallShortMethodV;
 
   external ffi.Pointer<
@@ -2157,7 +2157,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JniResult Function(
-              JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>> CallIntMethodV;
+              JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>> CallIntMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -2172,7 +2172,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallLongMethodV;
 
   external ffi.Pointer<
@@ -2188,7 +2188,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallFloatMethodV;
 
   external ffi.Pointer<
@@ -2204,7 +2204,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallDoubleMethodV;
 
   external ffi.Pointer<
@@ -2220,7 +2220,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JThrowablePtr Function(
-                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallVoidMethodV;
 
   external ffi.Pointer<
@@ -2237,7 +2237,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallNonvirtualObjectMethodV;
 
   external ffi.Pointer<
@@ -2257,7 +2257,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallNonvirtualBooleanMethodV;
 
   external ffi.Pointer<
@@ -2277,7 +2277,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallNonvirtualByteMethodV;
 
   external ffi.Pointer<
@@ -2297,7 +2297,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallNonvirtualCharMethodV;
 
   external ffi.Pointer<
@@ -2317,7 +2317,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallNonvirtualShortMethodV;
 
   external ffi.Pointer<
@@ -2337,7 +2337,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallNonvirtualIntMethodV;
 
   external ffi.Pointer<
@@ -2357,7 +2357,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallNonvirtualLongMethodV;
 
   external ffi.Pointer<
@@ -2377,7 +2377,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallNonvirtualFloatMethodV;
 
   external ffi.Pointer<
@@ -2397,7 +2397,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallNonvirtualDoubleMethodV;
 
   external ffi.Pointer<
@@ -2417,7 +2417,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JThrowablePtr Function(
-                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JObjectPtr, JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallNonvirtualVoidMethodV;
 
   external ffi.Pointer<
@@ -2544,7 +2544,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallStaticObjectMethodV;
 
   external ffi.Pointer<
@@ -2560,7 +2560,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallStaticBooleanMethodV;
 
   external ffi.Pointer<
@@ -2576,7 +2576,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallStaticByteMethodV;
 
   external ffi.Pointer<
@@ -2592,7 +2592,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallStaticCharMethodV;
 
   external ffi.Pointer<
@@ -2608,7 +2608,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallStaticShortMethodV;
 
   external ffi.Pointer<
@@ -2624,7 +2624,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallStaticIntMethodV;
 
   external ffi.Pointer<
@@ -2640,7 +2640,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallStaticLongMethodV;
 
   external ffi.Pointer<
@@ -2656,7 +2656,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallStaticFloatMethodV;
 
   external ffi.Pointer<
@@ -2672,7 +2672,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JniResult Function(
-                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallStaticDoubleMethodV;
 
   external ffi.Pointer<
@@ -2688,7 +2688,7 @@ class GlobalJniEnv extends ffi.Struct {
   external ffi.Pointer<
           ffi.NativeFunction<
               JThrowablePtr Function(
-                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Char>)>>
+                  JClassPtr, JMethodIDPtr, ffi.Pointer<ffi.Void>)>>
       CallStaticVoidMethodV;
 
   external ffi.Pointer<
