@@ -63,6 +63,7 @@ void main(List<String> args) {
   final library = ffigen.parse(config);
   findCompoundSanitized(library, 'JNINativeInterface');
   findCompoundSanitized(library, 'GlobalJniEnv');
+  library.bindings.removeWhere((b) => b.name == '__va_list_tag');
   final outputFile = File(config.output);
   library.generateFile(outputFile);
 
