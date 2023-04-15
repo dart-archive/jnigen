@@ -28,9 +28,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 
-#ifndef _WIN32
-typedef va_list_tag *va_list;
-#endif
+typedef char *va_list;
 
 /* Primitive types that match up with Java equivalents. */
 typedef uint8_t jboolean; /* unsigned 8 bits */
