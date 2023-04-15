@@ -108,8 +108,8 @@ extension JniAccessorWrappers on Pointer<JniAccessors> {
   void throwException(JThrowablePtr exception) {
     final details = getExceptionDetails(exception);
     final env = Jni.env;
-    final message = env.asDartString(details.message);
-    final stacktrace = env.asDartString(details.stacktrace);
+    final message = env.toDartString(details.message);
+    final stacktrace = env.toDartString(details.stacktrace);
     env.DeleteGlobalRef(exception);
     env.DeleteGlobalRef(details.message);
     env.DeleteGlobalRef(details.stacktrace);

@@ -126,7 +126,7 @@ class JValueArgs {
       final arg = args[i];
       final ptr = values.elementAt(i);
       if (arg is String) {
-        final jstr = _env.asJString(arg);
+        final jstr = _env.toJStringPtr(arg);
         ptr.ref.l = jstr;
         createdRefs.add(jstr);
       } else {

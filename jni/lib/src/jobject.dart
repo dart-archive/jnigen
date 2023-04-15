@@ -109,7 +109,7 @@ T _callOrGet<T>(int? callType, JniResult Function(int) function) {
           callType, JniCallType.objectType, {JniCallType.objectType});
       final ref = function(finalCallType).object;
       final ctor = T == String
-          ? (ref) => _env.asDartString(ref, deleteOriginal: true)
+          ? (ref) => _env.toDartString(ref, deleteOriginal: true)
           : (T == JObject ? JObject.fromRef : JString.fromRef);
       result = ctor(ref) as T;
       break;

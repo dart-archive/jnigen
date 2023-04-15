@@ -75,7 +75,7 @@ void main() {
 
               // use asDartString extension method on Pointer<JniEnv>
               // to convert a String jobject result to string
-              final res = env.asDartString(jres);
+              final res = env.toDartString(jres);
               expect(res, equals(i.toRadixString(16)));
 
               // Any object or class result from java is a local reference
@@ -93,8 +93,8 @@ void main() {
     // convenience method that wraps
     // converting dart string to native string,
     // instantiating java string, and freeing the native string
-    final jstr = env.asJString(str);
-    expect(str, equals(env.asDartString(jstr)));
+    final jstr = env.toJStringPtr(str);
+    expect(str, equals(env.toDartString(jstr)));
     env.DeleteGlobalRef(jstr);
   });
 
@@ -143,7 +143,7 @@ void main() {
                 "println".toNativeChars(arena),
                 "(Ljava/lang/String;)V".toNativeChars(arena));
             const str = "\nHello World from JNI!";
-            final jstr = env.asJString(str);
+            final jstr = env.toJStringPtr(str);
             env.CallVoidMethodA(out, println, Jni.jvalues([jstr]));
             env.deleteAllRefs([system, printStream, jstr]);
           }));

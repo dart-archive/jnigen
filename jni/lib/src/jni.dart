@@ -293,7 +293,7 @@ extension AdditionalEnvMethods on Pointer<GlobalJniEnv> {
   /// to dart string.
   /// if [deleteOriginal] is specified, jstring passed will be deleted using
   /// DeleteLocalRef.
-  String asDartString(JStringPtr jstringPtr, {bool deleteOriginal = false}) {
+  String toDartString(JStringPtr jstringPtr, {bool deleteOriginal = false}) {
     if (jstringPtr == nullptr) {
       throw NullJStringException();
     }
@@ -310,7 +310,7 @@ extension AdditionalEnvMethods on Pointer<GlobalJniEnv> {
   }
 
   /// Return a new [JStringPtr] from contents of [s].
-  JStringPtr asJString(String s) => using((arena) {
+  JStringPtr toJStringPtr(String s) => using((arena) {
         final utf = s.toNativeUtf8().cast<Char>();
         final result = NewStringUTF(utf);
         malloc.free(utf);

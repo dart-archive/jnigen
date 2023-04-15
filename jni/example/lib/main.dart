@@ -24,7 +24,7 @@ String toJavaStringUsingEnv(int n) => using((arena) {
       final i = arena<JValue>();
       i.ref.i = n;
       final res = env.CallStaticObjectMethodA(cls, mId, i);
-      final str = env.asDartString(res);
+      final str = env.toDartString(res);
       env.deleteAllRefs([res, cls]);
       return str;
     });
