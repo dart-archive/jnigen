@@ -583,7 +583,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JObjectPtr Function(ffi.Pointer<JniEnv1>, JClassPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> NewObjectV;
+              ffi.Pointer<ffi.Void>)>> NewObjectV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -617,7 +617,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JObjectPtr Function(ffi.Pointer<JniEnv1>, JObjectPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallObjectMethodV;
+              ffi.Pointer<ffi.Void>)>> CallObjectMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -635,7 +635,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JBooleanMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr,
-              JMethodIDPtr, ffi.Pointer<ffi.Char>)>> CallBooleanMethodV;
+              JMethodIDPtr, ffi.Pointer<ffi.Void>)>> CallBooleanMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -653,7 +653,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JByteMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallByteMethodV;
+              ffi.Pointer<ffi.Void>)>> CallByteMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -671,7 +671,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JCharMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallCharMethodV;
+              ffi.Pointer<ffi.Void>)>> CallCharMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -689,7 +689,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JShortMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallShortMethodV;
+              ffi.Pointer<ffi.Void>)>> CallShortMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -707,7 +707,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JIntMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallIntMethodV;
+              ffi.Pointer<ffi.Void>)>> CallIntMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -722,7 +722,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JLongMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallLongMethodV;
+              ffi.Pointer<ffi.Void>)>> CallLongMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -740,7 +740,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JFloatMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallFloatMethodV;
+              ffi.Pointer<ffi.Void>)>> CallFloatMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -758,7 +758,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JDoubleMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallDoubleMethodV;
+              ffi.Pointer<ffi.Void>)>> CallDoubleMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -776,7 +776,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           ffi.Void Function(ffi.Pointer<JniEnv1>, JObjectPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallVoidMethodV;
+              ffi.Pointer<ffi.Void>)>> CallVoidMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -801,7 +801,7 @@ class JNINativeInterface extends ffi.Struct {
               JObjectPtr,
               JClassPtr,
               JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallNonvirtualObjectMethodV;
+              ffi.Pointer<ffi.Void>)>> CallNonvirtualObjectMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -827,7 +827,7 @@ class JNINativeInterface extends ffi.Struct {
               JObjectPtr,
               JClassPtr,
               JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallNonvirtualBooleanMethodV;
+              ffi.Pointer<ffi.Void>)>> CallNonvirtualBooleanMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -849,7 +849,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JByteMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr, JClassPtr,
-              JMethodIDPtr, ffi.Pointer<ffi.Char>)>> CallNonvirtualByteMethodV;
+              JMethodIDPtr, ffi.Pointer<ffi.Void>)>> CallNonvirtualByteMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -871,7 +871,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JCharMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr, JClassPtr,
-              JMethodIDPtr, ffi.Pointer<ffi.Char>)>> CallNonvirtualCharMethodV;
+              JMethodIDPtr, ffi.Pointer<ffi.Void>)>> CallNonvirtualCharMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -893,7 +893,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JShortMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr, JClassPtr,
-              JMethodIDPtr, ffi.Pointer<ffi.Char>)>> CallNonvirtualShortMethodV;
+              JMethodIDPtr, ffi.Pointer<ffi.Void>)>> CallNonvirtualShortMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -912,7 +912,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JIntMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr, JClassPtr,
-              JMethodIDPtr, ffi.Pointer<ffi.Char>)>> CallNonvirtualIntMethodV;
+              JMethodIDPtr, ffi.Pointer<ffi.Void>)>> CallNonvirtualIntMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -934,7 +934,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JLongMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr, JClassPtr,
-              JMethodIDPtr, ffi.Pointer<ffi.Char>)>> CallNonvirtualLongMethodV;
+              JMethodIDPtr, ffi.Pointer<ffi.Void>)>> CallNonvirtualLongMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -956,7 +956,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JFloatMarker Function(ffi.Pointer<JniEnv1>, JObjectPtr, JClassPtr,
-              JMethodIDPtr, ffi.Pointer<ffi.Char>)>> CallNonvirtualFloatMethodV;
+              JMethodIDPtr, ffi.Pointer<ffi.Void>)>> CallNonvirtualFloatMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -982,7 +982,7 @@ class JNINativeInterface extends ffi.Struct {
               JObjectPtr,
               JClassPtr,
               JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallNonvirtualDoubleMethodV;
+              ffi.Pointer<ffi.Void>)>> CallNonvirtualDoubleMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -1004,7 +1004,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           ffi.Void Function(ffi.Pointer<JniEnv1>, JObjectPtr, JClassPtr,
-              JMethodIDPtr, ffi.Pointer<ffi.Char>)>> CallNonvirtualVoidMethodV;
+              JMethodIDPtr, ffi.Pointer<ffi.Void>)>> CallNonvirtualVoidMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -1129,7 +1129,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JObjectPtr Function(ffi.Pointer<JniEnv1>, JClassPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallStaticObjectMethodV;
+              ffi.Pointer<ffi.Void>)>> CallStaticObjectMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -1147,7 +1147,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JBooleanMarker Function(ffi.Pointer<JniEnv1>, JClassPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallStaticBooleanMethodV;
+              ffi.Pointer<ffi.Void>)>> CallStaticBooleanMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -1165,7 +1165,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JByteMarker Function(ffi.Pointer<JniEnv1>, JClassPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallStaticByteMethodV;
+              ffi.Pointer<ffi.Void>)>> CallStaticByteMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -1183,7 +1183,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JCharMarker Function(ffi.Pointer<JniEnv1>, JClassPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallStaticCharMethodV;
+              ffi.Pointer<ffi.Void>)>> CallStaticCharMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -1201,7 +1201,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JShortMarker Function(ffi.Pointer<JniEnv1>, JClassPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallStaticShortMethodV;
+              ffi.Pointer<ffi.Void>)>> CallStaticShortMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -1219,7 +1219,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JIntMarker Function(ffi.Pointer<JniEnv1>, JClassPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallStaticIntMethodV;
+              ffi.Pointer<ffi.Void>)>> CallStaticIntMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -1237,7 +1237,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JLongMarker Function(ffi.Pointer<JniEnv1>, JClassPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallStaticLongMethodV;
+              ffi.Pointer<ffi.Void>)>> CallStaticLongMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -1255,7 +1255,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JFloatMarker Function(ffi.Pointer<JniEnv1>, JClassPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallStaticFloatMethodV;
+              ffi.Pointer<ffi.Void>)>> CallStaticFloatMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -1273,7 +1273,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JDoubleMarker Function(ffi.Pointer<JniEnv1>, JClassPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallStaticDoubleMethodV;
+              ffi.Pointer<ffi.Void>)>> CallStaticDoubleMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<
@@ -1291,7 +1291,7 @@ class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           ffi.Void Function(ffi.Pointer<JniEnv1>, JClassPtr, JMethodIDPtr,
-              ffi.Pointer<ffi.Char>)>> CallStaticVoidMethodV;
+              ffi.Pointer<ffi.Void>)>> CallStaticVoidMethodV;
 
   external ffi.Pointer<
       ffi.NativeFunction<

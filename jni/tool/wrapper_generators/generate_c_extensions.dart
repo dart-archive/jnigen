@@ -256,7 +256,7 @@ String? getWrapperFunc(Member field) {
 }
 
 void writeGlobalJniEnvWrapper(Library library) {
-  final jniEnvType = findCompound(library, envType);
+  final jniEnvType = findCompoundSanitized(library, envType);
 
   final fieldDecls = jniEnvType.members.map(getFunctionFieldDecl).join('\n');
   final structDecl =
