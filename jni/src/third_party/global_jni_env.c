@@ -3,10 +3,6 @@
 JniResult globalEnv_GetVersion() {
   attach_thread();
   jint _result = (*jniEnv)->GetVersion(jniEnv);
-  jthrowable _exception = check_exception();
-  if (_exception != NULL) {
-    return (JniResult){.value = {.j = 0}, .exception = _exception};
-  }
   return (JniResult){.value = {.i = _result}, .exception = NULL};
 }
 
@@ -137,20 +133,12 @@ JniResult globalEnv_ExceptionOccurred() {
 jthrowable globalEnv_ExceptionDescribe() {
   attach_thread();
   (*jniEnv)->ExceptionDescribe(jniEnv);
-  jthrowable _exception = check_exception();
-  if (_exception != NULL) {
-    return _exception;
-  }
   return NULL;
 }
 
 jthrowable globalEnv_ExceptionClear() {
   attach_thread();
   (*jniEnv)->ExceptionClear(jniEnv);
-  jthrowable _exception = check_exception();
-  if (_exception != NULL) {
-    return _exception;
-  }
   return NULL;
 }
 

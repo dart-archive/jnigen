@@ -203,6 +203,13 @@ const constBufferReturningFunctions = {
   'GetStringCritical',
 };
 
+/// Methods which do not throw exceptions, and thus not need to be checked
+const _noCheckException = {
+  'GetVersion',
+  'ExceptionClear',
+  'ExceptionDescribe',
+};
+
 String? getWrapperFunc(Member field) {
   final fieldType = field.type;
   if (fieldType is PointerType && fieldType.child is NativeFunc) {
@@ -231,10 +238,12 @@ String? getWrapperFunc(Member field) {
     if (isJRefType(returnType) && !refFunctions.contains(field.name)) {
       convertRef = '  $resultVar = to_global_ref($resultVar);\n';
     }
-    final exceptionCheck = '  jthrowable $errorVar = check_exception();\n'
-        '  if ($errorVar != NULL) {\n'
-        '    return ${resultWrapper.onError};\n'
-        '  }\n';
+    final exceptionCheck = _noCheckException.contains(field.name)
+        ? ''
+        : '  jthrowable $errorVar = check_exception();\n'
+            '  if ($errorVar != NULL) {\n'
+            '    return ${resultWrapper.onError};\n'
+            '  }\n';
     return '${resultWrapper.returnType} $wrapperName($params) {\n'
         '  attach_thread();\n'
         '  $returnCapture (*jniEnv)->${field.name}($callParams);\n'
