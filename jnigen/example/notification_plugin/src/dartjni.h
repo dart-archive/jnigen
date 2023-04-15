@@ -237,8 +237,8 @@ static inline void attach_thread() {
 static inline void load_class_platform(jclass* cls, const char* name) {
 #ifdef __ANDROID__
   jstring className = (*jniEnv)->NewStringUTF(jniEnv, name);
-  *cls = (*jniEnv)->CallObjectMethod(jniEnv, jni.classLoader,
-                                     jni.loadClassMethod, className);
+  *cls = (*jniEnv)->CallObjectMethod(jniEnv, jni->classLoader,
+                                     jni->loadClassMethod, className);
   (*jniEnv)->DeleteLocalRef(jniEnv, className);
 #else
   *cls = (*jniEnv)->FindClass(jniEnv, name);
@@ -248,7 +248,7 @@ static inline void load_class_platform(jclass* cls, const char* name) {
 static inline void load_class_local_ref(jclass* cls, const char* name) {
   if (cls == NULL) {
     acquire_lock(&jni->locks.classLoadingLock);
-    load_class_platform(&cls, name);
+    load_class_platform(cls, name);
     release_lock(&jni->locks.classLoadingLock);
   }
 }
@@ -327,7 +327,7 @@ extern JNIEnv* (*env_getter)(void);
 
 // this function will be exported by generated code library
 // it will set above 2 variables.
-FFI_PLUGIN_EXPORT void setJniGetters(struct JniContext (*cg)(void),
+FFI_PLUGIN_EXPORT void setJniGetters(struct JniContext* (*cg)(void),
                                      JNIEnv* (*eg)(void));
 
 static inline void load_env() {
