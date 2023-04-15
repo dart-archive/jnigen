@@ -10,7 +10,6 @@ import 'dart:io';
 import 'package:logging/logging.dart';
 import 'package:args/args.dart';
 
-import 'wrapper_generators/ffigen_util.dart';
 import 'wrapper_generators/logging.dart';
 import 'wrapper_generators/generate_c_extensions.dart';
 import 'wrapper_generators/generate_dart_extensions.dart';
@@ -61,9 +60,6 @@ void main(List<String> args) {
 
   final config = ffigen.Config.fromFile(File('ffigen.yaml'));
   final library = ffigen.parse(config);
-  findCompoundSanitized(library, 'JNINativeInterface');
-  findCompoundSanitized(library, 'GlobalJniEnv');
-  library.bindings.removeWhere((b) => b.name == '__va_list_tag');
   final outputFile = File(config.output);
   library.generateFile(outputFile);
 

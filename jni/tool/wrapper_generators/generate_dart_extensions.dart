@@ -142,8 +142,8 @@ import "../accessors.dart";
 String getGlobalEnvExtension(
   Library library,
 ) {
-  final env = findCompoundSanitized(library, localEnvType);
-  final globalEnv = findCompoundSanitized(library, globalEnvType);
+  final env = findCompound(library, localEnvType);
+  final globalEnv = findCompound(library, globalEnvType);
   final checkedReturnTypes = {};
   for (var field in globalEnv.members) {
     final fieldType = field.type;
