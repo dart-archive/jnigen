@@ -7,15 +7,14 @@
 #include <stdint.h>
 
 #include "dartjni.h"
-#include "lock.h"
+
+#include "include/dart_api_dl.h"
 
 void initAllLocks(JniLocks* locks) {
   _initLock(&locks->classLoadingLock);
   _initLock(&locks->fieldLoadingLock);
   _initLock(&locks->methodLoadingLock);
 }
-
-#include "include/dart_api_dl.h"
 
 /// Stores class and method references for obtaining exception details
 typedef struct JniExceptionMethods {
