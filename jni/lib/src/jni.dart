@@ -46,7 +46,7 @@ abstract class Jni {
   static final DynamicLibrary _dylib = _loadDartJniLibrary(dir: _dylibDir);
   static final JniBindings _bindings = JniBindings(_dylib);
   static final _getJniEnvFn = _dylib.lookup<Void>('GetJniEnv');
-  static final _getJniContextFn = _dylib.lookup<Void>('GetJniContext');
+  static final _getJniContextFn = _dylib.lookup<Void>('GetJniContextPtr');
 
   /// Store dylibDir if any was used.
   static String? _dylibDir;
