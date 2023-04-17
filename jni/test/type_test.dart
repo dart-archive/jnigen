@@ -211,6 +211,7 @@ void main() {
       // TODO(#51): Support destroying and reinstantiating JVM.
     }
   }
+  run(testRunner: test);
 }
 
 void run({required TestRunnerCallback testRunner}) {
