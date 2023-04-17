@@ -23,7 +23,8 @@ final kotlinPluginYaml = join(kotlinPlugin, 'jnigen.yaml');
 /// them to provided reference outputs.
 ///
 /// [dartOutput] and [cOutput] are relative paths from example project dir.
-void testExample(String exampleName, String dartOutput, String? cOutput) {
+void testExample(String exampleName, String dartOutput, String? cOutput,
+    {bool ignoreSpaceChange = false}) {
   test('Generate and compare bindings for $exampleName',
       timeout: const Timeout.factor(2), () async {
     final examplePath = join('example', exampleName);
@@ -37,7 +38,8 @@ void testExample(String exampleName, String dartOutput, String? cOutput) {
 
     final config = Config.parseArgs(['--config', configPath]);
     try {
-      await generateAndCompareBindings(config, dartBindingsPath, cBindingsPath);
+      await generateAndCompareBindings(config, dartBindingsPath, cBindingsPath,
+          ignoreSpaceChange: ignoreSpaceChange);
     } on GradleException catch (_) {
       stderr.writeln('Skip: $exampleName');
     }
@@ -50,7 +52,8 @@ void main() {
     join('lib', 'android_utils.dart'),
     join('src', 'android_utils'),
   );
-  testExample('pdfbox_plugin', join('lib', 'src', 'third_party'), 'src');
+  testExample('pdfbox_plugin', join('lib', 'src', 'third_party'), 'src',
+      ignoreSpaceChange: true);
   testExample(
     'notification_plugin',
     join('lib', 'notifications.dart'),
