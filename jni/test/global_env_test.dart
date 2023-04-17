@@ -8,6 +8,8 @@ import 'package:jni/jni.dart';
 import 'package:jni/src/jvalues.dart';
 import 'package:test/test.dart';
 
+import 'test_util/test_util.dart';
+
 const maxLongInJava = 9223372036854775807;
 
 void main() {
@@ -29,7 +31,12 @@ void main() {
       // TODO(#51): Support destroying and reinstantiating JVM.
     }
   }
+  run(testRunner: test);
+}
 
+// We are factoring these tests into a run method which allows us to run same
+// tests with different environments. Eg: standalone and integration tests.
+void run({required TestRunnerCallback testRunner}) {
   // Tests in this file demonstrate how to use `GlobalJniEnv`, a thin
   // abstraction over JNIEnv in JNI C API. This can be used from multiple
   // threads, and converts all returned object references to global references,
@@ -42,16 +49,15 @@ void main() {
   //
   // For examples of a higher level API, see `jni_object_tests.dart`.
   final env = Jni.env;
-
-  test('initDLApi', () {
+  testRunner('initDLApi', () {
     Jni.initDLApi();
   });
 
-  test('get JNI Version', () {
+  testRunner('get JNI Version', () {
     expect(Jni.env.GetVersion(), isNot(equals(0)));
   });
 
-  test(
+  testRunner(
       'Manually lookup & call Integer.toHexString',
       () => using((arena) {
             // Method names on JniEnv* from C JNI API are capitalized
@@ -88,7 +94,7 @@ void main() {
             env.DeleteGlobalRef(integerClass);
           }));
 
-  test("asJString extension method", () {
+  testRunner("asJString extension method", () {
     const str = "QWERTY QWERTY";
     // convenience method that wraps
     // converting dart string to native string,
@@ -98,7 +104,7 @@ void main() {
     env.DeleteGlobalRef(jstr);
   });
 
-  test(
+  testRunner(
       'GlobalJniEnv should catch exceptions',
       () => using((arena) {
             final integerClass =
@@ -114,7 +120,7 @@ void main() {
                 throwsA(isA<JniException>()));
           }));
 
-  test(
+  testRunner(
       "Convert back & forth between Dart & Java strings",
       () => using((arena) {
             const str = "ABCD EFGH";
@@ -127,7 +133,7 @@ void main() {
             env.DeleteGlobalRef(jstr);
           }));
 
-  test(
+  testRunner(
       "Print something from Java",
       () => using((arena) {
             final system =
@@ -147,7 +153,8 @@ void main() {
             env.CallVoidMethodA(out, println, Jni.jvalues([jstr]));
             env.deleteAllRefs([system, printStream, jstr]);
           }));
-  test('Env create reference methods should retain their default behavior', () {
+  testRunner(
+      'Env create reference methods should retain their default behavior', () {
     final systemOut = Jni.retrieveStaticField<JObjectPtr>(
         "java/lang/System", "out", "Ljava/io/PrintStream;");
     var refType = env.GetObjectRefType(systemOut);
@@ -166,7 +173,7 @@ void main() {
     env.DeleteLocalRef(localRef);
     env.DeleteGlobalRef(systemOut);
   });
-  test('long methods return long int without loss of precision', () {
+  testRunner('long methods return long int without loss of precision', () {
     using((arena) {
       final longClass = env.FindClass("java/lang/Long".toNativeChars(arena));
       final maxField = env.GetStaticFieldID(
@@ -180,7 +187,7 @@ void main() {
     });
   });
 
-  test('class <-> object methods', () {
+  testRunner('class <-> object methods', () {
     using((arena) {
       final systemOut = Jni.retrieveStaticField<JObjectPtr>(
           "java/lang/System", "out", "Ljava/io/PrintStream;");
