@@ -47,7 +47,7 @@ abstract class JObjType<T extends JObject> extends JType<T> {
   /// Creates an object from this type using the reference.
   T fromRef(Pointer<Void> ref);
 
-  JniClass getClass() {
+  JClass getClass() {
     if (signature.startsWith('L') && signature.endsWith(';')) {
       return Jni.findJClass(signature.substring(1, signature.length - 1));
     }

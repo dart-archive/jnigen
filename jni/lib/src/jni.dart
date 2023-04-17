@@ -205,9 +205,9 @@ abstract class Jni {
       });
 
   /// Returns class for [qualifiedName] found by platform-specific mechanism,
-  /// wrapped in a [JniClass].
-  static JniClass findJClass(String qualifiedName) =>
-      JniClass.fromRef(findClass(qualifiedName));
+  /// wrapped in a [JClass].
+  static JClass findJClass(String qualifiedName) =>
+      JClass.fromRef(findClass(qualifiedName));
 
   /// Constructs an instance of class with given arguments.
   ///

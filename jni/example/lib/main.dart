@@ -15,7 +15,7 @@ import 'package:jni/jni.dart';
 // GlobalJniEnv is a thin abstraction over JNIEnv in JNI C API.
 //
 // For a more ergonomic API for common use cases of calling methods and
-// accessing fields, see next examples using JObject and JniClass.
+// accessing fields, see next examples using JObject and JClass.
 String toJavaStringUsingEnv(int n) => using((arena) {
       final env = Jni.env;
       final cls = env.FindClass("java/lang/String".toNativeChars(arena));

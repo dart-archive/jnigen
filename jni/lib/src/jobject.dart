@@ -157,30 +157,30 @@ class JObject extends JReference {
   /// Construct a new [JObject] with [reference] as its underlying reference.
   JObject.fromRef(JObjectPtr reference) : super.fromRef(reference);
 
-  JniClass? _jniClass;
+  JClass? _jClass;
 
-  JniClass get _class {
-    return _jniClass ??= getClass();
+  JClass get _class {
+    return _jClass ??= getClass();
   }
 
   /// Deletes the JNI reference and marks this object as deleted. Any further
   /// uses will throw [UseAfterFreeException].
   @override
   void delete() {
-    _jniClass?.delete();
+    _jClass?.delete();
     super.delete();
   }
 
-  /// Returns [JniClass] corresponding to concrete class of this object.
+  /// Returns [JClass] corresponding to concrete class of this object.
   ///
   /// This may be a subclass of compile-time class.
-  JniClass getClass() {
+  JClass getClass() {
     _ensureNotDeleted();
     final classRef = _env.GetObjectClass(reference);
     if (classRef == nullptr) {
       _accessors.throwException(_env.ExceptionOccurred());
     }
-    return JniClass.fromRef(classRef);
+    return JClass.fromRef(classRef);
   }
 
   /// Get [JFieldIDPtr] of instance field identified by [fieldName] & [signature].
@@ -299,7 +299,7 @@ class JObject extends JReference {
   /// Casts this object to another type.
   T castTo<T extends JObject>(JObjType<T> type, {bool deleteOriginal = false}) {
     if (deleteOriginal) {
-      _jniClass?.delete();
+      _jClass?.delete();
       _setAsDeleted();
       return type.fromRef(reference);
     }
@@ -309,9 +309,9 @@ class JObject extends JReference {
 }
 
 /// A high level wrapper over a JNI class reference.
-class JniClass extends JReference {
-  /// Construct a new [JniClass] with [reference] as its underlying reference.
-  JniClass.fromRef(JObjectPtr reference) : super.fromRef(reference);
+class JClass extends JReference {
+  /// Construct a new [JClass] with [reference] as its underlying reference.
+  JClass.fromRef(JObjectPtr reference) : super.fromRef(reference);
 
   /// Get [JFieldIDPtr] of static field [fieldName] with [signature].
   JFieldIDPtr getStaticFieldID(String fieldName, String signature) {

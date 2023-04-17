@@ -29,7 +29,7 @@ void main() {
   // However, if binding generation using jnigen is possible, that should be
   // the first choice.
   test("Long.intValue() using JObject", () {
-    // JniClass wraps a local class reference, and
+    // JClass wraps a local class reference, and
     // provides convenience functions.
     final longClass = Jni.findJClass("java/lang/Long");
 
@@ -46,14 +46,14 @@ void main() {
     final intValue = long.callMethodByName<int>("intValue", "()I", []);
     expect(intValue, equals(176));
 
-    // delete any JObject and JniClass instances using .delete() after use.
+    // delete any JObject and JClass instances using .delete() after use.
     // Deletion is not strictly required since JNI objects / classes have
     // a NativeFinalizer. But deleting them after use is a good practice.
     long.delete();
     longClass.delete();
   });
 
-  test("call a static method using JniClass APIs", () {
+  test("call a static method using JClass APIs", () {
     final integerClass = Jni.findJClass("java/lang/Integer");
     final result = integerClass.callStaticMethodByName<JString>(
         "toHexString", "(I)Ljava/lang/String;", [JValueInt(31)]);
@@ -93,7 +93,7 @@ void main() {
     // It finds the class, gets constructor ID and constructs an instance.
     final random = Jni.newInstance("java/util/Random", "()V", []);
 
-    // You don't need a JniClass reference to get instance method IDs
+    // You don't need a JClass reference to get instance method IDs
     final nextIntMethod = random.getMethodID("nextInt", "(I)I");
 
     for (int i = 0; i < 100; i++) {
@@ -139,7 +139,7 @@ void main() {
     longClass.delete();
   });
 
-  // In JObject, JniClass, and retrieve_/invoke_ methods
+  // In JObject, JClass, and retrieve_/invoke_ methods
   // you can also pass Dart strings, apart from range of types
   // allowed by Jni.jvalues
   // They will be converted automatically.
@@ -170,7 +170,7 @@ void main() {
     expect(randomInt, lessThan(15));
   });
 
-  // The JObject and JniClass have NativeFinalizer. However, it's possible to
+  // The JObject and JClass have NativeFinalizer. However, it's possible to
   // explicitly use `Arena`.
   test('Using arena', () {
     final objects = <JObject>[];
