@@ -246,9 +246,11 @@ static inline void load_class_platform(jclass* cls, const char* name) {
 }
 
 static inline void load_class_local_ref(jclass* cls, const char* name) {
-  if (cls == NULL) {
+  if (*cls == NULL) {
     acquire_lock(&jni->locks.classLoadingLock);
-    load_class_platform(cls, name);
+    if (*cls == NULL) {
+      load_class_platform(cls, name);
+    }
     release_lock(&jni->locks.classLoadingLock);
   }
 }
@@ -257,9 +259,11 @@ static inline void load_class_global_ref(jclass* cls, const char* name) {
   if (*cls == NULL) {
     jclass tmp = NULL;
     acquire_lock(&jni->locks.classLoadingLock);
-    load_class_platform(&tmp, name);
-    *cls = (*jniEnv)->NewGlobalRef(jniEnv, tmp);
-    (*jniEnv)->DeleteLocalRef(jniEnv, tmp);
+    if (*cls == NULL) {
+      load_class_platform(&tmp, name);
+      *cls = (*jniEnv)->NewGlobalRef(jniEnv, tmp);
+      (*jniEnv)->DeleteLocalRef(jniEnv, tmp);
+    }
     release_lock(&jni->locks.classLoadingLock);
   }
 }
@@ -270,7 +274,9 @@ static inline void load_method(jclass cls,
                                const char* sig) {
   if (*res == NULL) {
     acquire_lock(&jni->locks.methodLoadingLock);
-    *res = (*jniEnv)->GetMethodID(jniEnv, cls, name, sig);
+    if (*res == NULL) {
+      *res = (*jniEnv)->GetMethodID(jniEnv, cls, name, sig);
+    }
     release_lock(&jni->locks.methodLoadingLock);
   }
 }
@@ -281,7 +287,9 @@ static inline void load_static_method(jclass cls,
                                       const char* sig) {
   if (*res == NULL) {
     acquire_lock(&jni->locks.methodLoadingLock);
-    *res = (*jniEnv)->GetStaticMethodID(jniEnv, cls, name, sig);
+    if (*res == NULL) {
+      *res = (*jniEnv)->GetStaticMethodID(jniEnv, cls, name, sig);
+    }
     release_lock(&jni->locks.methodLoadingLock);
   }
 }
@@ -292,7 +300,9 @@ static inline void load_field(jclass cls,
                               const char* sig) {
   if (*res == NULL) {
     acquire_lock(&jni->locks.fieldLoadingLock);
-    *res = (*jniEnv)->GetFieldID(jniEnv, cls, name, sig);
+    if (*res == NULL) {
+      *res = (*jniEnv)->GetFieldID(jniEnv, cls, name, sig);
+    }
     release_lock(&jni->locks.fieldLoadingLock);
   }
 }
@@ -303,7 +313,9 @@ static inline void load_static_field(jclass cls,
                                      const char* sig) {
   if (*res == NULL) {
     acquire_lock(&jni->locks.fieldLoadingLock);
-    *res = (*jniEnv)->GetStaticFieldID(jniEnv, cls, name, sig);
+    if (*res == NULL) {
+      *res = (*jniEnv)->GetStaticFieldID(jniEnv, cls, name, sig);
+    }
     release_lock(&jni->locks.fieldLoadingLock);
   }
 }
