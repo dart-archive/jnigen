@@ -261,8 +261,8 @@ void writeGlobalJniEnvWrapper(Library library) {
   final fieldDecls = jniEnvType.members.map(getFunctionFieldDecl).join('\n');
   final structDecl =
       'typedef struct $wrapperName {\n$fieldDecls\n} $wrapperName;\n';
-  File.fromUri(Paths.globalJniEnvH)
-      .writeAsStringSync('$wrapperDeclIncludes$structDecl$wrapperGetterDecl');
+  File.fromUri(Paths.globalJniEnvH).writeAsStringSync(
+      '$preamble$wrapperDeclIncludes$structDecl$wrapperGetterDecl');
 
   final functionWrappers = StringBuffer();
   final structInst = StringBuffer('$wrapperName globalJniEnv = {\n');
@@ -277,7 +277,7 @@ void writeGlobalJniEnvWrapper(Library library) {
   }
   structInst.write('};');
   File.fromUri(Paths.globalJniEnvC).writeAsStringSync(
-      '$wrapperIncludes$functionWrappers$structInst$wrapperGetter');
+      '$preamble$wrapperIncludes$functionWrappers$structInst$wrapperGetter');
 }
 
 void executeClangFormat(List<Uri> files) {

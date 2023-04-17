@@ -106,7 +106,6 @@ String? getGlobalEnvExtensionFunction(Member field, Type? checkedReturnType) {
 
 void writeDartExtensions(Library library) {
   const header = '''
-// Auto generated file. Do not edit.
 // ignore_for_file: non_constant_identifier_names
 
 import "dart:ffi" as ffi;\n
@@ -133,10 +132,13 @@ import "../accessors.dart";
     indirect: true,
     implicitThis: true,
   );
-  File.fromUri(Paths.globalEnvExts).writeAsStringSync(
-      header + importAccessors + globalEnvExtension + accessorExtension);
+  File.fromUri(Paths.globalEnvExts).writeAsStringSync(preamble +
+      header +
+      importAccessors +
+      globalEnvExtension +
+      accessorExtension);
   File.fromUri(Paths.localEnvExts)
-      .writeAsStringSync(header + envExtension + jvmExtension);
+      .writeAsStringSync(preamble + header + envExtension + jvmExtension);
 }
 
 String getGlobalEnvExtension(
