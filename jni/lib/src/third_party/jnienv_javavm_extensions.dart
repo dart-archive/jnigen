@@ -27,6 +27,7 @@
  */
 
 // ignore_for_file: non_constant_identifier_names
+// coverage:ignore-file
 
 import "dart:ffi" as ffi;
 

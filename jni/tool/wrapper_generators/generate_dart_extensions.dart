@@ -107,6 +107,7 @@ String? getGlobalEnvExtensionFunction(Member field, Type? checkedReturnType) {
 void writeDartExtensions(Library library) {
   const header = '''
 // ignore_for_file: non_constant_identifier_names
+// coverage:ignore-file
 
 import "dart:ffi" as ffi;\n
 import "jni_bindings_generated.dart";
