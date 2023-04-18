@@ -9,9 +9,11 @@ import 'dart:isolate';
 import 'package:ffi/ffi.dart';
 import 'package:path/path.dart';
 
+import 'jexceptions.dart';
+import 'jobject.dart';
+import 'jreference.dart';
 import 'third_party/generated_bindings.dart';
 import 'jvalues.dart';
-import 'types.dart';
 import 'accessors.dart';
 
 String _getLibraryFileName(String base) {

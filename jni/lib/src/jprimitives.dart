@@ -6,7 +6,8 @@
 // lowercase.
 // ignore_for_file: camel_case_types
 
-part of 'types.dart';
+import 'third_party/generated_bindings.dart';
+import 'types.dart';
 
 abstract class JPrimitive {}
 
@@ -18,7 +19,7 @@ class jbyteType extends JType<jbyte> {
   const jbyteType();
 
   @override
-  int get _type => JniCallType.byteType;
+  int get callType => JniCallType.byteType;
 
   @override
   String get signature => "B";
@@ -32,7 +33,7 @@ class jbooleanType extends JType<jboolean> {
   const jbooleanType();
 
   @override
-  int get _type => JniCallType.booleanType;
+  int get callType => JniCallType.booleanType;
 
   @override
   String get signature => "Z";
@@ -46,7 +47,7 @@ class jcharType extends JType<jchar> {
   const jcharType();
 
   @override
-  int get _type => JniCallType.charType;
+  int get callType => JniCallType.charType;
 
   @override
   String get signature => "C";
@@ -60,7 +61,7 @@ class jshortType extends JType<jshort> {
   const jshortType();
 
   @override
-  int get _type => JniCallType.shortType;
+  int get callType => JniCallType.shortType;
 
   @override
   String get signature => "S";
@@ -74,7 +75,7 @@ class jintType extends JType<jint> {
   const jintType();
 
   @override
-  int get _type => JniCallType.intType;
+  int get callType => JniCallType.intType;
 
   @override
   String get signature => "I";
@@ -88,7 +89,7 @@ class jlongType extends JType<jlong> {
   const jlongType();
 
   @override
-  int get _type => JniCallType.longType;
+  int get callType => JniCallType.longType;
 
   @override
   String get signature => "J";
@@ -102,7 +103,7 @@ class jfloatType extends JType<jfloat> {
   const jfloatType();
 
   @override
-  int get _type => JniCallType.floatType;
+  int get callType => JniCallType.floatType;
 
   @override
   String get signature => "F";
@@ -116,7 +117,7 @@ class jdoubleType extends JType<jdouble> {
   const jdoubleType();
 
   @override
-  int get _type => JniCallType.doubleType;
+  int get callType => JniCallType.doubleType;
 
   @override
   String get signature => "D";

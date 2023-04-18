@@ -2,7 +2,16 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-part of 'types.dart';
+import 'dart:ffi';
+
+import 'package:ffi/ffi.dart';
+
+import 'jexceptions.dart';
+import 'jni.dart';
+import 'jobject.dart';
+import 'jreference.dart';
+import 'third_party/generated_bindings.dart';
+import 'types.dart';
 
 class JStringType extends JObjType<JString> {
   const JStringType();
@@ -30,7 +39,7 @@ class JStringType extends JObjType<JString> {
 
 class JString extends JObject {
   @override
-  JObjType<JObject> get $type => _$type ??= type;
+  late final JObjType<JObject> $type = type;
 
   /// The type which includes information such as the signature of this class.
   static const JObjType<JString> type = JStringType();
@@ -58,7 +67,7 @@ class JString extends JObject {
   /// If [deleteOriginal] is true, the underlying reference is deleted
   /// after conversion and this object will be marked as deleted.
   String toDartString({bool deleteOriginal = false}) {
-    _ensureNotDeleted();
+    ensureNotDeleted();
     if (reference == nullptr) {
       throw NullJStringException();
     }

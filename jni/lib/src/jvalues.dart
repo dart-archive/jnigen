@@ -5,9 +5,9 @@
 import 'dart:ffi';
 import 'package:ffi/ffi.dart';
 
+import 'jobject.dart';
 import 'third_party/generated_bindings.dart';
 import 'jni.dart';
-import 'types.dart';
 
 void _fillJValue(Pointer<JValue> pos, dynamic arg) {
   if (arg is JObject) {

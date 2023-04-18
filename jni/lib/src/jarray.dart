@@ -4,7 +4,17 @@
 
 // ignore_for_file: unnecessary_cast
 
-part of 'types.dart';
+import 'dart:ffi';
+
+import 'package:collection/collection.dart';
+import 'package:ffi/ffi.dart';
+import 'package:jni/src/accessors.dart';
+import 'package:jni/src/third_party/generated_bindings.dart';
+
+import 'jni.dart';
+import 'jobject.dart';
+import 'jprimitives.dart';
+import 'types.dart';
 
 class JArrayType<T> extends JObjType<JArray<T>> {
   final JType<T> elementType;
@@ -38,7 +48,7 @@ class JArray<E> extends JObject {
   final JType<E> elementType;
 
   @override
-  JArrayType<E> get $type => (_$type ??= type(elementType)) as JArrayType<E>;
+  late final JArrayType<E> $type = type(elementType) as JArrayType<E>;
 
   /// The type which includes information such as the signature of this class.
   static JObjType<JArray<T>> type<T>(JType<T> innerType) =>
@@ -52,7 +62,7 @@ class JArray<E> extends JObject {
   ///
   /// The [length] must be a non-negative integer.
   factory JArray(JType<E> type, int length) {
-    if (type._type == JniCallType.objectType && type is JObjType) {
+    if (type.callType == JniCallType.objectType && type is JObjType) {
       final clazz = (type as JObjType).getClass();
       final array = JArray<E>.fromRef(
         type,
@@ -63,7 +73,7 @@ class JArray<E> extends JObject {
     }
     return JArray.fromRef(
       type,
-      Jni.accessors.newPrimitiveArray(length, type._type).object,
+      Jni.accessors.newPrimitiveArray(length, type.callType).object,
     );
   }
 
