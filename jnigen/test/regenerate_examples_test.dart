@@ -45,6 +45,8 @@ void testExample(String exampleName, String dartOutput, String? cOutput) {
 }
 
 void main() {
+  setUpAll(failIfSummarizerNotBuilt);
+
   testExample(
     'in_app_java',
     join('lib', 'android_utils.dart'),

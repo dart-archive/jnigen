@@ -10,6 +10,8 @@ import 'generate.dart';
 import '../test_util/test_util.dart';
 
 void main() async {
+  setUpAll(failIfSummarizerNotBuilt);
+
   test(
     "Generate and compare bindings for kotlin_test",
     () async {
