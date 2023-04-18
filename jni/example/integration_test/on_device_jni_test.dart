@@ -2,9 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// Tests are copy-pasted from package:jni tests, because it's only
-// possible to run on-device tests using integration test mechanism.
-
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../test/global_env_test.dart' as global_env_test;
