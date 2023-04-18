@@ -53,12 +53,10 @@ Future<List<String>> getJarPaths(String testRoot) async {
 String readFile(File file) => file.readAsStringSync().replaceAll('\r\n', '\n');
 
 /// Compares 2 hierarchies using `git diff --no-index`.
-void comparePaths(String path1, String path2,
-    {bool ignoreSpaceChange = false}) {
+void comparePaths(String path1, String path2) {
   final proc = Process.runSync("git", [
     "diff",
     "--no-index",
-    if (ignoreSpaceChange) "--ignore-space-change",
     if (stderr.supportsAnsiEscapes) "--color=always",
     path1,
     path2,
@@ -91,9 +89,8 @@ Future<void> _generateTempBindings(Config config, Directory tempDir) async {
 ///
 /// If the config generates C code, [cReferenceBindings] must be a non-null
 /// directory path.
-Future<void> generateAndCompareBindings(
-    Config config, String dartReferenceBindings, String? cReferenceBindings,
-    {bool ignoreSpaceChange = false}) async {
+Future<void> generateAndCompareBindings(Config config,
+    String dartReferenceBindings, String? cReferenceBindings) async {
   final currentDir = Directory.current;
   final tempDir = currentDir.createTempSync("jnigen_test_temp");
   final tempSrc = tempDir.uri.resolve("src/");
@@ -104,11 +101,9 @@ Future<void> generateAndCompareBindings(
       : tempDir.uri.resolve("lib/");
   try {
     await _generateTempBindings(config, tempDir);
-    comparePaths(dartReferenceBindings, tempLib.toFilePath(),
-        ignoreSpaceChange: ignoreSpaceChange);
+    comparePaths(dartReferenceBindings, tempLib.toFilePath());
     if (config.outputConfig.bindingsType == BindingsType.cBased) {
-      comparePaths(cReferenceBindings!, tempSrc.toFilePath(),
-          ignoreSpaceChange: ignoreSpaceChange);
+      comparePaths(cReferenceBindings!, tempSrc.toFilePath());
     }
   } finally {
     tempDir.deleteSync(recursive: true);
