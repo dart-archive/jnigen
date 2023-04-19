@@ -530,7 +530,7 @@ JniExceptionDetails getExceptionDetails(jthrowable exception) {
   return details;
 }
 
-JniAccessors accessors = {
+JniAccessorsStruct accessors = {
     .getClass = getClass,
     .getFieldID = getFieldID,
     .getStaticFieldID = getStaticFieldID,
@@ -547,7 +547,7 @@ JniAccessors accessors = {
     .getExceptionDetails = getExceptionDetails,
 };
 
-FFI_PLUGIN_EXPORT JniAccessors* GetAccessors() {
+FFI_PLUGIN_EXPORT JniAccessorsStruct* GetAccessors() {
   return &accessors;
 }
 
