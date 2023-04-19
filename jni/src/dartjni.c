@@ -163,6 +163,7 @@ int SpawnJvm(JavaVMInitArgs* initArgs) {
   acquire_lock(&spawnLock);
   // Init may have happened in the meanwhile.
   if (jni_context.jvm != NULL) {
+    release_lock(&spawnLock);
     return DART_JNI_SINGLETON_EXISTS;
   }
   JavaVMOption jvmopt[1];
