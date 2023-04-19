@@ -21,6 +21,8 @@ class Paths {
       bindingsDir.resolve("jnienv_javavm_extensions.dart");
 }
 
+const writeLocalEnvExtensions = false;
+
 void executeDartFormat(List<Uri> files) {
   final paths = files.map((u) => u.toFilePath()).toList();
   logger.info('execute dart format ${paths.join(" ")}');
@@ -128,6 +130,18 @@ import "../accessors.dart";
     'JniAccessorsStruct',
     'JniAccessors',
   );
+  File.fromUri(Paths.globalEnvExts).writeAsStringSync(preamble +
+      header +
+      importAccessors +
+      globalEnvExtension +
+      accessorExtension);
+  final localEnvExtsFile = File.fromUri(Paths.localEnvExts);
+  if (localEnvExtsFile.existsSync()) {
+    localEnvExtsFile.deleteSync();
+  }
+  if (!writeLocalEnvExtensions) {
+    return;
+  }
   final envExtension = getFunctionPointerExtension(
     library,
     'JniEnv',
@@ -142,12 +156,7 @@ import "../accessors.dart";
     indirect: true,
     implicitThis: true,
   );
-  File.fromUri(Paths.globalEnvExts).writeAsStringSync(preamble +
-      header +
-      importAccessors +
-      globalEnvExtension +
-      accessorExtension);
-  File.fromUri(Paths.localEnvExts)
+  localEnvExtsFile
       .writeAsStringSync(preamble + header + envExtension + jvmExtension);
 }
 
