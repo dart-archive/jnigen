@@ -44,9 +44,8 @@ void testExample(String exampleName, String dartOutput, String? cOutput) {
   });
 }
 
-void main() {
-  setUpAll(failIfSummarizerNotBuilt);
-
+void main() async {
+  await checkLocallyBuiltDependencies();
   testExample(
     'in_app_java',
     join('lib', 'android_utils.dart'),

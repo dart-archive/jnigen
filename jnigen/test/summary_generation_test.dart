@@ -108,9 +108,7 @@ Config getConfig({List<String>? sourcePath, List<String>? classPath}) {
 }
 
 void main() async {
-  // Running this before setupAll, because we want to avoid teardownAll too
-  // if this fails.
-  await failIfSummarizerNotBuilt();
+  await checkLocallyBuiltDependencies();
   late Directory tempDir;
   setUpAll(() async {
     tempDir = getTempDir("jnigen_summary_tests_");

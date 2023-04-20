@@ -11,7 +11,8 @@ import '../test_util/test_util.dart';
 import 'generate.dart';
 
 void main() async {
-  setUpAll(failIfSummarizerNotBuilt);
+  await checkLocallyBuiltDependencies();
+
   test("compare generated bindings for jackson_core", () async {
     final lib = join(thirdPartyDir, 'lib');
     final src = join(thirdPartyDir, 'src');
