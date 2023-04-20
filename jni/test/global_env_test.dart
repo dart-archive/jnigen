@@ -26,11 +26,7 @@ void main() {
 
   if (!Platform.isAndroid) {
     checkDylibIsUpToDate();
-    try {
-      Jni.spawn(dylibDir: "build/jni_libs", jvmOptions: ["-Xmx128m"]);
-    } on JvmExistsException catch (_) {
-      // TODO(#51): Support destroying and reinstantiating JVM.
-    }
+    Jni.spawnIfNotExists(dylibDir: "build/jni_libs", jvmOptions: ["-Xmx128m"]);
   }
   run(testRunner: test);
 }
