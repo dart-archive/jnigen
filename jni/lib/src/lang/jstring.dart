@@ -6,12 +6,12 @@ import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
 
-import 'jexceptions.dart';
-import 'jni.dart';
-import 'jobject.dart';
-import 'jreference.dart';
-import 'third_party/generated_bindings.dart';
-import 'types.dart';
+import '../jexceptions.dart';
+import '../jni.dart';
+import '../jobject.dart';
+import '../jreference.dart';
+import '../third_party/generated_bindings.dart';
+import '../types.dart';
 
 class JStringType extends JObjType<JString> {
   const JStringType();

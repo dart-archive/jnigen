@@ -12,7 +12,7 @@ import 'package:jni/src/accessors.dart';
 import 'jexceptions.dart';
 import 'jni.dart';
 import 'jreference.dart';
-import 'jstring.dart';
+import 'lang/jstring.dart';
 import 'jvalues.dart';
 import 'third_party/generated_bindings.dart';
 import 'types.dart';
