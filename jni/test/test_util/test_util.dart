@@ -15,7 +15,9 @@ typedef TestRunnerCallback = void Function(
 final currentDir = Directory.current.uri;
 final dllSuffix =
     Platform.isWindows ? "dll" : (Platform.isMacOS ? "dylib" : "so");
-final dllPath = currentDir.resolve("build/jni_libs/dartjni.$dllSuffix");
+final dllPrefix = Platform.isWindows ? '' : 'lib';
+final dllPath =
+    currentDir.resolve("build/jni_libs/${dllPrefix}dartjni.$dllSuffix");
 final srcPath = currentDir.resolve("src/");
 
 /// Fail if dartjni dll is stale.
