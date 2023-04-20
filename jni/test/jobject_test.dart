@@ -17,6 +17,7 @@ const maxLongInJava = 9223372036854775807;
 void main() {
   // Don't forget to initialize JNI.
   if (!Platform.isAndroid) {
+    checkDylibIsUpToDate();
     try {
       Jni.spawn(dylibDir: "build/jni_libs", jvmOptions: ["-Xmx128m"]);
     } on JvmExistsException catch (_) {
