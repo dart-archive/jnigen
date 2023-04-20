@@ -144,7 +144,7 @@ Future<void> failIfSummarizerNotBuilt() async {
   if (isJarStale) {
     stderr.writeln();
     log.fatal('Summarizer is not rebuilt after recent changes. '
-        'Please run `dart run jnigen:setup and try again');
+        'Please run `dart run jnigen:setup` and try again.');
   }
 }
 
