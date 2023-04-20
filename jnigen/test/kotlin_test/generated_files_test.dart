@@ -32,5 +32,6 @@ void main() async {
       );
     },
     timeout: const Timeout.factor(1.5),
-  ); // test if generated file == expected file
+    tags: largeTestTag,
+  );
 }

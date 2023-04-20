@@ -5,6 +5,8 @@
 // These tests validate summary generation in various scenarios.
 // Currently, no validation of the summary content itself is done.
 
+@Tags(['summarizer_test'])
+
 import 'dart:io';
 
 import 'package:jnigen/src/config/config.dart';

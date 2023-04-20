@@ -14,6 +14,11 @@ import 'package:jnigen/src/logging/logging.dart';
 
 final _currentDirectory = Directory(".");
 
+// If changing these constants, grep for these values. In some places, test
+// package expects string literals.
+const largeTestTag = 'large_test';
+const summarizerTestTag = 'summarizer_test';
+
 Directory getTempDir(String prefix) {
   return _currentDirectory.createTempSync(prefix);
 }
