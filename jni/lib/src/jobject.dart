@@ -324,6 +324,25 @@ class JObject extends JReference {
     final newRef = Jni.env.NewGlobalRef(reference);
     return type.fromRef(newRef);
   }
+
+  static final _classRef = Jni.findJClass('java/lang/Object');
+
+  static final _hashCodeId =
+      Jni.accessors.getMethodIDOf(_classRef.reference, r"hashCode", r"()I");
+  @override
+  int get hashCode => Jni.accessors.callMethodWithArgs(
+      reference, _hashCodeId, JniCallType.intType, []).integer;
+
+  static final _equalsId = Jni.accessors
+      .getMethodIDOf(_classRef.reference, r"equals", r"(Ljava/lang/Object;)Z");
+  @override
+  bool operator ==(Object other) {
+    if (other is! JObject) {
+      return false;
+    }
+    return Jni.accessors.callMethodWithArgs(reference, _equalsId,
+        JniCallType.booleanType, [other.reference]).boolean;
+  }
 }
 
 /// A high level wrapper over a JNI class reference.

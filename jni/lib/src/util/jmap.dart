@@ -155,7 +155,7 @@ class JMap<$K extends JObject, $V extends JObject> extends JObject
   static final _keySetId = Jni.accessors
       .getMethodIDOf(_classRef.reference, r"keySet", r"()Ljava/util/Set;");
   @override
-  Iterable<$K> get keys => JSetType(K).fromRef(Jni.accessors.callMethodWithArgs(
+  JSet<$K> get keys => JSetType(K).fromRef(Jni.accessors.callMethodWithArgs(
       reference, _keySetId, JniCallType.objectType, []).object);
 
   static final _sizeId =

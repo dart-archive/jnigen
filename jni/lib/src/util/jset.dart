@@ -71,7 +71,6 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
 
   static final _addId = Jni.accessors
       .getMethodIDOf(_classRef.reference, r"add", r"(Ljava/lang/Object;)Z");
-
   @override
   bool add($E value) {
     return Jni.accessors.callMethodWithArgs(
@@ -131,7 +130,6 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
 
   static final _isEmptyId =
       Jni.accessors.getMethodIDOf(_classRef.reference, r"isEmpty", r"()Z");
-
   @override
   bool get isEmpty => Jni.accessors.callMethodWithArgs(
       reference, _isEmptyId, JniCallType.booleanType, []).boolean;
@@ -142,20 +140,18 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
   static final _iteratorId = Jni.accessors.getMethodIDOf(
       _classRef.reference, r"iterator", r"()Ljava/util/Iterator;");
   @override
-  Iterator<$E> get iterator =>
+  JIterator<$E> get iterator =>
       JIteratorType(E).fromRef(Jni.accessors.callMethodWithArgs(
           reference, _iteratorId, JniCallType.objectType, []).object);
 
   static final _sizeId =
       Jni.accessors.getMethodIDOf(_classRef.reference, r"size", r"()I");
-
   @override
   int get length => Jni.accessors
       .callMethodWithArgs(reference, _sizeId, JniCallType.intType, []).integer;
 
   static final _removeId = Jni.accessors
       .getMethodIDOf(_classRef.reference, r"remove", r"(Ljava/lang/Object;)Z");
-
   @override
   bool remove(Object? value) {
     if (value is! $E) {
@@ -167,7 +163,6 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
 
   static final _removeAllId = Jni.accessors.getMethodIDOf(
       _classRef.reference, r"removeAll", r"(Ljava/util/Collection;)Z");
-
   @override
   void removeAll(Iterable<Object?> elements) {
     if (elements is JObject &&
@@ -220,7 +215,7 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
       r"copyOf",
       r"(Ljava/util/Collection;)Ljava/util/Set;");
   @override
-  Set<$E> toSet() {
+  JSet<$E> toSet() {
     return JSetType(E).fromRef(Jni.accessors.callStaticMethodWithArgs(
       _classRef.reference,
       _copyOfId,
