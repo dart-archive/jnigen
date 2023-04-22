@@ -72,7 +72,7 @@ void run({required TestRunnerCallback testRunner}) {
     }
   });
 
-  testRunner('Create and delete 256K references in a loop', () {
+  testRunner('Create and delete 256K references in a loop using arena', () {
     for (int i = 0; i < k256; i++) {
       using((arena) {
         final random = newRandom()..deletedIn(arena);
@@ -84,11 +84,20 @@ void run({required TestRunnerCallback testRunner}) {
     }
   });
 
+  testRunner('Create & delete 256K references in a loop (explicit delete)', () {
+    for (int i = 0; i < k256; i++) {
+      final random = newRandom();
+      expect(random.reference, isNot(nullptr));
+      random.delete();
+    }
+  });
+
   testRunner('Create and delete 64K references, in batches of 256', () {
     for (int i = 0; i < 64 * 4; i++) {
       using((arena) {
         for (int i = 0; i < 256; i++) {
-          final _ = newRandom()..deletedIn(arena);
+          final r = newRandom()..deletedIn(arena);
+          expect(r.reference, isNot(nullptr));
         }
       });
     }
@@ -99,8 +108,9 @@ void run({required TestRunnerCallback testRunner}) {
   testRunner('Verify a call returning primitive can be run any times', () {
     final random = newRandom();
     final nextInt = random.getMethodID("nextInt", "()I");
-    for (int i = 0; i < k64 * 2; i++) {
-      final _ = random.callMethod<int>(nextInt, []);
+    for (int i = 0; i < k256; i++) {
+      final rInt = random.callMethod<int>(nextInt, []);
+      expect(rInt, isA<int>());
     }
   });
 
