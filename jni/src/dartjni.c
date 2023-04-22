@@ -200,10 +200,7 @@ JniClassLookupResult getClass(char* internalName) {
   return result;
 }
 
-typedef void* (*MemberGetter)(JNIEnv* env,
-                              jclass* clazz,
-                              char* name,
-                              char* sig);
+typedef void* (*MemberGetter)(JNIEnv* env, jclass clazz, char* name, char* sig);
 
 static inline JniPointerResult _getId(MemberGetter getter,
                                       jclass cls,
