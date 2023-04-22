@@ -46,6 +46,82 @@ class Example extends jni.JObject {
   /// from: static public final int OFF
   static const OFF = 0;
 
+  /// from: static public final double PI
+  static const PI = 3.14159;
+
+  /// from: static public final char SEMICOLON
+  static const SEMICOLON = r""";""";
+
+  /// from: static public final java.lang.String SEMICOLON_STRING
+  static const SEMICOLON_STRING = r""";""";
+
+  static final _get_amount =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "get_Example__amount")
+          .asFunction<jni.JniResult Function()>();
+
+  static final _set_amount =
+      jniLookup<ffi.NativeFunction<jni.JThrowablePtr Function(ffi.Int32)>>(
+              "set_Example__amount")
+          .asFunction<jni.JThrowablePtr Function(int)>();
+
+  /// from: static public int amount
+  static int get amount => _get_amount().integer;
+
+  /// from: static public int amount
+  static set amount(int value) => _set_amount(value);
+
+  static final _get_pi =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("get_Example__pi")
+          .asFunction<jni.JniResult Function()>();
+
+  static final _set_pi =
+      jniLookup<ffi.NativeFunction<jni.JThrowablePtr Function(ffi.Double)>>(
+              "set_Example__pi")
+          .asFunction<jni.JThrowablePtr Function(double)>();
+
+  /// from: static public double pi
+  static double get pi => _get_pi().doubleFloat;
+
+  /// from: static public double pi
+  static set pi(double value) => _set_pi(value);
+
+  static final _get_asterisk =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "get_Example__asterisk")
+          .asFunction<jni.JniResult Function()>();
+
+  static final _set_asterisk =
+      jniLookup<ffi.NativeFunction<jni.JThrowablePtr Function(ffi.Uint16)>>(
+              "set_Example__asterisk")
+          .asFunction<jni.JThrowablePtr Function(int)>();
+
+  /// from: static public char asterisk
+  static int get asterisk => _get_asterisk().char;
+
+  /// from: static public char asterisk
+  static set asterisk(int value) => _set_asterisk(value);
+
+  static final _get_name =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "get_Example__name")
+          .asFunction<jni.JniResult Function()>();
+
+  static final _set_name = jniLookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>)>>("set_Example__name")
+      .asFunction<jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public java.lang.String name
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JString get name =>
+      const jni.JStringType().fromRef(_get_name().object);
+
+  /// from: static public java.lang.String name
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static set name(jni.JString value) => _set_name(value.reference);
+
   static final _get_aux =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_Example__aux")
@@ -66,6 +142,104 @@ class Example extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static set aux(Example_Aux value) => _set_aux(value.reference);
 
+  static final _get_trillion = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+    jni.JObjectPtr,
+  )>>("get_Example__trillion")
+      .asFunction<
+          jni.JniResult Function(
+    jni.JObjectPtr,
+  )>();
+
+  static final _set_trillion = jniLookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  jni.JObjectPtr, ffi.Int64)>>("set_Example__trillion")
+      .asFunction<jni.JThrowablePtr Function(jni.JObjectPtr, int)>();
+
+  /// from: public long trillion
+  int get trillion => _get_trillion(reference).long;
+
+  /// from: public long trillion
+  set trillion(int value) => _set_trillion(reference, value);
+
+  static final _get_isAchillesDead = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+    jni.JObjectPtr,
+  )>>("get_Example__isAchillesDead")
+      .asFunction<
+          jni.JniResult Function(
+    jni.JObjectPtr,
+  )>();
+
+  static final _set_isAchillesDead = jniLookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  jni.JObjectPtr, ffi.Uint8)>>("set_Example__isAchillesDead")
+      .asFunction<jni.JThrowablePtr Function(jni.JObjectPtr, int)>();
+
+  /// from: public boolean isAchillesDead
+  bool get isAchillesDead => _get_isAchillesDead(reference).boolean;
+
+  /// from: public boolean isAchillesDead
+  set isAchillesDead(bool value) =>
+      _set_isAchillesDead(reference, value ? 1 : 0);
+
+  static final _get_bestFighterInGreece = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+    jni.JObjectPtr,
+  )>>("get_Example__bestFighterInGreece")
+      .asFunction<
+          jni.JniResult Function(
+    jni.JObjectPtr,
+  )>();
+
+  static final _set_bestFighterInGreece = jniLookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(jni.JObjectPtr,
+                  ffi.Pointer<ffi.Void>)>>("set_Example__bestFighterInGreece")
+      .asFunction<
+          jni.JThrowablePtr Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.String bestFighterInGreece
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JString get bestFighterInGreece => const jni.JStringType()
+      .fromRef(_get_bestFighterInGreece(reference).object);
+
+  /// from: public java.lang.String bestFighterInGreece
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set bestFighterInGreece(jni.JString value) =>
+      _set_bestFighterInGreece(reference, value.reference);
+
+  static final _get_random = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+    jni.JObjectPtr,
+  )>>("get_Example__random")
+      .asFunction<
+          jni.JniResult Function(
+    jni.JObjectPtr,
+  )>();
+
+  static final _set_random = jniLookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(jni.JObjectPtr,
+                  ffi.Pointer<ffi.Void>)>>("set_Example__random")
+      .asFunction<
+          jni.JThrowablePtr Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.util.Random random
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject get random =>
+      const jni.JObjectType().fromRef(_get_random(reference).object);
+
+  /// from: public java.util.Random random
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set random(jni.JObject value) => _set_random(reference, value.reference);
+
   static final _get_num =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_Example__num")
@@ -81,6 +255,230 @@ class Example extends jni.JObject {
 
   /// from: static public int num
   static set num(int value) => _set_num(value);
+
+  static final _getAmount =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "Example__getAmount")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: static public int getAmount()
+  static int getAmount() {
+    return _getAmount().integer;
+  }
+
+  static final _getPi =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("Example__getPi")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: static public double getPi()
+  static double getPi() {
+    return _getPi().doubleFloat;
+  }
+
+  static final _getAsterisk =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "Example__getAsterisk")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: static public char getAsterisk()
+  static int getAsterisk() {
+    return _getAsterisk().char;
+  }
+
+  static final _getName =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "Example__getName")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: static public java.lang.String getName()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JString getName() {
+    return const jni.JStringType().fromRef(_getName().object);
+  }
+
+  static final _setAmount =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "Example__setAmount")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public void setAmount(int newAmount)
+  static void setAmount(
+    int newAmount,
+  ) {
+    return _setAmount(newAmount).check();
+  }
+
+  static final _setName = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__setName")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public void setName(java.lang.String newName)
+  static void setName(
+    jni.JString newName,
+  ) {
+    return _setName(newName.reference).check();
+  }
+
+  static final _max4 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Int32, ffi.Int32, ffi.Int32, ffi.Int32)>>("Example__max4")
+      .asFunction<jni.JniResult Function(int, int, int, int)>();
+
+  /// from: static public int max4(int a, int b, int c, int d)
+  static int max4(
+    int a,
+    int b,
+    int c,
+    int d,
+  ) {
+    return _max4(a, b, c, d).integer;
+  }
+
+  static final _max8 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Int32, ffi.Int32, ffi.Int32, ffi.Int32,
+                  ffi.Int32, ffi.Int32, ffi.Int32, ffi.Int32)>>("Example__max8")
+      .asFunction<
+          jni.JniResult Function(int, int, int, int, int, int, int, int)>();
+
+  /// from: static public int max8(int a, int b, int c, int d, int e, int f, int g, int h)
+  static int max8(
+    int a,
+    int b,
+    int c,
+    int d,
+    int e,
+    int f,
+    int g,
+    int h,
+  ) {
+    return _max8(a, b, c, d, e, f, g, h).integer;
+  }
+
+  static final _getTrillion = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__getTrillion")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public long getTrillion()
+  int getTrillion() {
+    return _getTrillion(reference).long;
+  }
+
+  static final _isAchillesAlive = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__isAchillesAlive")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public boolean isAchillesAlive()
+  bool isAchillesAlive() {
+    return _isAchillesAlive(reference).boolean;
+  }
+
+  static final _whoIsBestFighterInGreece = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__whoIsBestFighterInGreece")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.String whoIsBestFighterInGreece()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JString whoIsBestFighterInGreece() {
+    return const jni.JStringType()
+        .fromRef(_whoIsBestFighterInGreece(reference).object);
+  }
+
+  static final _getRandom = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__getRandom")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.util.Random getRandom()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject getRandom() {
+    return const jni.JObjectType().fromRef(_getRandom(reference).object);
+  }
+
+  static final _getRandomLong = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__getRandomLong")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public long getRandomLong()
+  int getRandomLong() {
+    return _getRandomLong(reference).long;
+  }
+
+  static final _add4Longs = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Int64,
+                  ffi.Int64, ffi.Int64, ffi.Int64)>>("Example__add4Longs")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, int, int, int, int)>();
+
+  /// from: public long add4Longs(long a, long b, long c, long d)
+  int add4Longs(
+    int a,
+    int b,
+    int c,
+    int d,
+  ) {
+    return _add4Longs(reference, a, b, c, d).long;
+  }
+
+  static final _add8Longs = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Int64,
+                  ffi.Int64,
+                  ffi.Int64,
+                  ffi.Int64,
+                  ffi.Int64,
+                  ffi.Int64,
+                  ffi.Int64,
+                  ffi.Int64)>>("Example__add8Longs")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, int, int, int, int, int, int, int, int)>();
+
+  /// from: public long add8Longs(long a, long b, long c, long d, long e, long f, long g, long h)
+  int add8Longs(
+    int a,
+    int b,
+    int c,
+    int d,
+    int e,
+    int f,
+    int g,
+    int h,
+  ) {
+    return _add8Longs(reference, a, b, c, d, e, f, g, h).long;
+  }
+
+  static final _getRandomNumericString = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("Example__getRandomNumericString")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.String getRandomNumericString(java.util.Random random)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JString getRandomNumericString(
+    jni.JObject random,
+  ) {
+    return const jni.JStringType()
+        .fromRef(_getRandomNumericString(reference, random.reference).object);
+  }
 
   static final _ctor =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("Example__ctor")

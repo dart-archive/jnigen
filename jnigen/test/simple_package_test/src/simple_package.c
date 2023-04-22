@@ -22,6 +22,293 @@ void setJniGetters(JniContext* (*cg)(void), JNIEnv* (*eg)(void)) {
 // com.github.dart_lang.jnigen.simple_package.Example
 jclass _c_Example = NULL;
 
+jmethodID _m_Example__getAmount = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__getAmount() {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_Example, &_m_Example__getAmount, "getAmount", "()I");
+  if (_m_Example__getAmount == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result =
+      (*jniEnv)->CallStaticIntMethod(jniEnv, _c_Example, _m_Example__getAmount);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Example__getPi = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__getPi() {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_Example, &_m_Example__getPi, "getPi", "()D");
+  if (_m_Example__getPi == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  double _result =
+      (*jniEnv)->CallStaticDoubleMethod(jniEnv, _c_Example, _m_Example__getPi);
+  return (JniResult){.value = {.d = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Example__getAsterisk = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__getAsterisk() {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_Example, &_m_Example__getAsterisk, "getAsterisk",
+                     "()C");
+  if (_m_Example__getAsterisk == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  char _result = (*jniEnv)->CallStaticCharMethod(jniEnv, _c_Example,
+                                                 _m_Example__getAsterisk);
+  return (JniResult){.value = {.c = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Example__getName = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__getName() {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_Example, &_m_Example__getName, "getName",
+                     "()Ljava/lang/String;");
+  if (_m_Example__getName == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Example,
+                                                      _m_Example__getName);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Example__setAmount = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__setAmount(int32_t newAmount) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_Example, &_m_Example__setAmount, "setAmount", "(I)V");
+  if (_m_Example__setAmount == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  (*jniEnv)->CallStaticVoidMethod(jniEnv, _c_Example, _m_Example__setAmount,
+                                  newAmount);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
+jmethodID _m_Example__setName = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__setName(jobject newName) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_Example, &_m_Example__setName, "setName",
+                     "(Ljava/lang/String;)V");
+  if (_m_Example__setName == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  (*jniEnv)->CallStaticVoidMethod(jniEnv, _c_Example, _m_Example__setName,
+                                  newName);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
+jmethodID _m_Example__max4 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__max4(int32_t a, int32_t b, int32_t c, int32_t d) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_Example, &_m_Example__max4, "max4", "(IIII)I");
+  if (_m_Example__max4 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result = (*jniEnv)->CallStaticIntMethod(
+      jniEnv, _c_Example, _m_Example__max4, a, b, c, d);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Example__max8 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__max8(int32_t a,
+                        int32_t b,
+                        int32_t c,
+                        int32_t d,
+                        int32_t e,
+                        int32_t f,
+                        int32_t g,
+                        int32_t h) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_Example, &_m_Example__max8, "max8", "(IIIIIIII)I");
+  if (_m_Example__max8 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result = (*jniEnv)->CallStaticIntMethod(
+      jniEnv, _c_Example, _m_Example__max8, a, b, c, d, e, f, g, h);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Example__getTrillion = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__getTrillion(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Example, &_m_Example__getTrillion, "getTrillion", "()J");
+  if (_m_Example__getTrillion == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int64_t _result =
+      (*jniEnv)->CallLongMethod(jniEnv, self_, _m_Example__getTrillion);
+  return (JniResult){.value = {.j = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Example__isAchillesAlive = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__isAchillesAlive(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Example, &_m_Example__isAchillesAlive, "isAchillesAlive",
+              "()Z");
+  if (_m_Example__isAchillesAlive == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  uint8_t _result =
+      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Example__isAchillesAlive);
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Example__whoIsBestFighterInGreece = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__whoIsBestFighterInGreece(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Example, &_m_Example__whoIsBestFighterInGreece,
+              "whoIsBestFighterInGreece", "()Ljava/lang/String;");
+  if (_m_Example__whoIsBestFighterInGreece == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(
+      jniEnv, self_, _m_Example__whoIsBestFighterInGreece);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Example__getRandom = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__getRandom(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Example, &_m_Example__getRandom, "getRandom",
+              "()Ljava/util/Random;");
+  if (_m_Example__getRandom == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Example__getRandom);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Example__getRandomLong = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__getRandomLong(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Example, &_m_Example__getRandomLong, "getRandomLong", "()J");
+  if (_m_Example__getRandomLong == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int64_t _result =
+      (*jniEnv)->CallLongMethod(jniEnv, self_, _m_Example__getRandomLong);
+  return (JniResult){.value = {.j = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Example__add4Longs = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__add4Longs(jobject self_,
+                             int64_t a,
+                             int64_t b,
+                             int64_t c,
+                             int64_t d) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Example, &_m_Example__add4Longs, "add4Longs", "(JJJJ)J");
+  if (_m_Example__add4Longs == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int64_t _result = (*jniEnv)->CallLongMethod(
+      jniEnv, self_, _m_Example__add4Longs, a, b, c, d);
+  return (JniResult){.value = {.j = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Example__add8Longs = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__add8Longs(jobject self_,
+                             int64_t a,
+                             int64_t b,
+                             int64_t c,
+                             int64_t d,
+                             int64_t e,
+                             int64_t f,
+                             int64_t g,
+                             int64_t h) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Example, &_m_Example__add8Longs, "add8Longs", "(JJJJJJJJ)J");
+  if (_m_Example__add8Longs == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int64_t _result = (*jniEnv)->CallLongMethod(
+      jniEnv, self_, _m_Example__add8Longs, a, b, c, d, e, f, g, h);
+  return (JniResult){.value = {.j = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Example__getRandomNumericString = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example__getRandomNumericString(jobject self_, jobject random) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Example, &_m_Example__getRandomNumericString,
+              "getRandomNumericString",
+              "(Ljava/util/Random;)Ljava/lang/String;");
+  if (_m_Example__getRandomNumericString == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(
+      jniEnv, self_, _m_Example__getRandomNumericString, random);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
 jmethodID _m_Example__ctor = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Example__ctor() {
@@ -235,6 +522,113 @@ JniResult Example__throwException() {
   return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
+jfieldID _f_Example__amount = NULL;
+FFI_PLUGIN_EXPORT
+JniResult get_Example__amount() {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_field(_c_Example, &_f_Example__amount, "amount", "I");
+  int32_t _result =
+      (*jniEnv)->GetStaticIntField(jniEnv, _c_Example, _f_Example__amount);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+FFI_PLUGIN_EXPORT
+JniResult set_Example__amount(int32_t value) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_field(_c_Example, &_f_Example__amount, "amount", "I");
+  (*jniEnv)->SetStaticIntField(jniEnv, _c_Example, _f_Example__amount, value);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
+jfieldID _f_Example__pi = NULL;
+FFI_PLUGIN_EXPORT
+JniResult get_Example__pi() {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_field(_c_Example, &_f_Example__pi, "pi", "D");
+  double _result =
+      (*jniEnv)->GetStaticDoubleField(jniEnv, _c_Example, _f_Example__pi);
+  return (JniResult){.value = {.d = _result}, .exception = check_exception()};
+}
+
+FFI_PLUGIN_EXPORT
+JniResult set_Example__pi(double value) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_field(_c_Example, &_f_Example__pi, "pi", "D");
+  (*jniEnv)->SetStaticDoubleField(jniEnv, _c_Example, _f_Example__pi, value);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
+jfieldID _f_Example__asterisk = NULL;
+FFI_PLUGIN_EXPORT
+JniResult get_Example__asterisk() {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_field(_c_Example, &_f_Example__asterisk, "asterisk", "C");
+  char _result =
+      (*jniEnv)->GetStaticCharField(jniEnv, _c_Example, _f_Example__asterisk);
+  return (JniResult){.value = {.c = _result}, .exception = check_exception()};
+}
+
+FFI_PLUGIN_EXPORT
+JniResult set_Example__asterisk(char value) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_field(_c_Example, &_f_Example__asterisk, "asterisk", "C");
+  (*jniEnv)->SetStaticCharField(jniEnv, _c_Example, _f_Example__asterisk,
+                                value);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
+jfieldID _f_Example__name = NULL;
+FFI_PLUGIN_EXPORT
+JniResult get_Example__name() {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_field(_c_Example, &_f_Example__name, "name",
+                    "Ljava/lang/String;");
+  jobject _result = to_global_ref(
+      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Example, _f_Example__name));
+  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
+}
+
+FFI_PLUGIN_EXPORT
+JniResult set_Example__name(jobject value) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_field(_c_Example, &_f_Example__name, "name",
+                    "Ljava/lang/String;");
+  (*jniEnv)->SetStaticObjectField(jniEnv, _c_Example, _f_Example__name, value);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
 jfieldID _f_Example__aux = NULL;
 FFI_PLUGIN_EXPORT
 JniResult get_Example__aux() {
@@ -260,6 +654,113 @@ JniResult set_Example__aux(jobject value) {
   load_static_field(_c_Example, &_f_Example__aux, "aux",
                     "Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;");
   (*jniEnv)->SetStaticObjectField(jniEnv, _c_Example, _f_Example__aux, value);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
+jfieldID _f_Example__trillion = NULL;
+FFI_PLUGIN_EXPORT
+JniResult get_Example__trillion(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_field(_c_Example, &_f_Example__trillion, "trillion", "J");
+  int64_t _result =
+      (*jniEnv)->GetLongField(jniEnv, self_, _f_Example__trillion);
+  return (JniResult){.value = {.j = _result}, .exception = check_exception()};
+}
+
+FFI_PLUGIN_EXPORT
+JniResult set_Example__trillion(jobject self_, int64_t value) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_field(_c_Example, &_f_Example__trillion, "trillion", "J");
+  (*jniEnv)->SetLongField(jniEnv, self_, _f_Example__trillion, value);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
+jfieldID _f_Example__isAchillesDead = NULL;
+FFI_PLUGIN_EXPORT
+JniResult get_Example__isAchillesDead(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_field(_c_Example, &_f_Example__isAchillesDead, "isAchillesDead", "Z");
+  uint8_t _result =
+      (*jniEnv)->GetBooleanField(jniEnv, self_, _f_Example__isAchillesDead);
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
+}
+
+FFI_PLUGIN_EXPORT
+JniResult set_Example__isAchillesDead(jobject self_, uint8_t value) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_field(_c_Example, &_f_Example__isAchillesDead, "isAchillesDead", "Z");
+  (*jniEnv)->SetBooleanField(jniEnv, self_, _f_Example__isAchillesDead, value);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
+jfieldID _f_Example__bestFighterInGreece = NULL;
+FFI_PLUGIN_EXPORT
+JniResult get_Example__bestFighterInGreece(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_field(_c_Example, &_f_Example__bestFighterInGreece,
+             "bestFighterInGreece", "Ljava/lang/String;");
+  jobject _result = to_global_ref((*jniEnv)->GetObjectField(
+      jniEnv, self_, _f_Example__bestFighterInGreece));
+  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
+}
+
+FFI_PLUGIN_EXPORT
+JniResult set_Example__bestFighterInGreece(jobject self_, jobject value) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_field(_c_Example, &_f_Example__bestFighterInGreece,
+             "bestFighterInGreece", "Ljava/lang/String;");
+  (*jniEnv)->SetObjectField(jniEnv, self_, _f_Example__bestFighterInGreece,
+                            value);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
+jfieldID _f_Example__random = NULL;
+FFI_PLUGIN_EXPORT
+JniResult get_Example__random(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_field(_c_Example, &_f_Example__random, "random", "Ljava/util/Random;");
+  jobject _result = to_global_ref(
+      (*jniEnv)->GetObjectField(jniEnv, self_, _f_Example__random));
+  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
+}
+
+FFI_PLUGIN_EXPORT
+JniResult set_Example__random(jobject self_, jobject value) {
+  load_env();
+  load_class_global_ref(&_c_Example,
+                        "com/github/dart_lang/jnigen/simple_package/Example");
+  if (_c_Example == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_field(_c_Example, &_f_Example__random, "random", "Ljava/util/Random;");
+  (*jniEnv)->SetObjectField(jniEnv, self_, _f_Example__random, value);
   return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
