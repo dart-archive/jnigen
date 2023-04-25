@@ -33,7 +33,7 @@ Future<void> buildApiSummarizer() async {
     '--batch-mode',
     '--update-snapshots',
     '-f',
-    pom.toFilePath()
+    pom.toFilePath(),
   ];
   log.info('execute mvn ${mvnArgs.join(" ")}');
   try {
