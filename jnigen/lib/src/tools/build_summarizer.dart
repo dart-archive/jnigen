@@ -29,7 +29,7 @@ Future<void> buildApiSummarizer() async {
   final pom = pkg.resolve('java/pom.xml');
   await Directory(toolPath).create(recursive: true);
   final mvnArgs = [
-    'package',
+    'compile',
     '--batch-mode',
     '--update-snapshots',
     '-f',
