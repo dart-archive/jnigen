@@ -13,10 +13,11 @@ import 'generate.dart';
 void main() async {
   await checkLocallyBuiltDependencies();
 
-  test("compare generated bindings for jackson_core", () async {
-    await generateAndCompareBindings(getConfig());
-  }, timeout: const Timeout.factor(2));
-
+  generateAndCompareBothModes(
+    'Generate and compare bindings for jackson_core library',
+    getConfig(bindingsType: BindingsType.cBased),
+    getConfig(bindingsType: BindingsType.dartOnly),
+  );
   test(
       'generate and analyze bindings for complete library, '
       'not just required classes', () async {

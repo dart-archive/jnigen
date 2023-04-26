@@ -12,9 +12,12 @@ import '../test_util/test_util.dart';
 void main() async {
   await checkLocallyBuiltDependencies();
 
-  test("Generate and compare bindings for simple_package", () async {
-    await generateAndCompareBindings(getConfig());
-  }); // test if generated file == expected file
+  generateAndCompareBothModes(
+    'Generate and compare bindings for simple_package java files',
+    getConfig(BindingsType.cBased),
+    getConfig(BindingsType.dartOnly),
+  );
+
   test("Generate and analyze bindings for simple_package - pure dart",
       () async {
     await generateAndAnalyzeBindings(

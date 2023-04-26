@@ -160,3 +160,16 @@ Future<void> failIfSummarizerNotBuilt() async {
 Future<void> checkLocallyBuiltDependencies() async {
   await failIfSummarizerNotBuilt();
 }
+
+void generateAndCompareBothModes(
+  String description,
+  Config cBasedConfig,
+  Config dartOnlyConfig,
+) {
+  test('$description (cBased)', () async {
+    await generateAndCompareBindings(cBasedConfig);
+  });
+  test('$description (dartOnly)', () async {
+    await generateAndCompareBindings(dartOnlyConfig);
+  });
+}
