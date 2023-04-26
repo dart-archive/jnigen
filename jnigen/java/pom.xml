@@ -44,7 +44,7 @@
     <build>
 		<directory>${buildDir}/target</directory>
         <finalName>ApiSummarizer</finalName>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+        <pluginManagement><!-- Lock down plugins versions to avoid using Maven defaults -->
             <plugins>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
