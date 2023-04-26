@@ -13,11 +13,7 @@ void main() async {
   await checkLocallyBuiltDependencies();
 
   test("Generate and compare bindings for simple_package", () async {
-    await generateAndCompareBindings(
-      getConfig(),
-      join(testRoot, "lib", "simple_package.dart"),
-      join(testRoot, "src"),
-    );
+    await generateAndCompareBindings(getConfig());
   }); // test if generated file == expected file
   test("Generate and analyze bindings for simple_package - pure dart",
       () async {

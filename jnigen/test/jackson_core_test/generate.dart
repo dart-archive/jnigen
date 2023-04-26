@@ -48,10 +48,14 @@ Config getConfig({
     preamble: jacksonPreamble,
     outputConfig: OutputConfig(
       bindingsType: bindingsType,
-      cConfig: CCodeOutputConfig(
-        libraryName: 'jackson_core',
-        path: Uri.directory(join(rootDir, bindingTypeDir, 'c_bindings')),
-      ),
+      // Have to be judicious here, and ensure null when bindings type is
+      // dart-only, because config-test is also using this.
+      cConfig: bindingsType == BindingsType.cBased
+          ? CCodeOutputConfig(
+              libraryName: 'jackson_core',
+              path: Uri.directory(join(rootDir, bindingTypeDir, 'c_bindings')),
+            )
+          : null,
       dartConfig: DartCodeOutputConfig(
         path: Uri.directory(join(rootDir, bindingTypeDir, 'dart_bindings')),
       ),

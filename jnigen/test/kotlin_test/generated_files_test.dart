@@ -15,13 +15,7 @@ void main() async {
   await checkLocallyBuiltDependencies();
   test(
     "Generate and compare bindings for kotlin_test",
-    () async {
-      await generateAndCompareBindings(
-        getConfig(),
-        join(testRoot, "lib", "kotlin.dart"),
-        join(testRoot, "src"),
-      );
-    },
+    () async => await generateAndCompareBindings(getConfig()),
     timeout: const Timeout.factor(1.5),
   ); // test if generated file == expected file
   test(

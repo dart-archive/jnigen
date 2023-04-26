@@ -101,8 +101,10 @@ Future<void> _generateTempBindings(Config config, Directory tempDir) async {
 ///
 /// If the config generates C code, [cReferenceBindings] must be a non-null
 /// directory path.
-Future<void> generateAndCompareBindings(Config config,
-    String dartReferenceBindings, String? cReferenceBindings) async {
+Future<void> generateAndCompareBindings(Config config) async {
+  final dartReferenceBindings =
+      config.outputConfig.dartConfig.path.toFilePath();
+  final cReferenceBindings = config.outputConfig.cConfig?.path.toFilePath();
   final currentDir = Directory.current;
   final tempDir = currentDir.createTempSync("jnigen_test_temp");
   final tempSrc = tempDir.uri.resolve("src/");

@@ -5,9 +5,12 @@ maven_downloads:
   jar_dir: third_party/jar/
 
 output:
-  bindings_type: dart_only
+  bindings_type: c_based
+  c:
+    library_name: jackson_core
+    path: third_party/c_based/c_bindings/
   dart:
-    path: third_party/dart_only/lib/
+    path: third_party/c_based/dart_bindings/
 
 classes:
   - 'com.fasterxml.jackson.core.JsonFactory'

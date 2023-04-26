@@ -14,9 +14,7 @@ void main() async {
   await checkLocallyBuiltDependencies();
 
   test("compare generated bindings for jackson_core", () async {
-    final lib = join(thirdPartyDir, 'lib');
-    final src = join(thirdPartyDir, 'src');
-    await generateAndCompareBindings(getConfig(), lib, src);
+    await generateAndCompareBindings(getConfig());
   }, timeout: const Timeout.factor(2));
 
   test(

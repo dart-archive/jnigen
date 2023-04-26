@@ -9,6 +9,8 @@
 // reuse of the old JVM with old classpath if we have separate tests with
 // different classpaths.
 
+@Tags(['runtime_test'])
+
 import 'dart:io';
 
 import 'package:jni/jni.dart';
@@ -18,7 +20,7 @@ import 'package:test/test.dart';
 // ignore_for_file: avoid_relative_lib_imports
 import 'kotlin_test/c_based/dart_bindings/kotlin.dart';
 import 'simple_package_test/c_based/dart_bindings/simple_package.dart';
-import 'jackson_core_test/third_party/c_based/dart_bindings/com/fasterxml/jackson/core/_package.dart';
+import 'jackson_core_test/third_party/dart_only/dart_bindings/com/fasterxml/jackson/core/_package.dart';
 
 import 'test_util/test_util.dart';
 
@@ -37,7 +39,7 @@ Future<void> setupDylibsAndClasses() async {
     '-p',
     'jni',
     '-s',
-    join(simplePackageTest, 'src'),
+    join(simplePackageTest, 'c_based', 'c_bindings'),
   ]);
   final group = join('com', 'github', 'dart_lang', 'jnigen');
   await runCommand(
@@ -72,7 +74,7 @@ Future<void> setupDylibsAndClasses() async {
     '-p',
     'jni',
     '-s',
-    join(kotlinTest, 'src'),
+    join(kotlinTest, 'c_based', 'c_bindings'),
   ]);
   await runCommand(
     'mvn',
