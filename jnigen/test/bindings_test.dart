@@ -16,9 +16,9 @@ import 'package:path/path.dart' hide equals;
 import 'package:test/test.dart';
 
 // ignore_for_file: avoid_relative_lib_imports
-import 'kotlin_test/lib/kotlin.dart';
-import 'simple_package_test/lib/simple_package.dart';
-import 'jackson_core_test/third_party/lib/com/fasterxml/jackson/core/_package.dart';
+import 'kotlin_test/c_based/dart_bindings/kotlin.dart';
+import 'simple_package_test/c_based/dart_bindings/simple_package.dart';
+import 'jackson_core_test/third_party/c_based/dart_bindings/com/fasterxml/jackson/core/_package.dart';
 
 import 'test_util/test_util.dart';
 
