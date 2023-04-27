@@ -65,6 +65,13 @@ class JList<$E extends JObject> extends JObject with ListMixin<$E> {
     );
   }
 
+  static final _arrayListClassRef = Jni.findJClass(r"java/util/ArrayList");
+  static final _ctorId = Jni.accessors
+      .getMethodIDOf(_arrayListClassRef.reference, r"<init>", r"()V");
+  JList.array(this.E)
+      : super.fromRef(Jni.accessors.newObjectWithArgs(
+            _arrayListClassRef.reference, _ctorId, []).object);
+
   static final _sizeId =
       Jni.accessors.getMethodIDOf(_classRef.reference, r"size", r"()I");
   @override
@@ -118,6 +125,7 @@ class JList<$E extends JObject> extends JObject with ListMixin<$E> {
             (iterable as JObject).reference, _collectionClass.reference)) {
       Jni.accessors.callMethodWithArgs(reference, _addAllId,
           JniCallType.booleanType, [(iterable as JObject).reference]).boolean;
+      return;
     }
     return super.addAll(iterable);
   }
@@ -139,15 +147,11 @@ class JList<$E extends JObject> extends JObject with ListMixin<$E> {
         JniCallType.booleanType, [element.reference]).boolean;
   }
 
-  @override
-  $E elementAt(int index) {
-    return this[index];
-  }
-
   static final _getRangeId = Jni.accessors
       .getMethodIDOf(_classRef.reference, r"subList", r"(II)Ljava/util/List;");
   @override
   JList<$E> getRange(int start, int end) {
+    RangeError.checkValidRange(start, end, this.length);
     return JListType(E).fromRef(
       Jni.accessors.callMethodWithArgs(reference, _getRangeId,
           JniCallType.objectType, [JValueInt(start), JValueInt(end)]).object,
@@ -192,7 +196,9 @@ class JList<$E extends JObject> extends JObject with ListMixin<$E> {
           _insertAllId,
           JniCallType.booleanType,
           [JValueInt(index), (iterable as JObject).reference]);
+      return;
     }
+    super.insertAll(index, iterable);
   }
 
   static final _isEmptyId =
@@ -217,16 +223,19 @@ class JList<$E extends JObject> extends JObject with ListMixin<$E> {
   int lastIndexOf(Object? element, [int? start]) {
     if (element is! JObject) return -1;
     if (start == null || start >= this.length) start = this.length - 1;
-    if (start == 0) {
+    if (start == this.length - 1) {
       return Jni.accessors.callMethodWithArgs(reference, _lastIndexOfId,
           JniCallType.intType, [element.reference]).integer;
     }
-    return Jni.accessors.callMethodWithArgs(
-      getRange(start, length).reference,
+    final range = getRange(start, length);
+    final res = Jni.accessors.callMethodWithArgs(
+      range.reference,
       _lastIndexOfId,
       JniCallType.intType,
       [element.reference],
     ).integer;
+    range.delete();
+    return res;
   }
 
   static final _removeId = Jni.accessors
@@ -248,7 +257,9 @@ class JList<$E extends JObject> extends JObject with ListMixin<$E> {
 
   @override
   void removeRange(int start, int end) {
-    RangeError.checkValidRange(start, end, this.length);
+    final range = getRange(start, end);
+    range.clear();
+    range.delete();
   }
 
   @override
@@ -269,5 +280,13 @@ class JList<$E extends JObject> extends JObject with ListMixin<$E> {
     if (other is! JObject) return false;
     return Jni.accessors.callMethodWithArgs(reference, _equalsId,
         JniCallType.booleanType, [other.reference]).boolean;
+  }
+}
+
+extension ToJavaList<E extends JObject> on Iterable<E> {
+  JList<E> toJList(JObjType<E> type) {
+    final list = JList.array(type);
+    list.addAll(this);
+    return list;
   }
 }

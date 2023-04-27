@@ -210,18 +210,9 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
     return null;
   }
 
-  static final _copyOfId = Jni.accessors.getStaticMethodIDOf(
-      _classRef.reference,
-      r"copyOf",
-      r"(Ljava/util/Collection;)Ljava/util/Set;");
   @override
   JSet<$E> toSet() {
-    return JSetType(E).fromRef(Jni.accessors.callStaticMethodWithArgs(
-      _classRef.reference,
-      _copyOfId,
-      JniCallType.objectType,
-      [reference],
-    ).object);
+    return toJSet(E);
   }
 }
 
