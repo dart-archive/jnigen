@@ -116,9 +116,9 @@ void run({required TestRunnerCallback testRunner}) {
       final set = newJSet(arena);
       // ignore: collection_methods_unrelated_type
       expect(set.remove(1), false);
-      expect(set.remove("4".toJString()), false);
+      expect(set.remove("4".toJString()..deletedIn(arena)), false);
       expect(set.length, 3);
-      expect(set.remove("3".toJString()), true);
+      expect(set.remove("3".toJString()..deletedIn(arena)), true);
       expect(set.length, 2);
     });
   });

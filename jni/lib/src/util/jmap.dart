@@ -152,11 +152,11 @@ class JMap<$K extends JObject, $V extends JObject> extends JObject
   @override
   bool get isNotEmpty => !isEmpty;
 
-  static final _keySetId = Jni.accessors
+  static final _keysId = Jni.accessors
       .getMethodIDOf(_classRef.reference, r"keySet", r"()Ljava/util/Set;");
   @override
   JSet<$K> get keys => JSetType(K).fromRef(Jni.accessors.callMethodWithArgs(
-      reference, _keySetId, JniCallType.objectType, []).object);
+      reference, _keysId, JniCallType.objectType, []).object);
 
   static final _sizeId =
       Jni.accessors.getMethodIDOf(_classRef.reference, r"size", r"()I");
