@@ -4,7 +4,6 @@
 
 import 'package:jnigen/jnigen.dart';
 import 'package:test/test.dart';
-import 'package:path/path.dart' hide equals;
 
 import 'generate.dart';
 import '../test_util/test_util.dart';

@@ -42,14 +42,6 @@ void deleteTempDir(Directory directory) {
   }
 }
 
-List<String> findFiles(Directory dir, String suffix) {
-  return dir
-      .listSync(recursive: true)
-      .map((entry) => relative(entry.path, from: dir.path))
-      .where((path) => path.endsWith(suffix))
-      .toList();
-}
-
 /// Packs files indicated by [artifacts], each relative to [artifactDir] into
 /// a JAR file at [jarPath].
 Future<void> createJar({
@@ -67,17 +59,6 @@ Future<void> createJar({
   }
 }
 
-Future<void> compileJavaFiles(List<String> paths, Directory target) async {
-  final status = await runCommand(
-    'javac',
-    ['-d', target.absolute.path, ...paths],
-    workingDirectory: simplePackagePath,
-  );
-  if (status != 0) {
-    throw ArgumentError('Cannot compile Java sources');
-  }
-}
-
 String getClassNameFromPath(String path) {
   if (!path.endsWith('.java')) {
     throw ArgumentError('Filename must end with java');
@@ -90,7 +71,7 @@ String getClassNameFromPath(String path) {
 
 final simplePackagePath = join('test', 'simple_package_test', 'java');
 final simplePackageDir = Directory(simplePackagePath);
-final javaFiles = findFiles(simplePackageDir, '.java');
+final javaFiles = findFilesWithSuffix(simplePackageDir, '.java');
 final javaClasses = javaFiles.map(getClassNameFromPath).toList();
 
 Config getConfig({List<String>? sourcePath, List<String>? classPath}) {
@@ -118,8 +99,8 @@ void main() async {
 
   test('Test summary generation from compiled JAR', () async {
     final targetDir = tempDir.createTempSync("compiled_jar_test_");
-    await compileJavaFiles(javaFiles, targetDir);
-    final classFiles = findFiles(targetDir, '.class');
+    await compileJavaFiles(simplePackageDir, targetDir);
+    final classFiles = findFilesWithSuffix(targetDir, '.class');
     final jarPath = join(targetDir.absolute.path, 'classes.jar');
     await createJar(
         artifactDir: targetDir.path, artifacts: classFiles, jarPath: jarPath);
@@ -148,7 +129,7 @@ void main() async {
 
   test('Test summary generation from compiled classes in directory', () async {
     final targetDir = tempDir.createTempSync("compiled_classes_test_");
-    await compileJavaFiles(javaFiles, targetDir);
+    await compileJavaFiles(simplePackageDir, targetDir);
     final config = getConfig(classPath: [targetDir.path]);
     final summaryClasses = await getSummary(config);
     expectNonEmptySummary(summaryClasses);
@@ -168,8 +149,8 @@ void main() async {
       jarPath: sourceJarPath,
     );
 
-    await compileJavaFiles(javaFiles, targetDir);
-    final classFiles = findFiles(targetDir, '.class');
+    await compileJavaFiles(simplePackageDir, targetDir);
+    final classFiles = findFilesWithSuffix(targetDir, '.class');
     final classesJarPath = join(targetDir.path, 'classes.jar');
     await createJar(
       artifactDir: targetDir.path,

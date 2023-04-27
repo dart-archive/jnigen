@@ -155,10 +155,20 @@ Future<void> failIfSummarizerNotBuilt() async {
   }
 }
 
+void warnIfRuntimeTestsNotGenerated() {
+  final runtimeTests = join('test', 'generated_runtime_test.dart');
+  if (!File(runtimeTests).existsSync()) {
+    log.warning('Runtime test files not found. To run binding '
+        'runtime tests, please generate them by running '
+        '`dart run tool/generate_runtime_tests.dart`');
+  }
+}
+
 /// Verifies if locally built dependencies (currently `ApiSummarizer`)
 /// are up-to-date.
 Future<void> checkLocallyBuiltDependencies() async {
   await failIfSummarizerNotBuilt();
+  warnIfRuntimeTestsNotGenerated();
 }
 
 void generateAndCompareBothModes(
@@ -172,4 +182,30 @@ void generateAndCompareBothModes(
   test('$description (dartOnly)', () async {
     await generateAndCompareBindings(dartOnlyConfig);
   });
+}
+
+typedef TestCaseCallback = void Function();
+typedef TestRunnerCallback = void Function(
+  String description,
+  TestCaseCallback test,
+);
+
+List<String> findFilesWithSuffix(Directory dir, String suffix) {
+  return dir
+      .listSync(recursive: true)
+      .map((entry) => relative(entry.path, from: dir.path))
+      .where((path) => path.endsWith(suffix))
+      .toList();
+}
+
+Future<void> compileJavaFiles(Directory root, Directory target) async {
+  final javaFiles = findFilesWithSuffix(root, '.java');
+  final status = await runCommand(
+    'javac',
+    ['-d', target.absolute.path, ...javaFiles],
+    workingDirectory: root.path,
+  );
+  if (status != 0) {
+    throw ArgumentError('Cannot compile Java sources');
+  }
 }
