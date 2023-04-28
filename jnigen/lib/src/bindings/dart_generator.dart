@@ -803,9 +803,9 @@ class _FieldGenerator extends Visitor<Field, void> {
       final dartSig = node.type.accept(const _TypeSig(isFfi: false));
       s.write('''
   static final _set_$name =
-      $_lookup<$_ffi.NativeFunction<$_jThrowable Function($ifRef$ffiSig)>>(
+      $_lookup<$_ffi.NativeFunction<$_jResult Function($ifRef$ffiSig)>>(
               "set_$cName")
-          .asFunction<$_jThrowable Function($ifRef$dartSig)>();
+          .asFunction<$_jResult Function($ifRef$dartSig)>();
 
 ''');
     }
@@ -822,7 +822,7 @@ class _FieldGenerator extends Visitor<Field, void> {
     final name = node.finalName;
     final self = node.isStatic ? '' : '$_selfPointer, ';
     final toNativeSuffix = node.type.accept(const _ToNativeSuffix());
-    return '_set_$name(${self}value$toNativeSuffix)';
+    return '_set_$name(${self}value$toNativeSuffix).check()';
   }
 
   void writeDartOnlyAccessor(Field node) {

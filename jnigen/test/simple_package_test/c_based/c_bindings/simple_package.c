@@ -678,9 +678,8 @@ JniResult set_Example__trillion(jobject self_, int64_t value) {
                         "com/github/dart_lang/jnigen/simple_package/Example");
   if (_c_Example == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  jfieldID f = NULL;
-  load_field(_c_Example, &f, "trillion", "J");
-  (*jniEnv)->SetLongField(jniEnv, self_, f, value);
+  load_field(_c_Example, &_f_Example__trillion, "trillion", "J");
+  (*jniEnv)->SetLongField(jniEnv, self_, _f_Example__trillion, value);
   return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
