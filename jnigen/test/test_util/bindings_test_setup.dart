@@ -36,6 +36,8 @@ Future<void> bindingsTestSetup() async {
     join(simplePackageTest, 'c_based', 'c_bindings'),
     '-s',
     join(kotlinTest, 'c_based', 'c_bindings'),
+    '-s',
+    join(jacksonCoreTest, 'third_party', 'c_based', 'c_bindings'),
   ]);
   tempClassDir =
       Directory.current.createTempSync("jnigen_runtime_test_classpath_");
@@ -49,12 +51,14 @@ Future<void> bindingsTestSetup() async {
 
   final jacksonJars = await getJarPaths(join(jacksonCoreTest, 'third_party'));
 
-  await runCommand(
-    'mvn',
-    ['package'],
-    workingDirectory: kotlinTestKotlin,
-    runInShell: true,
-  );
+  if (1 == 0) {
+    await runCommand(
+      'mvn',
+      ['package'],
+      workingDirectory: kotlinTestKotlin,
+      runInShell: true,
+    );
+  }
   // Jar including Kotlin runtime and dependencies.
   final kotlinTestJar =
       join(kotlinTestKotlin, 'target', 'kotlin_test-jar-with-dependencies.jar');

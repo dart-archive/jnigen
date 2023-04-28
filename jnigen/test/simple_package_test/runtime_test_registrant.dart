@@ -9,23 +9,65 @@ import '../test_util/test_util.dart';
 
 import 'c_based/dart_bindings/simple_package.dart';
 
+const pi = 3.14159;
+const fpDelta = 0.001;
+const trillion = 1024 * 1024 * 1024 * 1024;
+
 void registerTests(String groupName, TestRunnerCallback test) {
   group(groupName, () {
-    test('static final fields', () {
+    test('static final fields - int', () {
       expect(Example.ON, equals(1));
       expect(Example.OFF, equals(0));
+      expect(Example.PI, closeTo(pi, fpDelta));
+      expect(Example.SEMICOLON, equals(';'));
+      expect(Example.SEMICOLON_STRING, equals(';'));
     });
 
-    test('static & instance fields', () {
-      expect(Example.num, equals(121));
-      final aux = Example.aux;
-      expect(aux.value, equals(true));
-      aux.delete();
+    test('Static fields & methods - primitive', () {
+      // same test can be run at a replicated (dart-only) test, check for both
+      // possible values.
+      expect(Example.amount, isIn([1012, 500]));
+      Example.setAmount(1012);
+      expect(Example.amount, equals(1012));
+      expect(Example.getAmount(), equals(1012));
+      expect(Example.asterisk, equals('*'.codeUnitAt(0)));
       expect(C2.CONSTANT, equals(12));
     });
 
-    test('static methods', () {
+    test('Static fields & methods - string', () {
+      expect(
+        Example.name.toDartString(deleteOriginal: true),
+        isIn(["Ragnar Lothbrok", "Theseus"]),
+      );
+      Example.setName("Theseus".toJString());
+      expect(
+        Example.getName().toDartString(deleteOriginal: true),
+        equals("Theseus"),
+      );
+      expect(
+        Example.name.toDartString(deleteOriginal: true),
+        equals("Theseus"),
+      );
+    });
+
+    test('Static fields and methods - Object', () {
+      expect(Example.aux.getValue(), isIn([true, false]));
+      Example.aux.setValue(false);
+      expect(Example.aux.value, isFalse);
+    });
+
+    test('static methods with several arguments', () {
       expect(Example.addInts(10, 15), equals(25));
+      expect(Example.max4(-1, 15, 30, 12), equals(30));
+      expect(Example.max8(1, 4, 8, 2, 4, 10, 8, 6), equals(10));
+    });
+
+    test('Instance fields', () {
+      final e = Example();
+      expect(e.trillion, equals(trillion));
+      expect(e.isAchillesDead, false);
+      expect(e.bestFighterInGreece.toDartString(), equals("Achilles"));
+      e.trillion = 1;
     });
 
     test('static methods arrays', () {
@@ -36,18 +78,6 @@ void registerTests(String groupName, TestRunnerCallback test) {
       expect(Example.addAll(array), 6);
       array[0] = 4;
       expect(Example.addAll(array), 9);
-    });
-
-    test('instance methods', () {
-      final ex = Example();
-      expect(ex.getNum(), equals(Example.num));
-      final aux = Example.getAux();
-      expect(aux.getValue(), equals(true));
-      aux.setValue(false);
-      expect(aux.getValue(), equals(false));
-      aux.setValue(true);
-      aux.delete();
-      ex.delete();
     });
 
     test('array of the class', () {

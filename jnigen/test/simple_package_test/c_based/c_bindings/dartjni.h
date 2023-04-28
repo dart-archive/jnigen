@@ -302,6 +302,7 @@ static inline void load_field(jclass cls,
     acquire_lock(&jni->locks.fieldLoadingLock);
     if (*res == NULL) {
       *res = (*jniEnv)->GetFieldID(jniEnv, cls, name, sig);
+      printf("%s - %p\n", name, *res);
     }
     release_lock(&jni->locks.fieldLoadingLock);
   }
