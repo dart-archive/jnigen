@@ -610,6 +610,248 @@ class $Example_NestedType extends jni.JObjType<Example_Nested> {
   }
 }
 
+/// from: com.github.dart_lang.jnigen.simple_package.Exceptions
+class Exceptions extends jni.JObject {
+  @override
+  late final jni.JObjType $type = type;
+
+  Exceptions.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $ExceptionsType();
+  static final _ctor = jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+          "Exceptions__ctor")
+      .asFunction<jni.JniResult Function()>();
+
+  /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Exceptions() {
+    return Exceptions.fromRef(_ctor().object);
+  }
+
+  static final _ctor1 =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Float)>>(
+              "Exceptions__ctor1")
+          .asFunction<jni.JniResult Function(double)>();
+
+  /// from: public void <init>(float x)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Exceptions.ctor1(
+    double x,
+  ) {
+    return Exceptions.fromRef(_ctor1(x).object);
+  }
+
+  static final _ctor2 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Int32, ffi.Int32, ffi.Int32, ffi.Int32,
+                  ffi.Int32, ffi.Int32)>>("Exceptions__ctor2")
+      .asFunction<jni.JniResult Function(int, int, int, int, int, int)>();
+
+  /// from: public void <init>(int a, int b, int c, int d, int e, int f)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Exceptions.ctor2(
+    int a,
+    int b,
+    int c,
+    int d,
+    int e,
+    int f,
+  ) {
+    return Exceptions.fromRef(_ctor2(a, b, c, d, e, f).object);
+  }
+
+  static final _staticObjectMethod =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "Exceptions__staticObjectMethod")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: static public java.lang.Object staticObjectMethod()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JObject staticObjectMethod() {
+    return const jni.JObjectType().fromRef(_staticObjectMethod().object);
+  }
+
+  static final _staticIntMethod =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "Exceptions__staticIntMethod")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: static public int staticIntMethod()
+  static int staticIntMethod() {
+    return _staticIntMethod().integer;
+  }
+
+  static final _staticObjectArrayMethod =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "Exceptions__staticObjectArrayMethod")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: static public java.lang.Object[] staticObjectArrayMethod()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JArray<jni.JObject> staticObjectArrayMethod() {
+    return const jni.JArrayType(jni.JObjectType())
+        .fromRef(_staticObjectArrayMethod().object);
+  }
+
+  static final _staticIntArrayMethod =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "Exceptions__staticIntArrayMethod")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: static public int[] staticIntArrayMethod()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JArray<jni.JInt> staticIntArrayMethod() {
+    return const jni.JArrayType(jni.JIntType())
+        .fromRef(_staticIntArrayMethod().object);
+  }
+
+  static final _objectMethod = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Exceptions__objectMethod")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.Object objectMethod()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject objectMethod() {
+    return const jni.JObjectType().fromRef(_objectMethod(reference).object);
+  }
+
+  static final _intMethod = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Exceptions__intMethod")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int intMethod()
+  int intMethod() {
+    return _intMethod(reference).integer;
+  }
+
+  static final _objectArrayMethod = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Exceptions__objectArrayMethod")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.Object[] objectArrayMethod()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JArray<jni.JObject> objectArrayMethod() {
+    return const jni.JArrayType(jni.JObjectType())
+        .fromRef(_objectArrayMethod(reference).object);
+  }
+
+  static final _intArrayMethod = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Exceptions__intArrayMethod")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int[] intArrayMethod()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JArray<jni.JInt> intArrayMethod() {
+    return const jni.JArrayType(jni.JIntType())
+        .fromRef(_intArrayMethod(reference).object);
+  }
+
+  static final _throwNullPointerException = jniLookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Exceptions__throwNullPointerException")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int throwNullPointerException()
+  int throwNullPointerException() {
+    return _throwNullPointerException(reference).integer;
+  }
+
+  static final _throwFileNotFoundException = jniLookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Exceptions__throwFileNotFoundException")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.io.InputStream throwFileNotFoundException()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject throwFileNotFoundException() {
+    return const jni.JObjectType()
+        .fromRef(_throwFileNotFoundException(reference).object);
+  }
+
+  static final _throwClassCastException = jniLookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Exceptions__throwClassCastException")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.io.FileInputStream throwClassCastException()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject throwClassCastException() {
+    return const jni.JObjectType()
+        .fromRef(_throwClassCastException(reference).object);
+  }
+
+  static final _throwArrayIndexException = jniLookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Exceptions__throwArrayIndexException")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int throwArrayIndexException()
+  int throwArrayIndexException() {
+    return _throwArrayIndexException(reference).integer;
+  }
+
+  static final _throwArithmeticException = jniLookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Exceptions__throwArithmeticException")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int throwArithmeticException()
+  int throwArithmeticException() {
+    return _throwArithmeticException(reference).integer;
+  }
+
+  static final _throwLoremIpsum =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "Exceptions__throwLoremIpsum")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: static public void throwLoremIpsum()
+  static void throwLoremIpsum() {
+    return _throwLoremIpsum().check();
+  }
+}
+
+class $ExceptionsType extends jni.JObjType<Exceptions> {
+  const $ExceptionsType();
+
+  @override
+  String get signature =>
+      r"Lcom/github/dart_lang/jnigen/simple_package/Exceptions;";
+
+  @override
+  Exceptions fromRef(jni.JObjectPtr ref) => Exceptions.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($ExceptionsType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $ExceptionsType && other is $ExceptionsType;
+  }
+}
+
 /// from: com.github.dart_lang.jnigen.simple_package.Fields
 class Fields extends jni.JObject {
   @override

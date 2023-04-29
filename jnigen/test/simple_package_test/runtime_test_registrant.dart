@@ -196,8 +196,49 @@ void registerTests(String groupName, TestRunnerCallback test) {
       expect(Example1().whichExample(), 1);
     });
 
-    test('exceptions', () {
-      expect(() => Example.throwException(), throwsA(isA<JniException>()));
+    group('exception tests', () {
+      void throwsException(void Function() f) {
+        expect(f, throwsA(isA<JniException>()));
+      }
+
+      test('Example throw exception', () {
+        throwsException(Example.throwException);
+      });
+
+      test('Exception from method returning Object', () {
+        throwsException(Exceptions.staticObjectMethod);
+        throwsException(Exceptions.staticObjectArrayMethod);
+        final x = Exceptions();
+        throwsException(x.objectMethod);
+        throwsException(x.objectArrayMethod);
+      });
+
+      test('Exception from method returning int', () {
+        throwsException(Exceptions.staticIntMethod);
+        throwsException(Exceptions.staticIntArrayMethod);
+        final x = Exceptions();
+        throwsException(x.intMethod);
+        throwsException(x.intArrayMethod);
+      });
+
+      test('Exception from constructor', () {
+        throwsException(() => Exceptions.ctor1(6.8));
+        throwsException(() => Exceptions.ctor2(1, 2, 3, 4, 5, 6));
+      });
+
+      test('Exception contains error message & stack trace', () {
+        try {
+          Exceptions.throwLoremIpsum();
+        } on JniException catch (e) {
+          expect(e.message, stringContainsInOrder(["Lorem Ipsum"]));
+          expect(
+            e.toString(),
+            stringContainsInOrder(["Lorem Ipsum", "throwLoremIpsum"]),
+          );
+          return;
+        }
+        throw AssertionError("No exception was thrown");
+      });
     });
 
     group('generics', () {

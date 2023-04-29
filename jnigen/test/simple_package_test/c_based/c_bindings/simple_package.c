@@ -655,6 +655,310 @@ JniResult Example_Nested__setValue(jobject self_, uint8_t value) {
   return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
+// com.github.dart_lang.jnigen.simple_package.Exceptions
+jclass _c_Exceptions = NULL;
+
+jmethodID _m_Exceptions__ctor = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__ctor() {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Exceptions, &_m_Exceptions__ctor, "<init>", "()V");
+  if (_m_Exceptions__ctor == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->NewObject(jniEnv, _c_Exceptions, _m_Exceptions__ctor);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__ctor1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__ctor1(float x) {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Exceptions, &_m_Exceptions__ctor1, "<init>", "(F)V");
+  if (_m_Exceptions__ctor1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->NewObject(jniEnv, _c_Exceptions, _m_Exceptions__ctor1, x);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__ctor2 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__ctor2(int32_t a,
+                            int32_t b,
+                            int32_t c,
+                            int32_t d,
+                            int32_t e,
+                            int32_t f) {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Exceptions, &_m_Exceptions__ctor2, "<init>", "(IIIIII)V");
+  if (_m_Exceptions__ctor2 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->NewObject(
+      jniEnv, _c_Exceptions, _m_Exceptions__ctor2, a, b, c, d, e, f);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__staticObjectMethod = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__staticObjectMethod() {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_Exceptions, &_m_Exceptions__staticObjectMethod,
+                     "staticObjectMethod", "()Ljava/lang/Object;");
+  if (_m_Exceptions__staticObjectMethod == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_Exceptions, _m_Exceptions__staticObjectMethod);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__staticIntMethod = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__staticIntMethod() {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_Exceptions, &_m_Exceptions__staticIntMethod,
+                     "staticIntMethod", "()I");
+  if (_m_Exceptions__staticIntMethod == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result = (*jniEnv)->CallStaticIntMethod(
+      jniEnv, _c_Exceptions, _m_Exceptions__staticIntMethod);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__staticObjectArrayMethod = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__staticObjectArrayMethod() {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_Exceptions, &_m_Exceptions__staticObjectArrayMethod,
+                     "staticObjectArrayMethod", "()[Ljava/lang/Object;");
+  if (_m_Exceptions__staticObjectArrayMethod == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_Exceptions, _m_Exceptions__staticObjectArrayMethod);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__staticIntArrayMethod = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__staticIntArrayMethod() {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_Exceptions, &_m_Exceptions__staticIntArrayMethod,
+                     "staticIntArrayMethod", "()[I");
+  if (_m_Exceptions__staticIntArrayMethod == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_Exceptions, _m_Exceptions__staticIntArrayMethod);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__objectMethod = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__objectMethod(jobject self_) {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Exceptions, &_m_Exceptions__objectMethod, "objectMethod",
+              "()Ljava/lang/Object;");
+  if (_m_Exceptions__objectMethod == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Exceptions__objectMethod);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__intMethod = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__intMethod(jobject self_) {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Exceptions, &_m_Exceptions__intMethod, "intMethod", "()I");
+  if (_m_Exceptions__intMethod == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result =
+      (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Exceptions__intMethod);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__objectArrayMethod = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__objectArrayMethod(jobject self_) {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Exceptions, &_m_Exceptions__objectArrayMethod,
+              "objectArrayMethod", "()[Ljava/lang/Object;");
+  if (_m_Exceptions__objectArrayMethod == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(
+      jniEnv, self_, _m_Exceptions__objectArrayMethod);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__intArrayMethod = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__intArrayMethod(jobject self_) {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Exceptions, &_m_Exceptions__intArrayMethod, "intArrayMethod",
+              "()[I");
+  if (_m_Exceptions__intArrayMethod == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Exceptions__intArrayMethod);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__throwNullPointerException = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__throwNullPointerException(jobject self_) {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Exceptions, &_m_Exceptions__throwNullPointerException,
+              "throwNullPointerException", "()I");
+  if (_m_Exceptions__throwNullPointerException == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result = (*jniEnv)->CallIntMethod(
+      jniEnv, self_, _m_Exceptions__throwNullPointerException);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__throwFileNotFoundException = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__throwFileNotFoundException(jobject self_) {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Exceptions, &_m_Exceptions__throwFileNotFoundException,
+              "throwFileNotFoundException", "()Ljava/io/InputStream;");
+  if (_m_Exceptions__throwFileNotFoundException == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(
+      jniEnv, self_, _m_Exceptions__throwFileNotFoundException);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__throwClassCastException = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__throwClassCastException(jobject self_) {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Exceptions, &_m_Exceptions__throwClassCastException,
+              "throwClassCastException", "()Ljava/io/FileInputStream;");
+  if (_m_Exceptions__throwClassCastException == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(
+      jniEnv, self_, _m_Exceptions__throwClassCastException);
+  return (JniResult){.value = {.l = to_global_ref(_result)},
+                     .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__throwArrayIndexException = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__throwArrayIndexException(jobject self_) {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Exceptions, &_m_Exceptions__throwArrayIndexException,
+              "throwArrayIndexException", "()I");
+  if (_m_Exceptions__throwArrayIndexException == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result = (*jniEnv)->CallIntMethod(
+      jniEnv, self_, _m_Exceptions__throwArrayIndexException);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__throwArithmeticException = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__throwArithmeticException(jobject self_) {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Exceptions, &_m_Exceptions__throwArithmeticException,
+              "throwArithmeticException", "()I");
+  if (_m_Exceptions__throwArithmeticException == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result = (*jniEnv)->CallIntMethod(
+      jniEnv, self_, _m_Exceptions__throwArithmeticException);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Exceptions__throwLoremIpsum = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Exceptions__throwLoremIpsum() {
+  load_env();
+  load_class_global_ref(
+      &_c_Exceptions, "com/github/dart_lang/jnigen/simple_package/Exceptions");
+  if (_c_Exceptions == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_Exceptions, &_m_Exceptions__throwLoremIpsum,
+                     "throwLoremIpsum", "()V");
+  if (_m_Exceptions__throwLoremIpsum == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  (*jniEnv)->CallStaticVoidMethod(jniEnv, _c_Exceptions,
+                                  _m_Exceptions__throwLoremIpsum);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
 // com.github.dart_lang.jnigen.simple_package.Fields
 jclass _c_Fields = NULL;
 
