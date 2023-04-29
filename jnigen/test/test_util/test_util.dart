@@ -209,12 +209,6 @@ void generateAndCompareBothModes(
   });
 }
 
-typedef TestCaseCallback = void Function();
-typedef TestRunnerCallback = void Function(
-  String description,
-  TestCaseCallback test,
-);
-
 List<String> findFilesWithSuffix(Directory dir, String suffix) {
   return dir
       .listSync(recursive: true)

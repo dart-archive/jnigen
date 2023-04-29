@@ -13,7 +13,7 @@ final lineBreak = Platform.isWindows ? '\r\n' : '\n';
 
 void runCommand(String exec, List<String> args) {
   final proc = Process.runSync(exec, args, runInShell: true);
-  log.info('execute $exec ${args.join(" ")}');
+  log.info('Execute $exec ${args.join(" ")}');
   if (proc.exitCode != 0) {
     exitCode = proc.exitCode;
     printError(proc.stdout);
@@ -31,8 +31,16 @@ const dartOnlyRegistrantFileName =
 // If you change this, add the corresponding entry to .gitignore as well.
 const replicaSuffix = '_dartonly_generated.dart';
 final runnerFilePath = join(testPath, 'generated_runtime_test.dart');
+final androidRunnerFilePath =
+    join('android_test_runner', 'integration_test', 'runtime_test.dart');
+
 final generatedComment =
     '// Generated file. Do not edit or check-in to version control.$lineBreak';
+const copyright = '''
+// Copyright (c) 2023, the Dart project authors. Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+''';
 
 const bindingTests = [
   'jackson_core_test',
@@ -44,6 +52,7 @@ final _generatedFiles = <String>[
   for (var testName in bindingTests)
     join(testPath, testName, dartOnlyRegistrantFileName),
   runnerFilePath,
+  androidRunnerFilePath,
 ];
 
 void generateReplicasAndRunner() {
@@ -58,7 +67,7 @@ void generateReplicasAndRunner() {
     final replica = registrant.replaceAll('.dart', replicaSuffix);
     final replicaFile = File(join(testPath, replica));
     replicaFile.writeAsStringSync('$generatedComment$lineBreak$contents');
-    log.info('generated $replica');
+    log.info('Generated $replica');
     imports['${testName}_c_based'] =
         Uri.file(registrant).toFilePath(windows: false);
     imports['${testName}_dart_only'] =
@@ -67,15 +76,15 @@ void generateReplicasAndRunner() {
   final importStrings = imports.entries
       .map((e) => 'import "${e.value}" as ${e.key};')
       .join(lineBreak);
+  final androidImportStrings = imports.entries
+      .map((e) => 'import "../../test/${e.value}" as ${e.key};')
+      .join(lineBreak);
   final runStrings = imports.keys
       .map((name) => '$name.registerTests("$name", test);')
       .join('$lineBreak  ');
   final runnerProgram = '''
 $generatedComment
-// Copyright (c) 2023, the Dart project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
+$copyright
 import 'package:test/test.dart';
 import 'test_util/bindings_test_setup.dart' as setup;
 
@@ -89,13 +98,54 @@ void main() {
 ''';
   final runnerFile = File(runnerFilePath);
   runnerFile.writeAsStringSync(runnerProgram);
-  log.info('generated runner $runnerFilePath');
+  log.info('Generated runner $runnerFilePath');
+
+  final androidRunnerProgram = '''
+$generatedComment
+$copyright
+import "package:flutter_test/flutter_test.dart";
+import "package:jni/jni.dart";
+
+$androidImportStrings
+
+typedef TestCaseCallback = void Function();
+
+void test(String description, TestCaseCallback testCase) {
+  testWidgets(description, (widgetTester) async => testCase());
+}
+
+void main() {
+  Jni.initDLApi();
+  $runStrings
+}
+''';
+  File(androidRunnerFilePath).writeAsStringSync(androidRunnerProgram);
+  log.info('Generated android runner: $androidRunnerFilePath');
+
+  final cMakePath =
+      join('android_test_runner', 'android', 'app', 'CMakeLists.txt');
+  final cmakeSubdirs = bindingTests
+      .map((e) =>
+          'add_subdirectory(../../../test/$e/c_based/c_bindings ${e}_build)')
+      .join(lineBreak);
+  final cMakeConfig = '''
+## Parent CMake for Android native build target. This will build
+## all C bindings from tests.
+
+cmake_minimum_required(VERSION 3.10)
+
+project(simple_package VERSION 0.0.1 LANGUAGES C)
+
+$cmakeSubdirs
+''';
+  File(cMakePath).writeAsStringSync(cMakeConfig);
+  log.info('Wrote Android CMake file: $cMakePath');
 }
 
 void cleanup() {
   for (var path in _generatedFiles) {
     File(path).deleteSync();
-    log.info('deleted $path');
+    log.info('Deleted $path');
   }
 }
 

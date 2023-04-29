@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:test/test.dart';
 import 'package:jni/jni.dart';
 
-import '../test_util/test_util.dart';
+import '../test_util/callback_types.dart';
 
 import 'c_based/dart_bindings/simple_package.dart';
 
@@ -506,7 +506,9 @@ void registerTests(String groupName, TestRunnerCallback test) {
       });
     }
 
-    testPassageOfTime(1);
-    testPassageOfTime(4);
+    if (!Platform.isAndroid) {
+      testPassageOfTime(1);
+      testPassageOfTime(4);
+    }
   });
 }

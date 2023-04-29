@@ -5,7 +5,7 @@
 import 'package:test/test.dart';
 import 'package:jni/jni.dart';
 
-import '../test_util/test_util.dart';
+import '../test_util/callback_types.dart';
 
 import 'c_based/dart_bindings/kotlin.dart';
 

@@ -2,10 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:test/test.dart';
 import 'package:jni/jni.dart';
 
-import '../test_util/test_util.dart';
+import '../test_util/callback_types.dart';
 
 import 'third_party/c_based/dart_bindings/com/fasterxml/jackson/core/_package.dart';
 
@@ -29,14 +31,16 @@ void registerTests(String groupName, TestRunnerCallback test) {
       expect(values, equals([false, true, false, false, true, true, false]));
       Jni.deleteAll([factory, parser, json]);
     });
-    test("parsing invalid JSON throws JniException", () {
-      using((arena) {
-        final factory = JsonFactory()..deletedIn(arena);
-        final erroneous = factory
-            .createParser6("<html>".toJString()..deletedIn(arena))
-          ..deletedIn(arena);
-        expect(() => erroneous.nextToken(), throwsA(isA<JniException>()));
+    if (!Platform.isAndroid) {
+      test("parsing invalid JSON throws JniException", () {
+        using((arena) {
+          final factory = JsonFactory()..deletedIn(arena);
+          final erroneous = factory
+              .createParser6("<html>".toJString()..deletedIn(arena))
+            ..deletedIn(arena);
+          expect(() => erroneous.nextToken(), throwsA(isA<JniException>()));
+        });
       });
-    });
+    }
   });
 }

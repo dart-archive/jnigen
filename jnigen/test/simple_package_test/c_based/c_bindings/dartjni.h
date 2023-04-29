@@ -176,10 +176,10 @@ typedef struct JniAccessorsStruct {
                                         char* methodName,
                                         char* signature);
   JniResult (*newObject)(jclass cls, jmethodID ctor, jvalue* args);
-  JniPointerResult (*newPrimitiveArray)(jsize length, int type);
-  JniPointerResult (*newObjectArray)(jsize length,
-                                     jclass elementClass,
-                                     jobject initialElement);
+  JniResult (*newPrimitiveArray)(jsize length, int type);
+  JniResult (*newObjectArray)(jsize length,
+                              jclass elementClass,
+                              jobject initialElement);
   JniResult (*getArrayElement)(jarray array, int index, int type);
   JniResult (*callMethod)(jobject obj,
                           jmethodID methodID,
@@ -261,8 +261,10 @@ static inline void load_class_global_ref(jclass* cls, const char* name) {
     acquire_lock(&jni->locks.classLoadingLock);
     if (*cls == NULL) {
       load_class_platform(&tmp, name);
-      *cls = (*jniEnv)->NewGlobalRef(jniEnv, tmp);
-      (*jniEnv)->DeleteLocalRef(jniEnv, tmp);
+      if (!(*jniEnv)->ExceptionCheck(jniEnv)) {
+        *cls = (*jniEnv)->NewGlobalRef(jniEnv, tmp);
+        (*jniEnv)->DeleteLocalRef(jniEnv, tmp);
+      }
     }
     release_lock(&jni->locks.classLoadingLock);
   }
