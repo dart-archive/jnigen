@@ -5,7 +5,6 @@
 package com.github.dart_lang.jnigen.simple_package;
 
 import java.util.*;
-import java.net.URI;
 
 public class Example {
   // static fields - primitive & string
@@ -139,7 +138,7 @@ public class Example {
   public Example(int number, boolean isUp, String codename) {
     this.number = number;
     this.isUp = isUp;
-    this.codename = codename;    
+    this.codename = codename;
   }
 
   public Example(int a, int b, int c, int d, int e, int f, int g, int h) {
