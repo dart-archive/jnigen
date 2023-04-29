@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:test/test.dart';
 import 'package:jni/jni.dart';
 
@@ -446,5 +448,65 @@ void registerTests(String groupName, TestRunnerCallback test) {
         });
       });
     });
+  });
+  group('$groupName (load tests)', () {
+    const k4 = 4 * 1024; // This is a round number, unlike say 4000
+    const k256 = 256 * 1024;
+    test('create large number of JNI references without deleting', () {
+      for (int i = 0; i < k4; i++) {
+        final e = Example.ctor1(i);
+        expect(e.getNumber(), equals(i));
+      }
+    });
+    test('Create many JNI refs with scoped deletion', () {
+      for (int i = 0; i < k256; i++) {
+        using((arena) {
+          final e = Example.ctor1(i)..deletedIn(arena);
+          expect(e.getNumber(), equals(i));
+        });
+      }
+    });
+    test('Create many JNI refs with scoped deletion, in batches', () {
+      for (int i = 0; i < 256; i++) {
+        using((arena) {
+          for (int i = 0; i < 1024; i++) {
+            final e = Example.ctor1(i)..deletedIn(arena);
+            expect(e.getNumber(), equals(i));
+          }
+        });
+      }
+    });
+    test('Create large number of JNI refs with manual delete', () {
+      for (int i = 0; i < k256; i++) {
+        final e = Example.ctor1(i);
+        expect(e.getNumber(), equals(i));
+        e.delete();
+      }
+    });
+    test('Method returning primitive type does not create references', () {
+      using((arena) {
+        final e = Example.ctor1(64)..deletedIn(arena);
+        for (int i = 0; i < k256; i++) {
+          expect(e.getNumber(), equals(64));
+        }
+      });
+    });
+    test('Class references are cached', () {
+      final asterisk = '*'.codeUnitAt(0);
+      for (int i = 0; i < k256; i++) {
+        expect(Fields.asterisk, equals(asterisk));
+      }
+    });
+    void testPassageOfTime(int n) {
+      test('Refs are not inadvertently deleted after $n seconds', () {
+        final f = Fields();
+        expect(f.trillion, equals(trillion));
+        sleep(Duration(seconds: n));
+        expect(f.trillion, equals(trillion));
+      });
+    }
+
+    testPassageOfTime(1);
+    testPassageOfTime(4);
   });
 }

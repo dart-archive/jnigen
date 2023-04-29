@@ -17,10 +17,6 @@ import 'test_util/test_util.dart';
 
 const maxLongInJava = 9223372036854775807;
 
-class FinalizerTrackingJObject extends JObject {
-  FinalizerTrackingJObject.fromRef(super.reference) : super.fromRef();
-}
-
 /// Taken from
 /// https://github.com/dart-lang/ffigen/blob/master/test/native_objc_test/automated_ref_count_test.dart
 final executeInternalCommand = DynamicLibrary.process().lookupFunction<

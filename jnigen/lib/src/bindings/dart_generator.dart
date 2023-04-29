@@ -23,7 +23,6 @@ const _jType = '$_jni.JObjType';
 const _jPointer = '$_jni.JObjectPtr';
 const _jArray = '$_jni.JArray';
 const _jObject = '$_jni.JObject';
-const _jThrowable = '$_jni.JThrowablePtr';
 const _jResult = '$_jni.JniResult';
 const _jCallType = '$_jni.JniCallType';
 
