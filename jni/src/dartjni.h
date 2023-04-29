@@ -358,6 +358,15 @@ static inline jthrowable check_exception() {
   return to_global_ref(exception);
 }
 
+static inline JniResult to_global_ref_result(jobject ref) {
+  JniResult result;
+  result.exception = check_exception();
+  if (result.exception == NULL) {
+    result.value.l = to_global_ref(ref);
+  }
+  return result;
+}
+
 FFI_PLUGIN_EXPORT intptr_t InitDartApiDL(void* data);
 
 JNIEXPORT void JNICALL

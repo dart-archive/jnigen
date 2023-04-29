@@ -416,14 +416,8 @@ JniResult getStaticField(jclass cls, jfieldID fieldID, int callType) {
 
 JniResult newObject(jclass cls, jmethodID ctor, jvalue* args) {
   attach_thread();
-  jvalue result;
-  result.l = (*jniEnv)->NewObjectA(jniEnv, cls, ctor, args);
-  jthrowable exception = check_exception();
-  if (exception == NULL) {
-    result.l = to_global_ref(result.l);
-  }
-  JniResult jniResult = {.value = result, .exception = exception};
-  return jniResult;
+  jobject result = (*jniEnv)->NewObjectA(jniEnv, cls, ctor, args);
+  return to_global_ref_result(result);
 }
 
 JniResult newPrimitiveArray(jsize length, int type) {
@@ -461,12 +455,7 @@ JniResult newPrimitiveArray(jsize length, int type) {
       // or throw exception in Dart using Dart's C API.
       break;
   }
-  jthrowable exception = check_exception();
-  jvalue result;
-  if (exception == NULL) {
-    result.l = to_global_ref(array);
-  }
-  return (JniResult){.value = result, .exception = exception};
+  return to_global_ref_result(array);
 }
 
 JniResult newObjectArray(jsize length,
@@ -475,12 +464,7 @@ JniResult newObjectArray(jsize length,
   attach_thread();
   jarray array =
       (*jniEnv)->NewObjectArray(jniEnv, length, elementClass, initialElement);
-  jvalue result;
-  jthrowable exception = check_exception();
-  if (exception == NULL) {
-    result.l = to_global_ref(array);
-  }
-  return (JniResult){.value = result, .exception = exception};
+  return to_global_ref_result(array);
 }
 
 JniResult getArrayElement(jarray array, int index, int type) {
