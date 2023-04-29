@@ -85,8 +85,7 @@ JniResult Example__getName() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Example,
                                                       _m_Example__getName);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example__getNestedInstance = NULL;
@@ -104,8 +103,7 @@ JniResult Example__getNestedInstance() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_Example, _m_Example__getNestedInstance);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example__setAmount = NULL;
@@ -274,8 +272,7 @@ JniResult Example__getCodename(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Example__getCodename);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example__setCodename = NULL;
@@ -308,8 +305,7 @@ JniResult Example__getRandom(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Example__getRandom);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example__setRandom = NULL;
@@ -403,8 +399,7 @@ JniResult Example__getRandomNumericString(jobject self_, jobject random) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Example__getRandomNumericString, random);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example__ctor = NULL;
@@ -419,8 +414,7 @@ JniResult Example__ctor() {
   if (_m_Example__ctor == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_Example, _m_Example__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example__ctor1 = NULL;
@@ -436,8 +430,7 @@ JniResult Example__ctor1(int32_t number) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_Example, _m_Example__ctor1, number);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example__ctor2 = NULL;
@@ -453,8 +446,7 @@ JniResult Example__ctor2(int32_t number, uint8_t isUp) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_Example, _m_Example__ctor2, number, isUp);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example__ctor3 = NULL;
@@ -471,8 +463,7 @@ JniResult Example__ctor3(int32_t number, uint8_t isUp, jobject codename) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_Example, _m_Example__ctor3,
                                          number, isUp, codename);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example__ctor4 = NULL;
@@ -495,8 +486,7 @@ JniResult Example__ctor4(int32_t a,
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_Example, _m_Example__ctor4,
                                          a, b, c, d, e, f, g, h);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example__whichExample = NULL;
@@ -544,8 +534,7 @@ JniResult Example__getArr() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_Example, _m_Example__getArr);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example__addAll = NULL;
@@ -578,8 +567,7 @@ JniResult Example__getSelf(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Example__getSelf);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example__throwException = NULL;
@@ -616,8 +604,7 @@ JniResult Example_Nested__ctor(uint8_t value) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_Example_Nested,
                                          _m_Example_Nested__ctor, value);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example_Nested__getValue = NULL;
@@ -671,8 +658,7 @@ JniResult Exceptions__ctor() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_Exceptions, _m_Exceptions__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Exceptions__ctor1 = NULL;
@@ -688,8 +674,7 @@ JniResult Exceptions__ctor1(float x) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_Exceptions, _m_Exceptions__ctor1, x);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Exceptions__ctor2 = NULL;
@@ -710,8 +695,7 @@ JniResult Exceptions__ctor2(int32_t a,
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(
       jniEnv, _c_Exceptions, _m_Exceptions__ctor2, a, b, c, d, e, f);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Exceptions__staticObjectMethod = NULL;
@@ -728,8 +712,7 @@ JniResult Exceptions__staticObjectMethod() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_Exceptions, _m_Exceptions__staticObjectMethod);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Exceptions__staticIntMethod = NULL;
@@ -763,8 +746,7 @@ JniResult Exceptions__staticObjectArrayMethod() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_Exceptions, _m_Exceptions__staticObjectArrayMethod);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Exceptions__staticIntArrayMethod = NULL;
@@ -781,8 +763,7 @@ JniResult Exceptions__staticIntArrayMethod() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_Exceptions, _m_Exceptions__staticIntArrayMethod);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Exceptions__objectMethod = NULL;
@@ -799,8 +780,7 @@ JniResult Exceptions__objectMethod(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Exceptions__objectMethod);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Exceptions__intMethod = NULL;
@@ -833,8 +813,7 @@ JniResult Exceptions__objectArrayMethod(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Exceptions__objectArrayMethod);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Exceptions__intArrayMethod = NULL;
@@ -851,8 +830,7 @@ JniResult Exceptions__intArrayMethod(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Exceptions__intArrayMethod);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Exceptions__throwNullPointerException = NULL;
@@ -886,8 +864,7 @@ JniResult Exceptions__throwFileNotFoundException(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Exceptions__throwFileNotFoundException);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Exceptions__throwClassCastException = NULL;
@@ -904,8 +881,7 @@ JniResult Exceptions__throwClassCastException(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_Exceptions__throwClassCastException);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Exceptions__throwArrayIndexException = NULL;
@@ -974,8 +950,7 @@ JniResult Fields__ctor() {
   if (_m_Fields__ctor == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_Fields, _m_Fields__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Fields__amount = NULL;
@@ -1065,9 +1040,10 @@ JniResult get_Fields__name() {
   if (_c_Fields == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_field(_c_Fields, &_f_Fields__name, "name", "Ljava/lang/String;");
-  jobject _result = to_global_ref(
+  jobject _result =
+      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Fields, _f_Fields__name);
+  return to_global_ref_result(
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Fields, _f_Fields__name));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -1091,9 +1067,9 @@ JniResult get_Fields__i(jobject self_) {
   if (_c_Fields == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_field(_c_Fields, &_f_Fields__i, "i", "Ljava/lang/Integer;");
-  jobject _result =
-      to_global_ref((*jniEnv)->GetObjectField(jniEnv, self_, _f_Fields__i));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->GetObjectField(jniEnv, self_, _f_Fields__i);
+  return to_global_ref_result(
+      (*jniEnv)->GetObjectField(jniEnv, self_, _f_Fields__i));
 }
 
 FFI_PLUGIN_EXPORT
@@ -1169,9 +1145,10 @@ JniResult get_Fields__bestFighterInGreece(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_field(_c_Fields, &_f_Fields__bestFighterInGreece, "bestFighterInGreece",
              "Ljava/lang/String;");
-  jobject _result = to_global_ref(
+  jobject _result =
+      (*jniEnv)->GetObjectField(jniEnv, self_, _f_Fields__bestFighterInGreece);
+  return to_global_ref_result(
       (*jniEnv)->GetObjectField(jniEnv, self_, _f_Fields__bestFighterInGreece));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -1197,9 +1174,9 @@ JniResult get_Fields__random(jobject self_) {
   if (_c_Fields == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_field(_c_Fields, &_f_Fields__random, "random", "Ljava/util/Random;");
-  jobject _result = to_global_ref(
+  jobject _result = (*jniEnv)->GetObjectField(jniEnv, self_, _f_Fields__random);
+  return to_global_ref_result(
       (*jniEnv)->GetObjectField(jniEnv, self_, _f_Fields__random));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -1231,8 +1208,7 @@ JniResult Fields_Nested__ctor() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_Fields_Nested, _m_Fields_Nested__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Fields_Nested__hundred = NULL;
@@ -1274,9 +1250,10 @@ JniResult get_Fields_Nested__BEST_GOD() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_field(_c_Fields_Nested, &_f_Fields_Nested__BEST_GOD, "BEST_GOD",
                     "Ljava/lang/String;");
-  jobject _result = to_global_ref((*jniEnv)->GetStaticObjectField(
+  jobject _result = (*jniEnv)->GetStaticObjectField(jniEnv, _c_Fields_Nested,
+                                                    _f_Fields_Nested__BEST_GOD);
+  return to_global_ref_result((*jniEnv)->GetStaticObjectField(
       jniEnv, _c_Fields_Nested, _f_Fields_Nested__BEST_GOD));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -1308,8 +1285,7 @@ JniResult C2__ctor() {
   if (_m_C2__ctor == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_C2, _m_C2__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_C2__CONSTANT = NULL;
@@ -1352,8 +1328,7 @@ JniResult Example1__ctor() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_Example1, _m_Example1__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_Example1__whichExample = NULL;
@@ -1389,8 +1364,7 @@ JniResult GrandParent__ctor(jobject value) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_GrandParent, _m_GrandParent__ctor, value);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_GrandParent__stringParent = NULL;
@@ -1407,8 +1381,7 @@ JniResult GrandParent__stringParent(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_GrandParent__stringParent);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_GrandParent__varParent = NULL;
@@ -1426,8 +1399,7 @@ JniResult GrandParent__varParent(jobject self_, jobject nestedValue) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_GrandParent__varParent, nestedValue);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_GrandParent__stringStaticParent = NULL;
@@ -1445,8 +1417,7 @@ JniResult GrandParent__stringStaticParent() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_GrandParent, _m_GrandParent__stringStaticParent);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_GrandParent__varStaticParent = NULL;
@@ -1465,8 +1436,7 @@ JniResult GrandParent__varStaticParent(jobject value) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_GrandParent, _m_GrandParent__varStaticParent, value);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_GrandParent__staticParentWithSameType = NULL;
@@ -1485,8 +1455,7 @@ JniResult GrandParent__staticParentWithSameType(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_GrandParent__staticParentWithSameType);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_GrandParent__value = NULL;
@@ -1499,9 +1468,10 @@ JniResult get_GrandParent__value(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_field(_c_GrandParent, &_f_GrandParent__value, "value",
              "Ljava/lang/Object;");
-  jobject _result = to_global_ref(
+  jobject _result =
+      (*jniEnv)->GetObjectField(jniEnv, self_, _f_GrandParent__value);
+  return to_global_ref_result(
       (*jniEnv)->GetObjectField(jniEnv, self_, _f_GrandParent__value));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -1536,8 +1506,7 @@ JniResult GrandParent_Parent__ctor(jobject parentValue, jobject value) {
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_GrandParent_Parent,
                            _m_GrandParent_Parent__ctor, parentValue, value);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_GrandParent_Parent__parentValue = NULL;
@@ -1551,9 +1520,10 @@ JniResult get_GrandParent_Parent__parentValue(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_field(_c_GrandParent_Parent, &_f_GrandParent_Parent__parentValue,
              "parentValue", "Ljava/lang/Object;");
-  jobject _result = to_global_ref((*jniEnv)->GetObjectField(
+  jobject _result = (*jniEnv)->GetObjectField(
+      jniEnv, self_, _f_GrandParent_Parent__parentValue);
+  return to_global_ref_result((*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_Parent__parentValue));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -1582,9 +1552,10 @@ JniResult get_GrandParent_Parent__value(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_field(_c_GrandParent_Parent, &_f_GrandParent_Parent__value, "value",
              "Ljava/lang/Object;");
-  jobject _result = to_global_ref(
+  jobject _result =
+      (*jniEnv)->GetObjectField(jniEnv, self_, _f_GrandParent_Parent__value);
+  return to_global_ref_result(
       (*jniEnv)->GetObjectField(jniEnv, self_, _f_GrandParent_Parent__value));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -1623,8 +1594,7 @@ JniResult GrandParent_Parent_Child__ctor(jobject grandParentValue,
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_GrandParent_Parent_Child,
                                          _m_GrandParent_Parent_Child__ctor,
                                          grandParentValue, parentValue, value);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_GrandParent_Parent_Child__grandParentValue = NULL;
@@ -1639,9 +1609,10 @@ JniResult get_GrandParent_Parent_Child__grandParentValue(jobject self_) {
   load_field(_c_GrandParent_Parent_Child,
              &_f_GrandParent_Parent_Child__grandParentValue, "grandParentValue",
              "Ljava/lang/Object;");
-  jobject _result = to_global_ref((*jniEnv)->GetObjectField(
+  jobject _result = (*jniEnv)->GetObjectField(
+      jniEnv, self_, _f_GrandParent_Parent_Child__grandParentValue);
+  return to_global_ref_result((*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_Parent_Child__grandParentValue));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -1673,9 +1644,10 @@ JniResult get_GrandParent_Parent_Child__parentValue(jobject self_) {
   load_field(_c_GrandParent_Parent_Child,
              &_f_GrandParent_Parent_Child__parentValue, "parentValue",
              "Ljava/lang/Object;");
-  jobject _result = to_global_ref((*jniEnv)->GetObjectField(
+  jobject _result = (*jniEnv)->GetObjectField(
+      jniEnv, self_, _f_GrandParent_Parent_Child__parentValue);
+  return to_global_ref_result((*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_Parent_Child__parentValue));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -1706,9 +1678,10 @@ JniResult get_GrandParent_Parent_Child__value(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_field(_c_GrandParent_Parent_Child, &_f_GrandParent_Parent_Child__value,
              "value", "Ljava/lang/Object;");
-  jobject _result = to_global_ref((*jniEnv)->GetObjectField(
+  jobject _result = (*jniEnv)->GetObjectField(
+      jniEnv, self_, _f_GrandParent_Parent_Child__value);
+  return to_global_ref_result((*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_Parent_Child__value));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -1745,8 +1718,7 @@ JniResult GrandParent_StaticParent__ctor(jobject value) {
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_GrandParent_StaticParent,
                            _m_GrandParent_StaticParent__ctor, value);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_GrandParent_StaticParent__value = NULL;
@@ -1760,9 +1732,10 @@ JniResult get_GrandParent_StaticParent__value(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_field(_c_GrandParent_StaticParent, &_f_GrandParent_StaticParent__value,
              "value", "Ljava/lang/Object;");
-  jobject _result = to_global_ref((*jniEnv)->GetObjectField(
+  jobject _result = (*jniEnv)->GetObjectField(
+      jniEnv, self_, _f_GrandParent_StaticParent__value);
+  return to_global_ref_result((*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_StaticParent__value));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -1801,8 +1774,7 @@ JniResult GrandParent_StaticParent_Child__ctor(jobject parentValue,
   jobject _result = (*jniEnv)->NewObject(
       jniEnv, _c_GrandParent_StaticParent_Child,
       _m_GrandParent_StaticParent_Child__ctor, parentValue, value);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_GrandParent_StaticParent_Child__parentValue = NULL;
@@ -1817,9 +1789,10 @@ JniResult get_GrandParent_StaticParent_Child__parentValue(jobject self_) {
   load_field(_c_GrandParent_StaticParent_Child,
              &_f_GrandParent_StaticParent_Child__parentValue, "parentValue",
              "Ljava/lang/Object;");
-  jobject _result = to_global_ref((*jniEnv)->GetObjectField(
+  jobject _result = (*jniEnv)->GetObjectField(
+      jniEnv, self_, _f_GrandParent_StaticParent_Child__parentValue);
+  return to_global_ref_result((*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_StaticParent_Child__parentValue));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -1851,9 +1824,10 @@ JniResult get_GrandParent_StaticParent_Child__value(jobject self_) {
   load_field(_c_GrandParent_StaticParent_Child,
              &_f_GrandParent_StaticParent_Child__value, "value",
              "Ljava/lang/Object;");
-  jobject _result = to_global_ref((*jniEnv)->GetObjectField(
+  jobject _result = (*jniEnv)->GetObjectField(
+      jniEnv, self_, _f_GrandParent_StaticParent_Child__value);
+  return to_global_ref_result((*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_StaticParent_Child__value));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -1888,8 +1862,7 @@ JniResult MyMap__ctor() {
   if (_m_MyMap__ctor == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_MyMap, _m_MyMap__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_MyMap__get0 = NULL;
@@ -1906,8 +1879,7 @@ JniResult MyMap__get0(jobject self_, jobject key) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_MyMap__get0, key);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_MyMap__put = NULL;
@@ -1924,8 +1896,7 @@ JniResult MyMap__put(jobject self_, jobject key, jobject value) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_MyMap__put, key, value);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_MyMap__entryStack = NULL;
@@ -1942,8 +1913,7 @@ JniResult MyMap__entryStack(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_MyMap__entryStack);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 // com.github.dart_lang.jnigen.generics.MyMap$MyEntry
@@ -1963,8 +1933,7 @@ JniResult MyMap_MyEntry__ctor(jobject key, jobject value) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_MyMap_MyEntry,
                                          _m_MyMap_MyEntry__ctor, key, value);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_MyMap_MyEntry__key = NULL;
@@ -1977,9 +1946,10 @@ JniResult get_MyMap_MyEntry__key(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_field(_c_MyMap_MyEntry, &_f_MyMap_MyEntry__key, "key",
              "Ljava/lang/Object;");
-  jobject _result = to_global_ref(
+  jobject _result =
+      (*jniEnv)->GetObjectField(jniEnv, self_, _f_MyMap_MyEntry__key);
+  return to_global_ref_result(
       (*jniEnv)->GetObjectField(jniEnv, self_, _f_MyMap_MyEntry__key));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -2005,9 +1975,10 @@ JniResult get_MyMap_MyEntry__value(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_field(_c_MyMap_MyEntry, &_f_MyMap_MyEntry__value, "value",
              "Ljava/lang/Object;");
-  jobject _result = to_global_ref(
+  jobject _result =
+      (*jniEnv)->GetObjectField(jniEnv, self_, _f_MyMap_MyEntry__value);
+  return to_global_ref_result(
       (*jniEnv)->GetObjectField(jniEnv, self_, _f_MyMap_MyEntry__value));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
@@ -2038,8 +2009,7 @@ JniResult MyStack__ctor() {
   if (_m_MyStack__ctor == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_MyStack, _m_MyStack__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_MyStack__fromArray = NULL;
@@ -2057,8 +2027,7 @@ JniResult MyStack__fromArray(jobject arr) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_MyStack, _m_MyStack__fromArray, arr);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_MyStack__fromArrayOfArrayOfGrandParents = NULL;
@@ -2078,8 +2047,7 @@ JniResult MyStack__fromArrayOfArrayOfGrandParents(jobject arr) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_MyStack, _m_MyStack__fromArrayOfArrayOfGrandParents, arr);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_MyStack__of = NULL;
@@ -2096,8 +2064,7 @@ JniResult MyStack__of() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_MyStack, _m_MyStack__of);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_MyStack__of1 = NULL;
@@ -2115,8 +2082,7 @@ JniResult MyStack__of1(jobject obj) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_MyStack,
                                                       _m_MyStack__of1, obj);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_MyStack__of2 = NULL;
@@ -2134,8 +2100,7 @@ JniResult MyStack__of2(jobject obj, jobject obj2) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_MyStack, _m_MyStack__of2, obj, obj2);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_MyStack__push = NULL;
@@ -2165,8 +2130,7 @@ JniResult MyStack__pop(jobject self_) {
   if (_m_MyStack__pop == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_MyStack__pop);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_MyStack__size = NULL;
@@ -2200,8 +2164,7 @@ JniResult StringKeyedMap__ctor() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_StringKeyedMap, _m_StringKeyedMap__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 // com.github.dart_lang.jnigen.generics.StringMap
@@ -2220,8 +2183,7 @@ JniResult StringMap__ctor() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_StringMap, _m_StringMap__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 // com.github.dart_lang.jnigen.generics.StringStack
@@ -2240,8 +2202,7 @@ JniResult StringStack__ctor() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_StringStack, _m_StringStack__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 // com.github.dart_lang.jnigen.generics.StringValuedMap
@@ -2260,8 +2221,7 @@ JniResult StringValuedMap__ctor() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_StringValuedMap,
                                          _m_StringValuedMap__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 // com.github.dart_lang.jnigen.annotations.JsonSerializable$Case
@@ -2283,8 +2243,7 @@ JniResult JsonSerializable_Case__values() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_JsonSerializable_Case, _m_JsonSerializable_Case__values);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonSerializable_Case__valueOf = NULL;
@@ -2305,8 +2264,7 @@ JniResult JsonSerializable_Case__valueOf(jobject name) {
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_JsonSerializable_Case, _m_JsonSerializable_Case__valueOf,
       name);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 // com.github.dart_lang.jnigen.annotations.MyDataClass
@@ -2325,6 +2283,5 @@ JniResult MyDataClass__ctor() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_MyDataClass, _m_MyDataClass__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }

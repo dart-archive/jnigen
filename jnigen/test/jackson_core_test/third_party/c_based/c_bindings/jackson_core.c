@@ -48,8 +48,7 @@ JniResult JsonFactory__ctor() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_JsonFactory, _m_JsonFactory__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__ctor1 = NULL;
@@ -66,8 +65,7 @@ JniResult JsonFactory__ctor1(jobject oc) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_JsonFactory, _m_JsonFactory__ctor1, oc);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__ctor2 = NULL;
@@ -85,8 +83,7 @@ JniResult JsonFactory__ctor2(jobject src, jobject codec) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_JsonFactory,
                                          _m_JsonFactory__ctor2, src, codec);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__ctor3 = NULL;
@@ -103,8 +100,7 @@ JniResult JsonFactory__ctor3(jobject b) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_JsonFactory, _m_JsonFactory__ctor3, b);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__ctor4 = NULL;
@@ -121,8 +117,7 @@ JniResult JsonFactory__ctor4(jobject b, uint8_t bogus) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_JsonFactory,
                                          _m_JsonFactory__ctor4, b, bogus);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__rebuild = NULL;
@@ -139,8 +134,7 @@ JniResult JsonFactory__rebuild(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonFactory__rebuild);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__builder = NULL;
@@ -157,8 +151,7 @@ JniResult JsonFactory__builder() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_JsonFactory,
                                                       _m_JsonFactory__builder);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__copy = NULL;
@@ -175,8 +168,7 @@ JniResult JsonFactory__copy(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonFactory__copy);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__readResolve = NULL;
@@ -193,8 +185,7 @@ JniResult JsonFactory__readResolve(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonFactory__readResolve);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__requiresPropertyOrdering = NULL;
@@ -279,8 +270,7 @@ JniResult JsonFactory__getFormatReadFeatureType(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__getFormatReadFeatureType);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__getFormatWriteFeatureType = NULL;
@@ -297,8 +287,7 @@ JniResult JsonFactory__getFormatWriteFeatureType(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__getFormatWriteFeatureType);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__canUseSchema = NULL;
@@ -332,8 +321,7 @@ JniResult JsonFactory__getFormatName(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonFactory__getFormatName);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__hasFormat = NULL;
@@ -351,8 +339,7 @@ JniResult JsonFactory__hasFormat(jobject self_, jobject acc) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
                                                 _m_JsonFactory__hasFormat, acc);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__requiresCustomCodec = NULL;
@@ -387,8 +374,7 @@ JniResult JsonFactory__hasJSONFormat(jobject self_, jobject acc) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__hasJSONFormat, acc);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__version = NULL;
@@ -405,8 +391,7 @@ JniResult JsonFactory__version(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonFactory__version);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__configure = NULL;
@@ -424,8 +409,7 @@ JniResult JsonFactory__configure(jobject self_, jobject f, uint8_t state) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__configure, f, state);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__enable = NULL;
@@ -443,8 +427,7 @@ JniResult JsonFactory__enable(jobject self_, jobject f) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonFactory__enable, f);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__disable = NULL;
@@ -462,8 +445,7 @@ JniResult JsonFactory__disable(jobject self_, jobject f) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonFactory__disable, f);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__isEnabled = NULL;
@@ -566,8 +548,7 @@ JniResult JsonFactory__configure1(jobject self_, jobject f, uint8_t state) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__configure1, f, state);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__enable1 = NULL;
@@ -585,8 +566,7 @@ JniResult JsonFactory__enable1(jobject self_, jobject f) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonFactory__enable1, f);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__disable1 = NULL;
@@ -604,8 +584,7 @@ JniResult JsonFactory__disable1(jobject self_, jobject f) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonFactory__disable1, f);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__isEnabled1 = NULL;
@@ -657,8 +636,7 @@ JniResult JsonFactory__getInputDecorator(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__getInputDecorator);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__setInputDecorator = NULL;
@@ -677,8 +655,7 @@ JniResult JsonFactory__setInputDecorator(jobject self_, jobject d) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__setInputDecorator, d);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__configure2 = NULL;
@@ -696,8 +673,7 @@ JniResult JsonFactory__configure2(jobject self_, jobject f, uint8_t state) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__configure2, f, state);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__enable2 = NULL;
@@ -715,8 +691,7 @@ JniResult JsonFactory__enable2(jobject self_, jobject f) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonFactory__enable2, f);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__disable2 = NULL;
@@ -734,8 +709,7 @@ JniResult JsonFactory__disable2(jobject self_, jobject f) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonFactory__disable2, f);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__isEnabled3 = NULL;
@@ -787,8 +761,7 @@ JniResult JsonFactory__getCharacterEscapes(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__getCharacterEscapes);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__setCharacterEscapes = NULL;
@@ -807,8 +780,7 @@ JniResult JsonFactory__setCharacterEscapes(jobject self_, jobject esc) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__setCharacterEscapes, esc);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__getOutputDecorator = NULL;
@@ -826,8 +798,7 @@ JniResult JsonFactory__getOutputDecorator(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__getOutputDecorator);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__setOutputDecorator = NULL;
@@ -846,8 +817,7 @@ JniResult JsonFactory__setOutputDecorator(jobject self_, jobject d) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__setOutputDecorator, d);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__setRootValueSeparator = NULL;
@@ -865,8 +835,7 @@ JniResult JsonFactory__setRootValueSeparator(jobject self_, jobject sep) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__setRootValueSeparator, sep);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__getRootValueSeparator = NULL;
@@ -883,8 +852,7 @@ JniResult JsonFactory__getRootValueSeparator(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__getRootValueSeparator);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__setCodec = NULL;
@@ -902,8 +870,7 @@ JniResult JsonFactory__setCodec(jobject self_, jobject oc) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonFactory__setCodec, oc);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__getCodec = NULL;
@@ -920,8 +887,7 @@ JniResult JsonFactory__getCodec(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonFactory__getCodec);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createParser = NULL;
@@ -938,8 +904,7 @@ JniResult JsonFactory__createParser(jobject self_, jobject f) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createParser, f);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createParser1 = NULL;
@@ -956,8 +921,7 @@ JniResult JsonFactory__createParser1(jobject self_, jobject url) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createParser1, url);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createParser2 = NULL;
@@ -974,8 +938,7 @@ JniResult JsonFactory__createParser2(jobject self_, jobject in) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createParser2, in);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createParser3 = NULL;
@@ -992,8 +955,7 @@ JniResult JsonFactory__createParser3(jobject self_, jobject r) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createParser3, r);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createParser4 = NULL;
@@ -1010,8 +972,7 @@ JniResult JsonFactory__createParser4(jobject self_, jobject data) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createParser4, data);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createParser5 = NULL;
@@ -1031,8 +992,7 @@ JniResult JsonFactory__createParser5(jobject self_,
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createParser5, data, offset, len);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createParser6 = NULL;
@@ -1049,8 +1009,7 @@ JniResult JsonFactory__createParser6(jobject self_, jobject content) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createParser6, content);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createParser7 = NULL;
@@ -1067,8 +1026,7 @@ JniResult JsonFactory__createParser7(jobject self_, jobject content) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createParser7, content);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createParser8 = NULL;
@@ -1088,8 +1046,7 @@ JniResult JsonFactory__createParser8(jobject self_,
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createParser8, content, offset, len);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createParser9 = NULL;
@@ -1106,8 +1063,7 @@ JniResult JsonFactory__createParser9(jobject self_, jobject in) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createParser9, in);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createNonBlockingByteArrayParser = NULL;
@@ -1125,8 +1081,7 @@ JniResult JsonFactory__createNonBlockingByteArrayParser(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createNonBlockingByteArrayParser);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createGenerator = NULL;
@@ -1147,8 +1102,7 @@ JniResult JsonFactory__createGenerator(jobject self_,
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createGenerator, out, enc);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createGenerator1 = NULL;
@@ -1166,8 +1120,7 @@ JniResult JsonFactory__createGenerator1(jobject self_, jobject out) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createGenerator1, out);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createGenerator2 = NULL;
@@ -1185,8 +1138,7 @@ JniResult JsonFactory__createGenerator2(jobject self_, jobject w) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createGenerator2, w);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createGenerator3 = NULL;
@@ -1205,8 +1157,7 @@ JniResult JsonFactory__createGenerator3(jobject self_, jobject f, jobject enc) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createGenerator3, f, enc);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createGenerator4 = NULL;
@@ -1227,8 +1178,7 @@ JniResult JsonFactory__createGenerator4(jobject self_,
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createGenerator4, out, enc);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createGenerator5 = NULL;
@@ -1246,8 +1196,7 @@ JniResult JsonFactory__createGenerator5(jobject self_, jobject out) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createGenerator5, out);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createJsonParser = NULL;
@@ -1265,8 +1214,7 @@ JniResult JsonFactory__createJsonParser(jobject self_, jobject f) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createJsonParser, f);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createJsonParser1 = NULL;
@@ -1284,8 +1232,7 @@ JniResult JsonFactory__createJsonParser1(jobject self_, jobject url) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createJsonParser1, url);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createJsonParser2 = NULL;
@@ -1303,8 +1250,7 @@ JniResult JsonFactory__createJsonParser2(jobject self_, jobject in) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createJsonParser2, in);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createJsonParser3 = NULL;
@@ -1322,8 +1268,7 @@ JniResult JsonFactory__createJsonParser3(jobject self_, jobject r) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createJsonParser3, r);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createJsonParser4 = NULL;
@@ -1341,8 +1286,7 @@ JniResult JsonFactory__createJsonParser4(jobject self_, jobject data) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createJsonParser4, data);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createJsonParser5 = NULL;
@@ -1363,8 +1307,7 @@ JniResult JsonFactory__createJsonParser5(jobject self_,
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createJsonParser5, data, offset, len);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createJsonParser6 = NULL;
@@ -1382,8 +1325,7 @@ JniResult JsonFactory__createJsonParser6(jobject self_, jobject content) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createJsonParser6, content);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createJsonGenerator = NULL;
@@ -1404,8 +1346,7 @@ JniResult JsonFactory__createJsonGenerator(jobject self_,
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createJsonGenerator, out, enc);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createJsonGenerator1 = NULL;
@@ -1423,8 +1364,7 @@ JniResult JsonFactory__createJsonGenerator1(jobject self_, jobject out) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createJsonGenerator1, out);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory__createJsonGenerator2 = NULL;
@@ -1443,8 +1383,7 @@ JniResult JsonFactory__createJsonGenerator2(jobject self_, jobject out) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonFactory__createJsonGenerator2, out);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_JsonFactory__DEFAULT_FACTORY_FEATURE_FLAGS = NULL;
@@ -1507,9 +1446,10 @@ JniResult get_JsonFactory__DEFAULT_ROOT_VALUE_SEPARATOR() {
                     &_f_JsonFactory__DEFAULT_ROOT_VALUE_SEPARATOR,
                     "DEFAULT_ROOT_VALUE_SEPARATOR",
                     "Lcom/fasterxml/jackson/core/SerializableString;");
-  jobject _result = to_global_ref((*jniEnv)->GetStaticObjectField(
+  jobject _result = (*jniEnv)->GetStaticObjectField(
+      jniEnv, _c_JsonFactory, _f_JsonFactory__DEFAULT_ROOT_VALUE_SEPARATOR);
+  return to_global_ref_result((*jniEnv)->GetStaticObjectField(
       jniEnv, _c_JsonFactory, _f_JsonFactory__DEFAULT_ROOT_VALUE_SEPARATOR));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 // com.fasterxml.jackson.core.JsonFactory$Feature
@@ -1530,8 +1470,7 @@ JniResult JsonFactory_Feature__values() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_JsonFactory_Feature, _m_JsonFactory_Feature__values);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory_Feature__valueOf = NULL;
@@ -1549,8 +1488,7 @@ JniResult JsonFactory_Feature__valueOf(jobject name) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_JsonFactory_Feature, _m_JsonFactory_Feature__valueOf, name);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonFactory_Feature__collectDefaults = NULL;
@@ -1638,8 +1576,7 @@ JniResult JsonParser__ctor() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->NewObject(jniEnv, _c_JsonParser, _m_JsonParser__ctor);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__ctor1 = NULL;
@@ -1655,8 +1592,7 @@ JniResult JsonParser__ctor1(int32_t features) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_JsonParser,
                                          _m_JsonParser__ctor1, features);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getCodec = NULL;
@@ -1673,8 +1609,7 @@ JniResult JsonParser__getCodec(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__getCodec);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__setCodec = NULL;
@@ -1707,8 +1642,7 @@ JniResult JsonParser__getInputSource(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__getInputSource);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__setRequestPayloadOnError = NULL;
@@ -1797,8 +1731,7 @@ JniResult JsonParser__getSchema(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__getSchema);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__canUseSchema = NULL;
@@ -1867,8 +1800,7 @@ JniResult JsonParser__getNonBlockingInputFeeder(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__getNonBlockingInputFeeder);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getReadCapabilities = NULL;
@@ -1886,8 +1818,7 @@ JniResult JsonParser__getReadCapabilities(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__getReadCapabilities);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__version = NULL;
@@ -1904,8 +1835,7 @@ JniResult JsonParser__version(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__version);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__close = NULL;
@@ -1954,8 +1884,7 @@ JniResult JsonParser__getParsingContext(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__getParsingContext);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__currentLocation = NULL;
@@ -1972,8 +1901,7 @@ JniResult JsonParser__currentLocation(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
                                                 _m_JsonParser__currentLocation);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__currentTokenLocation = NULL;
@@ -1991,8 +1919,7 @@ JniResult JsonParser__currentTokenLocation(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__currentTokenLocation);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getCurrentLocation = NULL;
@@ -2010,8 +1937,7 @@ JniResult JsonParser__getCurrentLocation(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__getCurrentLocation);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getTokenLocation = NULL;
@@ -2029,8 +1955,7 @@ JniResult JsonParser__getTokenLocation(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__getTokenLocation);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__currentValue = NULL;
@@ -2047,8 +1972,7 @@ JniResult JsonParser__currentValue(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__currentValue);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__assignCurrentValue = NULL;
@@ -2082,8 +2006,7 @@ JniResult JsonParser__getCurrentValue(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
                                                 _m_JsonParser__getCurrentValue);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__setCurrentValue = NULL;
@@ -2151,8 +2074,7 @@ JniResult JsonParser__enable(jobject self_, jobject f) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__enable, f);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__disable = NULL;
@@ -2170,8 +2092,7 @@ JniResult JsonParser__disable(jobject self_, jobject f) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__disable, f);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__configure = NULL;
@@ -2189,8 +2110,7 @@ JniResult JsonParser__configure(jobject self_, jobject f, uint8_t state) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__configure, f, state);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__isEnabled = NULL;
@@ -2258,8 +2178,7 @@ JniResult JsonParser__setFeatureMask(jobject self_, int32_t mask) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__setFeatureMask, mask);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__overrideStdFeatures = NULL;
@@ -2279,8 +2198,7 @@ JniResult JsonParser__overrideStdFeatures(jobject self_,
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__overrideStdFeatures, values, mask);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getFormatFeatures = NULL;
@@ -2317,8 +2235,7 @@ JniResult JsonParser__overrideFormatFeatures(jobject self_,
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__overrideFormatFeatures, values, mask);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__nextToken = NULL;
@@ -2335,8 +2252,7 @@ JniResult JsonParser__nextToken(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__nextToken);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__nextValue = NULL;
@@ -2353,8 +2269,7 @@ JniResult JsonParser__nextValue(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__nextValue);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__nextFieldName = NULL;
@@ -2388,8 +2303,7 @@ JniResult JsonParser__nextFieldName1(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__nextFieldName1);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__nextTextValue = NULL;
@@ -2406,8 +2320,7 @@ JniResult JsonParser__nextTextValue(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__nextTextValue);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__nextIntValue = NULL;
@@ -2458,8 +2371,7 @@ JniResult JsonParser__nextBooleanValue(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__nextBooleanValue);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__skipChildren = NULL;
@@ -2476,8 +2388,7 @@ JniResult JsonParser__skipChildren(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__skipChildren);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__finishToken = NULL;
@@ -2509,8 +2420,7 @@ JniResult JsonParser__currentToken(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__currentToken);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__currentTokenId = NULL;
@@ -2544,8 +2454,7 @@ JniResult JsonParser__getCurrentToken(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
                                                 _m_JsonParser__getCurrentToken);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getCurrentTokenId = NULL;
@@ -2713,8 +2622,7 @@ JniResult JsonParser__getLastClearedToken(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__getLastClearedToken);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__overrideCurrentName = NULL;
@@ -2748,8 +2656,7 @@ JniResult JsonParser__getCurrentName(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__getCurrentName);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__currentName = NULL;
@@ -2766,8 +2673,7 @@ JniResult JsonParser__currentName(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__currentName);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getText = NULL;
@@ -2784,8 +2690,7 @@ JniResult JsonParser__getText(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__getText);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getText1 = NULL;
@@ -2819,8 +2724,7 @@ JniResult JsonParser__getTextCharacters(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__getTextCharacters);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getTextLength = NULL;
@@ -2888,8 +2792,7 @@ JniResult JsonParser__getNumberValue(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__getNumberValue);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getNumberValueExact = NULL;
@@ -2906,8 +2809,7 @@ JniResult JsonParser__getNumberValueExact(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__getNumberValueExact);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getNumberType = NULL;
@@ -2924,8 +2826,7 @@ JniResult JsonParser__getNumberType(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__getNumberType);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getByteValue = NULL;
@@ -3009,8 +2910,7 @@ JniResult JsonParser__getBigIntegerValue(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__getBigIntegerValue);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getFloatValue = NULL;
@@ -3061,8 +2961,7 @@ JniResult JsonParser__getDecimalValue(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
                                                 _m_JsonParser__getDecimalValue);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getBooleanValue = NULL;
@@ -3096,8 +2995,7 @@ JniResult JsonParser__getEmbeddedObject(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__getEmbeddedObject);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getBinaryValue = NULL;
@@ -3114,8 +3012,7 @@ JniResult JsonParser__getBinaryValue(jobject self_, jobject bv) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__getBinaryValue, bv);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getBinaryValue1 = NULL;
@@ -3132,8 +3029,7 @@ JniResult JsonParser__getBinaryValue1(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
                                                 _m_JsonParser__getBinaryValue1);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__readBinaryValue = NULL;
@@ -3321,8 +3217,7 @@ JniResult JsonParser__getValueAsString(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__getValueAsString);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getValueAsString1 = NULL;
@@ -3339,8 +3234,7 @@ JniResult JsonParser__getValueAsString1(jobject self_, jobject def) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__getValueAsString1, def);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__canReadObjectId = NULL;
@@ -3391,8 +3285,7 @@ JniResult JsonParser__getObjectId(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__getObjectId);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__getTypeId = NULL;
@@ -3409,8 +3302,7 @@ JniResult JsonParser__getTypeId(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonParser__getTypeId);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__readValueAs = NULL;
@@ -3427,8 +3319,7 @@ JniResult JsonParser__readValueAs(jobject self_, jobject valueType) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__readValueAs, valueType);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__readValueAs1 = NULL;
@@ -3446,8 +3337,7 @@ JniResult JsonParser__readValueAs1(jobject self_, jobject valueTypeRef) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__readValueAs1, valueTypeRef);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__readValuesAs = NULL;
@@ -3464,8 +3354,7 @@ JniResult JsonParser__readValuesAs(jobject self_, jobject valueType) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__readValuesAs, valueType);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__readValuesAs1 = NULL;
@@ -3483,8 +3372,7 @@ JniResult JsonParser__readValuesAs1(jobject self_, jobject valueTypeRef) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(
       jniEnv, self_, _m_JsonParser__readValuesAs1, valueTypeRef);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser__readValueAsTree = NULL;
@@ -3501,8 +3389,7 @@ JniResult JsonParser__readValueAsTree(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
                                                 _m_JsonParser__readValueAsTree);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_JsonParser__DEFAULT_READ_CAPABILITIES = NULL;
@@ -3516,9 +3403,10 @@ JniResult get_JsonParser__DEFAULT_READ_CAPABILITIES() {
   load_static_field(_c_JsonParser, &_f_JsonParser__DEFAULT_READ_CAPABILITIES,
                     "DEFAULT_READ_CAPABILITIES",
                     "Lcom/fasterxml/jackson/core/util/JacksonFeatureSet;");
-  jobject _result = to_global_ref((*jniEnv)->GetStaticObjectField(
+  jobject _result = (*jniEnv)->GetStaticObjectField(
+      jniEnv, _c_JsonParser, _f_JsonParser__DEFAULT_READ_CAPABILITIES);
+  return to_global_ref_result((*jniEnv)->GetStaticObjectField(
       jniEnv, _c_JsonParser, _f_JsonParser__DEFAULT_READ_CAPABILITIES));
-  return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
 // com.fasterxml.jackson.core.JsonParser$Feature
@@ -3539,8 +3427,7 @@ JniResult JsonParser_Feature__values() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_JsonParser_Feature, _m_JsonParser_Feature__values);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser_Feature__valueOf = NULL;
@@ -3558,8 +3445,7 @@ JniResult JsonParser_Feature__valueOf(jobject name) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_JsonParser_Feature, _m_JsonParser_Feature__valueOf, name);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser_Feature__collectDefaults = NULL;
@@ -3649,8 +3535,7 @@ JniResult JsonParser_NumberType__values() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_JsonParser_NumberType, _m_JsonParser_NumberType__values);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonParser_NumberType__valueOf = NULL;
@@ -3669,8 +3554,7 @@ JniResult JsonParser_NumberType__valueOf(jobject name) {
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_JsonParser_NumberType, _m_JsonParser_NumberType__valueOf,
       name);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 // com.fasterxml.jackson.core.JsonToken
@@ -3689,8 +3573,7 @@ JniResult JsonToken__values() {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_JsonToken,
                                                       _m_JsonToken__values);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonToken__valueOf = NULL;
@@ -3707,8 +3590,7 @@ JniResult JsonToken__valueOf(jobject name) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_JsonToken, _m_JsonToken__valueOf, name);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonToken__id = NULL;
@@ -3738,8 +3620,7 @@ JniResult JsonToken__asString(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonToken__asString);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonToken__asCharArray = NULL;
@@ -3754,8 +3635,7 @@ JniResult JsonToken__asCharArray(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonToken__asCharArray);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonToken__asByteArray = NULL;
@@ -3770,8 +3650,7 @@ JniResult JsonToken__asByteArray(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result =
       (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_JsonToken__asByteArray);
-  return (JniResult){.value = {.l = to_global_ref(_result)},
-                     .exception = check_exception()};
+  return to_global_ref_result(_result);
 }
 
 jmethodID _m_JsonToken__isNumeric = NULL;
