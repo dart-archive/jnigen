@@ -48,6 +48,8 @@ const bindingTests = [
   'kotlin_test',
 ];
 
+const hasThirdPartyDir = {'jackson_core_test'};
+
 final _generatedFiles = <String>[
   for (var testName in bindingTests)
     join(testPath, testName, dartOnlyRegistrantFileName),
@@ -124,10 +126,13 @@ void main() {
 
   final cMakePath =
       join('android_test_runner', 'android', 'app', 'CMakeLists.txt');
-  final cmakeSubdirs = bindingTests
-      .map((e) =>
-          'add_subdirectory(../../../test/$e/c_based/c_bindings ${e}_build)')
-      .join(lineBreak);
+
+  final cmakeSubdirs = bindingTests.map((testName) {
+    final indirect = hasThirdPartyDir.contains(testName) ? '/third_party' : '';
+    return 'add_subdirectory'
+        '(../../../test/$testName$indirect/c_based/c_bindings '
+        '${testName}_build)';
+  }).join(lineBreak);
   final cMakeConfig = '''
 ## Parent CMake for Android native build target. This will build
 ## all C bindings from tests.
