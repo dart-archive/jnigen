@@ -31,16 +31,14 @@ void registerTests(String groupName, TestRunnerCallback test) {
       expect(values, equals([false, true, false, false, true, true, false]));
       Jni.deleteAll([factory, parser, json]);
     });
-    if (!Platform.isAndroid) {
-      test("parsing invalid JSON throws JniException", () {
-        using((arena) {
-          final factory = JsonFactory()..deletedIn(arena);
-          final erroneous = factory
-              .createParser6("<html>".toJString()..deletedIn(arena))
-            ..deletedIn(arena);
-          expect(() => erroneous.nextToken(), throwsA(isA<JniException>()));
-        });
+    test("parsing invalid JSON throws JniException", () {
+      using((arena) {
+        final factory = JsonFactory()..deletedIn(arena);
+        final erroneous = factory
+            .createParser6("<html>".toJString()..deletedIn(arena))
+          ..deletedIn(arena);
+        expect(() => erroneous.nextToken(), throwsA(isA<JniException>()));
       });
-    }
+    });
   });
 }
