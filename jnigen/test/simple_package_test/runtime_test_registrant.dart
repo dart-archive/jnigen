@@ -23,20 +23,19 @@ void registerTests(String groupName, TestRunnerCallback test) {
       expect(Example.SEMICOLON_STRING, equals(';'));
     });
 
-    test('Static fields & methods - primitive', () {
+    test('Static methods - primitive', () {
       // same test can be run at a replicated (dart-only) test, check for both
       // possible values.
-      expect(Example.amount, isIn([1012, 500]));
+      expect(Example.getAmount(), isIn([1012, 500]));
       Example.setAmount(1012);
-      expect(Example.amount, equals(1012));
       expect(Example.getAmount(), equals(1012));
-      expect(Example.asterisk, equals('*'.codeUnitAt(0)));
+      expect(Example.getAsterisk(), equals('*'.codeUnitAt(0)));
       expect(C2.CONSTANT, equals(12));
     });
 
     test('Static fields & methods - string', () {
       expect(
-        Example.name.toDartString(deleteOriginal: true),
+        Example.getName().toDartString(deleteOriginal: true),
         isIn(["Ragnar Lothbrok", "Theseus"]),
       );
       Example.setName("Theseus".toJString());
@@ -44,16 +43,13 @@ void registerTests(String groupName, TestRunnerCallback test) {
         Example.getName().toDartString(deleteOriginal: true),
         equals("Theseus"),
       );
-      expect(
-        Example.name.toDartString(deleteOriginal: true),
-        equals("Theseus"),
-      );
     });
 
     test('Static fields and methods - Object', () {
-      expect(Example.aux.getValue(), isIn([true, false]));
-      Example.aux.setValue(false);
-      expect(Example.aux.value, isFalse);
+      final nested = Example.getNestedInstance();
+      expect(nested.getValue(), isIn([true, false]));
+      nested.setValue(false);
+      expect(nested.getValue(), isFalse);
     });
 
     test('static methods with several arguments', () {
@@ -62,12 +58,110 @@ void registerTests(String groupName, TestRunnerCallback test) {
       expect(Example.max8(1, 4, 8, 2, 4, 10, 8, 6), equals(10));
     });
 
-    test('Instance fields', () {
+    test('Instance methods (getters & setters)', () {
       final e = Example();
-      expect(e.trillion, equals(trillion));
-      expect(e.isAchillesDead, false);
-      expect(e.bestFighterInGreece.toDartString(), equals("Achilles"));
-      e.trillion = 1;
+      expect(e.getNumber(), equals(0));
+      expect(e.getIsUp(), true);
+      expect(e.getCodename().toDartString(), equals("achilles"));
+      e.setNumber(1);
+      e.setUp(false);
+      e.setCodename("spartan".toJString());
+      expect(e.getIsUp(), false);
+      expect(e.getNumber(), 1);
+      expect(e.getCodename().toDartString(), equals("spartan"));
+      e.delete();
+    });
+
+    test('Instance methods with several arguments', () {
+      final e = Example();
+      expect(e.add4Longs(1, 2, 3, 4), equals(10));
+      expect(e.add8Longs(1, 1, 2, 2, 3, 3, 12, 24), equals(48));
+      expect(
+        e.add4Longs(trillion, trillion, trillion, trillion),
+        equals(4 * trillion),
+      );
+      expect(
+        e.add8Longs(trillion, -trillion, trillion, -trillion, trillion,
+            -trillion, -trillion, -trillion),
+        equals(2 * -trillion),
+      );
+      e.delete();
+    });
+
+    test('Misc. instance methods', () {
+      final e = Example();
+      final rand = e.getRandom();
+      expect(rand.isNull, isFalse);
+      final _ = e.getRandomLong();
+      final id =
+          e.getRandomNumericString(rand).toDartString(deleteOriginal: true);
+      expect(int.parse(id), lessThan(10000));
+      e.setNumber(145);
+      expect(
+        e.getSelf().getSelf().getSelf().getSelf().getNumber(),
+        equals(145),
+      );
+      e.delete();
+    });
+
+    test('Constructors', () {
+      final e0 = Example();
+      expect(e0.getNumber(), 0);
+      expect(e0.getIsUp(), true);
+      expect(e0.getCodename().toDartString(), equals('achilles'));
+      final e1 = Example.ctor1(111);
+      expect(e1.getNumber(), equals(111));
+      expect(e1.getIsUp(), true);
+      expect(e1.getCodename().toDartString(), "achilles");
+      final e2 = Example.ctor2(122, false);
+      expect(e2.getNumber(), equals(122));
+      expect(e2.getIsUp(), false);
+      expect(e2.getCodename().toDartString(), "achilles");
+      final e3 = Example.ctor3(133, false, "spartan".toJString());
+      expect(e3.getNumber(), equals(133));
+      expect(e3.getIsUp(), false);
+      expect(e3.getCodename().toDartString(), "spartan");
+    });
+
+    test('Static (non-final) fields', () {
+      // Other replica test may already have modified this, so assert both
+      // values.
+      expect(Fields.amount, isIn([500, 101]));
+      Fields.amount = 101;
+      expect(Fields.amount, equals(101));
+
+      expect(Fields.asterisk, equals('*'.codeUnitAt(0)));
+
+      expect(
+        Fields.name.toDartString(),
+        isIn(["Earl Haraldson", "Ragnar Lothbrok"]),
+      );
+
+      Fields.name = "Ragnar Lothbrok".toJString();
+      expect(Fields.name.toDartString(), equals("Ragnar Lothbrok"));
+
+      expect(Fields.pi, closeTo(pi, fpDelta));
+    });
+
+    test('Instance fields', () {
+      final f = Fields();
+      expect(f.trillion, equals(trillion));
+
+      expect(f.isAchillesDead, isFalse);
+      expect(f.bestFighterInGreece.toDartString(), equals("Achilles"));
+      // "For your glory walks hand-in-hand with your doom." - Thetis.
+      f.isAchillesDead = true;
+      // I don't know much Greek mythology. But Troy was released in 2004,
+      // and 300 was released in 2006, so it's Leonidas I.
+      f.bestFighterInGreece = "Leonidas I".toJString();
+      expect(f.isAchillesDead, isTrue);
+      expect(f.bestFighterInGreece.toDartString(), "Leonidas I");
+    });
+
+    test('Fields from nested class', () {
+      expect(Fields_Nested().hundred, equals(100));
+      // Hector of Troy may disagree.
+      expect(Fields_Nested.BEST_GOD.toDartString(), equals('Pallas Athena'));
     });
 
     test('static methods arrays', () {
@@ -83,13 +177,13 @@ void registerTests(String groupName, TestRunnerCallback test) {
     test('array of the class', () {
       final ex1 = Example();
       final ex2 = Example();
-      ex1.setInternal(1);
-      ex2.setInternal(2);
+      ex1.setNumber(1);
+      ex2.setNumber(2);
       final array = JArray(Example.type, 2);
       array[0] = ex1;
       array[1] = ex2;
-      expect(array[0].getInternal(), 1);
-      expect(array[1].getInternal(), 2);
+      expect(array[0].getNumber(), 1);
+      expect(array[1].getNumber(), 2);
       array.delete();
       ex1.delete();
       ex2.delete();
@@ -101,7 +195,7 @@ void registerTests(String groupName, TestRunnerCallback test) {
     });
 
     test('exceptions', () {
-      expect(() => Example.throwException(), throwsException);
+      expect(() => Example.throwException(), throwsA(isA<JniException>()));
     });
 
     group('generics', () {
@@ -132,12 +226,12 @@ void registerTests(String groupName, TestRunnerCallback test) {
           map.put('World'.toJString()..deletedIn(arena), worldExample);
           expect(
             (map.get0('Hello'.toJString()..deletedIn(arena))..deletedIn(arena))
-                .getInternal(),
+                .getNumber(),
             1,
           );
           expect(
             (map.get0('World'.toJString()..deletedIn(arena))..deletedIn(arena))
-                .getInternal(),
+                .getNumber(),
             2,
           );
           expect(
@@ -166,7 +260,7 @@ void registerTests(String groupName, TestRunnerCallback test) {
             expect(
               (map.get0('Hello'.toJString()..deletedIn(arena))
                     ..deletedIn(arena))
-                  .getInternal(),
+                  .getNumber(),
               0,
             );
           });
@@ -224,7 +318,7 @@ void registerTests(String groupName, TestRunnerCallback test) {
               S: Example.type, Example()..deletedIn(arena))
             ..deletedIn(arena);
           expect(
-            (exampleStaticParent.value..deletedIn(arena)).getInternal(),
+            (exampleStaticParent.value..deletedIn(arena)).getNumber(),
             0,
           );
 
@@ -250,7 +344,7 @@ void registerTests(String groupName, TestRunnerCallback test) {
             "!",
           );
           expect(
-            (exampleParent.value..deletedIn(arena)).getInternal(),
+            (exampleParent.value..deletedIn(arena)).getNumber(),
             0,
           );
           // TODO(#139): test constructing Child, currently does not work due

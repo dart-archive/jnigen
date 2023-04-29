@@ -5,6 +5,7 @@
 package com.github.dart_lang.jnigen.simple_package;
 
 import java.util.*;
+import java.net.URI;
 
 public class Example {
   // static fields - primitive & string
@@ -14,14 +15,13 @@ public class Example {
   public static final char SEMICOLON = ';';
   public static final String SEMICOLON_STRING = ";";
 
-  // static fields - non-final primitive & string
-  public static int amount = 500;
-  public static double pi = 3.14159;
-  public static char asterisk = '*';
-  public static String name = "Ragnar Lothbrok";
+  private static int amount = 500;
+  private static double pi = 3.14159;
+  private static char asterisk = '*';
+  private static String name = "Ragnar Lothbrok";
 
   // Static fields - object
-  public static Aux aux;
+  private static Nested nested = new Nested(true);
 
   // static methods
   public static int getAmount() {
@@ -40,6 +40,10 @@ public class Example {
     return name;
   }
 
+  public static Nested getNestedInstance() {
+    return nested;
+  }
+
   // void functions with 1 parameter
   public static void setAmount(int newAmount) {
     amount = newAmount;
@@ -47,6 +51,10 @@ public class Example {
 
   public static void setName(String newName) {
     name = newName;
+  }
+
+  public static void setNestedInstance(Nested newNested) {
+    nested = newNested;
   }
 
   // void functions with many parameters
@@ -59,29 +67,44 @@ public class Example {
   }
 
   // Instance fields - primitive and string
-
-  public long trillion = 1024L * 1024L * 1024L * 1024L;
-  public boolean isAchillesDead = false;
-  public String bestFighterInGreece = "Achilles";
+  private int number = 0;
+  private boolean isUp = false;
+  private String codename = "achilles";
 
   // Instance fields - object
-  public Random random = new Random();
+  private Random random = new Random();
 
   // Instance methods
-  public long getTrillion() {
-    return trillion;
+  public int getNumber() {
+    return number;
   }
 
-  public boolean isAchillesAlive() {
-    return !isAchillesDead;
+  public void setNumber(int number) {
+    this.number = number;
   }
 
-  public String whoIsBestFighterInGreece() {
-    return bestFighterInGreece;
+  public boolean getIsUp() {
+    return isUp;
+  }
+
+  public void setUp(boolean isUp) {
+    this.isUp = isUp;
+  }
+
+  public String getCodename() {
+    return codename;
+  }
+
+  public void setCodename(String codename) {
+    this.codename = codename;
   }
 
   public Random getRandom() {
     return random;
+  }
+
+  public void setRandom(Random random) {
+    this.random = random;
   }
 
   public long getRandomLong() {
@@ -101,27 +124,30 @@ public class Example {
         "%d%d%d%d", random.nextInt(10), random.nextInt(10), random.nextInt(10), random.nextInt(10));
   }
 
-  private int internal = 0;
-
-  public Example() {}
-
-  public Example(int internal) {
-    this.internal = internal;
+  public Example() {
+    this(0);
   }
 
-  public static int num;
+  public Example(int number) {
+    this(number, true);
+  }
 
-  static {
-    aux = new Aux(true);
-    num = 121;
+  public Example(int number, boolean isUp) {
+    this(number, isUp, "achilles");
+  }
+
+  public Example(int number, boolean isUp, String codename) {
+    this.number = number;
+    this.isUp = isUp;
+    this.codename = codename;    
+  }
+
+  public Example(int a, int b, int c, int d, int e, int f, int g, int h) {
+    this(a + b + c + d + e + f + g + h);
   }
 
   public int whichExample() {
     return 0;
-  }
-
-  public static Aux getAux() {
-    return aux;
   }
 
   public static int addInts(int a, int b) {
@@ -140,30 +166,14 @@ public class Example {
     return this;
   }
 
-  public int getNum() {
-    return num;
-  }
-
-  public void setNum(int num) {
-    this.num = num;
-  }
-
-  public int getInternal() {
-    return internal;
-  }
-
-  public void setInternal(int internal) {
-    this.internal = internal;
-  }
-
   public static void throwException() {
     throw new RuntimeException("Hello");
   }
 
-  public static class Aux {
-    public boolean value;
+  public static class Nested {
+    private boolean value;
 
-    public Aux(boolean value) {
+    public Nested(boolean value) {
       this.value = value;
     }
 

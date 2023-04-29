@@ -58,166 +58,6 @@ class Example extends jni.JObject {
   /// from: static public final java.lang.String SEMICOLON_STRING
   static const SEMICOLON_STRING = r""";""";
 
-  static final _id_amount = jniAccessors.getStaticFieldIDOf(
-    _classRef,
-    r"amount",
-    r"I",
-  );
-
-  /// from: static public int amount
-  static int get amount => jniAccessors
-      .getStaticField(_classRef, _id_amount, jni.JniCallType.intType)
-      .integer;
-
-  /// from: static public int amount
-  static set amount(int value) =>
-      jniEnv.SetStaticIntField(_classRef, _id_amount, value);
-
-  static final _id_pi = jniAccessors.getStaticFieldIDOf(
-    _classRef,
-    r"pi",
-    r"D",
-  );
-
-  /// from: static public double pi
-  static double get pi => jniAccessors
-      .getStaticField(_classRef, _id_pi, jni.JniCallType.doubleType)
-      .doubleFloat;
-
-  /// from: static public double pi
-  static set pi(double value) =>
-      jniEnv.SetStaticDoubleField(_classRef, _id_pi, value);
-
-  static final _id_asterisk = jniAccessors.getStaticFieldIDOf(
-    _classRef,
-    r"asterisk",
-    r"C",
-  );
-
-  /// from: static public char asterisk
-  static int get asterisk => jniAccessors
-      .getStaticField(_classRef, _id_asterisk, jni.JniCallType.charType)
-      .char;
-
-  /// from: static public char asterisk
-  static set asterisk(int value) =>
-      jniEnv.SetStaticCharField(_classRef, _id_asterisk, value);
-
-  static final _id_name = jniAccessors.getStaticFieldIDOf(
-    _classRef,
-    r"name",
-    r"Ljava/lang/String;",
-  );
-
-  /// from: static public java.lang.String name
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get name => const jni.JStringType().fromRef(jniAccessors
-      .getStaticField(_classRef, _id_name, jni.JniCallType.objectType)
-      .object);
-
-  /// from: static public java.lang.String name
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static set name(jni.JString value) =>
-      jniEnv.SetStaticObjectField(_classRef, _id_name, value.reference);
-
-  static final _id_aux = jniAccessors.getStaticFieldIDOf(
-    _classRef,
-    r"aux",
-    r"Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;",
-  );
-
-  /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux aux
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static Example_Aux get aux => const $Example_AuxType().fromRef(jniAccessors
-      .getStaticField(_classRef, _id_aux, jni.JniCallType.objectType)
-      .object);
-
-  /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux aux
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static set aux(Example_Aux value) =>
-      jniEnv.SetStaticObjectField(_classRef, _id_aux, value.reference);
-
-  static final _id_trillion = jniAccessors.getFieldIDOf(
-    _classRef,
-    r"trillion",
-    r"J",
-  );
-
-  /// from: public long trillion
-  int get trillion => jniAccessors
-      .getField(reference, _id_trillion, jni.JniCallType.longType)
-      .long;
-
-  /// from: public long trillion
-  set trillion(int value) =>
-      jniEnv.SetLongField(reference, _id_trillion, value);
-
-  static final _id_isAchillesDead = jniAccessors.getFieldIDOf(
-    _classRef,
-    r"isAchillesDead",
-    r"Z",
-  );
-
-  /// from: public boolean isAchillesDead
-  bool get isAchillesDead => jniAccessors
-      .getField(reference, _id_isAchillesDead, jni.JniCallType.booleanType)
-      .boolean;
-
-  /// from: public boolean isAchillesDead
-  set isAchillesDead(bool value) =>
-      jniEnv.SetBooleanField(reference, _id_isAchillesDead, value ? 1 : 0);
-
-  static final _id_bestFighterInGreece = jniAccessors.getFieldIDOf(
-    _classRef,
-    r"bestFighterInGreece",
-    r"Ljava/lang/String;",
-  );
-
-  /// from: public java.lang.String bestFighterInGreece
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString get bestFighterInGreece =>
-      const jni.JStringType().fromRef(jniAccessors
-          .getField(
-              reference, _id_bestFighterInGreece, jni.JniCallType.objectType)
-          .object);
-
-  /// from: public java.lang.String bestFighterInGreece
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  set bestFighterInGreece(jni.JString value) => jniEnv.SetObjectField(
-      reference, _id_bestFighterInGreece, value.reference);
-
-  static final _id_random = jniAccessors.getFieldIDOf(
-    _classRef,
-    r"random",
-    r"Ljava/util/Random;",
-  );
-
-  /// from: public java.util.Random random
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject get random => const jni.JObjectType().fromRef(jniAccessors
-      .getField(reference, _id_random, jni.JniCallType.objectType)
-      .object);
-
-  /// from: public java.util.Random random
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  set random(jni.JObject value) =>
-      jniEnv.SetObjectField(reference, _id_random, value.reference);
-
-  static final _id_num = jniAccessors.getStaticFieldIDOf(
-    _classRef,
-    r"num",
-    r"I",
-  );
-
-  /// from: static public int num
-  static int get num => jniAccessors
-      .getStaticField(_classRef, _id_num, jni.JniCallType.intType)
-      .integer;
-
-  /// from: static public int num
-  static set num(int value) =>
-      jniEnv.SetStaticIntField(_classRef, _id_num, value);
-
   static final _id_getAmount =
       jniAccessors.getStaticMethodIDOf(_classRef, r"getAmount", r"()I");
 
@@ -256,6 +96,19 @@ class Example extends jni.JObject {
             _classRef, _id_getName, jni.JniCallType.objectType, []).object);
   }
 
+  static final _id_getNestedInstance = jniAccessors.getStaticMethodIDOf(
+      _classRef,
+      r"getNestedInstance",
+      r"()Lcom/github/dart_lang/jnigen/simple_package/Example$Nested;");
+
+  /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Nested getNestedInstance()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static Example_Nested getNestedInstance() {
+    return const $Example_NestedType().fromRef(jniAccessors
+        .callStaticMethodWithArgs(_classRef, _id_getNestedInstance,
+            jni.JniCallType.objectType, []).object);
+  }
+
   static final _id_setAmount =
       jniAccessors.getStaticMethodIDOf(_classRef, r"setAmount", r"(I)V");
 
@@ -276,6 +129,22 @@ class Example extends jni.JObject {
   ) {
     return jniAccessors.callStaticMethodWithArgs(_classRef, _id_setName,
         jni.JniCallType.voidType, [newName.reference]).check();
+  }
+
+  static final _id_setNestedInstance = jniAccessors.getStaticMethodIDOf(
+      _classRef,
+      r"setNestedInstance",
+      r"(Lcom/github/dart_lang/jnigen/simple_package/Example$Nested;)V");
+
+  /// from: static public void setNestedInstance(com.github.dart_lang.jnigen.simple_package.Example.Nested newNested)
+  static void setNestedInstance(
+    Example_Nested newNested,
+  ) {
+    return jniAccessors.callStaticMethodWithArgs(
+        _classRef,
+        _id_setNestedInstance,
+        jni.JniCallType.voidType,
+        [newNested.reference]).check();
   }
 
   static final _id_max4 =
@@ -324,34 +193,65 @@ class Example extends jni.JObject {
     ]).integer;
   }
 
-  static final _id_getTrillion =
-      jniAccessors.getMethodIDOf(_classRef, r"getTrillion", r"()J");
+  static final _id_getNumber =
+      jniAccessors.getMethodIDOf(_classRef, r"getNumber", r"()I");
 
-  /// from: public long getTrillion()
-  int getTrillion() {
+  /// from: public int getNumber()
+  int getNumber() {
     return jniAccessors.callMethodWithArgs(
-        reference, _id_getTrillion, jni.JniCallType.longType, []).long;
+        reference, _id_getNumber, jni.JniCallType.intType, []).integer;
   }
 
-  static final _id_isAchillesAlive =
-      jniAccessors.getMethodIDOf(_classRef, r"isAchillesAlive", r"()Z");
+  static final _id_setNumber =
+      jniAccessors.getMethodIDOf(_classRef, r"setNumber", r"(I)V");
 
-  /// from: public boolean isAchillesAlive()
-  bool isAchillesAlive() {
-    return jniAccessors.callMethodWithArgs(reference, _id_isAchillesAlive,
-        jni.JniCallType.booleanType, []).boolean;
+  /// from: public void setNumber(int number)
+  void setNumber(
+    int number,
+  ) {
+    return jniAccessors.callMethodWithArgs(reference, _id_setNumber,
+        jni.JniCallType.voidType, [jni.JValueInt(number)]).check();
   }
 
-  static final _id_whoIsBestFighterInGreece = jniAccessors.getMethodIDOf(
-      _classRef, r"whoIsBestFighterInGreece", r"()Ljava/lang/String;");
+  static final _id_getIsUp =
+      jniAccessors.getMethodIDOf(_classRef, r"getIsUp", r"()Z");
 
-  /// from: public java.lang.String whoIsBestFighterInGreece()
+  /// from: public boolean getIsUp()
+  bool getIsUp() {
+    return jniAccessors.callMethodWithArgs(
+        reference, _id_getIsUp, jni.JniCallType.booleanType, []).boolean;
+  }
+
+  static final _id_setUp =
+      jniAccessors.getMethodIDOf(_classRef, r"setUp", r"(Z)V");
+
+  /// from: public void setUp(boolean isUp)
+  void setUp(
+    bool isUp,
+  ) {
+    return jniAccessors.callMethodWithArgs(
+        reference, _id_setUp, jni.JniCallType.voidType, [isUp ? 1 : 0]).check();
+  }
+
+  static final _id_getCodename = jniAccessors.getMethodIDOf(
+      _classRef, r"getCodename", r"()Ljava/lang/String;");
+
+  /// from: public java.lang.String getCodename()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString whoIsBestFighterInGreece() {
+  jni.JString getCodename() {
     return const jni.JStringType().fromRef(jniAccessors.callMethodWithArgs(
-        reference,
-        _id_whoIsBestFighterInGreece,
-        jni.JniCallType.objectType, []).object);
+        reference, _id_getCodename, jni.JniCallType.objectType, []).object);
+  }
+
+  static final _id_setCodename = jniAccessors.getMethodIDOf(
+      _classRef, r"setCodename", r"(Ljava/lang/String;)V");
+
+  /// from: public void setCodename(java.lang.String codename)
+  void setCodename(
+    jni.JString codename,
+  ) {
+    return jniAccessors.callMethodWithArgs(reference, _id_setCodename,
+        jni.JniCallType.voidType, [codename.reference]).check();
   }
 
   static final _id_getRandom = jniAccessors.getMethodIDOf(
@@ -362,6 +262,17 @@ class Example extends jni.JObject {
   jni.JObject getRandom() {
     return const jni.JObjectType().fromRef(jniAccessors.callMethodWithArgs(
         reference, _id_getRandom, jni.JniCallType.objectType, []).object);
+  }
+
+  static final _id_setRandom = jniAccessors.getMethodIDOf(
+      _classRef, r"setRandom", r"(Ljava/util/Random;)V");
+
+  /// from: public void setRandom(java.util.Random random)
+  void setRandom(
+    jni.JObject random,
+  ) {
+    return jniAccessors.callMethodWithArgs(reference, _id_setRandom,
+        jni.JniCallType.voidType, [random.reference]).check();
   }
 
   static final _id_getRandomLong =
@@ -435,13 +346,68 @@ class Example extends jni.JObject {
   static final _id_ctor1 =
       jniAccessors.getMethodIDOf(_classRef, r"<init>", r"(I)V");
 
-  /// from: public void <init>(int internal)
+  /// from: public void <init>(int number)
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory Example.ctor1(
-    int internal,
+    int number,
   ) {
     return Example.fromRef(jniAccessors.newObjectWithArgs(
-        _classRef, _id_ctor1, [jni.JValueInt(internal)]).object);
+        _classRef, _id_ctor1, [jni.JValueInt(number)]).object);
+  }
+
+  static final _id_ctor2 =
+      jniAccessors.getMethodIDOf(_classRef, r"<init>", r"(IZ)V");
+
+  /// from: public void <init>(int number, boolean isUp)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Example.ctor2(
+    int number,
+    bool isUp,
+  ) {
+    return Example.fromRef(jniAccessors.newObjectWithArgs(
+        _classRef, _id_ctor2, [jni.JValueInt(number), isUp ? 1 : 0]).object);
+  }
+
+  static final _id_ctor3 = jniAccessors.getMethodIDOf(
+      _classRef, r"<init>", r"(IZLjava/lang/String;)V");
+
+  /// from: public void <init>(int number, boolean isUp, java.lang.String codename)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Example.ctor3(
+    int number,
+    bool isUp,
+    jni.JString codename,
+  ) {
+    return Example.fromRef(jniAccessors.newObjectWithArgs(_classRef, _id_ctor3,
+        [jni.JValueInt(number), isUp ? 1 : 0, codename.reference]).object);
+  }
+
+  static final _id_ctor4 =
+      jniAccessors.getMethodIDOf(_classRef, r"<init>", r"(IIIIIIII)V");
+
+  /// from: public void <init>(int a, int b, int c, int d, int e, int f, int g, int h)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Example.ctor4(
+    int a,
+    int b,
+    int c,
+    int d,
+    int e,
+    int f,
+    int g,
+    int h,
+  ) {
+    return Example.fromRef(
+        jniAccessors.newObjectWithArgs(_classRef, _id_ctor4, [
+      jni.JValueInt(a),
+      jni.JValueInt(b),
+      jni.JValueInt(c),
+      jni.JValueInt(d),
+      jni.JValueInt(e),
+      jni.JValueInt(f),
+      jni.JValueInt(g),
+      jni.JValueInt(h)
+    ]).object);
   }
 
   static final _id_whichExample =
@@ -451,17 +417,6 @@ class Example extends jni.JObject {
   int whichExample() {
     return jniAccessors.callMethodWithArgs(
         reference, _id_whichExample, jni.JniCallType.intType, []).integer;
-  }
-
-  static final _id_getAux = jniAccessors.getStaticMethodIDOf(_classRef,
-      r"getAux", r"()Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;");
-
-  /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux getAux()
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static Example_Aux getAux() {
-    return const $Example_AuxType().fromRef(jniAccessors
-        .callStaticMethodWithArgs(
-            _classRef, _id_getAux, jni.JniCallType.objectType, []).object);
   }
 
   static final _id_addInts =
@@ -508,46 +463,6 @@ class Example extends jni.JObject {
         reference, _id_getSelf, jni.JniCallType.objectType, []).object);
   }
 
-  static final _id_getNum =
-      jniAccessors.getMethodIDOf(_classRef, r"getNum", r"()I");
-
-  /// from: public int getNum()
-  int getNum() {
-    return jniAccessors.callMethodWithArgs(
-        reference, _id_getNum, jni.JniCallType.intType, []).integer;
-  }
-
-  static final _id_setNum =
-      jniAccessors.getMethodIDOf(_classRef, r"setNum", r"(I)V");
-
-  /// from: public void setNum(int num)
-  void setNum(
-    int num,
-  ) {
-    return jniAccessors.callMethodWithArgs(reference, _id_setNum,
-        jni.JniCallType.voidType, [jni.JValueInt(num)]).check();
-  }
-
-  static final _id_getInternal =
-      jniAccessors.getMethodIDOf(_classRef, r"getInternal", r"()I");
-
-  /// from: public int getInternal()
-  int getInternal() {
-    return jniAccessors.callMethodWithArgs(
-        reference, _id_getInternal, jni.JniCallType.intType, []).integer;
-  }
-
-  static final _id_setInternal =
-      jniAccessors.getMethodIDOf(_classRef, r"setInternal", r"(I)V");
-
-  /// from: public void setInternal(int internal)
-  void setInternal(
-    int internal,
-  ) {
-    return jniAccessors.callMethodWithArgs(reference, _id_setInternal,
-        jni.JniCallType.voidType, [jni.JValueInt(internal)]).check();
-  }
-
   static final _id_throwException =
       jniAccessors.getStaticMethodIDOf(_classRef, r"throwException", r"()V");
 
@@ -583,44 +498,29 @@ class $ExampleType extends jni.JObjType<Example> {
   }
 }
 
-/// from: com.github.dart_lang.jnigen.simple_package.Example$Aux
-class Example_Aux extends jni.JObject {
+/// from: com.github.dart_lang.jnigen.simple_package.Example$Nested
+class Example_Nested extends jni.JObject {
   @override
   late final jni.JObjType $type = type;
 
-  Example_Aux.fromRef(
+  Example_Nested.fromRef(
     jni.JObjectPtr ref,
   ) : super.fromRef(ref);
 
   static final _classRef = jniAccessors
-      .getClassOf(r"com/github/dart_lang/jnigen/simple_package/Example$Aux");
+      .getClassOf(r"com/github/dart_lang/jnigen/simple_package/Example$Nested");
 
   /// The type which includes information such as the signature of this class.
-  static const type = $Example_AuxType();
-  static final _id_value = jniAccessors.getFieldIDOf(
-    _classRef,
-    r"value",
-    r"Z",
-  );
-
-  /// from: public boolean value
-  bool get value => jniAccessors
-      .getField(reference, _id_value, jni.JniCallType.booleanType)
-      .boolean;
-
-  /// from: public boolean value
-  set value(bool value) =>
-      jniEnv.SetBooleanField(reference, _id_value, value ? 1 : 0);
-
+  static const type = $Example_NestedType();
   static final _id_ctor =
       jniAccessors.getMethodIDOf(_classRef, r"<init>", r"(Z)V");
 
   /// from: public void <init>(boolean value)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  factory Example_Aux(
+  factory Example_Nested(
     bool value,
   ) {
-    return Example_Aux.fromRef(jniAccessors
+    return Example_Nested.fromRef(jniAccessors
         .newObjectWithArgs(_classRef, _id_ctor, [value ? 1 : 0]).object);
   }
 
@@ -645,15 +545,15 @@ class Example_Aux extends jni.JObject {
   }
 }
 
-class $Example_AuxType extends jni.JObjType<Example_Aux> {
-  const $Example_AuxType();
+class $Example_NestedType extends jni.JObjType<Example_Nested> {
+  const $Example_NestedType();
 
   @override
   String get signature =>
-      r"Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;";
+      r"Lcom/github/dart_lang/jnigen/simple_package/Example$Nested;";
 
   @override
-  Example_Aux fromRef(jni.JObjectPtr ref) => Example_Aux.fromRef(ref);
+  Example_Nested fromRef(jni.JObjectPtr ref) => Example_Nested.fromRef(ref);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -662,11 +562,290 @@ class $Example_AuxType extends jni.JObjType<Example_Aux> {
   final superCount = 1;
 
   @override
-  int get hashCode => ($Example_AuxType).hashCode;
+  int get hashCode => ($Example_NestedType).hashCode;
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $Example_AuxType && other is $Example_AuxType;
+    return other.runtimeType == $Example_NestedType &&
+        other is $Example_NestedType;
+  }
+}
+
+/// from: com.github.dart_lang.jnigen.simple_package.Fields
+class Fields extends jni.JObject {
+  @override
+  late final jni.JObjType $type = type;
+
+  Fields.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  static final _classRef = jniAccessors
+      .getClassOf(r"com/github/dart_lang/jnigen/simple_package/Fields");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $FieldsType();
+  static final _id_amount = jniAccessors.getStaticFieldIDOf(
+    _classRef,
+    r"amount",
+    r"I",
+  );
+
+  /// from: static public int amount
+  static int get amount => jniAccessors
+      .getStaticField(_classRef, _id_amount, jni.JniCallType.intType)
+      .integer;
+
+  /// from: static public int amount
+  static set amount(int value) =>
+      jniEnv.SetStaticIntField(_classRef, _id_amount, value);
+
+  static final _id_pi = jniAccessors.getStaticFieldIDOf(
+    _classRef,
+    r"pi",
+    r"D",
+  );
+
+  /// from: static public double pi
+  static double get pi => jniAccessors
+      .getStaticField(_classRef, _id_pi, jni.JniCallType.doubleType)
+      .doubleFloat;
+
+  /// from: static public double pi
+  static set pi(double value) =>
+      jniEnv.SetStaticDoubleField(_classRef, _id_pi, value);
+
+  static final _id_asterisk = jniAccessors.getStaticFieldIDOf(
+    _classRef,
+    r"asterisk",
+    r"C",
+  );
+
+  /// from: static public char asterisk
+  static int get asterisk => jniAccessors
+      .getStaticField(_classRef, _id_asterisk, jni.JniCallType.charType)
+      .char;
+
+  /// from: static public char asterisk
+  static set asterisk(int value) =>
+      jniEnv.SetStaticCharField(_classRef, _id_asterisk, value);
+
+  static final _id_name = jniAccessors.getStaticFieldIDOf(
+    _classRef,
+    r"name",
+    r"Ljava/lang/String;",
+  );
+
+  /// from: static public java.lang.String name
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JString get name => const jni.JStringType().fromRef(jniAccessors
+      .getStaticField(_classRef, _id_name, jni.JniCallType.objectType)
+      .object);
+
+  /// from: static public java.lang.String name
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static set name(jni.JString value) =>
+      jniEnv.SetStaticObjectField(_classRef, _id_name, value.reference);
+
+  static final _id_i = jniAccessors.getFieldIDOf(
+    _classRef,
+    r"i",
+    r"Ljava/lang/Integer;",
+  );
+
+  /// from: public java.lang.Integer i
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject get i => const jni.JObjectType().fromRef(jniAccessors
+      .getField(reference, _id_i, jni.JniCallType.objectType)
+      .object);
+
+  /// from: public java.lang.Integer i
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set i(jni.JObject value) =>
+      jniEnv.SetObjectField(reference, _id_i, value.reference);
+
+  static final _id_trillion = jniAccessors.getFieldIDOf(
+    _classRef,
+    r"trillion",
+    r"J",
+  );
+
+  /// from: public long trillion
+  int get trillion => jniAccessors
+      .getField(reference, _id_trillion, jni.JniCallType.longType)
+      .long;
+
+  /// from: public long trillion
+  set trillion(int value) =>
+      jniEnv.SetLongField(reference, _id_trillion, value);
+
+  static final _id_isAchillesDead = jniAccessors.getFieldIDOf(
+    _classRef,
+    r"isAchillesDead",
+    r"Z",
+  );
+
+  /// from: public boolean isAchillesDead
+  bool get isAchillesDead => jniAccessors
+      .getField(reference, _id_isAchillesDead, jni.JniCallType.booleanType)
+      .boolean;
+
+  /// from: public boolean isAchillesDead
+  set isAchillesDead(bool value) =>
+      jniEnv.SetBooleanField(reference, _id_isAchillesDead, value ? 1 : 0);
+
+  static final _id_bestFighterInGreece = jniAccessors.getFieldIDOf(
+    _classRef,
+    r"bestFighterInGreece",
+    r"Ljava/lang/String;",
+  );
+
+  /// from: public java.lang.String bestFighterInGreece
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JString get bestFighterInGreece =>
+      const jni.JStringType().fromRef(jniAccessors
+          .getField(
+              reference, _id_bestFighterInGreece, jni.JniCallType.objectType)
+          .object);
+
+  /// from: public java.lang.String bestFighterInGreece
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set bestFighterInGreece(jni.JString value) => jniEnv.SetObjectField(
+      reference, _id_bestFighterInGreece, value.reference);
+
+  static final _id_random = jniAccessors.getFieldIDOf(
+    _classRef,
+    r"random",
+    r"Ljava/util/Random;",
+  );
+
+  /// from: public java.util.Random random
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject get random => const jni.JObjectType().fromRef(jniAccessors
+      .getField(reference, _id_random, jni.JniCallType.objectType)
+      .object);
+
+  /// from: public java.util.Random random
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set random(jni.JObject value) =>
+      jniEnv.SetObjectField(reference, _id_random, value.reference);
+
+  static final _id_ctor =
+      jniAccessors.getMethodIDOf(_classRef, r"<init>", r"()V");
+
+  /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Fields() {
+    return Fields.fromRef(
+        jniAccessors.newObjectWithArgs(_classRef, _id_ctor, []).object);
+  }
+}
+
+class $FieldsType extends jni.JObjType<Fields> {
+  const $FieldsType();
+
+  @override
+  String get signature =>
+      r"Lcom/github/dart_lang/jnigen/simple_package/Fields;";
+
+  @override
+  Fields fromRef(jni.JObjectPtr ref) => Fields.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($FieldsType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $FieldsType && other is $FieldsType;
+  }
+}
+
+/// from: com.github.dart_lang.jnigen.simple_package.Fields$Nested
+class Fields_Nested extends jni.JObject {
+  @override
+  late final jni.JObjType $type = type;
+
+  Fields_Nested.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  static final _classRef = jniAccessors
+      .getClassOf(r"com/github/dart_lang/jnigen/simple_package/Fields$Nested");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $Fields_NestedType();
+  static final _id_hundred = jniAccessors.getFieldIDOf(
+    _classRef,
+    r"hundred",
+    r"J",
+  );
+
+  /// from: public long hundred
+  int get hundred => jniAccessors
+      .getField(reference, _id_hundred, jni.JniCallType.longType)
+      .long;
+
+  /// from: public long hundred
+  set hundred(int value) => jniEnv.SetLongField(reference, _id_hundred, value);
+
+  static final _id_BEST_GOD = jniAccessors.getStaticFieldIDOf(
+    _classRef,
+    r"BEST_GOD",
+    r"Ljava/lang/String;",
+  );
+
+  /// from: static public java.lang.String BEST_GOD
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JString get BEST_GOD =>
+      const jni.JStringType().fromRef(jniAccessors
+          .getStaticField(_classRef, _id_BEST_GOD, jni.JniCallType.objectType)
+          .object);
+
+  /// from: static public java.lang.String BEST_GOD
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static set BEST_GOD(jni.JString value) =>
+      jniEnv.SetStaticObjectField(_classRef, _id_BEST_GOD, value.reference);
+
+  static final _id_ctor =
+      jniAccessors.getMethodIDOf(_classRef, r"<init>", r"()V");
+
+  /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Fields_Nested() {
+    return Fields_Nested.fromRef(
+        jniAccessors.newObjectWithArgs(_classRef, _id_ctor, []).object);
+  }
+}
+
+class $Fields_NestedType extends jni.JObjType<Fields_Nested> {
+  const $Fields_NestedType();
+
+  @override
+  String get signature =>
+      r"Lcom/github/dart_lang/jnigen/simple_package/Fields$Nested;";
+
+  @override
+  Fields_Nested fromRef(jni.JObjectPtr ref) => Fields_Nested.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($Fields_NestedType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $Fields_NestedType &&
+        other is $Fields_NestedType;
   }
 }
 

@@ -55,208 +55,6 @@ class Example extends jni.JObject {
   /// from: static public final java.lang.String SEMICOLON_STRING
   static const SEMICOLON_STRING = r""";""";
 
-  static final _get_amount =
-      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
-              "get_Example__amount")
-          .asFunction<jni.JniResult Function()>();
-
-  static final _set_amount =
-      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
-              "set_Example__amount")
-          .asFunction<jni.JniResult Function(int)>();
-
-  /// from: static public int amount
-  static int get amount => _get_amount().integer;
-
-  /// from: static public int amount
-  static set amount(int value) => _set_amount(value).check();
-
-  static final _get_pi =
-      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("get_Example__pi")
-          .asFunction<jni.JniResult Function()>();
-
-  static final _set_pi =
-      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Double)>>(
-              "set_Example__pi")
-          .asFunction<jni.JniResult Function(double)>();
-
-  /// from: static public double pi
-  static double get pi => _get_pi().doubleFloat;
-
-  /// from: static public double pi
-  static set pi(double value) => _set_pi(value).check();
-
-  static final _get_asterisk =
-      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
-              "get_Example__asterisk")
-          .asFunction<jni.JniResult Function()>();
-
-  static final _set_asterisk =
-      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Uint16)>>(
-              "set_Example__asterisk")
-          .asFunction<jni.JniResult Function(int)>();
-
-  /// from: static public char asterisk
-  static int get asterisk => _get_asterisk().char;
-
-  /// from: static public char asterisk
-  static set asterisk(int value) => _set_asterisk(value).check();
-
-  static final _get_name =
-      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
-              "get_Example__name")
-          .asFunction<jni.JniResult Function()>();
-
-  static final _set_name = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>)>>("set_Example__name")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
-
-  /// from: static public java.lang.String name
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JString get name =>
-      const jni.JStringType().fromRef(_get_name().object);
-
-  /// from: static public java.lang.String name
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static set name(jni.JString value) => _set_name(value.reference).check();
-
-  static final _get_aux =
-      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
-              "get_Example__aux")
-          .asFunction<jni.JniResult Function()>();
-
-  static final _set_aux = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>)>>("set_Example__aux")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
-
-  /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux aux
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static Example_Aux get aux =>
-      const $Example_AuxType().fromRef(_get_aux().object);
-
-  /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux aux
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static set aux(Example_Aux value) => _set_aux(value.reference).check();
-
-  static final _get_trillion = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_Example__trillion")
-      .asFunction<
-          jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
-
-  static final _set_trillion = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  jni.JObjectPtr, ffi.Int64)>>("set_Example__trillion")
-      .asFunction<jni.JniResult Function(jni.JObjectPtr, int)>();
-
-  /// from: public long trillion
-  int get trillion => _get_trillion(reference).long;
-
-  /// from: public long trillion
-  set trillion(int value) => _set_trillion(reference, value).check();
-
-  static final _get_isAchillesDead = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_Example__isAchillesDead")
-      .asFunction<
-          jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
-
-  static final _set_isAchillesDead = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  jni.JObjectPtr, ffi.Uint8)>>("set_Example__isAchillesDead")
-      .asFunction<jni.JniResult Function(jni.JObjectPtr, int)>();
-
-  /// from: public boolean isAchillesDead
-  bool get isAchillesDead => _get_isAchillesDead(reference).boolean;
-
-  /// from: public boolean isAchillesDead
-  set isAchillesDead(bool value) =>
-      _set_isAchillesDead(reference, value ? 1 : 0).check();
-
-  static final _get_bestFighterInGreece = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_Example__bestFighterInGreece")
-      .asFunction<
-          jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
-
-  static final _set_bestFighterInGreece = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(jni.JObjectPtr,
-                  ffi.Pointer<ffi.Void>)>>("set_Example__bestFighterInGreece")
-      .asFunction<
-          jni.JniResult Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
-
-  /// from: public java.lang.String bestFighterInGreece
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString get bestFighterInGreece => const jni.JStringType()
-      .fromRef(_get_bestFighterInGreece(reference).object);
-
-  /// from: public java.lang.String bestFighterInGreece
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  set bestFighterInGreece(jni.JString value) =>
-      _set_bestFighterInGreece(reference, value.reference).check();
-
-  static final _get_random = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_Example__random")
-      .asFunction<
-          jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
-
-  static final _set_random = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(jni.JObjectPtr,
-                  ffi.Pointer<ffi.Void>)>>("set_Example__random")
-      .asFunction<
-          jni.JniResult Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
-
-  /// from: public java.util.Random random
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject get random =>
-      const jni.JObjectType().fromRef(_get_random(reference).object);
-
-  /// from: public java.util.Random random
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  set random(jni.JObject value) =>
-      _set_random(reference, value.reference).check();
-
-  static final _get_num =
-      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
-              "get_Example__num")
-          .asFunction<jni.JniResult Function()>();
-
-  static final _set_num =
-      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
-              "set_Example__num")
-          .asFunction<jni.JniResult Function(int)>();
-
-  /// from: static public int num
-  static int get num => _get_num().integer;
-
-  /// from: static public int num
-  static set num(int value) => _set_num(value).check();
-
   static final _getAmount =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "Example__getAmount")
@@ -297,6 +95,17 @@ class Example extends jni.JObject {
     return const jni.JStringType().fromRef(_getName().object);
   }
 
+  static final _getNestedInstance =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "Example__getNestedInstance")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Nested getNestedInstance()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static Example_Nested getNestedInstance() {
+    return const $Example_NestedType().fromRef(_getNestedInstance().object);
+  }
+
   static final _setAmount =
       jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
               "Example__setAmount")
@@ -320,6 +129,19 @@ class Example extends jni.JObject {
     jni.JString newName,
   ) {
     return _setName(newName.reference).check();
+  }
+
+  static final _setNestedInstance = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__setNestedInstance")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public void setNestedInstance(com.github.dart_lang.jnigen.simple_package.Example.Nested newNested)
+  static void setNestedInstance(
+    Example_Nested newNested,
+  ) {
+    return _setNestedInstance(newNested.reference).check();
   }
 
   static final _max4 = jniLookup<
@@ -359,39 +181,79 @@ class Example extends jni.JObject {
     return _max8(a, b, c, d, e, f, g, h).integer;
   }
 
-  static final _getTrillion = jniLookup<
+  static final _getNumber = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>)>>("Example__getTrillion")
+                  ffi.Pointer<ffi.Void>)>>("Example__getNumber")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
-  /// from: public long getTrillion()
-  int getTrillion() {
-    return _getTrillion(reference).long;
+  /// from: public int getNumber()
+  int getNumber() {
+    return _getNumber(reference).integer;
   }
 
-  static final _isAchillesAlive = jniLookup<
+  static final _setNumber = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>)>>("Example__isAchillesAlive")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("Example__setNumber")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: public boolean isAchillesAlive()
-  bool isAchillesAlive() {
-    return _isAchillesAlive(reference).boolean;
+  /// from: public void setNumber(int number)
+  void setNumber(
+    int number,
+  ) {
+    return _setNumber(reference, number).check();
   }
 
-  static final _whoIsBestFighterInGreece = jniLookup<
+  static final _getIsUp = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>)>>("Example__whoIsBestFighterInGreece")
+                  ffi.Pointer<ffi.Void>)>>("Example__getIsUp")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
-  /// from: public java.lang.String whoIsBestFighterInGreece()
+  /// from: public boolean getIsUp()
+  bool getIsUp() {
+    return _getIsUp(reference).boolean;
+  }
+
+  static final _setUp = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Uint8)>>("Example__setUp")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public void setUp(boolean isUp)
+  void setUp(
+    bool isUp,
+  ) {
+    return _setUp(reference, isUp ? 1 : 0).check();
+  }
+
+  static final _getCodename = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__getCodename")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.String getCodename()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString whoIsBestFighterInGreece() {
-    return const jni.JStringType()
-        .fromRef(_whoIsBestFighterInGreece(reference).object);
+  jni.JString getCodename() {
+    return const jni.JStringType().fromRef(_getCodename(reference).object);
+  }
+
+  static final _setCodename = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("Example__setCodename")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void setCodename(java.lang.String codename)
+  void setCodename(
+    jni.JString codename,
+  ) {
+    return _setCodename(reference, codename.reference).check();
   }
 
   static final _getRandom = jniLookup<
@@ -404,6 +266,21 @@ class Example extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JObject getRandom() {
     return const jni.JObjectType().fromRef(_getRandom(reference).object);
+  }
+
+  static final _setRandom = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("Example__setRandom")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void setRandom(java.util.Random random)
+  void setRandom(
+    jni.JObject random,
+  ) {
+    return _setRandom(reference, random.reference).check();
   }
 
   static final _getRandomLong = jniLookup<
@@ -496,12 +373,72 @@ class Example extends jni.JObject {
               "Example__ctor1")
           .asFunction<jni.JniResult Function(int)>();
 
-  /// from: public void <init>(int internal)
+  /// from: public void <init>(int number)
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory Example.ctor1(
-    int internal,
+    int number,
   ) {
-    return Example.fromRef(_ctor1(internal).object);
+    return Example.fromRef(_ctor1(number).object);
+  }
+
+  static final _ctor2 = jniLookup<
+              ffi.NativeFunction<jni.JniResult Function(ffi.Int32, ffi.Uint8)>>(
+          "Example__ctor2")
+      .asFunction<jni.JniResult Function(int, int)>();
+
+  /// from: public void <init>(int number, boolean isUp)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Example.ctor2(
+    int number,
+    bool isUp,
+  ) {
+    return Example.fromRef(_ctor2(number, isUp ? 1 : 0).object);
+  }
+
+  static final _ctor3 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Int32, ffi.Uint8,
+                  ffi.Pointer<ffi.Void>)>>("Example__ctor3")
+      .asFunction<jni.JniResult Function(int, int, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(int number, boolean isUp, java.lang.String codename)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Example.ctor3(
+    int number,
+    bool isUp,
+    jni.JString codename,
+  ) {
+    return Example.fromRef(
+        _ctor3(number, isUp ? 1 : 0, codename.reference).object);
+  }
+
+  static final _ctor4 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Int32,
+                  ffi.Int32,
+                  ffi.Int32,
+                  ffi.Int32,
+                  ffi.Int32,
+                  ffi.Int32,
+                  ffi.Int32,
+                  ffi.Int32)>>("Example__ctor4")
+      .asFunction<
+          jni.JniResult Function(int, int, int, int, int, int, int, int)>();
+
+  /// from: public void <init>(int a, int b, int c, int d, int e, int f, int g, int h)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Example.ctor4(
+    int a,
+    int b,
+    int c,
+    int d,
+    int e,
+    int f,
+    int g,
+    int h,
+  ) {
+    return Example.fromRef(_ctor4(a, b, c, d, e, f, g, h).object);
   }
 
   static final _whichExample = jniLookup<
@@ -513,16 +450,6 @@ class Example extends jni.JObject {
   /// from: public int whichExample()
   int whichExample() {
     return _whichExample(reference).integer;
-  }
-
-  static final _getAux =
-      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("Example__getAux")
-          .asFunction<jni.JniResult Function()>();
-
-  /// from: static public com.github.dart_lang.jnigen.simple_package.Example.Aux getAux()
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static Example_Aux getAux() {
-    return const $Example_AuxType().fromRef(_getAux().object);
   }
 
   static final _addInts = jniLookup<
@@ -572,53 +499,6 @@ class Example extends jni.JObject {
     return const $ExampleType().fromRef(_getSelf(reference).object);
   }
 
-  static final _getNum = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("Example__getNum")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
-
-  /// from: public int getNum()
-  int getNum() {
-    return _getNum(reference).integer;
-  }
-
-  static final _setNum = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("Example__setNum")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
-
-  /// from: public void setNum(int num)
-  void setNum(
-    int num,
-  ) {
-    return _setNum(reference, num).check();
-  }
-
-  static final _getInternal = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>)>>("Example__getInternal")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
-
-  /// from: public int getInternal()
-  int getInternal() {
-    return _getInternal(reference).integer;
-  }
-
-  static final _setInternal = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("Example__setInternal")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
-
-  /// from: public void setInternal(int internal)
-  void setInternal(
-    int internal,
-  ) {
-    return _setInternal(reference, internal).check();
-  }
-
   static final _throwException =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "Example__throwException")
@@ -655,56 +535,34 @@ class $ExampleType extends jni.JObjType<Example> {
   }
 }
 
-/// from: com.github.dart_lang.jnigen.simple_package.Example$Aux
-class Example_Aux extends jni.JObject {
+/// from: com.github.dart_lang.jnigen.simple_package.Example$Nested
+class Example_Nested extends jni.JObject {
   @override
   late final jni.JObjType $type = type;
 
-  Example_Aux.fromRef(
+  Example_Nested.fromRef(
     jni.JObjectPtr ref,
   ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const type = $Example_AuxType();
-  static final _get_value = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_Example_Aux__value")
-      .asFunction<
-          jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
-
-  static final _set_value = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  jni.JObjectPtr, ffi.Uint8)>>("set_Example_Aux__value")
-      .asFunction<jni.JniResult Function(jni.JObjectPtr, int)>();
-
-  /// from: public boolean value
-  bool get value => _get_value(reference).boolean;
-
-  /// from: public boolean value
-  set value(bool value) => _set_value(reference, value ? 1 : 0).check();
-
+  static const type = $Example_NestedType();
   static final _ctor =
       jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Uint8)>>(
-              "Example_Aux__ctor")
+              "Example_Nested__ctor")
           .asFunction<jni.JniResult Function(int)>();
 
   /// from: public void <init>(boolean value)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  factory Example_Aux(
+  factory Example_Nested(
     bool value,
   ) {
-    return Example_Aux.fromRef(_ctor(value ? 1 : 0).object);
+    return Example_Nested.fromRef(_ctor(value ? 1 : 0).object);
   }
 
   static final _getValue = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>)>>("Example_Aux__getValue")
+                  ffi.Pointer<ffi.Void>)>>("Example_Nested__getValue")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public boolean getValue()
@@ -714,8 +572,8 @@ class Example_Aux extends jni.JObject {
 
   static final _setValue = jniLookup<
           ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>, ffi.Uint8)>>("Example_Aux__setValue")
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Uint8)>>("Example_Nested__setValue")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
 
   /// from: public void setValue(boolean value)
@@ -726,15 +584,15 @@ class Example_Aux extends jni.JObject {
   }
 }
 
-class $Example_AuxType extends jni.JObjType<Example_Aux> {
-  const $Example_AuxType();
+class $Example_NestedType extends jni.JObjType<Example_Nested> {
+  const $Example_NestedType();
 
   @override
   String get signature =>
-      r"Lcom/github/dart_lang/jnigen/simple_package/Example$Aux;";
+      r"Lcom/github/dart_lang/jnigen/simple_package/Example$Nested;";
 
   @override
-  Example_Aux fromRef(jni.JObjectPtr ref) => Example_Aux.fromRef(ref);
+  Example_Nested fromRef(jni.JObjectPtr ref) => Example_Nested.fromRef(ref);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -743,11 +601,342 @@ class $Example_AuxType extends jni.JObjType<Example_Aux> {
   final superCount = 1;
 
   @override
-  int get hashCode => ($Example_AuxType).hashCode;
+  int get hashCode => ($Example_NestedType).hashCode;
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $Example_AuxType && other is $Example_AuxType;
+    return other.runtimeType == $Example_NestedType &&
+        other is $Example_NestedType;
+  }
+}
+
+/// from: com.github.dart_lang.jnigen.simple_package.Fields
+class Fields extends jni.JObject {
+  @override
+  late final jni.JObjType $type = type;
+
+  Fields.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $FieldsType();
+  static final _get_amount =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "get_Fields__amount")
+          .asFunction<jni.JniResult Function()>();
+
+  static final _set_amount =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "set_Fields__amount")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public int amount
+  static int get amount => _get_amount().integer;
+
+  /// from: static public int amount
+  static set amount(int value) => _set_amount(value).check();
+
+  static final _get_pi =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("get_Fields__pi")
+          .asFunction<jni.JniResult Function()>();
+
+  static final _set_pi =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Double)>>(
+              "set_Fields__pi")
+          .asFunction<jni.JniResult Function(double)>();
+
+  /// from: static public double pi
+  static double get pi => _get_pi().doubleFloat;
+
+  /// from: static public double pi
+  static set pi(double value) => _set_pi(value).check();
+
+  static final _get_asterisk =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "get_Fields__asterisk")
+          .asFunction<jni.JniResult Function()>();
+
+  static final _set_asterisk =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Uint16)>>(
+              "set_Fields__asterisk")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public char asterisk
+  static int get asterisk => _get_asterisk().char;
+
+  /// from: static public char asterisk
+  static set asterisk(int value) => _set_asterisk(value).check();
+
+  static final _get_name =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "get_Fields__name")
+          .asFunction<jni.JniResult Function()>();
+
+  static final _set_name = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("set_Fields__name")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public java.lang.String name
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JString get name =>
+      const jni.JStringType().fromRef(_get_name().object);
+
+  /// from: static public java.lang.String name
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static set name(jni.JString value) => _set_name(value.reference).check();
+
+  static final _get_i = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+    jni.JObjectPtr,
+  )>>("get_Fields__i")
+      .asFunction<
+          jni.JniResult Function(
+    jni.JObjectPtr,
+  )>();
+
+  static final _set_i = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  jni.JObjectPtr, ffi.Pointer<ffi.Void>)>>("set_Fields__i")
+      .asFunction<
+          jni.JniResult Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.Integer i
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject get i =>
+      const jni.JObjectType().fromRef(_get_i(reference).object);
+
+  /// from: public java.lang.Integer i
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set i(jni.JObject value) => _set_i(reference, value.reference).check();
+
+  static final _get_trillion = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+    jni.JObjectPtr,
+  )>>("get_Fields__trillion")
+      .asFunction<
+          jni.JniResult Function(
+    jni.JObjectPtr,
+  )>();
+
+  static final _set_trillion = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  jni.JObjectPtr, ffi.Int64)>>("set_Fields__trillion")
+      .asFunction<jni.JniResult Function(jni.JObjectPtr, int)>();
+
+  /// from: public long trillion
+  int get trillion => _get_trillion(reference).long;
+
+  /// from: public long trillion
+  set trillion(int value) => _set_trillion(reference, value).check();
+
+  static final _get_isAchillesDead = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+    jni.JObjectPtr,
+  )>>("get_Fields__isAchillesDead")
+      .asFunction<
+          jni.JniResult Function(
+    jni.JObjectPtr,
+  )>();
+
+  static final _set_isAchillesDead = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  jni.JObjectPtr, ffi.Uint8)>>("set_Fields__isAchillesDead")
+      .asFunction<jni.JniResult Function(jni.JObjectPtr, int)>();
+
+  /// from: public boolean isAchillesDead
+  bool get isAchillesDead => _get_isAchillesDead(reference).boolean;
+
+  /// from: public boolean isAchillesDead
+  set isAchillesDead(bool value) =>
+      _set_isAchillesDead(reference, value ? 1 : 0).check();
+
+  static final _get_bestFighterInGreece = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+    jni.JObjectPtr,
+  )>>("get_Fields__bestFighterInGreece")
+      .asFunction<
+          jni.JniResult Function(
+    jni.JObjectPtr,
+  )>();
+
+  static final _set_bestFighterInGreece = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(jni.JObjectPtr,
+                  ffi.Pointer<ffi.Void>)>>("set_Fields__bestFighterInGreece")
+      .asFunction<
+          jni.JniResult Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.String bestFighterInGreece
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JString get bestFighterInGreece => const jni.JStringType()
+      .fromRef(_get_bestFighterInGreece(reference).object);
+
+  /// from: public java.lang.String bestFighterInGreece
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set bestFighterInGreece(jni.JString value) =>
+      _set_bestFighterInGreece(reference, value.reference).check();
+
+  static final _get_random = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+    jni.JObjectPtr,
+  )>>("get_Fields__random")
+      .asFunction<
+          jni.JniResult Function(
+    jni.JObjectPtr,
+  )>();
+
+  static final _set_random = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  jni.JObjectPtr, ffi.Pointer<ffi.Void>)>>("set_Fields__random")
+      .asFunction<
+          jni.JniResult Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.util.Random random
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject get random =>
+      const jni.JObjectType().fromRef(_get_random(reference).object);
+
+  /// from: public java.util.Random random
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set random(jni.JObject value) =>
+      _set_random(reference, value.reference).check();
+
+  static final _ctor =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("Fields__ctor")
+          .asFunction<jni.JniResult Function()>();
+
+  /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Fields() {
+    return Fields.fromRef(_ctor().object);
+  }
+}
+
+class $FieldsType extends jni.JObjType<Fields> {
+  const $FieldsType();
+
+  @override
+  String get signature =>
+      r"Lcom/github/dart_lang/jnigen/simple_package/Fields;";
+
+  @override
+  Fields fromRef(jni.JObjectPtr ref) => Fields.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($FieldsType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $FieldsType && other is $FieldsType;
+  }
+}
+
+/// from: com.github.dart_lang.jnigen.simple_package.Fields$Nested
+class Fields_Nested extends jni.JObject {
+  @override
+  late final jni.JObjType $type = type;
+
+  Fields_Nested.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $Fields_NestedType();
+  static final _get_hundred = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+    jni.JObjectPtr,
+  )>>("get_Fields_Nested__hundred")
+      .asFunction<
+          jni.JniResult Function(
+    jni.JObjectPtr,
+  )>();
+
+  static final _set_hundred = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  jni.JObjectPtr, ffi.Int64)>>("set_Fields_Nested__hundred")
+      .asFunction<jni.JniResult Function(jni.JObjectPtr, int)>();
+
+  /// from: public long hundred
+  int get hundred => _get_hundred(reference).long;
+
+  /// from: public long hundred
+  set hundred(int value) => _set_hundred(reference, value).check();
+
+  static final _get_BEST_GOD =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "get_Fields_Nested__BEST_GOD")
+          .asFunction<jni.JniResult Function()>();
+
+  static final _set_BEST_GOD = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("set_Fields_Nested__BEST_GOD")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public java.lang.String BEST_GOD
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JString get BEST_GOD =>
+      const jni.JStringType().fromRef(_get_BEST_GOD().object);
+
+  /// from: static public java.lang.String BEST_GOD
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static set BEST_GOD(jni.JString value) =>
+      _set_BEST_GOD(value.reference).check();
+
+  static final _ctor = jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+          "Fields_Nested__ctor")
+      .asFunction<jni.JniResult Function()>();
+
+  /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Fields_Nested() {
+    return Fields_Nested.fromRef(_ctor().object);
+  }
+}
+
+class $Fields_NestedType extends jni.JObjType<Fields_Nested> {
+  const $Fields_NestedType();
+
+  @override
+  String get signature =>
+      r"Lcom/github/dart_lang/jnigen/simple_package/Fields$Nested;";
+
+  @override
+  Fields_Nested fromRef(jni.JObjectPtr ref) => Fields_Nested.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($Fields_NestedType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == $Fields_NestedType &&
+        other is $Fields_NestedType;
   }
 }
 
