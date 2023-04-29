@@ -51,14 +51,12 @@ Future<void> bindingsTestSetup() async {
 
   final jacksonJars = await getJarPaths(join(jacksonCoreTest, 'third_party'));
 
-  if (1 == 0) {
-    await runCommand(
-      'mvn',
-      ['package'],
-      workingDirectory: kotlinTestKotlin,
-      runInShell: true,
-    );
-  }
+  await runCommand(
+    'mvn',
+    ['package'],
+    workingDirectory: kotlinTestKotlin,
+    runInShell: true,
+  );
   // Jar including Kotlin runtime and dependencies.
   final kotlinTestJar =
       join(kotlinTestKotlin, 'target', 'kotlin_test-jar-with-dependencies.jar');
