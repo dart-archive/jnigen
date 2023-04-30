@@ -1055,6 +1055,22 @@ class Fields extends jni.JObject {
   set random(jni.JObject value) =>
       _set_random(reference, value.reference).check();
 
+  static final _get_euroSymbol =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "get_Fields__euroSymbol")
+          .asFunction<jni.JniResult Function()>();
+
+  static final _set_euroSymbol =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Uint16)>>(
+              "set_Fields__euroSymbol")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public char euroSymbol
+  static int get euroSymbol => _get_euroSymbol().char;
+
+  /// from: static public char euroSymbol
+  static set euroSymbol(int value) => _set_euroSymbol(value).check();
+
   static final _ctor =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>("Fields__ctor")
           .asFunction<jni.JniResult Function()>();

@@ -196,6 +196,10 @@ void registerTests(String groupName, TestRunnerCallback test) {
       expect(Example1().whichExample(), 1);
     });
 
+    test('Unicode char', () {
+      expect(Fields.euroSymbol, equals('\u20AC'.codeUnitAt(0)));
+    });
+
     group('exception tests', () {
       void throwsException(void Function() f) {
         expect(f, throwsA(isA<JniException>()));

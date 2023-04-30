@@ -959,6 +959,21 @@ class Fields extends jni.JObject {
   set random(jni.JObject value) =>
       jniEnv.SetObjectField(reference, _id_random, value.reference);
 
+  static final _id_euroSymbol = jniAccessors.getStaticFieldIDOf(
+    _classRef,
+    r"euroSymbol",
+    r"C",
+  );
+
+  /// from: static public char euroSymbol
+  static int get euroSymbol => jniAccessors
+      .getStaticField(_classRef, _id_euroSymbol, jni.JniCallType.charType)
+      .char;
+
+  /// from: static public char euroSymbol
+  static set euroSymbol(int value) =>
+      jniEnv.SetStaticCharField(_classRef, _id_euroSymbol, value);
+
   static final _id_ctor =
       jniAccessors.getMethodIDOf(_classRef, r"<init>", r"()V");
 

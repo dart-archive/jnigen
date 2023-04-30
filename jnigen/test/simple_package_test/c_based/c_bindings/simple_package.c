@@ -1187,6 +1187,33 @@ JniResult set_Fields__random(jobject self_, jobject value) {
   return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
+jfieldID _f_Fields__euroSymbol = NULL;
+FFI_PLUGIN_EXPORT
+JniResult get_Fields__euroSymbol() {
+  load_env();
+  load_class_global_ref(&_c_Fields,
+                        "com/github/dart_lang/jnigen/simple_package/Fields");
+  if (_c_Fields == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_field(_c_Fields, &_f_Fields__euroSymbol, "euroSymbol", "C");
+  uint16_t _result =
+      (*jniEnv)->GetStaticCharField(jniEnv, _c_Fields, _f_Fields__euroSymbol);
+  return (JniResult){.value = {.c = _result}, .exception = check_exception()};
+}
+
+FFI_PLUGIN_EXPORT
+JniResult set_Fields__euroSymbol(uint16_t value) {
+  load_env();
+  load_class_global_ref(&_c_Fields,
+                        "com/github/dart_lang/jnigen/simple_package/Fields");
+  if (_c_Fields == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_field(_c_Fields, &_f_Fields__euroSymbol, "euroSymbol", "C");
+  (*jniEnv)->SetStaticCharField(jniEnv, _c_Fields, _f_Fields__euroSymbol,
+                                value);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
 // com.github.dart_lang.jnigen.simple_package.Fields$Nested
 jclass _c_Fields_Nested = NULL;
 
