@@ -29,5 +29,6 @@ public class Fields {
     public long hundred = 100L;
     public static String BEST_GOD = "Pallas Athena";
   }
+
   public static char euroSymbol = '\u20ac';
 }
