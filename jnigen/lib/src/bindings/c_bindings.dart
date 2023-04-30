@@ -63,7 +63,7 @@ class CBindingGenerator {
       case "byte":
         return "int8_t";
       case "char":
-        return "char";
+        return "uint16_t";
       case "double":
         return "double";
       case "float":

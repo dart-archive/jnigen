@@ -66,8 +66,8 @@ JniResult Example__getAsterisk() {
                      "()C");
   if (_m_Example__getAsterisk == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  char _result = (*jniEnv)->CallStaticCharMethod(jniEnv, _c_Example,
-                                                 _m_Example__getAsterisk);
+  uint16_t _result = (*jniEnv)->CallStaticCharMethod(jniEnv, _c_Example,
+                                                     _m_Example__getAsterisk);
   return (JniResult){.value = {.c = _result}, .exception = check_exception()};
 }
 
@@ -1014,13 +1014,13 @@ JniResult get_Fields__asterisk() {
   if (_c_Fields == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_field(_c_Fields, &_f_Fields__asterisk, "asterisk", "C");
-  char _result =
+  uint16_t _result =
       (*jniEnv)->GetStaticCharField(jniEnv, _c_Fields, _f_Fields__asterisk);
   return (JniResult){.value = {.c = _result}, .exception = check_exception()};
 }
 
 FFI_PLUGIN_EXPORT
-JniResult set_Fields__asterisk(char value) {
+JniResult set_Fields__asterisk(uint16_t value) {
   load_env();
   load_class_global_ref(&_c_Fields,
                         "com/github/dart_lang/jnigen/simple_package/Fields");
