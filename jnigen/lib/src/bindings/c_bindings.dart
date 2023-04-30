@@ -170,7 +170,7 @@ $jniResultType $cMethodName($cMethodParams) {
         final unionField = getJValueField(f.type);
         final String returnExpr;
         if (f.type.kind != Kind.primitive) {
-          returnExpr = 'to_global_ref_result($getterExpr)';
+          returnExpr = 'to_global_ref_result(_result)';
         } else {
           returnExpr = '(JniResult){.value = '
               '{.$unionField = _result}, .exception = check_exception()}';

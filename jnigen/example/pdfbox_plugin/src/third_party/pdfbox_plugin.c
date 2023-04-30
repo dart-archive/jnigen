@@ -2782,8 +2782,7 @@ JniResult get_PDFTextStripper__LINE_SEPARATOR(jobject self_) {
              "LINE_SEPARATOR", "Ljava/lang/String;");
   jobject _result = (*jniEnv)->GetObjectField(
       jniEnv, self_, _f_PDFTextStripper__LINE_SEPARATOR);
-  return to_global_ref_result((*jniEnv)->GetObjectField(
-      jniEnv, self_, _f_PDFTextStripper__LINE_SEPARATOR));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_PDFTextStripper__charactersByArticle = NULL;
@@ -2798,8 +2797,7 @@ JniResult get_PDFTextStripper__charactersByArticle(jobject self_) {
              "charactersByArticle", "Ljava/util/ArrayList;");
   jobject _result = (*jniEnv)->GetObjectField(
       jniEnv, self_, _f_PDFTextStripper__charactersByArticle);
-  return to_global_ref_result((*jniEnv)->GetObjectField(
-      jniEnv, self_, _f_PDFTextStripper__charactersByArticle));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -2829,8 +2827,7 @@ JniResult get_PDFTextStripper__document(jobject self_) {
              "Lorg/apache/pdfbox/pdmodel/PDDocument;");
   jobject _result =
       (*jniEnv)->GetObjectField(jniEnv, self_, _f_PDFTextStripper__document);
-  return to_global_ref_result(
-      (*jniEnv)->GetObjectField(jniEnv, self_, _f_PDFTextStripper__document));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -2858,8 +2855,7 @@ JniResult get_PDFTextStripper__output(jobject self_) {
              "Ljava/io/Writer;");
   jobject _result =
       (*jniEnv)->GetObjectField(jniEnv, self_, _f_PDFTextStripper__output);
-  return to_global_ref_result(
-      (*jniEnv)->GetObjectField(jniEnv, self_, _f_PDFTextStripper__output));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT

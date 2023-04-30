@@ -1427,8 +1427,7 @@ JniResult get_Build__BOARD() {
   load_static_field(_c_Build, &_f_Build__BOARD, "BOARD", "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__BOARD);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__BOARD));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__BOOTLOADER = NULL;
@@ -1442,8 +1441,7 @@ JniResult get_Build__BOOTLOADER() {
                     "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__BOOTLOADER);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__BOOTLOADER));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__BRAND = NULL;
@@ -1456,8 +1454,7 @@ JniResult get_Build__BRAND() {
   load_static_field(_c_Build, &_f_Build__BRAND, "BRAND", "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__BRAND);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__BRAND));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__CPU_ABI = NULL;
@@ -1471,8 +1468,7 @@ JniResult get_Build__CPU_ABI() {
                     "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__CPU_ABI);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__CPU_ABI));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__CPU_ABI2 = NULL;
@@ -1486,8 +1482,7 @@ JniResult get_Build__CPU_ABI2() {
                     "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__CPU_ABI2);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__CPU_ABI2));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__DEVICE = NULL;
@@ -1501,8 +1496,7 @@ JniResult get_Build__DEVICE() {
                     "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__DEVICE);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__DEVICE));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__DISPLAY = NULL;
@@ -1516,8 +1510,7 @@ JniResult get_Build__DISPLAY() {
                     "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__DISPLAY);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__DISPLAY));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__FINGERPRINT = NULL;
@@ -1531,8 +1524,7 @@ JniResult get_Build__FINGERPRINT() {
                     "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__FINGERPRINT);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__FINGERPRINT));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__HARDWARE = NULL;
@@ -1546,8 +1538,7 @@ JniResult get_Build__HARDWARE() {
                     "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__HARDWARE);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__HARDWARE));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__HOST = NULL;
@@ -1560,8 +1551,7 @@ JniResult get_Build__HOST() {
   load_static_field(_c_Build, &_f_Build__HOST, "HOST", "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__HOST);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__HOST));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__ID = NULL;
@@ -1574,8 +1564,7 @@ JniResult get_Build__ID() {
   load_static_field(_c_Build, &_f_Build__ID, "ID", "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__ID);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__ID));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__MANUFACTURER = NULL;
@@ -1589,8 +1578,7 @@ JniResult get_Build__MANUFACTURER() {
                     "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__MANUFACTURER);
-  return to_global_ref_result((*jniEnv)->GetStaticObjectField(
-      jniEnv, _c_Build, _f_Build__MANUFACTURER));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__MODEL = NULL;
@@ -1603,8 +1591,7 @@ JniResult get_Build__MODEL() {
   load_static_field(_c_Build, &_f_Build__MODEL, "MODEL", "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__MODEL);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__MODEL));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__ODM_SKU = NULL;
@@ -1618,8 +1605,7 @@ JniResult get_Build__ODM_SKU() {
                     "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__ODM_SKU);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__ODM_SKU));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__PRODUCT = NULL;
@@ -1633,8 +1619,7 @@ JniResult get_Build__PRODUCT() {
                     "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__PRODUCT);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__PRODUCT));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__RADIO = NULL;
@@ -1647,8 +1632,7 @@ JniResult get_Build__RADIO() {
   load_static_field(_c_Build, &_f_Build__RADIO, "RADIO", "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__RADIO);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__RADIO));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__SERIAL = NULL;
@@ -1662,8 +1646,7 @@ JniResult get_Build__SERIAL() {
                     "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__SERIAL);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__SERIAL));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__SKU = NULL;
@@ -1676,8 +1659,7 @@ JniResult get_Build__SKU() {
   load_static_field(_c_Build, &_f_Build__SKU, "SKU", "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__SKU);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__SKU));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__SOC_MANUFACTURER = NULL;
@@ -1691,8 +1673,7 @@ JniResult get_Build__SOC_MANUFACTURER() {
                     "Ljava/lang/String;");
   jobject _result = (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build,
                                                     _f_Build__SOC_MANUFACTURER);
-  return to_global_ref_result((*jniEnv)->GetStaticObjectField(
-      jniEnv, _c_Build, _f_Build__SOC_MANUFACTURER));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__SOC_MODEL = NULL;
@@ -1706,8 +1687,7 @@ JniResult get_Build__SOC_MODEL() {
                     "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__SOC_MODEL);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__SOC_MODEL));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__SUPPORTED_32_BIT_ABIS = NULL;
@@ -1721,8 +1701,7 @@ JniResult get_Build__SUPPORTED_32_BIT_ABIS() {
                     "SUPPORTED_32_BIT_ABIS", "[Ljava/lang/String;");
   jobject _result = (*jniEnv)->GetStaticObjectField(
       jniEnv, _c_Build, _f_Build__SUPPORTED_32_BIT_ABIS);
-  return to_global_ref_result((*jniEnv)->GetStaticObjectField(
-      jniEnv, _c_Build, _f_Build__SUPPORTED_32_BIT_ABIS));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__SUPPORTED_64_BIT_ABIS = NULL;
@@ -1736,8 +1715,7 @@ JniResult get_Build__SUPPORTED_64_BIT_ABIS() {
                     "SUPPORTED_64_BIT_ABIS", "[Ljava/lang/String;");
   jobject _result = (*jniEnv)->GetStaticObjectField(
       jniEnv, _c_Build, _f_Build__SUPPORTED_64_BIT_ABIS);
-  return to_global_ref_result((*jniEnv)->GetStaticObjectField(
-      jniEnv, _c_Build, _f_Build__SUPPORTED_64_BIT_ABIS));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__SUPPORTED_ABIS = NULL;
@@ -1751,8 +1729,7 @@ JniResult get_Build__SUPPORTED_ABIS() {
                     "[Ljava/lang/String;");
   jobject _result = (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build,
                                                     _f_Build__SUPPORTED_ABIS);
-  return to_global_ref_result((*jniEnv)->GetStaticObjectField(
-      jniEnv, _c_Build, _f_Build__SUPPORTED_ABIS));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__TAGS = NULL;
@@ -1765,8 +1742,7 @@ JniResult get_Build__TAGS() {
   load_static_field(_c_Build, &_f_Build__TAGS, "TAGS", "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__TAGS);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__TAGS));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__TIME = NULL;
@@ -1792,8 +1768,7 @@ JniResult get_Build__TYPE() {
   load_static_field(_c_Build, &_f_Build__TYPE, "TYPE", "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__TYPE);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__TYPE));
+  return to_global_ref_result(_result);
 }
 
 jfieldID _f_Build__USER = NULL;
@@ -1806,8 +1781,7 @@ JniResult get_Build__USER() {
   load_static_field(_c_Build, &_f_Build__USER, "USER", "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__USER);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Build, _f_Build__USER));
+  return to_global_ref_result(_result);
 }
 
 // java.util.HashMap

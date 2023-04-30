@@ -1042,8 +1042,7 @@ JniResult get_Fields__name() {
   load_static_field(_c_Fields, &_f_Fields__name, "name", "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetStaticObjectField(jniEnv, _c_Fields, _f_Fields__name);
-  return to_global_ref_result(
-      (*jniEnv)->GetStaticObjectField(jniEnv, _c_Fields, _f_Fields__name));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1068,8 +1067,7 @@ JniResult get_Fields__i(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_field(_c_Fields, &_f_Fields__i, "i", "Ljava/lang/Integer;");
   jobject _result = (*jniEnv)->GetObjectField(jniEnv, self_, _f_Fields__i);
-  return to_global_ref_result(
-      (*jniEnv)->GetObjectField(jniEnv, self_, _f_Fields__i));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1147,8 +1145,7 @@ JniResult get_Fields__bestFighterInGreece(jobject self_) {
              "Ljava/lang/String;");
   jobject _result =
       (*jniEnv)->GetObjectField(jniEnv, self_, _f_Fields__bestFighterInGreece);
-  return to_global_ref_result(
-      (*jniEnv)->GetObjectField(jniEnv, self_, _f_Fields__bestFighterInGreece));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1175,8 +1172,7 @@ JniResult get_Fields__random(jobject self_) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_field(_c_Fields, &_f_Fields__random, "random", "Ljava/util/Random;");
   jobject _result = (*jniEnv)->GetObjectField(jniEnv, self_, _f_Fields__random);
-  return to_global_ref_result(
-      (*jniEnv)->GetObjectField(jniEnv, self_, _f_Fields__random));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1252,8 +1248,7 @@ JniResult get_Fields_Nested__BEST_GOD() {
                     "Ljava/lang/String;");
   jobject _result = (*jniEnv)->GetStaticObjectField(jniEnv, _c_Fields_Nested,
                                                     _f_Fields_Nested__BEST_GOD);
-  return to_global_ref_result((*jniEnv)->GetStaticObjectField(
-      jniEnv, _c_Fields_Nested, _f_Fields_Nested__BEST_GOD));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1470,8 +1465,7 @@ JniResult get_GrandParent__value(jobject self_) {
              "Ljava/lang/Object;");
   jobject _result =
       (*jniEnv)->GetObjectField(jniEnv, self_, _f_GrandParent__value);
-  return to_global_ref_result(
-      (*jniEnv)->GetObjectField(jniEnv, self_, _f_GrandParent__value));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1522,8 +1516,7 @@ JniResult get_GrandParent_Parent__parentValue(jobject self_) {
              "parentValue", "Ljava/lang/Object;");
   jobject _result = (*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_Parent__parentValue);
-  return to_global_ref_result((*jniEnv)->GetObjectField(
-      jniEnv, self_, _f_GrandParent_Parent__parentValue));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1554,8 +1547,7 @@ JniResult get_GrandParent_Parent__value(jobject self_) {
              "Ljava/lang/Object;");
   jobject _result =
       (*jniEnv)->GetObjectField(jniEnv, self_, _f_GrandParent_Parent__value);
-  return to_global_ref_result(
-      (*jniEnv)->GetObjectField(jniEnv, self_, _f_GrandParent_Parent__value));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1611,8 +1603,7 @@ JniResult get_GrandParent_Parent_Child__grandParentValue(jobject self_) {
              "Ljava/lang/Object;");
   jobject _result = (*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_Parent_Child__grandParentValue);
-  return to_global_ref_result((*jniEnv)->GetObjectField(
-      jniEnv, self_, _f_GrandParent_Parent_Child__grandParentValue));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1646,8 +1637,7 @@ JniResult get_GrandParent_Parent_Child__parentValue(jobject self_) {
              "Ljava/lang/Object;");
   jobject _result = (*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_Parent_Child__parentValue);
-  return to_global_ref_result((*jniEnv)->GetObjectField(
-      jniEnv, self_, _f_GrandParent_Parent_Child__parentValue));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1680,8 +1670,7 @@ JniResult get_GrandParent_Parent_Child__value(jobject self_) {
              "value", "Ljava/lang/Object;");
   jobject _result = (*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_Parent_Child__value);
-  return to_global_ref_result((*jniEnv)->GetObjectField(
-      jniEnv, self_, _f_GrandParent_Parent_Child__value));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1734,8 +1723,7 @@ JniResult get_GrandParent_StaticParent__value(jobject self_) {
              "value", "Ljava/lang/Object;");
   jobject _result = (*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_StaticParent__value);
-  return to_global_ref_result((*jniEnv)->GetObjectField(
-      jniEnv, self_, _f_GrandParent_StaticParent__value));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1791,8 +1779,7 @@ JniResult get_GrandParent_StaticParent_Child__parentValue(jobject self_) {
              "Ljava/lang/Object;");
   jobject _result = (*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_StaticParent_Child__parentValue);
-  return to_global_ref_result((*jniEnv)->GetObjectField(
-      jniEnv, self_, _f_GrandParent_StaticParent_Child__parentValue));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1826,8 +1813,7 @@ JniResult get_GrandParent_StaticParent_Child__value(jobject self_) {
              "Ljava/lang/Object;");
   jobject _result = (*jniEnv)->GetObjectField(
       jniEnv, self_, _f_GrandParent_StaticParent_Child__value);
-  return to_global_ref_result((*jniEnv)->GetObjectField(
-      jniEnv, self_, _f_GrandParent_StaticParent_Child__value));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1948,8 +1934,7 @@ JniResult get_MyMap_MyEntry__key(jobject self_) {
              "Ljava/lang/Object;");
   jobject _result =
       (*jniEnv)->GetObjectField(jniEnv, self_, _f_MyMap_MyEntry__key);
-  return to_global_ref_result(
-      (*jniEnv)->GetObjectField(jniEnv, self_, _f_MyMap_MyEntry__key));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
@@ -1977,8 +1962,7 @@ JniResult get_MyMap_MyEntry__value(jobject self_) {
              "Ljava/lang/Object;");
   jobject _result =
       (*jniEnv)->GetObjectField(jniEnv, self_, _f_MyMap_MyEntry__value);
-  return to_global_ref_result(
-      (*jniEnv)->GetObjectField(jniEnv, self_, _f_MyMap_MyEntry__value));
+  return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT

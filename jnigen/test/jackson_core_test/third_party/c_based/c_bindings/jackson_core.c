@@ -1448,8 +1448,7 @@ JniResult get_JsonFactory__DEFAULT_ROOT_VALUE_SEPARATOR() {
                     "Lcom/fasterxml/jackson/core/SerializableString;");
   jobject _result = (*jniEnv)->GetStaticObjectField(
       jniEnv, _c_JsonFactory, _f_JsonFactory__DEFAULT_ROOT_VALUE_SEPARATOR);
-  return to_global_ref_result((*jniEnv)->GetStaticObjectField(
-      jniEnv, _c_JsonFactory, _f_JsonFactory__DEFAULT_ROOT_VALUE_SEPARATOR));
+  return to_global_ref_result(_result);
 }
 
 // com.fasterxml.jackson.core.JsonFactory$Feature
@@ -3405,8 +3404,7 @@ JniResult get_JsonParser__DEFAULT_READ_CAPABILITIES() {
                     "Lcom/fasterxml/jackson/core/util/JacksonFeatureSet;");
   jobject _result = (*jniEnv)->GetStaticObjectField(
       jniEnv, _c_JsonParser, _f_JsonParser__DEFAULT_READ_CAPABILITIES);
-  return to_global_ref_result((*jniEnv)->GetStaticObjectField(
-      jniEnv, _c_JsonParser, _f_JsonParser__DEFAULT_READ_CAPABILITIES));
+  return to_global_ref_result(_result);
 }
 
 // com.fasterxml.jackson.core.JsonParser$Feature
