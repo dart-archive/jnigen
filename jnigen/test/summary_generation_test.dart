@@ -49,14 +49,11 @@ Future<void> createJar({
   required List<String> artifacts,
   required String jarPath,
 }) async {
-  final status = await runCommand(
+  await runCommand(
     'jar',
     ['cf', relative(jarPath, from: artifactDir), ...artifacts],
     workingDirectory: artifactDir,
   );
-  if (status != 0) {
-    throw ArgumentError('Cannot create JAR from provided arguments');
-  }
 }
 
 String getClassNameFromPath(String path) {

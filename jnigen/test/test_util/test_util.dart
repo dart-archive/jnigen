@@ -29,7 +29,7 @@ Future<bool> isEmptyOrNotExistDir(String path) async {
 }
 
 /// Runs command, and prints output only if the exit status is non-zero.
-Future<int> runCommand(String exec, List<String> args,
+Future<int> runCommandReturningStatus(String exec, List<String> args,
     {String? workingDirectory, bool runInShell = false}) async {
   final proc = await Process.run(exec, args,
       workingDirectory: workingDirectory, runInShell: runInShell);
@@ -40,6 +40,25 @@ Future<int> runCommand(String exec, List<String> args,
     printError(proc.stderr);
   }
   return proc.exitCode;
+}
+
+Future<void> runCommand(
+  String exec,
+  List<String> args, {
+  String? workingDirectory,
+  bool runInShell = false,
+  String? messageOnFailure,
+}) async {
+  final status = await runCommandReturningStatus(
+    exec,
+    args,
+    workingDirectory: workingDirectory,
+    runInShell: runInShell,
+  );
+  if (status != 0) {
+    final message = messageOnFailure ?? 'Failed to execute $exec';
+    throw Exception('$message: Command exited with return code $status');
+  }
 }
 
 /// List all JAR files in [testRoot]/jar
@@ -219,12 +238,10 @@ List<String> findFilesWithSuffix(Directory dir, String suffix) {
 
 Future<void> compileJavaFiles(Directory root, Directory target) async {
   final javaFiles = findFilesWithSuffix(root, '.java');
-  final status = await runCommand(
+  await runCommand(
     'javac',
     ['-d', target.absolute.path, ...javaFiles],
     workingDirectory: root.path,
+    messageOnFailure: 'Cannot compile java sources',
   );
-  if (status != 0) {
-    throw ArgumentError('Cannot compile Java sources');
-  }
 }
