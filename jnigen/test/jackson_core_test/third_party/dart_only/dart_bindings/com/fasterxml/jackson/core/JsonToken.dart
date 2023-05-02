@@ -44,7 +44,7 @@ import "../../../../_init.dart";
 /// of parsing JSON content.
 class JsonToken extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<JsonToken> $type = type;
 
   JsonToken.fromRef(
     jni.JObjectPtr ref,

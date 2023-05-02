@@ -51,7 +51,7 @@ import "../../../../_init.dart";
 ///@author Ben Litchfield
 class PDFTextStripper extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<PDFTextStripper> $type = type;
 
   PDFTextStripper.fromRef(
     jni.JObjectPtr ref,

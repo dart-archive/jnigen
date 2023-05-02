@@ -60,7 +60,7 @@ import "../../../../_init.dart";
 ///@author Tatu Saloranta
 class JsonFactory extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<JsonFactory> $type = type;
 
   JsonFactory.fromRef(
     jni.JObjectPtr ref,
@@ -1772,7 +1772,7 @@ class $JsonFactoryType extends jni.JObjType<JsonFactory> {
 /// changed for JsonFactory.
 class JsonFactory_Feature extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<JsonFactory_Feature> $type = type;
 
   JsonFactory_Feature.fromRef(
     jni.JObjectPtr ref,

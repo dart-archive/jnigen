@@ -47,7 +47,7 @@ import "../../../../_init.dart";
 ///@author Tatu Saloranta
 class JsonParser extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<JsonParser> $type = type;
 
   JsonParser.fromRef(
     jni.JObjectPtr ref,
@@ -2463,7 +2463,7 @@ class $JsonParserType extends jni.JObjType<JsonParser> {
 /// Enumeration that defines all on/off features for parsers.
 class JsonParser_Feature extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<JsonParser_Feature> $type = type;
 
   JsonParser_Feature.fromRef(
     jni.JObjectPtr ref,
@@ -2575,7 +2575,7 @@ class $JsonParser_FeatureType extends jni.JObjType<JsonParser_Feature> {
 /// used for numbers.
 class JsonParser_NumberType extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<JsonParser_NumberType> $type = type;
 
   JsonParser_NumberType.fromRef(
     jni.JObjectPtr ref,

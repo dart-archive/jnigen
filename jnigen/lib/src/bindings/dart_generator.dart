@@ -342,7 +342,7 @@ class _ClassGenerator extends Visitor<ClassDecl, void> {
     s.write('''
 class $name$typeParamsDef extends $superName {
   @override
-  late final $_jType $instanceTypeGetter = $staticTypeGetter$staticTypeGetterCallArgs;
+  late final $_jType<$name$typeParamsCall> $instanceTypeGetter = $staticTypeGetter$staticTypeGetterCallArgs;
 
   $typeClassDefinitions
 

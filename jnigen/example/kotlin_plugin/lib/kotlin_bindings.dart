@@ -27,7 +27,7 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
 /// from: Example
 class Example extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<Example> $type = type;
 
   Example.fromRef(
     jni.JObjectPtr ref,

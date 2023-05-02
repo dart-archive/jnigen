@@ -70,7 +70,7 @@ export 'src/jexceptions.dart';
 export 'src/jobject.dart';
 export 'src/jprimitives.dart';
 export 'src/jreference.dart' show JReferenceUseExtension;
-export 'src/lang/jstring.dart';
+export 'src/lang/lang.dart';
 export 'src/util/util.dart';
 
 export 'package:ffi/ffi.dart' show using, Arena;

@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// ignore_for_file: overridden_fields
+
 import 'dart:collection';
 
 import 'package:jni/src/third_party/generated_bindings.dart';

@@ -48,7 +48,7 @@ import "../../../../_init.dart";
 ///@author Gerardo Ortiz
 class PDDocumentInformation extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<PDDocumentInformation> $type = type;
 
   PDDocumentInformation.fromRef(
     jni.JObjectPtr ref,
