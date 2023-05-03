@@ -324,16 +324,16 @@ class JObject extends JReference {
     return type.fromRef(newRef);
   }
 
-  static final _classRef = Jni.findJClass('java/lang/Object');
+  static final _objectClass = Jni.findJClass('java/lang/Object');
 
   static final _hashCodeId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"hashCode", r"()I");
+      Jni.accessors.getMethodIDOf(_objectClass.reference, r"hashCode", r"()I");
   @override
   int get hashCode => Jni.accessors.callMethodWithArgs(
       reference, _hashCodeId, JniCallType.intType, []).integer;
 
-  static final _equalsId = Jni.accessors
-      .getMethodIDOf(_classRef.reference, r"equals", r"(Ljava/lang/Object;)Z");
+  static final _equalsId = Jni.accessors.getMethodIDOf(
+      _objectClass.reference, r"equals", r"(Ljava/lang/Object;)Z");
   @override
   bool operator ==(Object other) {
     if (other is! JObject) {
