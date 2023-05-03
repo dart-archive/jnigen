@@ -61,7 +61,7 @@ class JMap<$K extends JObject, $V extends JObject> extends JObject
     JObjectPtr ref,
   ) : super.fromRef(ref);
 
-  static final _classRef = Jni.findJClass(r"java/util/Map");
+  static final _class = Jni.findJClass(r"java/util/Map");
 
   /// The type which includes information such as the signature of this class.
   static JMapType<$K, $V> type<$K extends JObject, $V extends JObject>(
@@ -74,15 +74,15 @@ class JMap<$K extends JObject, $V extends JObject> extends JObject
     );
   }
 
-  static final _hashMapClassRef = Jni.findJClass(r"java/util/HashMap");
-  static final _ctorId = Jni.accessors
-      .getMethodIDOf(_hashMapClassRef.reference, r"<init>", r"()V");
+  static final _hashMapClass = Jni.findJClass(r"java/util/HashMap");
+  static final _ctorId =
+      Jni.accessors.getMethodIDOf(_hashMapClass.reference, r"<init>", r"()V");
   JMap.hash(this.K, this.V)
       : super.fromRef(Jni.accessors
-            .newObjectWithArgs(_hashMapClassRef.reference, _ctorId, []).object);
+            .newObjectWithArgs(_hashMapClass.reference, _ctorId, []).object);
 
   static final _getId = Jni.accessors.getMethodIDOf(
-      _classRef.reference, r"get", r"(Ljava/lang/Object;)Ljava/lang/Object;");
+      _class.reference, r"get", r"(Ljava/lang/Object;)Ljava/lang/Object;");
   @override
   $V? operator [](Object? key) {
     if (key is! JObject) {
@@ -93,7 +93,7 @@ class JMap<$K extends JObject, $V extends JObject> extends JObject
     return value.isNull ? null : value;
   }
 
-  static final _putId = Jni.accessors.getMethodIDOf(_classRef.reference, r"put",
+  static final _putId = Jni.accessors.getMethodIDOf(_class.reference, r"put",
       r"(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
   @override
   void operator []=($K key, $V value) {
@@ -102,7 +102,7 @@ class JMap<$K extends JObject, $V extends JObject> extends JObject
   }
 
   static final _addAllId = Jni.accessors
-      .getMethodIDOf(_classRef.reference, r"putAll", r"(Ljava/util/Map;)V");
+      .getMethodIDOf(_class.reference, r"putAll", r"(Ljava/util/Map;)V");
   @override
   void addAll(Map<$K, $V> other) {
     if (other is JMap<$K, $V>) {
@@ -116,7 +116,7 @@ class JMap<$K extends JObject, $V extends JObject> extends JObject
   }
 
   static final _clearId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"clear", r"()V");
+      Jni.accessors.getMethodIDOf(_class.reference, r"clear", r"()V");
   @override
   void clear() {
     Jni.accessors.callMethodWithArgs(
@@ -124,7 +124,7 @@ class JMap<$K extends JObject, $V extends JObject> extends JObject
   }
 
   static final _containsKeyId = Jni.accessors.getMethodIDOf(
-      _classRef.reference, r"containsKey", r"(Ljava/lang/Object;)Z");
+      _class.reference, r"containsKey", r"(Ljava/lang/Object;)Z");
   @override
   bool containsKey(Object? key) {
     if (key is! JObject) {
@@ -135,7 +135,7 @@ class JMap<$K extends JObject, $V extends JObject> extends JObject
   }
 
   static final _containsValueId = Jni.accessors.getMethodIDOf(
-      _classRef.reference, r"containsValue", r"(Ljava/lang/Object;)Z");
+      _class.reference, r"containsValue", r"(Ljava/lang/Object;)Z");
   @override
   bool containsValue(Object? value) {
     if (value is! JObject) {
@@ -146,7 +146,7 @@ class JMap<$K extends JObject, $V extends JObject> extends JObject
   }
 
   static final isEmptyId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"isEmpty", r"()Z");
+      Jni.accessors.getMethodIDOf(_class.reference, r"isEmpty", r"()Z");
   @override
   bool get isEmpty => Jni.accessors.callMethodWithArgs(
       reference, isEmptyId, JniCallType.booleanType, []).boolean;
@@ -155,19 +155,19 @@ class JMap<$K extends JObject, $V extends JObject> extends JObject
   bool get isNotEmpty => !isEmpty;
 
   static final _keysId = Jni.accessors
-      .getMethodIDOf(_classRef.reference, r"keySet", r"()Ljava/util/Set;");
+      .getMethodIDOf(_class.reference, r"keySet", r"()Ljava/util/Set;");
   @override
   JSet<$K> get keys => JSetType(K).fromRef(Jni.accessors.callMethodWithArgs(
       reference, _keysId, JniCallType.objectType, []).object);
 
   static final _sizeId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"size", r"()I");
+      Jni.accessors.getMethodIDOf(_class.reference, r"size", r"()I");
   @override
   int get length => Jni.accessors
       .callMethodWithArgs(reference, _sizeId, JniCallType.intType, []).integer;
 
-  static final _removeId = Jni.accessors.getMethodIDOf(_classRef.reference,
-      r"remove", r"(Ljava/lang/Object;)Ljava/lang/Object;");
+  static final _removeId = Jni.accessors.getMethodIDOf(
+      _class.reference, r"remove", r"(Ljava/lang/Object;)Ljava/lang/Object;");
   @override
   $V? remove(Object? key) {
     if (key is! JObject) {

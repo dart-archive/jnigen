@@ -6,19 +6,18 @@
 
 import '../accessors.dart';
 import '../jni.dart';
-import '../jvalues.dart';
 import '../third_party/generated_bindings.dart';
 import '../types.dart';
 import 'jnumber.dart';
 
-class JByteType extends JObjType<JByte> {
-  const JByteType();
+class JLongType extends JObjType<JLong> {
+  const JLongType();
 
   @override
-  String get signature => r"Ljava/lang/Byte;";
+  String get signature => r"Ljava/lang/Long;";
 
   @override
-  JByte fromRef(JObjectPtr ref) => JByte.fromRef(ref);
+  JLong fromRef(JObjectPtr ref) => JLong.fromRef(ref);
 
   @override
   JObjType get superType => const JNumberType();
@@ -27,30 +26,31 @@ class JByteType extends JObjType<JByte> {
   final superCount = 2;
 
   @override
-  int get hashCode => (JByteType).hashCode;
+  int get hashCode => (JLongType).hashCode;
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == JByteType && other is JByteType;
+    return other.runtimeType == JLongType && other is JLongType;
   }
 }
 
-class JByte extends JNumber {
+class JLong extends JNumber {
   @override
-  late final JObjType<JByte> $type = type;
+  late final JObjType<JLong> $type = type;
 
-  JByte.fromRef(
+  JLong.fromRef(
     JObjectPtr ref,
   ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const type = JByteType();
+  static const type = JLongType();
 
-  static final _class = Jni.findJClass(r"java/lang/Byte");
+  static final _class = Jni.findJClass(r"java/lang/Long");
 
   static final _ctorId =
-      Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"(B)V");
-  JByte(int num)
-      : super.fromRef(Jni.accessors.newObjectWithArgs(
-            _class.reference, _ctorId, [JValueByte(num)]).object);
+      Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"(J)V");
+
+  JLong(int num)
+      : super.fromRef(Jni.accessors
+            .newObjectWithArgs(_class.reference, _ctorId, [num]).object);
 }

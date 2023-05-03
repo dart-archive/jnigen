@@ -31,7 +31,7 @@ final jniAccessors = jni.Jni.accessors;
 /// from: com.github.dart_lang.jnigen.SuspendFun
 class SuspendFun extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<SuspendFun> $type = type;
 
   SuspendFun.fromRef(
     jni.JObjectPtr ref,

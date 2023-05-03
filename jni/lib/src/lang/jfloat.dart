@@ -11,14 +11,14 @@ import '../third_party/generated_bindings.dart';
 import '../types.dart';
 import 'jnumber.dart';
 
-class JByteType extends JObjType<JByte> {
-  const JByteType();
+class JFloatType extends JObjType<JFloat> {
+  const JFloatType();
 
   @override
-  String get signature => r"Ljava/lang/Byte;";
+  String get signature => r"Ljava/lang/Float;";
 
   @override
-  JByte fromRef(JObjectPtr ref) => JByte.fromRef(ref);
+  JFloat fromRef(JObjectPtr ref) => JFloat.fromRef(ref);
 
   @override
   JObjType get superType => const JNumberType();
@@ -27,30 +27,31 @@ class JByteType extends JObjType<JByte> {
   final superCount = 2;
 
   @override
-  int get hashCode => (JByteType).hashCode;
+  int get hashCode => (JFloatType).hashCode;
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == JByteType && other is JByteType;
+    return other.runtimeType == JFloatType && other is JFloatType;
   }
 }
 
-class JByte extends JNumber {
+class JFloat extends JNumber {
   @override
-  late final JObjType<JByte> $type = type;
+  late final JObjType<JFloat> $type = type;
 
-  JByte.fromRef(
+  JFloat.fromRef(
     JObjectPtr ref,
   ) : super.fromRef(ref);
 
   /// The type which includes information such as the signature of this class.
-  static const type = JByteType();
+  static const type = JFloatType();
 
-  static final _class = Jni.findJClass(r"java/lang/Byte");
+  static final _class = Jni.findJClass(r"java/lang/Float");
 
   static final _ctorId =
-      Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"(B)V");
-  JByte(int num)
+      Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"(F)V");
+
+  JFloat(double num)
       : super.fromRef(Jni.accessors.newObjectWithArgs(
-            _class.reference, _ctorId, [JValueByte(num)]).object);
+            _class.reference, _ctorId, [JValueFloat(num)]).object);
 }

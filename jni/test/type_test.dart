@@ -221,6 +221,21 @@ void run({required TestRunnerCallback testRunner}) {
         JObject.type);
   });
 
+  testRunner('Boxed types', () {
+    expect(
+      lowestCommonSuperType([
+        JByte.type,
+        JInteger.type,
+        JLong.type,
+        JShort.type,
+        JDouble.type,
+        JFloat.type,
+      ]),
+      JNumber.type,
+    );
+    expect(lowestCommonSuperType([JByte.type, JBoolean.type]), JObject.type);
+  });
+
   testRunner('Mocked type tree', () {
     // As a reminder, this is how the type tree looks like:
     //   JObject

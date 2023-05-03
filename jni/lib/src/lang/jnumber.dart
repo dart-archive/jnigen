@@ -9,6 +9,13 @@ import '../jni.dart';
 import '../jobject.dart';
 import '../third_party/generated_bindings.dart';
 import '../types.dart';
+import 'jinteger.dart';
+import 'jshort.dart';
+import 'jlong.dart';
+import 'jdouble.dart';
+import 'jfloat.dart';
+import 'jbyte.dart';
+import 'jboolean.dart';
 
 class JNumberType extends JObjType<JNumber> {
   const JNumberType();
@@ -42,19 +49,19 @@ class JNumber extends JObject {
     JObjectPtr ref,
   ) : super.fromRef(ref);
 
-  static final _classRef = Jni.findJClass(r"java/lang/Number");
+  static final _class = Jni.findJClass(r"java/lang/Number");
 
   /// The type which includes information such as the signature of this class.
   static const type = JNumberType();
   static final _ctorId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"<init>", r"()V");
+      Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"()V");
 
   JNumber()
       : super.fromRef(Jni.accessors
-            .newObjectWithArgs(_classRef.reference, _ctorId, []).object);
+            .newObjectWithArgs(_class.reference, _ctorId, []).object);
 
   static final _intValueId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"intValue", r"()I");
+      Jni.accessors.getMethodIDOf(_class.reference, r"intValue", r"()I");
 
   int intValue() {
     return Jni.accessors.callMethodWithArgs(
@@ -62,7 +69,7 @@ class JNumber extends JObject {
   }
 
   static final _longValueId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"longValue", r"()J");
+      Jni.accessors.getMethodIDOf(_class.reference, r"longValue", r"()J");
 
   int longValue() {
     return Jni.accessors.callMethodWithArgs(
@@ -70,7 +77,7 @@ class JNumber extends JObject {
   }
 
   static final _floatValueId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"floatValue", r"()F");
+      Jni.accessors.getMethodIDOf(_class.reference, r"floatValue", r"()F");
 
   double floatValue() {
     return Jni.accessors.callMethodWithArgs(
@@ -78,7 +85,7 @@ class JNumber extends JObject {
   }
 
   static final _doubleValueId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"doubleValue", r"()D");
+      Jni.accessors.getMethodIDOf(_class.reference, r"doubleValue", r"()D");
 
   double doubleValue() {
     return Jni.accessors.callMethodWithArgs(
@@ -86,7 +93,7 @@ class JNumber extends JObject {
   }
 
   static final _byteValueId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"byteValue", r"()B");
+      Jni.accessors.getMethodIDOf(_class.reference, r"byteValue", r"()B");
 
   int byteValue() {
     return Jni.accessors.callMethodWithArgs(
@@ -94,10 +101,26 @@ class JNumber extends JObject {
   }
 
   static final _shortValueId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"shortValue", r"()S");
+      Jni.accessors.getMethodIDOf(_class.reference, r"shortValue", r"()S");
 
   int shortValue() {
     return Jni.accessors.callMethodWithArgs(
         reference, _shortValueId, JniCallType.shortType, []).short;
   }
+}
+
+extension IntToJava on int {
+  JByte toJByte() => JByte(this);
+  JShort toJShort() => JShort(this);
+  JInteger toJInteger() => JInteger(this);
+  JLong toJLong() => JLong(this);
+}
+
+extension DoubleToJava on double {
+  JFloat toJFloat() => JFloat(this);
+  JDouble toJDouble() => JDouble(this);
+}
+
+extension BoolToJava on bool {
+  JBoolean toJBoolean() => JBoolean(this);
 }

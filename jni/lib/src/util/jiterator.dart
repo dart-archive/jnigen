@@ -51,7 +51,7 @@ class JIterator<$E extends JObject> extends JObject implements Iterator<$E> {
     JObjectPtr ref,
   ) : super.fromRef(ref);
 
-  static final _classRef = Jni.accessors.getClassOf(r"java/util/Iterator");
+  static final _class = Jni.findJClass(r"java/util/Iterator");
 
   /// The type which includes information such as the signature of this class.
   static JIteratorType<$E> type<$E extends JObject>(
@@ -68,14 +68,14 @@ class JIterator<$E extends JObject> extends JObject implements Iterator<$E> {
   $E get current => _current as $E;
 
   static final _hasNextId =
-      Jni.accessors.getMethodIDOf(_classRef, r"hasNext", r"()Z");
+      Jni.accessors.getMethodIDOf(_class.reference, r"hasNext", r"()Z");
   bool _hasNext() {
     return Jni.accessors.callMethodWithArgs(
         reference, _hasNextId, JniCallType.booleanType, []).boolean;
   }
 
-  static final _nextId =
-      Jni.accessors.getMethodIDOf(_classRef, r"next", r"()Ljava/lang/Object;");
+  static final _nextId = Jni.accessors
+      .getMethodIDOf(_class.reference, r"next", r"()Ljava/lang/Object;");
   $E _next() {
     return E.fromRef(Jni.accessors.callMethodWithArgs(
         reference, _nextId, JniCallType.objectType, []).object);

@@ -53,7 +53,7 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
     JObjectPtr ref,
   ) : super.fromRef(ref);
 
-  static final _classRef = Jni.findJClass(r"java/util/Set");
+  static final _class = Jni.findJClass(r"java/util/Set");
 
   /// The type which includes information such as the signature of this class.
   static JSetType<$E> type<$E extends JObject>(
@@ -64,23 +64,23 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
     );
   }
 
-  static final _hashSetClassRef = Jni.findJClass(r"java/util/HashSet");
-  static final _ctorId = Jni.accessors
-      .getMethodIDOf(_hashSetClassRef.reference, r"<init>", r"()V");
+  static final _hashSetClass = Jni.findJClass(r"java/util/HashSet");
+  static final _ctorId =
+      Jni.accessors.getMethodIDOf(_hashSetClass.reference, r"<init>", r"()V");
   JSet.hash(this.E)
       : super.fromRef(Jni.accessors
-            .newObjectWithArgs(_hashSetClassRef.reference, _ctorId, []).object);
+            .newObjectWithArgs(_hashSetClass.reference, _ctorId, []).object);
 
   static final _addId = Jni.accessors
-      .getMethodIDOf(_classRef.reference, r"add", r"(Ljava/lang/Object;)Z");
+      .getMethodIDOf(_class.reference, r"add", r"(Ljava/lang/Object;)Z");
   @override
   bool add($E value) {
     return Jni.accessors.callMethodWithArgs(
         reference, _addId, JniCallType.booleanType, [value.reference]).boolean;
   }
 
-  static final _addAllId = Jni.accessors.getMethodIDOf(
-      _classRef.reference, r"addAll", r"(Ljava/util/Collection;)Z");
+  static final _addAllId = Jni.accessors
+      .getMethodIDOf(_class.reference, r"addAll", r"(Ljava/util/Collection;)Z");
   @override
   void addAll(Iterable<$E> elements) {
     if (elements is JObject &&
@@ -97,15 +97,15 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
   }
 
   static final _clearId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"clear", r"()V");
+      Jni.accessors.getMethodIDOf(_class.reference, r"clear", r"()V");
   @override
   void clear() {
     return Jni.accessors.callMethodWithArgs(
         reference, _clearId, JniCallType.voidType, []).check();
   }
 
-  static final _containsId = Jni.accessors.getMethodIDOf(
-      _classRef.reference, r"contains", r"(Ljava/lang/Object;)Z");
+  static final _containsId = Jni.accessors
+      .getMethodIDOf(_class.reference, r"contains", r"(Ljava/lang/Object;)Z");
 
   @override
   bool contains(Object? element) {
@@ -117,7 +117,7 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
   }
 
   static final _containsAllId = Jni.accessors.getMethodIDOf(
-      _classRef.reference, r"containsAll", r"(Ljava/util/Collection;)Z");
+      _class.reference, r"containsAll", r"(Ljava/util/Collection;)Z");
   static final _collectionClass = Jni.findJClass("java/util/Collection");
   @override
   bool containsAll(Iterable<Object?> other) {
@@ -131,7 +131,7 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
   }
 
   static final _isEmptyId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"isEmpty", r"()Z");
+      Jni.accessors.getMethodIDOf(_class.reference, r"isEmpty", r"()Z");
   @override
   bool get isEmpty => Jni.accessors.callMethodWithArgs(
       reference, _isEmptyId, JniCallType.booleanType, []).boolean;
@@ -139,21 +139,21 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
   @override
   bool get isNotEmpty => !isEmpty;
 
-  static final _iteratorId = Jni.accessors.getMethodIDOf(
-      _classRef.reference, r"iterator", r"()Ljava/util/Iterator;");
+  static final _iteratorId = Jni.accessors
+      .getMethodIDOf(_class.reference, r"iterator", r"()Ljava/util/Iterator;");
   @override
   JIterator<$E> get iterator =>
       JIteratorType(E).fromRef(Jni.accessors.callMethodWithArgs(
           reference, _iteratorId, JniCallType.objectType, []).object);
 
   static final _sizeId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"size", r"()I");
+      Jni.accessors.getMethodIDOf(_class.reference, r"size", r"()I");
   @override
   int get length => Jni.accessors
       .callMethodWithArgs(reference, _sizeId, JniCallType.intType, []).integer;
 
   static final _removeId = Jni.accessors
-      .getMethodIDOf(_classRef.reference, r"remove", r"(Ljava/lang/Object;)Z");
+      .getMethodIDOf(_class.reference, r"remove", r"(Ljava/lang/Object;)Z");
   @override
   bool remove(Object? value) {
     if (value is! $E) {
@@ -164,7 +164,7 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
   }
 
   static final _removeAllId = Jni.accessors.getMethodIDOf(
-      _classRef.reference, r"removeAll", r"(Ljava/util/Collection;)Z");
+      _class.reference, r"removeAll", r"(Ljava/util/Collection;)Z");
   @override
   void removeAll(Iterable<Object?> elements) {
     if (elements is JObject &&
@@ -177,7 +177,7 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
   }
 
   static final _retainAllId = Jni.accessors.getMethodIDOf(
-      _classRef.reference, r"retainAll", r"(Ljava/util/Collection;)Z");
+      _class.reference, r"retainAll", r"(Ljava/util/Collection;)Z");
   @override
   void retainAll(Iterable<Object?> elements) {
     if (elements is JObject &&
@@ -190,13 +190,13 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
   }
 
   static final _hashCodeId =
-      Jni.accessors.getMethodIDOf(_classRef.reference, r"hashCode", r"()I");
+      Jni.accessors.getMethodIDOf(_class.reference, r"hashCode", r"()I");
   @override
   int get hashCode => Jni.accessors.callMethodWithArgs(
       reference, _hashCodeId, JniCallType.intType, []).integer;
 
   static final _equalsId = Jni.accessors
-      .getMethodIDOf(_classRef.reference, r"equals", r"(Ljava/lang/Object;)Z");
+      .getMethodIDOf(_class.reference, r"equals", r"(Ljava/lang/Object;)Z");
   @override
   bool operator ==(Object other) {
     if (other is! JObject) {

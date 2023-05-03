@@ -31,7 +31,7 @@ final jniAccessors = jni.Jni.accessors;
 /// from: com.github.dart_lang.jnigen.simple_package.Example
 class Example extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<Example> $type = type;
 
   Example.fromRef(
     jni.JObjectPtr ref,
@@ -436,8 +436,8 @@ class Example extends jni.JObject {
 
   /// from: static public int[] getArr()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JArray<jni.JInt> getArr() {
-    return const jni.JArrayType(jni.JIntType()).fromRef(jniAccessors
+  static jni.JArray<jni.jint> getArr() {
+    return const jni.JArrayType(jni.jintType()).fromRef(jniAccessors
         .callStaticMethodWithArgs(
             _classRef, _id_getArr, jni.JniCallType.objectType, []).object);
   }
@@ -447,7 +447,7 @@ class Example extends jni.JObject {
 
   /// from: static public int addAll(int[] arr)
   static int addAll(
-    jni.JArray<jni.JInt> arr,
+    jni.JArray<jni.jint> arr,
   ) {
     return jniAccessors.callStaticMethodWithArgs(_classRef, _id_addAll,
         jni.JniCallType.intType, [arr.reference]).integer;
@@ -501,7 +501,7 @@ class $ExampleType extends jni.JObjType<Example> {
 /// from: com.github.dart_lang.jnigen.simple_package.Example$Nested
 class Example_Nested extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<Example_Nested> $type = type;
 
   Example_Nested.fromRef(
     jni.JObjectPtr ref,
@@ -574,7 +574,7 @@ class $Example_NestedType extends jni.JObjType<Example_Nested> {
 /// from: com.github.dart_lang.jnigen.simple_package.Exceptions
 class Exceptions extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<Exceptions> $type = type;
 
   Exceptions.fromRef(
     jni.JObjectPtr ref,
@@ -667,8 +667,8 @@ class Exceptions extends jni.JObject {
 
   /// from: static public int[] staticIntArrayMethod()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JArray<jni.JInt> staticIntArrayMethod() {
-    return const jni.JArrayType(jni.JIntType()).fromRef(jniAccessors
+  static jni.JArray<jni.jint> staticIntArrayMethod() {
+    return const jni.JArrayType(jni.jintType()).fromRef(jniAccessors
         .callStaticMethodWithArgs(_classRef, _id_staticIntArrayMethod,
             jni.JniCallType.objectType, []).object);
   }
@@ -708,8 +708,8 @@ class Exceptions extends jni.JObject {
 
   /// from: public int[] intArrayMethod()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JArray<jni.JInt> intArrayMethod() {
-    return const jni.JArrayType(jni.JIntType()).fromRef(jniAccessors
+  jni.JArray<jni.jint> intArrayMethod() {
+    return const jni.JArrayType(jni.jintType()).fromRef(jniAccessors
         .callMethodWithArgs(reference, _id_intArrayMethod,
             jni.JniCallType.objectType, []).object);
   }
@@ -803,7 +803,7 @@ class $ExceptionsType extends jni.JObjType<Exceptions> {
 /// from: com.github.dart_lang.jnigen.simple_package.Fields
 class Fields extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<Fields> $type = type;
 
   Fields.fromRef(
     jni.JObjectPtr ref,
@@ -1013,7 +1013,7 @@ class $FieldsType extends jni.JObjType<Fields> {
 /// from: com.github.dart_lang.jnigen.simple_package.Fields$Nested
 class Fields_Nested extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<Fields_Nested> $type = type;
 
   Fields_Nested.fromRef(
     jni.JObjectPtr ref,
@@ -1096,7 +1096,7 @@ class $Fields_NestedType extends jni.JObjType<Fields_Nested> {
 /// from: com.github.dart_lang.jnigen.pkg2.C2
 class C2 extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<C2> $type = type;
 
   C2.fromRef(
     jni.JObjectPtr ref,
@@ -1160,7 +1160,7 @@ class $C2Type extends jni.JObjType<C2> {
 /// from: com.github.dart_lang.jnigen.pkg2.Example
 class Example1 extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<Example1> $type = type;
 
   Example1.fromRef(
     jni.JObjectPtr ref,
@@ -1218,7 +1218,7 @@ class $Example1Type extends jni.JObjType<Example1> {
 /// from: com.github.dart_lang.jnigen.generics.GrandParent
 class GrandParent<$T extends jni.JObject> extends jni.JObject {
   @override
-  late final jni.JObjType $type = type(T);
+  late final jni.JObjType<GrandParent<$T>> $type = type(T);
 
   final jni.JObjType<$T> T;
 
@@ -1387,7 +1387,7 @@ class $GrandParentType<$T extends jni.JObject>
 class GrandParent_Parent<$T extends jni.JObject, $S extends jni.JObject>
     extends jni.JObject {
   @override
-  late final jni.JObjType $type = type(T, S);
+  late final jni.JObjType<GrandParent_Parent<$T, $S>> $type = type(T, S);
 
   final jni.JObjType<$T> T;
   final jni.JObjType<$S> S;
@@ -1512,7 +1512,8 @@ class $GrandParent_ParentType<$T extends jni.JObject, $S extends jni.JObject>
 class GrandParent_Parent_Child<$T extends jni.JObject, $S extends jni.JObject,
     $U extends jni.JObject> extends jni.JObject {
   @override
-  late final jni.JObjType $type = type(T, S, U);
+  late final jni.JObjType<GrandParent_Parent_Child<$T, $S, $U>> $type =
+      type(T, S, U);
 
   final jni.JObjType<$T> T;
   final jni.JObjType<$S> S;
@@ -1670,7 +1671,7 @@ class $GrandParent_Parent_ChildType<$T extends jni.JObject,
 /// from: com.github.dart_lang.jnigen.generics.GrandParent$StaticParent
 class GrandParent_StaticParent<$S extends jni.JObject> extends jni.JObject {
   @override
-  late final jni.JObjType $type = type(S);
+  late final jni.JObjType<GrandParent_StaticParent<$S>> $type = type(S);
 
   final jni.JObjType<$S> S;
 
@@ -1764,7 +1765,8 @@ class $GrandParent_StaticParentType<$S extends jni.JObject>
 class GrandParent_StaticParent_Child<$S extends jni.JObject,
     $U extends jni.JObject> extends jni.JObject {
   @override
-  late final jni.JObjType $type = type(S, U);
+  late final jni.JObjType<GrandParent_StaticParent_Child<$S, $U>> $type =
+      type(S, U);
 
   final jni.JObjType<$S> S;
   final jni.JObjType<$U> U;
@@ -1890,7 +1892,7 @@ class $GrandParent_StaticParent_ChildType<$S extends jni.JObject,
 class MyMap<$K extends jni.JObject, $V extends jni.JObject>
     extends jni.JObject {
   @override
-  late final jni.JObjType $type = type(K, V);
+  late final jni.JObjType<MyMap<$K, $V>> $type = type(K, V);
 
   final jni.JObjType<$K> K;
   final jni.JObjType<$V> V;
@@ -2005,7 +2007,7 @@ class $MyMapType<$K extends jni.JObject, $V extends jni.JObject>
 class MyMap_MyEntry<$K extends jni.JObject, $V extends jni.JObject>
     extends jni.JObject {
   @override
-  late final jni.JObjType $type = type(K, V);
+  late final jni.JObjType<MyMap_MyEntry<$K, $V>> $type = type(K, V);
 
   final jni.JObjType<$K> K;
   final jni.JObjType<$V> V;
@@ -2129,7 +2131,7 @@ class $MyMap_MyEntryType<$K extends jni.JObject, $V extends jni.JObject>
 /// from: com.github.dart_lang.jnigen.generics.MyStack
 class MyStack<$T extends jni.JObject> extends jni.JObject {
   @override
-  late final jni.JObjType $type = type(T);
+  late final jni.JObjType<MyStack<$T>> $type = type(T);
 
   final jni.JObjType<$T> T;
 
@@ -2324,7 +2326,7 @@ class $MyStackType<$T extends jni.JObject> extends jni.JObjType<MyStack<$T>> {
 /// from: com.github.dart_lang.jnigen.generics.StringKeyedMap
 class StringKeyedMap<$V extends jni.JObject> extends MyMap<jni.JString, $V> {
   @override
-  late final jni.JObjType $type = type(V);
+  late final jni.JObjType<StringKeyedMap<$V>> $type = type(V);
 
   final jni.JObjType<$V> V;
 
@@ -2394,7 +2396,7 @@ class $StringKeyedMapType<$V extends jni.JObject>
 /// from: com.github.dart_lang.jnigen.generics.StringMap
 class StringMap extends StringKeyedMap<jni.JString> {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<StringMap> $type = type;
 
   StringMap.fromRef(
     jni.JObjectPtr ref,
@@ -2443,7 +2445,7 @@ class $StringMapType extends jni.JObjType<StringMap> {
 /// from: com.github.dart_lang.jnigen.generics.StringStack
 class StringStack extends MyStack<jni.JString> {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<StringStack> $type = type;
 
   StringStack.fromRef(
     jni.JObjectPtr ref,
@@ -2492,7 +2494,7 @@ class $StringStackType extends jni.JObjType<StringStack> {
 /// from: com.github.dart_lang.jnigen.generics.StringValuedMap
 class StringValuedMap<$K extends jni.JObject> extends MyMap<$K, jni.JString> {
   @override
-  late final jni.JObjType $type = type(K);
+  late final jni.JObjType<StringValuedMap<$K>> $type = type(K);
 
   final jni.JObjType<$K> K;
 
@@ -2562,7 +2564,7 @@ class $StringValuedMapType<$K extends jni.JObject>
 /// from: com.github.dart_lang.jnigen.annotations.JsonSerializable$Case
 class JsonSerializable_Case extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<JsonSerializable_Case> $type = type;
 
   JsonSerializable_Case.fromRef(
     jni.JObjectPtr ref,
@@ -2632,7 +2634,7 @@ class $JsonSerializable_CaseType extends jni.JObjType<JsonSerializable_Case> {
 /// from: com.github.dart_lang.jnigen.annotations.MyDataClass
 class MyDataClass extends jni.JObject {
   @override
-  late final jni.JObjType $type = type;
+  late final jni.JObjType<MyDataClass> $type = type;
 
   MyDataClass.fromRef(
     jni.JObjectPtr ref,
