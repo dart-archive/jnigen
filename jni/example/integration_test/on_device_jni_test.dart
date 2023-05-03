@@ -11,6 +11,7 @@ import '../../test/jmap_test.dart' as jmap_test;
 import '../../test/jobject_test.dart' as jobject_test;
 import '../../test/jset_test.dart' as jset_test;
 import '../../test/jarray_test.dart' as jarray_test;
+import '../../test/boxed_test.dart' as boxed_test;
 import '../../test/type_test.dart' as type_test;
 import '../../test/load_test.dart' as load_test;
 
@@ -27,6 +28,7 @@ void main() {
     jobject_test.run,
     jset_test.run,
     jarray_test.run,
+    boxed_test.run,
     type_test.run,
     load_test.run,
   ];

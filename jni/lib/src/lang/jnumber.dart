@@ -63,49 +63,73 @@ class JNumber extends JObject {
   static final _intValueId =
       Jni.accessors.getMethodIDOf(_class.reference, r"intValue", r"()I");
 
-  int intValue() {
-    return Jni.accessors.callMethodWithArgs(
+  int intValue({bool deleteOriginal = false}) {
+    final ret = Jni.accessors.callMethodWithArgs(
         reference, _intValueId, JniCallType.intType, []).integer;
+    if (deleteOriginal) {
+      delete();
+    }
+    return ret;
   }
 
   static final _longValueId =
       Jni.accessors.getMethodIDOf(_class.reference, r"longValue", r"()J");
 
-  int longValue() {
-    return Jni.accessors.callMethodWithArgs(
+  int longValue({bool deleteOriginal = false}) {
+    final ret = Jni.accessors.callMethodWithArgs(
         reference, _longValueId, JniCallType.longType, []).long;
+    if (deleteOriginal) {
+      delete();
+    }
+    return ret;
   }
 
   static final _floatValueId =
       Jni.accessors.getMethodIDOf(_class.reference, r"floatValue", r"()F");
 
-  double floatValue() {
-    return Jni.accessors.callMethodWithArgs(
+  double floatValue({bool deleteOriginal = false}) {
+    final ret = Jni.accessors.callMethodWithArgs(
         reference, _floatValueId, JniCallType.floatType, []).float;
+    if (deleteOriginal) {
+      delete();
+    }
+    return ret;
   }
 
   static final _doubleValueId =
       Jni.accessors.getMethodIDOf(_class.reference, r"doubleValue", r"()D");
 
-  double doubleValue() {
-    return Jni.accessors.callMethodWithArgs(
+  double doubleValue({bool deleteOriginal = false}) {
+    final ret = Jni.accessors.callMethodWithArgs(
         reference, _doubleValueId, JniCallType.doubleType, []).doubleFloat;
+    if (deleteOriginal) {
+      delete();
+    }
+    return ret;
   }
 
   static final _byteValueId =
       Jni.accessors.getMethodIDOf(_class.reference, r"byteValue", r"()B");
 
-  int byteValue() {
-    return Jni.accessors.callMethodWithArgs(
+  int byteValue({bool deleteOriginal = false}) {
+    final ret = Jni.accessors.callMethodWithArgs(
         reference, _byteValueId, JniCallType.byteType, []).byte;
+    if (deleteOriginal) {
+      delete();
+    }
+    return ret;
   }
 
   static final _shortValueId =
       Jni.accessors.getMethodIDOf(_class.reference, r"shortValue", r"()S");
 
-  int shortValue() {
-    return Jni.accessors.callMethodWithArgs(
+  int shortValue({bool deleteOriginal = false}) {
+    final ret = Jni.accessors.callMethodWithArgs(
         reference, _shortValueId, JniCallType.shortType, []).short;
+    if (deleteOriginal) {
+      delete();
+    }
+    return ret;
   }
 }
 
