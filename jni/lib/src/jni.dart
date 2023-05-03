@@ -183,17 +183,13 @@ abstract class Jni {
     return env;
   }
 
-  static GlobalJniEnv? _env;
-
-  /// Points to a process-wide shared instance of [GlobalJniEnvStruct].
+  /// Points to a process-wide shared instance of [GlobalJniEnv].
   ///
   /// It provides an indirection over [JniEnv] so that it can be used from
   /// any thread, and always returns global object references.
-  static GlobalJniEnv get env {
-    return _env ??= GlobalJniEnv(_fetchGlobalEnv());
-  }
+  static final env = GlobalJniEnv(_fetchGlobalEnv());
 
-  static JniAccessors get accessors => JniAccessors(_bindings.GetAccessors());
+  static final accessors = JniAccessors(_bindings.GetAccessors());
 
   /// Returns a new PortContinuation.
   static JObjectPtr newPortContinuation(ReceivePort port) {

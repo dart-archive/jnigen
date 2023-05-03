@@ -19,8 +19,6 @@ part 'jreference.dart';
 part 'jobject.dart';
 part 'jstring.dart';
 
-final JniAccessors _accessors = Jni.accessors;
-final GlobalJniEnv _env = Jni.env;
 // This typedef is needed because void is a keyword and cannot be used in
 // type switch like a regular type.
 typedef _VoidType = void;

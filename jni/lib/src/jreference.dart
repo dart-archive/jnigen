@@ -9,7 +9,7 @@ part of 'types.dart';
 abstract class JReference implements Finalizable {
   //TODO(PR): Is it safe to cast void *f (void *) to void f (void *)?
   static final _finalizer =
-      NativeFinalizer(_env.ptr.ref.DeleteGlobalRef.cast());
+      NativeFinalizer(Jni.env.ptr.ref.DeleteGlobalRef.cast());
 
   JReference.fromRef(this.reference) {
     _finalizer.attach(this, reference, detach: this);
@@ -39,7 +39,7 @@ abstract class JReference implements Finalizable {
   /// [UseAfterFreeException].
   void delete() {
     _setAsDeleted();
-    _env.DeleteGlobalRef(reference);
+    Jni.env.DeleteGlobalRef(reference);
   }
 
   /// The underlying JNI global object reference.
