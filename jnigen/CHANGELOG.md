@@ -1,4 +1,5 @@
 ## 0.5.0-dev
+* No JNIGen changes (yet), but keeping version in lockstep with `package:jni`.
 
 ## 0.4.0
 * **Breaking Change** ([#145](https://github.com/dart-lang/jnigen/issues/145)): Type arguments are now named instead of positional.

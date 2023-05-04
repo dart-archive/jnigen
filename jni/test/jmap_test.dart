@@ -12,17 +12,13 @@ import 'test_util/test_util.dart';
 void main() {
   // Don't forget to initialize JNI.
   if (!Platform.isAndroid) {
-    try {
-      Jni.spawn(dylibDir: "build/jni_libs", jvmOptions: ["-Xmx128m"]);
-    } on JvmExistsException catch (_) {
-      // TODO(#51): Support destroying and reinstantiating JVM.
-    }
+    Jni.spawnIfNotExists(dylibDir: "build/jni_libs", jvmOptions: ["-Xmx128m"]);
   }
   run(testRunner: test);
 }
 
 void run({required TestRunnerCallback testRunner}) {
-  JMap<JString, JString> newJMap(Arena arena) {
+  JMap<JString, JString> testDataMap(Arena arena) {
     return {
       "1".toJString()..deletedIn(arena): "One".toJString()..deletedIn(arena),
       "2".toJString()..deletedIn(arena): "Two".toJString()..deletedIn(arena),
@@ -33,13 +29,13 @@ void run({required TestRunnerCallback testRunner}) {
 
   testRunner('length', () {
     using((arena) {
-      final map = newJMap(arena);
+      final map = testDataMap(arena);
       expect(map.length, 3);
     });
   });
   testRunner('[]', () {
     using((arena) {
-      final map = newJMap(arena);
+      final map = testDataMap(arena);
       // ignore: collection_methods_unrelated_type
       expect(map[1], null);
       expect(
@@ -55,7 +51,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('[]=', () {
     using((arena) {
-      final map = newJMap(arena);
+      final map = testDataMap(arena);
       map["0".toJString()..deletedIn(arena)] = "Zero".toJString()
         ..deletedIn(arena);
       expect(
@@ -76,7 +72,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('addAll', () {
     using((arena) {
-      final map = newJMap(arena);
+      final map = testDataMap(arena);
       final toAdd = {
         "0".toJString()..deletedIn(arena): "Zero".toJString()..deletedIn(arena),
         "1".toJString()..deletedIn(arena): "one!".toJString()..deletedIn(arena),
@@ -101,7 +97,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('clear, isEmpty, isNotEmpty', () {
     using((arena) {
-      final map = newJMap(arena);
+      final map = testDataMap(arena);
       expect(map.isEmpty, false);
       expect(map.isNotEmpty, true);
       map.clear();
@@ -111,7 +107,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('containsKey', () {
     using((arena) {
-      final map = newJMap(arena);
+      final map = testDataMap(arena);
       // ignore: iterable_contains_unrelated_type
       expect(map.containsKey(1), false);
       expect(map.containsKey("1".toJString()..deletedIn(arena)), true);
@@ -120,7 +116,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('containsValue', () {
     using((arena) {
-      final map = newJMap(arena);
+      final map = testDataMap(arena);
       // ignore: iterable_contains_unrelated_type
       expect(map.containsValue(1), false);
       expect(map.containsValue("One".toJString()..deletedIn(arena)), true);
@@ -129,7 +125,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('keys', () {
     using((arena) {
-      final map = newJMap(arena);
+      final map = testDataMap(arena);
       final keys = map.keys;
       expect(
         keys
@@ -141,7 +137,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('remove', () {
     using((arena) {
-      final map = newJMap(arena);
+      final map = testDataMap(arena);
       // ignore: collection_methods_unrelated_type
       expect(map.remove(1), null);
       expect(map.remove("4".toJString()..deletedIn(arena)), null);

@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// This typedef is needed because void is a keyword and cannot be used in
-// type switch like a regular type.
 import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
@@ -17,6 +15,8 @@ import 'jvalues.dart';
 import 'third_party/generated_bindings.dart';
 import 'types.dart';
 
+// This typedef is needed because void is a keyword and cannot be used in
+// type switch like a regular type.
 typedef _VoidType = void;
 
 class JObjectType extends JObjType<JObject> {

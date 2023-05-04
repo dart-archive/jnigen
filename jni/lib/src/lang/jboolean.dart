@@ -2,10 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// Copyright (c) 2023, the Dart project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 // ignore_for_file: overridden_fields
 
 import '../accessors.dart';
@@ -56,24 +52,6 @@ class JBoolean extends JObject {
   JBoolean(bool boolean)
       : super.fromRef(Jni.accessors.newObjectWithArgs(
             _class.reference, _ctorId, [boolean ? 1 : 0]).object);
-
-  static final _falseId = Jni.accessors.getStaticFieldIDOf(
-    _class.reference,
-    r"FALSE",
-    r"Ljava/lang/Boolean;",
-  );
-  static JBoolean get falseValue => const JBooleanType().fromRef(Jni.accessors
-      .getStaticField(_class.reference, _falseId, JniCallType.objectType)
-      .object);
-
-  static final _trueId = Jni.accessors.getStaticFieldIDOf(
-    _class.reference,
-    r"TRUE",
-    r"Ljava/lang/Boolean;",
-  );
-  static JBoolean get trueValue => const JBooleanType().fromRef(Jni.accessors
-      .getStaticField(_class.reference, _trueId, JniCallType.objectType)
-      .object);
 
   static final _booleanValueId =
       Jni.accessors.getMethodIDOf(_class.reference, r"booleanValue", r"()Z");

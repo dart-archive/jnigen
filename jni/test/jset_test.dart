@@ -12,17 +12,14 @@ import 'test_util/test_util.dart';
 void main() {
   // Don't forget to initialize JNI.
   if (!Platform.isAndroid) {
-    try {
-      Jni.spawn(dylibDir: "build/jni_libs", jvmOptions: ["-Xmx128m"]);
-    } on JvmExistsException catch (_) {
-      // TODO(#51): Support destroying and reinstantiating JVM.
-    }
+    checkDylibIsUpToDate();
+    Jni.spawnIfNotExists(dylibDir: "build/jni_libs", jvmOptions: ["-Xmx128m"]);
   }
   run(testRunner: test);
 }
 
 void run({required TestRunnerCallback testRunner}) {
-  JSet<JString> newJSet(Arena arena) {
+  JSet<JString> testDataSet(Arena arena) {
     return {
       "1".toJString()..deletedIn(arena),
       "2".toJString()..deletedIn(arena),
@@ -33,13 +30,13 @@ void run({required TestRunnerCallback testRunner}) {
 
   testRunner('length', () {
     using((arena) {
-      final set = newJSet(arena);
+      final set = testDataSet(arena);
       expect(set.length, 3);
     });
   });
   testRunner('add', () {
     using((arena) {
-      final set = newJSet(arena);
+      final set = testDataSet(arena);
       set.add("1".toJString()..deletedIn(arena));
       expect(set.length, 3);
       set.add("4".toJString()..deletedIn(arena));
@@ -48,8 +45,8 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('addAll', () {
     using((arena) {
-      final set = newJSet(arena);
-      final toAdd = newJSet(arena);
+      final set = testDataSet(arena);
+      final toAdd = testDataSet(arena);
       toAdd.add("4".toJString()..deletedIn(arena));
       set.addAll(toAdd);
       expect(set.length, 4);
@@ -62,7 +59,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('clear, isEmpty, isNotEmpty', () {
     using((arena) {
-      final set = newJSet(arena);
+      final set = testDataSet(arena);
       set.clear();
       expect(set.isEmpty, true);
       expect(set.isNotEmpty, false);
@@ -70,7 +67,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('contains', () {
     using((arena) {
-      final set = newJSet(arena);
+      final set = testDataSet(arena);
       // ignore: iterable_contains_unrelated_type
       expect(set.contains(1), false);
       expect(set.contains("1".toJString()..deletedIn(arena)), true);
@@ -79,7 +76,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('containsAll', () {
     using((arena) {
-      final set = newJSet(arena);
+      final set = testDataSet(arena);
       expect(set.containsAll(set), true);
       expect(
         set.containsAll([
@@ -88,7 +85,7 @@ void run({required TestRunnerCallback testRunner}) {
         ]),
         true,
       );
-      final testSet = newJSet(arena);
+      final testSet = testDataSet(arena);
       testSet.add("4".toJString()..deletedIn(arena));
       expect(set.containsAll(testSet), false);
       expect(set.containsAll(["4".toJString()..deletedIn(arena)]), false);
@@ -96,7 +93,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('iterator', () {
     using((arena) {
-      final set = newJSet(arena);
+      final set = testDataSet(arena);
       final it = set.iterator;
       // There are no order guarantees in a hashset.
       final dartSet = <String>{};
@@ -113,7 +110,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('remove', () {
     using((arena) {
-      final set = newJSet(arena);
+      final set = testDataSet(arena);
       // ignore: collection_methods_unrelated_type
       expect(set.remove(1), false);
       expect(set.remove("4".toJString()..deletedIn(arena)), false);
@@ -124,7 +121,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('removeAll', () {
     using((arena) {
-      final set = newJSet(arena);
+      final set = testDataSet(arena);
       final toRemoveExclusive = {"4".toJString()..deletedIn(arena)}
           .toJSet(JString.type)
         ..deletedIn(arena);
@@ -143,7 +140,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('retainAll', () {
     using((arena) {
-      final set = newJSet(arena);
+      final set = testDataSet(arena);
       final toRetain = {
         "1".toJString()..deletedIn(arena),
         "3".toJString()..deletedIn(arena),
@@ -160,8 +157,8 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('==, hashCode', () {
     using((arena) {
-      final a = newJSet(arena);
-      final b = newJSet(arena);
+      final a = testDataSet(arena);
+      final b = testDataSet(arena);
       expect(a.hashCode, b.hashCode);
       expect(a, b);
       b.add("4".toJString()..deletedIn(arena));
@@ -171,7 +168,7 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('lookup', () {
     using((arena) {
-      final set = newJSet(arena);
+      final set = testDataSet(arena);
       // ignore: iterable_contains_unrelated_type
       expect(set.lookup(1), null);
       expect(
@@ -184,7 +181,7 @@ void run({required TestRunnerCallback testRunner}) {
   testRunner('toSet', () {
     using((arena) {
       // Test if the set gets copied.
-      final set = newJSet(arena);
+      final set = testDataSet(arena);
       final setCopy = set.toSet()..deletedIn(arena);
       expect(set, setCopy);
       set.add("4".toJString()..deletedIn(arena));
