@@ -93,7 +93,7 @@ class $NotificationsType extends jni.JObjType<Notifications> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $NotificationsType &&
+    return other.runtimeType == ($NotificationsType) &&
         other is $NotificationsType;
   }
 }

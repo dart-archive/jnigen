@@ -1528,6 +1528,6 @@ class $PDDocumentType extends jni.JObjType<PDDocument> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $PDDocumentType && other is $PDDocumentType;
+    return other.runtimeType == ($PDDocumentType) && other is $PDDocumentType;
   }
 }

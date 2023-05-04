@@ -191,4 +191,26 @@ void run({required TestRunnerCallback testRunner}) {
       expect(set.length, 3);
     });
   });
+  testRunner('type hashCode, ==', () {
+    using((arena) {
+      final a = testDataList(arena);
+      final b = testDataList(arena);
+      expect(a.$type, b.$type);
+      expect(a.$type.hashCode, b.$type.hashCode);
+      final c = JList.array(JObject.type)..deletedIn(arena);
+      expect(a.$type, isNot(c.$type));
+      expect(a.$type.hashCode, isNot(c.$type.hashCode));
+    });
+  });
+  testRunner('JIterator type hashCode, ==', () {
+    using((arena) {
+      final a = testDataList(arena);
+      final b = testDataList(arena);
+      expect(a.iterator.$type, b.iterator.$type);
+      expect(a.iterator.$type.hashCode, b.iterator.$type.hashCode);
+      final c = JList.array(JObject.type)..deletedIn(arena);
+      expect(a.iterator.$type, isNot(c.iterator.$type));
+      expect(a.iterator.$type.hashCode, isNot(c.iterator.$type.hashCode));
+    });
+  });
 }

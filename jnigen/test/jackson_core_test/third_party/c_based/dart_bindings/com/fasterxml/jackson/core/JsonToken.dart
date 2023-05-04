@@ -230,6 +230,6 @@ class $JsonTokenType extends jni.JObjType<JsonToken> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $JsonTokenType && other is $JsonTokenType;
+    return other.runtimeType == ($JsonTokenType) && other is $JsonTokenType;
   }
 }

@@ -46,7 +46,7 @@ class JListType<$E extends JObject> extends JObjType<JList<$E>> {
 class JList<$E extends JObject> extends JObject with ListMixin<$E> {
   @override
   // ignore: overridden_fields
-  late final JObjType $type = type(E);
+  late final JObjType<JList> $type = type(E);
 
   final JObjType<$E> E;
 

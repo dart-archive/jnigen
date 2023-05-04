@@ -1416,7 +1416,7 @@ class $PDFTextStripperType extends jni.JObjType<PDFTextStripper> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $PDFTextStripperType &&
+    return other.runtimeType == ($PDFTextStripperType) &&
         other is $PDFTextStripperType;
   }
 }

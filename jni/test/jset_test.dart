@@ -188,4 +188,15 @@ void run({required TestRunnerCallback testRunner}) {
       expect(set, isNot(setCopy));
     });
   });
+  testRunner('type hashCode, ==', () {
+    using((arena) {
+      final a = testDataSet(arena);
+      final b = testDataSet(arena);
+      expect(a.$type, b.$type);
+      expect(a.$type.hashCode, b.$type.hashCode);
+      final c = JSet.hash(JObject.type)..deletedIn(arena);
+      expect(a.$type, isNot(c.$type));
+      expect(a.$type.hashCode, isNot(c.$type.hashCode));
+    });
+  });
 }

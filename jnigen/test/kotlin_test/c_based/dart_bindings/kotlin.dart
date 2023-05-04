@@ -118,6 +118,6 @@ class $SuspendFunType extends jni.JObjType<SuspendFun> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $SuspendFunType && other is $SuspendFunType;
+    return other.runtimeType == ($SuspendFunType) && other is $SuspendFunType;
   }
 }

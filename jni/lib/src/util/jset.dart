@@ -36,14 +36,16 @@ class JSetType<$E extends JObject> extends JObjType<JSet<$E>> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == JSetType && other is JSetType && E == other.E;
+    return other.runtimeType == (JSetType<$E>) &&
+        other is JSetType<$E> &&
+        E == other.E;
   }
 }
 
 class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
   @override
   // ignore: overridden_fields
-  late final JObjType $type = type(E);
+  late final JObjType<JSet> $type = type(E);
 
   final JObjType<$E> E;
 

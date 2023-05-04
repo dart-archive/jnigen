@@ -497,7 +497,7 @@ class $ExampleType extends jni.JObjType<Example> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $ExampleType && other is $ExampleType;
+    return other.runtimeType == ($ExampleType) && other is $ExampleType;
   }
 }
 
@@ -569,7 +569,7 @@ class $Example_NestedType extends jni.JObjType<Example_Nested> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $Example_NestedType &&
+    return other.runtimeType == ($Example_NestedType) &&
         other is $Example_NestedType;
   }
 }
@@ -804,7 +804,7 @@ class $ExceptionsType extends jni.JObjType<Exceptions> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $ExceptionsType && other is $ExceptionsType;
+    return other.runtimeType == ($ExceptionsType) && other is $ExceptionsType;
   }
 }
 
@@ -1015,7 +1015,7 @@ class $FieldsType extends jni.JObjType<Fields> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $FieldsType && other is $FieldsType;
+    return other.runtimeType == ($FieldsType) && other is $FieldsType;
   }
 }
 
@@ -1099,7 +1099,7 @@ class $Fields_NestedType extends jni.JObjType<Fields_Nested> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $Fields_NestedType &&
+    return other.runtimeType == ($Fields_NestedType) &&
         other is $Fields_NestedType;
   }
 }
@@ -1164,7 +1164,7 @@ class $C2Type extends jni.JObjType<C2> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $C2Type && other is $C2Type;
+    return other.runtimeType == ($C2Type) && other is $C2Type;
   }
 }
 
@@ -1222,7 +1222,7 @@ class $Example1Type extends jni.JObjType<Example1> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $Example1Type && other is $Example1Type;
+    return other.runtimeType == ($Example1Type) && other is $Example1Type;
   }
 }
 
@@ -1388,8 +1388,8 @@ class $GrandParentType<$T extends jni.JObject>
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $GrandParentType &&
-        other is $GrandParentType &&
+    return other.runtimeType == ($GrandParentType<$T>) &&
+        other is $GrandParentType<$T> &&
         T == other.T;
   }
 }
@@ -1512,8 +1512,8 @@ class $GrandParent_ParentType<$T extends jni.JObject, $S extends jni.JObject>
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $GrandParent_ParentType &&
-        other is $GrandParent_ParentType &&
+    return other.runtimeType == ($GrandParent_ParentType<$T, $S>) &&
+        other is $GrandParent_ParentType<$T, $S> &&
         T == other.T &&
         S == other.S;
   }
@@ -1671,8 +1671,8 @@ class $GrandParent_Parent_ChildType<$T extends jni.JObject,
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $GrandParent_Parent_ChildType &&
-        other is $GrandParent_Parent_ChildType &&
+    return other.runtimeType == ($GrandParent_Parent_ChildType<$T, $S, $U>) &&
+        other is $GrandParent_Parent_ChildType<$T, $S, $U> &&
         T == other.T &&
         S == other.S &&
         U == other.U;
@@ -1766,8 +1766,8 @@ class $GrandParent_StaticParentType<$S extends jni.JObject>
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $GrandParent_StaticParentType &&
-        other is $GrandParent_StaticParentType &&
+    return other.runtimeType == ($GrandParent_StaticParentType<$S>) &&
+        other is $GrandParent_StaticParentType<$S> &&
         S == other.S;
   }
 }
@@ -1892,8 +1892,8 @@ class $GrandParent_StaticParent_ChildType<$S extends jni.JObject,
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $GrandParent_StaticParent_ChildType &&
-        other is $GrandParent_StaticParent_ChildType &&
+    return other.runtimeType == ($GrandParent_StaticParent_ChildType<$S, $U>) &&
+        other is $GrandParent_StaticParent_ChildType<$S, $U> &&
         S == other.S &&
         U == other.U;
   }
@@ -2012,8 +2012,8 @@ class $MyMapType<$K extends jni.JObject, $V extends jni.JObject>
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $MyMapType &&
-        other is $MyMapType &&
+    return other.runtimeType == ($MyMapType<$K, $V>) &&
+        other is $MyMapType<$K, $V> &&
         K == other.K &&
         V == other.V;
   }
@@ -2137,8 +2137,8 @@ class $MyMap_MyEntryType<$K extends jni.JObject, $V extends jni.JObject>
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $MyMap_MyEntryType &&
-        other is $MyMap_MyEntryType &&
+    return other.runtimeType == ($MyMap_MyEntryType<$K, $V>) &&
+        other is $MyMap_MyEntryType<$K, $V> &&
         K == other.K &&
         V == other.V;
   }
@@ -2337,8 +2337,8 @@ class $MyStackType<$T extends jni.JObject> extends jni.JObjType<MyStack<$T>> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $MyStackType &&
-        other is $MyStackType &&
+    return other.runtimeType == ($MyStackType<$T>) &&
+        other is $MyStackType<$T> &&
         T == other.T;
   }
 }
@@ -2409,8 +2409,8 @@ class $StringKeyedMapType<$V extends jni.JObject>
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $StringKeyedMapType &&
-        other is $StringKeyedMapType &&
+    return other.runtimeType == ($StringKeyedMapType<$V>) &&
+        other is $StringKeyedMapType<$V> &&
         V == other.V;
   }
 }
@@ -2460,7 +2460,7 @@ class $StringMapType extends jni.JObjType<StringMap> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $StringMapType && other is $StringMapType;
+    return other.runtimeType == ($StringMapType) && other is $StringMapType;
   }
 }
 
@@ -2509,7 +2509,7 @@ class $StringStackType extends jni.JObjType<StringStack> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $StringStackType && other is $StringStackType;
+    return other.runtimeType == ($StringStackType) && other is $StringStackType;
   }
 }
 
@@ -2579,8 +2579,8 @@ class $StringValuedMapType<$K extends jni.JObject>
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $StringValuedMapType &&
-        other is $StringValuedMapType &&
+    return other.runtimeType == ($StringValuedMapType<$K>) &&
+        other is $StringValuedMapType<$K> &&
         K == other.K;
   }
 }
@@ -2650,7 +2650,7 @@ class $JsonSerializable_CaseType extends jni.JObjType<JsonSerializable_Case> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $JsonSerializable_CaseType &&
+    return other.runtimeType == ($JsonSerializable_CaseType) &&
         other is $JsonSerializable_CaseType;
   }
 }
@@ -2701,6 +2701,6 @@ class $MyDataClassType extends jni.JObjType<MyDataClass> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $MyDataClassType && other is $MyDataClassType;
+    return other.runtimeType == ($MyDataClassType) && other is $MyDataClassType;
   }
 }

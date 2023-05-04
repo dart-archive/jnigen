@@ -73,7 +73,8 @@ class $AndroidUtilsType extends jni.JObjType<AndroidUtils> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $AndroidUtilsType && other is $AndroidUtilsType;
+    return other.runtimeType == ($AndroidUtilsType) &&
+        other is $AndroidUtilsType;
   }
 }
 
@@ -1044,7 +1045,7 @@ class $EmojiCompatType extends jni.JObjType<EmojiCompat> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $EmojiCompatType && other is $EmojiCompatType;
+    return other.runtimeType == ($EmojiCompatType) && other is $EmojiCompatType;
   }
 }
 
@@ -1379,7 +1380,7 @@ class $EmojiCompat_ConfigType extends jni.JObjType<EmojiCompat_Config> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $EmojiCompat_ConfigType &&
+    return other.runtimeType == ($EmojiCompat_ConfigType) &&
         other is $EmojiCompat_ConfigType;
   }
 }
@@ -1470,7 +1471,7 @@ class $EmojiCompat_MetadataRepoLoaderCallbackType
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $EmojiCompat_MetadataRepoLoaderCallbackType &&
+    return other.runtimeType == ($EmojiCompat_MetadataRepoLoaderCallbackType) &&
         other is $EmojiCompat_MetadataRepoLoaderCallbackType;
   }
 }
@@ -1570,7 +1571,7 @@ class $EmojiCompat_GlyphCheckerType
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $EmojiCompat_GlyphCheckerType &&
+    return other.runtimeType == ($EmojiCompat_GlyphCheckerType) &&
         other is $EmojiCompat_GlyphCheckerType;
   }
 }
@@ -1633,7 +1634,7 @@ class $EmojiCompat_MetadataRepoLoaderType
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $EmojiCompat_MetadataRepoLoaderType &&
+    return other.runtimeType == ($EmojiCompat_MetadataRepoLoaderType) &&
         other is $EmojiCompat_MetadataRepoLoaderType;
   }
 }
@@ -1716,7 +1717,7 @@ class $EmojiCompat_InitCallbackType
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $EmojiCompat_InitCallbackType &&
+    return other.runtimeType == ($EmojiCompat_InitCallbackType) &&
         other is $EmojiCompat_InitCallbackType;
   }
 }
@@ -1791,7 +1792,7 @@ class $EmojiCompat_DefaultSpanFactoryType
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $EmojiCompat_DefaultSpanFactoryType &&
+    return other.runtimeType == ($EmojiCompat_DefaultSpanFactoryType) &&
         other is $EmojiCompat_DefaultSpanFactoryType;
   }
 }
@@ -1860,7 +1861,7 @@ class $EmojiCompat_SpanFactoryType
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $EmojiCompat_SpanFactoryType &&
+    return other.runtimeType == ($EmojiCompat_SpanFactoryType) &&
         other is $EmojiCompat_SpanFactoryType;
   }
 }
@@ -1958,7 +1959,7 @@ class $DefaultEmojiCompatConfigType
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $DefaultEmojiCompatConfigType &&
+    return other.runtimeType == ($DefaultEmojiCompatConfigType) &&
         other is $DefaultEmojiCompatConfigType;
   }
 }
@@ -2044,7 +2045,7 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28Type
   @override
   bool operator ==(Object other) {
     return other.runtimeType ==
-            $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28Type &&
+            ($DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28Type) &&
         other
             is $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28Type;
   }
@@ -2152,7 +2153,7 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19Type
   @override
   bool operator ==(Object other) {
     return other.runtimeType ==
-            $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19Type &&
+            ($DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19Type) &&
         other
             is $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19Type;
   }
@@ -2285,7 +2286,7 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelperType extends jni
   @override
   bool operator ==(Object other) {
     return other.runtimeType ==
-            $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelperType &&
+            ($DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelperType) &&
         other is $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelperType;
   }
 }
@@ -2374,7 +2375,7 @@ class $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactoryType extends jni
   @override
   bool operator ==(Object other) {
     return other.runtimeType ==
-            $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactoryType &&
+            ($DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactoryType) &&
         other is $DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactoryType;
   }
 }
@@ -2722,7 +2723,7 @@ class $BuildType extends jni.JObjType<Build> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $BuildType && other is $BuildType;
+    return other.runtimeType == ($BuildType) && other is $BuildType;
   }
 }
 
@@ -3228,8 +3229,8 @@ class $HashMapType<$K extends jni.JObject, $V extends jni.JObject>
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $HashMapType &&
-        other is $HashMapType &&
+    return other.runtimeType == ($HashMapType<$K, $V>) &&
+        other is $HashMapType<$K, $V> &&
         K == other.K &&
         V == other.V;
   }

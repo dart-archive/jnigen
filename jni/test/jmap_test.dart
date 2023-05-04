@@ -151,4 +151,16 @@ void run({required TestRunnerCallback testRunner}) {
       expect(map.length, 2);
     });
   });
+  testRunner('type hashCode, ==', () {
+    using((arena) {
+      final a = testDataMap(arena);
+      final b = testDataMap(arena);
+      expect(a.$type, b.$type);
+      expect(a.$type, b.$type);
+      expect(a.$type.hashCode, b.$type.hashCode);
+      final c = JMap.hash(JObject.type, JObject.type)..deletedIn(arena);
+      expect(a.$type, isNot(c.$type));
+      expect(a.$type.hashCode, isNot(c.$type.hashCode));
+    });
+  });
 }

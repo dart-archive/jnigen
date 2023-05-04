@@ -400,7 +400,7 @@ class $name$typeParamsDef extends $superName {
     final superTypeClass = superClass.accept(_TypeClassGenerator(resolver));
     final hashCodeTypeClasses = typeParams.join(', ');
     final equalityTypeClasses = typeParams
-        .map((typeParam) => ' && $typeParam == other.$typeParam')
+        .map((typeParam) => ' &&\n        $typeParam == other.$typeParam')
         .join();
     final hashCode = typeParams.isEmpty
         ? '($typeClassName).hashCode'
@@ -433,7 +433,8 @@ class $typeClassName$typeParamsDef extends $_jType<$name$typeParamsCall> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $typeClassName && other is $typeClassName$equalityTypeClasses;
+    return other.runtimeType == ($typeClassName$typeParamsCall) &&
+        other is $typeClassName$typeParamsCall$equalityTypeClasses;
   }
 }
 

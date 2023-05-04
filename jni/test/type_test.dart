@@ -236,6 +236,39 @@ void run({required TestRunnerCallback testRunner}) {
     expect(lowestCommonSuperType([JByte.type, JBoolean.type]), JObject.type);
   });
 
+  testRunner('util types', () {
+    using((arena) {
+      expect(
+        lowestCommonSuperType([
+          JList.type(JObject.type),
+          JList.type(JObject.type),
+        ]),
+        JList.type(JObject.type),
+      );
+      expect(
+        lowestCommonSuperType([
+          JList.type(JObject.type),
+          JList.type(JString.type),
+        ]),
+        JObject.type,
+      );
+      expect(
+        lowestCommonSuperType([
+          JList.type(JObject.type),
+          JMap.type(JObject.type, JObject.type),
+        ]),
+        JObject.type,
+      );
+      expect(
+        lowestCommonSuperType([
+          JSet.type(JObject.type),
+          JIterator.type(JObject.type),
+        ]),
+        JObject.type,
+      );
+    });
+  });
+
   testRunner('Mocked type tree', () {
     // As a reminder, this is how the type tree looks like:
     //   JObject

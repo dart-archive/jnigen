@@ -2506,7 +2506,7 @@ class $JsonParserType extends jni.JObjType<JsonParser> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $JsonParserType && other is $JsonParserType;
+    return other.runtimeType == ($JsonParserType) && other is $JsonParserType;
   }
 }
 
@@ -2618,7 +2618,7 @@ class $JsonParser_FeatureType extends jni.JObjType<JsonParser_Feature> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $JsonParser_FeatureType &&
+    return other.runtimeType == ($JsonParser_FeatureType) &&
         other is $JsonParser_FeatureType;
   }
 }
@@ -2690,7 +2690,7 @@ class $JsonParser_NumberTypeType extends jni.JObjType<JsonParser_NumberType> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $JsonParser_NumberTypeType &&
+    return other.runtimeType == ($JsonParser_NumberTypeType) &&
         other is $JsonParser_NumberTypeType;
   }
 }

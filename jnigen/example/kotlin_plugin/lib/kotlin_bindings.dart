@@ -88,6 +88,6 @@ class $ExampleType extends jni.JObjType<Example> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $ExampleType && other is $ExampleType;
+    return other.runtimeType == ($ExampleType) && other is $ExampleType;
   }
 }

@@ -1872,7 +1872,7 @@ class $JsonFactoryType extends jni.JObjType<JsonFactory> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $JsonFactoryType && other is $JsonFactoryType;
+    return other.runtimeType == ($JsonFactoryType) && other is $JsonFactoryType;
   }
 }
 
@@ -1988,7 +1988,7 @@ class $JsonFactory_FeatureType extends jni.JObjType<JsonFactory_Feature> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == $JsonFactory_FeatureType &&
+    return other.runtimeType == ($JsonFactory_FeatureType) &&
         other is $JsonFactory_FeatureType;
   }
 }

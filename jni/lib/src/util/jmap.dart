@@ -38,8 +38,8 @@ class JMapType<$K extends JObject, $V extends JObject>
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == JMapType &&
-        other is JMapType &&
+    return other.runtimeType == (JMapType<$K, $V>) &&
+        other is JMapType<$K, $V> &&
         K == other.K &&
         V == other.V;
   }
@@ -49,7 +49,7 @@ class JMap<$K extends JObject, $V extends JObject> extends JObject
     with MapMixin<$K, $V> {
   @override
   // ignore: overridden_fields
-  late final JObjType $type = type(K, V);
+  late final JObjType<JMap> $type = type(K, V);
 
   final JObjType<$K> K;
   final JObjType<$V> V;

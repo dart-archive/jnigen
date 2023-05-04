@@ -32,8 +32,8 @@ class JIteratorType<$E extends JObject> extends JObjType<JIterator<$E>> {
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == JIteratorType &&
-        other is JIteratorType &&
+    return other.runtimeType == (JIteratorType<$E>) &&
+        other is JIteratorType<$E> &&
         E == other.E;
   }
 }

@@ -71,4 +71,60 @@ void run({required TestRunnerCallback testRunner}) {
       expect(JBoolean(true).booleanValue(deleteOriginal: true), true);
     });
   });
+  testRunner('JByte.\$type hashCode and ==', () {
+    using((arena) {
+      final a = JByte(1)..deletedIn(arena);
+      final b = JByte(2)..deletedIn(arena);
+      expect(a.$type, b.$type);
+      expect(a.$type.hashCode, b.$type.hashCode);
+    });
+  });
+  testRunner('JShort.\$type hashCode and ==', () {
+    using((arena) {
+      final a = JShort(1)..deletedIn(arena);
+      final b = JShort(2)..deletedIn(arena);
+      expect(a.$type, b.$type);
+      expect(a.$type.hashCode, b.$type.hashCode);
+    });
+  });
+  testRunner('JInteger.\$type hashCode and ==', () {
+    using((arena) {
+      final a = JInteger(1)..deletedIn(arena);
+      final b = JInteger(2)..deletedIn(arena);
+      expect(a.$type, b.$type);
+      expect(a.$type.hashCode, b.$type.hashCode);
+    });
+  });
+  testRunner('JLong.\$type hashCode and ==', () {
+    using((arena) {
+      final a = JLong(1)..deletedIn(arena);
+      final b = JLong(2)..deletedIn(arena);
+      expect(a.$type, b.$type);
+      expect(a.$type.hashCode, b.$type.hashCode);
+    });
+  });
+  testRunner('JFloat.\$type hashCode and ==', () {
+    using((arena) {
+      final a = JFloat(1.0)..deletedIn(arena);
+      final b = JFloat(2.0)..deletedIn(arena);
+      expect(a.$type, b.$type);
+      expect(a.$type.hashCode, b.$type.hashCode);
+    });
+  });
+  testRunner('JDouble.\$type hashCode and ==', () {
+    using((arena) {
+      final a = JDouble(1.0)..deletedIn(arena);
+      final b = JDouble(2.0)..deletedIn(arena);
+      expect(a.$type, b.$type);
+      expect(a.$type.hashCode, b.$type.hashCode);
+    });
+  });
+  testRunner('JBoolean.\$type hashCode and ==', () {
+    using((arena) {
+      final a = JBoolean(true)..deletedIn(arena);
+      final b = JBoolean(false)..deletedIn(arena);
+      expect(a.$type, b.$type);
+      expect(a.$type.hashCode, b.$type.hashCode);
+    });
+  });
 }
