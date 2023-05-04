@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// ignore_for_file: overridden_fields
-
 import 'dart:collection';
 import 'dart:ffi';
 
@@ -47,6 +45,7 @@ class JListType<$E extends JObject> extends JObjType<JList<$E>> {
 
 class JList<$E extends JObject> extends JObject with ListMixin<$E> {
   @override
+  // ignore: overridden_fields
   late final JObjType $type = type(E);
 
   final JObjType<$E> E;

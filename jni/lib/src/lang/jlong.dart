@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// ignore_for_file: overridden_fields
-
 import '../accessors.dart';
 import '../jni.dart';
 import '../third_party/generated_bindings.dart';
@@ -36,6 +34,7 @@ class JLongType extends JObjType<JLong> {
 
 class JLong extends JNumber {
   @override
+  // ignore: overridden_fields
   late final JObjType<JLong> $type = type;
 
   JLong.fromRef(

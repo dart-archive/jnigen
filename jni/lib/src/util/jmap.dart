@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// ignore_for_file: overridden_fields
-
 import 'dart:collection';
 
 import '../accessors.dart';
@@ -50,6 +48,7 @@ class JMapType<$K extends JObject, $V extends JObject>
 class JMap<$K extends JObject, $V extends JObject> extends JObject
     with MapMixin<$K, $V> {
   @override
+  // ignore: overridden_fields
   late final JObjType $type = type(K, V);
 
   final JObjType<$K> K;

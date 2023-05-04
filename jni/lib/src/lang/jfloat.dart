@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// ignore_for_file: overridden_fields
-
 import '../accessors.dart';
 import '../jni.dart';
 import '../jvalues.dart';
@@ -37,6 +35,7 @@ class JFloatType extends JObjType<JFloat> {
 
 class JFloat extends JNumber {
   @override
+  // ignore: overridden_fields
   late final JObjType<JFloat> $type = type;
 
   JFloat.fromRef(
