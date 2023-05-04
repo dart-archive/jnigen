@@ -1,4 +1,4 @@
-## 0.5.0-dev
+## 0.5.0-dev.0
 * No JNIGen changes (yet), but keeping version in lockstep with `package:jni`.
 
 ## 0.4.0
