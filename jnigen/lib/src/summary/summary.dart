@@ -93,6 +93,8 @@ class SummarizerCommand {
 }
 
 Future<Classes> getSummary(Config config) async {
+  // This function is a potential entry point in tests, which set log level to
+  // warning.
   setLoggingLevel(config.logLevel);
   final summarizer = SummarizerCommand(
     sourcePath: config.sourcePath,
@@ -154,6 +156,7 @@ Future<Classes> getSummary(Config config) async {
 
   Process process;
   Stream<List<int>> input;
+  final stopwatch = Stopwatch()..start();
   try {
     process = await summarizer.runProcess();
     input = process.stdout;
@@ -166,6 +169,8 @@ Future<Classes> getSummary(Config config) async {
   dynamic json;
   try {
     json = await stream.single;
+    stopwatch.stop();
+    log.info('Parsing inputs took ${stopwatch.elapsedMilliseconds} ms');
   } on Exception catch (e) {
     printError(errorLog);
     log.fatal('Cannot parse summary: $e');
