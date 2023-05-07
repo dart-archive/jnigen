@@ -70,6 +70,13 @@ final simplePackagePath = join('test', 'simple_package_test', 'java');
 final simplePackageDir = Directory(simplePackagePath);
 final javaFiles = findFilesWithSuffix(simplePackageDir, '.java');
 final javaClasses = javaFiles.map(getClassNameFromPath).toList();
+// remove individual class listings from one package,
+// and add the package name instead, for testing.
+const _removalPackage = 'com.github.dart_lang.jnigen.pkg2';
+final summarizerClassesSpec = [
+  ...javaClasses.where((e) => !e.startsWith('$_removalPackage.')),
+  _removalPackage,
+];
 
 Config getConfig({List<String>? sourcePath, List<String>? classPath}) {
   return Config(
