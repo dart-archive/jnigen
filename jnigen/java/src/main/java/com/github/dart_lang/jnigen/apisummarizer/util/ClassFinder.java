@@ -1,7 +1,5 @@
 package com.github.dart_lang.jnigen.apisummarizer.util;
 
-import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.*;
@@ -11,6 +9,8 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
 
 public class ClassFinder {
   public static <E> void findFilesInPath(
@@ -42,9 +42,8 @@ public class ClassFinder {
       JarFile jar,
       String suffix,
       BiFunction<JarFile, List<ZipEntry>, List<E>> mapper) {
-    var entries = jar.stream()
-            .map(JarEntry::getName)
-            .collect(Collectors.toCollection(TreeSet::new));
+    var entries =
+        jar.stream().map(JarEntry::getName).collect(Collectors.toCollection(TreeSet::new));
     for (var binaryName : classes.keySet()) {
       if (classes.get(binaryName) != null) {
         continue;

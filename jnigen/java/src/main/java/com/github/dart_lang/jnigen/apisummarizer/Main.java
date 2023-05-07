@@ -8,11 +8,6 @@ import com.github.dart_lang.jnigen.apisummarizer.disasm.AsmSummarizer;
 import com.github.dart_lang.jnigen.apisummarizer.doclet.SummarizerDoclet;
 import com.github.dart_lang.jnigen.apisummarizer.elements.ClassDecl;
 import com.github.dart_lang.jnigen.apisummarizer.util.*;
-import jdk.javadoc.doclet.Doclet;
-
-import javax.tools.DocumentationTool;
-import javax.tools.JavaFileObject;
-import javax.tools.ToolProvider;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,6 +16,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import javax.tools.DocumentationTool;
+import javax.tools.JavaFileObject;
+import javax.tools.ToolProvider;
+import jdk.javadoc.doclet.Doclet;
 
 public class Main {
   public enum Backend {
@@ -101,7 +100,7 @@ public class Main {
 
     // remove found classes from binaryClasses, so that they don't need to be searched again.
     // TODO: Tidy up this logic, move to ClassFinder class
-    for (var qualifiedName: options.args) {
+    for (var qualifiedName : options.args) {
       if (sourceClasses.get(qualifiedName) != null) {
         binaryClasses.remove(qualifiedName);
       }
