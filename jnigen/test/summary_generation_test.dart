@@ -87,7 +87,7 @@ Config getConfig({List<String>? sourcePath, List<String>? classPath}) {
         structure: OutputStructure.singleFile,
       ),
     ),
-    classes: javaClasses,
+    classes: summarizerClassesSpec,
     sourcePath: sourcePath?.map((e) => Uri.file(e)).toList(),
     classPath: classPath?.map((e) => Uri.file(e)).toList(),
     logLevel: Level.WARNING,

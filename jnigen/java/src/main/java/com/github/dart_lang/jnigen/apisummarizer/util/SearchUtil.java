@@ -35,17 +35,16 @@ public class SearchUtil {
       return Optional.of(List.of(classEntry));
     }
     var dirPath = relativePath.endsWith("/") ? relativePath : relativePath + "/";
-    var dirEntry = jar.getEntry(dirPath);
-    if (dirEntry != null && dirEntry.isDirectory()) {
-      var result =
-          jar.stream()
-              .map(je -> (ZipEntry) je)
-              .filter(
-                  entry -> {
-                    var name = entry.getName();
-                    return name.endsWith(suffix) && name.startsWith(dirPath);
-                  })
-              .collect(Collectors.toList());
+    var result =
+        jar.stream()
+            .map(je -> (ZipEntry) je)
+            .filter(
+                entry -> {
+                  var name = entry.getName();
+                  return name.endsWith(suffix) && name.startsWith(dirPath);
+                })
+            .collect(Collectors.toList());
+    if (!result.isEmpty()) {
       return Optional.of(result);
     }
     return Optional.empty();
