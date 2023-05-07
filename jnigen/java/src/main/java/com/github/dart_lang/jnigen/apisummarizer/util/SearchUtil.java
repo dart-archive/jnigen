@@ -22,9 +22,8 @@ public class SearchUtil {
 
     var d = new File(searchPath, s);
     if (d.exists() && d.isDirectory()) {
-      return Optional.of(recursiveListFiles(d, file -> file.getName().endsWith(".java")));
+      return Optional.of(recursiveListFiles(d, file -> file.getName().endsWith(suffix)));
     }
-
     return Optional.empty();
   }
 
