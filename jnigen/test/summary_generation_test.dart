@@ -109,9 +109,9 @@ void testFailureCase(
     String description, Config config, String nonExistingClass) {
   test(description, () async {
     final insertPosition = random.nextInt(config.classes.length + 1);
-    config.classes = config.classes.sublist(0, insertPosition) +
+    config.classes = summarizerClassesSpec.sublist(0, insertPosition) +
         [nonExistingClass] +
-        config.classes.sublist(insertPosition);
+        summarizerClassesSpec.sublist(insertPosition);
     try {
       await getSummary(config);
     } on SummaryParseException catch (e) {
