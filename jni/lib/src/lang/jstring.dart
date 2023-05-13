@@ -73,9 +73,9 @@ class JString extends JObject {
       throw NullJStringException();
     }
     final length = Jni.env.GetStringLength(reference);
-    final chars = Jni.env.GetStringCritical(reference, nullptr);
+    final chars = Jni.env.GetStringChars(reference, nullptr);
     final result = chars.cast<Utf16>().toDartString(length: length);
-    Jni.env.ReleaseStringCritical(reference, chars);
+    Jni.env.ReleaseStringChars(reference, chars);
     if (deleteOriginal) {
       delete();
     }
