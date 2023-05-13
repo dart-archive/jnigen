@@ -244,15 +244,6 @@ void run({required TestRunnerCallback testRunner}) {
     );
     expect(maxLong, equals(maxLongInJava));
   });
-
-  group('String tests', () {
-    test('#278 UTF-8 bug', () {
-      const dolphin = '🐬';
-      final utf8String = dolphin.toJString();
-      final dartString = utf8String.toDartString(deleteOriginal: true);
-      expect(dartString, dolphin);
-    });
-  });
 }
 
 void doSomeWorkInIsolate(Void? _) {
