@@ -19,26 +19,28 @@ void main() {
 }
 
 void testStringBackAndForth(String str) {
-  final utf8String = str.toJString();
-  final dartString = utf8String.toDartString(deleteOriginal: true);
+  final jstring = str.toJString();
+  final dartString = jstring.toDartString(deleteOriginal: true);
   expect(dartString, str);
 }
 
 void run({required TestRunnerCallback testRunner}) {
-  testRunner('Long string back-and-forth', () {
-    testStringBackAndForth('1' * 8096);
-  });
+  group("String encoding tests", () {
+    testRunner('Long string back-and-forth', () {
+      testStringBackAndForth('1' * 8096);
+    });
 
-  testRunner('#278 UTF-8 bug', () {
-    testStringBackAndForth('🐬');
-  });
+    testRunner('#278 UTF-8 bug', () {
+      testStringBackAndForth('🐬');
+    });
 
-  testRunner('String containing null character', () {
-    final str = 'A${String.fromCharCode(0)}B';
-    testStringBackAndForth(str);
-  });
+    testRunner('String containing null character', () {
+      final str = 'A${String.fromCharCode(0)}B';
+      testStringBackAndForth(str);
+    });
 
-  testRunner('Zero length string', () {
-    testStringBackAndForth('');
+    testRunner('Zero length string', () {
+      testStringBackAndForth('');
+    });
   });
 }
