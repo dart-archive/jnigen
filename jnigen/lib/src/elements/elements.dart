@@ -29,7 +29,7 @@ enum DeclKind {
 }
 
 class Classes implements Element<Classes> {
-  const Classes._(this.decls);
+  const Classes(this.decls);
 
   final Map<String, ClassDecl> decls;
 
@@ -39,7 +39,7 @@ class Classes implements Element<Classes> {
       final classDecl = ClassDecl.fromJson(declJson);
       decls[classDecl.binaryName] = classDecl;
     }
-    return Classes._(decls);
+    return Classes(decls);
   }
 
   @override
@@ -130,6 +130,18 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
   @JsonKey(includeFromJson: false)
   List<TypeParam> allTypeParams = const [];
 
+  /// The path which this class is generated in.
+  ///
+  /// Populated by [Linker].
+  @JsonKey(includeFromJson: false)
+  late final String path;
+
+  /// The numeric suffix of the methods.
+  ///
+  /// Populated by [Renamer].
+  @JsonKey(includeFromJson: false)
+  late final Map<String, int> methodNumsAfterRenaming;
+
   @override
   String toString() {
     return 'Java class declaration for $binaryName';
@@ -143,21 +155,8 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
     simpleName: 'Object',
   )
     ..finalName = 'JObject'
-    ..superCount = 0;
-
-  static final string = ClassDecl(
-    superclass: TypeUsage.object,
-    binaryName: 'java.lang.String',
-    packageName: 'java.lang',
-    simpleName: 'String',
-  )
-    ..finalName = 'JString'
-    ..superCount = 1;
-
-  static final predefined = {
-    'java.lang.Object': object,
-    'java.lang.String': string,
-  };
+    ..superCount = 0
+    ..path = 'package:jni/jni.dart';
 
   factory ClassDecl.fromJson(Map<String, dynamic> json) =>
       _$ClassDeclFromJson(json);

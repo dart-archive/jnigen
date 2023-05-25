@@ -31,6 +31,9 @@ void expectConfigsAreEqual(Config a, Config b) {
       reason: "cRoot");
   expect(a.outputConfig.dartConfig.path, equals(b.outputConfig.dartConfig.path),
       reason: "dartRoot");
+  expect(a.outputConfig.symbolsConfig?.path,
+      equals(b.outputConfig.symbolsConfig?.path),
+      reason: "symbolsRoot");
   expect(a.sourcePath, equals(b.sourcePath), reason: "sourcePath");
   expect(a.classPath, equals(b.classPath), reason: "classPath");
   expect(a.preamble, equals(b.preamble), reason: "preamble");
