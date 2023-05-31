@@ -115,6 +115,12 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
   @JsonKey(includeFromJson: false)
   late final String finalName;
 
+  /// Name of the type class.
+  ///
+  /// Populated by [Renamer].
+  @JsonKey(includeFromJson: false)
+  late final String typeClassName;
+
   /// Unique name obtained by renaming conflicting names with a number.
   ///
   /// This is used by C bindings instead of fully qualified name to reduce
@@ -148,15 +154,6 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
   }
 
   String get signature => 'L$internalName;';
-
-  static final object = ClassDecl(
-    binaryName: 'java.lang.Object',
-    packageName: 'java.lang',
-    simpleName: 'Object',
-  )
-    ..finalName = 'JObject'
-    ..superCount = 0
-    ..path = 'package:jni/jni.dart';
 
   factory ClassDecl.fromJson(Map<String, dynamic> json) =>
       _$ClassDeclFromJson(json);
@@ -195,15 +192,10 @@ class TypeUsage {
     required this.typeJson,
   });
 
-  static TypeUsage object = () {
-    final typeUsage = TypeUsage.fromJson({
-      "shorthand": "java.lang.Object",
-      "kind": "DECLARED",
-      "type": {"binaryName": "java.lang.Object", "simpleName": "Object"}
-    });
-    (typeUsage.type as DeclaredType).classDecl = ClassDecl.object;
-    return typeUsage;
-  }();
+  static TypeUsage object = TypeUsage(
+      kind: Kind.declared, shorthand: 'JObject', typeJson: {})
+    ..type =
+        (DeclaredType(binaryName: 'java.lang.Object', simpleName: 'Object'));
 
   final String shorthand;
   final Kind kind;

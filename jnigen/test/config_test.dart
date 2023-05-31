@@ -37,7 +37,6 @@ void expectConfigsAreEqual(Config a, Config b) {
   expect(a.sourcePath, equals(b.sourcePath), reason: "sourcePath");
   expect(a.classPath, equals(b.classPath), reason: "classPath");
   expect(a.preamble, equals(b.preamble), reason: "preamble");
-  expect(a.importMap, equals(b.importMap), reason: "importMap");
   final am = a.mavenDownloads;
   final bm = b.mavenDownloads;
   if (am != null) {

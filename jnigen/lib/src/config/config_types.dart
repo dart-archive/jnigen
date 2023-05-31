@@ -278,7 +278,6 @@ class Config {
     this.sourcePath,
     this.classPath,
     this.preamble,
-    this.importMap,
     this.androidSdkConfig,
     this.mavenDownloads,
     this.summarizerOptions,
@@ -318,18 +317,6 @@ class Config {
   /// Common text to be pasted on top of generated C and Dart files.
   final String? preamble;
 
-  /// Additional java package -> dart package mappings (Experimental).
-  ///
-  /// a mapping com.abc.package -> 'package:my_package.dart/my_import.dart'
-  /// in this configuration suggests that any reference to a type from
-  /// com.abc.package shall resolve to an import of 'package:my_package.dart'.
-  ///
-  /// This can be as granular
-  /// `com.abc.package.Class -> 'package:abc/abc.dart'`
-  /// or coarse
-  /// `com.abc.package` -> 'package:abc/abc.dart'`
-  final Map<String, String>? importMap;
-
   /// Whether or not to change Kotlin's suspend functions to Dart async ones.
   ///
   /// This will remove the final Continuation argument.
@@ -356,7 +343,7 @@ class Config {
     importedClasses = {};
     for (final import in [
       // Implicitly importing package:jni symbols.
-      Uri.file('package:jni/jni_symbols.yaml'),
+      Uri.parse('package:jni/jni_symbols.yaml'),
       ...?imports,
     ]) {
       // Getting the actual uri in case of package uris.
@@ -376,15 +363,18 @@ class Config {
         yamlUri = import;
         importPath = ([...import.pathSegments]..removeLast()).join('/');
       }
+      log.finest('Parsing yaml file in url $yamlUri.');
       final YamlMap yaml;
       try {
         final symbolsFile = File.fromUri(yamlUri);
         final content = symbolsFile.readAsStringSync();
         yaml = loadYaml(content, sourceUrl: yamlUri);
       } on UnsupportedError catch (_) {
-        log.fatal('Could not reference "$import". Skipping.');
-      } catch (_) {
-        log.fatal('Error while parsing yaml file "$import". Skipping.');
+        log.fatal('Could not reference "$import".');
+      } catch (e, s) {
+        log.warning(e);
+        log.warning(s);
+        log.fatal('Error while parsing yaml file "$import".');
       }
       final version = Version.parse(yaml['version'] as String);
       if (!VersionConstraint.compatibleWith(_currentVersion).allows(version)) {
@@ -411,9 +401,11 @@ class Config {
           )
             ..path = '$importPath/$filePath'
             ..finalName = decl['name']
+            ..typeClassName = decl['type_class']
             ..superCount = decl['super_count'];
           for (final typeParamEntry
-              in (decl['type_params'] as YamlMap).entries) {
+              in ((decl['type_params'] as YamlMap?)?.entries) ??
+                  <MapEntry<dynamic, dynamic>>[]) {
             final typeParamName = typeParamEntry.key as String;
             final bounds = (typeParamEntry.value as YamlMap).entries.map((e) {
               final boundName = e.key as String;
@@ -444,7 +436,7 @@ class Config {
             );
           }
           classDecl.methodNumsAfterRenaming =
-              (decl['methods'] as YamlMap).cast();
+              (decl['methods'] as YamlMap?)?.cast() ?? {};
           importedClasses[binaryName] = classDecl;
         }
       }
@@ -566,7 +558,6 @@ class Config {
             : null,
       ),
       preamble: prov.getString(_Props.preamble),
-      importMap: prov.getStringMap(_Props.importMap),
       imports: prov.getPathList(_Props.import),
       mavenDownloads: prov.hasValue(_Props.mavenDownloads)
           ? MavenDownloads(
@@ -633,7 +624,6 @@ class _Props {
 
   static const suspendFunToAsync = 'suspend_fun_to_async';
 
-  static const importMap = 'import_map';
   static const import = 'import';
   static const outputConfig = 'output';
   static const bindingsType = '$outputConfig.bindings_type';

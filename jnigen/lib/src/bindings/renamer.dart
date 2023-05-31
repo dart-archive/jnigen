@@ -152,6 +152,7 @@ class _ClassRenamer implements Visitor<ClassDecl, void> {
   @override
   void visit(ClassDecl node) {
     if (renamed.contains(node)) return;
+    log.finest('Renaming ${node.binaryName}.');
     renamed.add(node);
 
     nameCounts[node] = {..._definedSyms};
@@ -165,11 +166,13 @@ class _ClassRenamer implements Visitor<ClassDecl, void> {
     final uniquifyName =
         config.outputConfig.dartConfig.structure == OutputStructure.singleFile;
     node.finalName = uniquifyName ? node.uniqueName : className;
+    // TODO(#143): $ at the beginning is a temporary fix for the name collision.
+    node.typeClassName = '\$${node.finalName}Type';
     log.fine('Class ${node.binaryName} is named ${node.finalName}');
 
     final superClass = (node.superclass!.type as DeclaredType).classDecl;
     superClass.accept(this);
-    nameCounts[node]!.addAll(nameCounts[superClass]!);
+    nameCounts[node]!.addAll(nameCounts[superClass] ?? {});
     final methodRenamer = _MethodRenamer(
       config,
       nameCounts[node]!,
