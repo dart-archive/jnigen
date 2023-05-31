@@ -461,15 +461,6 @@ class Config {
     final prov = YamlReader.parseArgs(args);
 
     final List<String> missingValues = [];
-    final List<String> errors = [];
-
-    T? satisfies<T>(T? value, String? Function(T?) predicate) {
-      final error = predicate(value);
-      if (error != null) {
-        errors.add(error);
-      }
-      return value;
-    }
 
     T must<T>(T? Function(String) f, T ifNull, String property) {
       final res = f(property);
@@ -524,8 +515,7 @@ class Config {
       summarizerOptions: SummarizerOptions(
         extraArgs: prov.getStringList(_Props.summarizerArgs) ?? const [],
         backend: prov.getString(_Props.backend),
-        workingDirectory:
-            satisfies(prov.getPath(_Props.summarizerWorkingDir), (p0) => null),
+        workingDirectory: prov.getPath(_Props.summarizerWorkingDir),
       ),
       exclude: BindingExclusions(
         methods: regexFilter<Method>(_Props.excludeMethods),
