@@ -168,6 +168,8 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
 
   @override
   String get name => finalName;
+
+  bool isObject() => superCount == 0;
 }
 
 @JsonEnum()

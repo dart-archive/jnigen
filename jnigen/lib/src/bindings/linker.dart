@@ -9,9 +9,13 @@ import 'visitor.dart';
 
 typedef _Resolver = ClassDecl Function(String? binaryName);
 
-/// Creates and links [ClassDecl] objects from imported dependencies.
-/// Adds references from child elements back to their parent elements.
-/// Resolves Kotlin specific `asyncReturnType` for methods.
+/// A [Visitor] that adds the correct [ClassDecl] references from the
+/// string binary names.
+///
+/// It adds the following references:
+/// * Links [ClassDecl] objects from imported dependencies.
+/// * Adds references from child elements back to their parent elements.
+/// * Resolves Kotlin specific `asyncReturnType` for methods.
 class Linker extends Visitor<Classes, Future<void>> {
   Linker(this.config);
 
@@ -59,7 +63,7 @@ class Linker extends Visitor<Classes, Future<void>> {
     ClassDecl resolve(String? binaryName) {
       return config.importedClasses[binaryName] ??
           node.decls[binaryName] ??
-          resolve('java.lang.Object');
+          resolve(TypeUsage.object.name);
     }
 
     final classLinker = _ClassLinker(
