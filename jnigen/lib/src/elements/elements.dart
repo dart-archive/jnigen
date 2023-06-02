@@ -194,7 +194,7 @@ class TypeUsage {
 
   static TypeUsage object = TypeUsage(
       kind: Kind.declared, shorthand: 'java.lang.Object', typeJson: {})
-    ..type = (DeclaredType(binaryName: 'java.lang.Object'));
+    ..type = DeclaredType(binaryName: 'java.lang.Object');
 
   final String shorthand;
   final Kind kind;
