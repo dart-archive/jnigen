@@ -395,7 +395,7 @@ void registerTests(String groupName, TestRunnerCallback test) {
             "!",
           );
           expect(
-            strParent.value.toDartString(deleteOriginal: true),
+            strParent.parentValue.toDartString(deleteOriginal: true),
             "Hello",
           );
 
@@ -409,7 +409,7 @@ void registerTests(String groupName, TestRunnerCallback test) {
             "!",
           );
           expect(
-            (exampleParent.value..deletedIn(arena)).getNumber(),
+            (exampleParent.parentValue..deletedIn(arena)).getNumber(),
             0,
           );
           // TODO(#139): test constructing Child, currently does not work due

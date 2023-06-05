@@ -12,11 +12,11 @@ public class GrandParent<T> {
   }
 
   public Parent<String> stringParent() {
-    return new Parent<>(value, "Hello");
+    return new Parent<>("Hello");
   }
 
   public <S> Parent<S> varParent(S nestedValue) {
-    return new Parent<>(value, nestedValue);
+    return new Parent<>(nestedValue);
   }
 
   public static StaticParent<String> stringStaticParent() {
@@ -51,23 +51,23 @@ public class GrandParent<T> {
   }
 
   public class Parent<S> {
-    public T parentValue;
-    public S value;
+    public T grandParentValue;
+    public S parentValue;
 
-    public Parent(T parentValue, S value) {
-      this.parentValue = parentValue;
-      this.value = value;
+    public Parent(S newValue) {
+      grandParentValue = value;
+      this.parentValue = newValue;
     }
 
     public class Child<U> {
       public T grandParentValue;
       public S parentValue;
-      public U value;
+      public U childValue;
 
-      public Child(T grandParentValue, S parentValue, U value) {
+      public Child(U newValue) {
         this.grandParentValue = grandParentValue;
         this.parentValue = parentValue;
-        this.value = value;
+        this.childValue = newValue;
       }
     }
   }

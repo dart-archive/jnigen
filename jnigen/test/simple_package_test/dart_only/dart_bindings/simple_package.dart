@@ -1424,62 +1424,58 @@ class GrandParent_Parent<$T extends jni.JObject, $S extends jni.JObject>
     );
   }
 
+  static final _id_grandParentValue = jni.Jni.accessors.getFieldIDOf(
+    _class.reference,
+    r"grandParentValue",
+    r"Ljava/lang/Object;",
+  );
+
+  /// from: public T grandParentValue
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  $T get grandParentValue => T.fromRef(jni.Jni.accessors
+      .getField(reference, _id_grandParentValue, jni.JniCallType.objectType)
+      .object);
+
+  /// from: public T grandParentValue
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set grandParentValue($T value) => jni.Jni.env
+      .SetObjectField(reference, _id_grandParentValue, value.reference);
+
   static final _id_parentValue = jni.Jni.accessors.getFieldIDOf(
     _class.reference,
     r"parentValue",
     r"Ljava/lang/Object;",
   );
 
-  /// from: public T parentValue
+  /// from: public S parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  $T get parentValue => T.fromRef(jni.Jni.accessors
+  $S get parentValue => S.fromRef(jni.Jni.accessors
       .getField(reference, _id_parentValue, jni.JniCallType.objectType)
       .object);
 
-  /// from: public T parentValue
+  /// from: public S parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set parentValue($T value) =>
+  set parentValue($S value) =>
       jni.Jni.env.SetObjectField(reference, _id_parentValue, value.reference);
 
-  static final _id_value = jni.Jni.accessors.getFieldIDOf(
-    _class.reference,
-    r"value",
-    r"Ljava/lang/Object;",
-  );
+  static final _id_ctor = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"<init>", r"(Ljava/lang/Object;)V");
 
-  /// from: public S value
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  $S get value => S.fromRef(jni.Jni.accessors
-      .getField(reference, _id_value, jni.JniCallType.objectType)
-      .object);
-
-  /// from: public S value
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  set value($S value) =>
-      jni.Jni.env.SetObjectField(reference, _id_value, value.reference);
-
-  static final _id_ctor = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r"<init>", r"(Ljava/lang/Object;Ljava/lang/Object;)V");
-
-  /// from: public void <init>(T parentValue, S value)
+  /// from: public void <init>(S newValue)
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory GrandParent_Parent(
-    $T parentValue,
-    $S value, {
-    jni.JObjType<$T>? T,
+    $S newValue, {
+    required jni.JObjType<$T> T,
     jni.JObjType<$S>? S,
   }) {
-    T ??= jni.lowestCommonSuperType([
-      parentValue.$type,
-    ]) as jni.JObjType<$T>;
     S ??= jni.lowestCommonSuperType([
-      value.$type,
+      newValue.$type,
     ]) as jni.JObjType<$S>;
     return GrandParent_Parent.fromRef(
         T,
         S,
-        jni.Jni.accessors.newObjectWithArgs(_class.reference, _id_ctor,
-            [parentValue.reference, value.reference]).object);
+        jni.Jni.accessors.newObjectWithArgs(
+            _class.reference, _id_ctor, [newValue.reference]).object);
   }
 }
 
@@ -1588,54 +1584,43 @@ class GrandParent_Parent_Child<$T extends jni.JObject, $S extends jni.JObject,
   set parentValue($S value) =>
       jni.Jni.env.SetObjectField(reference, _id_parentValue, value.reference);
 
-  static final _id_value = jni.Jni.accessors.getFieldIDOf(
+  static final _id_childValue = jni.Jni.accessors.getFieldIDOf(
     _class.reference,
-    r"value",
+    r"childValue",
     r"Ljava/lang/Object;",
   );
 
-  /// from: public U value
+  /// from: public U childValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  $U get value => U.fromRef(jni.Jni.accessors
-      .getField(reference, _id_value, jni.JniCallType.objectType)
+  $U get childValue => U.fromRef(jni.Jni.accessors
+      .getField(reference, _id_childValue, jni.JniCallType.objectType)
       .object);
 
-  /// from: public U value
+  /// from: public U childValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set value($U value) =>
-      jni.Jni.env.SetObjectField(reference, _id_value, value.reference);
+  set childValue($U value) =>
+      jni.Jni.env.SetObjectField(reference, _id_childValue, value.reference);
 
-  static final _id_ctor = jni.Jni.accessors.getMethodIDOf(_class.reference,
-      r"<init>", r"(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V");
+  static final _id_ctor = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"<init>", r"(Ljava/lang/Object;)V");
 
-  /// from: public void <init>(T grandParentValue, S parentValue, U value)
+  /// from: public void <init>(U newValue)
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory GrandParent_Parent_Child(
-    $T grandParentValue,
-    $S parentValue,
-    $U value, {
-    jni.JObjType<$T>? T,
-    jni.JObjType<$S>? S,
+    $U newValue, {
+    required jni.JObjType<$T> T,
+    required jni.JObjType<$S> S,
     jni.JObjType<$U>? U,
   }) {
-    T ??= jni.lowestCommonSuperType([
-      grandParentValue.$type,
-    ]) as jni.JObjType<$T>;
-    S ??= jni.lowestCommonSuperType([
-      parentValue.$type,
-    ]) as jni.JObjType<$S>;
     U ??= jni.lowestCommonSuperType([
-      value.$type,
+      newValue.$type,
     ]) as jni.JObjType<$U>;
     return GrandParent_Parent_Child.fromRef(
         T,
         S,
         U,
-        jni.Jni.accessors.newObjectWithArgs(_class.reference, _id_ctor, [
-          grandParentValue.reference,
-          parentValue.reference,
-          value.reference
-        ]).object);
+        jni.Jni.accessors.newObjectWithArgs(
+            _class.reference, _id_ctor, [newValue.reference]).object);
   }
 }
 

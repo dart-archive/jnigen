@@ -1513,7 +1513,7 @@ jclass _c_GrandParent_Parent = NULL;
 
 jmethodID _m_GrandParent_Parent__ctor = NULL;
 FFI_PLUGIN_EXPORT
-JniResult GrandParent_Parent__ctor(jobject parentValue, jobject value) {
+JniResult GrandParent_Parent__ctor(jobject newValue) {
   load_env();
   load_class_global_ref(
       &_c_GrandParent_Parent,
@@ -1521,13 +1521,44 @@ JniResult GrandParent_Parent__ctor(jobject parentValue, jobject value) {
   if (_c_GrandParent_Parent == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_GrandParent_Parent, &_m_GrandParent_Parent__ctor, "<init>",
-              "(Ljava/lang/Object;Ljava/lang/Object;)V");
+              "(Ljava/lang/Object;)V");
   if (_m_GrandParent_Parent__ctor == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  jobject _result =
-      (*jniEnv)->NewObject(jniEnv, _c_GrandParent_Parent,
-                           _m_GrandParent_Parent__ctor, parentValue, value);
+  jobject _result = (*jniEnv)->NewObject(jniEnv, _c_GrandParent_Parent,
+                                         _m_GrandParent_Parent__ctor, newValue);
   return to_global_ref_result(_result);
+}
+
+jfieldID _f_GrandParent_Parent__grandParentValue = NULL;
+FFI_PLUGIN_EXPORT
+JniResult get_GrandParent_Parent__grandParentValue(jobject self_) {
+  load_env();
+  load_class_global_ref(
+      &_c_GrandParent_Parent,
+      "com/github/dart_lang/jnigen/generics/GrandParent$Parent");
+  if (_c_GrandParent_Parent == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_field(_c_GrandParent_Parent, &_f_GrandParent_Parent__grandParentValue,
+             "grandParentValue", "Ljava/lang/Object;");
+  jobject _result = (*jniEnv)->GetObjectField(
+      jniEnv, self_, _f_GrandParent_Parent__grandParentValue);
+  return to_global_ref_result(_result);
+}
+
+FFI_PLUGIN_EXPORT
+JniResult set_GrandParent_Parent__grandParentValue(jobject self_,
+                                                   jobject value) {
+  load_env();
+  load_class_global_ref(
+      &_c_GrandParent_Parent,
+      "com/github/dart_lang/jnigen/generics/GrandParent$Parent");
+  if (_c_GrandParent_Parent == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_field(_c_GrandParent_Parent, &_f_GrandParent_Parent__grandParentValue,
+             "grandParentValue", "Ljava/lang/Object;");
+  (*jniEnv)->SetObjectField(jniEnv, self_,
+                            _f_GrandParent_Parent__grandParentValue, value);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
 jfieldID _f_GrandParent_Parent__parentValue = NULL;
@@ -1561,44 +1592,12 @@ JniResult set_GrandParent_Parent__parentValue(jobject self_, jobject value) {
   return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
-jfieldID _f_GrandParent_Parent__value = NULL;
-FFI_PLUGIN_EXPORT
-JniResult get_GrandParent_Parent__value(jobject self_) {
-  load_env();
-  load_class_global_ref(
-      &_c_GrandParent_Parent,
-      "com/github/dart_lang/jnigen/generics/GrandParent$Parent");
-  if (_c_GrandParent_Parent == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  load_field(_c_GrandParent_Parent, &_f_GrandParent_Parent__value, "value",
-             "Ljava/lang/Object;");
-  jobject _result =
-      (*jniEnv)->GetObjectField(jniEnv, self_, _f_GrandParent_Parent__value);
-  return to_global_ref_result(_result);
-}
-
-FFI_PLUGIN_EXPORT
-JniResult set_GrandParent_Parent__value(jobject self_, jobject value) {
-  load_env();
-  load_class_global_ref(
-      &_c_GrandParent_Parent,
-      "com/github/dart_lang/jnigen/generics/GrandParent$Parent");
-  if (_c_GrandParent_Parent == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  load_field(_c_GrandParent_Parent, &_f_GrandParent_Parent__value, "value",
-             "Ljava/lang/Object;");
-  (*jniEnv)->SetObjectField(jniEnv, self_, _f_GrandParent_Parent__value, value);
-  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-}
-
 // com.github.dart_lang.jnigen.generics.GrandParent$Parent$Child
 jclass _c_GrandParent_Parent_Child = NULL;
 
 jmethodID _m_GrandParent_Parent_Child__ctor = NULL;
 FFI_PLUGIN_EXPORT
-JniResult GrandParent_Parent_Child__ctor(jobject grandParentValue,
-                                         jobject parentValue,
-                                         jobject value) {
+JniResult GrandParent_Parent_Child__ctor(jobject newValue) {
   load_env();
   load_class_global_ref(
       &_c_GrandParent_Parent_Child,
@@ -1606,13 +1605,12 @@ JniResult GrandParent_Parent_Child__ctor(jobject grandParentValue,
   if (_c_GrandParent_Parent_Child == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_GrandParent_Parent_Child, &_m_GrandParent_Parent_Child__ctor,
-              "<init>",
-              "(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V");
+              "<init>", "(Ljava/lang/Object;)V");
   if (_m_GrandParent_Parent_Child__ctor == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->NewObject(jniEnv, _c_GrandParent_Parent_Child,
-                                         _m_GrandParent_Parent_Child__ctor,
-                                         grandParentValue, parentValue, value);
+  jobject _result =
+      (*jniEnv)->NewObject(jniEnv, _c_GrandParent_Parent_Child,
+                           _m_GrandParent_Parent_Child__ctor, newValue);
   return to_global_ref_result(_result);
 }
 
@@ -1684,34 +1682,37 @@ JniResult set_GrandParent_Parent_Child__parentValue(jobject self_,
   return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
-jfieldID _f_GrandParent_Parent_Child__value = NULL;
+jfieldID _f_GrandParent_Parent_Child__childValue = NULL;
 FFI_PLUGIN_EXPORT
-JniResult get_GrandParent_Parent_Child__value(jobject self_) {
+JniResult get_GrandParent_Parent_Child__childValue(jobject self_) {
   load_env();
   load_class_global_ref(
       &_c_GrandParent_Parent_Child,
       "com/github/dart_lang/jnigen/generics/GrandParent$Parent$Child");
   if (_c_GrandParent_Parent_Child == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  load_field(_c_GrandParent_Parent_Child, &_f_GrandParent_Parent_Child__value,
-             "value", "Ljava/lang/Object;");
+  load_field(_c_GrandParent_Parent_Child,
+             &_f_GrandParent_Parent_Child__childValue, "childValue",
+             "Ljava/lang/Object;");
   jobject _result = (*jniEnv)->GetObjectField(
-      jniEnv, self_, _f_GrandParent_Parent_Child__value);
+      jniEnv, self_, _f_GrandParent_Parent_Child__childValue);
   return to_global_ref_result(_result);
 }
 
 FFI_PLUGIN_EXPORT
-JniResult set_GrandParent_Parent_Child__value(jobject self_, jobject value) {
+JniResult set_GrandParent_Parent_Child__childValue(jobject self_,
+                                                   jobject value) {
   load_env();
   load_class_global_ref(
       &_c_GrandParent_Parent_Child,
       "com/github/dart_lang/jnigen/generics/GrandParent$Parent$Child");
   if (_c_GrandParent_Parent_Child == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  load_field(_c_GrandParent_Parent_Child, &_f_GrandParent_Parent_Child__value,
-             "value", "Ljava/lang/Object;");
-  (*jniEnv)->SetObjectField(jniEnv, self_, _f_GrandParent_Parent_Child__value,
-                            value);
+  load_field(_c_GrandParent_Parent_Child,
+             &_f_GrandParent_Parent_Child__childValue, "childValue",
+             "Ljava/lang/Object;");
+  (*jniEnv)->SetObjectField(jniEnv, self_,
+                            _f_GrandParent_Parent_Child__childValue, value);
   return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
