@@ -92,8 +92,8 @@ class _ClassLinker extends Visitor<ClassDecl, void> {
     log.finest('Linking ${node.binaryName}.');
     _linked.add(node);
 
-    node.parent = resolve(node.parentName);
-    node.parent!.accept(this);
+    node.parent = node.parentName == null ? null : resolve(node.parentName);
+    node.parent?.accept(this);
     // Add type params of outer classes to the nested classes
     final allTypeParams = <TypeParam>[];
     if (!node.modifiers.contains('static')) {
