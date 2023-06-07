@@ -1518,33 +1518,6 @@ class GrandParent_Parent<$T extends jni.JObject, $S extends jni.JObject>
     );
   }
 
-  static final _get_grandParentValue = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                jni.JObjectPtr,
-              )>>("get_GrandParent_Parent__grandParentValue")
-      .asFunction<
-          jni.JniResult Function(
-            jni.JObjectPtr,
-          )>();
-
-  static final _set_grandParentValue = jniLookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      jni.JObjectPtr, ffi.Pointer<ffi.Void>)>>(
-          "set_GrandParent_Parent__grandParentValue")
-      .asFunction<
-          jni.JniResult Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
-
-  /// from: public T grandParentValue
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  $T get grandParentValue => T.fromRef(_get_grandParentValue(reference).object);
-
-  /// from: public T grandParentValue
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  set grandParentValue($T value) =>
-      _set_grandParentValue(reference, value.reference).check();
-
   static final _get_parentValue = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
@@ -1563,32 +1536,64 @@ class GrandParent_Parent<$T extends jni.JObject, $S extends jni.JObject>
       .asFunction<
           jni.JniResult Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public S parentValue
+  /// from: public T parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  $S get parentValue => S.fromRef(_get_parentValue(reference).object);
+  $T get parentValue => T.fromRef(_get_parentValue(reference).object);
 
-  /// from: public S parentValue
+  /// from: public T parentValue
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set parentValue($S value) =>
+  set parentValue($T value) =>
       _set_parentValue(reference, value.reference).check();
+
+  static final _get_value = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                jni.JObjectPtr,
+              )>>("get_GrandParent_Parent__value")
+      .asFunction<
+          jni.JniResult Function(
+            jni.JObjectPtr,
+          )>();
+
+  static final _set_value = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(jni.JObjectPtr,
+                  ffi.Pointer<ffi.Void>)>>("set_GrandParent_Parent__value")
+      .asFunction<
+          jni.JniResult Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public S value
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  $S get value => S.fromRef(_get_value(reference).object);
+
+  /// from: public S value
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set value($S value) => _set_value(reference, value.reference).check();
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
-              jni.JniResult Function(
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
                   ffi.Pointer<ffi.Void>)>>("GrandParent_Parent__ctor")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(S newValue)
+  /// from: public void <init>(com.github.dart_lang.jnigen.generics.GrandParent $parent, S newValue)
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory GrandParent_Parent(
+    GrandParent<$T> $parent,
     $S newValue, {
-    required jni.JObjType<$T> T,
+    jni.JObjType<$T>? T,
     jni.JObjType<$S>? S,
   }) {
+    T ??= jni.lowestCommonSuperType([
+      ($parent.$type as $GrandParentType).T,
+    ]) as jni.JObjType<$T>;
     S ??= jni.lowestCommonSuperType([
       newValue.$type,
     ]) as jni.JObjType<$S>;
-    return GrandParent_Parent.fromRef(T, S, _ctor(newValue.reference).object);
+    return GrandParent_Parent.fromRef(
+        T, S, _ctor($parent.reference, newValue.reference).object);
   }
 }
 
@@ -1714,52 +1719,60 @@ class GrandParent_Parent_Child<$T extends jni.JObject, $S extends jni.JObject,
   set parentValue($S value) =>
       _set_parentValue(reference, value.reference).check();
 
-  static final _get_childValue = jniLookup<
+  static final _get_value = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
                 jni.JObjectPtr,
-              )>>("get_GrandParent_Parent_Child__childValue")
+              )>>("get_GrandParent_Parent_Child__value")
       .asFunction<
           jni.JniResult Function(
             jni.JObjectPtr,
           )>();
 
-  static final _set_childValue = jniLookup<
+  static final _set_value = jniLookup<
               ffi.NativeFunction<
                   jni.JniResult Function(
                       jni.JObjectPtr, ffi.Pointer<ffi.Void>)>>(
-          "set_GrandParent_Parent_Child__childValue")
+          "set_GrandParent_Parent_Child__value")
       .asFunction<
           jni.JniResult Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public U childValue
+  /// from: public U value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  $U get childValue => U.fromRef(_get_childValue(reference).object);
+  $U get value => U.fromRef(_get_value(reference).object);
 
-  /// from: public U childValue
+  /// from: public U value
   /// The returned object must be deleted after use, by calling the `delete` method.
-  set childValue($U value) =>
-      _set_childValue(reference, value.reference).check();
+  set value($U value) => _set_value(reference, value.reference).check();
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
-              jni.JniResult Function(
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
                   ffi.Pointer<ffi.Void>)>>("GrandParent_Parent_Child__ctor")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(U newValue)
+  /// from: public void <init>(com.github.dart_lang.jnigen.generics.GrandParent$Parent $parent, U newValue)
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory GrandParent_Parent_Child(
+    GrandParent_Parent<$T, $S> $parent,
     $U newValue, {
-    required jni.JObjType<$T> T,
-    required jni.JObjType<$S> S,
+    jni.JObjType<$T>? T,
+    jni.JObjType<$S>? S,
     jni.JObjType<$U>? U,
   }) {
+    T ??= jni.lowestCommonSuperType([
+      ($parent.$type as $GrandParent_ParentType).T,
+    ]) as jni.JObjType<$T>;
+    S ??= jni.lowestCommonSuperType([
+      ($parent.$type as $GrandParent_ParentType).S,
+    ]) as jni.JObjType<$S>;
     U ??= jni.lowestCommonSuperType([
       newValue.$type,
     ]) as jni.JObjType<$U>;
     return GrandParent_Parent_Child.fromRef(
-        T, S, U, _ctor(newValue.reference).object);
+        T, S, U, _ctor($parent.reference, newValue.reference).object);
   }
 }
 
@@ -1985,16 +1998,17 @@ class GrandParent_StaticParent_Child<$S extends jni.JObject,
 
   static final _ctor = jniLookup<
               ffi.NativeFunction<
-                  jni.JniResult Function(
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>,
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
           "GrandParent_StaticParent_Child__ctor")
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(S parentValue, U value)
+  /// from: public void <init>(com.github.dart_lang.jnigen.generics.GrandParent$StaticParent $parent, S parentValue, U value)
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory GrandParent_StaticParent_Child(
+    GrandParent_StaticParent<$S> $parent,
     $S parentValue,
     $U value, {
     jni.JObjType<$S>? S,
@@ -2002,12 +2016,16 @@ class GrandParent_StaticParent_Child<$S extends jni.JObject,
   }) {
     S ??= jni.lowestCommonSuperType([
       parentValue.$type,
+      ($parent.$type as $GrandParent_StaticParentType).S,
     ]) as jni.JObjType<$S>;
     U ??= jni.lowestCommonSuperType([
       value.$type,
     ]) as jni.JObjType<$U>;
     return GrandParent_StaticParent_Child.fromRef(
-        S, U, _ctor(parentValue.reference, value.reference).object);
+        S,
+        U,
+        _ctor($parent.reference, parentValue.reference, value.reference)
+            .object);
   }
 }
 
@@ -2249,15 +2267,18 @@ class MyMap_MyEntry<$K extends jni.JObject, $V extends jni.JObject>
 
   static final _ctor = jniLookup<
           ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
                   ffi.Pointer<ffi.Void>)>>("MyMap_MyEntry__ctor")
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(K key, V value)
+  /// from: public void <init>(com.github.dart_lang.jnigen.generics.MyMap $parent, K key, V value)
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory MyMap_MyEntry(
+    MyMap<$K, $V> $parent,
     $K key,
     $V value, {
     jni.JObjType<$K>? K,
@@ -2265,12 +2286,14 @@ class MyMap_MyEntry<$K extends jni.JObject, $V extends jni.JObject>
   }) {
     K ??= jni.lowestCommonSuperType([
       key.$type,
+      ($parent.$type as $MyMapType).K,
     ]) as jni.JObjType<$K>;
     V ??= jni.lowestCommonSuperType([
       value.$type,
+      ($parent.$type as $MyMapType).V,
     ]) as jni.JObjType<$V>;
     return MyMap_MyEntry.fromRef(
-        K, V, _ctor(key.reference, value.reference).object);
+        K, V, _ctor($parent.reference, key.reference, value.reference).object);
   }
 }
 

@@ -395,7 +395,7 @@ void registerTests(String groupName, TestRunnerCallback test) {
             "!",
           );
           expect(
-            strParent.parentValue.toDartString(deleteOriginal: true),
+            strParent.value.toDartString(deleteOriginal: true),
             "Hello",
           );
 
@@ -409,7 +409,7 @@ void registerTests(String groupName, TestRunnerCallback test) {
             "!",
           );
           expect(
-            (exampleParent.parentValue..deletedIn(arena)).getNumber(),
+            (exampleParent.value..deletedIn(arena)).getNumber(),
             0,
           );
           // TODO(#139): test constructing Child, currently does not work due
@@ -417,6 +417,22 @@ void registerTests(String groupName, TestRunnerCallback test) {
         });
       });
     });
+    test('Constructing non-static nested classes', () {
+      using((arena) {
+        final grandParent = GrandParent(1.toJInteger())..deletedIn(arena);
+        final parent = GrandParent_Parent(grandParent, 2.toJInteger())
+          ..deletedIn(arena);
+        final child = GrandParent_Parent_Child(parent, 3.toJInteger())
+          ..deletedIn(arena);
+        expect(grandParent.value.intValue(deleteOriginal: true), 1);
+        expect(parent.parentValue.intValue(deleteOriginal: true), 1);
+        expect(parent.value.intValue(deleteOriginal: true), 2);
+        expect(child.grandParentValue.intValue(deleteOriginal: true), 1);
+        expect(child.parentValue.intValue(deleteOriginal: true), 2);
+        expect(child.value.intValue(deleteOriginal: true), 3);
+      });
+    });
+
     group('Generic type inference', () {
       test('MyStack.of1', () {
         using((arena) {

@@ -51,23 +51,23 @@ public class GrandParent<T> {
   }
 
   public class Parent<S> {
-    public T grandParentValue;
-    public S parentValue;
+    public T parentValue;
+    public S value;
 
     public Parent(S newValue) {
-      grandParentValue = value;
-      this.parentValue = newValue;
+      parentValue = GrandParent.this.value;
+      value = newValue;
     }
 
     public class Child<U> {
       public T grandParentValue;
       public S parentValue;
-      public U childValue;
+      public U value;
 
       public Child(U newValue) {
-        this.grandParentValue = grandParentValue;
-        this.parentValue = parentValue;
-        this.childValue = newValue;
+        this.grandParentValue = GrandParent.this.value;
+        this.parentValue = Parent.this.value;
+        this.value = newValue;
       }
     }
   }
