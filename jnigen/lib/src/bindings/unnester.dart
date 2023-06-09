@@ -26,17 +26,13 @@ class _ClassUnnester extends Visitor<ClassDecl, void> {
   void visit(ClassDecl node) {
     if (processed.contains(node)) return;
     processed.add(node);
+    // We need to visit the ancestors first.
     node.parent?.accept(this);
 
-    // Add type params of outer classes to the nested classes
+    // Add type params of outer classes to the nested classes.
     final allTypeParams = <TypeParam>[];
     if (!node.isStatic) {
-      for (final typeParam in node.parent?.allTypeParams ?? []) {
-        if (!node.allTypeParams.map((t) => t.name).contains(typeParam.name)) {
-          // Add only if it's not shadowing another type param.
-          allTypeParams.add(typeParam);
-        }
-      }
+      allTypeParams.addAll(node.parent?.allTypeParams ?? []);
     }
     allTypeParams.addAll(node.typeParams);
     node.allTypeParams = allTypeParams;
@@ -63,17 +59,14 @@ class _MethodUnnester extends Visitor<Method, void> {
       // manually add it as the first parameter.
       final parentTypeParamCount = node.classDecl.allTypeParams.length -
           node.classDecl.typeParams.length;
-      final parentTypeParams = node.classDecl.allTypeParams
-          .getRange(
-        0,
-        parentTypeParamCount,
-      )
-          .map((typeParam) {
-        final type = TypeVar(name: typeParam.name);
-        return TypeUsage(
-            shorthand: typeParam.name, kind: Kind.typeVariable, typeJson: {})
-          ..type = type;
-      }).toList();
+      final parentTypeParams = [
+        for (final typeParam
+            in node.classDecl.allTypeParams.take(parentTypeParamCount)) ...[
+          TypeUsage(
+              shorthand: typeParam.name, kind: Kind.typeVariable, typeJson: {})
+            ..type = TypeVar(name: typeParam.name),
+        ]
+      ];
       final parentType = DeclaredType(
         binaryName: node.classDecl.parent!.binaryName,
         params: parentTypeParams,
