@@ -91,10 +91,10 @@ void comparePaths(String path1, String path2) {
         "Paths $path1 and $path2 differ, comparing by ignoring all spaces");
     // From https://stackoverflow.com/questions/33159394/ignore-all-whitespace-changes-with-git-diff-between-commits/33159593#33159593
     final fallbackDiffProc = Process.runSync("git", [
-      ...diffCommand,
       '-c',
       'core.whitespace=-trailing-space,-indent-with-non-tab,-tab-in-indent',
       'diff',
+      '--no-index',
       '-U0',
       "--word-diff-regex='[^[:space:]]'",
       path1,
