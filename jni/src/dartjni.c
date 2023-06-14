@@ -574,10 +574,10 @@ Java_com_github_dart_1lang_jni_PortContinuation__1resumeWith(JNIEnv* env,
                                                              jobject thiz,
                                                              jlong port,
                                                              jobject result) {
-  Dart_CObject dartPtr;
-  dartPtr.type = Dart_CObject_kInt64;
-  dartPtr.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, result));
-  Dart_PostCObject_DL(port, &dartPtr);
+  Dart_CObject c_post;
+  c_post.type = Dart_CObject_kInt64;
+  c_post.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, result));
+  Dart_PostCObject_DL(port, &c_post);
 }
 
 // com.github.dart_lang.jni.PortContinuation
@@ -601,4 +601,38 @@ JniResult PortContinuation__ctor(int64_t j) {
     _result = to_global_ref(_result);
   }
   return (JniResult){.value = {.l = _result}, .exception = check_exception()};
+}
+
+JNIEXPORT void JNICALL
+Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
+                                                  jobject thiz,
+                                                  jlong port,
+                                                  jstring uuid,
+                                                  jobject proxy,
+                                                  jobject method,
+                                                  jobjectArray args) {
+  Dart_CObject c_uuid;
+  c_uuid.type = Dart_CObject_kInt64;
+  c_uuid.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, uuid));
+
+  Dart_CObject c_proxy;
+  c_proxy.type = Dart_CObject_kInt64;
+  c_proxy.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, proxy));
+
+  Dart_CObject c_method;
+  c_method.type = Dart_CObject_kInt64;
+  c_method.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, method));
+
+  Dart_CObject c_args;
+  c_args.type = Dart_CObject_kArray;
+  c_args.as_array.values = args;
+  c_args.as_array.length = sizeof(args) / sizeof(jobject);
+
+  Dart_CObject* c_post_arr[] = {&c_uuid, &c_proxy, &c_method, &c_args};
+  Dart_CObject c_post;
+  c_post.type = Dart_CObject_kArray;
+  c_post.as_array.values = c_post_arr;
+  c_post.as_array.length = sizeof(c_post_arr) / sizeof(c_post_arr[0]);
+
+  Dart_PostCObject_DL(port, &c_post);
 }

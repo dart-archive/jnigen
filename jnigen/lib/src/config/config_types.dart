@@ -415,6 +415,7 @@ class Config {
             );
           }
           final classDecl = ClassDecl(
+            declKind: DeclKind.classKind,
             binaryName: binaryName,
           )
             ..path = '$importPath/$filePath'

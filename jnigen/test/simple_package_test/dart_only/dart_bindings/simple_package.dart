@@ -2674,6 +2674,183 @@ class $StringValuedMapType<$K extends jni.JObject>
   }
 }
 
+/// from: com.github.dart_lang.jnigen.interfaces.MyInterface
+class MyInterface<$T extends jni.JObject> extends jni.JObject {
+  @override
+  late final jni.JObjType<MyInterface<$T>> $type = type(T);
+
+  final jni.JObjType<$T> T;
+
+  MyInterface.fromRef(
+    this.T,
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  static final _class =
+      jni.Jni.findJClass(r"com/github/dart_lang/jnigen/interfaces/MyInterface");
+
+  /// The type which includes information such as the signature of this class.
+  static $MyInterfaceType<$T> type<$T extends jni.JObject>(
+    jni.JObjType<$T> T,
+  ) {
+    return $MyInterfaceType(
+      T,
+    );
+  }
+
+  static final _id_voidCallback = jni.Jni.accessors.getMethodIDOf(
+      _class.reference, r"voidCallback", r"(Ljava/lang/String;)V");
+
+  /// from: public abstract void voidCallback(java.lang.String s)
+  void voidCallback(
+    jni.JString s,
+  ) {
+    return jni.Jni.accessors.callMethodWithArgs(reference, _id_voidCallback,
+        jni.JniCallType.voidType, [s.reference]).check();
+  }
+
+  static final _id_stringCallback = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"stringCallback",
+      r"(Ljava/lang/String;)Ljava/lang/String;");
+
+  /// from: public abstract java.lang.String stringCallback(java.lang.String s)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JString stringCallback(
+    jni.JString s,
+  ) {
+    return const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+        reference,
+        _id_stringCallback,
+        jni.JniCallType.objectType,
+        [s.reference]).object);
+  }
+
+  static final _id_varCallback = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"varCallback",
+      r"(Ljava/lang/Object;)Ljava/lang/Object;");
+
+  /// from: public abstract T varCallback(T t)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  $T varCallback(
+    $T t,
+  ) {
+    return T.fromRef(jni.Jni.accessors.callMethodWithArgs(reference,
+        _id_varCallback, jni.JniCallType.objectType, [t.reference]).object);
+  }
+
+  // Here will be an interface implementation method
+  static MyInterface<$T> implement<$T extends jni.JObject>(
+    void Function(jni.JString s) voidCallback,
+    jni.JString Function(jni.JString s) stringCallback,
+    $T Function($T t) varCallback,
+  ) {
+    throw UnimplementedError();
+  }
+}
+
+class $MyInterfaceType<$T extends jni.JObject>
+    extends jni.JObjType<MyInterface<$T>> {
+  final jni.JObjType<$T> T;
+
+  const $MyInterfaceType(
+    this.T,
+  );
+
+  @override
+  String get signature =>
+      r"Lcom/github/dart_lang/jnigen/interfaces/MyInterface;";
+
+  @override
+  MyInterface<$T> fromRef(jni.JObjectPtr ref) => MyInterface.fromRef(T, ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => Object.hash($MyInterfaceType, T);
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($MyInterfaceType<$T>) &&
+        other is $MyInterfaceType<$T> &&
+        T == other.T;
+  }
+}
+
+/// from: com.github.dart_lang.jnigen.interfaces.MyInterfaceConsumer
+class MyInterfaceConsumer extends jni.JObject {
+  @override
+  late final jni.JObjType<MyInterfaceConsumer> $type = type;
+
+  MyInterfaceConsumer.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  static final _class = jni.Jni.findJClass(
+      r"com/github/dart_lang/jnigen/interfaces/MyInterfaceConsumer");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $MyInterfaceConsumerType();
+  static final _id_ctor =
+      jni.Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"()V");
+
+  /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory MyInterfaceConsumer() {
+    return MyInterfaceConsumer.fromRef(jni.Jni.accessors
+        .newObjectWithArgs(_class.reference, _id_ctor, []).object);
+  }
+
+  static final _id_consumeMyInterface = jni.Jni.accessors.getStaticMethodIDOf(
+      _class.reference,
+      r"consumeMyInterface",
+      r"(Lcom/github/dart_lang/jnigen/interfaces/MyInterface;Ljava/lang/String;)V");
+
+  /// from: static public void consumeMyInterface(com.github.dart_lang.jnigen.interfaces.MyInterface myInterface, java.lang.String s)
+  static void consumeMyInterface(
+    MyInterface<jni.JObject> myInterface,
+    jni.JString s,
+  ) {
+    return jni.Jni.accessors.callStaticMethodWithArgs(
+        _class.reference,
+        _id_consumeMyInterface,
+        jni.JniCallType.voidType,
+        [myInterface.reference, s.reference]).check();
+  }
+}
+
+class $MyInterfaceConsumerType extends jni.JObjType<MyInterfaceConsumer> {
+  const $MyInterfaceConsumerType();
+
+  @override
+  String get signature =>
+      r"Lcom/github/dart_lang/jnigen/interfaces/MyInterfaceConsumer;";
+
+  @override
+  MyInterfaceConsumer fromRef(jni.JObjectPtr ref) =>
+      MyInterfaceConsumer.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($MyInterfaceConsumerType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($MyInterfaceConsumerType) &&
+        other is $MyInterfaceConsumerType;
+  }
+}
+
 /// from: com.github.dart_lang.jnigen.annotations.JsonSerializable$Case
 class JsonSerializable_Case extends jni.JObject {
   @override

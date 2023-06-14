@@ -399,6 +399,21 @@ class $name$typeParamsDef extends $superName {
       method.accept(methodGenerator);
     }
 
+    // Interface implementation
+    if (node.declKind == DeclKind.interfaceKind) {
+      s.write('''
+  // Here will be an interface implementation method
+  static $name$typeParamsCall implement$typeParamsDef(
+''');
+      final methodImplementCall = _MethodImplementCall(resolver, s);
+      for (final method in node.methods) {
+        method.accept(methodImplementCall);
+      }
+      s.write(''') {
+    throw UnimplementedError();
+  }''');
+    }
+
     // End of Class definition
     s.writeln('}');
 
@@ -1365,5 +1380,22 @@ class _TypeVarLocator extends TypeVisitor<Map<String, List<OutsideInBuffer>>> {
   @override
   Map<String, List<OutsideInBuffer>> visitPrimitiveType(PrimitiveType node) {
     return {};
+  }
+}
+
+class _MethodImplementCall extends Visitor<Method, void> {
+  final Resolver resolver;
+  final StringSink s;
+
+  _MethodImplementCall(this.resolver, this.s);
+
+  @override
+  void visit(Method node) {
+    final returnType = node.returnType.accept(_TypeGenerator(resolver));
+    final name = node.finalName;
+    final args = node.params.accept(_ParamDef(resolver)).join(', ');
+    s.write('''
+    $returnType Function($args) $name,
+''');
   }
 }

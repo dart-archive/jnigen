@@ -2310,6 +2310,103 @@ JniResult StringValuedMap__ctor() {
   return to_global_ref_result(_result);
 }
 
+// com.github.dart_lang.jnigen.interfaces.MyInterface
+jclass _c_MyInterface = NULL;
+
+jmethodID _m_MyInterface__voidCallback = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyInterface__voidCallback(jobject self_, jobject s) {
+  load_env();
+  load_class_global_ref(&_c_MyInterface,
+                        "com/github/dart_lang/jnigen/interfaces/MyInterface");
+  if (_c_MyInterface == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyInterface, &_m_MyInterface__voidCallback, "voidCallback",
+              "(Ljava/lang/String;)V");
+  if (_m_MyInterface__voidCallback == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_MyInterface__voidCallback, s);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
+jmethodID _m_MyInterface__stringCallback = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyInterface__stringCallback(jobject self_, jobject s) {
+  load_env();
+  load_class_global_ref(&_c_MyInterface,
+                        "com/github/dart_lang/jnigen/interfaces/MyInterface");
+  if (_c_MyInterface == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyInterface, &_m_MyInterface__stringCallback, "stringCallback",
+              "(Ljava/lang/String;)Ljava/lang/String;");
+  if (_m_MyInterface__stringCallback == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(
+      jniEnv, self_, _m_MyInterface__stringCallback, s);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_MyInterface__varCallback = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyInterface__varCallback(jobject self_, jobject t) {
+  load_env();
+  load_class_global_ref(&_c_MyInterface,
+                        "com/github/dart_lang/jnigen/interfaces/MyInterface");
+  if (_c_MyInterface == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyInterface, &_m_MyInterface__varCallback, "varCallback",
+              "(Ljava/lang/Object;)Ljava/lang/Object;");
+  if (_m_MyInterface__varCallback == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
+                                                _m_MyInterface__varCallback, t);
+  return to_global_ref_result(_result);
+}
+
+// com.github.dart_lang.jnigen.interfaces.MyInterfaceConsumer
+jclass _c_MyInterfaceConsumer = NULL;
+
+jmethodID _m_MyInterfaceConsumer__ctor = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyInterfaceConsumer__ctor() {
+  load_env();
+  load_class_global_ref(
+      &_c_MyInterfaceConsumer,
+      "com/github/dart_lang/jnigen/interfaces/MyInterfaceConsumer");
+  if (_c_MyInterfaceConsumer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyInterfaceConsumer, &_m_MyInterfaceConsumer__ctor, "<init>",
+              "()V");
+  if (_m_MyInterfaceConsumer__ctor == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->NewObject(jniEnv, _c_MyInterfaceConsumer,
+                                         _m_MyInterfaceConsumer__ctor);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_MyInterfaceConsumer__consumeMyInterface = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyInterfaceConsumer__consumeMyInterface(jobject myInterface,
+                                                  jobject s) {
+  load_env();
+  load_class_global_ref(
+      &_c_MyInterfaceConsumer,
+      "com/github/dart_lang/jnigen/interfaces/MyInterfaceConsumer");
+  if (_c_MyInterfaceConsumer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_MyInterfaceConsumer,
+                     &_m_MyInterfaceConsumer__consumeMyInterface,
+                     "consumeMyInterface",
+                     "(Lcom/github/dart_lang/jnigen/interfaces/"
+                     "MyInterface;Ljava/lang/String;)V");
+  if (_m_MyInterfaceConsumer__consumeMyInterface == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  (*jniEnv)->CallStaticVoidMethod(jniEnv, _c_MyInterfaceConsumer,
+                                  _m_MyInterfaceConsumer__consumeMyInterface,
+                                  myInterface, s);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
 // com.github.dart_lang.jnigen.annotations.JsonSerializable$Case
 jclass _c_JsonSerializable_Case = NULL;
 

@@ -57,6 +57,7 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
   ClassDecl({
     this.annotations = const [],
     this.javadoc,
+    required this.declKind,
     this.modifiers = const {},
     required this.binaryName,
     this.parentName,
@@ -77,6 +78,7 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
   final List<Annotation> annotations;
   final KotlinClass? kotlinClass;
   final JavaDocComment? javadoc;
+  final DeclKind declKind;
   final String binaryName;
   final String? parentName;
   List<TypeParam> typeParams;

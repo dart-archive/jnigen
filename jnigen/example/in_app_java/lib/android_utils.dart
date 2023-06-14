@@ -1547,6 +1547,14 @@ class EmojiCompat_GlyphChecker extends jni.JObject {
     return _hasGlyph(reference, charSequence.reference, start, end, sdkAdded)
         .boolean;
   }
+
+  // Here will be an interface implementation method
+  static EmojiCompat_GlyphChecker implement(
+    bool Function(jni.JObject charSequence, int start, int end, int sdkAdded)
+        hasGlyph,
+  ) {
+    throw UnimplementedError();
+  }
 }
 
 class $EmojiCompat_GlyphCheckerType
@@ -1608,6 +1616,13 @@ class EmojiCompat_MetadataRepoLoader extends jni.JObject {
     EmojiCompat_MetadataRepoLoaderCallback loaderCallback,
   ) {
     return _load(reference, loaderCallback.reference).check();
+  }
+
+  // Here will be an interface implementation method
+  static EmojiCompat_MetadataRepoLoader implement(
+    void Function(EmojiCompat_MetadataRepoLoaderCallback loaderCallback) load,
+  ) {
+    throw UnimplementedError();
   }
 }
 
@@ -1836,6 +1851,13 @@ class EmojiCompat_SpanFactory extends jni.JObject {
   ) {
     return const jni.JObjectType()
         .fromRef(_createSpan(reference, rasterizer.reference).object);
+  }
+
+  // Here will be an interface implementation method
+  static EmojiCompat_SpanFactory implement(
+    jni.JObject Function(jni.JObject rasterizer) createSpan,
+  ) {
+    throw UnimplementedError();
   }
 }
 
