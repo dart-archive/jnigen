@@ -118,6 +118,14 @@ public class AsmClassVisitor extends ClassVisitor implements AsmAnnotatedElement
   }
 
   @Override
+  public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
+    if (descriptor.equals("Lkotlin/Metadata;")) {
+      return new KotlinMetadataAnnotationVisitor();
+    }
+    return super.visitAnnotation(descriptor, visible);
+  }
+
+  @Override
   public void addAnnotation(JavaAnnotation annotation) {
     peekVisiting().annotations.add(annotation);
   }
