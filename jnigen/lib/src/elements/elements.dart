@@ -68,12 +68,14 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
     this.hasStaticInit = false,
     this.hasInstanceInit = false,
     this.values,
+    this.kotlinClass,
   });
 
   @override
   final Set<String> modifiers;
 
   final List<Annotation> annotations;
+  final KotlinClass? kotlinClass;
   final JavaDocComment? javadoc;
   final String binaryName;
   final String? parentName;
@@ -444,6 +446,7 @@ class Method extends ClassMember implements Element<Method> {
     this.javadoc,
     this.modifiers = const {},
     required this.name,
+    this.descriptor,
     this.typeParams = const [],
     this.params = const [],
     required this.returnType,
@@ -459,6 +462,7 @@ class Method extends ClassMember implements Element<Method> {
   final List<TypeParam> typeParams;
   List<Param> params;
   final TypeUsage returnType;
+  final String? descriptor;
 
   /// The [ClassDecl] where this method is defined.
   ///
@@ -482,12 +486,7 @@ class Method extends ClassMember implements Element<Method> {
   late TypeUsage? asyncReturnType;
 
   @JsonKey(includeFromJson: false)
-  late String javaSig = _javaSig();
-
-  String _javaSig() {
-    final paramNames = params.map((p) => p.type.name).join(', ');
-    return '${returnType.name} $name($paramNames)';
-  }
+  late String javaSig = '$name$descriptor';
 
   bool get isCtor => name == '<init>';
 
@@ -617,6 +616,48 @@ class Annotation implements Element<Annotation> {
 
   @override
   R accept<R>(Visitor<Annotation, R> v) {
+    return v.visit(this);
+  }
+}
+
+@JsonSerializable(createToJson: false)
+class KotlinClass implements Element<KotlinClass> {
+  KotlinClass({
+    required this.name,
+    this.functions = const [],
+  });
+
+  final String name;
+  final List<KotlinFunction> functions;
+
+  factory KotlinClass.fromJson(Map<String, dynamic> json) =>
+      _$KotlinClassFromJson(json);
+
+  @override
+  R accept<R>(Visitor<KotlinClass, R> v) {
+    return v.visit(this);
+  }
+}
+
+@JsonSerializable(createToJson: false)
+class KotlinFunction implements Element<KotlinFunction> {
+  KotlinFunction({
+    required this.name,
+    required this.descriptor,
+    required this.kotlinName,
+    required this.isSuspend,
+  });
+
+  final String name;
+  final String descriptor;
+  final String kotlinName;
+  final bool isSuspend;
+
+  factory KotlinFunction.fromJson(Map<String, dynamic> json) =>
+      _$KotlinFunctionFromJson(json);
+
+  @override
+  R accept<R>(Visitor<KotlinFunction, R> v) {
     return v.visit(this);
   }
 }

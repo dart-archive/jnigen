@@ -7,7 +7,6 @@ package com.github.dart_lang.jnigen.apisummarizer.elements;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 /**
  * A class or interface declaration.
  *
@@ -37,7 +36,7 @@ public class ClassDecl {
   public boolean hasInstanceInit;
   public JavaDocComment javadoc;
   public List<JavaAnnotation> annotations;
-
+  public KotlinClass kotlinClass;
   /** In case of enum, names of enum constants */
   public List<String> values = new ArrayList<>();
 }
