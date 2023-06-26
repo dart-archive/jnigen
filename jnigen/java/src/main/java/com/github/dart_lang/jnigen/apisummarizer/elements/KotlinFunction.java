@@ -4,18 +4,18 @@
 
 package com.github.dart_lang.jnigen.apisummarizer.elements;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import kotlinx.metadata.Flag;
 import kotlinx.metadata.KmFunction;
 import kotlinx.metadata.jvm.JvmExtensionsKt;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class KotlinFunction {
   /** Name in the byte code. */
   public String name;
 
   public String descriptor;
+
   /** Name in the Kotlin's metadata. */
   public String kotlinName;
 

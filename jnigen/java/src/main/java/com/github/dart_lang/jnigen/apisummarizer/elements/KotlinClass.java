@@ -4,11 +4,10 @@
 
 package com.github.dart_lang.jnigen.apisummarizer.elements;
 
-import kotlinx.metadata.KmClass;
-import kotlinx.metadata.jvm.JvmExtensionsKt;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import kotlinx.metadata.KmClass;
+import kotlinx.metadata.jvm.JvmExtensionsKt;
 
 public class KotlinClass {
   public String name;

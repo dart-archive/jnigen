@@ -4,11 +4,10 @@
 
 package com.github.dart_lang.jnigen.apisummarizer.elements;
 
-import kotlinx.metadata.KmTypeParameter;
-import kotlinx.metadata.KmVariance;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import kotlinx.metadata.KmTypeParameter;
+import kotlinx.metadata.KmVariance;
 
 public class KotlinTypeParameter {
   public String name;
