@@ -5,10 +5,8 @@
 package com.github.dart_lang.jnigen.apisummarizer.elements;
 
 import kotlinx.metadata.Flag;
-import kotlinx.metadata.FlagsKt;
 import kotlinx.metadata.KmFunction;
 import kotlinx.metadata.jvm.JvmExtensionsKt;
-import kotlinx.metadata.jvm.internal.JvmFunctionExtension;
 
 import java.util.List;
 import java.util.stream.Collectors;

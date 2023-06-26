@@ -478,12 +478,11 @@ class Method extends ClassMember implements Element<Method> {
   @JsonKey(includeFromJson: false)
   late bool isOverridden;
 
-  /// This gets populated in the preprocessing stage.
+  /// The actual return type when the method is a Kotlin's suspend fun.
   ///
-  /// It will contain a type only when the suspendFunToAsync flag is on
-  /// and the method has a `kotlin.coroutines.Continuation` final argument.
+  /// Populated by [KotlinProcessor].
   @JsonKey(includeFromJson: false)
-  late TypeUsage? asyncReturnType;
+  TypeUsage? asyncReturnType;
 
   @JsonKey(includeFromJson: false)
   late String javaSig = '$name$descriptor';
