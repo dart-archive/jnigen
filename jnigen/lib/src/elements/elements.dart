@@ -485,7 +485,12 @@ class Method extends ClassMember implements Element<Method> {
   TypeUsage? asyncReturnType;
 
   @JsonKey(includeFromJson: false)
-  late String javaSig = '$name$descriptor';
+  late String javaSig = _javaSig();
+
+  String _javaSig() {
+    final paramNames = params.map((p) => p.type.name).join(', ');
+    return '${returnType.name} $name($paramNames)';
+  }
 
   bool get isCtor => name == '<init>';
 
