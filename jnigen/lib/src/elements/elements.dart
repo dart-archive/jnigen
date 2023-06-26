@@ -462,6 +462,10 @@ class Method extends ClassMember implements Element<Method> {
   final List<TypeParam> typeParams;
   List<Param> params;
   final TypeUsage returnType;
+
+  /// Can be used to match with [KotlinFunction]'s descriptor.
+  ///
+  /// Can create a unique signature in combination with [name].
   final String? descriptor;
 
   /// The [ClassDecl] where this method is defined.
@@ -653,6 +657,10 @@ class KotlinFunction implements Element<KotlinFunction> {
   });
 
   final String name;
+
+  /// Used to match with [Method]'s descriptor.
+  ///
+  /// Creates a unique signature in combination with [name].
   final String descriptor;
   final String kotlinName;
   final bool isSuspend;

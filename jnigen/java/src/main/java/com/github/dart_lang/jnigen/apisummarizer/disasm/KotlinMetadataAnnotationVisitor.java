@@ -12,6 +12,10 @@ import kotlinx.metadata.jvm.KotlinClassHeader;
 import kotlinx.metadata.jvm.KotlinClassMetadata;
 import org.objectweb.asm.AnnotationVisitor;
 
+/**
+ * The format of Kotlin's metadata can be found here:
+ * https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-metadata/
+ */
 public class KotlinMetadataAnnotationVisitor extends AnnotationVisitor {
   private ClassDecl decl;
 

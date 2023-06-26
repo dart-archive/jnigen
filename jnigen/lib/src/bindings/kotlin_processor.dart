@@ -5,6 +5,8 @@
 import '../elements/elements.dart';
 import 'visitor.dart';
 
+/// A [Visitor] that adds the the information from Kotlin's metadata to the Java
+/// classes and methods.
 class KotlinProcessor extends Visitor<Classes, void> {
   @override
   void visit(Classes node) {
@@ -25,11 +27,13 @@ class _KotlinClassProcessor extends Visitor<ClassDecl, void> {
     // Matching methods and functions from the metadata.
     final functions = <String, KotlinFunction>{};
     for (final function in node.kotlinClass!.functions) {
-      functions[function.descriptor] = function;
+      final signature = function.name + function.descriptor;
+      functions[signature] = function;
     }
     for (final method in node.methods) {
-      if (functions.containsKey(method.descriptor!)) {
-        method.accept(_KotlinMethodProcessor(functions[method.descriptor!]!));
+      final signature = method.name + method.descriptor!;
+      if (functions.containsKey(signature)) {
+        method.accept(_KotlinMethodProcessor(functions[signature]!));
       }
     }
   }
