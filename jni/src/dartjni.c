@@ -603,6 +603,41 @@ JniResult PortContinuation__ctor(int64_t j) {
   return (JniResult){.value = {.l = _result}, .exception = check_exception()};
 }
 
+// com.github.dart_lang.jni.PortProxy
+jclass _c_PortProxy = NULL;
+
+jmethodID _m_PortProxy__newInstance = NULL;
+FFI_PLUGIN_EXPORT
+JniResult PortProxy__newInstance(jobject binaryName, int64_t port) {
+  load_env();
+  load_class_global_ref(&_c_PortProxy, "com/github/dart_lang/jni/PortProxy");
+  if (_c_PortProxy == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_PortProxy, &_m_PortProxy__newInstance, "newInstance",
+                     "(Ljava/lang/String;J)Ljava/lang/Object;");
+  if (_m_PortProxy__newInstance == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_PortProxy, _m_PortProxy__newInstance, binaryName, port);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_PortProxy__resultFor = NULL;
+FFI_PLUGIN_EXPORT
+JniResult PortProxy__resultFor(jobject self_, jobject uuid, jobject object) {
+  load_env();
+  load_class_global_ref(&_c_PortProxy, "com/github/dart_lang/jni/PortProxy");
+  if (_c_PortProxy == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_PortProxy, &_m_PortProxy__resultFor, "resultFor",
+              "(Ljava/lang/String;Ljava/lang/Object;)V");
+  if (_m_PortProxy__resultFor == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_PortProxy__resultFor, uuid,
+                            object);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
 JNIEXPORT void JNICALL
 Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
                                                   jobject thiz,

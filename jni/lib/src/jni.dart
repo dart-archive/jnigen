@@ -193,11 +193,6 @@ abstract class Jni {
 
   static final accessors = JniAccessors(_bindings.GetAccessors());
 
-  /// Returns a new PortContinuation.
-  static JObjectPtr newPortContinuation(ReceivePort port) {
-    return _bindings.PortContinuation__ctor(port.sendPort.nativePort).object;
-  }
-
   /// Returns current application context on Android.
   static JObjectPtr getCachedApplicationContext() {
     return _bindings.GetApplicationContext();
@@ -300,6 +295,29 @@ extension ProtectedJniExtensions on Jni {
     setJniGetters(Jni._getJniContextFn, Jni._getJniEnvFn);
     final lookup = dl.lookup;
     return lookup;
+  }
+
+  /// Returns a new PortContinuation.
+  static JObjectPtr newPortContinuation(ReceivePort port) {
+    return Jni._bindings
+        .PortContinuation__ctor(port.sendPort.nativePort)
+        .object;
+  }
+
+  /// Returns a new PortProxy for a class with the given [binaryName].
+  static JObjectPtr newPortProxy(String binaryName, ReceivePort port) {
+    return Jni._bindings
+        .PortProxy__newInstance(
+          Jni.env.toJStringPtr(binaryName),
+          port.sendPort.nativePort,
+        )
+        .object;
+  }
+
+  /// Return the result of a callback specified by the [uuid].
+  static void returnResultFor(
+      JObjectPtr proxy, JStringPtr uuid, JObjectPtr result) {
+    Jni._bindings.PortProxy__resultFor(proxy, uuid, result).check();
   }
 }
 

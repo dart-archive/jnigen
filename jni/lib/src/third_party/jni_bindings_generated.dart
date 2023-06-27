@@ -192,6 +192,71 @@ class JniBindings {
   late final _PortContinuation__ctor =
       _PortContinuation__ctorPtr.asFunction<JniResult Function(int)>();
 
+  JniResult PortProxy__newInstance(
+    JObjectPtr binaryName,
+    int port,
+  ) {
+    return _PortProxy__newInstance(
+      binaryName,
+      port,
+    );
+  }
+
+  late final _PortProxy__newInstancePtr =
+      _lookup<ffi.NativeFunction<JniResult Function(JObjectPtr, ffi.Int64)>>(
+          'PortProxy__newInstance');
+  late final _PortProxy__newInstance = _PortProxy__newInstancePtr.asFunction<
+      JniResult Function(JObjectPtr, int)>();
+
+  JniResult PortProxy__resultFor(
+    JObjectPtr self_,
+    JObjectPtr uuid,
+    JObjectPtr object,
+  ) {
+    return _PortProxy__resultFor(
+      self_,
+      uuid,
+      object,
+    );
+  }
+
+  late final _PortProxy__resultForPtr = _lookup<
+      ffi.NativeFunction<
+          JniResult Function(
+              JObjectPtr, JObjectPtr, JObjectPtr)>>('PortProxy__resultFor');
+  late final _PortProxy__resultFor = _PortProxy__resultForPtr.asFunction<
+      JniResult Function(JObjectPtr, JObjectPtr, JObjectPtr)>();
+
+  void Java_com_github_dart_1lang_jni_PortProxy__1invoke(
+    ffi.Pointer<JniEnv> env,
+    JObjectPtr thiz,
+    int port,
+    JStringPtr uuid,
+    JObjectPtr proxy,
+    JObjectPtr method,
+    JObjectArrayPtr args,
+  ) {
+    return _Java_com_github_dart_1lang_jni_PortProxy__1invoke(
+      env,
+      thiz,
+      port,
+      uuid,
+      proxy,
+      method,
+      args,
+    );
+  }
+
+  late final _Java_com_github_dart_1lang_jni_PortProxy__1invokePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Pointer<JniEnv>, JObjectPtr, JLongMarker,
+                  JStringPtr, JObjectPtr, JObjectPtr, JObjectArrayPtr)>>(
+      'Java_com_github_dart_1lang_jni_PortProxy__1invoke');
+  late final _Java_com_github_dart_1lang_jni_PortProxy__1invoke =
+      _Java_com_github_dart_1lang_jni_PortProxy__1invokePtr.asFunction<
+          void Function(ffi.Pointer<JniEnv>, JObjectPtr, int, JStringPtr,
+              JObjectPtr, JObjectPtr, JObjectArrayPtr)>();
+
   ffi.Pointer<GlobalJniEnvStruct> GetGlobalEnv() {
     return _GetGlobalEnv();
   }
