@@ -33,6 +33,7 @@ const _voidPointer = '$_ffi.Pointer<$_ffi.Void>';
 const _typeParamPrefix = '\$';
 
 // Misc.
+const _protectedExtension = 'ProtectedJniExtensions';
 const _classRef = '_class.reference';
 const _env = '$_jni.Jni.env';
 const _accessors = '$_jni.Jni.accessors';
@@ -128,7 +129,7 @@ class DartGenerator extends Visitor<Classes, Future<void>> {
 // Auto-generated initialization code.
 
 final $_ffi.Pointer<T> Function<T extends $_ffi.NativeType>(String sym) $_lookup =
-    ProtectedJniExtensions.initGeneratedLibrary("${config.outputConfig.cConfig!.libraryName}");
+    $_protectedExtension.initGeneratedLibrary("${config.outputConfig.cConfig!.libraryName}");
 
 
 ''';
@@ -1125,7 +1126,7 @@ class _MethodGenerator extends Visitor<Method, void> {
       s.write('''async {
     $typeInference
     final \$p = ReceivePort();
-    final \$c = $_jObject.fromRef($_jni.Jni.newPortContinuation(\$p));
+    final \$c = $_jObject.fromRef($_protectedExtension.newPortContinuation(\$p));
     $callExpr;
     final \$o = $_jPointer.fromAddress(await \$p.first);
     final \$k = $returnTypeClass.getClass().reference;
