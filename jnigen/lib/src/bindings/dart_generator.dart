@@ -404,13 +404,40 @@ class $name$typeParamsDef extends $superName {
     if (node.declKind == DeclKind.interfaceKind) {
       s.write('''
   // Here will be an interface implementation method
-  static $name$typeParamsCall implement$typeParamsDef(
+  ReceivePort? _\$p;
+
+  static final Finalizer<ReceivePort> _finalizer =
+    Finalizer((port) => port.close());
+
+  @override
+  void delete() {
+    _\$p?.close();
+    _finalizer.detach(this);
+    super.delete();
+  }
+
+  factory $name.implement(
 ''');
+      final typeClassesDef = _encloseIfNotEmpty(
+        '{\n',
+        typeParams
+            .map((typeParam) => 'required $_jType<\$$typeParam> $typeParam,')
+            .join(_newLine(depth: 1)),
+        '}\n',
+      );
+      final typeClassesCall =
+          typeParams.map((typeParam) => '$typeParam,').join(_newLine(depth: 2));
       final methodImplementCall = _MethodImplementCall(resolver, s);
       for (final method in node.methods) {
         method.accept(methodImplementCall);
       }
-      s.write(''') {
+      s.write('''$typeClassesDef) {
+    final \$p = ReceivePort();
+    final \$x = $name.fromRef(
+      $typeClassesCall
+      $_protectedExtension.newPortProxy(r"${node.binaryName}", \$p),
+    ).._\$p = \$p;
+    _finalizer.attach(\$x, \$p, detach: \$x);
     throw UnimplementedError();
   }''');
     }

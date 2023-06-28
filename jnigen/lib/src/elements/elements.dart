@@ -448,7 +448,7 @@ class Method extends ClassMember implements Element<Method> {
     this.javadoc,
     this.modifiers = const {},
     required this.name,
-    this.descriptor,
+    required this.descriptor,
     this.typeParams = const [],
     this.params = const [],
     required this.returnType,
@@ -468,7 +468,7 @@ class Method extends ClassMember implements Element<Method> {
   /// Can be used to match with [KotlinFunction]'s descriptor.
   ///
   /// Can create a unique signature in combination with [name].
-  final String? descriptor;
+  final String descriptor;
 
   /// The [ClassDecl] where this method is defined.
   ///

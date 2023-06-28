@@ -7,6 +7,9 @@ package com.github.dart_lang.jnigen.apisummarizer.doclet;
 import com.github.dart_lang.jnigen.apisummarizer.elements.*;
 import com.github.dart_lang.jnigen.apisummarizer.util.StreamUtil;
 import com.sun.source.doctree.DocCommentTree;
+import io.soabase.asm.mirror.MirrorMethodReader;
+import io.soabase.asm.mirror.SignatureMirrorType;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -195,6 +198,13 @@ public class ElementBuilders {
   public Method method(ExecutableElement e) {
     var m = new Method();
     m.name = e.getSimpleName().toString();
+    var methodReader = new MirrorMethodReader(env);
+    methodReader.readMethod(
+        (access, name, desc, signature, exceptions) -> {
+          m.descriptor = desc;
+          return null;
+        },
+        e);
     m.modifiers = e.getModifiers().stream().map(Modifier::toString).collect(Collectors.toSet());
     m.typeParams = e.getTypeParameters().stream().map(this::typeParam).collect(Collectors.toList());
     m.returnType = typeUsage(e.getReturnType());

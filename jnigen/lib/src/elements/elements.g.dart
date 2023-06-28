@@ -107,7 +107,7 @@ Method _$MethodFromJson(Map<String, dynamic> json) => Method(
               .toSet() ??
           const {},
       name: json['name'] as String,
-      descriptor: json['descriptor'] as String?,
+      descriptor: json['descriptor'] as String,
       typeParams: (json['typeParams'] as List<dynamic>?)
               ?.map((e) => TypeParam.fromJson(e as Map<String, dynamic>))
               .toList() ??

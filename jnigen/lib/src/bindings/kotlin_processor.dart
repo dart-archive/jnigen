@@ -31,7 +31,7 @@ class _KotlinClassProcessor extends Visitor<ClassDecl, void> {
       functions[signature] = function;
     }
     for (final method in node.methods) {
-      final signature = method.name + method.descriptor!;
+      final signature = method.name + method.descriptor;
       if (functions.containsKey(signature)) {
         method.accept(_KotlinMethodProcessor(functions[signature]!));
       }

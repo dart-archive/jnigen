@@ -389,5 +389,5 @@ Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
                                                   jlong port,
                                                   jstring uuid,
                                                   jobject proxy,
-                                                  jobject method,
+                                                  jobject methodDescriptor,
                                                   jobjectArray args);

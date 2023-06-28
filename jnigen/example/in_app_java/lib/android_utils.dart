@@ -1549,10 +1549,28 @@ class EmojiCompat_GlyphChecker extends jni.JObject {
   }
 
   // Here will be an interface implementation method
-  static EmojiCompat_GlyphChecker implement(
+  ReceivePort? _$p;
+
+  static final Finalizer<ReceivePort> _finalizer =
+      Finalizer((port) => port.close());
+
+  @override
+  void delete() {
+    _$p?.close();
+    _finalizer.detach(this);
+    super.delete();
+  }
+
+  factory EmojiCompat_GlyphChecker.implement(
     bool Function(jni.JObject charSequence, int start, int end, int sdkAdded)
         hasGlyph,
   ) {
+    final $p = ReceivePort();
+    final $x = EmojiCompat_GlyphChecker.fromRef(
+      ProtectedJniExtensions.newPortProxy(
+          r"androidx.emoji2.text.EmojiCompat$GlyphChecker", $p),
+    ).._$p = $p;
+    _finalizer.attach($x, $p, detach: $x);
     throw UnimplementedError();
   }
 }
@@ -1619,9 +1637,27 @@ class EmojiCompat_MetadataRepoLoader extends jni.JObject {
   }
 
   // Here will be an interface implementation method
-  static EmojiCompat_MetadataRepoLoader implement(
+  ReceivePort? _$p;
+
+  static final Finalizer<ReceivePort> _finalizer =
+      Finalizer((port) => port.close());
+
+  @override
+  void delete() {
+    _$p?.close();
+    _finalizer.detach(this);
+    super.delete();
+  }
+
+  factory EmojiCompat_MetadataRepoLoader.implement(
     void Function(EmojiCompat_MetadataRepoLoaderCallback loaderCallback) load,
   ) {
+    final $p = ReceivePort();
+    final $x = EmojiCompat_MetadataRepoLoader.fromRef(
+      ProtectedJniExtensions.newPortProxy(
+          r"androidx.emoji2.text.EmojiCompat$MetadataRepoLoader", $p),
+    ).._$p = $p;
+    _finalizer.attach($x, $p, detach: $x);
     throw UnimplementedError();
   }
 }
@@ -1854,9 +1890,27 @@ class EmojiCompat_SpanFactory extends jni.JObject {
   }
 
   // Here will be an interface implementation method
-  static EmojiCompat_SpanFactory implement(
+  ReceivePort? _$p;
+
+  static final Finalizer<ReceivePort> _finalizer =
+      Finalizer((port) => port.close());
+
+  @override
+  void delete() {
+    _$p?.close();
+    _finalizer.detach(this);
+    super.delete();
+  }
+
+  factory EmojiCompat_SpanFactory.implement(
     jni.JObject Function(jni.JObject rasterizer) createSpan,
   ) {
+    final $p = ReceivePort();
+    final $x = EmojiCompat_SpanFactory.fromRef(
+      ProtectedJniExtensions.newPortProxy(
+          r"androidx.emoji2.text.EmojiCompat$SpanFactory", $p),
+    ).._$p = $p;
+    _finalizer.attach($x, $p, detach: $x);
     throw UnimplementedError();
   }
 }

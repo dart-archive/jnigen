@@ -2741,11 +2741,31 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
   }
 
   // Here will be an interface implementation method
-  static MyInterface<$T> implement<$T extends jni.JObject>(
+  ReceivePort? _$p;
+
+  static final Finalizer<ReceivePort> _finalizer =
+      Finalizer((port) => port.close());
+
+  @override
+  void delete() {
+    _$p?.close();
+    _finalizer.detach(this);
+    super.delete();
+  }
+
+  factory MyInterface.implement(
     void Function(jni.JString s) voidCallback,
     jni.JString Function(jni.JString s) stringCallback,
-    $T Function($T t) varCallback,
-  ) {
+    $T Function($T t) varCallback, {
+    required jni.JObjType<$T> T,
+  }) {
+    final $p = ReceivePort();
+    final $x = MyInterface.fromRef(
+      T,
+      ProtectedJniExtensions.newPortProxy(
+          r"com.github.dart_lang.jnigen.interfaces.MyInterface", $p),
+    ).._$p = $p;
+    _finalizer.attach($x, $p, detach: $x);
     throw UnimplementedError();
   }
 }

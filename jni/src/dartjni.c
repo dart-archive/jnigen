@@ -574,6 +574,7 @@ Java_com_github_dart_1lang_jni_PortContinuation__1resumeWith(JNIEnv* env,
                                                              jobject thiz,
                                                              jlong port,
                                                              jobject result) {
+  attach_thread();
   Dart_CObject c_post;
   c_post.type = Dart_CObject_kInt64;
   c_post.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, result));
@@ -586,6 +587,7 @@ jclass _c_PortContinuation = NULL;
 jmethodID _m_PortContinuation__ctor = NULL;
 FFI_PLUGIN_EXPORT
 JniResult PortContinuation__ctor(int64_t j) {
+  attach_thread();
   load_class_global_ref(&_c_PortContinuation,
                         "com/github/dart_lang/jni/PortContinuation");
   if (_c_PortContinuation == NULL)
@@ -609,7 +611,7 @@ jclass _c_PortProxy = NULL;
 jmethodID _m_PortProxy__newInstance = NULL;
 FFI_PLUGIN_EXPORT
 JniResult PortProxy__newInstance(jobject binaryName, int64_t port) {
-  load_env();
+  attach_thread();
   load_class_global_ref(&_c_PortProxy, "com/github/dart_lang/jni/PortProxy");
   if (_c_PortProxy == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
@@ -625,7 +627,7 @@ JniResult PortProxy__newInstance(jobject binaryName, int64_t port) {
 jmethodID _m_PortProxy__resultFor = NULL;
 FFI_PLUGIN_EXPORT
 JniResult PortProxy__resultFor(jobject self_, jobject uuid, jobject object) {
-  load_env();
+  attach_thread();
   load_class_global_ref(&_c_PortProxy, "com/github/dart_lang/jni/PortProxy");
   if (_c_PortProxy == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
@@ -644,30 +646,26 @@ Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
                                                   jlong port,
                                                   jstring uuid,
                                                   jobject proxy,
-                                                  jobject method,
+                                                  jobject methodDescriptor,
                                                   jobjectArray args) {
+  attach_thread();
   Dart_CObject c_uuid;
   c_uuid.type = Dart_CObject_kInt64;
   c_uuid.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, uuid));
 
-  Dart_CObject c_proxy;
-  c_proxy.type = Dart_CObject_kInt64;
-  c_proxy.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, proxy));
-
   Dart_CObject c_method;
   c_method.type = Dart_CObject_kInt64;
-  c_method.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, method));
+  c_method.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, methodDescriptor));
 
   Dart_CObject c_args;
-  c_args.type = Dart_CObject_kArray;
-  c_args.as_array.values = args;
-  c_args.as_array.length = sizeof(args) / sizeof(jobject);
+  c_args.type = Dart_CObject_kInt64;
+  c_args.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, args));
 
-  Dart_CObject* c_post_arr[] = {&c_uuid, &c_proxy, &c_method, &c_args};
+  Dart_CObject* c_post_arr[] = {&c_uuid, &c_method, &c_args};
   Dart_CObject c_post;
   c_post.type = Dart_CObject_kArray;
-  c_post.as_array.values = c_post_arr;
-  c_post.as_array.length = sizeof(c_post_arr) / sizeof(c_post_arr[0]);
+  c_post.value.as_array.values = c_post_arr;
+  c_post.value.as_array.length = sizeof(c_post_arr) / sizeof(c_post_arr[0]);
 
   Dart_PostCObject_DL(port, &c_post);
 }
