@@ -19,7 +19,7 @@ import javax.tools.StandardJavaFileManager;
 
 public class ClassFinder {
   private static boolean isNestedClassOf(String pathString, String fqnWithSlashes, String suffix) {
-    Log.always("path=%s, fqn=%s, suffix=%s", pathString, fqnWithSlashes, suffix);
+    Log.info("path=%s, fqn=%s, suffix=%s", pathString, fqnWithSlashes, suffix);
     var fqnWithSlashesDollarSign = fqnWithSlashes + "$";
     if (!pathString.startsWith(fqnWithSlashesDollarSign) || !pathString.endsWith(suffix)) {
       return false;
@@ -30,7 +30,7 @@ public class ClassFinder {
     if (nested.matches("[a-zA-Z0-9_$]*")) {
       return true;
     }
-    Log.always("Possibly invalid path - '%s', skipping", pathString);
+    Log.warning("Possibly invalid path - '%s', skipping", pathString);
     return false;
   }
 
@@ -92,7 +92,7 @@ public class ClassFinder {
         }
       }
       // Not found in this search path.
-      Log.verbose("FQN '%s' not found in '%s'", className, searchLocation);
+      Log.info("FQN '%s' not found in '%s'", className, searchLocation);
     }
   }
 
@@ -175,7 +175,6 @@ public class ClassFinder {
       Map<String, List<JavaFileObject>> classes,
       List<String> searchPaths,
       StandardJavaFileManager fm) {
-    Log.always("searchPaths (sources): %s", searchPaths);
     find(
         classes,
         searchPaths,
@@ -186,7 +185,6 @@ public class ClassFinder {
 
   public static void findJavaClasses(
       Map<String, List<InputStreamProvider>> classes, List<String> searchPaths) {
-    Log.always("searchPaths (classes): %s", searchPaths);
     find(
         classes,
         searchPaths,
