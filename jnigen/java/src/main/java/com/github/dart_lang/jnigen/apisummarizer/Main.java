@@ -7,17 +7,22 @@ package com.github.dart_lang.jnigen.apisummarizer;
 import com.github.dart_lang.jnigen.apisummarizer.disasm.AsmSummarizer;
 import com.github.dart_lang.jnigen.apisummarizer.doclet.SummarizerDoclet;
 import com.github.dart_lang.jnigen.apisummarizer.elements.ClassDecl;
-import com.github.dart_lang.jnigen.apisummarizer.util.*;
-import jdk.javadoc.doclet.Doclet;
-
-import javax.tools.DocumentationTool;
-import javax.tools.JavaFileObject;
-import javax.tools.ToolProvider;
-import java.io.*;
+import com.github.dart_lang.jnigen.apisummarizer.util.ClassFinder;
+import com.github.dart_lang.jnigen.apisummarizer.util.InputStreamProvider;
+import com.github.dart_lang.jnigen.apisummarizer.util.JsonWriter;
+import com.github.dart_lang.jnigen.apisummarizer.util.StreamUtil;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import javax.tools.DocumentationTool;
+import javax.tools.JavaFileObject;
+import javax.tools.ToolProvider;
+import jdk.javadoc.doclet.Doclet;
 
 public class Main {
   public enum Backend {
@@ -36,15 +41,11 @@ public class Main {
       Class<? extends Doclet> docletClass,
       List<JavaFileObject> fileObjects,
       SummarizerOptions options) {
-    Log.setVerbose(options.verbose);
     var fileManager = javaDoc.getStandardFileManager(null, null, null);
     var cli = new ArrayList<String>();
     cli.add((options.useModules ? "--module-" : "--") + "source-path=" + options.sourcePath);
     if (options.classPath != null) {
       cli.add("--class-path=" + options.classPath);
-    }
-    if (options.addDependencies) {
-      cli.add("--expand-requires=all");
     }
     cli.addAll(List.of("-encoding", "utf8"));
 
