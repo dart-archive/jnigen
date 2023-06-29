@@ -1,6 +1,9 @@
 package com.github.dart_lang.jnigen.apisummarizer.util;
 
-import java.io.*;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -13,11 +16,10 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
-import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
 
 public class ClassFinder {
   private static boolean isNestedClassOf(String pathString, String fqnWithSlashes, String suffix) {
+    Log.always("path=%s, fqn=%s, suffix=%s", pathString, fqnWithSlashes, suffix);
     var fqnWithSlashesDollarSign = fqnWithSlashes + "$";
     if (!pathString.startsWith(fqnWithSlashesDollarSign) || !pathString.endsWith(suffix)) {
       return false;
@@ -70,8 +72,12 @@ public class ClassFinder {
       if (filePaths.contains(filePath)) {
         List<Path> resultPaths = new ArrayList<>();
         resultPaths.add(filePath);
-        List<Path> nestedClasses = getNestedClassesInPathList(filePaths, fqnWithSlashes, suffix);
-        resultPaths.addAll(nestedClasses);
+        var filePathsWithoutSearchPathPrefix = filePaths.stream()
+                .map(searchPath::relativize)
+                .collect(Collectors.toCollection(TreeSet::new));
+        List<Path> nestedClasses = getNestedClassesInPathList(filePathsWithoutSearchPathPrefix,
+                fqnWithSlashes, suffix);
+        resultPaths.addAll(StreamUtil.map(nestedClasses, searchPath::resolve));
         classes.put(className, mapper.apply(resultPaths));
       } else if (Files.exists(dirPath) && Files.isDirectory(dirPath)) {
         try (var walk = Files.walk(dirPath)) {
