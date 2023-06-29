@@ -19,7 +19,7 @@ public class SummarizerOptions {
 
   public static SummarizerOptions fromCommandLine(CommandLine cmd) {
     var opts = new SummarizerOptions();
-    opts.sourcePath = cmd.getOptionValue("sources", ".");
+    opts.sourcePath = cmd.getOptionValue("sources", null);
     var backendString = cmd.getOptionValue("backend", "auto");
     opts.backend = Main.Backend.valueOf(backendString.toUpperCase());
     opts.classPath = cmd.getOptionValue("classes", null);

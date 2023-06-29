@@ -37,10 +37,10 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Integration test runner"),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             Text(
               'This app should be run as flutter integration test',
             ),

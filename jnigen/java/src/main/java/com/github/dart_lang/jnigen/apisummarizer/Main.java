@@ -8,10 +8,7 @@ import com.github.dart_lang.jnigen.apisummarizer.disasm.AsmSummarizer;
 import com.github.dart_lang.jnigen.apisummarizer.doclet.SummarizerDoclet;
 import com.github.dart_lang.jnigen.apisummarizer.elements.ClassDecl;
 import com.github.dart_lang.jnigen.apisummarizer.util.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -29,6 +26,16 @@ public class Main {
     ASM,
     /** Prefer source but fall back to JARs in classpath if sources not found. */
     AUTO,
+  }
+
+  static PrintStream log;
+
+  static {
+    try {
+      log = new PrintStream(new FileOutputStream("summarizer_log.txt", true), true);
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   static SummarizerOptions options;
@@ -73,7 +80,7 @@ public class Main {
     } else {
       output = new FileOutputStream(options.outputFile);
     }
-
+    log.printf("sourcepaths=%s, classpaths=%s\n", options.sourcePath, options.classPath);
     List<String> sourcePaths =
         options.sourcePath != null
             ? Arrays.asList(options.sourcePath.split(File.pathSeparator))
