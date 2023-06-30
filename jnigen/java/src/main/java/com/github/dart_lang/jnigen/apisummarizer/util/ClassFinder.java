@@ -19,7 +19,6 @@ import javax.tools.StandardJavaFileManager;
 
 public class ClassFinder {
   private static boolean isNestedClassOf(String pathString, String fqnWithSlashes, String suffix) {
-    Log.info("path=%s, fqn=%s, suffix=%s", pathString, fqnWithSlashes, suffix);
     var fqnWithSlashesDollarSign = fqnWithSlashes + "$";
     if (!pathString.startsWith(fqnWithSlashesDollarSign) || !pathString.endsWith(suffix)) {
       return false;
@@ -91,8 +90,6 @@ public class ClassFinder {
           throw new RuntimeException(e);
         }
       }
-      // Not found in this search path.
-      Log.info("FQN '%s' not found in '%s'", className, searchLocation);
     }
   }
 

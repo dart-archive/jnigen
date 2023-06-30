@@ -642,6 +642,59 @@ JniResult Example_Nested__setValue(jobject self_, uint8_t value) {
   return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
+// com.github.dart_lang.jnigen.simple_package.Example$Nested$NestedTwice
+jclass _c_Example_Nested_NestedTwice = NULL;
+
+jmethodID _m_Example_Nested_NestedTwice__ctor = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example_Nested_NestedTwice__ctor() {
+  load_env();
+  load_class_global_ref(
+      &_c_Example_Nested_NestedTwice,
+      "com/github/dart_lang/jnigen/simple_package/Example$Nested$NestedTwice");
+  if (_c_Example_Nested_NestedTwice == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Example_Nested_NestedTwice,
+              &_m_Example_Nested_NestedTwice__ctor, "<init>", "()V");
+  if (_m_Example_Nested_NestedTwice__ctor == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->NewObject(jniEnv, _c_Example_Nested_NestedTwice,
+                                         _m_Example_Nested_NestedTwice__ctor);
+  return to_global_ref_result(_result);
+}
+
+jfieldID _f_Example_Nested_NestedTwice__ZERO = NULL;
+FFI_PLUGIN_EXPORT
+JniResult get_Example_Nested_NestedTwice__ZERO() {
+  load_env();
+  load_class_global_ref(
+      &_c_Example_Nested_NestedTwice,
+      "com/github/dart_lang/jnigen/simple_package/Example$Nested$NestedTwice");
+  if (_c_Example_Nested_NestedTwice == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_field(_c_Example_Nested_NestedTwice,
+                    &_f_Example_Nested_NestedTwice__ZERO, "ZERO", "I");
+  int32_t _result =
+      (*jniEnv)->GetStaticIntField(jniEnv, _c_Example_Nested_NestedTwice,
+                                   _f_Example_Nested_NestedTwice__ZERO);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+FFI_PLUGIN_EXPORT
+JniResult set_Example_Nested_NestedTwice__ZERO(int32_t value) {
+  load_env();
+  load_class_global_ref(
+      &_c_Example_Nested_NestedTwice,
+      "com/github/dart_lang/jnigen/simple_package/Example$Nested$NestedTwice");
+  if (_c_Example_Nested_NestedTwice == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_field(_c_Example_Nested_NestedTwice,
+                    &_f_Example_Nested_NestedTwice__ZERO, "ZERO", "I");
+  (*jniEnv)->SetStaticIntField(jniEnv, _c_Example_Nested_NestedTwice,
+                               _f_Example_Nested_NestedTwice__ZERO, value);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
 // com.github.dart_lang.jnigen.simple_package.Exceptions
 jclass _c_Exceptions = NULL;
 

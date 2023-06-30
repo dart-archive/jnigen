@@ -21,8 +21,10 @@ import 'package:test/test.dart';
 
 import 'test_util/test_util.dart';
 
-const nestedClass =
-    'com.github.dart_lang.jnigen.simple_package.Example\$Nested';
+const nestedClasses = [
+  'com.github.dart_lang.jnigen.simple_package.Example\$Nested',
+  'com.github.dart_lang.jnigen.simple_package.Example\$Nested\$NestedTwice',
+];
 
 void expectSummaryHasAllClasses(Classes? classes) {
   expect(classes, isNotNull);
@@ -33,7 +35,7 @@ void expectSummaryHasAllClasses(Classes? classes) {
       javaClasses.where((name) => !name.contains("annotations.")).toList();
   // Nested classes should be included automatically with parent class.
   // change this part if you change this behavior intentionally.
-  expectedClasses.add(nestedClass);
+  expectedClasses.addAll(nestedClasses);
   expect(declNames, containsAll(expectedClasses));
 }
 

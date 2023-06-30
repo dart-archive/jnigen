@@ -183,5 +183,9 @@ public class Example {
     public void setValue(boolean value) {
       this.value = value;
     }
+
+    public static class NestedTwice {
+      public static int ZERO = 0;
+    }
   }
 }

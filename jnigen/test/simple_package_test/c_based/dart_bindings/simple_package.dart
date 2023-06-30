@@ -610,6 +610,72 @@ class $Example_NestedType extends jni.JObjType<Example_Nested> {
   }
 }
 
+/// from: com.github.dart_lang.jnigen.simple_package.Example$Nested$NestedTwice
+class Example_Nested_NestedTwice extends jni.JObject {
+  @override
+  late final jni.JObjType<Example_Nested_NestedTwice> $type = type;
+
+  Example_Nested_NestedTwice.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $Example_Nested_NestedTwiceType();
+  static final _get_ZERO =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "get_Example_Nested_NestedTwice__ZERO")
+          .asFunction<jni.JniResult Function()>();
+
+  static final _set_ZERO =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "set_Example_Nested_NestedTwice__ZERO")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public int ZERO
+  static int get ZERO => _get_ZERO().integer;
+
+  /// from: static public int ZERO
+  static set ZERO(int value) => _set_ZERO(value).check();
+
+  static final _ctor = jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+          "Example_Nested_NestedTwice__ctor")
+      .asFunction<jni.JniResult Function()>();
+
+  /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory Example_Nested_NestedTwice() {
+    return Example_Nested_NestedTwice.fromRef(_ctor().object);
+  }
+}
+
+class $Example_Nested_NestedTwiceType
+    extends jni.JObjType<Example_Nested_NestedTwice> {
+  const $Example_Nested_NestedTwiceType();
+
+  @override
+  String get signature =>
+      r"Lcom/github/dart_lang/jnigen/simple_package/Example$Nested$NestedTwice;";
+
+  @override
+  Example_Nested_NestedTwice fromRef(jni.JObjectPtr ref) =>
+      Example_Nested_NestedTwice.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($Example_Nested_NestedTwiceType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($Example_Nested_NestedTwiceType) &&
+        other is $Example_Nested_NestedTwiceType;
+  }
+}
+
 /// from: com.github.dart_lang.jnigen.simple_package.Exceptions
 class Exceptions extends jni.JObject {
   @override
