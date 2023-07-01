@@ -36,16 +36,28 @@ final _logDir = () {
   return dir;
 }();
 
-final _logFileUri =
+Uri _getDefaultLogFileUri() =>
     _logDir.uri.resolve("jnigen-${_formatTime(DateTime.now())}.log");
 
-final _logStream = File.fromUri(_logFileUri).openWrite(mode: FileMode.append);
+IOSink? _logStream;
+
+/// Enable saving the logs to a file.
+///
+/// This is only meant to be called from an application entry point such as
+/// `main`.
+void enableLoggingToFile() {
+  _deleteOldLogFiles();
+  if (_logStream != null) {
+    throw StateError('Log file is already set');
+  }
+  _logStream = File.fromUri(_getDefaultLogFileUri()).openWrite();
+}
 
 // Maximum number of log files to keep.
-const _maxLogFiles = 20;
+const _maxLogFiles = 5;
 
-Logger log = () {
-  // Delete files except most recent files.
+/// Delete log files except most recent [_maxLogFiles] files.
+void _deleteOldLogFiles() {
   final logFiles = _logDir.listSync().map((f) => File(f.path)).toList();
   // sort in descending order of last modified time.
   logFiles
@@ -56,13 +68,15 @@ Logger log = () {
   for (final oldLogFile in toDelete) {
     oldLogFile.deleteSync();
   }
+}
 
+Logger log = () {
   // initialize the logger.
   final jnigenLogger = Logger('jnigen');
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((r) {
     // Write to file regardless of level.
-    _logStream.writeln('${r.level} ${r.time}: ${r.message}');
+    _logStream?.writeln('${r.level} ${r.time}: ${r.message}');
     // write to console only if level is above configured level.
     if (r.level < _logLevel) {
       return;
@@ -101,12 +115,12 @@ extension FatalErrors on Logger {
 
 extension WriteToFile on Logger {
   void writeToFile(Object? data) {
-    _logStream.writeln(data);
+    _logStream?.writeln(data);
   }
 
   void writeSectionToFile(String? sectionName, Object? data) {
-    _logStream.writeln("==== Begin $sectionName ====");
-    _logStream.writeln(data);
-    _logStream.writeln("==== End $sectionName ====");
+    _logStream?.writeln("==== Begin $sectionName ====");
+    _logStream?.writeln(data);
+    _logStream?.writeln("==== End $sectionName ====");
   }
 }
