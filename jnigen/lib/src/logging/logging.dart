@@ -36,30 +36,25 @@ final _logDir = () {
   return dir;
 }();
 
-Uri _getDefaultLogFileUri([String? identifier]) {
-  final suffix = identifier == null ? '' : '-$identifier';
-  return _logDir.uri
-      .resolve("jnigen$suffix-${_formatTime(DateTime.now())}.log");
-}
+Uri _getDefaultLogFileUri() =>
+    _logDir.uri.resolve("jnigen-${_formatTime(DateTime.now())}.log");
 
 IOSink? _logStream;
 
-/// Creates a log file and enables saving all logs to that file. This file is
-/// in .dart_tool/jnigen/logs and the default name is derived from timestamp.
+/// Enable saving the logs to a file.
 ///
-/// If an `identifier` is passed, it will be appended to the filename. It's
-/// useful to distinguish logs from different tests.
-void enableLoggingToFile([String? identifier]) {
-  // If another `jnigen` task had run on same isolate, close the log file
-  // associated with it.
-  _logStream?.close();
+/// This is only meant to be called from an application entry point such as
+/// `main`.
+void enableLoggingToFile() {
   _deleteOldLogFiles();
-  _logStream = File.fromUri(_getDefaultLogFileUri(identifier))
-      .openWrite(mode: FileMode.append);
+  if (_logStream != null) {
+    throw StateError('Log file is already set');
+  }
+  _logStream = File.fromUri(_getDefaultLogFileUri()).openWrite();
 }
 
 // Maximum number of log files to keep.
-const _maxLogFiles = 20;
+const _maxLogFiles = 5;
 
 /// Delete log files except most recent [_maxLogFiles] files.
 void _deleteOldLogFiles() {

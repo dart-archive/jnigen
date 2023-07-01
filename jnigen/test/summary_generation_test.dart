@@ -153,7 +153,6 @@ void testAllCases({
 
 void main() async {
   await checkLocallyBuiltDependencies();
-  enableLoggingToFile('summary-generation-tests');
   final tempDir = getTempDir("jnigen_summary_tests_");
 
   group('Test summary generation from compiled JAR', () {
