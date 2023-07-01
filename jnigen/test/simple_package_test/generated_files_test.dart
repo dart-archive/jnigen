@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:jnigen/jnigen.dart';
+import 'package:jnigen/src/logging/logging.dart';
 import 'package:test/test.dart';
 
 import 'generate.dart';
@@ -10,6 +11,7 @@ import '../test_util/test_util.dart';
 
 void main() async {
   await checkLocallyBuiltDependencies();
+  enableLoggingToFile('simple-package-generate-test');
 
   generateAndCompareBothModes(
     'Generate and compare bindings for simple_package java files',

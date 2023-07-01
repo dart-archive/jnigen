@@ -4,6 +4,7 @@
 
 import 'dart:io';
 
+import 'package:jnigen/src/logging/logging.dart';
 import 'package:test/test.dart';
 import 'package:path/path.dart' hide equals;
 
@@ -47,6 +48,7 @@ void testExample(String exampleName, String dartOutput, String? cOutput,
 
 void main() async {
   await checkLocallyBuiltDependencies();
+  enableLoggingToFile('regenerate-examples-test');
   testExample(
     'in_app_java',
     join('lib', 'android_utils.dart'),

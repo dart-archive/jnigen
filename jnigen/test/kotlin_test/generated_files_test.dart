@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:jnigen/jnigen.dart';
+import 'package:jnigen/src/logging/logging.dart';
 import 'package:test/test.dart';
 
 import 'generate.dart';
@@ -12,6 +13,7 @@ void main() async {
   // This is not run in setupAll, because we want to exit with one line of
   // error message, not throw a long exception.
   await checkLocallyBuiltDependencies();
+  enableLoggingToFile('kotlin-generate-test');
   generateAndCompareBothModes(
     'Generate and compare bindings for kotlin_test',
     getConfig(BindingsType.cBased),
