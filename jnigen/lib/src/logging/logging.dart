@@ -64,7 +64,7 @@ void _deleteOldLogFiles() {
       .sort((f1, f2) => f2.lastModifiedSync().compareTo(f1.lastModifiedSync()));
   final toDelete = logFiles.length < _maxLogFiles
       ? const <File>[]
-      : logFiles.sublist(_maxLogFiles);
+      : logFiles.sublist(_maxLogFiles - 1);
   for (final oldLogFile in toDelete) {
     oldLogFile.deleteSync();
   }
