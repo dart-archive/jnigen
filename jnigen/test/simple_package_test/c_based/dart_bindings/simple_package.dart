@@ -999,12 +999,12 @@ class Fields extends jni.JObject {
   static final _get_i = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_Fields__i")
+                jni.JObjectPtr,
+              )>>("get_Fields__i")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_i = jniLookup<
           ffi.NativeFunction<
@@ -1025,12 +1025,12 @@ class Fields extends jni.JObject {
   static final _get_trillion = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_Fields__trillion")
+                jni.JObjectPtr,
+              )>>("get_Fields__trillion")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_trillion = jniLookup<
           ffi.NativeFunction<
@@ -1047,12 +1047,12 @@ class Fields extends jni.JObject {
   static final _get_isAchillesDead = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_Fields__isAchillesDead")
+                jni.JObjectPtr,
+              )>>("get_Fields__isAchillesDead")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_isAchillesDead = jniLookup<
           ffi.NativeFunction<
@@ -1070,12 +1070,12 @@ class Fields extends jni.JObject {
   static final _get_bestFighterInGreece = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_Fields__bestFighterInGreece")
+                jni.JObjectPtr,
+              )>>("get_Fields__bestFighterInGreece")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_bestFighterInGreece = jniLookup<
           ffi.NativeFunction<
@@ -1097,12 +1097,12 @@ class Fields extends jni.JObject {
   static final _get_random = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_Fields__random")
+                jni.JObjectPtr,
+              )>>("get_Fields__random")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_random = jniLookup<
           ffi.NativeFunction<
@@ -1187,12 +1187,12 @@ class Fields_Nested extends jni.JObject {
   static final _get_hundred = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_Fields_Nested__hundred")
+                jni.JObjectPtr,
+              )>>("get_Fields_Nested__hundred")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_hundred = jniLookup<
           ffi.NativeFunction<
@@ -1407,12 +1407,12 @@ class GrandParent<$T extends jni.JObject> extends jni.JObject {
   static final _get_value = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_GrandParent__value")
+                jni.JObjectPtr,
+              )>>("get_GrandParent__value")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_value = jniLookup<
           ffi.NativeFunction<
@@ -1587,12 +1587,12 @@ class GrandParent_Parent<$T extends jni.JObject, $S extends jni.JObject>
   static final _get_parentValue = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_GrandParent_Parent__parentValue")
+                jni.JObjectPtr,
+              )>>("get_GrandParent_Parent__parentValue")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_parentValue = jniLookup<
               ffi.NativeFunction<
@@ -1614,12 +1614,12 @@ class GrandParent_Parent<$T extends jni.JObject, $S extends jni.JObject>
   static final _get_value = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_GrandParent_Parent__value")
+                jni.JObjectPtr,
+              )>>("get_GrandParent_Parent__value")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_value = jniLookup<
           ffi.NativeFunction<
@@ -1734,12 +1734,12 @@ class GrandParent_Parent_Child<$T extends jni.JObject, $S extends jni.JObject,
   static final _get_grandParentValue = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_GrandParent_Parent_Child__grandParentValue")
+                jni.JObjectPtr,
+              )>>("get_GrandParent_Parent_Child__grandParentValue")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_grandParentValue = jniLookup<
               ffi.NativeFunction<
@@ -1761,12 +1761,12 @@ class GrandParent_Parent_Child<$T extends jni.JObject, $S extends jni.JObject,
   static final _get_parentValue = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_GrandParent_Parent_Child__parentValue")
+                jni.JObjectPtr,
+              )>>("get_GrandParent_Parent_Child__parentValue")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_parentValue = jniLookup<
               ffi.NativeFunction<
@@ -1788,12 +1788,12 @@ class GrandParent_Parent_Child<$T extends jni.JObject, $S extends jni.JObject,
   static final _get_value = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_GrandParent_Parent_Child__value")
+                jni.JObjectPtr,
+              )>>("get_GrandParent_Parent_Child__value")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_value = jniLookup<
               ffi.NativeFunction<
@@ -1906,12 +1906,12 @@ class GrandParent_StaticParent<$S extends jni.JObject> extends jni.JObject {
   static final _get_value = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_GrandParent_StaticParent__value")
+                jni.JObjectPtr,
+              )>>("get_GrandParent_StaticParent__value")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_value = jniLookup<
               ffi.NativeFunction<
@@ -2012,12 +2012,12 @@ class GrandParent_StaticParent_Child<$S extends jni.JObject,
   static final _get_parentValue = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_GrandParent_StaticParent_Child__parentValue")
+                jni.JObjectPtr,
+              )>>("get_GrandParent_StaticParent_Child__parentValue")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_parentValue = jniLookup<
               ffi.NativeFunction<
@@ -2039,12 +2039,12 @@ class GrandParent_StaticParent_Child<$S extends jni.JObject,
   static final _get_value = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_GrandParent_StaticParent_Child__value")
+                jni.JObjectPtr,
+              )>>("get_GrandParent_StaticParent_Child__value")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_value = jniLookup<
               ffi.NativeFunction<
@@ -2284,12 +2284,12 @@ class MyMap_MyEntry<$K extends jni.JObject, $V extends jni.JObject>
   static final _get_key = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_MyMap_MyEntry__key")
+                jni.JObjectPtr,
+              )>>("get_MyMap_MyEntry__key")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_key = jniLookup<
           ffi.NativeFunction<
@@ -2309,12 +2309,12 @@ class MyMap_MyEntry<$K extends jni.JObject, $V extends jni.JObject>
   static final _get_value = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(
-    jni.JObjectPtr,
-  )>>("get_MyMap_MyEntry__value")
+                jni.JObjectPtr,
+              )>>("get_MyMap_MyEntry__value")
       .asFunction<
           jni.JniResult Function(
-    jni.JObjectPtr,
-  )>();
+            jni.JObjectPtr,
+          )>();
 
   static final _set_value = jniLookup<
           ffi.NativeFunction<
