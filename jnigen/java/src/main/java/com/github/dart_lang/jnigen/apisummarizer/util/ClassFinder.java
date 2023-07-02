@@ -1,7 +1,5 @@
 package com.github.dart_lang.jnigen.apisummarizer.util;
 
-import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,6 +14,8 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
 
 public class ClassFinder {
   private static boolean isNestedClassOf(String pathString, String fqnWithSlashes, String suffix) {
@@ -56,7 +56,8 @@ public class ClassFinder {
 
     TreeSet<Path> filePaths;
     try (var walk = Files.walk(searchPath)) {
-      filePaths = walk.filter(Files::isRegularFile).collect(Collectors.toCollection(TreeSet::new));
+      filePaths =
+          walk.filter(Files::isRegularFile).sorted().collect(Collectors.toCollection(TreeSet::new));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -84,6 +85,7 @@ public class ClassFinder {
           List<Path> resultPaths =
               walk.filter(Files::isRegularFile)
                   .filter(innerPath -> innerPath.toString().endsWith(suffix))
+                  .sorted()
                   .collect(Collectors.toList());
           classes.put(className, mapper.apply(resultPaths));
         } catch (IOException e) {
