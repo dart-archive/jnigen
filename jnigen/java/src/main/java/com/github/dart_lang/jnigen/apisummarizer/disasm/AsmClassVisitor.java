@@ -7,10 +7,9 @@ package com.github.dart_lang.jnigen.apisummarizer.disasm;
 import com.github.dart_lang.jnigen.apisummarizer.elements.*;
 import com.github.dart_lang.jnigen.apisummarizer.util.SkipException;
 import com.github.dart_lang.jnigen.apisummarizer.util.StreamUtil;
+import java.util.*;
 import org.objectweb.asm.*;
 import org.objectweb.asm.signature.SignatureReader;
-
-import java.util.*;
 
 public class AsmClassVisitor extends ClassVisitor implements AsmAnnotatedElementVisitor {
   private static Param param(
