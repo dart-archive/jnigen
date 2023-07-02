@@ -607,6 +607,24 @@ JniResult Example_Nested__ctor(uint8_t value) {
   return to_global_ref_result(_result);
 }
 
+jmethodID _m_Example_Nested__usesAnonymousInnerClass = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Example_Nested__usesAnonymousInnerClass(jobject self_) {
+  load_env();
+  load_class_global_ref(
+      &_c_Example_Nested,
+      "com/github/dart_lang/jnigen/simple_package/Example$Nested");
+  if (_c_Example_Nested == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Example_Nested, &_m_Example_Nested__usesAnonymousInnerClass,
+              "usesAnonymousInnerClass", "()V");
+  if (_m_Example_Nested__usesAnonymousInnerClass == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  (*jniEnv)->CallVoidMethod(jniEnv, self_,
+                            _m_Example_Nested__usesAnonymousInnerClass);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
 jmethodID _m_Example_Nested__getValue = NULL;
 FFI_PLUGIN_EXPORT
 JniResult Example_Nested__getValue(jobject self_) {

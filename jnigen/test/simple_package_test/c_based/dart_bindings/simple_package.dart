@@ -559,6 +559,17 @@ class Example_Nested extends jni.JObject {
     return Example_Nested.fromRef(_ctor(value ? 1 : 0).object);
   }
 
+  static final _usesAnonymousInnerClass = jniLookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Example_Nested__usesAnonymousInnerClass")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void usesAnonymousInnerClass()
+  void usesAnonymousInnerClass() {
+    return _usesAnonymousInnerClass(reference).check();
+  }
+
   static final _getValue = jniLookup<
           ffi.NativeFunction<
               jni.JniResult Function(

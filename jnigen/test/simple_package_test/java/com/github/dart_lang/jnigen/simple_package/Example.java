@@ -176,6 +176,17 @@ public class Example {
       this.value = value;
     }
 
+    public void usesAnonymousInnerClass() {
+      new Thread(
+              new Runnable() {
+                @Override
+                public void run() {
+                  System.out.println("2982157093127690243");
+                }
+              })
+          .start();
+    }
+
     public boolean getValue() {
       return value;
     }

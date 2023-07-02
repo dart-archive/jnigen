@@ -1,5 +1,7 @@
 package com.github.dart_lang.jnigen.apisummarizer.util;
 
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,8 +16,6 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
-import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
 
 public class ClassFinder {
   private static boolean isNestedClassOf(String pathString, String fqnWithSlashes, String suffix) {
@@ -26,7 +26,7 @@ public class ClassFinder {
     String nested =
         pathString.substring(
             fqnWithSlashesDollarSign.length(), pathString.length() - suffix.length());
-    if (nested.matches("[a-zA-Z0-9_$]*")) {
+    if (nested.matches("[a-zA-Z_][a-zA-Z0-9_$]*")) {
       return true;
     }
     Log.warning("Possibly invalid path - '%s', skipping", pathString);

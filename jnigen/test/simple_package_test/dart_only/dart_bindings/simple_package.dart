@@ -527,6 +527,15 @@ class Example_Nested extends jni.JObject {
         .newObjectWithArgs(_class.reference, _id_ctor, [value ? 1 : 0]).object);
   }
 
+  static final _id_usesAnonymousInnerClass = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"usesAnonymousInnerClass", r"()V");
+
+  /// from: public void usesAnonymousInnerClass()
+  void usesAnonymousInnerClass() {
+    return jni.Jni.accessors.callMethodWithArgs(reference,
+        _id_usesAnonymousInnerClass, jni.JniCallType.voidType, []).check();
+  }
+
   static final _id_getValue =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r"getValue", r"()Z");
 
