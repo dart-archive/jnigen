@@ -403,7 +403,6 @@ class $name$typeParamsDef extends $superName {
     // Interface implementation
     if (node.declKind == DeclKind.interfaceKind) {
       s.write('''
-  // Here will be an interface implementation method
   ReceivePort? _\$p;
 
   static final Finalizer<ReceivePort> _finalizer =
@@ -416,30 +415,39 @@ class $name$typeParamsDef extends $superName {
     super.delete();
   }
 
-  factory $name.implement(
+  factory $name.implement({
 ''');
-      final typeClassesDef = _encloseIfNotEmpty(
-        '{\n',
-        typeParams
-            .map((typeParam) => 'required $_jType<\$$typeParam> $typeParam,')
-            .join(_newLine(depth: 1)),
-        '}\n',
-      );
+      final typeClassesDef = typeParams
+          .map((typeParam) => 'required $_jType<\$$typeParam> $typeParam,')
+          .join(_newLine(depth: 1));
       final typeClassesCall =
           typeParams.map((typeParam) => '$typeParam,').join(_newLine(depth: 2));
       final methodImplementCall = _MethodImplementCall(resolver, s);
       for (final method in node.methods) {
         method.accept(methodImplementCall);
       }
-      s.write('''$typeClassesDef) {
+      s.write('''$typeClassesDef
+      }) {
     final \$p = ReceivePort();
     final \$x = $name.fromRef(
       $typeClassesCall
       $_protectedExtension.newPortProxy(r"${node.binaryName}", \$p),
     ).._\$p = \$p;
     _finalizer.attach(\$x, \$p, detach: \$x);
-    throw UnimplementedError();
-  }''');
+    \$p.listen((\$m) {
+      final \$i = MethodInvocation.fromMessage(\$m);
+      final \$d = \$i.methodDescriptor.toDartString(deleteOriginal: true);
+      final \$u = \$i.uuid;
+      final \$a = \$i.args;
+''');
+      final proxyMethodIf = _ProxyMethodIf(resolver, s);
+      for (final method in node.methods) {
+        method.accept(proxyMethodIf);
+      }
+      s.write('''});
+    return \$x;
+  }
+  ''');
     }
 
     // End of Class definition
@@ -534,7 +542,7 @@ class _TypeGenerator extends TypeVisitor<String> {
   String visitArrayType(ArrayType node) {
     final innerType = node.type;
     if (innerType.kind == Kind.primitive) {
-      return '$_jArray<$_jni.${(innerType.type as PrimitiveType).jniType}>';
+      return '$_jArray<$_jni.j${(innerType.type as PrimitiveType).name}>';
     }
     return '$_jArray<${innerType.accept(this)}>';
   }
@@ -608,9 +616,14 @@ class _TypeClass {
 /// Generates the type class.
 class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
   final bool isConst;
+  final bool boxPrimitives;
   final Resolver resolver;
 
-  _TypeClassGenerator(this.resolver, {this.isConst = true});
+  _TypeClassGenerator(
+    this.resolver, {
+    this.isConst = true,
+    this.boxPrimitives = false,
+  });
 
   @override
   _TypeClass visitArrayType(ArrayType node) {
@@ -671,7 +684,8 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
   @override
   _TypeClass visitPrimitiveType(PrimitiveType node) {
     final ifConst = isConst ? 'const ' : '';
-    return _TypeClass('$ifConst$_jni.${node.jniType}Type()', true);
+    final name = boxPrimitives ? 'J${node.boxedName}' : 'j${node.name}';
+    return _TypeClass('$ifConst$_jni.${name}Type()', true);
   }
 
   @override
@@ -1411,6 +1425,7 @@ class _TypeVarLocator extends TypeVisitor<Map<String, List<OutsideInBuffer>>> {
   }
 }
 
+/// The argument for .implement method of interfaces.
 class _MethodImplementCall extends Visitor<Method, void> {
   final Resolver resolver;
   final StringSink s;
@@ -1423,7 +1438,89 @@ class _MethodImplementCall extends Visitor<Method, void> {
     final name = node.finalName;
     final args = node.params.accept(_ParamDef(resolver)).join(', ');
     s.write('''
-    $returnType Function($args) $name,
+    required $returnType Function($args) $name,
 ''');
+  }
+}
+
+/// The if statement to check which method has been called from the proxy class.
+class _ProxyMethodIf extends Visitor<Method, void> {
+  final Resolver resolver;
+  final StringSink s;
+
+  _ProxyMethodIf(this.resolver, this.s);
+
+  @override
+  void visit(Method node) {
+    final signature = node.javaSig;
+    final name = node.finalName;
+    s.write('''
+      if (\$d == r"$signature") {
+        ${node.returnType.name == 'void' ? '' : 'final \$r = '}$name(
+''');
+    for (var i = 0; i < node.params.length; ++i) {
+      node.params[i].accept(_ProxyParamCast(resolver, s, paramIndex: i));
+    }
+    const returnBox = _ProxyReturnBox();
+    s.write('''
+        );
+        ProtectedJniExtensions.returnResultFor(
+          \$x.reference,
+          \$u.reference,
+          ${node.returnType.accept(returnBox)},
+        );
+        return;
+      }
+''');
+  }
+}
+
+/// Generates casting to the correct parameter type from the list of JObject
+/// arguments received from the call to the proxy class.
+class _ProxyParamCast extends Visitor<Param, void> {
+  final Resolver resolver;
+  final StringSink s;
+  final int paramIndex;
+
+  _ProxyParamCast(
+    this.resolver,
+    this.s, {
+    required this.paramIndex,
+  });
+
+  @override
+  void visit(Param node) {
+    final typeClass = node.type
+        .accept(_TypeClassGenerator(resolver, boxPrimitives: true))
+        .name;
+    s.write('\$a[$paramIndex].castTo($typeClass, deleteOriginal: true)');
+    if (node.type.kind == Kind.primitive) {
+      // Convert to Dart type.
+      final name = (node.type.type as PrimitiveType).name;
+      s.write('.${name}Value(deleteOriginal: true)');
+    }
+    s.writeln(',');
+  }
+}
+
+/// Boxes the returned primitive value into the correct Boxed type.
+/// Only returns the reference for non primitive types.
+/// Returns null for void.
+///
+/// For example `$r.toJInteger().reference` when the return type is `integer`.
+class _ProxyReturnBox extends TypeVisitor<String> {
+  const _ProxyReturnBox();
+
+  @override
+  String visitNonPrimitiveType(ReferredType node) {
+    return '\$r.reference';
+  }
+
+  @override
+  String visitPrimitiveType(PrimitiveType node) {
+    if (node.name == 'void') {
+      return '$_jni.nullptr';
+    }
+    return '\$r.toJ${node.name.capitalize()}().reference';
   }
 }

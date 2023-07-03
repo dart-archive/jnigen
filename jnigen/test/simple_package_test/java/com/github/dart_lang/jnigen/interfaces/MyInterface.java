@@ -10,4 +10,6 @@ public interface MyInterface<T> {
   String stringCallback(String s);
 
   T varCallback(T t);
+
+  long manyPrimitives(int a, boolean b, char c, double d);
 }

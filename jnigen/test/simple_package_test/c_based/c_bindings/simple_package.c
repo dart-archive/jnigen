@@ -2363,6 +2363,27 @@ JniResult MyInterface__varCallback(jobject self_, jobject t) {
   return to_global_ref_result(_result);
 }
 
+jmethodID _m_MyInterface__manyPrimitives = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyInterface__manyPrimitives(jobject self_,
+                                      int32_t a,
+                                      uint8_t b,
+                                      uint16_t c,
+                                      double d) {
+  load_env();
+  load_class_global_ref(&_c_MyInterface,
+                        "com/github/dart_lang/jnigen/interfaces/MyInterface");
+  if (_c_MyInterface == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyInterface, &_m_MyInterface__manyPrimitives, "manyPrimitives",
+              "(IZCD)J");
+  if (_m_MyInterface__manyPrimitives == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int64_t _result = (*jniEnv)->CallLongMethod(
+      jniEnv, self_, _m_MyInterface__manyPrimitives, a, b, c, d);
+  return (JniResult){.value = {.j = _result}, .exception = check_exception()};
+}
+
 // com.github.dart_lang.jnigen.interfaces.MyInterfaceConsumer
 jclass _c_MyInterfaceConsumer = NULL;
 

@@ -2896,7 +2896,28 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
     return T.fromRef(_varCallback(reference, t.reference).object);
   }
 
-  // Here will be an interface implementation method
+  static final _manyPrimitives = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Int32,
+                  ffi.Uint8,
+                  ffi.Uint16,
+                  ffi.Double)>>("MyInterface__manyPrimitives")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, int, int, int, double)>();
+
+  /// from: public abstract long manyPrimitives(int a, boolean b, char c, double d)
+  int manyPrimitives(
+    int a,
+    bool b,
+    int c,
+    double d,
+  ) {
+    return _manyPrimitives(reference, a, b ? 1 : 0, c, d).long;
+  }
+
   ReceivePort? _$p;
 
   static final Finalizer<ReceivePort> _finalizer =
@@ -2909,10 +2930,11 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
     super.delete();
   }
 
-  factory MyInterface.implement(
-    void Function(jni.JString s) voidCallback,
-    jni.JString Function(jni.JString s) stringCallback,
-    $T Function($T t) varCallback, {
+  factory MyInterface.implement({
+    required void Function(jni.JString s) voidCallback,
+    required jni.JString Function(jni.JString s) stringCallback,
+    required $T Function($T t) varCallback,
+    required int Function(int a, bool b, int c, double d) manyPrimitives,
     required jni.JObjType<$T> T,
   }) {
     final $p = ReceivePort();
@@ -2922,7 +2944,68 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
           r"com.github.dart_lang.jnigen.interfaces.MyInterface", $p),
     ).._$p = $p;
     _finalizer.attach($x, $p, detach: $x);
-    throw UnimplementedError();
+    $p.listen(($m) {
+      final $i = MethodInvocation.fromMessage($m);
+      final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
+      final $u = $i.uuid;
+      final $a = $i.args;
+      if ($d == r"voidCallback(Ljava/lang/String;)V") {
+        voidCallback(
+          $a[0].castTo(const jni.JStringType(), deleteOriginal: true),
+        );
+        ProtectedJniExtensions.returnResultFor(
+          $x.reference,
+          $u.reference,
+          jni.nullptr,
+        );
+        return;
+      }
+      if ($d == r"stringCallback(Ljava/lang/String;)Ljava/lang/String;") {
+        final $r = stringCallback(
+          $a[0].castTo(const jni.JStringType(), deleteOriginal: true),
+        );
+        ProtectedJniExtensions.returnResultFor(
+          $x.reference,
+          $u.reference,
+          $r.reference,
+        );
+        return;
+      }
+      if ($d == r"varCallback(Ljava/lang/Object;)Ljava/lang/Object;") {
+        final $r = varCallback(
+          $a[0].castTo(T, deleteOriginal: true),
+        );
+        ProtectedJniExtensions.returnResultFor(
+          $x.reference,
+          $u.reference,
+          $r.reference,
+        );
+        return;
+      }
+      if ($d == r"manyPrimitives(IZCD)J") {
+        final $r = manyPrimitives(
+          $a[0]
+              .castTo(const jni.JIntegerType(), deleteOriginal: true)
+              .intValue(deleteOriginal: true),
+          $a[1]
+              .castTo(const jni.JBooleanType(), deleteOriginal: true)
+              .booleanValue(deleteOriginal: true),
+          $a[2]
+              .castTo(const jni.JCharacterType(), deleteOriginal: true)
+              .charValue(deleteOriginal: true),
+          $a[3]
+              .castTo(const jni.JDoubleType(), deleteOriginal: true)
+              .doubleValue(deleteOriginal: true),
+        );
+        ProtectedJniExtensions.returnResultFor(
+          $x.reference,
+          $u.reference,
+          $r.toJLong().reference,
+        );
+        return;
+      }
+    });
+    return $x;
   }
 }
 
