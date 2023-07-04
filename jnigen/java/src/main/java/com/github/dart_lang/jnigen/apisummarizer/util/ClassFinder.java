@@ -1,13 +1,12 @@
 package com.github.dart_lang.jnigen.apisummarizer.util;
 
+import static com.github.dart_lang.jnigen.apisummarizer.util.ExceptionUtil.wrapCheckedException;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.jar.JarEntry;
@@ -18,7 +17,7 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 
 public class ClassFinder {
-  private static boolean isNestedClassOf(String pathString, String fqnWithSlashes, String suffix) {
+  public static boolean isNestedClassOf(String pathString, String fqnWithSlashes, String suffix) {
     var fqnWithSlashesDollarSign = fqnWithSlashes + "$";
     if (!pathString.startsWith(fqnWithSlashesDollarSign) || !pathString.endsWith(suffix)) {
       return false;
@@ -26,25 +25,39 @@ public class ClassFinder {
     String nested =
         pathString.substring(
             fqnWithSlashesDollarSign.length(), pathString.length() - suffix.length());
-    if (nested.matches("[a-zA-Z_][a-zA-Z0-9_$]*")) {
-      return true;
+    String[] nestedParts = nested.split("\\$");
+    return Arrays.stream(nestedParts).allMatch(part -> part.matches("[a-zA-Z_][a-zA-Z0-9_]*"));
+  }
+
+  // Finds [fqn] and its children with [suffix] in [entries].
+  public static Optional<List<String>> findClassAndChildren(
+      TreeSet<String> entries, String fqn, String sep, String suffix) {
+    String fqnWithSlashes = fqn.replace(".", sep);
+    String fqnWithSlashesSuffix = fqnWithSlashes + suffix;
+    String fqnWithSlashesSlash = fqnWithSlashes + sep;
+    String fqnWithSlashesDollarSign = fqnWithSlashes + "$";
+    if (entries.contains(fqnWithSlashesSuffix)) {
+      List<String> classes = new ArrayList<>();
+      // Add nested classes first, because they're alphabetically first
+      entries.tailSet(fqnWithSlashesDollarSign).stream()
+          .takeWhile(entry -> entry.startsWith(fqnWithSlashesDollarSign))
+          // Note: filter comes after takeWhile, because it can filter out additional elements
+          // eg: Class$1 - but there may be valid nested classes after Class$1.
+          .filter(entry -> isNestedClassOf(entry, fqnWithSlashes, suffix))
+          .forEach(classes::add);
+      classes.add(fqnWithSlashesSuffix);
+      return Optional.of(classes);
     }
-    Log.warning("Possibly invalid path - '%s', skipping", pathString);
-    return false;
-  }
 
-  public static List<Path> getNestedClassesInPathList(
-      TreeSet<Path> paths, String fqnWithSlashes, String suffix) {
-    return paths.tailSet(Path.of(fqnWithSlashes)).stream()
-        .takeWhile(path -> isNestedClassOf(path.toString(), fqnWithSlashes, suffix))
-        .collect(Collectors.toList());
-  }
-
-  public static List<String> getNestedClassesInStringList(
-      TreeSet<String> paths, String fqnWithSlashes, String suffix) {
-    return paths.tailSet(fqnWithSlashes).stream()
-        .takeWhile(path -> isNestedClassOf(path, fqnWithSlashes, suffix))
-        .collect(Collectors.toList());
+    // consider fqnWithSlashes as a directory
+    List<String> children =
+        entries.tailSet(fqnWithSlashesSlash).stream()
+            // takeWhile instead of filter - the difference is O(log n + k) instead of O(n)
+            // so always use takeWhile when doing a treeSet subset stream.
+            .takeWhile(entry -> entry.startsWith(fqnWithSlashesSlash))
+            .filter(entry -> entry.endsWith(suffix))
+            .collect(Collectors.toList());
+    return children.isEmpty() ? Optional.empty() : Optional.of(children);
   }
 
   public static <E> void findFilesInPath(
@@ -54,10 +67,12 @@ public class ClassFinder {
       Function<List<Path>, List<E>> mapper) {
     Path searchPath = Path.of(searchLocation);
 
-    TreeSet<Path> filePaths;
+    TreeSet<String> filePaths;
     try (var walk = Files.walk(searchPath)) {
       filePaths =
-          walk.filter(Files::isRegularFile).sorted().collect(Collectors.toCollection(TreeSet::new));
+          walk.map(searchPath::relativize)
+              .map(Path::toString)
+              .collect(Collectors.toCollection(TreeSet::new));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -66,69 +81,40 @@ public class ClassFinder {
       if (classes.get(className) != null) { // Already found by other method of searching
         continue;
       }
-      var fqnWithSlashes = className.replace(".", File.separator);
-      var dirPath = Path.of(searchLocation, fqnWithSlashes);
-      var filePath = Path.of(searchLocation, fqnWithSlashes + suffix);
-      if (filePaths.contains(filePath)) {
-        List<Path> resultPaths = new ArrayList<>();
-        resultPaths.add(filePath);
-        var filePathsWithoutSearchPathPrefix =
-            filePaths.stream()
-                .map(searchPath::relativize)
-                .collect(Collectors.toCollection(TreeSet::new));
-        List<Path> nestedClasses =
-            getNestedClassesInPathList(filePathsWithoutSearchPathPrefix, fqnWithSlashes, suffix);
-        resultPaths.addAll(StreamUtil.map(nestedClasses, searchPath::resolve));
-        classes.put(className, mapper.apply(resultPaths));
-      } else if (Files.exists(dirPath) && Files.isDirectory(dirPath)) {
-        try (var walk = Files.walk(dirPath)) {
-          List<Path> resultPaths =
-              walk.filter(Files::isRegularFile)
-                  .filter(innerPath -> innerPath.toString().endsWith(suffix))
-                  .sorted()
-                  .collect(Collectors.toList());
-          classes.put(className, mapper.apply(resultPaths));
-        } catch (IOException e) {
-          throw new RuntimeException(e);
-        }
+      var resultPaths = findClassAndChildren(filePaths, className, File.separator, suffix);
+      if (resultPaths.isPresent()) {
+        // [filePaths] and [resultPaths] are relativized to searchPath.
+        // perform opposite operation (resolve) to get full paths.
+        var fullPaths =
+            resultPaths.get().stream().map(searchPath::resolve).collect(Collectors.toList());
+        classes.put(className, mapper.apply(fullPaths));
       }
     }
   }
 
-  public static <E> void findFilesInJar(
+  public static <E> boolean findFilesInJar(
       Map<String, List<E>> classes,
       JarFile jar,
       String suffix,
       BiFunction<JarFile, List<ZipEntry>, List<E>> mapper) {
-    var entries =
+
+    // It appears JAR file entries are always separated by "/"
+    var jarSeparator = "/";
+    var entryNames =
         jar.stream().map(JarEntry::getName).collect(Collectors.toCollection(TreeSet::new));
-    for (var binaryName : classes.keySet()) {
-      if (classes.get(binaryName) != null) {
+    boolean foundClassesInThisJar = false;
+    for (var fqn : classes.keySet()) {
+      if (classes.get(fqn) != null) { // already found
         continue;
       }
-      var fqnWithSlashes = binaryName.replace('.', '/');
-      var filePath = fqnWithSlashes + suffix;
-      if (entries.contains(filePath)) {
-        // find nested classes as well
-        var foundPaths = getNestedClassesInStringList(entries, fqnWithSlashes, suffix);
-        var found = StreamUtil.map(foundPaths, jar::getEntry);
-        found.add(jar.getEntry(filePath));
-        classes.put(binaryName, mapper.apply(jar, found));
-      }
-
-      // Obtain set of all strings prefixed with relativePath + '/'
-      var dirPath = fqnWithSlashes + '/';
-      var children =
-          entries.tailSet(dirPath).stream()
-              .takeWhile(e -> e.startsWith(dirPath))
-              .filter(e -> e.endsWith(suffix))
-              .map(jar::getEntry)
-              .collect(Collectors.toList());
-      if (!children.isEmpty()) {
-        var mapped = mapper.apply(jar, children);
-        classes.put(binaryName, mapped);
+      var resultPaths = findClassAndChildren(entryNames, fqn, jarSeparator, suffix);
+      if (resultPaths.isPresent()) {
+        var jarEntries = resultPaths.get().stream().map(jar::getEntry).collect(Collectors.toList());
+        classes.put(fqn, mapper.apply(jar, jarEntries));
+        foundClassesInThisJar = true;
       }
     }
+    return foundClassesInThisJar;
   }
 
   public static <T> void find(
@@ -142,8 +128,11 @@ public class ClassFinder {
       if (searchFile.isDirectory()) {
         findFilesInPath(searchPath, suffix, classes, fileMapper);
       } else if (searchFile.isFile() && searchPath.endsWith(".jar")) {
-        var jarFile = ExceptionUtil.wrapCheckedException(JarFile::new, searchPath);
-        findFilesInJar(classes, jarFile, suffix, entryMapper);
+        var jarFile = wrapCheckedException(JarFile::new, searchPath);
+        var useful = findFilesInJar(classes, jarFile, suffix, entryMapper);
+        if (!useful) {
+          wrapCheckedException(jarFile::close);
+        }
       }
     }
   }
