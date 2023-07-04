@@ -17,6 +17,13 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 
 public class ClassFinder {
+  // If class is A$B$C, simpleName can be B$C or A$B$C. Doesn't matter much, because
+  // A can't be anonymous class.
+  private static boolean isNonAnonymousNestedClassName(String simpleName) {
+    String[] nestedParts = simpleName.split("\\$");
+    return Arrays.stream(nestedParts).allMatch(part -> part.matches("[a-zA-Z_][a-zA-Z0-9_]*"));
+  }
+
   public static boolean isNestedClassOf(String pathString, String fqnWithSlashes, String suffix) {
     var fqnWithSlashesDollarSign = fqnWithSlashes + "$";
     if (!pathString.startsWith(fqnWithSlashesDollarSign) || !pathString.endsWith(suffix)) {
@@ -25,8 +32,16 @@ public class ClassFinder {
     String nested =
         pathString.substring(
             fqnWithSlashesDollarSign.length(), pathString.length() - suffix.length());
-    String[] nestedParts = nested.split("\\$");
-    return Arrays.stream(nestedParts).allMatch(part -> part.matches("[a-zA-Z_][a-zA-Z0-9_]*"));
+    return isNonAnonymousNestedClassName(nested);
+  }
+
+  private static boolean isNonAnonymousClassFullPath(String path) {
+    String[] pathParts = path.split("[/\\\\]");
+    String simpleNameWithExt = pathParts[pathParts.length - 1];
+    int extIndex = simpleNameWithExt.indexOf('.');
+    assert extIndex != -1 : "Should've passed full path with extension to this method";
+    String simpleName = simpleNameWithExt.substring(0, extIndex);
+    return isNonAnonymousNestedClassName(simpleName);
   }
 
   // Finds [fqn] and its children with [suffix] in [entries].
@@ -56,6 +71,7 @@ public class ClassFinder {
             // so always use takeWhile when doing a treeSet subset stream.
             .takeWhile(entry -> entry.startsWith(fqnWithSlashesSlash))
             .filter(entry -> entry.endsWith(suffix))
+            .filter(ClassFinder::isNonAnonymousClassFullPath)
             .collect(Collectors.toList());
     return children.isEmpty() ? Optional.empty() : Optional.of(children);
   }

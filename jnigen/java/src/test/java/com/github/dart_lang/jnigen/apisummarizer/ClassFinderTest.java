@@ -42,14 +42,21 @@ public class ClassFinderTest {
         new TreeSet<>(
             List.of(
                 "random/os/App.class",
+                "random/os/App$1.class",
+                "random/os/App$1$3.class",
                 "random/os/Process.class",
                 "random/os/Process$Fork.class",
+                "random/os/Process$Fork$1.class",
+                "random/os/Process$Fork$A$B$C$2.class",
                 "random/widget/Dialog.class",
                 "random/widget/Dialog$Button.class",
+                "random/widget/Dialog$Button$2.class",
                 "random/widget/Dialog$Button$Color.class",
                 "random/widget/Dialogue$Button.class",
                 "random/time/Clock.class",
+                "random/time/Clock$1.class",
                 "random/time/Calendar.class",
+                "random/time/Calendar$Month$1.class",
                 "random/time/Calendar$Month.class"));
     TreeSet<String> entriesWithBackslash =
         entriesWithSlash.stream()
