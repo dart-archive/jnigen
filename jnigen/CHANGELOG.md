@@ -1,4 +1,4 @@
-## 0.7.0
+## 0.6.0-dev.1
 * **Breaking Change** Specifying a class always pulls in nested classes by default. If a nested class is specified in config, it will be an error.
 * Save all `jnigen` logs to a file in `.dart_tool/jnigen/logs/`. This is useful for debugging.
 
