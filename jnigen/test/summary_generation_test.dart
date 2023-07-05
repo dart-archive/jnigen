@@ -24,6 +24,10 @@ import 'test_util/test_util.dart';
 const nestedClasses = [
   'com.github.dart_lang.jnigen.simple_package.Example\$Nested',
   'com.github.dart_lang.jnigen.simple_package.Example\$Nested\$NestedTwice',
+  'com.github.dart_lang.jnigen.generics.GrandParent\$StaticParent',
+  'com.github.dart_lang.jnigen.generics.GrandParent\$StaticParent\$Child',
+  'com.github.dart_lang.jnigen.generics.GrandParent\$Parent',
+  'com.github.dart_lang.jnigen.generics.GrandParent\$Parent\$Child',
 ];
 
 void expectSummaryHasAllClasses(Classes? classes) {
