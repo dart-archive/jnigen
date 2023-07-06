@@ -15,15 +15,13 @@ import org.objectweb.asm.ClassReader;
 public class AsmSummarizer {
 
   public static List<ClassDecl> run(List<InputStreamProvider> inputProviders) {
-    List<ClassDecl> parsed = new ArrayList<>();
+    var visitor = new AsmClassVisitor();
     for (var provider : inputProviders) {
       var inputStream = provider.getInputStream();
       var classReader = wrapCheckedException(ClassReader::new, inputStream);
-      var visitor = new AsmClassVisitor();
       classReader.accept(visitor, 0);
-      parsed.addAll(visitor.getVisited());
       provider.close();
     }
-    return parsed;
+    return visitor.getVisited();
   }
 }

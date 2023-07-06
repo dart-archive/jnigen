@@ -2463,7 +2463,9 @@ class JsonParser extends jni.JObject {
   }
 
   static final _id_readValueAsTree = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r"readValueAsTree", r"()Ljava/lang/Object;");
+      _class.reference,
+      r"readValueAsTree",
+      r"()Lcom/fasterxml/jackson/core/TreeNode;");
 
   /// from: public T readValueAsTree()
   /// The returned object must be deleted after use, by calling the `delete` method.

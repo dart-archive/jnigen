@@ -7,8 +7,6 @@ package com.github.dart_lang.jnigen.apisummarizer.doclet;
 import com.github.dart_lang.jnigen.apisummarizer.elements.*;
 import com.github.dart_lang.jnigen.apisummarizer.util.StreamUtil;
 import com.sun.source.doctree.DocCommentTree;
-import io.soabase.asm.mirror.MirrorMethodReader;
-import io.soabase.asm.mirror.SignatureMirrorType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,10 +40,6 @@ public class ElementBuilders {
       default:
         throw new RuntimeException(
             "Unexpected element kind " + e.getKind() + " on " + c.binaryName);
-    }
-    var parent = e.getEnclosingElement();
-    if (parent instanceof TypeElement) {
-      c.parentName = env.elements.getBinaryName((TypeElement) parent).toString();
     }
     c.javadoc = docComment(env.trees.getDocCommentTree(e));
     c.typeParams = StreamUtil.map(e.getTypeParameters(), this::typeParam);
@@ -198,13 +192,6 @@ public class ElementBuilders {
   public Method method(ExecutableElement e) {
     var m = new Method();
     m.name = e.getSimpleName().toString();
-    var methodReader = new MirrorMethodReader(env);
-    methodReader.readMethod(
-        (access, name, desc, signature, exceptions) -> {
-          m.descriptor = desc;
-          return null;
-        },
-        e);
     m.modifiers = e.getModifiers().stream().map(Modifier::toString).collect(Collectors.toSet());
     m.typeParams = e.getTypeParameters().stream().map(this::typeParam).collect(Collectors.toList());
     m.returnType = typeUsage(e.getReturnType());

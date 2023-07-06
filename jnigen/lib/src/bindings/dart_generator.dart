@@ -880,7 +880,7 @@ class _FieldGenerator extends Visitor<Field, void> {
   void writeDartOnlyAccessor(Field node) {
     final name = node.finalName;
     final ifStatic = node.isStatic ? 'Static' : '';
-    final descriptor = node.type.accept(const Descriptor());
+    final descriptor = node.type.descriptor;
     s.write('''
   static final _id_$name = 
       $_accessors.get${ifStatic}FieldIDOf(
@@ -1007,10 +1007,10 @@ class _MethodGenerator extends Visitor<Method, void> {
   void writeDartOnlyAccessor(Method node) {
     final name = node.finalName;
     final ifStatic = node.isStatic ? 'Static' : '';
-    final signature = node.accept(const MethodSignature());
+    final descriptor = node.descriptor;
     s.write('''
   static final _id_$name = $_accessors.get${ifStatic}MethodIDOf(
-          $_classRef, r"${node.name}", r"$signature");
+          $_classRef, r"${node.name}", r"$descriptor");
 
 ''');
   }

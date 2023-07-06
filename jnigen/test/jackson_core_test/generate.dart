@@ -43,7 +43,7 @@ Config getConfig({
       jarDir: join(thirdPartyDir, 'jar'),
     ),
     summarizerOptions: SummarizerOptions(
-      backend: useAsm ? 'asm' : null,
+      backend: useAsm ? SummarizerBackend.asm : null,
     ),
     preamble: jacksonPreamble,
     outputConfig: OutputConfig(

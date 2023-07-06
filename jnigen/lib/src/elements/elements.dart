@@ -60,7 +60,6 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
     required this.declKind,
     this.modifiers = const {},
     required this.binaryName,
-    this.parentName,
     this.typeParams = const [],
     this.methods = const [],
     this.fields = const [],
@@ -80,7 +79,6 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
   final JavaDocComment? javadoc;
   final DeclKind declKind;
   final String binaryName;
-  final String? parentName;
   List<TypeParam> typeParams;
   List<Method> methods;
   List<Field> fields;
@@ -173,7 +171,13 @@ class ClassDecl extends ClassMember implements Element<ClassDecl> {
 
   bool get isObject => superCount == 0;
 
-  bool get isNested => parentName != null;
+  @JsonKey(includeFromJson: false)
+  late final String? parentName = binaryName.contains(r'$')
+      ? binaryName.splitMapJoin(RegExp(r'\$[^$]+$'), onMatch: (_) => '')
+      : null;
+
+  @JsonKey(includeFromJson: false)
+  late final isNested = parentName != null;
 }
 
 @JsonEnum()
@@ -208,9 +212,13 @@ class TypeUsage {
   @JsonKey(name: "type")
   final Map<String, dynamic> typeJson;
 
-  /// Populated by in [TypeUsage.fromJson].
+  /// Populated by [TypeUsage.fromJson].
   @JsonKey(includeFromJson: false)
   late final ReferredType type;
+
+  /// Populated by [Descriptor].
+  @JsonKey(includeFromJson: false)
+  late String descriptor;
 
   String get name => type.name;
 
@@ -448,7 +456,7 @@ class Method extends ClassMember implements Element<Method> {
     this.javadoc,
     this.modifiers = const {},
     required this.name,
-    required this.descriptor,
+    this.descriptor,
     this.typeParams = const [],
     this.params = const [],
     required this.returnType,
@@ -468,7 +476,8 @@ class Method extends ClassMember implements Element<Method> {
   /// Can be used to match with [KotlinFunction]'s descriptor.
   ///
   /// Can create a unique signature in combination with [name].
-  final String descriptor;
+  /// Populated either by the ASM backend or [Descriptor].
+  String? descriptor;
 
   /// The [ClassDecl] where this method is defined.
   ///

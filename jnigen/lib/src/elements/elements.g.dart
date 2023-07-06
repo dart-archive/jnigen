@@ -20,7 +20,6 @@ ClassDecl _$ClassDeclFromJson(Map<String, dynamic> json) => ClassDecl(
               .toSet() ??
           const {},
       binaryName: json['binaryName'] as String,
-      parentName: json['parentName'] as String?,
       typeParams: (json['typeParams'] as List<dynamic>?)
               ?.map((e) => TypeParam.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -107,7 +106,7 @@ Method _$MethodFromJson(Map<String, dynamic> json) => Method(
               .toSet() ??
           const {},
       name: json['name'] as String,
-      descriptor: json['descriptor'] as String,
+      descriptor: json['descriptor'] as String?,
       typeParams: (json['typeParams'] as List<dynamic>?)
               ?.map((e) => TypeParam.fromJson(e as Map<String, dynamic>))
               .toList() ??
