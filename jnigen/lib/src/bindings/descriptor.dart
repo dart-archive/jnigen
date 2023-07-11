@@ -1,9 +1,9 @@
 import '../elements/elements.dart';
 import 'visitor.dart';
 
-/// Adds the method descriptor to all methods in all of the classes.
+/// Adds the type and method descriptor to all methods in all of the classes.
 ///
-/// ASM already fills the descriptor field, but
+/// ASM already fills the descriptor field for methods but doclet does not.
 class Descriptor extends Visitor<Classes, void> {
   const Descriptor();
 
