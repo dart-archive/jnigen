@@ -37,6 +37,11 @@ functions:
     - 'release_lock'
     - 'init_lock'
     - 'destroy_lock'
+    - 'init_cond'
+    - 'destroy_cond'
+    - 'signal_cond'
+    - 'wait_for'
+    - 'thread_id'
     - 'load_class'
     - 'load_class_global_ref'
     - 'attach_thread'
@@ -44,11 +49,15 @@ functions:
     - 'load_static_method'
     - 'load_field'
     - 'load_static_field'
+    - 'load_class_platform'
+    - 'load_class_local_ref'
     - 'to_global_ref'
+    - 'to_global_ref_result'
     - 'check_exception'
     - 'load_env'
-    # This is a native function in Java. No need to call it from Dart.
+    # Native functions in Java. No need to call them from Dart.
     - 'Java_com_github_dart_1lang_jni_PortContinuation__1resumeWith'
+    - 'Java_com_github_dart_1lang_jni_PortProxy__1invoke'
 structs:
   exclude:
     - 'JniContext'
@@ -57,6 +66,7 @@ structs:
     - '_JNIEnv'
     - 'JNIInvokeInterface'
     - '__va_list_tag'
+    - 'CallbackResult'
   rename:
     ## opaque struct definitions, base types of jfieldID and jmethodID
     '_jfieldID': 'jfieldID_'

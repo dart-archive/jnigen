@@ -528,6 +528,32 @@ void registerTests(String groupName, TestRunnerCallback test) {
       });
     });
   });
+
+  group('interface implementation', () {
+    test('MyInterface.implement', () {
+      final myInterface = MyInterface.implement(
+        voidCallback: (s) {
+          print(s.toDartString());
+        },
+        stringCallback: (s) {
+          print(s.toDartString());
+          return (s.toDartString(deleteOriginal: true) * 2).toJString();
+        },
+        varCallback: (t) {
+          return "".toJString();
+        },
+        manyPrimitives: (a, b, c, d) {
+          return 0;
+        },
+        T: JString.type,
+      );
+      MyInterfaceConsumer.consumeOnAnotherThread(
+        myInterface,
+        "hello".toJString(),
+      );
+    });
+  });
+
   group('$groupName (load tests)', () {
     const k4 = 4 * 1024; // This is a round number, unlike say 4000
     const k256 = 256 * 1024;

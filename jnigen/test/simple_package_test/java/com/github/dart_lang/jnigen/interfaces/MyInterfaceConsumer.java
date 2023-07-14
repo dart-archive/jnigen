@@ -5,8 +5,13 @@
 package com.github.dart_lang.jnigen.interfaces;
 
 public class MyInterfaceConsumer {
-  public static void consumeMyInterface(MyInterface myInterface, String s) {
-    String result = myInterface.stringCallback(s);
-    myInterface.voidCallback(result);
+  public static <T> void consumeOnAnotherThread(MyInterface<T> myInterface, String s) {
+    var thread =
+        new Thread(
+            () -> {
+              String result = myInterface.stringCallback(s);
+              myInterface.voidCallback(result);
+            });
+    thread.start();
   }
 }

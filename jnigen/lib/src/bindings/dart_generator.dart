@@ -437,7 +437,7 @@ class $name$typeParamsDef extends $superName {
     \$p.listen((\$m) {
       final \$i = MethodInvocation.fromMessage(\$m);
       final \$d = \$i.methodDescriptor.toDartString(deleteOriginal: true);
-      final \$u = \$i.uuid;
+      final \$c = \$i.result;
       final \$a = \$i.args;
 ''');
       final proxyMethodIf = _ProxyMethodIf(resolver, s);
@@ -1464,9 +1464,8 @@ class _ProxyMethodIf extends Visitor<Method, void> {
     const returnBox = _ProxyReturnBox();
     s.write('''
         );
-        ProtectedJniExtensions.returnResultFor(
-          \$x.reference,
-          \$u.reference,
+        ProtectedJniExtensions.returnResult(
+          \$c,
           ${node.returnType.accept(returnBox)},
         );
         return;

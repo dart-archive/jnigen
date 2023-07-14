@@ -2947,15 +2947,14 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
     $p.listen(($m) {
       final $i = MethodInvocation.fromMessage($m);
       final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
-      final $u = $i.uuid;
+      final $c = $i.result;
       final $a = $i.args;
       if ($d == r"voidCallback(Ljava/lang/String;)V") {
         voidCallback(
           $a[0].castTo(const jni.JStringType(), deleteOriginal: true),
         );
-        ProtectedJniExtensions.returnResultFor(
-          $x.reference,
-          $u.reference,
+        ProtectedJniExtensions.returnResult(
+          $c,
           jni.nullptr,
         );
         return;
@@ -2964,9 +2963,8 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
         final $r = stringCallback(
           $a[0].castTo(const jni.JStringType(), deleteOriginal: true),
         );
-        ProtectedJniExtensions.returnResultFor(
-          $x.reference,
-          $u.reference,
+        ProtectedJniExtensions.returnResult(
+          $c,
           $r.reference,
         );
         return;
@@ -2975,9 +2973,8 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
         final $r = varCallback(
           $a[0].castTo(T, deleteOriginal: true),
         );
-        ProtectedJniExtensions.returnResultFor(
-          $x.reference,
-          $u.reference,
+        ProtectedJniExtensions.returnResult(
+          $c,
           $r.reference,
         );
         return;
@@ -2997,9 +2994,8 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
               .castTo(const jni.JDoubleType(), deleteOriginal: true)
               .doubleValue(deleteOriginal: true),
         );
-        ProtectedJniExtensions.returnResultFor(
-          $x.reference,
-          $u.reference,
+        ProtectedJniExtensions.returnResult(
+          $c,
           $r.toJLong().reference,
         );
         return;
@@ -3062,21 +3058,25 @@ class MyInterfaceConsumer extends jni.JObject {
     return MyInterfaceConsumer.fromRef(_ctor().object);
   }
 
-  static final _consumeMyInterface = jniLookup<
+  static final _consumeOnAnotherThread = jniLookup<
               ffi.NativeFunction<
                   jni.JniResult Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
-          "MyInterfaceConsumer__consumeMyInterface")
+          "MyInterfaceConsumer__consumeOnAnotherThread")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public void consumeMyInterface(com.github.dart_lang.jnigen.interfaces.MyInterface myInterface, java.lang.String s)
-  static void consumeMyInterface(
-    MyInterface<jni.JObject> myInterface,
-    jni.JString s,
-  ) {
-    return _consumeMyInterface(myInterface.reference, s.reference).check();
+  /// from: static public void consumeOnAnotherThread(com.github.dart_lang.jnigen.interfaces.MyInterface<T> myInterface, java.lang.String s)
+  static void consumeOnAnotherThread<$T extends jni.JObject>(
+    MyInterface<$T> myInterface,
+    jni.JString s, {
+    jni.JObjType<$T>? T,
+  }) {
+    T ??= jni.lowestCommonSuperType([
+      (myInterface.$type as $MyInterfaceType).T,
+    ]) as jni.JObjType<$T>;
+    return _consumeOnAnotherThread(myInterface.reference, s.reference).check();
   }
 }
 

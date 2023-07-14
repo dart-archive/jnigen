@@ -36,6 +36,7 @@ DynamicLibrary _loadDartJniLibrary({String? dir, String baseName = "dartjni"}) {
   final fileName = _getLibraryFileName(baseName);
   final libPath = (dir != null) ? join(dir, fileName) : fileName;
   try {
+    print(libPath);
     final dylib = DynamicLibrary.open(libPath);
     return dylib;
   } on Error {
@@ -314,10 +315,10 @@ extension ProtectedJniExtensions on Jni {
         .object;
   }
 
-  /// Return the result of a callback specified by the [uuid].
-  static void returnResultFor(
-      JObjectPtr proxy, JStringPtr uuid, JObjectPtr result) {
-    Jni._bindings.PortProxy__resultFor(proxy, uuid, result).check();
+  /// Return the result of a callback..
+  static void returnResult(
+      Pointer<CallbackResult> result, JObjectPtr object) async {
+    Jni._bindings.resultFor(result, object);
   }
 }
 

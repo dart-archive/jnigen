@@ -13,15 +13,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 public class PortProxy implements InvocationHandler {
+  static {
+    System.loadLibrary("dartjni");
+  }
+
   private final long port;
-  private final Map<String, ArrayBlockingQueue<Object>> map;
+  private static final Map<String, ArrayBlockingQueue<Object>> map = new ConcurrentHashMap<>();
 
   private PortProxy(long port) {
     this.port = port;
-    this.map = new ConcurrentHashMap<>();
   }
 
-  private BlockingQueue<Object> queueOf(String key) {
+  private static BlockingQueue<Object> queueOf(String key) {
     if (!map.containsKey(key)) {
       map.put(key, new ArrayBlockingQueue<>(1));
     }
@@ -69,8 +72,7 @@ public class PortProxy implements InvocationHandler {
 
   public static Object newInstance(String binaryName, long port) throws ClassNotFoundException {
     Class clazz = Class.forName(binaryName);
-    return Proxy.newProxyInstance(
-        clazz.getClassLoader(), clazz.getInterfaces(), new PortProxy(port));
+    return Proxy.newProxyInstance(clazz.getClassLoader(), new Class[] {clazz}, new PortProxy(port));
   }
 
   @Override
@@ -80,7 +82,7 @@ public class PortProxy implements InvocationHandler {
     return queueOf(uuid).poll(10, TimeUnit.SECONDS);
   }
 
-  public void resultFor(String uuid, Object object) {
+  public static void resultFor(String uuid, Object object) {
     queueOf(uuid).offer(object);
   }
 

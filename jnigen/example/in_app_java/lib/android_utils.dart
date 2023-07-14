@@ -1574,7 +1574,7 @@ class EmojiCompat_GlyphChecker extends jni.JObject {
     $p.listen(($m) {
       final $i = MethodInvocation.fromMessage($m);
       final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
-      final $u = $i.uuid;
+      final $c = $i.result;
       final $a = $i.args;
       if ($d == r"hasGlyph(Ljava/lang/CharSequence;III)Z") {
         final $r = hasGlyph(
@@ -1589,9 +1589,8 @@ class EmojiCompat_GlyphChecker extends jni.JObject {
               .castTo(const jni.JIntegerType(), deleteOriginal: true)
               .intValue(deleteOriginal: true),
         );
-        ProtectedJniExtensions.returnResultFor(
-          $x.reference,
-          $u.reference,
+        ProtectedJniExtensions.returnResult(
+          $c,
           $r.toJBoolean().reference,
         );
         return;
@@ -1688,7 +1687,7 @@ class EmojiCompat_MetadataRepoLoader extends jni.JObject {
     $p.listen(($m) {
       final $i = MethodInvocation.fromMessage($m);
       final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
-      final $u = $i.uuid;
+      final $c = $i.result;
       final $a = $i.args;
       if ($d ==
           r"load(Landroidx/emoji2/text/EmojiCompat$MetadataRepoLoaderCallback;)V") {
@@ -1696,9 +1695,8 @@ class EmojiCompat_MetadataRepoLoader extends jni.JObject {
           $a[0].castTo(const $EmojiCompat_MetadataRepoLoaderCallbackType(),
               deleteOriginal: true),
         );
-        ProtectedJniExtensions.returnResultFor(
-          $x.reference,
-          $u.reference,
+        ProtectedJniExtensions.returnResult(
+          $c,
           jni.nullptr,
         );
         return;
@@ -1959,16 +1957,15 @@ class EmojiCompat_SpanFactory extends jni.JObject {
     $p.listen(($m) {
       final $i = MethodInvocation.fromMessage($m);
       final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
-      final $u = $i.uuid;
+      final $c = $i.result;
       final $a = $i.args;
       if ($d ==
           r"createSpan(Landroidx/emoji2/text/TypefaceEmojiRasterizer;)Landroidx/emoji2/text/EmojiSpan;") {
         final $r = createSpan(
           $a[0].castTo(const jni.JObjectType(), deleteOriginal: true),
         );
-        ProtectedJniExtensions.returnResultFor(
-          $x.reference,
-          $u.reference,
+        ProtectedJniExtensions.returnResult(
+          $c,
           $r.reference,
         );
         return;

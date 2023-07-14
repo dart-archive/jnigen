@@ -616,56 +616,70 @@ JniResult PortProxy__newInstance(jobject binaryName, int64_t port) {
   if (_c_PortProxy == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_PortProxy, &_m_PortProxy__newInstance, "newInstance",
-                     "(Ljava/lang/String;J)Ljava/lang/Object;");
+                     "(Ljava/lang/String;JJ)Ljava/lang/Object;");
   if (_m_PortProxy__newInstance == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_PortProxy, _m_PortProxy__newInstance, binaryName, port);
+      jniEnv, _c_PortProxy, _m_PortProxy__newInstance, binaryName, port,
+      thread_id());
   return to_global_ref_result(_result);
 }
 
-jmethodID _m_PortProxy__resultFor = NULL;
 FFI_PLUGIN_EXPORT
-JniResult PortProxy__resultFor(jobject self_, jobject uuid, jobject object) {
-  attach_thread();
-  load_class_global_ref(&_c_PortProxy, "com/github/dart_lang/jni/PortProxy");
-  if (_c_PortProxy == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  load_method(_c_PortProxy, &_m_PortProxy__resultFor, "resultFor",
-              "(Ljava/lang/String;Ljava/lang/Object;)V");
-  if (_m_PortProxy__resultFor == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_PortProxy__resultFor, uuid,
-                            object);
-  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+void resultFor(CallbackResult* result, jobject object) {
+  acquire_lock(&result->lock);
+  result->ready = 1;
+  result->object = object;
+  signal_cond(&result->cond);
+  release_lock(&result->lock);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT jobject JNICALL
 Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
                                                   jobject thiz,
                                                   jlong port,
-                                                  jstring uuid,
+                                                  jlong threadId,
                                                   jobject proxy,
-                                                  jobject methodDescriptor,
+                                                  jstring methodDescriptor,
                                                   jobjectArray args) {
-  attach_thread();
-  Dart_CObject c_uuid;
-  c_uuid.type = Dart_CObject_kInt64;
-  c_uuid.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, uuid));
+  if (threadId != thread_id()) {
+    attach_thread();
 
-  Dart_CObject c_method;
-  c_method.type = Dart_CObject_kInt64;
-  c_method.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, methodDescriptor));
+    CallbackResult result;
+    result.ready = 0;
+    result.object = NULL;
+    init_lock(&result.lock);
+    init_cond(&result.cond);
 
-  Dart_CObject c_args;
-  c_args.type = Dart_CObject_kInt64;
-  c_args.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, args));
+    acquire_lock(&result.lock);
+    
+    Dart_CObject c_result;
+    c_result.type = Dart_CObject_kInt64;
+    c_result.value.as_int64 = (jlong)(&result);
 
-  Dart_CObject* c_post_arr[] = {&c_uuid, &c_method, &c_args};
-  Dart_CObject c_post;
-  c_post.type = Dart_CObject_kArray;
-  c_post.value.as_array.values = c_post_arr;
-  c_post.value.as_array.length = sizeof(c_post_arr) / sizeof(c_post_arr[0]);
+    Dart_CObject c_method;
+    c_method.type = Dart_CObject_kInt64;
+    c_method.value.as_int64 =
+        (jlong)((*env)->NewGlobalRef(env, methodDescriptor));
 
-  Dart_PostCObject_DL(port, &c_post);
+    Dart_CObject c_args;
+    c_args.type = Dart_CObject_kInt64;
+    c_args.value.as_int64 = (jlong)((*env)->NewGlobalRef(env, args));
+
+    Dart_CObject* c_post_arr[] = {&c_result, &c_method, &c_args};
+    Dart_CObject c_post;
+    c_post.type = Dart_CObject_kArray;
+    c_post.value.as_array.values = c_post_arr;
+    c_post.value.as_array.length = sizeof(c_post_arr) / sizeof(c_post_arr[0]);
+
+    Dart_PostCObject_DL(port, &c_post);
+    release_lock(&result.lock);
+    while (!result.ready) {
+      wait_for(&result.lock, &result.cond);
+    }
+    destroy_lock(&result.lock);
+    destroy_cond(&result.cond);
+    return result.object;
+  }
+
 }

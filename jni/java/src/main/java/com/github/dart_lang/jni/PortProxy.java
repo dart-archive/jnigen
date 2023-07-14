@@ -13,19 +13,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 public class PortProxy implements InvocationHandler {
-  private final long port;
-  private final Map<String, ArrayBlockingQueue<Object>> map;
-
-  private PortProxy(long port) {
-    this.port = port;
-    this.map = new ConcurrentHashMap<>();
+  static {
+    System.loadLibrary("dartjni");
   }
 
-  private BlockingQueue<Object> queueOf(String key) {
-    if (!map.containsKey(key)) {
-      map.put(key, new ArrayBlockingQueue<>(1));
-    }
-    return map.get(key);
+  private final long port;
+  private final long threadId;
+
+  private PortProxy(long port, long threadId) {
+    this.port = port;
+    this.threadId = threadId;
   }
 
   private static String getDescriptor(Method method) {
@@ -67,22 +64,16 @@ public class PortProxy implements InvocationHandler {
     }
   }
 
-  public static Object newInstance(String binaryName, long port) throws ClassNotFoundException {
+  public static Object newInstance(String binaryName, long port, long threadId) throws ClassNotFoundException {
     Class clazz = Class.forName(binaryName);
-    return Proxy.newProxyInstance(
-      clazz.getClassLoader(), clazz.getInterfaces(), new PortProxy(port));
+    return Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new PortProxy(port, threadId));
   }
 
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-    String uuid = UUID.randomUUID().toString();
-    _invoke(port, uuid, proxy, getDescriptor(method), args);
-    return queueOf(uuid).poll(10, TimeUnit.SECONDS);
+    return _invoke(port, threadId, proxy, getDescriptor(method), args);
   }
 
-  public void resultFor(String uuid, Object object) {
-    queueOf(uuid).offer(object);
-  }
-
-  private native void _invoke(long port, String uuid, Object proxy, String methodDescriptor, Object[] args);
+  private native Object _invoke(
+    long port, long threadId, Object proxy, String methodDescriptor, Object[] args);
 }

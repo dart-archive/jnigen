@@ -2405,10 +2405,10 @@ JniResult MyInterfaceConsumer__ctor() {
   return to_global_ref_result(_result);
 }
 
-jmethodID _m_MyInterfaceConsumer__consumeMyInterface = NULL;
+jmethodID _m_MyInterfaceConsumer__consumeOnAnotherThread = NULL;
 FFI_PLUGIN_EXPORT
-JniResult MyInterfaceConsumer__consumeMyInterface(jobject myInterface,
-                                                  jobject s) {
+JniResult MyInterfaceConsumer__consumeOnAnotherThread(jobject myInterface,
+                                                      jobject s) {
   load_env();
   load_class_global_ref(
       &_c_MyInterfaceConsumer,
@@ -2416,15 +2416,15 @@ JniResult MyInterfaceConsumer__consumeMyInterface(jobject myInterface,
   if (_c_MyInterfaceConsumer == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_MyInterfaceConsumer,
-                     &_m_MyInterfaceConsumer__consumeMyInterface,
-                     "consumeMyInterface",
+                     &_m_MyInterfaceConsumer__consumeOnAnotherThread,
+                     "consumeOnAnotherThread",
                      "(Lcom/github/dart_lang/jnigen/interfaces/"
                      "MyInterface;Ljava/lang/String;)V");
-  if (_m_MyInterfaceConsumer__consumeMyInterface == NULL)
+  if (_m_MyInterfaceConsumer__consumeOnAnotherThread == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  (*jniEnv)->CallStaticVoidMethod(jniEnv, _c_MyInterfaceConsumer,
-                                  _m_MyInterfaceConsumer__consumeMyInterface,
-                                  myInterface, s);
+  (*jniEnv)->CallStaticVoidMethod(
+      jniEnv, _c_MyInterfaceConsumer,
+      _m_MyInterfaceConsumer__consumeOnAnotherThread, myInterface, s);
   return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
