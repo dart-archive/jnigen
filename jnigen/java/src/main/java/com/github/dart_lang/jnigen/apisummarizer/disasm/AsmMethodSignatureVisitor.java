@@ -7,10 +7,9 @@ package com.github.dart_lang.jnigen.apisummarizer.disasm;
 import com.github.dart_lang.jnigen.apisummarizer.elements.Method;
 import com.github.dart_lang.jnigen.apisummarizer.elements.TypeParam;
 import com.github.dart_lang.jnigen.apisummarizer.elements.TypeUsage;
-import org.objectweb.asm.signature.SignatureVisitor;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.objectweb.asm.signature.SignatureVisitor;
 
 public class AsmMethodSignatureVisitor extends SignatureVisitor {
   private final Method method;

@@ -9,7 +9,6 @@ import com.github.dart_lang.jnigen.apisummarizer.util.SkipException;
 import com.github.dart_lang.jnigen.apisummarizer.util.StreamUtil;
 import java.util.*;
 import java.util.stream.Collectors;
-
 import org.objectweb.asm.*;
 import org.objectweb.asm.signature.SignatureReader;
 

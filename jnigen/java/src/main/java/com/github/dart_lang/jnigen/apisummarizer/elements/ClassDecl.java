@@ -26,6 +26,7 @@ public class ClassDecl {
    * uses $ instead of dot (.) before nested classes.
    */
   public String binaryName;
+
   public List<TypeParam> typeParams = new ArrayList<>();
   public List<Method> methods = new ArrayList<>();
   public List<Field> fields = new ArrayList<>();

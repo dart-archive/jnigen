@@ -7,7 +7,6 @@ package com.github.dart_lang.jnigen.apisummarizer.doclet;
 import com.github.dart_lang.jnigen.apisummarizer.elements.*;
 import com.github.dart_lang.jnigen.apisummarizer.util.StreamUtil;
 import com.sun.source.doctree.DocCommentTree;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;

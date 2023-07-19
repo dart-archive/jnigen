@@ -94,7 +94,7 @@ public class AsmTypeUsageSignatureVisitor extends SignatureVisitor {
   @Override
   public void visitInnerClassType(String name) {
     typeUsage.shorthand += "." + name;
-    ((TypeUsage.DeclaredType)typeUsage.type).binaryName += "$" + name;
-    ((TypeUsage.DeclaredType)typeUsage.type).simpleName = name;
+    ((TypeUsage.DeclaredType) typeUsage.type).binaryName += "$" + name;
+    ((TypeUsage.DeclaredType) typeUsage.type).simpleName = name;
   }
 }

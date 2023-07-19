@@ -6,9 +6,7 @@ package com.github.dart_lang.jnigen.interfaces;
 
 public class MyInterfaceConsumer {
   public static <T> void consumeOnAnotherThread(MyInterface<T> myInterface, String s) {
-    var thread =
-        new Thread(
-            () -> consumeOnSameThread(myInterface, s));
+    var thread = new Thread(() -> consumeOnSameThread(myInterface, s));
     thread.start();
   }
 

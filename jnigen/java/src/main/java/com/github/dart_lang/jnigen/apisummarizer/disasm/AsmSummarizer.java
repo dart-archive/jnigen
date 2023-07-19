@@ -8,7 +8,6 @@ import static com.github.dart_lang.jnigen.apisummarizer.util.ExceptionUtil.wrapC
 
 import com.github.dart_lang.jnigen.apisummarizer.elements.ClassDecl;
 import com.github.dart_lang.jnigen.apisummarizer.util.InputStreamProvider;
-import java.util.ArrayList;
 import java.util.List;
 import org.objectweb.asm.ClassReader;
 

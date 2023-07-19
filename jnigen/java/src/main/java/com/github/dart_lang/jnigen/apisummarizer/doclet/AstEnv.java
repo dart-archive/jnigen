@@ -5,17 +5,9 @@
 package com.github.dart_lang.jnigen.apisummarizer.doclet;
 
 import com.sun.source.util.DocTrees;
-
-import javax.annotation.processing.Filer;
-import javax.annotation.processing.Messager;
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.SourceVersion;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import jdk.javadoc.doclet.DocletEnvironment;
-
-import java.util.Locale;
-import java.util.Map;
 
 /** Class to hold utility classes initialized from DocletEnvironment. */
 public class AstEnv {
