@@ -3007,11 +3007,11 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
   }
 
   factory MyInterface.implement({
+    required jni.JObjType<$T> T,
     required void Function(jni.JString s) voidCallback,
     required jni.JString Function(jni.JString s) stringCallback,
     required $T Function($T t) varCallback,
     required int Function(int a, bool b, int c, double d) manyPrimitives,
-    required jni.JObjType<$T> T,
   }) {
     final $p = ReceivePort();
     final $x = MyInterface.fromRef(

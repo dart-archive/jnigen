@@ -462,19 +462,22 @@ class $name$typeParamsDef extends $superName {
     return jni.nullptr;
   }
 
-  factory $name.implement({
+  factory $name.implement(
 ''');
-      final typeClassesDef = typeParams
-          .map((typeParam) => 'required $_jType<\$$typeParam> $typeParam,')
-          .join(_newLine(depth: 1));
       final typeClassesCall =
-          typeParams.map((typeParam) => '$typeParam,').join(_newLine(depth: 2));
-      final methodImplementCall = _InterfaceImplementArg(resolver, s);
-      for (final method in node.methods) {
-        method.accept(methodImplementCall);
-      }
-      s.write('''$typeClassesDef
-      }) {
+          typeParams.map((typeParam) => '$typeParam,').join(_newLine(depth: 3));
+      s.write(_encloseIfNotEmpty(
+        '{',
+        [
+          ...typeParams
+              .map((typeParam) => 'required $_jType<\$$typeParam> $typeParam,'),
+          ...node.methods.accept(_InterfaceImplementArg(resolver))
+        ].join(_newLine(depth: 2)),
+        '}',
+      ));
+
+      s.write('''
+      ) {
     final \$p = ReceivePort();
     final \$x = $name.fromRef(
       $typeClassesCall
@@ -1496,20 +1499,17 @@ class _TypeVarLocator extends TypeVisitor<Map<String, List<OutsideInBuffer>>> {
 }
 
 /// The argument for .implement method of interfaces.
-class _InterfaceImplementArg extends Visitor<Method, void> {
+class _InterfaceImplementArg extends Visitor<Method, String> {
   final Resolver resolver;
-  final StringSink s;
 
-  _InterfaceImplementArg(this.resolver, this.s);
+  _InterfaceImplementArg(this.resolver);
 
   @override
-  void visit(Method node) {
+  String visit(Method node) {
     final returnType = node.returnType.accept(_TypeGenerator(resolver));
     final name = node.finalName;
     final args = node.params.accept(_ParamDef(resolver)).join(', ');
-    s.write('''
-    required $returnType Function($args) $name,
-''');
+    return 'required $returnType Function($args) $name,';
   }
 }
 
