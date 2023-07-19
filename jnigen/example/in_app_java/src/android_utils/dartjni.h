@@ -431,13 +431,16 @@ FFI_PLUGIN_EXPORT
 JniResult PortContinuation__ctor(int64_t j);
 
 FFI_PLUGIN_EXPORT
-JniResult PortProxy__newInstance(jobject binaryName, int64_t port);
+JniResult PortProxy__newInstance(jobject binaryName,
+                                 int64_t port,
+                                 int64_t functionPtr);
 
 JNIEXPORT jobject JNICALL
 Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
-                                                    jobject thiz,
-                                                    jlong port,
-                                                    jlong threadId,
-                                                    jobject proxy,
-                                                    jstring methodDescriptor,
-                                                    jobjectArray args);
+                                                  jobject thiz,
+                                                  jlong port,
+                                                  jlong threadId,
+                                                  jlong functionPtr,
+                                                  jobject proxy,
+                                                  jstring methodDescriptor,
+                                                  jobjectArray args);

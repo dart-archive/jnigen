@@ -5,12 +5,6 @@
 package com.github.dart_lang.jni;
 
 import java.lang.reflect.*;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 
 public class PortProxy implements InvocationHandler {
   static {
@@ -18,17 +12,13 @@ public class PortProxy implements InvocationHandler {
   }
 
   private final long port;
-  private static final Map<String, ArrayBlockingQueue<Object>> map = new ConcurrentHashMap<>();
+  private final long threadId;
+  private final long functionPtr;
 
-  private PortProxy(long port) {
+  private PortProxy(long port, long threadId, long functionPtr) {
     this.port = port;
-  }
-
-  private static BlockingQueue<Object> queueOf(String key) {
-    if (!map.containsKey(key)) {
-      map.put(key, new ArrayBlockingQueue<>(1));
-    }
-    return map.get(key);
+    this.threadId = threadId;
+    this.functionPtr = functionPtr;
   }
 
   private static String getDescriptor(Method method) {
@@ -70,22 +60,23 @@ public class PortProxy implements InvocationHandler {
     }
   }
 
-  public static Object newInstance(String binaryName, long port) throws ClassNotFoundException {
+  public static Object newInstance(String binaryName, long port, long threadId, long functionPtr)
+      throws ClassNotFoundException {
     Class clazz = Class.forName(binaryName);
-    return Proxy.newProxyInstance(clazz.getClassLoader(), new Class[] {clazz}, new PortProxy(port));
+    return Proxy.newProxyInstance(
+        clazz.getClassLoader(), new Class[] {clazz}, new PortProxy(port, threadId, functionPtr));
   }
 
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-    String uuid = UUID.randomUUID().toString();
-    _invoke(port, uuid, proxy, getDescriptor(method), args);
-    return queueOf(uuid).poll(10, TimeUnit.SECONDS);
+    return _invoke(port, threadId, functionPtr, proxy, getDescriptor(method), args);
   }
 
-  public static void resultFor(String uuid, Object object) {
-    queueOf(uuid).offer(object);
-  }
-
-  private native void _invoke(
-      long port, String uuid, Object proxy, String methodDescriptor, Object[] args);
+  private native Object _invoke(
+      long port,
+      long threadId,
+      long functionPtr,
+      Object proxy,
+      String methodDescriptor,
+      Object[] args);
 }

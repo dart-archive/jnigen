@@ -212,18 +212,21 @@ class JniBindings {
   JniResult PortProxy__newInstance(
     JObjectPtr binaryName,
     int port,
+    int functionPtr,
   ) {
     return _PortProxy__newInstance(
       binaryName,
       port,
+      functionPtr,
     );
   }
 
-  late final _PortProxy__newInstancePtr =
-      _lookup<ffi.NativeFunction<JniResult Function(JObjectPtr, ffi.Int64)>>(
-          'PortProxy__newInstance');
+  late final _PortProxy__newInstancePtr = _lookup<
+      ffi.NativeFunction<
+          JniResult Function(
+              JObjectPtr, ffi.Int64, ffi.Int64)>>('PortProxy__newInstance');
   late final _PortProxy__newInstance = _PortProxy__newInstancePtr.asFunction<
-      JniResult Function(JObjectPtr, int)>();
+      JniResult Function(JObjectPtr, int, int)>();
 
   ffi.Pointer<GlobalJniEnvStruct> GetGlobalEnv() {
     return _GetGlobalEnv();

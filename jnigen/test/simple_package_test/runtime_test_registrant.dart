@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:test/test.dart';
@@ -530,13 +531,13 @@ void registerTests(String groupName, TestRunnerCallback test) {
   });
 
   group('interface implementation', () {
-    test('MyInterface.implement', () {
+    test('MyInterface.implement consume on another thread', () async {
+      final voidCallbackResult = Completer<JString>();
       final myInterface = MyInterface.implement(
         voidCallback: (s) {
-          print(s.toDartString());
+          voidCallbackResult.complete(s);
         },
         stringCallback: (s) {
-          print(s.toDartString());
           return (s.toDartString(deleteOriginal: true) * 2).toJString();
         },
         varCallback: (t) {
@@ -549,8 +550,35 @@ void registerTests(String groupName, TestRunnerCallback test) {
       );
       MyInterfaceConsumer.consumeOnAnotherThread(
         myInterface,
-        "hello".toJString(),
+        'hello'.toJString(),
       );
+      final result = await voidCallbackResult.future;
+      expect(result.toDartString(deleteOriginal: true), 'hellohello');
+      myInterface.delete();
+    });
+    test('MyInterface.implement consume on the same thread', () async {
+      final voidCallbackResult = Completer<JString>();
+      final myInterface = MyInterface.implement(
+        voidCallback: (s) {
+          voidCallbackResult.complete(s);
+        },
+        stringCallback: (s) {
+          return (s.toDartString(deleteOriginal: true) * 2).toJString();
+        },
+        varCallback: (t) {
+          return "".toJString();
+        },
+        manyPrimitives: (a, b, c, d) {
+          return 0;
+        },
+        T: JString.type,
+      );
+      MyInterfaceConsumer.consumeOnSameThread(
+        myInterface,
+        'hello'.toJString(),
+      );
+      final result = await voidCallbackResult.future;
+      expect(result.toDartString(deleteOriginal: true), 'hellohello');
     });
   });
 

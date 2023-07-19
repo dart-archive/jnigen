@@ -8,10 +8,12 @@ public class MyInterfaceConsumer {
   public static <T> void consumeOnAnotherThread(MyInterface<T> myInterface, String s) {
     var thread =
         new Thread(
-            () -> {
-              String result = myInterface.stringCallback(s);
-              myInterface.voidCallback(result);
-            });
+            () -> consumeOnSameThread(myInterface, s));
     thread.start();
+  }
+
+  public static <T> void consumeOnSameThread(MyInterface<T> myInterface, String s) {
+    String result = myInterface.stringCallback(s);
+    myInterface.voidCallback(result);
   }
 }

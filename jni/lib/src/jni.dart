@@ -306,11 +306,18 @@ extension ProtectedJniExtensions on Jni {
   }
 
   /// Returns a new PortProxy for a class with the given [binaryName].
-  static JObjectPtr newPortProxy(String binaryName, ReceivePort port) {
+  static JObjectPtr newPortProxy(
+      String binaryName,
+      ReceivePort port,
+      Pointer<
+              NativeFunction<
+                  Pointer<Void> Function(Uint64, Pointer<Void>, Pointer<Void>)>>
+          functionPtr) {
     return Jni._bindings
         .PortProxy__newInstance(
           Jni.env.toJStringPtr(binaryName),
           port.sendPort.nativePort,
+          functionPtr.address,
         )
         .object;
   }

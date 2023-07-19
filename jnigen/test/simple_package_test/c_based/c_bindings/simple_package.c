@@ -2428,6 +2428,29 @@ JniResult MyInterfaceConsumer__consumeOnAnotherThread(jobject myInterface,
   return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
+jmethodID _m_MyInterfaceConsumer__consumeOnSameThread = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyInterfaceConsumer__consumeOnSameThread(jobject myInterface,
+                                                   jobject s) {
+  load_env();
+  load_class_global_ref(
+      &_c_MyInterfaceConsumer,
+      "com/github/dart_lang/jnigen/interfaces/MyInterfaceConsumer");
+  if (_c_MyInterfaceConsumer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_MyInterfaceConsumer,
+                     &_m_MyInterfaceConsumer__consumeOnSameThread,
+                     "consumeOnSameThread",
+                     "(Lcom/github/dart_lang/jnigen/interfaces/"
+                     "MyInterface;Ljava/lang/String;)V");
+  if (_m_MyInterfaceConsumer__consumeOnSameThread == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  (*jniEnv)->CallStaticVoidMethod(jniEnv, _c_MyInterfaceConsumer,
+                                  _m_MyInterfaceConsumer__consumeOnSameThread,
+                                  myInterface, s);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
 // com.github.dart_lang.jnigen.annotations.JsonSerializable$Case
 jclass _c_JsonSerializable_Case = NULL;
 

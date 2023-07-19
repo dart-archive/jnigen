@@ -5,12 +5,6 @@
 package com.github.dart_lang.jni;
 
 import java.lang.reflect.*;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 
 public class PortProxy implements InvocationHandler {
   static {
@@ -19,10 +13,12 @@ public class PortProxy implements InvocationHandler {
 
   private final long port;
   private final long threadId;
+  private final long functionPtr;
 
-  private PortProxy(long port, long threadId) {
+  private PortProxy(long port, long threadId, long functionPtr) {
     this.port = port;
     this.threadId = threadId;
+    this.functionPtr = functionPtr;
   }
 
   private static String getDescriptor(Method method) {
@@ -64,16 +60,23 @@ public class PortProxy implements InvocationHandler {
     }
   }
 
-  public static Object newInstance(String binaryName, long port, long threadId) throws ClassNotFoundException {
+  public static Object newInstance(String binaryName, long port, long threadId, long functionPtr)
+      throws ClassNotFoundException {
     Class clazz = Class.forName(binaryName);
-    return Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new PortProxy(port, threadId));
+    return Proxy.newProxyInstance(
+        clazz.getClassLoader(), new Class[] {clazz}, new PortProxy(port, threadId, functionPtr));
   }
 
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-    return _invoke(port, threadId, proxy, getDescriptor(method), args);
+    return _invoke(port, threadId, functionPtr, proxy, getDescriptor(method), args);
   }
 
   private native Object _invoke(
-    long port, long threadId, Object proxy, String methodDescriptor, Object[] args);
+      long port,
+      long threadId,
+      long functionPtr,
+      Object proxy,
+      String methodDescriptor,
+      Object[] args);
 }

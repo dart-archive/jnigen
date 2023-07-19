@@ -10,19 +10,19 @@ import 'lang/jstring.dart';
 import 'jarray.dart';
 import 'jobject.dart';
 
-class MethodInvocation {
+class $MethodInvocation {
   final Pointer<CallbackResult> result;
   final JString methodDescriptor;
   final JArray<JObject> args;
 
-  MethodInvocation._(this.result, this.methodDescriptor, this.args);
+  $MethodInvocation._(this.result, this.methodDescriptor, this.args);
 
-  factory MethodInvocation._fromAddresses(
+  factory $MethodInvocation.fromAddresses(
     int resultAddress,
     int descriptorAddress,
     int argsAddress,
   ) {
-    return MethodInvocation._(
+    return $MethodInvocation._(
       Pointer<CallbackResult>.fromAddress(resultAddress),
       JString.fromRef(Pointer<Void>.fromAddress(descriptorAddress)),
       JArray.fromRef(
@@ -32,7 +32,7 @@ class MethodInvocation {
     );
   }
 
-  factory MethodInvocation.fromMessage(List<dynamic> message) {
-    return MethodInvocation._fromAddresses(message[0], message[1], message[2]);
+  factory $MethodInvocation.fromMessage(List<dynamic> message) {
+    return $MethodInvocation.fromAddresses(message[0], message[1], message[2]);
   }
 }

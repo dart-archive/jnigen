@@ -2918,16 +2918,92 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
     return _manyPrimitives(reference, a, b ? 1 : 0, c, d).long;
   }
 
+  /// Maps a specific port to the implemented methods.
+  static final Map<int, Map<String, Function>> _$methods = {};
+
+  /// Maps a specific port to the type parameters.
+  static final Map<int, Map<String, jni.JObjType>> _$types = {};
+
   ReceivePort? _$p;
 
-  static final Finalizer<ReceivePort> _finalizer =
-      Finalizer((port) => port.close());
+  static final Finalizer<ReceivePort> _$finalizer = Finalizer(($p) {
+    _$methods.remove($p.sendPort.nativePort);
+    _$types.remove($p.sendPort.nativePort);
+    $p.close();
+  });
 
   @override
   void delete() {
+    _$methods.remove(_$p?.sendPort.nativePort);
+    _$types.remove(_$p?.sendPort.nativePort);
     _$p?.close();
-    _finalizer.detach(this);
+    _$finalizer.detach(this);
     super.delete();
+  }
+
+  static jni.JObjectPtr _$invoke(
+    int port,
+    jni.JObjectPtr descriptor,
+    jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      $MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final ffi.Pointer<
+          ffi.NativeFunction<
+              jni.JObjectPtr Function(
+                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
+      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+
+  static ffi.Pointer<ffi.Void> _$invokeMethod(
+    int $p,
+    $MethodInvocation $i,
+  ) {
+    final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
+    final $a = $i.args;
+    if ($d == r"voidCallback(Ljava/lang/String;)V") {
+      _$methods[$p]![$d]!(
+        $a[0].castTo(const jni.JStringType(), deleteOriginal: true),
+      );
+      return jni.nullptr;
+    }
+    if ($d == r"stringCallback(Ljava/lang/String;)Ljava/lang/String;") {
+      final $r = _$methods[$p]![$d]!(
+        $a[0].castTo(const jni.JStringType(), deleteOriginal: true),
+      );
+      return $r.reference;
+    }
+    if ($d == r"varCallback(Ljava/lang/Object;)Ljava/lang/Object;") {
+      final $r = _$methods[$p]![$d]!(
+        $a[0].castTo(_$types[$p]!["T"]!, deleteOriginal: true),
+      );
+      return $r.reference;
+    }
+    if ($d == r"manyPrimitives(IZCD)J") {
+      final $r = _$methods[$p]![$d]!(
+        $a[0]
+            .castTo(const jni.JIntegerType(), deleteOriginal: true)
+            .intValue(deleteOriginal: true),
+        $a[1]
+            .castTo(const jni.JBooleanType(), deleteOriginal: true)
+            .booleanValue(deleteOriginal: true),
+        $a[2]
+            .castTo(const jni.JCharacterType(), deleteOriginal: true)
+            .charValue(deleteOriginal: true),
+        $a[3]
+            .castTo(const jni.JDoubleType(), deleteOriginal: true)
+            .doubleValue(deleteOriginal: true),
+      );
+      return $r.toJLong().reference;
+    }
+    return jni.nullptr;
   }
 
   factory MyInterface.implement({
@@ -2941,65 +3017,26 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
     final $x = MyInterface.fromRef(
       T,
       ProtectedJniExtensions.newPortProxy(
-          r"com.github.dart_lang.jnigen.interfaces.MyInterface", $p),
+        r"com.github.dart_lang.jnigen.interfaces.MyInterface",
+        $p,
+        _$invokePointer,
+      ),
     ).._$p = $p;
-    _finalizer.attach($x, $p, detach: $x);
+    final $a = $p.sendPort.nativePort;
+    _$types[$a] = {};
+    _$methods[$a] = {};
+    _$types[$a]!["T"] = T;
+    _$methods[$a]![r"voidCallback(Ljava/lang/String;)V"] = voidCallback;
+    _$methods[$a]![r"stringCallback(Ljava/lang/String;)Ljava/lang/String;"] =
+        stringCallback;
+    _$methods[$a]![r"varCallback(Ljava/lang/Object;)Ljava/lang/Object;"] =
+        varCallback;
+    _$methods[$a]![r"manyPrimitives(IZCD)J"] = manyPrimitives;
+    _$finalizer.attach($x, $p, detach: $x);
     $p.listen(($m) {
-      final $i = MethodInvocation.fromMessage($m);
-      final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
-      final $c = $i.result;
-      final $a = $i.args;
-      if ($d == r"voidCallback(Ljava/lang/String;)V") {
-        voidCallback(
-          $a[0].castTo(const jni.JStringType(), deleteOriginal: true),
-        );
-        ProtectedJniExtensions.returnResult(
-          $c,
-          jni.nullptr,
-        );
-        return;
-      }
-      if ($d == r"stringCallback(Ljava/lang/String;)Ljava/lang/String;") {
-        final $r = stringCallback(
-          $a[0].castTo(const jni.JStringType(), deleteOriginal: true),
-        );
-        ProtectedJniExtensions.returnResult(
-          $c,
-          $r.reference,
-        );
-        return;
-      }
-      if ($d == r"varCallback(Ljava/lang/Object;)Ljava/lang/Object;") {
-        final $r = varCallback(
-          $a[0].castTo(T, deleteOriginal: true),
-        );
-        ProtectedJniExtensions.returnResult(
-          $c,
-          $r.reference,
-        );
-        return;
-      }
-      if ($d == r"manyPrimitives(IZCD)J") {
-        final $r = manyPrimitives(
-          $a[0]
-              .castTo(const jni.JIntegerType(), deleteOriginal: true)
-              .intValue(deleteOriginal: true),
-          $a[1]
-              .castTo(const jni.JBooleanType(), deleteOriginal: true)
-              .booleanValue(deleteOriginal: true),
-          $a[2]
-              .castTo(const jni.JCharacterType(), deleteOriginal: true)
-              .charValue(deleteOriginal: true),
-          $a[3]
-              .castTo(const jni.JDoubleType(), deleteOriginal: true)
-              .doubleValue(deleteOriginal: true),
-        );
-        ProtectedJniExtensions.returnResult(
-          $c,
-          $r.toJLong().reference,
-        );
-        return;
-      }
+      final $i = $MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      ProtectedJniExtensions.returnResult($i.result, $r);
     });
     return $x;
   }
@@ -3077,6 +3114,27 @@ class MyInterfaceConsumer extends jni.JObject {
       (myInterface.$type as $MyInterfaceType).T,
     ]) as jni.JObjType<$T>;
     return _consumeOnAnotherThread(myInterface.reference, s.reference).check();
+  }
+
+  static final _consumeOnSameThread = jniLookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
+          "MyInterfaceConsumer__consumeOnSameThread")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public void consumeOnSameThread(com.github.dart_lang.jnigen.interfaces.MyInterface<T> myInterface, java.lang.String s)
+  static void consumeOnSameThread<$T extends jni.JObject>(
+    MyInterface<$T> myInterface,
+    jni.JString s, {
+    jni.JObjType<$T>? T,
+  }) {
+    T ??= jni.lowestCommonSuperType([
+      (myInterface.$type as $MyInterfaceType).T,
+    ]) as jni.JObjType<$T>;
+    return _consumeOnSameThread(myInterface.reference, s.reference).check();
   }
 }
 

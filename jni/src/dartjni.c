@@ -610,18 +610,20 @@ jclass _c_PortProxy = NULL;
 
 jmethodID _m_PortProxy__newInstance = NULL;
 FFI_PLUGIN_EXPORT
-JniResult PortProxy__newInstance(jobject binaryName, int64_t port) {
+JniResult PortProxy__newInstance(jobject binaryName,
+                                 int64_t port,
+                                 int64_t functionPtr) {
   attach_thread();
   load_class_global_ref(&_c_PortProxy, "com/github/dart_lang/jni/PortProxy");
   if (_c_PortProxy == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_static_method(_c_PortProxy, &_m_PortProxy__newInstance, "newInstance",
-                     "(Ljava/lang/String;JJ)Ljava/lang/Object;");
+                     "(Ljava/lang/String;JJJ)Ljava/lang/Object;");
   if (_m_PortProxy__newInstance == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->CallStaticObjectMethod(
       jniEnv, _c_PortProxy, _m_PortProxy__newInstance, binaryName, port,
-      thread_id());
+      thread_id(), functionPtr);
   return to_global_ref_result(_result);
 }
 
@@ -639,11 +641,13 @@ Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
                                                   jobject thiz,
                                                   jlong port,
                                                   jlong threadId,
+                                                  jlong functionPtr,
                                                   jobject proxy,
                                                   jstring methodDescriptor,
                                                   jobjectArray args) {
+  attach_thread();
   if (threadId != thread_id()) {
-    attach_thread();
+    printf("on a different thread!!!\n");
 
     CallbackResult result;
     result.ready = 0;
@@ -652,7 +656,7 @@ Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
     init_cond(&result.cond);
 
     acquire_lock(&result.lock);
-    
+
     Dart_CObject c_result;
     c_result.type = Dart_CObject_kInt64;
     c_result.value.as_int64 = (jlong)(&result);
@@ -680,6 +684,10 @@ Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
     destroy_lock(&result.lock);
     destroy_cond(&result.cond);
     return result.object;
+  } else {
+    printf("on the same thread\n");
+    return ((jobject(*)(uint64_t, jobject, jobject))functionPtr)(
+        port, (*env)->NewGlobalRef(env, methodDescriptor),
+        (*env)->NewGlobalRef(env, args));
   }
-
 }

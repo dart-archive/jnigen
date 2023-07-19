@@ -1548,16 +1548,72 @@ class EmojiCompat_GlyphChecker extends jni.JObject {
         .boolean;
   }
 
+  /// Maps a specific port to the implemented methods.
+  static final Map<int, Map<String, Function>> _$methods = {};
+
+  /// Maps a specific port to the type parameters.
+  static final Map<int, Map<String, jni.JObjType>> _$types = {};
+
   ReceivePort? _$p;
 
-  static final Finalizer<ReceivePort> _finalizer =
-      Finalizer((port) => port.close());
+  static final Finalizer<ReceivePort> _$finalizer = Finalizer(($p) {
+    _$methods.remove($p.sendPort.nativePort);
+    _$types.remove($p.sendPort.nativePort);
+    $p.close();
+  });
 
   @override
   void delete() {
+    _$methods.remove(_$p?.sendPort.nativePort);
+    _$types.remove(_$p?.sendPort.nativePort);
     _$p?.close();
-    _finalizer.detach(this);
+    _$finalizer.detach(this);
     super.delete();
+  }
+
+  static jni.JObjectPtr _$invoke(
+    int port,
+    jni.JObjectPtr descriptor,
+    jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      $MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final ffi.Pointer<
+          ffi.NativeFunction<
+              jni.JObjectPtr Function(
+                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
+      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+
+  static ffi.Pointer<ffi.Void> _$invokeMethod(
+    int $p,
+    $MethodInvocation $i,
+  ) {
+    final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
+    final $a = $i.args;
+    if ($d == r"hasGlyph(Ljava/lang/CharSequence;III)Z") {
+      final $r = _$methods[$p]![$d]!(
+        $a[0].castTo(const jni.JObjectType(), deleteOriginal: true),
+        $a[1]
+            .castTo(const jni.JIntegerType(), deleteOriginal: true)
+            .intValue(deleteOriginal: true),
+        $a[2]
+            .castTo(const jni.JIntegerType(), deleteOriginal: true)
+            .intValue(deleteOriginal: true),
+        $a[3]
+            .castTo(const jni.JIntegerType(), deleteOriginal: true)
+            .intValue(deleteOriginal: true),
+      );
+      return $r.toJBoolean().reference;
+    }
+    return jni.nullptr;
   }
 
   factory EmojiCompat_GlyphChecker.implement({
@@ -1568,33 +1624,20 @@ class EmojiCompat_GlyphChecker extends jni.JObject {
     final $p = ReceivePort();
     final $x = EmojiCompat_GlyphChecker.fromRef(
       ProtectedJniExtensions.newPortProxy(
-          r"androidx.emoji2.text.EmojiCompat$GlyphChecker", $p),
+        r"androidx.emoji2.text.EmojiCompat$GlyphChecker",
+        $p,
+        _$invokePointer,
+      ),
     ).._$p = $p;
-    _finalizer.attach($x, $p, detach: $x);
+    final $a = $p.sendPort.nativePort;
+    _$types[$a] = {};
+    _$methods[$a] = {};
+    _$methods[$a]![r"hasGlyph(Ljava/lang/CharSequence;III)Z"] = hasGlyph;
+    _$finalizer.attach($x, $p, detach: $x);
     $p.listen(($m) {
-      final $i = MethodInvocation.fromMessage($m);
-      final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
-      final $c = $i.result;
-      final $a = $i.args;
-      if ($d == r"hasGlyph(Ljava/lang/CharSequence;III)Z") {
-        final $r = hasGlyph(
-          $a[0].castTo(const jni.JObjectType(), deleteOriginal: true),
-          $a[1]
-              .castTo(const jni.JIntegerType(), deleteOriginal: true)
-              .intValue(deleteOriginal: true),
-          $a[2]
-              .castTo(const jni.JIntegerType(), deleteOriginal: true)
-              .intValue(deleteOriginal: true),
-          $a[3]
-              .castTo(const jni.JIntegerType(), deleteOriginal: true)
-              .intValue(deleteOriginal: true),
-        );
-        ProtectedJniExtensions.returnResult(
-          $c,
-          $r.toJBoolean().reference,
-        );
-        return;
-      }
+      final $i = $MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      ProtectedJniExtensions.returnResult($i.result, $r);
     });
     return $x;
   }
@@ -1661,16 +1704,65 @@ class EmojiCompat_MetadataRepoLoader extends jni.JObject {
     return _load(reference, loaderCallback.reference).check();
   }
 
+  /// Maps a specific port to the implemented methods.
+  static final Map<int, Map<String, Function>> _$methods = {};
+
+  /// Maps a specific port to the type parameters.
+  static final Map<int, Map<String, jni.JObjType>> _$types = {};
+
   ReceivePort? _$p;
 
-  static final Finalizer<ReceivePort> _finalizer =
-      Finalizer((port) => port.close());
+  static final Finalizer<ReceivePort> _$finalizer = Finalizer(($p) {
+    _$methods.remove($p.sendPort.nativePort);
+    _$types.remove($p.sendPort.nativePort);
+    $p.close();
+  });
 
   @override
   void delete() {
+    _$methods.remove(_$p?.sendPort.nativePort);
+    _$types.remove(_$p?.sendPort.nativePort);
     _$p?.close();
-    _finalizer.detach(this);
+    _$finalizer.detach(this);
     super.delete();
+  }
+
+  static jni.JObjectPtr _$invoke(
+    int port,
+    jni.JObjectPtr descriptor,
+    jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      $MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final ffi.Pointer<
+          ffi.NativeFunction<
+              jni.JObjectPtr Function(
+                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
+      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+
+  static ffi.Pointer<ffi.Void> _$invokeMethod(
+    int $p,
+    $MethodInvocation $i,
+  ) {
+    final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
+    final $a = $i.args;
+    if ($d ==
+        r"load(Landroidx/emoji2/text/EmojiCompat$MetadataRepoLoaderCallback;)V") {
+      _$methods[$p]![$d]!(
+        $a[0].castTo(const $EmojiCompat_MetadataRepoLoaderCallbackType(),
+            deleteOriginal: true),
+      );
+      return jni.nullptr;
+    }
+    return jni.nullptr;
   }
 
   factory EmojiCompat_MetadataRepoLoader.implement({
@@ -1681,26 +1773,22 @@ class EmojiCompat_MetadataRepoLoader extends jni.JObject {
     final $p = ReceivePort();
     final $x = EmojiCompat_MetadataRepoLoader.fromRef(
       ProtectedJniExtensions.newPortProxy(
-          r"androidx.emoji2.text.EmojiCompat$MetadataRepoLoader", $p),
+        r"androidx.emoji2.text.EmojiCompat$MetadataRepoLoader",
+        $p,
+        _$invokePointer,
+      ),
     ).._$p = $p;
-    _finalizer.attach($x, $p, detach: $x);
+    final $a = $p.sendPort.nativePort;
+    _$types[$a] = {};
+    _$methods[$a] = {};
+    _$methods[$a]![
+            r"load(Landroidx/emoji2/text/EmojiCompat$MetadataRepoLoaderCallback;)V"] =
+        load;
+    _$finalizer.attach($x, $p, detach: $x);
     $p.listen(($m) {
-      final $i = MethodInvocation.fromMessage($m);
-      final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
-      final $c = $i.result;
-      final $a = $i.args;
-      if ($d ==
-          r"load(Landroidx/emoji2/text/EmojiCompat$MetadataRepoLoaderCallback;)V") {
-        load(
-          $a[0].castTo(const $EmojiCompat_MetadataRepoLoaderCallbackType(),
-              deleteOriginal: true),
-        );
-        ProtectedJniExtensions.returnResult(
-          $c,
-          jni.nullptr,
-        );
-        return;
-      }
+      final $i = $MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      ProtectedJniExtensions.returnResult($i.result, $r);
     });
     return $x;
   }
@@ -1933,16 +2021,64 @@ class EmojiCompat_SpanFactory extends jni.JObject {
         .fromRef(_createSpan(reference, rasterizer.reference).object);
   }
 
+  /// Maps a specific port to the implemented methods.
+  static final Map<int, Map<String, Function>> _$methods = {};
+
+  /// Maps a specific port to the type parameters.
+  static final Map<int, Map<String, jni.JObjType>> _$types = {};
+
   ReceivePort? _$p;
 
-  static final Finalizer<ReceivePort> _finalizer =
-      Finalizer((port) => port.close());
+  static final Finalizer<ReceivePort> _$finalizer = Finalizer(($p) {
+    _$methods.remove($p.sendPort.nativePort);
+    _$types.remove($p.sendPort.nativePort);
+    $p.close();
+  });
 
   @override
   void delete() {
+    _$methods.remove(_$p?.sendPort.nativePort);
+    _$types.remove(_$p?.sendPort.nativePort);
     _$p?.close();
-    _finalizer.detach(this);
+    _$finalizer.detach(this);
     super.delete();
+  }
+
+  static jni.JObjectPtr _$invoke(
+    int port,
+    jni.JObjectPtr descriptor,
+    jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      $MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final ffi.Pointer<
+          ffi.NativeFunction<
+              jni.JObjectPtr Function(
+                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
+      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+
+  static ffi.Pointer<ffi.Void> _$invokeMethod(
+    int $p,
+    $MethodInvocation $i,
+  ) {
+    final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
+    final $a = $i.args;
+    if ($d ==
+        r"createSpan(Landroidx/emoji2/text/TypefaceEmojiRasterizer;)Landroidx/emoji2/text/EmojiSpan;") {
+      final $r = _$methods[$p]![$d]!(
+        $a[0].castTo(const jni.JObjectType(), deleteOriginal: true),
+      );
+      return $r.reference;
+    }
+    return jni.nullptr;
   }
 
   factory EmojiCompat_SpanFactory.implement({
@@ -1951,25 +2087,22 @@ class EmojiCompat_SpanFactory extends jni.JObject {
     final $p = ReceivePort();
     final $x = EmojiCompat_SpanFactory.fromRef(
       ProtectedJniExtensions.newPortProxy(
-          r"androidx.emoji2.text.EmojiCompat$SpanFactory", $p),
+        r"androidx.emoji2.text.EmojiCompat$SpanFactory",
+        $p,
+        _$invokePointer,
+      ),
     ).._$p = $p;
-    _finalizer.attach($x, $p, detach: $x);
+    final $a = $p.sendPort.nativePort;
+    _$types[$a] = {};
+    _$methods[$a] = {};
+    _$methods[$a]![
+            r"createSpan(Landroidx/emoji2/text/TypefaceEmojiRasterizer;)Landroidx/emoji2/text/EmojiSpan;"] =
+        createSpan;
+    _$finalizer.attach($x, $p, detach: $x);
     $p.listen(($m) {
-      final $i = MethodInvocation.fromMessage($m);
-      final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
-      final $c = $i.result;
-      final $a = $i.args;
-      if ($d ==
-          r"createSpan(Landroidx/emoji2/text/TypefaceEmojiRasterizer;)Landroidx/emoji2/text/EmojiSpan;") {
-        final $r = createSpan(
-          $a[0].castTo(const jni.JObjectType(), deleteOriginal: true),
-        );
-        ProtectedJniExtensions.returnResult(
-          $c,
-          $r.reference,
-        );
-        return;
-      }
+      final $i = $MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      ProtectedJniExtensions.returnResult($i.result, $r);
     });
     return $x;
   }
