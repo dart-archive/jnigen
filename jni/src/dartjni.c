@@ -647,8 +647,6 @@ Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
                                                   jobjectArray args) {
   attach_thread();
   if (threadId != thread_id()) {
-    printf("on a different thread!!!\n");
-
     CallbackResult result;
     result.ready = 0;
     result.object = NULL;
@@ -685,7 +683,6 @@ Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
     destroy_cond(&result.cond);
     return result.object;
   } else {
-    printf("on the same thread\n");
     return ((jobject(*)(uint64_t, jobject, jobject))functionPtr)(
         port, (*env)->NewGlobalRef(env, methodDescriptor),
         (*env)->NewGlobalRef(env, args));

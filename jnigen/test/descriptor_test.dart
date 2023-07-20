@@ -16,7 +16,8 @@ import 'test_util/test_util.dart';
 
 void main() {
   checkLocallyBuiltDependencies();
-  test('Method descriptor generation', () async {
+  test('Method descriptor generation', timeout: const Timeout.factor(3),
+      () async {
     final configGetters = [
       simple_package_test.getConfig,
       kotlin_test.getConfig,
