@@ -1618,7 +1618,7 @@ class _InterfaceMethodsFiller extends Visitor<Method, void> {
   @override
   void visit(Method node) {
     s.write('''
-    _\$methods[\$a]![r"${node.javaSig}"] = ${node.name};
+    _\$methods[\$a]![r"${node.javaSig}"] = ${node.finalName};
 ''');
   }
 }
