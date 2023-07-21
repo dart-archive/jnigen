@@ -69,17 +69,19 @@ Config getConfig({
           ],
     logLevel: Level.INFO,
     exclude: BindingExclusions(
-        // TODO(#31): Remove field exclusions.
-        fields: excludeAll<Field>([
-          ['com.fasterxml.jackson.core.JsonFactory', 'DEFAULT_QUOTE_CHAR'],
-          ['com.fasterxml.jackson.core.Base64Variant', 'PADDING_CHAR_NONE'],
-          ['com.fasterxml.jackson.core.base.ParserMinimalBase', 'CHAR_NULL'],
-          ['com.fasterxml.jackson.core.io.UTF32Reader', 'NC'],
-        ]),
-        // TODO(#159): Remove class exclusions.
-        classes: ClassNameFilter.exclude(
-          'com.fasterxml.jackson.core.JsonFactoryBuilder',
-        )),
+      // TODO(#31): Remove field exclusions.
+      fields: excludeAll<Field>([
+        ['com.fasterxml.jackson.core.JsonFactory', 'DEFAULT_QUOTE_CHAR'],
+        ['com.fasterxml.jackson.core.Base64Variant', 'PADDING_CHAR_NONE'],
+        ['com.fasterxml.jackson.core.base.ParserMinimalBase', 'CHAR_NULL'],
+        ['com.fasterxml.jackson.core.io.UTF32Reader', 'NC'],
+      ]),
+      // TODO(#159): Remove class exclusions.
+      classes: ClassNameFilter.exclude(
+        'com.fasterxml.jackson.core.JsonFactoryBuilder',
+      ),
+    ),
+    experiments: {Experiment.interfaceImplementation},
   );
   return config;
 }

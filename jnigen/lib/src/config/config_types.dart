@@ -319,6 +319,7 @@ class Config {
   Config({
     required this.outputConfig,
     required this.classes,
+    this.experiments,
     this.exclude,
     this.sourcePath,
     this.classPath,
@@ -346,6 +347,8 @@ class Config {
   /// source paths. Same applies if ASM backend is used, except that the file
   /// name suffix is `.class`.
   List<String> classes;
+
+  Set<Experiment?>? experiments;
 
   /// Methods and fields to be excluded from generated bindings.
   final BindingExclusions? exclude;
@@ -592,6 +595,12 @@ class Config {
             : null,
       ),
       preamble: prov.getString(_Props.preamble),
+      experiments: prov
+          .getStringList(_Props.experiments)
+          ?.map(
+            (e) => getExperiment(e, null)!,
+          )
+          .toSet(),
       imports: prov.getPathList(_Props.import),
       mavenDownloads: prov.hasValue(_Props.mavenDownloads)
           ? MavenDownloads(
@@ -643,6 +652,19 @@ class Config {
   }
 }
 
+enum Experiment { interfaceImplementation }
+
+Experiment? getExperiment(
+  String? name,
+  Experiment? defaultVal,
+) {
+  return _getEnumValueFromString(
+    Experiment.values.valuesMap(),
+    name,
+    defaultVal,
+  );
+}
+
 class _Props {
   static const summarizer = 'summarizer';
   static const summarizerArgs = '$summarizer.extra_args';
@@ -656,6 +678,7 @@ class _Props {
   static const excludeMethods = '$exclude.methods';
   static const excludeFields = '$exclude.fields';
 
+  static const experiments = 'enable_experiment';
   static const import = 'import';
   static const outputConfig = 'output';
   static const bindingsType = '$outputConfig.bindings_type';

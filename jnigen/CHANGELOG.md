@@ -1,3 +1,10 @@
+## 0.6.0-dev.2
+* Fixed a bug where the nested classes would be generated incorrectly depending on the backend used for generation.
+* Fixed a bug where ASM backend would produce the incorrect parent for multi-level nested classes.
+* Fixed a bug where the backends would produce different descriptors for the same method.
+* Added `enable_experiment` option to config.
+* Created an experiment called `interface_implementation` which creates a `.implement` method for interfaces, so you can implement them using Dart.
+
 ## 0.6.0-dev.1
 * **Breaking Change** Specifying a class always pulls in nested classes by default. If a nested class is specified in config, it will be an error.
 * Save all `jnigen` logs to a file in `.dart_tool/jnigen/logs/`. This is useful for debugging.

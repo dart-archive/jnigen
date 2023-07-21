@@ -75,6 +75,7 @@ Config getConfig([BindingsType bindingsType = BindingsType.cBased]) {
       ),
     ),
     preamble: preamble,
+    experiments: {Experiment.interfaceImplementation},
   );
   return config;
 }

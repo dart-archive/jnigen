@@ -401,8 +401,10 @@ class $name$typeParamsDef extends $superName {
       method.accept(methodGenerator);
     }
 
-    // Interface implementation
-    if (node.declKind == DeclKind.interfaceKind) {
+    // Experimental: Interface implementation
+    if (node.declKind == DeclKind.interfaceKind &&
+        (config.experiments?.contains(Experiment.interfaceImplementation) ??
+            false)) {
       s.write('''
   /// Maps a specific port to the implemented methods.
   static final Map<int, Map<String, Function>> _\$methods = {};
