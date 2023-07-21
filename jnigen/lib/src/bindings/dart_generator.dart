@@ -1601,7 +1601,7 @@ class _InterfaceReturnBox extends TypeVisitor<String> {
     if (node.name == 'void') {
       return '$_jni.nullptr';
     }
-    return '$_jni.J${node.name.capitalize()}(\$r).reference';
+    return '$_jni.J${node.boxedName}(\$r).reference';
   }
 }
 
