@@ -1612,7 +1612,7 @@ class EmojiCompat_GlyphChecker extends jni.JObject {
             .castTo(const jni.JIntegerType(), deleteOriginal: true)
             .intValue(deleteOriginal: true),
       );
-      return $r.toJBoolean().reference;
+      return jni.JBoolean($r).reference;
     }
     return jni.nullptr;
   }

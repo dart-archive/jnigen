@@ -3002,7 +3002,7 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
             .castTo(const jni.JDoubleType(), deleteOriginal: true)
             .doubleValue(deleteOriginal: true),
       );
-      return $r.toJLong().reference;
+      return jni.JLong($r).reference;
     }
     return jni.nullptr;
   }
@@ -3099,43 +3099,71 @@ class MyInterfaceConsumer extends jni.JObject {
   static final _consumeOnAnotherThread = jniLookup<
               ffi.NativeFunction<
                   jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
+                      ffi.Pointer<ffi.Void>,
+                      ffi.Pointer<ffi.Void>,
+                      ffi.Int32,
+                      ffi.Uint8,
+                      ffi.Uint16,
+                      ffi.Double,
+                      ffi.Pointer<ffi.Void>)>>(
           "MyInterfaceConsumer__consumeOnAnotherThread")
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              int, int, int, double, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public void consumeOnAnotherThread(com.github.dart_lang.jnigen.interfaces.MyInterface<T> myInterface, java.lang.String s)
+  /// from: static public void consumeOnAnotherThread(com.github.dart_lang.jnigen.interfaces.MyInterface<T> myInterface, java.lang.String s, int a, boolean b, char c, double d, T t)
   static void consumeOnAnotherThread<$T extends jni.JObject>(
     MyInterface<$T> myInterface,
-    jni.JString s, {
+    jni.JString s,
+    int a,
+    bool b,
+    int c,
+    double d,
+    $T t, {
     jni.JObjType<$T>? T,
   }) {
     T ??= jni.lowestCommonSuperType([
+      t.$type,
       (myInterface.$type as $MyInterfaceType).T,
     ]) as jni.JObjType<$T>;
-    return _consumeOnAnotherThread(myInterface.reference, s.reference).check();
+    return _consumeOnAnotherThread(
+            myInterface.reference, s.reference, a, b ? 1 : 0, c, d, t.reference)
+        .check();
   }
 
   static final _consumeOnSameThread = jniLookup<
               ffi.NativeFunction<
                   jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>(
+                      ffi.Pointer<ffi.Void>,
+                      ffi.Pointer<ffi.Void>,
+                      ffi.Int32,
+                      ffi.Uint8,
+                      ffi.Uint16,
+                      ffi.Double,
+                      ffi.Pointer<ffi.Void>)>>(
           "MyInterfaceConsumer__consumeOnSameThread")
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>,
+              int, int, int, double, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public void consumeOnSameThread(com.github.dart_lang.jnigen.interfaces.MyInterface<T> myInterface, java.lang.String s)
+  /// from: static public void consumeOnSameThread(com.github.dart_lang.jnigen.interfaces.MyInterface<T> myInterface, java.lang.String s, int a, boolean b, char c, double d, T t)
   static void consumeOnSameThread<$T extends jni.JObject>(
     MyInterface<$T> myInterface,
-    jni.JString s, {
+    jni.JString s,
+    int a,
+    bool b,
+    int c,
+    double d,
+    $T t, {
     jni.JObjType<$T>? T,
   }) {
     T ??= jni.lowestCommonSuperType([
+      t.$type,
       (myInterface.$type as $MyInterfaceType).T,
     ]) as jni.JObjType<$T>;
-    return _consumeOnSameThread(myInterface.reference, s.reference).check();
+    return _consumeOnSameThread(
+            myInterface.reference, s.reference, a, b ? 1 : 0, c, d, t.reference)
+        .check();
   }
 }
 

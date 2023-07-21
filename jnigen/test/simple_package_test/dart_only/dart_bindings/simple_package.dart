@@ -2841,7 +2841,7 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
             .castTo(const jni.JDoubleType(), deleteOriginal: true)
             .doubleValue(deleteOriginal: true),
       );
-      return $r.toJLong().reference;
+      return jni.JLong($r).reference;
     }
     return jni.nullptr;
   }
@@ -2941,43 +2941,65 @@ class MyInterfaceConsumer extends jni.JObject {
   static final _id_consumeOnAnotherThread = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
       r"consumeOnAnotherThread",
-      r"(Lcom/github/dart_lang/jnigen/interfaces/MyInterface;Ljava/lang/String;)V");
+      r"(Lcom/github/dart_lang/jnigen/interfaces/MyInterface;Ljava/lang/String;IZCDLjava/lang/Object;)V");
 
-  /// from: static public void consumeOnAnotherThread(com.github.dart_lang.jnigen.interfaces.MyInterface<T> myInterface, java.lang.String s)
+  /// from: static public void consumeOnAnotherThread(com.github.dart_lang.jnigen.interfaces.MyInterface<T> myInterface, java.lang.String s, int a, boolean b, char c, double d, T t)
   static void consumeOnAnotherThread<$T extends jni.JObject>(
     MyInterface<$T> myInterface,
-    jni.JString s, {
+    jni.JString s,
+    int a,
+    bool b,
+    int c,
+    double d,
+    $T t, {
     jni.JObjType<$T>? T,
   }) {
     T ??= jni.lowestCommonSuperType([
+      t.$type,
       (myInterface.$type as $MyInterfaceType).T,
     ]) as jni.JObjType<$T>;
-    return jni.Jni.accessors.callStaticMethodWithArgs(
-        _class.reference,
-        _id_consumeOnAnotherThread,
-        jni.JniCallType.voidType,
-        [myInterface.reference, s.reference]).check();
+    return jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
+        _id_consumeOnAnotherThread, jni.JniCallType.voidType, [
+      myInterface.reference,
+      s.reference,
+      jni.JValueInt(a),
+      b ? 1 : 0,
+      jni.JValueChar(c),
+      d,
+      t.reference
+    ]).check();
   }
 
   static final _id_consumeOnSameThread = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
       r"consumeOnSameThread",
-      r"(Lcom/github/dart_lang/jnigen/interfaces/MyInterface;Ljava/lang/String;)V");
+      r"(Lcom/github/dart_lang/jnigen/interfaces/MyInterface;Ljava/lang/String;IZCDLjava/lang/Object;)V");
 
-  /// from: static public void consumeOnSameThread(com.github.dart_lang.jnigen.interfaces.MyInterface<T> myInterface, java.lang.String s)
+  /// from: static public void consumeOnSameThread(com.github.dart_lang.jnigen.interfaces.MyInterface<T> myInterface, java.lang.String s, int a, boolean b, char c, double d, T t)
   static void consumeOnSameThread<$T extends jni.JObject>(
     MyInterface<$T> myInterface,
-    jni.JString s, {
+    jni.JString s,
+    int a,
+    bool b,
+    int c,
+    double d,
+    $T t, {
     jni.JObjType<$T>? T,
   }) {
     T ??= jni.lowestCommonSuperType([
+      t.$type,
       (myInterface.$type as $MyInterfaceType).T,
     ]) as jni.JObjType<$T>;
     return jni.Jni.accessors.callStaticMethodWithArgs(
-        _class.reference,
-        _id_consumeOnSameThread,
-        jni.JniCallType.voidType,
-        [myInterface.reference, s.reference]).check();
+        _class.reference, _id_consumeOnSameThread, jni.JniCallType.voidType, [
+      myInterface.reference,
+      s.reference,
+      jni.JValueInt(a),
+      b ? 1 : 0,
+      jni.JValueChar(c),
+      d,
+      t.reference
+    ]).check();
   }
 }
 

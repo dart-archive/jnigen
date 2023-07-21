@@ -698,8 +698,12 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
 
   @override
   _TypeClass visitArrayType(ArrayType node) {
-    final innerTypeClass =
-        node.type.accept(_TypeClassGenerator(resolver, isConst: false));
+    final innerTypeClass = node.type.accept(_TypeClassGenerator(
+      resolver,
+      isConst: false,
+      boxPrimitives: boxPrimitives,
+      typeVarFromMap: typeVarFromMap,
+    ));
     final ifConst = innerTypeClass.canBeConst && isConst ? 'const ' : '';
     return _TypeClass(
       '$ifConst${_jArray}Type(${innerTypeClass.name})',
@@ -714,8 +718,12 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
         .toList();
 
     // The ones that are declared.
-    final definedTypeClasses =
-        node.params.accept(_TypeClassGenerator(resolver, isConst: false));
+    final definedTypeClasses = node.params.accept(_TypeClassGenerator(
+      resolver,
+      isConst: false,
+      boxPrimitives: boxPrimitives,
+      typeVarFromMap: typeVarFromMap,
+    ));
 
     // Can be const if all the type parameters are defined and each of them are
     // also const.
@@ -1524,9 +1532,10 @@ class _InterfaceMethodIf extends Visitor<Method, void> {
   @override
   void visit(Method node) {
     final signature = node.javaSig;
+    final saveResult = node.returnType.name == 'void' ? '' : 'final \$r = ';
     s.write('''
       if (\$d == r"$signature") {
-        ${node.returnType.name == 'void' ? '' : 'final \$r = '}_\$methods[\$p]![\$d]!(
+        ${saveResult}_\$methods[\$p]![\$d]!(
 ''');
     for (var i = 0; i < node.params.length; ++i) {
       node.params[i].accept(_InterfaceParamCast(resolver, s, paramIndex: i));
@@ -1590,7 +1599,7 @@ class _InterfaceReturnBox extends TypeVisitor<String> {
     if (node.name == 'void') {
       return '$_jni.nullptr';
     }
-    return '\$r.toJ${node.name.capitalize()}().reference';
+    return '$_jni.J${node.name.capitalize()}(\$r).reference';
   }
 }
 
