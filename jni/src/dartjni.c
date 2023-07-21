@@ -647,17 +647,16 @@ Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
                                                   jobjectArray args) {
   attach_thread();
   if (threadId != thread_id()) {
-    CallbackResult result;
-    result.ready = 0;
-    result.object = NULL;
-    init_lock(&result.lock);
-    init_cond(&result.cond);
-
-    acquire_lock(&result.lock);
+    CallbackResult* result = (CallbackResult*)malloc(sizeof(CallbackResult));
+    init_lock(&result->lock);
+    init_cond(&result->cond);
+    acquire_lock(&result->lock);
+    result->ready = 0;
+    result->object = NULL;
 
     Dart_CObject c_result;
     c_result.type = Dart_CObject_kInt64;
-    c_result.value.as_int64 = (jlong)(&result);
+    c_result.value.as_int64 = (jlong)result;
 
     Dart_CObject c_method;
     c_method.type = Dart_CObject_kInt64;
@@ -675,13 +674,15 @@ Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
     c_post.value.as_array.length = sizeof(c_post_arr) / sizeof(c_post_arr[0]);
 
     Dart_PostCObject_DL(port, &c_post);
-    release_lock(&result.lock);
-    while (!result.ready) {
-      wait_for(&result.lock, &result.cond);
+    while (!result->ready) {
+      wait_for(&result->cond, &result->lock);
     }
-    destroy_lock(&result.lock);
-    destroy_cond(&result.cond);
-    return result.object;
+    release_lock(&result->lock);
+    destroy_lock(&result->lock);
+    destroy_cond(&result->cond);
+    jobject object = result->object;
+    free(result);
+    return object;
   } else {
     return ((jobject(*)(uint64_t, jobject, jobject))functionPtr)(
         port, (*env)->NewGlobalRef(env, methodDescriptor),
