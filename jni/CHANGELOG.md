@@ -1,4 +1,4 @@
-## 0.6.0-dev-2
+## 0.6.0-wip-2
 * Added `PortProxy` and related methods used for interface implementation.
 * Added the missing binding for `java.lang.Character`.
 

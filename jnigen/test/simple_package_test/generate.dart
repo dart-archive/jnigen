@@ -4,6 +4,7 @@
 
 import 'dart:io';
 
+import 'package:jnigen/src/config/experiments.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart';
 import 'package:jnigen/jnigen.dart';

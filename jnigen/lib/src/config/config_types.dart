@@ -13,6 +13,7 @@ import '../elements/elements.dart';
 import '../logging/logging.dart';
 import '../util/find_package.dart';
 import 'config_exception.dart';
+import 'experiments.dart';
 import 'filters.dart';
 import 'yaml_reader.dart';
 
@@ -598,7 +599,7 @@ class Config {
       experiments: prov
           .getStringList(_Props.experiments)
           ?.map(
-            (e) => getExperiment(e, null)!,
+            (e) => Experiment.fromString(e),
           )
           .toSet(),
       imports: prov.getPathList(_Props.import),
@@ -650,19 +651,6 @@ class Config {
     config._configRoot = configRoot;
     return config;
   }
-}
-
-enum Experiment { interfaceImplementation }
-
-Experiment? getExperiment(
-  String? name,
-  Experiment? defaultVal,
-) {
-  return _getEnumValueFromString(
-    Experiment.values.valuesMap(),
-    name,
-    defaultVal,
-  );
 }
 
 class _Props {
