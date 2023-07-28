@@ -1534,8 +1534,9 @@ class _InterfaceMethodIf extends Visitor<Method, void> {
 
   @override
   void visit(Method node) {
+    final isVoid = node.returnType.name == 'void';
     final signature = node.javaSig;
-    final saveResult = node.returnType.name == 'void' ? '' : 'final \$r = ';
+    final saveResult = isVoid ? '' : 'final \$r = ';
     s.write('''
       if (\$d == r"$signature") {
         ${saveResult}_\$methods[\$p]![\$d]!(
@@ -1588,13 +1589,23 @@ class _InterfaceParamCast extends Visitor<Param, void> {
 /// Only returns the reference for non primitive types.
 /// Returns null for void.
 ///
-/// For example `$r.toJInteger().reference` when the return type is `integer`.
+/// `..setAsDeleted` detaches the object from the [NativeFinalizer] since
+/// it is going to be sent to Java.
+///
+/// Java will clean up the global reference afterwards.
+///
+/// For example `($r.toJInteger()..setAsDeleted()).reference` when the return
+/// type is `integer`.
 class _InterfaceReturnBox extends TypeVisitor<String> {
   const _InterfaceReturnBox();
 
   @override
   String visitNonPrimitiveType(ReferredType node) {
-    return '\$r.reference';
+    // Casting is done to create a new global reference. The user might
+    // use the original reference elsewhere and so the original object
+    // should not be [setAsDeleted].
+    return '((\$r as $_jObject).castTo(const ${_jObject}Type())'
+        '..setAsDeleted()).reference';
   }
 
   @override
@@ -1602,7 +1613,7 @@ class _InterfaceReturnBox extends TypeVisitor<String> {
     if (node.name == 'void') {
       return '$_jni.nullptr';
     }
-    return '$_jni.J${node.boxedName}(\$r).reference';
+    return '($_jni.J${node.boxedName}(\$r)..setAsDeleted()).reference';
   }
 }
 
