@@ -76,7 +76,7 @@ static inline void wait_for(ConditionVariable* cond, MutexLock* lock) {
 }
 
 static inline void destroy_cond(ConditionVariable* cond) {
-  DeleteCriticalSection(cond);
+  // Not available.
 }
 
 #elif defined __APPLE__ || defined __LINUX__ || defined __ANDROID__ ||         \
