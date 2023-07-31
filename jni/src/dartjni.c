@@ -691,6 +691,10 @@ Java_com_github_dart_1lang_jni_PortProxy__1invoke(JNIEnv* env,
         port, (*env)->NewGlobalRef(env, methodDescriptor),
         (*env)->NewGlobalRef(env, args));
   }
+  // Returning an array of length 2.
+  // [0]: The result pointer, used for cleaning up the global reference, and
+  //      freeing the memory since we passed the ownership to Java.
+  // [1]: The returned object.
   attach_thread();
   load_class_global_ref(&_c_Object, "java/lang/Object");
   load_class_global_ref(&_c_Long, "java/lang/Long");

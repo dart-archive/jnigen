@@ -1589,10 +1589,12 @@ class _InterfaceParamCast extends Visitor<Param, void> {
 /// Only returns the reference for non primitive types.
 /// Returns null for void.
 ///
-/// `..setAsDeleted` detaches the object from the [NativeFinalizer] since
-/// it is going to be sent to Java.
+/// Since Dart doesn't know that this global reference is still used, it might
+/// garbage collect it via [NativeFinalizer] thus making it invalid.
+/// This passes the ownership to Java using [setAsDeleted].
 ///
-/// Java will clean up the global reference afterwards.
+/// `..setAsDeleted` detaches the object from the [NativeFinalizer] and Java
+/// will clean up the global reference afterwards.
 ///
 /// For example `($r.toJInteger()..setAsDeleted()).reference` when the return
 /// type is `integer`.
