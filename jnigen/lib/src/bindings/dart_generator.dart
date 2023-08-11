@@ -46,6 +46,7 @@ const _deleteInstruction =
     '  /// The returned object must be deleted after use, '
     'by calling the `delete` method.';
 
+// Helper methods
 extension on Iterable<String> {
   /// Similar to [join] but adds the [separator] to the end as well.
   String delimited([String separator = '']) {
@@ -309,6 +310,7 @@ class _ClassGenerator extends Visitor<ClassDecl, void> {
     // Class definition
     final name = node.finalName;
     final superName = node.superclass!.accept(_TypeGenerator(resolver));
+    final implClassName = '\$${name}Impl';
     final typeParamsDef = _encloseIfNotEmpty(
       '<',
       node.allTypeParams
@@ -328,7 +330,7 @@ class _ClassGenerator extends Visitor<ClassDecl, void> {
       typeParams.join(', '),
       ')',
     );
-    final typeClassDefinitions = typeParams
+    final typeClassesDef = typeParams
         .map((typeParam) =>
             'final $_jType<$_typeParamPrefix$typeParam> $typeParam;')
         .join(_newLine(depth: 1));
@@ -347,7 +349,7 @@ class $name$typeParamsDef extends $superName {
   @override
   late final $_jType<$name$typeParamsCall> $instanceTypeGetter = $staticTypeGetter$staticTypeGetterCallArgs;
 
-  $typeClassDefinitions
+  $typeClassesDef
 
   $name.fromRef(
     $ctorTypeClassesDef
@@ -407,24 +409,19 @@ class $name$typeParamsDef extends $superName {
         (config.experiments?.contains(Experiment.interfaceImplementation) ??
             false)) {
       s.write('''
-  /// Maps a specific port to the implemented methods.
-  static final Map<int, Map<String, Function>> _\$methods = {};
-
-  /// Maps a specific port to the type parameters.
-  static final Map<int, Map<String, $_jType>> _\$types = {};
+  /// Maps a specific port to the implemented interface.
+  static final Map<int, $implClassName> _\$impls = {};
 
   ReceivePort? _\$p;
 
   static final Finalizer<ReceivePort> _\$finalizer = Finalizer((\$p) {
-    _\$methods.remove(\$p.sendPort.nativePort);
-    _\$types.remove(\$p.sendPort.nativePort);
+    _\$impls.remove(\$p.sendPort.nativePort);
     \$p.close();
   });
 
   @override
   void delete() {
-    _\$methods.remove(_\$p?.sendPort.nativePort);
-    _\$types.remove(_\$p?.sendPort.nativePort);
+    _\$impls.remove(_\$p?.sendPort.nativePort);
     _\$p?.close();
     _\$finalizer.detach(this);
     super.delete();
@@ -467,21 +464,13 @@ class $name$typeParamsDef extends $superName {
   }
 
   factory $name.implement(
+    $implClassName$typeParamsCall \$impl,
+  ) {
 ''');
-      final typeClassesCall =
-          typeParams.map((typeParam) => '$typeParam,').join(_newLine(depth: 3));
-      s.write(_encloseIfNotEmpty(
-        '{',
-        [
-          ...typeParams
-              .map((typeParam) => 'required $_jType<\$$typeParam> $typeParam,'),
-          ...node.methods.accept(_InterfaceImplementArg(resolver))
-        ].join(_newLine(depth: 2)),
-        '}',
-      ));
-
+      final typeClassesCall = typeParams
+          .map((typeParam) => '\$impl.$typeParam,')
+          .join(_newLine(depth: 3));
       s.write('''
-      ) {
     final \$p = ReceivePort();
     final \$x = $name.fromRef(
       $typeClassesCall
@@ -492,17 +481,8 @@ class $name$typeParamsDef extends $superName {
       ),
     ).._\$p = \$p;
     final \$a = \$p.sendPort.nativePort; 
-    _\$types[\$a] = {};
-    _\$methods[\$a] = {};
+    _\$impls[\$a] = \$impl;
 ''');
-      final typeFiller = _InterfaceTypesFiller(s);
-      for (final typeParam in node.allTypeParams) {
-        typeParam.accept(typeFiller);
-      }
-      final methodFiller = _InterfaceMethodsFiller(s);
-      for (final method in node.methods) {
-        method.accept(methodFiller);
-      }
       s.write('''
     _\$finalizer.attach(\$x, \$p, detach: \$x);
     \$p.listen((\$m) {
@@ -518,6 +498,83 @@ class $name$typeParamsDef extends $superName {
     // End of Class definition
     s.writeln('}');
 
+    // Experimental: Interface implementation
+    // Abstract and concrete Impl class definition.
+    // Used for interface implementation.
+    if (node.declKind == DeclKind.interfaceKind &&
+        (config.experiments?.contains(Experiment.interfaceImplementation) ??
+            false)) {
+      // Abstract Impl class
+      final typeClassGetters = typeParams
+          .map((typeParam) =>
+              '$_jType<$_typeParamPrefix$typeParam> get $typeParam;')
+          .join(_newLine(depth: 1));
+      final abstractFactoryArgs = _encloseIfNotEmpty(
+        '{',
+        [
+          ...typeParams
+              .map((typeParam) => 'required $_jType<\$$typeParam> $typeParam,'),
+          ...node.methods.accept(_ConcreteImplClosureCtorArg(resolver)),
+        ].join(_newLine(depth: 2)),
+        '}',
+      );
+      s.write('''
+abstract class $implClassName$typeParamsDef {
+  factory $implClassName(
+    $abstractFactoryArgs
+  ) = _$implClassName;
+
+  $typeClassGetters
+
+''');
+      final abstractImplMethod = _AbstractImplMethod(resolver, s);
+      for (final method in node.methods) {
+        method.accept(abstractImplMethod);
+      }
+      s.writeln('}');
+
+      // Concrete Impl class
+      // This is for passing closures instead of implementing the class.
+      final concreteCtorArgs = _encloseIfNotEmpty(
+        '{',
+        [
+          ...typeParams.map((typeParam) => 'required this.$typeParam,'),
+          ...node.methods.accept(_ConcreteImplClosureCtorArg(resolver)),
+        ].join(_newLine(depth: 2)),
+        '}',
+      );
+      final setClosures = _encloseIfNotEmpty(
+        ' :  ',
+        node.methods
+            .map((method) => '_${method.finalName} = ${method.finalName}')
+            .join(', '),
+        '',
+      );
+      final typeClassesDef = typeParams.map((typeParam) => '''
+@override
+final $_jType<\$$typeParam> $typeParam;
+''').join(_newLine(depth: 1));
+      s.write('''
+
+class _$implClassName$typeParamsDef implements $implClassName$typeParamsCall {
+  _$implClassName(
+    $concreteCtorArgs
+  )$setClosures;
+
+  $typeClassesDef
+
+''');
+      final concreteClosureDef = _ConcreteImplClosureDef(resolver, s);
+      for (final method in node.methods) {
+        method.accept(concreteClosureDef);
+      }
+      s.writeln();
+      final concreteMethodDef = _ConcreteImplMethod(resolver, s);
+      for (final method in node.methods) {
+        method.accept(concreteMethodDef);
+      }
+      s.writeln('}');
+    }
     // TypeClass definition
     final typeClassesCall =
         typeParams.map((typeParam) => '$typeParam,').join(_newLine(depth: 2));
@@ -532,7 +589,7 @@ class $name$typeParamsDef extends $superName {
         : 'Object.hash($typeClassName, $hashCodeTypeClasses)';
     s.write('''
 class $typeClassName$typeParamsDef extends $_jType<$name$typeParamsCall> {
-  $typeClassDefinitions
+  $typeClassesDef
 
   const $typeClassName(
     $ctorTypeClassesDef
@@ -773,7 +830,7 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
   @override
   _TypeClass visitTypeVar(TypeVar node) {
     if (typeVarFromMap) {
-      return _TypeClass('_\$types[\$p]!["${node.name}"]!', false);
+      return _TypeClass('_\$impls[\$p]!.${node.name}', false);
     }
     return _TypeClass(node.name, false);
   }
@@ -1510,11 +1567,44 @@ class _TypeVarLocator extends TypeVisitor<Map<String, List<OutsideInBuffer>>> {
   }
 }
 
-/// The argument for .implement method of interfaces.
-class _InterfaceImplementArg extends Visitor<Method, String> {
+/// Method defintion for Impl abstract class used for interface implementation.
+class _AbstractImplMethod extends Visitor<Method, void> {
+  final Resolver resolver;
+  final StringSink s;
+
+  _AbstractImplMethod(this.resolver, this.s);
+
+  @override
+  void visit(Method node) {
+    final returnType = node.returnType.accept(_TypeGenerator(resolver));
+    final name = node.finalName;
+    final args = node.params.accept(_ParamDef(resolver)).join(', ');
+    s.writeln('  $returnType $name($args);');
+  }
+}
+
+/// Closure defintion for concrete Impl class used for interface implementation.
+class _ConcreteImplClosureDef extends Visitor<Method, void> {
+  final Resolver resolver;
+  final StringSink s;
+
+  _ConcreteImplClosureDef(this.resolver, this.s);
+
+  @override
+  void visit(Method node) {
+    final returnType = node.returnType.accept(_TypeGenerator(resolver));
+    final name = node.finalName;
+    final args = node.params.accept(_ParamDef(resolver)).join(', ');
+    s.writeln('  final $returnType Function($args) _$name;');
+  }
+}
+
+/// Closure argument for concrete Impl class constructor.
+/// Used for interface implementation.
+class _ConcreteImplClosureCtorArg extends Visitor<Method, String> {
   final Resolver resolver;
 
-  _InterfaceImplementArg(this.resolver);
+  _ConcreteImplClosureCtorArg(this.resolver);
 
   @override
   String visit(Method node) {
@@ -1522,6 +1612,26 @@ class _InterfaceImplementArg extends Visitor<Method, String> {
     final name = node.finalName;
     final args = node.params.accept(_ParamDef(resolver)).join(', ');
     return 'required $returnType Function($args) $name,';
+  }
+}
+
+/// Method defintion for concrete Impl class used for interface implementation.
+class _ConcreteImplMethod extends Visitor<Method, void> {
+  final Resolver resolver;
+  final StringSink s;
+
+  _ConcreteImplMethod(this.resolver, this.s);
+
+  @override
+  void visit(Method node) {
+    final returnType = node.returnType.accept(_TypeGenerator(resolver));
+    final name = node.finalName;
+    final argsDef = node.params.accept(_ParamDef(resolver)).join(', ');
+    final argsCall = node.params.map((param) => param.finalName).join(', ');
+    s.write('''
+  $returnType $name($argsDef) {
+    return _$name($argsCall);
+  }''');
   }
 }
 
@@ -1537,9 +1647,10 @@ class _InterfaceMethodIf extends Visitor<Method, void> {
     final isVoid = node.returnType.name == 'void';
     final signature = node.javaSig;
     final saveResult = isVoid ? '' : 'final \$r = ';
+    final name = node.finalName;
     s.write('''
       if (\$d == r"$signature") {
-        ${saveResult}_\$methods[\$p]![\$d]!(
+        ${saveResult}_\$impls[\$p]!.$name(
 ''');
     for (var i = 0; i < node.params.length; ++i) {
       node.params[i].accept(_InterfaceParamCast(resolver, s, paramIndex: i));
@@ -1616,35 +1727,5 @@ class _InterfaceReturnBox extends TypeVisitor<String> {
       return '$_jni.nullptr';
     }
     return '($_jni.J${node.boxedName}(\$r)..setAsDeleted()).reference';
-  }
-}
-
-/// Fills the static _$types map with the correct type classes for the given
-/// port.
-class _InterfaceTypesFiller extends Visitor<TypeParam, void> {
-  final StringSink s;
-
-  _InterfaceTypesFiller(this.s);
-
-  @override
-  void visit(TypeParam node) {
-    s.write('''
-    _\$types[\$a]!["${node.name}"] = ${node.name};
-''');
-  }
-}
-
-/// Fills the static _$method map with the correct callbacks for the given
-/// port.
-class _InterfaceMethodsFiller extends Visitor<Method, void> {
-  final StringSink s;
-
-  _InterfaceMethodsFiller(this.s);
-
-  @override
-  void visit(Method node) {
-    s.write('''
-    _\$methods[\$a]![r"${node.javaSig}"] = ${node.finalName};
-''');
   }
 }
