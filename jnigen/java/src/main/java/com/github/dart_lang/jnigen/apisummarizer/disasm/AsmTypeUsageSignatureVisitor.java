@@ -5,9 +5,8 @@
 package com.github.dart_lang.jnigen.apisummarizer.disasm;
 
 import com.github.dart_lang.jnigen.apisummarizer.elements.TypeUsage;
-import org.objectweb.asm.signature.SignatureVisitor;
-
 import java.util.ArrayList;
+import org.objectweb.asm.signature.SignatureVisitor;
 
 public class AsmTypeUsageSignatureVisitor extends SignatureVisitor {
   private final TypeUsage typeUsage;

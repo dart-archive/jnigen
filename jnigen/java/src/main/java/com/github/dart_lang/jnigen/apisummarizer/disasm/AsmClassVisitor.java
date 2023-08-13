@@ -4,16 +4,15 @@
 
 package com.github.dart_lang.jnigen.apisummarizer.disasm;
 
+import static org.objectweb.asm.Opcodes.ACC_ENUM;
+
 import com.github.dart_lang.jnigen.apisummarizer.elements.*;
 import com.github.dart_lang.jnigen.apisummarizer.util.SkipException;
 import com.github.dart_lang.jnigen.apisummarizer.util.StreamUtil;
-import org.objectweb.asm.*;
-import org.objectweb.asm.signature.SignatureReader;
-
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static org.objectweb.asm.Opcodes.ACC_ENUM;
+import org.objectweb.asm.*;
+import org.objectweb.asm.signature.SignatureReader;
 
 public class AsmClassVisitor extends ClassVisitor implements AsmAnnotatedElementVisitor {
   private static Param param(
@@ -90,7 +89,7 @@ public class AsmClassVisitor extends ClassVisitor implements AsmAnnotatedElement
     // output single character constant values as String
     field.defaultValue = value;
     if (value instanceof Integer && descriptor.equals("C")) {
-      field.defaultValue = Character.toString((Integer)value);
+      field.defaultValue = Character.toString((Integer) value);
     }
 
     field.modifiers = TypeUtils.access(access);
