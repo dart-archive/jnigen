@@ -5,8 +5,9 @@
 package com.github.dart_lang.jnigen.apisummarizer.disasm;
 
 import com.github.dart_lang.jnigen.apisummarizer.elements.TypeUsage;
-import java.util.ArrayList;
 import org.objectweb.asm.signature.SignatureVisitor;
+
+import java.util.ArrayList;
 
 public class AsmTypeUsageSignatureVisitor extends SignatureVisitor {
   private final TypeUsage typeUsage;
@@ -75,7 +76,7 @@ public class AsmTypeUsageSignatureVisitor extends SignatureVisitor {
   @Override
   public void visitClassType(String name) {
     typeUsage.kind = TypeUsage.Kind.DECLARED;
-    typeUsage.shorthand = name.substring(0, name.length()).replace('/', '.');
+    typeUsage.shorthand = name.replace('/', '.');
     var components = name.split("[/$]");
     var simpleName = components[components.length - 1];
     typeUsage.type = new TypeUsage.DeclaredType(typeUsage.shorthand, simpleName, new ArrayList<>());
@@ -87,7 +88,17 @@ public class AsmTypeUsageSignatureVisitor extends SignatureVisitor {
     // TODO(#144) support extend/super clauses
     assert (typeUsage.type instanceof TypeUsage.DeclaredType);
     var typeArg = new TypeUsage();
-    ((TypeUsage.DeclaredType) typeUsage.type).params.add(typeArg);
+    var finalTypeArg = typeArg;
+    if (wildcard == '-') {
+      var wildcardType = new TypeUsage.Wildcard(null, typeArg);
+      finalTypeArg = new TypeUsage("?", TypeUsage.Kind.WILDCARD, wildcardType);
+    } else if (wildcard == '+') {
+      var wildcardType = new TypeUsage.Wildcard(typeArg, null);
+      finalTypeArg = new TypeUsage("?", TypeUsage.Kind.WILDCARD, wildcardType);
+    } else {
+      assert wildcard == '=';
+    }
+    ((TypeUsage.DeclaredType) typeUsage.type).params.add(finalTypeArg);
     return new AsmTypeUsageSignatureVisitor(typeArg);
   }
 

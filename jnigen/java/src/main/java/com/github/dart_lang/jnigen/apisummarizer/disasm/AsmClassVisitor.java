@@ -7,10 +7,13 @@ package com.github.dart_lang.jnigen.apisummarizer.disasm;
 import com.github.dart_lang.jnigen.apisummarizer.elements.*;
 import com.github.dart_lang.jnigen.apisummarizer.util.SkipException;
 import com.github.dart_lang.jnigen.apisummarizer.util.StreamUtil;
-import java.util.*;
-import java.util.stream.Collectors;
 import org.objectweb.asm.*;
 import org.objectweb.asm.signature.SignatureReader;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static org.objectweb.asm.Opcodes.ACC_ENUM;
 
 public class AsmClassVisitor extends ClassVisitor implements AsmAnnotatedElementVisitor {
   private static Param param(
@@ -45,7 +48,6 @@ public class AsmClassVisitor extends ClassVisitor implements AsmAnnotatedElement
       String[] interfaces) {
     var current = new ClassDecl();
     visiting.push(current);
-    var type = Type.getObjectType(name);
     current.binaryName = name.replace('/', '.');
     current.modifiers = TypeUtils.access(actualAccess.getOrDefault(current.binaryName, access));
     current.declKind = TypeUtils.declKind(access);
@@ -84,8 +86,17 @@ public class AsmClassVisitor extends ClassVisitor implements AsmAnnotatedElement
     var field = new Field();
     field.name = name;
     field.type = TypeUtils.typeUsage(Type.getType(descriptor), signature);
+    // #352/3 - To match the output of doclet summarizer and for readability
+    // output single character constant values as String
     field.defaultValue = value;
+    if (value instanceof Integer && descriptor.equals("C")) {
+      field.defaultValue = Character.toString((Integer)value);
+    }
+
     field.modifiers = TypeUtils.access(access);
+    if ((access & ACC_ENUM) != 0) {
+      peekVisiting().values.add(name);
+    }
     if (signature != null) {
       var reader = new SignatureReader(signature);
       reader.accept(new AsmTypeUsageSignatureVisitor(field.type));
