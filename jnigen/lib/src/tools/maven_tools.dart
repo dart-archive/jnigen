@@ -96,6 +96,7 @@ class MavenTools {
         <groupId>${dep.groupID}</groupId>
         <artifactId>${dep.artifactID}</artifactId>
         <version>${dep.version}</version>
+        <type>${dep.type}</type>
         ${otherTags.toString()}
       </dependency>''');
     }
@@ -155,15 +156,20 @@ ${_getDepDecls(deps).join("\n")}
 
 class MavenDependency {
   MavenDependency(this.groupID, this.artifactID, this.version,
-      {this.otherTags = const {}});
+      {this.type = "jar", this.otherTags = const {}});
   factory MavenDependency.fromString(String fullName) {
     final components = fullName.split(':');
     if (components.length < 3) {
       throw ArgumentError('invalid name for maven dependency: $fullName');
     }
-    return MavenDependency(components[0], components[1], components[2]);
+    String? type;
+    try {
+      type = components[3];
+    } on IndexError {}
+    return MavenDependency(components[0], components[1], components[2],
+        type: type ?? "jar");
   }
-  String groupID, artifactID, version;
+  String groupID, artifactID, version, type;
   Map<String, String> otherTags;
 }
 
