@@ -14,10 +14,12 @@ void main(List<String> args) async {
   final config = Config.parseArgs(args);
   final mavenDownloads = config.mavenDownloads;
   if (mavenDownloads != null) {
+    stdout.writeln(mavenDownloads.repos.length);
+    stdout.writeAll(mavenDownloads.repos);
     await MavenTools.downloadMavenJars(
         MavenTools.deps(mavenDownloads.jarOnlyDeps + mavenDownloads.sourceDeps),
         mavenDownloads.jarDir,
-        repos: mavenDownloads.repos);
+        repos: MavenTools.repos(mavenDownloads.repos));
     await Directory(mavenDownloads.jarDir)
         .list()
         .map((entry) => entry.path)

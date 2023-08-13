@@ -9,7 +9,6 @@ import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 
-import '../../tools.dart';
 import '../elements/elements.dart';
 import '../logging/logging.dart';
 import '../util/find_package.dart';
@@ -46,7 +45,7 @@ class MavenDownloads {
   String sourceDir;
   List<String> jarOnlyDeps;
   String jarDir;
-  List<MavenRepository> repos;
+  List<String> repos;
 }
 
 /// Configuration for Android SDK sources and stub JAR files.
@@ -613,7 +612,7 @@ class Config {
               jarOnlyDeps: prov.getStringList(_Props.jarOnlyDeps) ?? const [],
               jarDir: prov.getPath(_Props.mavenJarDir)?.toFilePath() ??
                   resolveFromConfigRoot(MavenDownloads.defaultMavenJarDir),
-            )
+              repos: prov.getStringList(_Props.repos) ?? const [])
           : null,
       androidSdkConfig: prov.hasValue(_Props.androidSdkConfig)
           ? AndroidSdkConfig(
@@ -688,6 +687,7 @@ class _Props {
   static const mavenSourceDir = '$mavenDownloads.source_dir';
   static const jarOnlyDeps = '$mavenDownloads.jar_only_deps';
   static const mavenJarDir = '$mavenDownloads.jar_dir';
+  static const repos = '$mavenDownloads.repos';
 
   static const androidSdkConfig = 'android_sdk_config';
   static const androidSdkRoot = '$androidSdkConfig.sdk_root';

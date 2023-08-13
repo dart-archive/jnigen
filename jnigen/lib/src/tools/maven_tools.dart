@@ -42,6 +42,10 @@ class MavenTools {
   static List<MavenDependency> deps(List<String> depNames) =>
       depNames.map(MavenDependency.fromString).toList();
 
+  /// Create a list of [MavenRepository] objects from a list of strings.
+  static List<MavenRepository> repos(List<String> repos) =>
+      repos.map(MavenRepository.fromString).toList();
+
   /// Downloads and unpacks source files of [deps] into [targetDir].
   static Future<void> downloadMavenSources(
       List<MavenDependency> deps, String targetDir,
@@ -154,7 +158,7 @@ class MavenDependency {
       {this.otherTags = const {}});
   factory MavenDependency.fromString(String fullName) {
     final components = fullName.split(':');
-    if (components.length != 3) {
+    if (components.length < 3) {
       throw ArgumentError('invalid name for maven dependency: $fullName');
     }
     return MavenDependency(components[0], components[1], components[2]);
@@ -165,6 +169,13 @@ class MavenDependency {
 
 class MavenRepository {
   MavenRepository(this.id, this.name, this.url, {this.otherTags = const {}});
+  factory MavenRepository.fromString(String fullName) {
+    final components = fullName.split('|');
+    if (components.length < 3) {
+      throw ArgumentError('invalid maven repo: $fullName');
+    }
+    return MavenRepository(components[0], components[1], components[2]);
+  }
   String id, name, url;
   Map<String, String> otherTags;
 }
