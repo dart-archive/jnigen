@@ -25,11 +25,9 @@ class MavenTools {
   }
 
   static Future<void> _runMavenCommand(
-    List<MavenDependency> deps,
-    List<String> mvnArgs,
-    Directory tempDir,
-  ) async {
-    final pom = _getStubPom(deps);
+      List<MavenDependency> deps, List<String> mvnArgs, Directory tempDir,
+      {List<MavenRepository> repos = const []}) async {
+    final pom = _getStubPom(deps, repos);
     final tempPom = join(tempDir.path, "temp_pom.xml");
     final tempTarget = join(tempDir.path, "target");
     log.finer('using POM stub:\n$pom');
@@ -46,39 +44,40 @@ class MavenTools {
 
   /// Downloads and unpacks source files of [deps] into [targetDir].
   static Future<void> downloadMavenSources(
-      List<MavenDependency> deps, String targetDir) async {
+      List<MavenDependency> deps, String targetDir,
+      {List<MavenRepository> repos = const []}) async {
     final tempDir = await currentDir.createTemp("maven_temp_");
     await _runMavenCommand(
-      deps,
-      [
-        'dependency:unpack-dependencies',
-        '-DexcludeTransitive=true',
-        '-DoutputDirectory=../$targetDir',
-        '-Dclassifier=sources',
-      ],
-      tempDir,
-    );
+        deps,
+        [
+          'dependency:unpack-dependencies',
+          '-DexcludeTransitive=true',
+          '-DoutputDirectory=../$targetDir',
+          '-Dclassifier=sources',
+        ],
+        tempDir,
+        repos: repos);
     await tempDir.delete(recursive: true);
   }
 
   /// Downloads JAR files of all [deps] transitively into [targetDir].
   static Future<void> downloadMavenJars(
-      List<MavenDependency> deps, String targetDir) async {
+      List<MavenDependency> deps, String targetDir,
+      {List<MavenRepository> repos = const []}) async {
     final tempDir = await currentDir.createTemp("maven_temp_");
     await _runMavenCommand(
-      deps,
-      [
-        'dependency:copy-dependencies',
-        '-DoutputDirectory=../$targetDir',
-      ],
-      tempDir,
-    );
+        deps,
+        [
+          'dependency:copy-dependencies',
+          '-DoutputDirectory=../$targetDir',
+        ],
+        tempDir,
+        repos: repos);
     await tempDir.delete(recursive: true);
   }
 
-  static String _getStubPom(List<MavenDependency> deps,
-      {String javaVersion = '11'}) {
-    final depDecls = <String>[];
+  static List<String> _getDepDecls(List<MavenDependency> deps) {
+    final decls = <String>[];
     for (var dep in deps) {
       final otherTags = StringBuffer();
       for (var entry in dep.otherTags.entries) {
@@ -88,7 +87,7 @@ class MavenTools {
       </${entry.key}>
       ''');
       }
-      depDecls.add('''
+      decls.add('''
       <dependency>
         <groupId>${dep.groupID}</groupId>
         <artifactId>${dep.artifactID}</artifactId>
@@ -96,17 +95,41 @@ class MavenTools {
         ${otherTags.toString()}
       </dependency>''');
     }
+    return decls;
+  }
+
+  static List<String> _getRepoDecls(List<MavenRepository> repos) {
+    final decls = <String>[];
+    for (MavenRepository repo in repos) {
+      final otherTags = StringBuffer();
+      for (var entry in repo.otherTags.entries) {
+        otherTags.write('''
+      <${entry.key}>
+        ${entry.value}
+      </${entry.key}>
+      ''');
+      }
+      decls.add('''
+      <repository>
+        <id>${repo.id}</id>
+        <name>${repo.name}</name>
+        <url>${repo.url}</url>
+        ${otherTags.toString()}
+      </repository>''');
+    }
+    return decls;
+  }
+
+  static String _getStubPom(
+      List<MavenDependency> deps, List<MavenRepository> repos,
+      {String javaVersion = '11'}) {
     return '''
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
   http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <repositories>
-      <repository>
-        <id>google-maven-repo</id>
-        <name>Google Maven Repository</name>
-        <url>https://maven.google.com</url>
-      </repository>
+${_getRepoDecls(repos).join("\n")}
     </repositories>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany.app</groupId>
@@ -117,7 +140,7 @@ class MavenTools {
       <maven.compiler.target>$javaVersion</maven.compiler.target>
     </properties>
     <dependencies>
-${depDecls.join("\n")}
+${_getDepDecls(deps).join("\n")}
     </dependencies>
     <build>
       <directory>\${project.basedir}/target</directory>
@@ -126,7 +149,6 @@ ${depDecls.join("\n")}
   }
 }
 
-/// Maven dependency with group ID, artifact ID, and version.
 class MavenDependency {
   MavenDependency(this.groupID, this.artifactID, this.version,
       {this.otherTags = const {}});
@@ -138,5 +160,11 @@ class MavenDependency {
     return MavenDependency(components[0], components[1], components[2]);
   }
   String groupID, artifactID, version;
+  Map<String, String> otherTags;
+}
+
+class MavenRepository {
+  MavenRepository(this.id, this.name, this.url, {this.otherTags = const {}});
+  String id, name, url;
   Map<String, String> otherTags;
 }

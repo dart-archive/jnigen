@@ -9,6 +9,7 @@ import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 import 'package:yaml/yaml.dart';
 
+import '../../tools.dart';
 import '../elements/elements.dart';
 import '../logging/logging.dart';
 import '../util/find_package.dart';
@@ -34,17 +35,18 @@ class MavenDownloads {
   static const defaultMavenSourceDir = 'mvn_java';
   static const defaultMavenJarDir = 'mvn_jar';
 
-  MavenDownloads({
-    this.sourceDeps = const [],
-    // ASK: Should this be changed to a gitignore'd directory like build ?
-    this.sourceDir = defaultMavenSourceDir,
-    this.jarOnlyDeps = const [],
-    this.jarDir = defaultMavenJarDir,
-  });
+  MavenDownloads(
+      {this.sourceDeps = const [],
+      // ASK: Should this be changed to a gitignore'd directory like build ?
+      this.sourceDir = defaultMavenSourceDir,
+      this.jarOnlyDeps = const [],
+      this.jarDir = defaultMavenJarDir,
+      this.repos = const []});
   List<String> sourceDeps;
   String sourceDir;
   List<String> jarOnlyDeps;
   String jarDir;
+  List<MavenRepository> repos;
 }
 
 /// Configuration for Android SDK sources and stub JAR files.

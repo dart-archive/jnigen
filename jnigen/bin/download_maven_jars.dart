@@ -16,7 +16,8 @@ void main(List<String> args) async {
   if (mavenDownloads != null) {
     await MavenTools.downloadMavenJars(
         MavenTools.deps(mavenDownloads.jarOnlyDeps + mavenDownloads.sourceDeps),
-        mavenDownloads.jarDir);
+        mavenDownloads.jarDir,
+        repos: mavenDownloads.repos);
     await Directory(mavenDownloads.jarDir)
         .list()
         .map((entry) => entry.path)
