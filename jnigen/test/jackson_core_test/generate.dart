@@ -77,10 +77,6 @@ Config getConfig({
         ['com.fasterxml.jackson.core.base.ParserMinimalBase', 'CHAR_NULL'],
         ['com.fasterxml.jackson.core.io.UTF32Reader', 'NC'],
       ]),
-      // TODO(#159): Remove class exclusions.
-      classes: ClassNameFilter.exclude(
-        'com.fasterxml.jackson.core.JsonFactoryBuilder',
-      ),
     ),
     experiments: {Experiment.interfaceImplementation},
   );
