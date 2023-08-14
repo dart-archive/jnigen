@@ -761,7 +761,7 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
     final innerTypeClass = node.type.accept(_TypeClassGenerator(
       resolver,
       isConst: false,
-      boxPrimitives: boxPrimitives,
+      boxPrimitives: false,
       typeVarFromMap: typeVarFromMap,
     ));
     final ifConst = innerTypeClass.canBeConst && isConst ? 'const ' : '';
@@ -781,7 +781,7 @@ class _TypeClassGenerator extends TypeVisitor<_TypeClass> {
     final definedTypeClasses = node.params.accept(_TypeClassGenerator(
       resolver,
       isConst: false,
-      boxPrimitives: boxPrimitives,
+      boxPrimitives: false,
       typeVarFromMap: typeVarFromMap,
     ));
 
