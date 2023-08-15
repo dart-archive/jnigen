@@ -252,7 +252,8 @@ void registerCommonTests(Classes classes) {
     expect(example.getField("ON").defaultValue, equals(1));
     expect(example.getField("OFF").defaultValue, equals(0));
     expect(example.getField("PI").defaultValue, closeTo(3.14159, 0.001));
-    expect(example.getField("SEMICOLON").defaultValue, equals(';'));
+    expect(
+        example.getField("SEMICOLON").defaultValue, equals(';'.codeUnitAt(0)));
     expect(example.getField("SEMICOLON_STRING").defaultValue, equals(';'));
   });
 }

@@ -88,10 +88,6 @@ public class AsmClassVisitor extends ClassVisitor implements AsmAnnotatedElement
     // #352/3 - To match the output of doclet summarizer and for readability
     // output single character constant values as String
     field.defaultValue = value;
-    if (value instanceof Integer && descriptor.equals("C")) {
-      field.defaultValue = Character.toString((Integer) value);
-    }
-
     field.modifiers = TypeUtils.access(access);
     if ((access & ACC_ENUM) != 0) {
       peekVisiting().values.add(name);
