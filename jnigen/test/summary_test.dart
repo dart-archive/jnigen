@@ -302,4 +302,6 @@ void main() async {
           contains("Joins the strings in the list using the given delimiter."));
     });
   });
+
+  tearDownAll(() => tempDir.deleteSync(recursive: true));
 }
