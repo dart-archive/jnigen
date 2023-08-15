@@ -137,6 +137,7 @@ public class Example {
     return null;
   }
 
+  /** Joins the strings in the list using the given delimiter. */
   public String joinStrings(List<String> values, String delim) {
     return null;
   }

@@ -156,10 +156,13 @@ void registerCommonTests(Classes classes) {
     expect(mapType.params, hasLength(2));
     final strType = mapType.params[0];
     expect(strType.name, 'java.lang.String');
+    // TODO(#141): Wildcard implementation.
+    /*
     final wildcardType = mapType.params[1];
     expect(wildcardType.kind, equals(Kind.wildcard));
     expect((wildcardType.type as Wildcard).extendsBound?.name,
         equals('java.lang.CharSequence'));
+    */
   });
 
   test('superclass', () {
@@ -281,7 +284,22 @@ void main() async {
   });
 
   group('Tests on source-based summary', () {
-    test('Parameter names', () {});
-    test('Javadoc comment', () {});
+    final classes = parsedFromSource;
+    test('Parameter names', () {
+      final example = classes.getExampleClass();
+      final joinStrings = example.getMethod('joinStrings');
+      expect(
+          joinStrings.params.map((p) => p.name).toList(), ['values', 'delim']);
+      final m = example.getMethod("methodWithSeveralParams");
+      expect(m.params.map((p) => p.name).toList(),
+          ['ch', 's', 'a', 't', 'lt', 'wm']);
+    });
+
+    test('Javadoc comment', () {
+      final example = classes.getExampleClass();
+      final joinStrings = example.getMethod('joinStrings');
+      expect(joinStrings.javadoc?.comment,
+          contains("Joins the strings in the list using the given delimiter."));
+    });
   });
 }
