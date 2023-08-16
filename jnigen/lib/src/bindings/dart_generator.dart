@@ -15,11 +15,11 @@ import 'c_generator.dart';
 import 'resolver.dart';
 import 'visitor.dart';
 
-// Import prefixes
+// Import prefixes.
 const _jni = 'jni';
 const _ffi = 'ffi';
 
-// package:jni types
+// package:jni types.
 const _jType = '$_jni.JObjType';
 const _jPointer = '$_jni.JObjectPtr';
 const _jArray = '$_jni.JArray';
@@ -27,10 +27,10 @@ const _jObject = '$_jni.JObject';
 const _jResult = '$_jni.JniResult';
 const _jCallType = '$_jni.JniCallType';
 
-// package:ffi types
+// package:ffi types.
 const _voidPointer = '$_ffi.Pointer<$_ffi.Void>';
 
-// Prefixes and suffixes
+// Prefixes and suffixes.
 const _typeParamPrefix = '\$';
 
 // Misc.
@@ -41,12 +41,11 @@ const _accessors = '$_jni.Jni.accessors';
 const _lookup = 'jniLookup';
 const _selfPointer = 'reference';
 
-// Docs
+// Docs.
 const _deleteInstruction =
     '  /// The returned object must be deleted after use, '
     'by calling the `delete` method.';
 
-// Helper methods
 extension on Iterable<String> {
   /// Similar to [join] but adds the [separator] to the end as well.
   String delimited([String separator = '']) {
@@ -283,7 +282,7 @@ import "package:jni/jni.dart" as jni;
   }
 }
 
-/// Generates the Dart class definition, type class, and the array extension
+/// Generates the Dart class definition, type class, and the array extension.
 class _ClassGenerator extends Visitor<ClassDecl, void> {
   final Config config;
   final StringSink s;
@@ -303,11 +302,11 @@ class _ClassGenerator extends Visitor<ClassDecl, void> {
     final isDartOnly =
         config.outputConfig.bindingsType == BindingsType.dartOnly;
 
-    // Docs
+    // Docs.
     s.write('/// from: ${node.binaryName}\n');
     node.javadoc?.accept(_DocGenerator(s, depth: 0));
 
-    // Class definition
+    // Class definition.
     final name = node.finalName;
     final superName = node.superclass!.accept(_TypeGenerator(resolver));
     final implClassName = '\$${name}Impl';
@@ -369,7 +368,7 @@ class $name$typeParamsDef extends $superName {
 ''');
     }
 
-    // Static TypeClass getter
+    // Static TypeClass getter.
     s.writeln(
         '  /// The type which includes information such as the signature of this class.');
     final typeClassName = node.typeClassName;
@@ -404,7 +403,7 @@ class $name$typeParamsDef extends $superName {
       method.accept(methodGenerator);
     }
 
-    // Experimental: Interface implementation
+    // Experimental: Interface implementation.
     if (node.declKind == DeclKind.interfaceKind &&
         (config.experiments?.contains(Experiment.interfaceImplementation) ??
             false)) {
@@ -495,7 +494,7 @@ class $name$typeParamsDef extends $superName {
   ''');
     }
 
-    // End of Class definition
+    // End of Class definition.
     s.writeln('}');
 
     // Experimental: Interface implementation
@@ -504,7 +503,7 @@ class $name$typeParamsDef extends $superName {
     if (node.declKind == DeclKind.interfaceKind &&
         (config.experiments?.contains(Experiment.interfaceImplementation) ??
             false)) {
-      // Abstract Impl class
+      // Abstract Impl class.
       final typeClassGetters = typeParams
           .map((typeParam) =>
               '$_jType<$_typeParamPrefix$typeParam> get $typeParam;')
@@ -533,7 +532,7 @@ abstract class $implClassName$typeParamsDef {
       }
       s.writeln('}');
 
-      // Concrete Impl class
+      // Concrete Impl class.
       // This is for passing closures instead of implementing the class.
       final concreteCtorArgs = _encloseIfNotEmpty(
         '{',
@@ -575,7 +574,7 @@ class _$implClassName$typeParamsDef implements $implClassName$typeParamsCall {
       }
       s.writeln('}');
     }
-    // TypeClass definition
+    // TypeClass definition.
     final typeClassesCall =
         typeParams.map((typeParam) => '$typeParam,').join(_newLine(depth: 2));
     final signature = node.signature;
@@ -1083,10 +1082,10 @@ class _FieldGenerator extends Visitor<Field, void> {
       }
     }
 
-    // Accessors
+    // Accessors.
     (isCBased ? writeCAccessor : writeDartOnlyAccessor)(node);
 
-    // Getter docs
+    // Getter docs.
     writeDocs(node, writeDeleteInstructions: true);
 
     final name = node.finalName;
@@ -1098,7 +1097,7 @@ class _FieldGenerator extends Visitor<Field, void> {
     ));
     s.writeln(';\n');
     if (!node.isFinal) {
-      // Setter docs
+      // Setter docs.
       writeDocs(node, writeDeleteInstructions: true);
 
       s.write('${ifStatic}set $name($type value) => ');
