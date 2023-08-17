@@ -120,9 +120,9 @@ class Example extends jni.JObject {
   }
 
   static final _setName = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Example__setName")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__setName")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public void setName(java.lang.String newName)
@@ -133,9 +133,9 @@ class Example extends jni.JObject {
   }
 
   static final _setNestedInstance = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Example__setNestedInstance")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__setNestedInstance")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public void setNestedInstance(com.github.dart_lang.jnigen.simple_package.Example.Nested newNested)
@@ -183,9 +183,9 @@ class Example extends jni.JObject {
   }
 
   static final _getNumber = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Example__getNumber")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__getNumber")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public int getNumber()
@@ -207,9 +207,9 @@ class Example extends jni.JObject {
   }
 
   static final _getIsUp = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Example__getIsUp")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__getIsUp")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public boolean getIsUp()
@@ -231,9 +231,9 @@ class Example extends jni.JObject {
   }
 
   static final _getCodename = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Example__getCodename")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__getCodename")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public java.lang.String getCodename()
@@ -258,9 +258,9 @@ class Example extends jni.JObject {
   }
 
   static final _getRandom = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Example__getRandom")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__getRandom")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public java.util.Random getRandom()
@@ -285,9 +285,9 @@ class Example extends jni.JObject {
   }
 
   static final _getRandomLong = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Example__getRandomLong")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__getRandomLong")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public long getRandomLong()
@@ -443,9 +443,9 @@ class Example extends jni.JObject {
   }
 
   static final _whichExample = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Example__whichExample")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__whichExample")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public int whichExample()
@@ -477,9 +477,8 @@ class Example extends jni.JObject {
   }
 
   static final _addAll = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Example__addAll")
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("Example__addAll")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public int addAll(int[] arr)
@@ -490,9 +489,9 @@ class Example extends jni.JObject {
   }
 
   static final _getSelf = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Example__getSelf")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example__getSelf")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public com.github.dart_lang.jnigen.simple_package.Example getSelf()
@@ -562,8 +561,8 @@ class Example_Nested extends jni.JObject {
   }
 
   static final _usesAnonymousInnerClass = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
           "Example_Nested__usesAnonymousInnerClass")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
@@ -573,9 +572,9 @@ class Example_Nested extends jni.JObject {
   }
 
   static final _getValue = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Example_Nested__getValue")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example_Nested__getValue")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public boolean getValue()
@@ -788,9 +787,9 @@ class Exceptions extends jni.JObject {
   }
 
   static final _objectMethod = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Exceptions__objectMethod")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Exceptions__objectMethod")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public java.lang.Object objectMethod()
@@ -800,9 +799,9 @@ class Exceptions extends jni.JObject {
   }
 
   static final _intMethod = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Exceptions__intMethod")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Exceptions__intMethod")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public int intMethod()
@@ -811,9 +810,9 @@ class Exceptions extends jni.JObject {
   }
 
   static final _objectArrayMethod = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Exceptions__objectArrayMethod")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Exceptions__objectArrayMethod")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public java.lang.Object[] objectArrayMethod()
@@ -824,9 +823,9 @@ class Exceptions extends jni.JObject {
   }
 
   static final _intArrayMethod = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Exceptions__intArrayMethod")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Exceptions__intArrayMethod")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public int[] intArrayMethod()
@@ -837,8 +836,8 @@ class Exceptions extends jni.JObject {
   }
 
   static final _throwNullPointerException = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
           "Exceptions__throwNullPointerException")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
@@ -848,8 +847,8 @@ class Exceptions extends jni.JObject {
   }
 
   static final _throwFileNotFoundException = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
           "Exceptions__throwFileNotFoundException")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
@@ -861,8 +860,8 @@ class Exceptions extends jni.JObject {
   }
 
   static final _throwClassCastException = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
           "Exceptions__throwClassCastException")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
@@ -874,8 +873,8 @@ class Exceptions extends jni.JObject {
   }
 
   static final _throwArrayIndexException = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
           "Exceptions__throwArrayIndexException")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
@@ -885,8 +884,8 @@ class Exceptions extends jni.JObject {
   }
 
   static final _throwArithmeticException = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
           "Exceptions__throwArithmeticException")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
@@ -995,9 +994,9 @@ class Fields extends jni.JObject {
           .asFunction<jni.JniResult Function()>();
 
   static final _set_name = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "set_Fields__name")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("set_Fields__name")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public java.lang.String name
@@ -1225,9 +1224,9 @@ class Fields_Nested extends jni.JObject {
           .asFunction<jni.JniResult Function()>();
 
   static final _set_BEST_GOD = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "set_Fields_Nested__BEST_GOD")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("set_Fields_Nested__BEST_GOD")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public java.lang.String BEST_GOD
@@ -1361,9 +1360,9 @@ class Example1 extends jni.JObject {
   }
 
   static final _whichExample = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "Example1__whichExample")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("Example1__whichExample")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public int whichExample()
@@ -1443,9 +1442,9 @@ class GrandParent<$T extends jni.JObject> extends jni.JObject {
   set value($T value) => _set_value(reference, value.reference).check();
 
   static final _ctor = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "GrandParent__ctor")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("GrandParent__ctor")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public void <init>(T value)
@@ -1461,9 +1460,9 @@ class GrandParent<$T extends jni.JObject> extends jni.JObject {
   }
 
   static final _stringParent = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "GrandParent__stringParent")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("GrandParent__stringParent")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public com.github.dart_lang.jnigen.generics.GrandParent<T>.Parent<java.lang.String> stringParent()
@@ -1507,9 +1506,9 @@ class GrandParent<$T extends jni.JObject> extends jni.JObject {
   }
 
   static final _varStaticParent = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "GrandParent__varStaticParent")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("GrandParent__varStaticParent")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public com.github.dart_lang.jnigen.generics.GrandParent.StaticParent<S> varStaticParent(S value)
@@ -1526,8 +1525,8 @@ class GrandParent<$T extends jni.JObject> extends jni.JObject {
   }
 
   static final _staticParentWithSameType = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
           "GrandParent__staticParentWithSameType")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
@@ -1943,9 +1942,9 @@ class GrandParent_StaticParent<$S extends jni.JObject> extends jni.JObject {
   set value($S value) => _set_value(reference, value.reference).check();
 
   static final _ctor = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "GrandParent_StaticParent__ctor")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("GrandParent_StaticParent__ctor")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public void <init>(S value)
@@ -2219,9 +2218,9 @@ class MyMap<$K extends jni.JObject, $V extends jni.JObject>
   }
 
   static final _entryStack = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "MyMap__entryStack")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("MyMap__entryStack")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public com.github.dart_lang.jnigen.generics.MyStack<com.github.dart_lang.jnigen.generics.MyMap<K,V>.MyEntry> entryStack()
@@ -2446,9 +2445,9 @@ class MyStack<$T extends jni.JObject> extends jni.JObject {
   }
 
   static final _fromArray = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "MyStack__fromArray")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("MyStack__fromArray")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public com.github.dart_lang.jnigen.generics.MyStack<T> fromArray(T[] arr)
@@ -2464,8 +2463,8 @@ class MyStack<$T extends jni.JObject> extends jni.JObject {
   }
 
   static final _fromArrayOfArrayOfGrandParents = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+              ffi.NativeFunction<
+                  jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
           "MyStack__fromArrayOfArrayOfGrandParents")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
@@ -2498,9 +2497,8 @@ class MyStack<$T extends jni.JObject> extends jni.JObject {
   }
 
   static final _of1 = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "MyStack__of1")
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("MyStack__of1")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public com.github.dart_lang.jnigen.generics.MyStack<T> of(T obj)
@@ -2553,9 +2551,8 @@ class MyStack<$T extends jni.JObject> extends jni.JObject {
   }
 
   static final _pop = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "MyStack__pop")
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("MyStack__pop")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public T pop()
@@ -2565,9 +2562,8 @@ class MyStack<$T extends jni.JObject> extends jni.JObject {
   }
 
   static final _size = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "MyStack__size")
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>)>>("MyStack__size")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: public int size()
@@ -3264,9 +3260,9 @@ class JsonSerializable_Case extends jni.JObject {
   }
 
   static final _valueOf = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "JsonSerializable_Case__valueOf")
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>)>>("JsonSerializable_Case__valueOf")
       .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
 
   /// from: static public com.github.dart_lang.jnigen.annotations.JsonSerializable.Case valueOf(java.lang.String name)
