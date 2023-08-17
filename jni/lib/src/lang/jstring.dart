@@ -5,6 +5,7 @@
 import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
+import 'package:jni/src/jreference.dart';
 
 import '../jexceptions.dart';
 import '../jni.dart';
@@ -67,9 +68,7 @@ class JString extends JObject {
   /// If [deleteOriginal] is true, the underlying reference is deleted
   /// after conversion and this object will be marked as deleted.
   String toDartString({bool deleteOriginal = false}) {
-    if (reference == nullptr) {
-      throw NullJStringException();
-    }
+    ensureNotNull();
     final length = Jni.env.GetStringLength(reference);
     final chars = Jni.env.GetStringChars(reference, nullptr);
     final result = chars.cast<Utf16>().toDartString(length: length);

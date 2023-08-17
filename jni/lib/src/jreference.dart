@@ -13,10 +13,24 @@ import 'jni.dart';
 extension ProtectedJReference on JReference {
   void setAsDeleted() {
     if (_deleted) {
-      throw DoubleFreeException(this, _reference);
+      throw DoubleFreeException(_reference);
     }
     _deleted = true;
     JReference._finalizer.detach(this);
+  }
+
+  void ensureNotNull() {
+    if (isNull) {
+      throw const JNullException();
+    }
+  }
+
+  /// Similar to [reference].
+  ///
+  /// Detaches the finalizer so the underlying pointer will not be deleted.
+  JObjectPtr toPointer() {
+    setAsDeleted();
+    return _reference;
   }
 }
 
@@ -53,7 +67,7 @@ abstract class JReference implements Finalizable {
   /// Be careful when storing this reference in a variable, since the underlying
   /// object might get deleted.
   JObjectPtr get reference {
-    if (_deleted) throw UseAfterFreeException(this, _reference);
+    if (_deleted) throw UseAfterFreeException(_reference);
     return _reference;
   }
 

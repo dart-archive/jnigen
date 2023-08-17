@@ -308,8 +308,9 @@ class JObject extends JReference {
   T castTo<T extends JObject>(JObjType<T> type, {bool deleteOriginal = false}) {
     if (deleteOriginal) {
       _jClass?.delete();
+      final ret = type.fromRef(reference);
       setAsDeleted();
-      return type.fromRef(reference);
+      return ret;
     }
     final newRef = Jni.env.NewGlobalRef(reference);
     return type.fromRef(newRef);
