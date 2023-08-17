@@ -33,7 +33,7 @@ abstract class JReference implements Finalizable {
   bool _deleted = false;
 
   /// Check whether the underlying JNI reference is `null`.
-  bool get isNull => _reference == nullptr;
+  bool get isNull => reference == nullptr;
 
   /// Returns whether this object is deleted.
   bool get isDeleted => _deleted;
