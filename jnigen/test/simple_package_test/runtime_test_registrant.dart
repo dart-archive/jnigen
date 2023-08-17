@@ -531,8 +531,7 @@ void registerTests(String groupName, TestRunnerCallback test) {
     });
   });
 
-  // Skipping this on if the NativeApi version is <= 2.2.
-  group('interface implementation', skip: NativeApi.minorVersion < 3, () {
+  group('interface implementation', () {
     for (final method in {
       'another thread': MyInterfaceConsumer.consumeOnAnotherThread,
       'the same thread': MyInterfaceConsumer.consumeOnSameThread,
