@@ -257,13 +257,13 @@ abstract class JniCallType {
 ///
 /// If [exception] is null, it means the result is valid.
 /// It's assumed that the caller knows the expected type in [result].
-class JniResult extends ffi.Struct {
+final class JniResult extends ffi.Struct {
   external JValue value;
 
   external JThrowablePtr exception;
 }
 
-class JValue extends ffi.Union {
+final class JValue extends ffi.Union {
   @JBooleanMarker()
   external int z;
 
@@ -306,7 +306,7 @@ typedef JObjectPtr = ffi.Pointer<ffi.Void>;
 typedef JThrowablePtr = JObjectPtr;
 
 /// Similar to [JniResult] but for class lookups.
-class JniClassLookupResult extends ffi.Struct {
+final class JniClassLookupResult extends ffi.Struct {
   external JClassPtr value;
 
   external JThrowablePtr exception;
@@ -315,7 +315,7 @@ class JniClassLookupResult extends ffi.Struct {
 typedef JClassPtr = JObjectPtr;
 
 /// Similar to [JniResult] but for method/field ID lookups.
-class JniPointerResult extends ffi.Struct {
+final class JniPointerResult extends ffi.Struct {
   external ffi.Pointer<ffi.Void> value;
 
   external JThrowablePtr exception;
@@ -323,7 +323,7 @@ class JniPointerResult extends ffi.Struct {
 
 /// JniExceptionDetails holds 2 jstring objects, one is the result of
 /// calling `toString` on exception object, other is stack trace;
-class JniExceptionDetails extends ffi.Struct {
+final class JniExceptionDetails extends ffi.Struct {
   external JStringPtr message;
 
   external JStringPtr stacktrace;
@@ -337,7 +337,7 @@ typedef JStringPtr = JObjectPtr;
 /// Flutter embedding checks for pending JNI exceptions before an FFI transition, which requires us
 /// to check for and clear the exception before returning to dart code, which requires these functions
 /// to return result types.
-class JniAccessorsStruct extends ffi.Struct {
+final class JniAccessorsStruct extends ffi.Struct {
   external ffi.Pointer<
       ffi.NativeFunction<
           JniClassLookupResult Function(
@@ -421,19 +421,19 @@ class JniAccessorsStruct extends ffi.Struct {
 
 typedef JMethodIDPtr = ffi.Pointer<jmethodID_>;
 
-class jmethodID_ extends ffi.Opaque {}
+final class jmethodID_ extends ffi.Opaque {}
 
 /// "cardinal indices and sizes"
 typedef JSizeMarker = JIntMarker;
 typedef JArrayPtr = JObjectPtr;
 typedef JFieldIDPtr = ffi.Pointer<jfieldID_>;
 
-class jfieldID_ extends ffi.Opaque {}
+final class jfieldID_ extends ffi.Opaque {}
 
 typedef JavaVM = ffi.Pointer<JNIInvokeInterface>;
 
 /// JNI invocation interface.
-class JNIInvokeInterface extends ffi.Struct {
+final class JNIInvokeInterface extends ffi.Struct {
   external ffi.Pointer<ffi.Void> reserved0;
 
   external ffi.Pointer<ffi.Void> reserved1;
@@ -474,7 +474,7 @@ typedef JavaVM1 = ffi.Pointer<JNIInvokeInterface>;
 typedef JniEnv = ffi.Pointer<JNINativeInterface>;
 
 /// Table of interface function pointers.
-class JNINativeInterface extends ffi.Struct {
+final class JNINativeInterface extends ffi.Struct {
   external ffi.Pointer<ffi.Void> reserved0;
 
   external ffi.Pointer<ffi.Void> reserved1;
@@ -1933,7 +1933,7 @@ typedef JLongArrayPtr = JArrayPtr;
 typedef JFloatArrayPtr = JArrayPtr;
 typedef JDoubleArrayPtr = JArrayPtr;
 
-class JNINativeMethod extends ffi.Struct {
+final class JNINativeMethod extends ffi.Struct {
   external ffi.Pointer<ffi.Char> name;
 
   external ffi.Pointer<ffi.Char> signature;
@@ -1950,7 +1950,7 @@ abstract class JObjectRefType {
   static const int JNIWeakGlobalRefType = 3;
 }
 
-class JavaVMInitArgs extends ffi.Struct {
+final class JavaVMInitArgs extends ffi.Struct {
   /// use JNI_VERSION_1_2 or later
   @JIntMarker()
   external int version;
@@ -1966,13 +1966,13 @@ class JavaVMInitArgs extends ffi.Struct {
 
 /// JNI 1.2+ initialization.  (As of 1.6, the pre-1.2 structures are no
 /// longer supported.)
-class JavaVMOption extends ffi.Struct {
+final class JavaVMOption extends ffi.Struct {
   external ffi.Pointer<ffi.Char> optionString;
 
   external ffi.Pointer<ffi.Void> extraInfo;
 }
 
-class CallbackResult extends ffi.Struct {
+final class CallbackResult extends ffi.Struct {
   external MutexLock lock;
 
   external ConditionVariable cond;
@@ -1987,7 +1987,7 @@ typedef MutexLock = pthread_mutex_t;
 typedef pthread_mutex_t = __darwin_pthread_mutex_t;
 typedef __darwin_pthread_mutex_t = _opaque_pthread_mutex_t;
 
-class _opaque_pthread_mutex_t extends ffi.Struct {
+final class _opaque_pthread_mutex_t extends ffi.Struct {
   @ffi.Long()
   external int __sig;
 
@@ -1999,7 +1999,7 @@ typedef ConditionVariable = pthread_cond_t;
 typedef pthread_cond_t = __darwin_pthread_cond_t;
 typedef __darwin_pthread_cond_t = _opaque_pthread_cond_t;
 
-class _opaque_pthread_cond_t extends ffi.Struct {
+final class _opaque_pthread_cond_t extends ffi.Struct {
   @ffi.Long()
   external int __sig;
 
@@ -2007,7 +2007,7 @@ class _opaque_pthread_cond_t extends ffi.Struct {
   external ffi.Array<ffi.Char> __opaque;
 }
 
-class GlobalJniEnvStruct extends ffi.Struct {
+final class GlobalJniEnvStruct extends ffi.Struct {
   external ffi.Pointer<ffi.Void> reserved0;
 
   external ffi.Pointer<ffi.Void> reserved1;
