@@ -7,7 +7,6 @@ import 'dart:ffi';
 import 'package:ffi/ffi.dart';
 import 'package:jni/src/jreference.dart';
 
-import '../jexceptions.dart';
 import '../jni.dart';
 import '../jobject.dart';
 import '../third_party/generated_bindings.dart';

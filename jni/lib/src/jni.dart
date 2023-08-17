@@ -337,7 +337,7 @@ extension AdditionalEnvMethods on GlobalJniEnv {
   /// DeleteLocalRef.
   String toDartString(JStringPtr jstringPtr, {bool deleteOriginal = false}) {
     if (jstringPtr == nullptr) {
-      throw JNullException();
+      throw const JNullException();
     }
     final chars = GetStringUTFChars(jstringPtr, nullptr);
     if (chars == nullptr) {
