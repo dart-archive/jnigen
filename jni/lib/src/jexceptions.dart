@@ -21,7 +21,7 @@ class UseAfterFreeException implements JException {
 
 class NullJStringException implements JException {
   @override
-  String toString() => 'toDartString was called on null JString reference.';
+  String toString() => '`toDartString` was called on null `JString` reference.';
 }
 
 class InvalidJStringException implements JException {
