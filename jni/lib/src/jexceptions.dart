@@ -15,13 +15,13 @@ class UseAfterFreeException implements JException {
 
   @override
   String toString() {
-    return "use after free on $ptr through $object";
+    return "Use after free on $ptr through $object.";
   }
 }
 
 class NullJStringException implements JException {
   @override
-  String toString() => 'toDartString called on null JString reference';
+  String toString() => 'toDartString was called on null JString reference.';
 }
 
 class InvalidJStringException implements JException {
@@ -29,7 +29,7 @@ class InvalidJStringException implements JException {
   InvalidJStringException(this.reference);
   @override
   String toString() => 'Not a valid Java String: '
-      '0x${reference.address.toRadixString(16)}';
+      '0x${reference.address.toRadixString(16)}.';
 }
 
 class DoubleFreeException implements JException {
@@ -39,7 +39,7 @@ class DoubleFreeException implements JException {
 
   @override
   String toString() {
-    return "double free on $ptr through $object";
+    return "Double free on $ptr through $object.";
   }
 }
 
