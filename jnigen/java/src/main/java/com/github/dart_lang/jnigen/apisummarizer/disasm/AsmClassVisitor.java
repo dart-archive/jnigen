@@ -85,8 +85,6 @@ public class AsmClassVisitor extends ClassVisitor implements AsmAnnotatedElement
     var field = new Field();
     field.name = name;
     field.type = TypeUtils.typeUsage(Type.getType(descriptor), signature);
-    // #352/3 - To match the output of doclet summarizer and for readability
-    // output single character constant values as String
     field.defaultValue = value;
     field.modifiers = TypeUtils.access(access);
     if ((access & ACC_ENUM) != 0) {

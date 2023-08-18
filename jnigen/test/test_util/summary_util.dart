@@ -1,8 +1,6 @@
-// Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
-
-// Stuff shared by summary related tests alone
 
 import 'dart:io';
 
@@ -35,7 +33,7 @@ final javaFiles = findFilesWithSuffix(simplePackageDir, '.java');
 /// All Java classes in simple_package_test/java
 final javaClasses = javaFiles.map(getClassNameFromPath).toList();
 
-// remove individual class listings from one package,
+// Remove individual class listings from one package,
 // and add the package name instead, for testing.
 
 const removalPackageForSummaryTests = 'com.github.dart_lang.jnigen.pkg2';

@@ -1,4 +1,4 @@
-// Copyright (c) 2022, the Dart project authors. Please see the AUTHORS file
+// Copyright (c) 2023, the Dart project authors. Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -16,7 +16,7 @@ import 'test_util/test_util.dart';
 const jnigenPackage = 'com.github.dart_lang.jnigen';
 const simplePackage = "$jnigenPackage.simple_package";
 
-extension MethodsForSummaryTestsOnClasses on Classes {
+extension on Classes {
   String _getSimpleName(ClassDecl c) {
     return c.binaryName.split(".").last;
   }
@@ -34,13 +34,9 @@ extension MethodsForSummaryTestsOnClasses on Classes {
   }
 }
 
-extension MethodsForSummaryTestsOnClassDecl on ClassDecl {
+extension on ClassDecl {
   Method getMethod(String name) => methods.firstWhere((m) => m.name == name);
   Field getField(String name) => fields.firstWhere((f) => f.name == name);
-}
-
-extension MethodsForSummaryTestOnMethod on Method {
-  Param getParam(String name) => params.firstWhere((p) => p.name == name);
 }
 
 void registerCommonTests(Classes classes) {
@@ -118,40 +114,40 @@ void registerCommonTests(Classes classes) {
 
   test('Parameters of several types', () {
     final example = classes.getExampleClass();
-    final m = example.getMethod('methodWithSeveralParams');
-    expect(m.typeParams, hasLength(1));
-    expect(m.typeParams[0].name, 'T');
-    expect(m.typeParams[0].bounds[0].name, 'java.lang.CharSequence');
+    final method = example.getMethod('methodWithSeveralParams');
+    expect(method.typeParams, hasLength(1));
+    expect(method.typeParams[0].name, 'T');
+    expect(method.typeParams[0].bounds[0].name, 'java.lang.CharSequence');
 
-    final ch = m.params[0];
-    expect(ch.type.kind, equals(Kind.primitive));
-    expect(ch.type.name, equals('char'));
+    final charParam = method.params[0];
+    expect(charParam.type.kind, equals(Kind.primitive));
+    expect(charParam.type.name, equals('char'));
 
-    final s = m.params[1];
-    expect(s.type.kind, equals(Kind.declared));
-    expect(
-        (s.type.type as DeclaredType).binaryName, equals('java.lang.String'));
+    final stringParam = method.params[1];
+    expect(stringParam.type.kind, equals(Kind.declared));
+    expect((stringParam.type.type as DeclaredType).binaryName,
+        equals('java.lang.String'));
 
-    final a = m.params[2];
-    expect(a.type.kind, equals(Kind.array));
-    expect((a.type.type as ArrayType).type.name, equals('int'));
+    final arrayParam = method.params[2];
+    expect(arrayParam.type.kind, equals(Kind.array));
+    expect((arrayParam.type.type as ArrayType).type.name, equals('int'));
 
-    final t = m.params[3];
-    expect(t.type.kind, equals(Kind.typeVariable));
-    expect((t.type.type as TypeVar).name, equals('T'));
+    final typeVarParam = method.params[3];
+    expect(typeVarParam.type.kind, equals(Kind.typeVariable));
+    expect((typeVarParam.type.type as TypeVar).name, equals('T'));
 
-    final lt = m.params[4];
-    expect(lt.type.kind, equals(Kind.declared));
-    final listType = (lt.type.type as DeclaredType);
+    final listParam = method.params[4];
+    expect(listParam.type.kind, equals(Kind.declared));
+    final listType = (listParam.type.type as DeclaredType);
     expect(listType.binaryName, equals('java.util.List'));
     expect(listType.params, hasLength(1));
     final tType = listType.params[0];
     expect(tType.kind, Kind.typeVariable);
     expect((tType.type as TypeVar).name, equals('T'));
 
-    final wm = m.params[5];
-    expect(wm.type.kind, equals(Kind.declared));
-    final mapType = (wm.type.type as DeclaredType);
+    final wildcardMapParam = method.params[5];
+    expect(wildcardMapParam.type.kind, equals(Kind.declared));
+    final mapType = (wildcardMapParam.type.type as DeclaredType);
     expect(mapType.binaryName, equals('java.util.Map'));
     expect(mapType.params, hasLength(2));
     final strType = mapType.params[0];
@@ -168,15 +164,16 @@ void registerCommonTests(Classes classes) {
   test('superclass', () {
     final baseClass = classes.getClass('inheritance', 'BaseClass');
     expect(baseClass.typeParams, hasLength(1));
-    final tp1 = baseClass.typeParams[0];
-    expect(tp1.bounds.map((b) => b.name).toList(), ['java.lang.CharSequence']);
+    final typeParam = baseClass.typeParams.single;
+    expect(typeParam.bounds.map((b) => b.name).toList(),
+        ['java.lang.CharSequence']);
 
     final specific = classes.getClass('inheritance', 'SpecificDerivedClass');
     expect(specific.typeParams, hasLength(0));
     expect(specific.superclass, isNotNull);
-    final sAnc = specific.superclass!.type as DeclaredType;
-    expect(sAnc.params[0].type, isA<DeclaredType>());
-    expect(sAnc.params[0].type.name, equals('java.lang.String'));
+    final specificSuper = specific.superclass!.type as DeclaredType;
+    expect(specificSuper.params[0].type, isA<DeclaredType>());
+    expect(specificSuper.params[0].type.name, equals('java.lang.String'));
 
     final generic = classes.getClass('inheritance', 'GenericDerivedClass');
     expect(generic.typeParams, hasLength(1));
@@ -184,26 +181,27 @@ void registerCommonTests(Classes classes) {
     expect(generic.typeParams[0].bounds.map((b) => b.name).toList(),
         ['java.lang.CharSequence']);
     expect(generic.superclass, isNotNull);
-    final gAnc = generic.superclass!.type as DeclaredType;
-    expect(gAnc.params[0].type, isA<TypeVar>());
-    expect(gAnc.params[0].type.name, equals('T'));
+    final genericSuper = generic.superclass!.type as DeclaredType;
+    expect(genericSuper.params[0].type, isA<TypeVar>());
+    expect(genericSuper.params[0].type.name, equals('T'));
   });
 
   test('constructor is included', () {
     final example = classes.getExampleClass();
-    void assertOneCtorExistsWithArity(int arity, List<String> paramTypes) {
+    void assertOneCtorExistsWithArity(List<String> paramTypes) {
       final arityCtors = example.methods
-          .where((m) => m.name == '<init>' && m.params.length == arity)
+          .where(
+              (m) => m.name == '<init>' && m.params.length == paramTypes.length)
           .toList();
       expect(arityCtors, hasLength(1));
       final ctor = arityCtors[0];
       expect(ctor.params.map((p) => p.type.name), equals(paramTypes));
     }
 
-    assertOneCtorExistsWithArity(0, []);
-    assertOneCtorExistsWithArity(1, ['int']);
-    assertOneCtorExistsWithArity(2, ['int', 'boolean']);
-    assertOneCtorExistsWithArity(3, ['int', 'boolean', 'java.lang.String']);
+    assertOneCtorExistsWithArity([]);
+    assertOneCtorExistsWithArity(['int']);
+    assertOneCtorExistsWithArity(['int', 'boolean']);
+    assertOneCtorExistsWithArity(['int', 'boolean', 'java.lang.String']);
   });
 
   test('Overloaded methods', () {
@@ -212,18 +210,18 @@ void registerCommonTests(Classes classes) {
         .methods
         .where((m) => m.name == 'overloaded')
         .toList();
-    expect(methods, hasLength(5));
     final signatures =
-        methods.map((m) => m.params.map((p) => p.type.name).toList()).toList();
+        methods.map((m) => m.params.map((p) => p.type.name).toList()).toSet();
     expect(
-        signatures,
-        containsAll(const [
-          <String>[],
-          ['int'],
-          ['int', 'java.lang.String'],
-          ['java.util.List'],
-          ['java.util.List', 'java.lang.String'],
-        ]));
+      signatures,
+      equals({
+        <String>[],
+        ['int'],
+        ['int', 'java.lang.String'],
+        ['java.util.List'],
+        ['java.util.List', 'java.lang.String'],
+      }),
+    );
   });
 
   test('Declaration type (class vs interface vs enum)', () {
@@ -292,23 +290,24 @@ void main() async {
   final classConfig = getSummaryGenerationConfig(classPath: [targetDir.path]);
   final parsedFromClasses = await getSummary(classConfig);
 
-  group('Tests on source summary', () {
+  group('source summary', () {
     registerCommonTests(parsedFromSource);
   });
 
-  group('Tests on compiled summary', () {
+  group('compiled summary', () {
     registerCommonTests(parsedFromClasses);
   });
 
-  group('Tests on source-based summary', () {
+  group('source-based summary features', () {
     final classes = parsedFromSource;
     test('Parameter names', () {
       final example = classes.getExampleClass();
       final joinStrings = example.getMethod('joinStrings');
       expect(
           joinStrings.params.map((p) => p.name).toList(), ['values', 'delim']);
-      final m = example.getMethod("methodWithSeveralParams");
-      expect(m.params.map((p) => p.name).toList(),
+      final methodWithSeveralParams =
+          example.getMethod("methodWithSeveralParams");
+      expect(methodWithSeveralParams.params.map((p) => p.name).toList(),
           ['ch', 's', 'a', 't', 'lt', 'wm']);
     });
 
