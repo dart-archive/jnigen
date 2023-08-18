@@ -5,13 +5,12 @@
 // These tests validate summary generation in various scenarios.
 // Currently, no validation of the summary content itself is done.
 
-// ignore_for_file: unused_import
+@Tags(['summarizer_test'])
 
 import 'dart:math';
 
 import 'package:jnigen/src/config/config.dart';
 import 'package:jnigen/src/elements/elements.dart';
-import 'package:jnigen/src/logging/logging.dart';
 import 'package:jnigen/src/summary/summary.dart';
 
 import 'package:path/path.dart' hide equals;

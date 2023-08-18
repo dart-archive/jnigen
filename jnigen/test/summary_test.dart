@@ -259,6 +259,23 @@ void registerCommonTests(Classes classes) {
         example.getField("SEMICOLON").defaultValue, equals(';'.codeUnitAt(0)));
     expect(example.getField("SEMICOLON_STRING").defaultValue, equals(';'));
   });
+
+  test('self referencing generic parameters', () {
+    final gp = classes.getClass('generics', 'GenericTypeParams');
+    final typeParams = gp.typeParams;
+    expect(typeParams[0].name, equals('S'));
+    expect(typeParams[0].bounds.map((e) => e.name), ['java.lang.CharSequence']);
+    expect(typeParams[1].name, equals('K'));
+    final selfBound = typeParams[1].bounds[0];
+    expect(selfBound.kind, Kind.declared);
+    expect(selfBound.name,
+        equals('com.github.dart_lang.jnigen.generics.GenericTypeParams'));
+    final selfBoundType = selfBound.type as DeclaredType;
+    expect(selfBoundType.params, hasLength(2));
+    expect(selfBoundType.params.map((e) => e.name), ['S', 'K']);
+    expect(selfBoundType.params.map((e) => e.kind),
+        [Kind.typeVariable, Kind.typeVariable]);
+  });
 }
 
 void main() async {

@@ -56,7 +56,8 @@ Config getSummaryGenerationConfig(
         structure: OutputStructure.singleFile,
       ),
     ),
-    classes: summarizerClassesSpec,
+    // Make a defensive copy of class list, if some test mutates the list...
+    classes: summarizerClassesSpec.toList(),
     sourcePath: sourcePath?.map((e) => Uri.file(e)).toList(),
     classPath: classPath?.map((e) => Uri.file(e)).toList(),
     logLevel: Level.WARNING,

@@ -1614,6 +1614,89 @@ class $Example1Type extends jni.JObjType<Example1> {
   }
 }
 
+/// from: com.github.dart_lang.jnigen.generics.GenericTypeParams
+class GenericTypeParams<$S extends jni.JObject, $K extends jni.JObject>
+    extends jni.JObject {
+  @override
+  late final jni.JObjType<GenericTypeParams<$S, $K>> $type = type(S, K);
+
+  final jni.JObjType<$S> S;
+  final jni.JObjType<$K> K;
+
+  GenericTypeParams.fromRef(
+    this.S,
+    this.K,
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  static final _class = jni.Jni.findJClass(
+      r"com/github/dart_lang/jnigen/generics/GenericTypeParams");
+
+  /// The type which includes information such as the signature of this class.
+  static $GenericTypeParamsType<$S, $K>
+      type<$S extends jni.JObject, $K extends jni.JObject>(
+    jni.JObjType<$S> S,
+    jni.JObjType<$K> K,
+  ) {
+    return $GenericTypeParamsType(
+      S,
+      K,
+    );
+  }
+
+  static final _id_ctor =
+      jni.Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"()V");
+
+  /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory GenericTypeParams({
+    required jni.JObjType<$S> S,
+    required jni.JObjType<$K> K,
+  }) {
+    return GenericTypeParams.fromRef(
+        S,
+        K,
+        jni.Jni.accessors
+            .newObjectWithArgs(_class.reference, _id_ctor, []).object);
+  }
+}
+
+class $GenericTypeParamsType<$S extends jni.JObject, $K extends jni.JObject>
+    extends jni.JObjType<GenericTypeParams<$S, $K>> {
+  final jni.JObjType<$S> S;
+  final jni.JObjType<$K> K;
+
+  const $GenericTypeParamsType(
+    this.S,
+    this.K,
+  );
+
+  @override
+  String get signature =>
+      r"Lcom/github/dart_lang/jnigen/generics/GenericTypeParams;";
+
+  @override
+  GenericTypeParams<$S, $K> fromRef(jni.JObjectPtr ref) =>
+      GenericTypeParams.fromRef(S, K, ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => Object.hash($GenericTypeParamsType, S, K);
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($GenericTypeParamsType<$S, $K>) &&
+        other is $GenericTypeParamsType<$S, $K> &&
+        S == other.S &&
+        K == other.K;
+  }
+}
+
 /// from: com.github.dart_lang.jnigen.generics.GrandParent
 class GrandParent<$T extends jni.JObject> extends jni.JObject {
   @override
