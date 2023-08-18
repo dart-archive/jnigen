@@ -1644,7 +1644,7 @@ class GenericTypeParams<$S extends jni.JObject, $K extends jni.JObject>
     );
   }
 
-  static final _id_ctor =
+  static final _id_new0 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"()V");
 
   /// from: public void <init>()
@@ -1657,7 +1657,7 @@ class GenericTypeParams<$S extends jni.JObject, $K extends jni.JObject>
         S,
         K,
         jni.Jni.accessors
-            .newObjectWithArgs(_class.reference, _id_ctor, []).object);
+            .newObjectWithArgs(_class.reference, _id_new0, []).object);
   }
 }
 

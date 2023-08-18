@@ -1746,21 +1746,21 @@ JniResult Example1__whichExample(jobject self_) {
 // com.github.dart_lang.jnigen.generics.GenericTypeParams
 jclass _c_GenericTypeParams = NULL;
 
-jmethodID _m_GenericTypeParams__ctor = NULL;
+jmethodID _m_GenericTypeParams__new0 = NULL;
 FFI_PLUGIN_EXPORT
-JniResult GenericTypeParams__ctor() {
+JniResult GenericTypeParams__new0() {
   load_env();
   load_class_global_ref(
       &_c_GenericTypeParams,
       "com/github/dart_lang/jnigen/generics/GenericTypeParams");
   if (_c_GenericTypeParams == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  load_method(_c_GenericTypeParams, &_m_GenericTypeParams__ctor, "<init>",
+  load_method(_c_GenericTypeParams, &_m_GenericTypeParams__new0, "<init>",
               "()V");
-  if (_m_GenericTypeParams__ctor == NULL)
+  if (_m_GenericTypeParams__new0 == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(jniEnv, _c_GenericTypeParams,
-                                         _m_GenericTypeParams__ctor);
+                                         _m_GenericTypeParams__new0);
   return to_global_ref_result(_result);
 }
 
