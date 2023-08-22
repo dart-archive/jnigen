@@ -717,7 +717,7 @@ Java_com_github_dart_1lang_jni_PortProxy__1cleanUp(JNIEnv* env,
 }
 
 JNIEXPORT void JNICALL
-Java_com_github_dart_1lang_jni_PortProxy__1close(JNIEnv* env,
+Java_com_github_dart_1lang_jni_PortCleaner_clean(JNIEnv* env,
                                                  jclass clazz,
                                                  jlong port) {
   Dart_CObject close_signal;

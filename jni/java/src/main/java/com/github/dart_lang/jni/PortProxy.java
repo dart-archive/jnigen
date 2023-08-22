@@ -4,7 +4,6 @@
 
 package com.github.dart_lang.jni;
 
-import java.lang.ref.Cleaner;
 import java.lang.reflect.*;
 
 public class PortProxy implements InvocationHandler {
@@ -12,21 +11,7 @@ public class PortProxy implements InvocationHandler {
     System.loadLibrary("dartjni");
   }
 
-  private static final Cleaner cleaner = Cleaner.create();
-
-  private static class SignalClean implements Runnable {
-    private final long port;
-
-    private SignalClean(long port) {
-      this.port = port;
-    }
-
-    @Override
-    public void run() {
-      _close(port);
-    }
-  }
-
+  private static final PortCleaner cleaner = new PortCleaner();
   private final long port;
   private final long isolateId;
   private final long functionPtr;
@@ -84,7 +69,7 @@ public class PortProxy implements InvocationHandler {
             clazz.getClassLoader(),
             new Class[] {clazz},
             new PortProxy(port, isolateId, functionPtr));
-    cleaner.register(obj, new SignalClean(port));
+    cleaner.register(obj, port);
     return obj;
   }
 
@@ -107,6 +92,4 @@ public class PortProxy implements InvocationHandler {
       Object[] args);
 
   private static native void _cleanUp(long resultPtr);
-
-  private static native void _close(long port);
 }
