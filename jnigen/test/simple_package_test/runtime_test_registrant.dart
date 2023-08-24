@@ -605,7 +605,7 @@ void registerTests(String groupName, TestRunnerCallback test) {
         myInterface.delete();
         // Running System.gc() and waiting.
         _runJavaGC();
-        for (var i = 0; i < 6; ++i) {
+        for (var i = 0; i < 8; ++i) {
           await Future<void>.delayed(Duration(milliseconds: (1 << i) * 100));
           if (MyInterface.$impls.isEmpty) {
             break;
