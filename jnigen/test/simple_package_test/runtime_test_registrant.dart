@@ -16,6 +16,11 @@ const pi = 3.14159;
 const fpDelta = 0.001;
 const trillion = 1024 * 1024 * 1024 * 1024;
 
+void _runJavaGC() {
+  final system = Jni.findJClass('java/lang/System');
+  system.callStaticMethodByName<void>('gc', '()V', []);
+}
+
 void registerTests(String groupName, TestRunnerCallback test) {
   group(groupName, () {
     test('static final fields - int', () {
@@ -598,10 +603,14 @@ void registerTests(String groupName, TestRunnerCallback test) {
         // Currently we have one implementation of the interface.
         expect(MyInterface.$impls, hasLength(1));
         myInterface.delete();
-        // Running System.gc() and waiting for a second.
-        final system = Jni.findJClass('java/lang/System');
-        system.callStaticMethodByName<void>('gc', '()V', []);
-        await Future<void>.delayed(const Duration(seconds: 1));
+        // Running System.gc() and waiting.
+        _runJavaGC();
+        for (var i = 0; i < 6; ++i) {
+          await Future<void>.delayed(Duration(milliseconds: (1 << i) * 100));
+          if (MyInterface.$impls.isEmpty) {
+            break;
+          }
+        }
         // Since the interface is now deleted, the cleaner must signal to Dart
         // to clean up.
         expect(MyInterface.$impls, isEmpty);

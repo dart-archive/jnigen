@@ -7,6 +7,9 @@ package com.github.dart_lang.jni;
 import java.lang.ref.PhantomReference;
 import java.lang.ref.ReferenceQueue;
 
+/// A registry of Java objects with associated Dart resources that cleans up the
+/// resources after they get unreachable and collected by the garbage collector.
+///
 /// A simple alternative to [java.lang.ref.Cleaner] which is only available in
 /// Android API level 33+.
 class PortCleaner {
