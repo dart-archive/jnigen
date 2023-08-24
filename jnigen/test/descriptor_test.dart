@@ -22,7 +22,7 @@ void main() {
     ('jackson_core', jackson_core_test.getConfig),
   ]) {
     test('Method descriptor generation for $name',
-        timeout: const Timeout.factor(2), () async {
+        timeout: const Timeout.factor(3), () async {
       final config = getConfig();
       config.summarizerOptions =
           SummarizerOptions(backend: SummarizerBackend.asm);
