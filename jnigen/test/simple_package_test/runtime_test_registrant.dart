@@ -626,30 +626,23 @@ void registerTests(String groupName, TestRunnerCallback test) {
       });
     }
     test('Dart exceptions are handled', () async {
-      final myRunnable = MyRunnable.implement(
+      final runnable = MyRunnable.implement(
         $MyRunnableImpl(
           run: () => throw UnimplementedError(),
         ),
       );
-      // On the same thread.
+      final runner = MyRunnableRunner(runnable);
       final throwsUnimplementedError = throwsA(predicate((thrown) =>
           thrown is JniException &&
           thrown.stackTrace.contains('UnimplementedError')));
       expect(
-        myRunnable.run,
+        runner.runOnSameThread,
         throwsUnimplementedError,
       );
-      final myRunnableAddress =
-          Jni.env.NewGlobalRef(myRunnable.reference).address;
-      // On a different thread.
-      await expectLater(
-        () => Isolate.run(() {
-          MyRunnable.fromRef(JObjectPtr.fromAddress(myRunnableAddress)).run();
-        }),
+      expect(
+        runner.runOnAnotherThread,
         throwsUnimplementedError,
       );
-      addTearDown(() =>
-          Jni.env.DeleteGlobalRef(JObjectPtr.fromAddress(myRunnableAddress)));
     });
   });
 

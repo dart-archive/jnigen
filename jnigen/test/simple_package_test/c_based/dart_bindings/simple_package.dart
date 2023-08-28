@@ -3786,6 +3786,80 @@ class $MyRunnableType extends jni.JObjType<MyRunnable> {
   }
 }
 
+/// from: com.github.dart_lang.jnigen.interfaces.MyRunnableRunner
+class MyRunnableRunner extends jni.JObject {
+  @override
+  late final jni.JObjType<MyRunnableRunner> $type = type;
+
+  MyRunnableRunner.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $MyRunnableRunnerType();
+  static final _new0 = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "MyRunnableRunner__new0")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(com.github.dart_lang.jnigen.interfaces.MyRunnable runnable)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory MyRunnableRunner(
+    MyRunnable runnable,
+  ) {
+    return MyRunnableRunner.fromRef(_new0(runnable.reference).object);
+  }
+
+  static final _runOnSameThread = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "MyRunnableRunner__runOnSameThread")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void runOnSameThread()
+  void runOnSameThread() {
+    return _runOnSameThread(reference).check();
+  }
+
+  static final _runOnAnotherThread = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "MyRunnableRunner__runOnAnotherThread")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void runOnAnotherThread()
+  void runOnAnotherThread() {
+    return _runOnAnotherThread(reference).check();
+  }
+}
+
+class $MyRunnableRunnerType extends jni.JObjType<MyRunnableRunner> {
+  const $MyRunnableRunnerType();
+
+  @override
+  String get signature =>
+      r"Lcom/github/dart_lang/jnigen/interfaces/MyRunnableRunner;";
+
+  @override
+  MyRunnableRunner fromRef(jni.JObjectPtr ref) => MyRunnableRunner.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($MyRunnableRunnerType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($MyRunnableRunnerType) &&
+        other is $MyRunnableRunnerType;
+  }
+}
+
 /// from: com.github.dart_lang.jnigen.annotations.JsonSerializable$Case
 class JsonSerializable_Case extends jni.JObject {
   @override

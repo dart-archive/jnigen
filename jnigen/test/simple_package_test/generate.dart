@@ -33,6 +33,7 @@ var javaFiles = [
   join(javaPrefix, 'generics', 'StringValuedMap.java'),
   join(javaPrefix, 'generics', 'StringKeyedMap.java'),
   join(javaPrefix, 'interfaces', 'MyRunnable.java'),
+  join(javaPrefix, 'interfaces', 'MyRunnableRunner.java'),
   join(javaPrefix, 'interfaces', 'MyInterface.java'),
   join(javaPrefix, 'interfaces', 'MyInterfaceConsumer.java'),
   join(javaPrefix, 'annotations', 'JsonSerializable.java'),
