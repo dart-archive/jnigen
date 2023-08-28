@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:test/test.dart';
 import 'package:jni/jni.dart';
@@ -24,8 +25,8 @@ void _runJavaGC() {
   final pid = bean.callMethodByName<int>('getPid', '()J', []);
   ProcessResult result;
   do {
-    sleep(const Duration(milliseconds: 100));
     result = Process.runSync('jcmd', [pid.toString(), 'GC.run']);
+    sleep(const Duration(milliseconds: 100));
   } while (result.exitCode != 0);
 }
 
@@ -624,6 +625,29 @@ void registerTests(String groupName, TestRunnerCallback test) {
         expect(MyInterface.$impls, isEmpty);
       });
     }
+    test('Dart exceptions are handled', () async {
+      final myRunnable = MyRunnable.implement(
+        $MyRunnableImpl(
+          run: () => throw UnimplementedError(),
+        ),
+      );
+      // On the same thread.
+      final throwsUnimplementedError = throwsA(predicate((thrown) =>
+          thrown is JniException &&
+          thrown.stackTrace.contains('UnimplementedError')));
+      expect(
+        myRunnable.run,
+        throwsUnimplementedError,
+      );
+      final myRunnableAddress = myRunnable.reference.address;
+      // On a different thread.
+      await expectLater(
+        () => Isolate.run(() {
+          MyRunnable.fromRef(JObjectPtr.fromAddress(myRunnableAddress)).run();
+        }),
+        throwsUnimplementedError,
+      );
+    });
   });
 
   group('$groupName (load tests)', () {

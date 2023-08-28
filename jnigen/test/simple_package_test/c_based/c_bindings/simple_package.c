@@ -2786,6 +2786,24 @@ JniResult MyInterfaceConsumer__consumeOnSameThread(jobject myInterface,
   return (JniResult){.value = {.j = 0}, .exception = check_exception()};
 }
 
+// com.github.dart_lang.jnigen.interfaces.MyRunnable
+jclass _c_MyRunnable = NULL;
+
+jmethodID _m_MyRunnable__run = NULL;
+FFI_PLUGIN_EXPORT
+JniResult MyRunnable__run(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_MyRunnable,
+                        "com/github/dart_lang/jnigen/interfaces/MyRunnable");
+  if (_c_MyRunnable == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_MyRunnable, &_m_MyRunnable__run, "run", "()V");
+  if (_m_MyRunnable__run == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  (*jniEnv)->CallVoidMethod(jniEnv, self_, _m_MyRunnable__run);
+  return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+}
+
 // com.github.dart_lang.jnigen.annotations.JsonSerializable$Case
 jclass _c_JsonSerializable_Case = NULL;
 
