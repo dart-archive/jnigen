@@ -79,7 +79,6 @@ public class PortProxy implements InvocationHandler {
     }
   }
 
-
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws DartException {
     Object[] result = _invoke(port, isolateId, functionPtr, proxy, getDescriptor(method), args);
