@@ -639,7 +639,8 @@ void registerTests(String groupName, TestRunnerCallback test) {
         myRunnable.run,
         throwsUnimplementedError,
       );
-      final myRunnableAddress = myRunnable.reference.address;
+      final myRunnableAddress =
+          Jni.env.NewGlobalRef(myRunnable.reference).address;
       // On a different thread.
       await expectLater(
         () => Isolate.run(() {
@@ -647,6 +648,8 @@ void registerTests(String groupName, TestRunnerCallback test) {
         }),
         throwsUnimplementedError,
       );
+      addTearDown(() =>
+          Jni.env.DeleteGlobalRef(JObjectPtr.fromAddress(myRunnableAddress)));
     });
   });
 
