@@ -656,7 +656,8 @@ void registerTests(String groupName, TestRunnerCallback test) {
           expect(
             Jni.env.IsInstanceOf(
               cause.reference,
-              Jni.findClass('com/github/dart_lang/jni/DartException'),
+              Jni.findClass(
+                  'com/github/dart_lang/jni/PortProxy\$DartException'),
             ),
             isTrue,
           );

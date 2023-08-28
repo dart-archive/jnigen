@@ -576,7 +576,7 @@ jmethodID _m_DartException__ctor = NULL;
 FFI_PLUGIN_EXPORT JniResult DartException__ctor(jstring message) {
   attach_thread();
   load_class_global_ref(&_c_DartException,
-                        "com/github/dart_lang/jni/DartException");
+                        "com/github/dart_lang/jni/PortProxy$DartException");
   if (_c_DartException == NULL)
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   load_method(_c_DartException, &_m_DartException__ctor, "<init>",
