@@ -7,12 +7,18 @@ package com.github.dart_lang.jnigen.interfaces;
 public class MyRunnableRunner {
   final MyRunnable runnable;
 
+  public Throwable error;
+
   public MyRunnableRunner(MyRunnable runnable) {
     this.runnable = runnable;
   }
 
   public void runOnSameThread() {
-    runnable.run();
+    try {
+      runnable.run();
+    } catch (Throwable e) {
+      error = e;
+    }
   }
 
   public void runOnAnotherThread() {

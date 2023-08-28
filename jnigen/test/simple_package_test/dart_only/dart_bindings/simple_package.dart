@@ -3607,6 +3607,23 @@ class MyRunnableRunner extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const type = $MyRunnableRunnerType();
+  static final _id_error = jni.Jni.accessors.getFieldIDOf(
+    _class.reference,
+    r"error",
+    r"Ljava/lang/Throwable;",
+  );
+
+  /// from: public java.lang.Throwable error
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject get error => const jni.JObjectType().fromRef(jni.Jni.accessors
+      .getField(reference, _id_error, jni.JniCallType.objectType)
+      .object);
+
+  /// from: public java.lang.Throwable error
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set error(jni.JObject value) =>
+      jni.Jni.env.SetObjectField(reference, _id_error, value.reference);
+
   static final _id_new0 = jni.Jni.accessors.getMethodIDOf(_class.reference,
       r"<init>", r"(Lcom/github/dart_lang/jnigen/interfaces/MyRunnable;)V");
 

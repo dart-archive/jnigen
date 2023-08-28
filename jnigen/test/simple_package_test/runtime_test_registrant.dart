@@ -624,24 +624,45 @@ void registerTests(String groupName, TestRunnerCallback test) {
         expect(MyInterface.$impls, isEmpty);
       });
     }
-    test('Dart exceptions are handled', () async {
-      final runnable = MyRunnable.implement(
-        $MyRunnableImpl(
-          run: () => throw UnimplementedError(),
-        ),
-      );
-      final runner = MyRunnableRunner(runnable);
-      final throwsUnimplementedError = throwsA(predicate((thrown) =>
-          thrown is JniException &&
-          thrown.stackTrace.contains('UnimplementedError')));
-      expect(
-        runner.runOnSameThread,
-        throwsUnimplementedError,
-      );
-      expect(
-        runner.runOnAnotherThread,
-        throwsUnimplementedError,
-      );
+    group('Dart exceptions are handled', () {
+      for (final sameThread in [true, false]) {
+        test('on ${sameThread ? 'the same thread' : 'another thread'}',
+            () async {
+          final runnable = MyRunnable.implement(
+            $MyRunnableImpl(
+              run: () {
+                throw UnimplementedError();
+              },
+            ),
+          );
+          final runner = MyRunnableRunner(runnable);
+          if (sameThread) {
+            runner.runOnSameThread();
+          } else {
+            runner.runOnAnotherThread();
+          }
+          while (runner.error.isNull) {
+            await Future<void>.delayed(const Duration(milliseconds: 100));
+          }
+          expect(
+            Jni.env.IsInstanceOf(
+              runner.error.reference,
+              Jni.findClass('java/lang/reflect/UndeclaredThrowableException'),
+            ),
+            isTrue,
+          );
+          final cause = runner.error.callMethodByName<JObject>(
+              'getCause', '()Ljava/lang/Throwable;', []);
+          expect(
+            Jni.env.IsInstanceOf(
+              cause.reference,
+              Jni.findClass('com/github/dart_lang/jni/DartException'),
+            ),
+            isTrue,
+          );
+          expect(cause.toString(), contains('UnimplementedError'));
+        });
+      }
     });
   });
 

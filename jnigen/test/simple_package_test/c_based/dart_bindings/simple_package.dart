@@ -3797,6 +3797,33 @@ class MyRunnableRunner extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const type = $MyRunnableRunnerType();
+  static final _get_error = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                jni.JObjectPtr,
+              )>>("get_MyRunnableRunner__error")
+      .asFunction<
+          jni.JniResult Function(
+            jni.JObjectPtr,
+          )>();
+
+  static final _set_error = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(jni.JObjectPtr,
+                  ffi.Pointer<ffi.Void>)>>("set_MyRunnableRunner__error")
+      .asFunction<
+          jni.JniResult Function(jni.JObjectPtr, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.Throwable error
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject get error =>
+      const jni.JObjectType().fromRef(_get_error(reference).object);
+
+  /// from: public java.lang.Throwable error
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  set error(jni.JObject value) =>
+      _set_error(reference, value.reference).check();
+
   static final _new0 = jniLookup<
               ffi
               .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
