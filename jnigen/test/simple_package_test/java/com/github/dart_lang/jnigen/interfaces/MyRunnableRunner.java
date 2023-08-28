@@ -4,8 +4,6 @@
 
 package com.github.dart_lang.jnigen.interfaces;
 
-import static com.github.dart_lang.jnigen.interfaces.MyInterfaceConsumer.consumeOnSameThread;
-
 public class MyRunnableRunner {
   final MyRunnable runnable;
 
