@@ -86,6 +86,7 @@ const Map<String, int> _definedSyms = {
   'isNull': 1,
   'use': 1,
   'release': 1,
+  'releasedIn': 1,
   'getFieldID': 1,
   'getStaticFieldID': 1,
   'getMethodID': 1,
