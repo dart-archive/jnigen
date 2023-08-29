@@ -7,6 +7,13 @@ description: Library to access JNI from Dart and Flutter. Acts as a support libr
 version: 0.6.0
 repository: https://github.com/dart-lang/jnigen/tree/main/jni
 
+topics:
+  - interop
+  - ffi
+  - java
+  - kotlin
+  - jni
+
 environment:
   sdk: '>=3.1.0-262.3.beta <4.0.0'
   flutter: '>=2.11.0'
