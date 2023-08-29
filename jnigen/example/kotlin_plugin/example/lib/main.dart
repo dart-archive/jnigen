@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
-    example.delete();
+    example.release();
     super.dispose();
   }
 
