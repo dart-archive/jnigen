@@ -63,7 +63,7 @@ abstract class JReference implements Finalizable {
 
   /// The underlying JNI global object reference.
   ///
-  /// Throws [UseAfterReleaseException] if the object is previously realeased.
+  /// Throws [UseAfterReleaseException] if the object is previously released.
   ///
   /// Be careful when storing this in a variable since it might have gotten
   /// released upon use.
