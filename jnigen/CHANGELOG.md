@@ -1,4 +1,4 @@
-## 0.6.0-wip.4
+## 0.6.0
 * **Breaking Change** ([#131](https://github.com/dart-lang/jnigen/issues/131)): Renamed `delete*` to `release*`.
 * **Breaking Change** ([#354](https://github.com/dart-lang/jnigen/issues/354)): Renamed constructors from `ctor1`, `ctor2`, ... to `new1`, `new2`, ...
 * **Breaking Change**: Specifying a class always pulls in nested classes by default. If a nested class is specified in config, it will be an error.
