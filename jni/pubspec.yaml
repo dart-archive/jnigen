@@ -3,8 +3,8 @@
 # BSD-style license that can be found in the LICENSE file.
 
 name: jni
-description: Library to access JNI from Dart and Flutter.
-version: 0.6.0-wip.2
+description: Library to access JNI from Dart and Flutter. Acts as a support library for package:jnigen.
+version: 0.6.0
 repository: https://github.com/dart-lang/jnigen/tree/main/jni
 
 environment:
