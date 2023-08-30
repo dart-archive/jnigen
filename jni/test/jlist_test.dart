@@ -21,11 +21,11 @@ void main() {
 void run({required TestRunnerCallback testRunner}) {
   JList<JString> testDataList(Arena arena) {
     return [
-      "1".toJString()..releasedIn(arena),
-      "2".toJString()..releasedIn(arena),
-      "3".toJString()..releasedIn(arena),
+      "1".toJString()..releasedBy(arena),
+      "2".toJString()..releasedBy(arena),
+      "3".toJString()..releasedBy(arena),
     ].toJList(JString.type)
-      ..releasedIn(arena);
+      ..releasedBy(arena);
   }
 
   testRunner('length get', () {
@@ -56,14 +56,14 @@ void run({required TestRunnerCallback testRunner}) {
     using((arena) {
       final list = testDataList(arena);
       expect(list[0].toDartString(releaseOriginal: true), "1");
-      list[0] = "2".toJString()..releasedIn(arena);
+      list[0] = "2".toJString()..releasedBy(arena);
       expect(list[0].toDartString(releaseOriginal: true), "2");
     });
   });
   testRunner('add', () {
     using((arena) {
       final list = testDataList(arena);
-      list.add("4".toJString()..releasedIn(arena));
+      list.add("4".toJString()..releasedBy(arena));
       expect(list.length, 4);
       expect(list[3].toDartString(releaseOriginal: true), "4");
     });
@@ -74,7 +74,7 @@ void run({required TestRunnerCallback testRunner}) {
       final toAppend = testDataList(arena);
       list.addAll(toAppend);
       expect(list.length, 6);
-      list.addAll(["4".toJString()..releasedIn(arena)]);
+      list.addAll(["4".toJString()..releasedBy(arena)]);
       expect(list.length, 7);
     });
   });
@@ -93,15 +93,15 @@ void run({required TestRunnerCallback testRunner}) {
       final list = testDataList(arena);
       // ignore: iterable_contains_unrelated_type
       expect(list.contains("1"), false);
-      expect(list.contains("1".toJString()..releasedIn(arena)), true);
-      expect(list.contains("4".toJString()..releasedIn(arena)), false);
+      expect(list.contains("1".toJString()..releasedBy(arena)), true);
+      expect(list.contains("4".toJString()..releasedBy(arena)), false);
     });
   });
   testRunner('getRange', () {
     using((arena) {
       final list = testDataList(arena);
       // ignore: iterable_contains_unrelated_type
-      final range = list.getRange(1, 2)..releasedIn(arena);
+      final range = list.getRange(1, 2)..releasedBy(arena);
       expect(range.length, 1);
       expect(range.first.toDartString(releaseOriginal: true), "2");
     });
@@ -119,7 +119,7 @@ void run({required TestRunnerCallback testRunner}) {
   testRunner('insert', () {
     using((arena) {
       final list = testDataList(arena);
-      list.insert(1, "0".toJString()..releasedIn(arena));
+      list.insert(1, "0".toJString()..releasedBy(arena));
       expect(list.length, 4);
       expect(list[1].toDartString(releaseOriginal: true), "0");
     });
@@ -131,7 +131,7 @@ void run({required TestRunnerCallback testRunner}) {
       list.insertAll(1, toInsert);
       expect(list[1].toDartString(releaseOriginal: true), "1");
       expect(list.length, 6);
-      list.insertAll(1, ["4".toJString()..releasedIn(arena)]);
+      list.insertAll(1, ["4".toJString()..releasedBy(arena)]);
       expect(list.length, 7);
       expect(list[1].toDartString(releaseOriginal: true), "4");
     });
@@ -152,9 +152,9 @@ void run({required TestRunnerCallback testRunner}) {
   testRunner('remove', () {
     using((arena) {
       final list = testDataList(arena);
-      expect(list.remove("3".toJString()..releasedIn(arena)), true);
+      expect(list.remove("3".toJString()..releasedBy(arena)), true);
       expect(list.length, 2);
-      expect(list.remove("4".toJString()..releasedIn(arena)), false);
+      expect(list.remove("4".toJString()..releasedBy(arena)), false);
       // ignore: list_remove_unrelated_type
       expect(list.remove(1), false);
     });
@@ -179,7 +179,7 @@ void run({required TestRunnerCallback testRunner}) {
       final b = testDataList(arena);
       expect(a.hashCode, b.hashCode);
       expect(a, b);
-      b.add("4".toJString()..releasedIn(arena));
+      b.add("4".toJString()..releasedBy(arena));
       expect(a.hashCode, isNot(b.hashCode));
       expect(a, isNot(b));
     });
@@ -187,7 +187,7 @@ void run({required TestRunnerCallback testRunner}) {
   testRunner('toSet', () {
     using((arena) {
       final list = testDataList(arena);
-      final set = list.toSet()..releasedIn(arena);
+      final set = list.toSet()..releasedBy(arena);
       expect(set.length, 3);
     });
   });
@@ -197,7 +197,7 @@ void run({required TestRunnerCallback testRunner}) {
       final b = testDataList(arena);
       expect(a.$type, b.$type);
       expect(a.$type.hashCode, b.$type.hashCode);
-      final c = JList.array(JObject.type)..releasedIn(arena);
+      final c = JList.array(JObject.type)..releasedBy(arena);
       expect(a.$type, isNot(c.$type));
       expect(a.$type.hashCode, isNot(c.$type.hashCode));
     });
@@ -208,7 +208,7 @@ void run({required TestRunnerCallback testRunner}) {
       final b = testDataList(arena);
       expect(a.iterator.$type, b.iterator.$type);
       expect(a.iterator.$type.hashCode, b.iterator.$type.hashCode);
-      final c = JList.array(JObject.type)..releasedIn(arena);
+      final c = JList.array(JObject.type)..releasedBy(arena);
       expect(a.iterator.$type, isNot(c.iterator.$type));
       expect(a.iterator.$type.hashCode, isNot(c.iterator.$type.hashCode));
     });

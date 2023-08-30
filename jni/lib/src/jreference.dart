@@ -75,7 +75,7 @@ abstract class JReference implements Finalizable {
   final JObjectPtr _reference;
 
   /// Registers this object to be released at the end of [arena]'s lifetime.
-  void releasedIn(Arena arena) => arena.onReleaseAll(release);
+  void releasedBy(Arena arena) => arena.onReleaseAll(release);
 }
 
 extension JReferenceUseExtension<T extends JReference> on T {

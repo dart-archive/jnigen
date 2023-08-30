@@ -81,64 +81,64 @@ void run({required TestRunnerCallback testRunner}) {
   });
   testRunner('JByte.\$type hashCode and ==', () {
     using((arena) {
-      final a = JByte(1)..releasedIn(arena);
-      final b = JByte(2)..releasedIn(arena);
+      final a = JByte(1)..releasedBy(arena);
+      final b = JByte(2)..releasedBy(arena);
       expect(a.$type, b.$type);
       expect(a.$type.hashCode, b.$type.hashCode);
     });
   });
   testRunner('JCharacter.\$type hashCode and ==', () {
     using((arena) {
-      final a = JCharacter(1)..releasedIn(arena);
-      final b = JCharacter(2)..releasedIn(arena);
+      final a = JCharacter(1)..releasedBy(arena);
+      final b = JCharacter(2)..releasedBy(arena);
       expect(a.$type, b.$type);
       expect(a.$type.hashCode, b.$type.hashCode);
     });
   });
   testRunner('JShort.\$type hashCode and ==', () {
     using((arena) {
-      final a = JShort(1)..releasedIn(arena);
-      final b = JShort(2)..releasedIn(arena);
+      final a = JShort(1)..releasedBy(arena);
+      final b = JShort(2)..releasedBy(arena);
       expect(a.$type, b.$type);
       expect(a.$type.hashCode, b.$type.hashCode);
     });
   });
   testRunner('JInteger.\$type hashCode and ==', () {
     using((arena) {
-      final a = JInteger(1)..releasedIn(arena);
-      final b = JInteger(2)..releasedIn(arena);
+      final a = JInteger(1)..releasedBy(arena);
+      final b = JInteger(2)..releasedBy(arena);
       expect(a.$type, b.$type);
       expect(a.$type.hashCode, b.$type.hashCode);
     });
   });
   testRunner('JLong.\$type hashCode and ==', () {
     using((arena) {
-      final a = JLong(1)..releasedIn(arena);
-      final b = JLong(2)..releasedIn(arena);
+      final a = JLong(1)..releasedBy(arena);
+      final b = JLong(2)..releasedBy(arena);
       expect(a.$type, b.$type);
       expect(a.$type.hashCode, b.$type.hashCode);
     });
   });
   testRunner('JFloat.\$type hashCode and ==', () {
     using((arena) {
-      final a = JFloat(1.0)..releasedIn(arena);
-      final b = JFloat(2.0)..releasedIn(arena);
+      final a = JFloat(1.0)..releasedBy(arena);
+      final b = JFloat(2.0)..releasedBy(arena);
       expect(a.$type, b.$type);
       expect(a.$type.hashCode, b.$type.hashCode);
     });
   });
   testRunner('JDouble.\$type hashCode and ==', () {
     using((arena) {
-      final a = JDouble(1.0)..releasedIn(arena);
-      final b = JDouble(2.0)..releasedIn(arena);
+      final a = JDouble(1.0)..releasedBy(arena);
+      final b = JDouble(2.0)..releasedBy(arena);
       expect(a.$type, b.$type);
       expect(a.$type.hashCode, b.$type.hashCode);
     });
   });
   testRunner('JBoolean.\$type hashCode and ==', () {
     using((arena) {
-      final a = JBoolean(true)..releasedIn(arena);
-      final b = JBoolean(false)..releasedIn(arena);
+      final a = JBoolean(true)..releasedBy(arena);
+      final b = JBoolean(false)..releasedBy(arena);
       expect(a.$type, b.$type);
       expect(a.$type.hashCode, b.$type.hashCode);
     });

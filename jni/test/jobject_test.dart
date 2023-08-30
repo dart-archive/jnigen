@@ -182,10 +182,10 @@ void run({required TestRunnerCallback testRunner}) {
   testRunner('Using arena', () {
     final objects = <JObject>[];
     using((arena) {
-      final r = Jni.findJClass('java/util/Random')..releasedIn(arena);
+      final r = Jni.findJClass('java/util/Random')..releasedBy(arena);
       final ctor = r.getCtorID("()V");
       for (int i = 0; i < 10; i++) {
-        objects.add(r.newInstance(ctor, [])..releasedIn(arena));
+        objects.add(r.newInstance(ctor, [])..releasedBy(arena));
       }
     });
     for (var object in objects) {
@@ -203,12 +203,12 @@ void run({required TestRunnerCallback testRunner}) {
 
   testRunner("casting", () {
     using((arena) {
-      final str = "hello".toJString()..releasedIn(arena);
-      final obj = str.castTo(JObject.type)..releasedIn(arena);
+      final str = "hello".toJString()..releasedBy(arena);
+      final obj = str.castTo(JObject.type)..releasedBy(arena);
       final backToStr = obj.castTo(JString.type);
       expect(backToStr.toDartString(), str.toDartString());
       final _ = backToStr.castTo(JObject.type, releaseOriginal: true)
-        ..releasedIn(arena);
+        ..releasedBy(arena);
       expect(backToStr.toDartString, throwsA(isA<UseAfterReleaseException>()));
       expect(backToStr.release, throwsA(isA<DoubleReleaseException>()));
     });

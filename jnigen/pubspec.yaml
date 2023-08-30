@@ -3,8 +3,8 @@
 # BSD-style license that can be found in the LICENSE file.
 
 name: jnigen
+description: A Dart bindings generator for Java and Kotlin that uses JNI under the hood to interop with Java virtual machine.
 version: 0.6.0
-description: A Dart bindings generator for Java and Kotlin. Uses JNI under the hood to interop with Java virtual machine.
 repository: https://github.com/dart-lang/jnigen/tree/main/jnigen
 
 environment:
