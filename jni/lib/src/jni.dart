@@ -5,6 +5,7 @@
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:isolate';
+import 'dart:typed_data' as typed_data;
 
 import 'package:ffi/ffi.dart';
 import 'package:path/path.dart';
@@ -348,6 +349,28 @@ extension AdditionalEnvMethods on GlobalJniEnv {
       DeleteGlobalRef(jstringPtr);
     }
     return result;
+  }
+
+  typed_data.Uint8List _asUInt8List(JObjectPtr jbuf) {
+    final addr = GetDirectBufferAddress(jbuf);
+    if (addr == nullptr) {
+      throw ArgumentError();
+    }
+
+    final capacity = GetDirectBufferCapacity(jbuf);
+    if (capacity == -1) {
+      throw ArgumentError();
+    }
+
+    return addr.cast<Uint8>().asTypedList(capacity);
+  }
+
+  typed_data.Uint8List asUInt8List(JObjectPtr jbuf, [int start = 0, int? end]) {
+    return _asUInt8List(jbuf).sublist(start, end);
+  }
+
+  void setRange(JObjectPtr jbuf, List<int> l, int start, int end) {
+    _asUInt8List(jbuf).setRange(start, end, l);
   }
 
   /// Returns a new [JStringPtr] from contents of [s].

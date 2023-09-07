@@ -3,7 +3,9 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:benchmarking/benchmarking.dart';
 import 'package:jni/jni.dart';
 import 'package:jni/src/jvalues.dart';
 import 'package:test/test.dart';
@@ -11,6 +13,34 @@ import 'package:test/test.dart';
 import 'test_util/test_util.dart';
 
 const maxLongInJava = 9223372036854775807;
+
+abstract class A extends SyncBenchmark {
+  late JObject buffer;
+  @override
+  void setup() {
+    buffer = Jni.invokeStaticMethod<JObject>("java/nio/ByteBuffer",
+        'allocateDirect', '(I)Ljava/nio/ByteBuffer;', [JValueInt(1000000)]);
+  }
+}
+
+class B extends A {
+  @override
+  void run() {
+    Jni.env.asUInt8List(buffer.reference);
+  }
+}
+
+class C extends A {
+  @override
+  void run() {
+    final length = buffer.callMethodByName<int>('capacity', '()I', []);
+
+    final l = Uint8List(length);
+    for (var i = 0; i < length; ++i) {
+      l[i] = buffer.callMethodByName<int>('get', '(I)B', [JValueInt(i)]);
+    }
+  }
+}
 
 void main() {
   // Running on Android through flutter, this plugin
@@ -28,6 +58,8 @@ void main() {
     checkDylibIsUpToDate();
     Jni.spawnIfNotExists(dylibDir: "build/jni_libs", jvmOptions: ["-Xmx128m"]);
   }
+  B().measure().report();
+  C().measure().report();
   run(testRunner: test);
 }
 
@@ -48,6 +80,25 @@ void run({required TestRunnerCallback testRunner}) {
   final env = Jni.env;
   testRunner('initDLApi', () {
     Jni.initDLApi();
+  });
+
+  testRunner('test', () {
+    final m = Jni.invokeStaticMethod<JObject>("java/nio/ByteBuffer",
+        'allocateDirect', '(I)Ljava/nio/ByteBuffer;', [JValueInt(4)]);
+
+    m.callMethodByName<JObject>(
+        'put', '(IB)Ljava/nio/ByteBuffer;', [JValueInt(2), JValueByte(29)]);
+    expect(Jni.env.asUInt8List(m.reference), equals([0, 0, 29, 0]));
+  });
+
+  testRunner('test2', () {
+    final m = Jni.invokeStaticMethod<JObject>("java/nio/ByteBuffer",
+        'allocateDirect', '(I)Ljava/nio/ByteBuffer;', [JValueInt(4)]);
+
+    m.callMethodByName<JObject>(
+        'put', '(IB)Ljava/nio/ByteBuffer;', [JValueInt(2), JValueByte(29)]);
+    Jni.env.setRange(m.reference, [1, 2, 3], 0, 2);
+    expect(Jni.env.asUInt8List(m.reference), equals([1, 2, 29, 0]));
   });
 
   testRunner('get JNI Version', () {

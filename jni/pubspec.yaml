@@ -28,6 +28,7 @@ dependencies:
 
 dev_dependencies:
   ## Pin ffigen version because we are depending on internal APIs.
+  benchmarking: ^0.6.1
   ffigen: 8.0.2
   flutter_lints: ^2.0.0
   test: ^1.21.1
