@@ -6,6 +6,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:benchmarking/benchmarking.dart';
+import 'package:jni/internal_helpers_for_jnigen.dart';
 import 'package:jni/jni.dart';
 import 'package:jni/src/jvalues.dart';
 import 'package:test/test.dart';
@@ -31,13 +32,19 @@ class B extends A {
 }
 
 class C extends A {
+  static final _id_get1 =
+      Jni.accessors.getMethodIDOf(_class.reference, r'get', r'(I)B');
+  static final _class = Jni.findJClass(r'java/nio/ByteBuffer');
+
   @override
   void run() {
     final length = buffer.callMethodByName<int>('capacity', '()I', []);
+    final reference = buffer.reference;
 
     final l = Uint8List(length);
     for (var i = 0; i < length; ++i) {
-      l[i] = buffer.callMethodByName<int>('get', '(I)B', [JValueInt(i)]);
+      l[i] = Jni.accessors.callMethodWithArgs(
+          reference, _id_get1, JniCallType.byteType, [JValueInt(i)]).byte;
     }
   }
 }
