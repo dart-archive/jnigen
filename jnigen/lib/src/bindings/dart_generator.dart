@@ -159,6 +159,7 @@ import "package:jni/jni.dart" as jni;
 // ignore_for_file: unused_import
 // ignore_for_file: unused_local_variable
 // ignore_for_file: unused_shown_name
+// ignore_for_file: lines_longer_than_80_chars
 
 ''';
   static const preImportBoilerplate =

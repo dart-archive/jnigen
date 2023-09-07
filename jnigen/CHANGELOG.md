@@ -1,3 +1,6 @@
+## 0.6.1-wip
+* Add `ignore_for_file: lines_longer_than_80_chars` to the generated file preamble.
+
 ## 0.6.0
 * **Breaking Change** ([#131](https://github.com/dart-lang/jnigen/issues/131)): Renamed `delete*` to `release*`.
 * **Breaking Change** ([#354](https://github.com/dart-lang/jnigen/issues/354)): Renamed constructors from `ctor1`, `ctor2`, ... to `new1`, `new2`, ...
