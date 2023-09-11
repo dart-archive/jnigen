@@ -196,7 +196,7 @@ class JList<$E extends JObject> extends JObject with ListMixin<$E> {
           reference,
           _insertAllId,
           JniCallType.booleanType,
-          [JValueInt(index), (iterable as JObject).reference]);
+          [JValueInt(index), (iterable as JObject).reference]).boolean;
       return;
     }
     super.insertAll(index, iterable);
