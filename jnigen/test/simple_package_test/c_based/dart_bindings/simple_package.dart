@@ -3436,7 +3436,7 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
         $p.close();
         return;
       }
-      final $i = $MethodInvocation.fromMessage($m);
+      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
       final $r = _$invokeMethod($p.sendPort.nativePort, $i);
       ProtectedJniExtensions.returnResult($i.result, $r);
     });
@@ -3734,7 +3734,7 @@ class MyRunnable extends jni.JObject {
         $p.close();
         return;
       }
-      final $i = $MethodInvocation.fromMessage($m);
+      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
       final $r = _$invokeMethod($p.sendPort.nativePort, $i);
       ProtectedJniExtensions.returnResult($i.result, $r);
     });
