@@ -1,6 +1,7 @@
 ## 0.7.0-wip
 * **Breaking Change** ([#387](https://github.com/dart-lang/jnigen/issues/387)): Added `JBuffer` and `JByteBuffer` classes as default classes for `java.nio.Buffer` and `java.nio.ByteBuffer` respectively.
 * **Breaking Change**: Made the type classes `final`.
+* Added `ignore_for_file: lines_longer_than_80_chars` to the generated file preamble.
 * Added an explicit cast in generated `<Interface>.implement` code to allow `dart analyze` to pass when `strict-casts` is set.
 
 ## 0.6.0
