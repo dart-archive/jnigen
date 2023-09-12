@@ -121,6 +121,8 @@ class JByteBuffer extends JBuffer {
   }
 
   /// Creates a [JByteBuffer] from the content of [list].
+  ///
+  /// The [JByteBuffer] will be allocated using [JByteBuffer.allocateDirect].
   factory JByteBuffer.fromList(List<int> list) {
     final buffer = JByteBuffer.allocateDirect(list.length);
     buffer._asUint8ListUnsafe().setAll(0, list);
@@ -205,7 +207,7 @@ class JByteBuffer extends JBuffer {
   Pointer<Void> _directBufferAddress() {
     final address = Jni.env.GetDirectBufferAddress(reference);
     if (address == nullptr) {
-      StateError(
+      throw StateError(
         'The memory region is undefined or '
         'direct buffer access is not supported by this JVM.',
       );
@@ -216,7 +218,7 @@ class JByteBuffer extends JBuffer {
   int _directBufferCapacity() {
     final capacity = Jni.env.GetDirectBufferCapacity(reference);
     if (capacity == -1) {
-      StateError(
+      throw StateError(
         'The object is an unaligned view buffer and the processor '
         'architecture does not support unaligned access.',
       );
@@ -235,9 +237,10 @@ class JByteBuffer extends JBuffer {
   ///
   /// If [releaseOriginal] is `true`, this byte buffer will be released.
   ///
-  /// Throws [StateError] if the buffer is not direct or the JVM does not
-  /// support the direct buffer operations or the object is an unaligned view
-  /// buffer and the processor does not support unaligned access.
+  /// Throws [StateError] if the buffer is not direct
+  /// (see [JByteBuffer.allocateDirect]) or the JVM does not support the direct
+  /// buffer operations or the object is an unaligned view buffer and
+  /// the processor does not support unaligned access.
   Uint8List asUint8List({bool releaseOriginal = false}) {
     _ensureIsDirect();
     final address = _directBufferAddress();
@@ -256,6 +259,8 @@ class JByteBuffer extends JBuffer {
 
 extension Uint8ListToJava on Uint8List {
   /// Creates a [JByteBuffer] from the content of this list.
+  ///
+  /// The [JByteBuffer] will be allocated using [JByteBuffer.allocateDirect].
   JByteBuffer toJByteBuffer() {
     return JByteBuffer.fromList(this);
   }

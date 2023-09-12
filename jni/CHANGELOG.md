@@ -1,4 +1,4 @@
-## 0.7.0-wip
+## 0.7.0
 * **Breaking Change** ([#387](https://github.com/dart-lang/jnigen/issues/387)): Added `JBuffer` and `JByteBuffer` classes as default classes for `java.nio.Buffer` and `java.nio.ByteBuffer` respectively.
 * **Breaking Change**: Made the type classes `final`.
 * Fixed a bug where `addAll`, `removeAll` and `retainAll` in `JSet` would run their respective operation twice.
