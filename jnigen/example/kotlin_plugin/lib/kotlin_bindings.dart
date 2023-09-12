@@ -70,7 +70,7 @@ class Example extends jni.JObject {
   }
 }
 
-class $ExampleType extends jni.JObjType<Example> {
+final class $ExampleType extends jni.JObjType<Example> {
   const $ExampleType();
 
   @override

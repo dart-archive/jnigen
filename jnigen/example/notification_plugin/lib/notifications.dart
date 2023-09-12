@@ -74,7 +74,7 @@ class Notifications extends jni.JObject {
   }
 }
 
-class $NotificationsType extends jni.JObjType<Notifications> {
+final class $NotificationsType extends jni.JObjType<Notifications> {
   const $NotificationsType();
 
   @override

@@ -11,7 +11,7 @@ import '../third_party/jni_bindings_generated.dart';
 import '../types.dart';
 import 'jset.dart';
 
-class JMapType<$K extends JObject, $V extends JObject>
+final class JMapType<$K extends JObject, $V extends JObject>
     extends JObjType<JMap<$K, $V>> {
   final JObjType<$K> K;
   final JObjType<$V> V;

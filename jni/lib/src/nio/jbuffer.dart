@@ -9,7 +9,7 @@ import '../jvalues.dart';
 import '../third_party/generated_bindings.dart';
 import '../types.dart';
 
-class JBufferType extends JObjType<JBuffer> {
+final class JBufferType extends JObjType<JBuffer> {
   const JBufferType();
 
   @override

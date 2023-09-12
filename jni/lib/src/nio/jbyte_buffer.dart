@@ -15,7 +15,7 @@ import '../third_party/generated_bindings.dart';
 import '../types.dart';
 import 'jbuffer.dart';
 
-class JByteBufferType extends JObjType<JByteBuffer> {
+final class JByteBufferType extends JObjType<JByteBuffer> {
   const JByteBufferType();
 
   @override

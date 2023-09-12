@@ -202,6 +202,7 @@ task $_gradleGetSourcesTaskName(type: Copy) {
       File(buildGradleOld).deleteSync();
     }
     if (procRes.exitCode != 0) {
+      print(procRes.stdout);
       final inAndroidProject =
           (androidProject == '.') ? '' : ' in $androidProject';
       throw GradleException('\n\ngradle exited with status '

@@ -495,7 +495,8 @@ class PDDocumentInformation extends jni.JObject {
   }
 }
 
-class $PDDocumentInformationType extends jni.JObjType<PDDocumentInformation> {
+final class $PDDocumentInformationType
+    extends jni.JObjType<PDDocumentInformation> {
   const $PDDocumentInformationType();
 
   @override

@@ -586,7 +586,7 @@ class _$implClassName$typeParamsDef implements $implClassName$typeParamsCall {
         ? '($typeClassName).hashCode'
         : 'Object.hash($typeClassName, $hashCodeTypeClasses)';
     s.write('''
-class $typeClassName$typeParamsDef extends $_jType<$name$typeParamsCall> {
+final class $typeClassName$typeParamsDef extends $_jType<$name$typeParamsCall> {
   $typeClassesDef
 
   const $typeClassName(

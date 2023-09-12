@@ -12,7 +12,7 @@ import '../jobject.dart';
 import '../types.dart';
 import 'jiterator.dart';
 
-class JSetType<$E extends JObject> extends JObjType<JSet<$E>> {
+final class JSetType<$E extends JObject> extends JObjType<JSet<$E>> {
   final JObjType<$E> E;
 
   const JSetType(

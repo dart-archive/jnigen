@@ -15,7 +15,7 @@ import '../third_party/generated_bindings.dart';
 import '../types.dart';
 import 'jiterator.dart';
 
-class JListType<$E extends JObject> extends JObjType<JList<$E>> {
+final class JListType<$E extends JObject> extends JObjType<JList<$E>> {
   final JObjType<$E> E;
 
   const JListType(

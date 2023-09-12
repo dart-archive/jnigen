@@ -198,7 +198,7 @@ class JsonToken extends jni.JObject {
   }
 }
 
-class $JsonTokenType extends jni.JObjType<JsonToken> {
+final class $JsonTokenType extends jni.JObjType<JsonToken> {
   const $JsonTokenType();
 
   @override

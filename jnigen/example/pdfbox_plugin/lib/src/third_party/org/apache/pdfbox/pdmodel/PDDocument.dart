@@ -1509,7 +1509,7 @@ class PDDocument extends jni.JObject {
   }
 }
 
-class $PDDocumentType extends jni.JObjType<PDDocument> {
+final class $PDDocumentType extends jni.JObjType<PDDocument> {
   const $PDDocumentType();
 
   @override
