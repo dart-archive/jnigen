@@ -19,12 +19,6 @@ extension ProtectedJReference on JReference {
     JReference._finalizer.detach(this);
   }
 
-  void setAsRetained() {
-    if (!_released) return;
-    _released = false;
-    JReference._finalizer.attach(this, _reference, detach: this);
-  }
-
   void ensureNotNull() {
     if (isNull) {
       throw const JNullException();
