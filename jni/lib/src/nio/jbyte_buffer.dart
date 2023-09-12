@@ -9,6 +9,7 @@ import '../accessors.dart';
 import '../jarray.dart';
 import '../jni.dart';
 import '../jprimitives.dart';
+import '../jreference.dart';
 import '../jvalues.dart';
 import '../third_party/generated_bindings.dart';
 import '../types.dart';
@@ -60,9 +61,13 @@ class JByteBuffer extends JBuffer {
   /// Throws:
   /// * [IllegalArgumentException] - If the capacity is a negative integer
   factory JByteBuffer.allocateDirect(int capacity) {
-    return const JByteBufferType().fromRef(Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _allocateDirectId,
-            JniCallType.objectType, [JValueInt(capacity)]).object);
+    return JByteBuffer.fromRef(
+      Jni.accessors.callStaticMethodWithArgs(
+          _class.reference,
+          _allocateDirectId,
+          JniCallType.objectType,
+          [JValueInt(capacity)]).object,
+    );
   }
 
   static final _allocateId = Jni.accessors.getStaticMethodIDOf(
@@ -184,18 +189,39 @@ class JByteBuffer extends JBuffer {
 
   /// Returns this byte buffer as a [Uint8List].
   ///
-  /// Throws [ArgumentError] if the buffer is not direct or the JVM does not
-  /// support the direct buffer operations.
-  Uint8List asUint8List() {
-    assert(isDirect, 'The buffer must be direct.');
+  /// If [releaseOriginal] is `true`, this byte buffer will be released.
+  ///
+  /// Throws [StateError] if the buffer is not direct or the JVM does not
+  /// support the direct buffer operations or the object is an unaligned view
+  /// buffer and the processor does not support unaligned access.
+  Uint8List asUint8List({bool releaseOriginal = false}) {
+    if (!isDirect) {
+      throw StateError(
+        'The buffer must be created with `JByteBuffer.allocateDirect`.',
+      );
+    }
     final address = Jni.env.GetDirectBufferAddress(reference);
     if (address == nullptr) {
-      throw ArgumentError();
+      StateError(
+        'The memory region is undefined or '
+        'direct buffer access is not supported by this JVM.',
+      );
     }
     final capacity = Jni.env.GetDirectBufferCapacity(reference);
     if (capacity == -1) {
-      throw ArgumentError();
+      StateError(
+        'The object is an unaligned view buffer and the processor '
+        'architecture does not support unaligned access.',
+      );
     }
-    return address.cast<Uint8>().asTypedList(capacity);
+    final token = releaseOriginal ? reference : Jni.env.NewGlobalRef(reference);
+    if (releaseOriginal) {
+      setAsReleased();
+    }
+    return address.cast<Uint8>().asTypedList(
+          capacity,
+          token: token,
+          finalizer: Jni.env.ptr.ref.DeleteGlobalRef.cast(),
+        );
   }
 }
