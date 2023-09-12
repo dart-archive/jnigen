@@ -120,6 +120,13 @@ class JByteBuffer extends JBuffer {
     );
   }
 
+  /// Creates a [JByteBuffer] from the content of [list].
+  factory JByteBuffer.fromList(List<int> list) {
+    final buffer = JByteBuffer.allocateDirect(list.length);
+    buffer._asUint8ListUnsafe().setAll(0, list);
+    return buffer;
+  }
+
   static final _sliceId = Jni.accessors
       .getMethodIDOf(_class.reference, r"slice", r"()Ljava/nio/ByteBuffer;");
 
@@ -187,6 +194,43 @@ class JByteBuffer extends JBuffer {
             reference, _arrayId, JniCallType.objectType, []).object);
   }
 
+  void _ensureIsDirect() {
+    if (!isDirect) {
+      throw StateError(
+        'The buffer must be created with `JByteBuffer.allocateDirect`.',
+      );
+    }
+  }
+
+  Pointer<Void> _directBufferAddress() {
+    final address = Jni.env.GetDirectBufferAddress(reference);
+    if (address == nullptr) {
+      StateError(
+        'The memory region is undefined or '
+        'direct buffer access is not supported by this JVM.',
+      );
+    }
+    return address;
+  }
+
+  int _directBufferCapacity() {
+    final capacity = Jni.env.GetDirectBufferCapacity(reference);
+    if (capacity == -1) {
+      StateError(
+        'The object is an unaligned view buffer and the processor '
+        'architecture does not support unaligned access.',
+      );
+    }
+    return capacity;
+  }
+
+  Uint8List _asUint8ListUnsafe() {
+    _ensureIsDirect();
+    final address = _directBufferAddress();
+    final capacity = _directBufferCapacity();
+    return address.cast<Uint8>().asTypedList(capacity);
+  }
+
   /// Returns this byte buffer as a [Uint8List].
   ///
   /// If [releaseOriginal] is `true`, this byte buffer will be released.
@@ -195,25 +239,9 @@ class JByteBuffer extends JBuffer {
   /// support the direct buffer operations or the object is an unaligned view
   /// buffer and the processor does not support unaligned access.
   Uint8List asUint8List({bool releaseOriginal = false}) {
-    if (!isDirect) {
-      throw StateError(
-        'The buffer must be created with `JByteBuffer.allocateDirect`.',
-      );
-    }
-    final address = Jni.env.GetDirectBufferAddress(reference);
-    if (address == nullptr) {
-      StateError(
-        'The memory region is undefined or '
-        'direct buffer access is not supported by this JVM.',
-      );
-    }
-    final capacity = Jni.env.GetDirectBufferCapacity(reference);
-    if (capacity == -1) {
-      StateError(
-        'The object is an unaligned view buffer and the processor '
-        'architecture does not support unaligned access.',
-      );
-    }
+    _ensureIsDirect();
+    final address = _directBufferAddress();
+    final capacity = _directBufferCapacity();
     final token = releaseOriginal ? reference : Jni.env.NewGlobalRef(reference);
     if (releaseOriginal) {
       setAsReleased();
@@ -223,5 +251,12 @@ class JByteBuffer extends JBuffer {
           token: token,
           finalizer: Jni.env.ptr.ref.DeleteGlobalRef.cast(),
         );
+  }
+}
+
+extension Uint8ListToJava on Uint8List {
+  /// Creates a [JByteBuffer] from the content of this list.
+  JByteBuffer toJByteBuffer() {
+    return JByteBuffer.fromList(this);
   }
 }
