@@ -292,6 +292,13 @@ void run({required TestRunnerCallback testRunner}) {
         ]),
         JObject.type,
       );
+      expect(
+        lowestCommonSuperType([
+          JByteBuffer.type,
+          JBuffer.type,
+        ]),
+        JBuffer.type,
+      );
     });
   });
 
