@@ -47,21 +47,35 @@ final class JByteBufferType extends JObjType<JByteBuffer> {
 /// allocated (See [JByteBuffer.allocateDirect]).
 ///
 /// To create a [JByteBuffer] from the content of a [Uint8List],
-/// use [JByteBuffer.fromList]. This uses direct allocation and will greatly
-/// speed up the copying.
+/// use [JByteBuffer.fromList]. This uses direct allocation to enable fast
+/// copying.
 ///
 /// [asUint8List] provides a direct access to the underlying [Uint8List] that
 /// this buffer uses. This means any changes to it will change the content of
-/// the buffer and vice versa. You can use this to access to [Uint8List] methods
+/// the buffer and vice versa. This can be used to access to [Uint8List] methods
 /// such as [Uint8List.setRange].
 ///
-/// It is safe to use [asUint8List]. As long as the resulting list is
-/// accessible, the associated Java buffer will also be kept alive. Once all the
-/// instances of the original buffer and the lists produced from [asUint8List]
-/// are inaccessible both in Java and Dart, Java will correctly garbage collects
-/// the buffer and frees its underlying memory.
+/// Example:
+/// ```dart
+/// final directBuffer = JByteBuffer.allocateDirect(3);
+/// directBuffer.asUint8List().setAll(0, [1, 2, 3]);
+/// // The buffer is now 1, 2, 3.
+/// ```
 ///
-/// You can choose to [release] the original buffer when calling [asUint8List]
+/// Both the original buffer and the [Uint8List] keep the underlying Java buffer
+/// alive. Once all the instances of the original buffer and the lists produced
+/// from [asUint8List] are inaccessible both in Java and Dart, Java will
+/// correctly garbage collects the buffer and frees its underlying memory.
+///
+/// Example:
+/// ```dart
+/// final directBuffer = JByteBuffer.allocateDirect(3);
+/// final data = directBuffer.asUint8List();
+/// directBuffer.release(); // Releasing the original buffer.
+/// data.setAll(0, [1, 2, 3]); // Works! [data] is still accessible.
+/// ```
+///
+/// The original buffer can be [release]d when calling [asUint8List]
 /// by setting the `releaseOriginal` parameter to `true`.
 ///
 /// Example:
@@ -72,7 +86,7 @@ final class JByteBufferType extends JObjType<JByteBuffer> {
 /// directBuffer.nextByte = 42; // No problem!
 /// print(data1[0]); // prints 42!
 /// final data2 = directBuffer.asUint8List(releaseOriginal: true);
-/// // directBuffer.nextByte = 42; // throws[UseAfterReleaseException]!
+/// // directBuffer.nextByte = 42; // throws [UseAfterReleaseException]!
 /// ```
 class JByteBuffer extends JBuffer {
   @override
