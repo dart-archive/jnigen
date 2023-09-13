@@ -33,6 +33,17 @@ final class JBufferType extends JObjType<JBuffer> {
   }
 }
 
+/// A container for data of a specific primitive type.
+///
+/// The bindings for `java.nio.Buffer`.
+///
+/// A buffer is a linear, finite sequence of elements of a specific primitive
+/// type. Aside from its content, the essential properties of a buffer are its
+/// [capacity], [limit], and [position].
+///
+/// There is one subclass of this class for each non-boolean primitive type.
+/// We currently only have the bindings for `java.nio.ByteBuffer` in this
+/// package as [JByteBuffer].
 class JBuffer extends JObject {
   @override
   // ignore: overridden_fields

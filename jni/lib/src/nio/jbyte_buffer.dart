@@ -39,6 +39,41 @@ final class JByteBufferType extends JObjType<JByteBuffer> {
   }
 }
 
+/// A byte [JBuffer].
+///
+/// The bindings for `java.nio.ByteBuffer`.
+///
+/// This enables fast memory copying between Java and Dart when directly
+/// allocated (See [JByteBuffer.allocateDirect]).
+///
+/// To create a [JByteBuffer] from the content of a [Uint8List],
+/// use [JByteBuffer.fromList]. This uses direct allocation and will greatly
+/// speed up the copying.
+///
+/// [asUint8List] provides a direct access to the underlying [Uint8List] that
+/// this buffer uses. This means any changes to it will change the content of
+/// the buffer and vice versa. You can use this to access to [Uint8List] methods
+/// such as [Uint8List.setRange].
+///
+/// It is safe to use [asUint8List]. As long as the resulting list is
+/// accessible, the associated Java buffer will also be kept alive. Once all the
+/// instances of the original buffer and the lists produced from [asUint8List]
+/// are inaccessible both in Java and Dart, Java will correctly garbage collects
+/// the buffer and frees its underlying memory.
+///
+/// You can choose to [release] the original buffer when calling [asUint8List]
+/// by setting the `releaseOriginal` parameter to `true`.
+///
+/// Example:
+/// ```dart
+/// final directBuffer = JByteBuffer.allocateDirect(3);
+/// // [releaseOriginal] is `false` by default.
+/// final data1 = directBuffer.asUint8List();
+/// directBuffer.nextByte = 42; // No problem!
+/// print(data1[0]); // prints 42!
+/// final data2 = directBuffer.asUint8List(releaseOriginal: true);
+/// // directBuffer.nextByte = 42; // throws[UseAfterReleaseException]!
+/// ```
 class JByteBuffer extends JBuffer {
   @override
   // ignore: overridden_fields
@@ -123,7 +158,7 @@ class JByteBuffer extends JBuffer {
   /// Creates a [JByteBuffer] from the content of [list].
   ///
   /// The [JByteBuffer] will be allocated using [JByteBuffer.allocateDirect].
-  factory JByteBuffer.fromList(List<int> list) {
+  factory JByteBuffer.fromList(Uint8List list) {
     final buffer = JByteBuffer.allocateDirect(list.length);
     buffer._asUint8ListUnsafe().setAll(0, list);
     return buffer;

@@ -137,7 +137,7 @@ void run({required TestRunnerCallback testRunner}) {
     using((arena) {
       final buffer = testDataBuffer(arena);
       expect(buffer.isReadOnly, false);
-      final readOnly = buffer.asReadOnlyBuffer();
+      final readOnly = buffer.asReadOnlyBuffer()..releasedBy(arena);
       expect(readOnly.isReadOnly, true);
     });
   });
@@ -167,7 +167,7 @@ void run({required TestRunnerCallback testRunner}) {
       final buffer = testDataBuffer(arena);
       buffer.position = 1;
       buffer.limit = 2;
-      final sliced = buffer.slice();
+      final sliced = buffer.slice()..releasedBy(arena);
       expect(sliced.capacity, 1);
       expect(sliced.nextByte, 2);
     });
@@ -178,7 +178,7 @@ void run({required TestRunnerCallback testRunner}) {
       final buffer = testDataBuffer(arena);
       buffer.position = 1;
       buffer.limit = 2;
-      final duplicate = buffer.duplicate();
+      final duplicate = buffer.duplicate()..releasedBy(arena);
       expect(duplicate.capacity, 3);
       expect(duplicate.position, 1);
       expect(duplicate.limit, 2);
@@ -208,6 +208,22 @@ void run({required TestRunnerCallback testRunner}) {
 
       expect(a.$type, isNot(c.$type));
       expect(a.$type.hashCode, isNot(c.$type.hashCode));
+    });
+  });
+
+  testRunner('asUint8List releasing original', () {
+    using((arena) {
+      // Used as an example in [JByteBuffer].
+      final directBuffer = JByteBuffer.allocateDirect(3);
+      final data1 = directBuffer.asUint8List();
+      directBuffer.nextByte = 42; // No problem!
+      expect(data1[0], 42);
+      final data2 = directBuffer.asUint8List(releaseOriginal: true);
+      expect(
+        () => directBuffer.nextByte = 42,
+        throwsA(isA<UseAfterReleaseException>()),
+      );
+      expect(data2[0], 42);
     });
   });
 }
