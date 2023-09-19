@@ -11,6 +11,7 @@
   - `JvmExistsException` -> `JniVmExistsError`
   - `NoJvmInstanceException` -> `NoJvmInstanceError`
 - **Breaking Change**: Removed `InvalidJStringException`.
+- **Breaking Change**: The default return `callType` of `int` is Java's `long`.
 
 [TODO(#393): Add the fact that `JException` is now a `JObject`.]: #
 
