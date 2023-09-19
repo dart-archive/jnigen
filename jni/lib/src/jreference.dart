@@ -47,15 +47,17 @@ abstract class JReference implements Finalizable {
 
   bool _released = false;
 
-  /// Check whether the underlying JNI reference is `null`.
+  /// Whether the underlying JNI reference is `null` or not.
   bool get isNull => reference == nullptr;
 
-  /// Returns `true` if the underlying JNI reference is deleted.
+  /// Whether the underlying JNI reference is deleted or not.
   bool get isReleased => _released;
 
   /// Deletes the underlying JNI reference.
   ///
-  /// Further uses will throw [UseAfterReleaseError].
+  /// Throws [DoubleReleaseError] if this is already released.
+  ///
+  /// Further uses of this object will throw [UseAfterReleaseError].
   void release() {
     setAsReleased();
     Jni.env.DeleteGlobalRef(_reference);
@@ -84,11 +86,9 @@ extension JReferenceUseExtension<T extends JReference> on T {
   R use<R>(R Function(T) callback) {
     try {
       final result = callback(this);
-      release();
       return result;
-    } catch (e) {
+    } finally {
       release();
-      rethrow;
     }
   }
 }
