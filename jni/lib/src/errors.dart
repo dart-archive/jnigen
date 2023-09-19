@@ -99,7 +99,7 @@ extension on int {
   String str() => _names[this]!;
 }
 
-// TODO(#395): Remove this when calltypes are removed.
+// TODO(#395): Remove this when `JniCallType`s are removed.
 final class InvalidCallTypeError extends Error {
   final int type;
   final Set<int> allowed;
