@@ -340,7 +340,7 @@ extension AdditionalEnvMethods on GlobalJniEnv {
     }
     final chars = GetStringChars(jstringPtr, nullptr);
     if (chars == nullptr) {
-      throw InvalidJStringException(jstringPtr);
+      throw ArgumentError('Not a valid jstring pointer.');
     }
     final result = chars.cast<Utf16>().toDartString();
     ReleaseStringChars(jstringPtr, chars);

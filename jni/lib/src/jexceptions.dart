@@ -16,20 +16,12 @@ class UseAfterReleaseException implements Exception {
   }
 }
 
+// TODO(#393): Use NullPointerException.
 class JNullException implements Exception {
   const JNullException();
 
   @override
   String toString() => 'The reference was null.';
-}
-
-class InvalidJStringException implements Exception {
-  final Pointer<Void> reference;
-  InvalidJStringException(this.reference);
-
-  @override
-  String toString() => 'Not a valid Java String: '
-      '0x${reference.address.toRadixString(16)}.';
 }
 
 class DoubleReleaseException implements Exception {
