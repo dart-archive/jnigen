@@ -53,7 +53,7 @@ abstract class JReference implements Finalizable {
   /// Whether the underlying JNI reference is deleted or not.
   bool get isReleased => _released;
 
-  /// Deletes the underlying JNI reference.
+  /// Deletes the underlying JNI reference and marks this as released.
   ///
   /// Throws [DoubleReleaseError] if this is already released.
   ///
