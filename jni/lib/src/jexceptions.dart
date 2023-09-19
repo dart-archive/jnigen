@@ -6,9 +6,7 @@ import 'dart:ffi';
 
 import 'package:jni/src/third_party/generated_bindings.dart';
 
-abstract class JException implements Exception {}
-
-class UseAfterReleaseException implements JException {
+class UseAfterReleaseException implements Exception {
   final Pointer<Void> ptr;
   UseAfterReleaseException(this.ptr);
 
@@ -18,14 +16,14 @@ class UseAfterReleaseException implements JException {
   }
 }
 
-class JNullException implements JException {
+class JNullException implements Exception {
   const JNullException();
 
   @override
   String toString() => 'The reference was null.';
 }
 
-class InvalidJStringException implements JException {
+class InvalidJStringException implements Exception {
   final Pointer<Void> reference;
   InvalidJStringException(this.reference);
 
@@ -34,7 +32,7 @@ class InvalidJStringException implements JException {
       '0x${reference.address.toRadixString(16)}.';
 }
 
-class DoubleReleaseException implements JException {
+class DoubleReleaseException implements Exception {
   final Pointer<Void> ptr;
   DoubleReleaseException(this.ptr);
 
@@ -44,13 +42,13 @@ class DoubleReleaseException implements JException {
   }
 }
 
-class JvmExistsException implements JException {
+class JvmExistsException implements Exception {
   @override
   String toString() => 'A JVM is already spawned';
 }
 
 /// Represents spawn errors that might be returned by JNI_CreateJavaVM
-class SpawnException implements JException {
+class SpawnException implements Exception {
   static const _errors = {
     JniErrorCode.JNI_ERR: 'Generic JNI error',
     JniErrorCode.JNI_EDETACHED: 'Thread detached from VM',
@@ -66,7 +64,7 @@ class SpawnException implements JException {
   String toString() => _errors[status] ?? 'Unknown status code: $status';
 }
 
-class NoJvmInstanceException implements JException {
+class NoJvmInstanceException implements Exception {
   @override
   String toString() => 'No JNI instance is available';
 }
@@ -87,7 +85,7 @@ extension JniTypeNames on int {
   String str() => _names[this]!;
 }
 
-class InvalidCallTypeException implements JException {
+class InvalidCallTypeException implements Exception {
   int type;
   Set<int> allowed;
   InvalidCallTypeException(this.type, this.allowed);
@@ -96,7 +94,7 @@ class InvalidCallTypeException implements JException {
       'Allowed types are ${allowed.map((t) => t.str()).toSet()}';
 }
 
-class JniException implements JException {
+class JniException implements Exception {
   /// Error message from Java exception.
   final String message;
 
@@ -109,7 +107,7 @@ class JniException implements JException {
       '$message\n\n$stackTrace\n';
 }
 
-class HelperNotFoundException implements JException {
+class HelperNotFoundException implements Exception {
   HelperNotFoundException(this.path);
   final String path;
 
