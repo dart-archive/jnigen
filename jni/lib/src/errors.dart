@@ -4,6 +4,9 @@
 
 import 'package:jni/src/third_party/generated_bindings.dart';
 
+// TODO(#393): Add the fact that [JException] is now a [JObject] to the
+// CHANGELOG.
+
 final class UseAfterReleaseError extends Error {
   @override
   String toString() {

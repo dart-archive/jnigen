@@ -15,8 +15,6 @@
   methods such as `JObject.callMethodByName<int>` is now Java's `long` instead
   of `int` to be consistent with the way arguments work.
 
-[TODO(#393): Add the fact that `JException` is now a `JObject`.]: #
-
 ## 0.7.0
 
 - **Breaking Change** ([#387](https://github.com/dart-lang/jnigen/issues/387)):
