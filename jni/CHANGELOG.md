@@ -11,7 +11,9 @@
   - `JvmExistsException` -> `JniVmExistsError`
   - `NoJvmInstanceException` -> `NoJvmInstanceError`
 - **Breaking Change**: Removed `InvalidJStringException`.
-- **Breaking Change**: The default return `callType` of `int` is Java's `long`.
+- **Breaking Change**: The default return `callType` of type parameter `int` for
+  methods such as `JObject.callMethodByName<int>` is now Java's `long` instead
+  of `int` to be consistent with the way arguments work.
 
 [TODO(#393): Add the fact that `JException` is now a `JObject`.]: #
 
