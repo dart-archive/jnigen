@@ -7,7 +7,7 @@ import 'dart:ffi';
 import 'package:ffi/ffi.dart';
 import 'package:jni/src/third_party/generated_bindings.dart';
 
-import 'jexceptions.dart';
+import 'errors.dart';
 import 'jni.dart';
 
 extension ProtectedJReference on JReference {
@@ -21,7 +21,7 @@ extension ProtectedJReference on JReference {
 
   void ensureNotNull() {
     if (isNull) {
-      throw const JNullException();
+      throw JNullError();
     }
   }
 

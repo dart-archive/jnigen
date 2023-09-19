@@ -1,11 +1,18 @@
 ## 0.8.0-wip
 
 - **Breaking Change** ([#394](https://github.com/dart-lang/jnigen/issues/394)):
-  Renamed `UseAfterFreeException` and `DoubleFreeException` to
-  `UseAfterFreeError` and `DoubleFreeError`. Now they both extend `Error`.
+  Converted various `Exception`s into `Error`s:
+  - `UseAfterReleaseException` -> `UseAfterReleaseError`
+  - `DoubleReleaseException` -> `DoubleReleaseError`
+  - `SpawnException` -> `JniError` (It's now a `sealed class`)
+  - `JNullException` -> `JNullError`
+  - `InvalidCallTypeException` -> `InvalidCallTypeError`
+  - `HelperNotFoundException` -> `HelperNotFoundError`
+  - `JvmExistsException` -> `JniVmExistsError`
+  - `NoJvmInstanceException` -> `NoJvmInstanceError`
 - **Breaking Change**: Removed `InvalidJStringException`.
 
-[TODO(#393): Add the fact that `JException` is now a `JObject`.]: <>
+[TODO(#393): Add the fact that `JException` is now a `JObject`.]: #
 
 ## 0.7.0
 
