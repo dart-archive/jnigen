@@ -13,7 +13,7 @@ import 'jni.dart';
 extension ProtectedJReference on JReference {
   void setAsReleased() {
     if (_released) {
-      throw DoubleReleaseException(_reference);
+      throw DoubleReleaseError();
     }
     _released = true;
     JReference._finalizer.detach(this);
@@ -55,7 +55,7 @@ abstract class JReference implements Finalizable {
 
   /// Deletes the underlying JNI reference.
   ///
-  /// Further uses will throw [UseAfterReleaseException].
+  /// Further uses will throw [UseAfterReleaseError].
   void release() {
     setAsReleased();
     Jni.env.DeleteGlobalRef(_reference);
@@ -63,12 +63,12 @@ abstract class JReference implements Finalizable {
 
   /// The underlying JNI global object reference.
   ///
-  /// Throws [UseAfterReleaseException] if the object is previously released.
+  /// Throws [UseAfterReleaseError] if the object is previously released.
   ///
   /// Be careful when storing this in a variable since it might have gotten
   /// released upon use.
   JObjectPtr get reference {
-    if (_released) throw UseAfterReleaseException(_reference);
+    if (_released) throw UseAfterReleaseError();
     return _reference;
   }
 

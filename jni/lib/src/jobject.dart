@@ -178,7 +178,7 @@ class JObject extends JReference {
   }
 
   /// Deletes the JNI reference and marks this object as released. Any further
-  /// uses will throw [UseAfterReleaseException].
+  /// uses will throw [UseAfterReleaseError].
   @override
   void release() {
     _jClass?.release();

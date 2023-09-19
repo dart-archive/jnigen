@@ -209,8 +209,8 @@ void run({required TestRunnerCallback testRunner}) {
       expect(backToStr.toDartString(), str.toDartString());
       final _ = backToStr.castTo(JObject.type, releaseOriginal: true)
         ..releasedBy(arena);
-      expect(backToStr.toDartString, throwsA(isA<UseAfterReleaseException>()));
-      expect(backToStr.release, throwsA(isA<DoubleReleaseException>()));
+      expect(backToStr.toDartString, throwsA(isA<UseAfterReleaseError>()));
+      expect(backToStr.release, throwsA(isA<DoubleReleaseError>()));
     });
   });
 

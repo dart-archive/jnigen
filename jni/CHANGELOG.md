@@ -1,3 +1,12 @@
+## 0.8.0-wip
+
+- **Breaking Change** ([#394](https://github.com/dart-lang/jnigen/issues/394)):
+  Renamed `UseAfterFreeException` and `DoubleFreeException` to
+  `UseAfterFreeError` and `DoubleFreeError`. Now they both extend `Error`.
+- **Breaking Change**: Removed `InvalidJStringException`.
+
+[TODO(#393): Add the fact that `JException` is now a `JObject`.]: <>
+
 ## 0.7.0
 
 - **Breaking Change** ([#387](https://github.com/dart-lang/jnigen/issues/387)):

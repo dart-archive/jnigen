@@ -2,17 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:ffi';
-
 import 'package:jni/src/third_party/generated_bindings.dart';
 
-class UseAfterReleaseException implements Exception {
-  final Pointer<Void> ptr;
-  UseAfterReleaseException(this.ptr);
-
+final class UseAfterReleaseError extends Error {
   @override
   String toString() {
-    return 'Use after release on $ptr.';
+    return 'Use after release error.';
   }
 }
 
@@ -24,13 +19,10 @@ class JNullException implements Exception {
   String toString() => 'The reference was null.';
 }
 
-class DoubleReleaseException implements Exception {
-  final Pointer<Void> ptr;
-  DoubleReleaseException(this.ptr);
-
+class DoubleReleaseError extends Error {
   @override
   String toString() {
-    return 'Double release on $ptr.';
+    return 'Double release error.';
   }
 }
 
