@@ -16,8 +16,8 @@
   of `int` to be consistent with the way arguments work.
 - **Breaking Change**: `JType` is now `sealed`.
 - **Breaking Change**: Primitive types and their type classes are now `final`.
-- **Breaking Change**: `JArray.filled` now uses the Dart type of the `fill`
-  object and not its Java runtime type.
+- **Breaking Change**: `JArray.filled` now uses the generated type class of the
+  `fill` object and not its Java runtime type.
 
 ## 0.7.0
 
