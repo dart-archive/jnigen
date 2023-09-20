@@ -38,9 +38,7 @@ class JByte extends JNumber {
   // ignore: overridden_fields
   late final JObjType<JByte> $type = type;
 
-  JByte.fromRef(
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+  JByte.fromRef(super.reference) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = JByteType();

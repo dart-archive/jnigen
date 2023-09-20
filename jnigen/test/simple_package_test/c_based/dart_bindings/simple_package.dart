@@ -36,8 +36,8 @@ class Color extends jni.JObject {
   late final jni.JObjType<Color> $type = type;
 
   Color.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $ColorType();
@@ -96,8 +96,8 @@ class Example extends jni.JObject {
   late final jni.JObjType<Example> $type = type;
 
   Example.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $ExampleType();
@@ -810,8 +810,8 @@ class Example_Nested extends jni.JObject {
   late final jni.JObjType<Example_Nested> $type = type;
 
   Example_Nested.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $Example_NestedType();
@@ -896,8 +896,8 @@ class Example_Nested_NestedTwice extends jni.JObject {
   late final jni.JObjType<Example_Nested_NestedTwice> $type = type;
 
   Example_Nested_NestedTwice.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $Example_Nested_NestedTwiceType();
@@ -962,8 +962,8 @@ class Example_NonStaticNested extends jni.JObject {
   late final jni.JObjType<Example_NonStaticNested> $type = type;
 
   Example_NonStaticNested.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $Example_NonStaticNestedType();
@@ -1038,8 +1038,8 @@ class Exceptions extends jni.JObject {
   late final jni.JObjType<Exceptions> $type = type;
 
   Exceptions.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $ExceptionsType();
@@ -1280,8 +1280,8 @@ class Fields extends jni.JObject {
   late final jni.JObjType<Fields> $type = type;
 
   Fields.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $FieldsType();
@@ -1535,8 +1535,8 @@ class Fields_Nested extends jni.JObject {
   late final jni.JObjType<Fields_Nested> $type = type;
 
   Fields_Nested.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $Fields_NestedType();
@@ -1626,8 +1626,8 @@ class C2 extends jni.JObject {
   late final jni.JObjType<C2> $type = type;
 
   C2.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $C2Type();
@@ -1688,8 +1688,8 @@ class Example1 extends jni.JObject {
   late final jni.JObjType<Example1> $type = type;
 
   Example1.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $Example1Type();
@@ -1751,8 +1751,8 @@ class GenericTypeParams<$S extends jni.JObject, $K extends jni.JObject>
   GenericTypeParams.fromRef(
     this.S,
     this.K,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static $GenericTypeParamsType<$S, $K>
@@ -1825,8 +1825,8 @@ class GrandParent<$T extends jni.JObject> extends jni.JObject {
 
   GrandParent.fromRef(
     this.T,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static $GrandParentType<$T> type<$T extends jni.JObject>(
@@ -2002,8 +2002,8 @@ class GrandParent_Parent<$T extends jni.JObject, $S extends jni.JObject>
   GrandParent_Parent.fromRef(
     this.T,
     this.S,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static $GrandParent_ParentType<$T, $S>
@@ -2147,8 +2147,8 @@ class GrandParent_Parent_Child<$T extends jni.JObject, $S extends jni.JObject,
     this.T,
     this.S,
     this.U,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static $GrandParent_Parent_ChildType<$T, $S, $U> type<$T extends jni.JObject,
@@ -2324,8 +2324,8 @@ class GrandParent_StaticParent<$S extends jni.JObject> extends jni.JObject {
 
   GrandParent_StaticParent.fromRef(
     this.S,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static $GrandParent_StaticParentType<$S> type<$S extends jni.JObject>(
@@ -2427,8 +2427,8 @@ class GrandParent_StaticParent_Child<$S extends jni.JObject,
   GrandParent_StaticParent_Child.fromRef(
     this.S,
     this.U,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static $GrandParent_StaticParent_ChildType<$S, $U>
@@ -2577,8 +2577,8 @@ class MyMap<$K extends jni.JObject, $V extends jni.JObject>
   MyMap.fromRef(
     this.K,
     this.V,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static $MyMapType<$K, $V>
@@ -2699,8 +2699,8 @@ class MyMap_MyEntry<$K extends jni.JObject, $V extends jni.JObject>
   MyMap_MyEntry.fromRef(
     this.K,
     this.V,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static $MyMap_MyEntryType<$K, $V>
@@ -2841,8 +2841,8 @@ class MyStack<$T extends jni.JObject> extends jni.JObject {
 
   MyStack.fromRef(
     this.T,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static $MyStackType<$T> type<$T extends jni.JObject>(
@@ -3036,8 +3036,11 @@ class StringKeyedMap<$V extends jni.JObject> extends MyMap<jni.JString, $V> {
 
   StringKeyedMap.fromRef(
     this.V,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(const jni.JStringType(), V, ref);
+    super.reference,
+  ) : super.fromRef(
+          const jni.JStringType(),
+          V,
+        );
 
   /// The type which includes information such as the signature of this class.
   static $StringKeyedMapType<$V> type<$V extends jni.JObject>(
@@ -3100,8 +3103,10 @@ class StringMap extends StringKeyedMap<jni.JString> {
   late final jni.JObjType<StringMap> $type = type;
 
   StringMap.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(const jni.JStringType(), ref);
+    super.reference,
+  ) : super.fromRef(
+          const jni.JStringType(),
+        );
 
   /// The type which includes information such as the signature of this class.
   static const type = $StringMapType();
@@ -3146,8 +3151,10 @@ class StringStack extends MyStack<jni.JString> {
   late final jni.JObjType<StringStack> $type = type;
 
   StringStack.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(const jni.JStringType(), ref);
+    super.reference,
+  ) : super.fromRef(
+          const jni.JStringType(),
+        );
 
   /// The type which includes information such as the signature of this class.
   static const type = $StringStackType();
@@ -3195,8 +3202,11 @@ class StringValuedMap<$K extends jni.JObject> extends MyMap<$K, jni.JString> {
 
   StringValuedMap.fromRef(
     this.K,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(K, const jni.JStringType(), ref);
+    super.reference,
+  ) : super.fromRef(
+          K,
+          const jni.JStringType(),
+        );
 
   /// The type which includes information such as the signature of this class.
   static $StringValuedMapType<$K> type<$K extends jni.JObject>(
@@ -3262,8 +3272,8 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
 
   MyInterface.fromRef(
     this.T,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static $MyInterfaceType<$T> type<$T extends jni.JObject>(
@@ -3539,8 +3549,8 @@ class MyInterfaceConsumer extends jni.JObject {
   late final jni.JObjType<MyInterfaceConsumer> $type = type;
 
   MyInterfaceConsumer.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $MyInterfaceConsumerType();
@@ -3658,8 +3668,8 @@ class MyRunnable extends jni.JObject {
   late final jni.JObjType<MyRunnable> $type = type;
 
   MyRunnable.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $MyRunnableType();
@@ -3794,8 +3804,8 @@ class MyRunnableRunner extends jni.JObject {
   late final jni.JObjType<MyRunnableRunner> $type = type;
 
   MyRunnableRunner.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $MyRunnableRunnerType();
@@ -3895,8 +3905,8 @@ class JsonSerializable_Case extends jni.JObject {
   late final jni.JObjType<JsonSerializable_Case> $type = type;
 
   JsonSerializable_Case.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $JsonSerializable_CaseType();
@@ -3962,8 +3972,8 @@ class MyDataClass extends jni.JObject {
   late final jni.JObjType<MyDataClass> $type = type;
 
   MyDataClass.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $MyDataClassType();

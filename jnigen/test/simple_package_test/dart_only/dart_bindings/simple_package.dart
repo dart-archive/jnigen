@@ -31,8 +31,8 @@ class Color extends jni.JObject {
   late final jni.JObjType<Color> $type = type;
 
   Color.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/simple_package/Color");
@@ -98,8 +98,8 @@ class Example extends jni.JObject {
   late final jni.JObjType<Example> $type = type;
 
   Example.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/simple_package/Example");
@@ -749,8 +749,8 @@ class Example_Nested extends jni.JObject {
   late final jni.JObjType<Example_Nested> $type = type;
 
   Example_Nested.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/simple_package/Example$Nested");
@@ -831,8 +831,8 @@ class Example_Nested_NestedTwice extends jni.JObject {
   late final jni.JObjType<Example_Nested_NestedTwice> $type = type;
 
   Example_Nested_NestedTwice.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/simple_package/Example$Nested$NestedTwice");
@@ -899,8 +899,8 @@ class Example_NonStaticNested extends jni.JObject {
   late final jni.JObjType<Example_NonStaticNested> $type = type;
 
   Example_NonStaticNested.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/simple_package/Example$NonStaticNested");
@@ -969,8 +969,8 @@ class Exceptions extends jni.JObject {
   late final jni.JObjType<Exceptions> $type = type;
 
   Exceptions.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/simple_package/Exceptions");
@@ -1203,8 +1203,8 @@ class Fields extends jni.JObject {
   late final jni.JObjType<Fields> $type = type;
 
   Fields.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/simple_package/Fields");
@@ -1414,8 +1414,8 @@ class Fields_Nested extends jni.JObject {
   late final jni.JObjType<Fields_Nested> $type = type;
 
   Fields_Nested.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/simple_package/Fields$Nested");
@@ -1499,8 +1499,8 @@ class C2 extends jni.JObject {
   late final jni.JObjType<C2> $type = type;
 
   C2.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/pkg2/C2");
@@ -1563,8 +1563,8 @@ class Example1 extends jni.JObject {
   late final jni.JObjType<Example1> $type = type;
 
   Example1.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/pkg2/Example");
@@ -1627,8 +1627,8 @@ class GenericTypeParams<$S extends jni.JObject, $K extends jni.JObject>
   GenericTypeParams.fromRef(
     this.S,
     this.K,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/generics/GenericTypeParams");
@@ -1707,8 +1707,8 @@ class GrandParent<$T extends jni.JObject> extends jni.JObject {
 
   GrandParent.fromRef(
     this.T,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/generics/GrandParent");
@@ -1878,8 +1878,8 @@ class GrandParent_Parent<$T extends jni.JObject, $S extends jni.JObject>
   GrandParent_Parent.fromRef(
     this.T,
     this.S,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/generics/GrandParent$Parent");
@@ -2008,8 +2008,8 @@ class GrandParent_Parent_Child<$T extends jni.JObject, $S extends jni.JObject,
     this.T,
     this.S,
     this.U,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/generics/GrandParent$Parent$Child");
@@ -2160,8 +2160,8 @@ class GrandParent_StaticParent<$S extends jni.JObject> extends jni.JObject {
 
   GrandParent_StaticParent.fromRef(
     this.S,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/generics/GrandParent$StaticParent");
@@ -2257,8 +2257,8 @@ class GrandParent_StaticParent_Child<$S extends jni.JObject,
   GrandParent_StaticParent_Child.fromRef(
     this.S,
     this.U,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/generics/GrandParent$StaticParent$Child");
@@ -2390,8 +2390,8 @@ class MyMap<$K extends jni.JObject, $V extends jni.JObject>
   MyMap.fromRef(
     this.K,
     this.V,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/generics/MyMap");
@@ -2510,8 +2510,8 @@ class MyMap_MyEntry<$K extends jni.JObject, $V extends jni.JObject>
   MyMap_MyEntry.fromRef(
     this.K,
     this.V,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/generics/MyMap$MyEntry");
@@ -2637,8 +2637,8 @@ class MyStack<$T extends jni.JObject> extends jni.JObject {
 
   MyStack.fromRef(
     this.T,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/generics/MyStack");
@@ -2837,8 +2837,11 @@ class StringKeyedMap<$V extends jni.JObject> extends MyMap<jni.JString, $V> {
 
   StringKeyedMap.fromRef(
     this.V,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(const jni.JStringType(), V, ref);
+    super.reference,
+  ) : super.fromRef(
+          const jni.JStringType(),
+          V,
+        );
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/generics/StringKeyedMap");
@@ -2906,8 +2909,10 @@ class StringMap extends StringKeyedMap<jni.JString> {
   late final jni.JObjType<StringMap> $type = type;
 
   StringMap.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(const jni.JStringType(), ref);
+    super.reference,
+  ) : super.fromRef(
+          const jni.JStringType(),
+        );
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/generics/StringMap");
@@ -2955,8 +2960,10 @@ class StringStack extends MyStack<jni.JString> {
   late final jni.JObjType<StringStack> $type = type;
 
   StringStack.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(const jni.JStringType(), ref);
+    super.reference,
+  ) : super.fromRef(
+          const jni.JStringType(),
+        );
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/generics/StringStack");
@@ -3007,8 +3014,11 @@ class StringValuedMap<$K extends jni.JObject> extends MyMap<$K, jni.JString> {
 
   StringValuedMap.fromRef(
     this.K,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(K, const jni.JStringType(), ref);
+    super.reference,
+  ) : super.fromRef(
+          K,
+          const jni.JStringType(),
+        );
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/generics/StringValuedMap");
@@ -3079,8 +3089,8 @@ class MyInterface<$T extends jni.JObject> extends jni.JObject {
 
   MyInterface.fromRef(
     this.T,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/interfaces/MyInterface");
@@ -3348,8 +3358,8 @@ class MyInterfaceConsumer extends jni.JObject {
   late final jni.JObjType<MyInterfaceConsumer> $type = type;
 
   MyInterfaceConsumer.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/interfaces/MyInterfaceConsumer");
@@ -3464,8 +3474,8 @@ class MyRunnable extends jni.JObject {
   late final jni.JObjType<MyRunnable> $type = type;
 
   MyRunnable.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/interfaces/MyRunnable");
@@ -3601,8 +3611,8 @@ class MyRunnableRunner extends jni.JObject {
   late final jni.JObjType<MyRunnableRunner> $type = type;
 
   MyRunnableRunner.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/interfaces/MyRunnableRunner");
@@ -3689,8 +3699,8 @@ class JsonSerializable_Case extends jni.JObject {
   late final jni.JObjType<JsonSerializable_Case> $type = type;
 
   JsonSerializable_Case.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/annotations/JsonSerializable$Case");
@@ -3760,8 +3770,8 @@ class MyDataClass extends jni.JObject {
   late final jni.JObjType<MyDataClass> $type = type;
 
   MyDataClass.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = jni.Jni.findJClass(
       r"com/github/dart_lang/jnigen/annotations/MyDataClass");

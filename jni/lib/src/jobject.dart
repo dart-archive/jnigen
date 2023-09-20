@@ -169,7 +169,7 @@ class JObject extends JReference {
   static const JObjType<JObject> type = JObjectType();
 
   /// Construct a new [JObject] with [reference] as its underlying reference.
-  JObject.fromRef(JObjectPtr reference) : super.fromRef(reference);
+  JObject.fromRef(super.reference) : super.fromRef();
 
   JClass? _jClass;
 
@@ -351,7 +351,7 @@ class JObject extends JReference {
 /// A high level wrapper over a JNI class reference.
 class JClass extends JReference {
   /// Construct a new [JClass] with [reference] as its underlying reference.
-  JClass.fromRef(JObjectPtr reference) : super.fromRef(reference);
+  JClass.fromRef(super.reference) : super.fromRef();
 
   /// Get [JFieldIDPtr] of static field [fieldName] with [signature].
   JFieldIDPtr getStaticFieldID(String fieldName, String signature) {

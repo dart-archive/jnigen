@@ -9,7 +9,6 @@ import 'package:jni/src/jreference.dart';
 
 import '../jni.dart';
 import '../jobject.dart';
-import '../third_party/generated_bindings.dart';
 import '../types.dart';
 
 final class JStringType extends JObjType<JString> {
@@ -45,7 +44,7 @@ class JString extends JObject {
   static const JObjType<JString> type = JStringType();
 
   /// Construct a new [JString] with [reference] as its underlying reference.
-  JString.fromRef(JStringPtr reference) : super.fromRef(reference);
+  JString.fromRef(super.reference) : super.fromRef();
 
   /// The number of Unicode characters in this Java string.
   int get length => Jni.env.GetStringLength(reference);

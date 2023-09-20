@@ -52,8 +52,8 @@ class PDDocument extends jni.JObject {
   late final jni.JObjType<PDDocument> $type = type;
 
   PDDocument.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $PDDocumentType();

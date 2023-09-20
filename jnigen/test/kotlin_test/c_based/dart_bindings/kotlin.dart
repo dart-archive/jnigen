@@ -36,8 +36,8 @@ class SuspendFun extends jni.JObject {
   late final jni.JObjType<SuspendFun> $type = type;
 
   SuspendFun.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $SuspendFunType();

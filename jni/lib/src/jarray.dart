@@ -54,8 +54,7 @@ class JArray<E> extends JObject {
       JArrayType(innerType);
 
   /// Construct a new [JArray] with [reference] as its underlying reference.
-  JArray.fromRef(this.elementType, JArrayPtr reference)
-      : super.fromRef(reference);
+  JArray.fromRef(this.elementType, super.reference) : super.fromRef();
 
   /// Creates a [JArray] of the given length from the given [type].
   ///

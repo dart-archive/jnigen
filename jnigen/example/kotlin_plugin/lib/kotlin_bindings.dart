@@ -32,8 +32,8 @@ class Example extends jni.JObject {
   late final jni.JObjType<Example> $type = type;
 
   Example.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $ExampleType();

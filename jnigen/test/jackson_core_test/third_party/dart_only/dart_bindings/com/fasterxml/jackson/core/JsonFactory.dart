@@ -64,8 +64,8 @@ class JsonFactory extends jni.JObject {
   late final jni.JObjType<JsonFactory> $type = type;
 
   JsonFactory.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/fasterxml/jackson/core/JsonFactory");
@@ -1789,8 +1789,8 @@ class JsonFactory_Feature extends jni.JObject {
   late final jni.JObjType<JsonFactory_Feature> $type = type;
 
   JsonFactory_Feature.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/fasterxml/jackson/core/JsonFactory$Feature");

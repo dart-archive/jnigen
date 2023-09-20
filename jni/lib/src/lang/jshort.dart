@@ -38,9 +38,7 @@ class JShort extends JNumber {
   // ignore: overridden_fields
   late final JObjType<JShort> $type = type;
 
-  JShort.fromRef(
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+  JShort.fromRef(super.reference) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = JShortType();

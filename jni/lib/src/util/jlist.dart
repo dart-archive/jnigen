@@ -52,8 +52,8 @@ class JList<$E extends JObject> extends JObject with ListMixin<$E> {
 
   JList.fromRef(
     this.E,
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = Jni.findJClass(r"java/util/List");
 

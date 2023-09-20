@@ -36,8 +36,8 @@ class Notifications extends jni.JObject {
   late final jni.JObjType<Notifications> $type = type;
 
   Notifications.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $NotificationsType();

@@ -38,9 +38,7 @@ class JInteger extends JNumber {
   // ignore: overridden_fields
   late final JObjType<JInteger> $type = type;
 
-  JInteger.fromRef(
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+  JInteger.fromRef(super.reference) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = JIntegerType();

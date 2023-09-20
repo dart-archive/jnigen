@@ -31,8 +31,8 @@ class SuspendFun extends jni.JObject {
   late final jni.JObjType<SuspendFun> $type = type;
 
   SuspendFun.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/github/dart_lang/jnigen/SuspendFun");

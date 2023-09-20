@@ -65,8 +65,8 @@ class JsonFactory extends jni.JObject {
   late final jni.JObjType<JsonFactory> $type = type;
 
   JsonFactory.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $JsonFactoryType();
@@ -1887,8 +1887,8 @@ class JsonFactory_Feature extends jni.JObject {
   late final jni.JObjType<JsonFactory_Feature> $type = type;
 
   JsonFactory_Feature.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $JsonFactory_FeatureType();

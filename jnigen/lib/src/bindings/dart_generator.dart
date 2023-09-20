@@ -355,10 +355,9 @@ class $name$typeParamsDef extends $superName {
 
   $name.fromRef(
     $ctorTypeClassesDef
-    $_jPointer ref,
+    super.reference,
   ): super.fromRef(
     $superTypeClassesCall
-    ref
   );
 
 ''');

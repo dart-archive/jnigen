@@ -51,8 +51,8 @@ class JsonParser extends jni.JObject {
   late final jni.JObjType<JsonParser> $type = type;
 
   JsonParser.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/fasterxml/jackson/core/JsonParser");
@@ -2521,8 +2521,8 @@ class JsonParser_Feature extends jni.JObject {
   late final jni.JObjType<JsonParser_Feature> $type = type;
 
   JsonParser_Feature.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/fasterxml/jackson/core/JsonParser$Feature");
@@ -2635,8 +2635,8 @@ class JsonParser_NumberType extends jni.JObject {
   late final jni.JObjType<JsonParser_NumberType> $type = type;
 
   JsonParser_NumberType.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/fasterxml/jackson/core/JsonParser$NumberType");

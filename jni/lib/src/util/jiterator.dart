@@ -47,8 +47,8 @@ class JIterator<$E extends JObject> extends JObject implements Iterator<$E> {
 
   JIterator.fromRef(
     this.E,
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = Jni.findJClass(r"java/util/Iterator");
 

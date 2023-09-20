@@ -57,8 +57,8 @@ class JMap<$K extends JObject, $V extends JObject> extends JObject
   JMap.fromRef(
     this.K,
     this.V,
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = Jni.findJClass(r"java/util/Map");
 

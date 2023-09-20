@@ -37,9 +37,7 @@ class JDouble extends JNumber {
   // ignore: overridden_fields
   late final JObjType<JDouble> $type = type;
 
-  JDouble.fromRef(
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+  JDouble.fromRef(super.reference) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = JDoubleType();

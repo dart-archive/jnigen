@@ -47,8 +47,8 @@ class JsonToken extends jni.JObject {
   late final jni.JObjType<JsonToken> $type = type;
 
   JsonToken.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class =
       jni.Jni.findJClass(r"com/fasterxml/jackson/core/JsonToken");

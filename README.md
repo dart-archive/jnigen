@@ -56,7 +56,7 @@ final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
 
 /// from: com.example.in_app_java.AndroidUtils
 class AndroidUtils extends jni.JObject {
-  AndroidUtils.fromRef(ffi.Pointer<ffi.Void> ref) : super.fromRef(ref);
+  AndroidUtils.fromRef(super.reference) : super.fromRef();
 
   static final _showToast = jniLookup<
           ffi.NativeFunction<

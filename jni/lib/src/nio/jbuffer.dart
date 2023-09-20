@@ -49,9 +49,7 @@ class JBuffer extends JObject {
   // ignore: overridden_fields
   late final JObjType<JBuffer> $type = type;
 
-  JBuffer.fromRef(
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+  JBuffer.fromRef(super.reference) : super.fromRef();
 
   static final _class = Jni.findJClass(r"java/nio/Buffer");
 

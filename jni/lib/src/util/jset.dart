@@ -51,8 +51,8 @@ class JSet<$E extends JObject> extends JObject with SetMixin<$E> {
 
   JSet.fromRef(
     this.E,
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   static final _class = Jni.findJClass(r"java/util/Set");
 

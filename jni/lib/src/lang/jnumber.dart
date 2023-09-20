@@ -46,9 +46,7 @@ class JNumber extends JObject {
   // ignore: overridden_fields
   late final JObjType<JNumber> $type = type;
 
-  JNumber.fromRef(
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+  JNumber.fromRef(super.reference) : super.fromRef();
 
   static final _class = Jni.findJClass(r"java/lang/Number");
 

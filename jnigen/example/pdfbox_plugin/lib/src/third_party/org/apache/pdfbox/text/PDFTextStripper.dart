@@ -56,8 +56,8 @@ class PDFTextStripper extends jni.JObject {
   late final jni.JObjType<PDFTextStripper> $type = type;
 
   PDFTextStripper.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $PDFTextStripperType();

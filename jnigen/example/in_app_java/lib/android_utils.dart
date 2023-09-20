@@ -32,8 +32,8 @@ class AndroidUtils extends jni.JObject {
   late final jni.JObjType<AndroidUtils> $type = type;
 
   AndroidUtils.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $AndroidUtilsType();
@@ -134,8 +134,8 @@ class EmojiCompat extends jni.JObject {
   late final jni.JObjType<EmojiCompat> $type = type;
 
   EmojiCompat.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $EmojiCompatType();
@@ -1061,8 +1061,8 @@ class EmojiCompat_Config extends jni.JObject {
   late final jni.JObjType<EmojiCompat_Config> $type = type;
 
   EmojiCompat_Config.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $EmojiCompat_ConfigType();
@@ -1396,8 +1396,8 @@ class EmojiCompat_MetadataRepoLoaderCallback extends jni.JObject {
   late final jni.JObjType<EmojiCompat_MetadataRepoLoaderCallback> $type = type;
 
   EmojiCompat_MetadataRepoLoaderCallback.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $EmojiCompat_MetadataRepoLoaderCallbackType();
@@ -1486,8 +1486,8 @@ class EmojiCompat_GlyphChecker extends jni.JObject {
   late final jni.JObjType<EmojiCompat_GlyphChecker> $type = type;
 
   EmojiCompat_GlyphChecker.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $EmojiCompat_GlyphCheckerType();
@@ -1586,8 +1586,8 @@ class EmojiCompat_MetadataRepoLoader extends jni.JObject {
   late final jni.JObjType<EmojiCompat_MetadataRepoLoader> $type = type;
 
   EmojiCompat_MetadataRepoLoader.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $EmojiCompat_MetadataRepoLoaderType();
@@ -1649,8 +1649,8 @@ class EmojiCompat_InitCallback extends jni.JObject {
   late final jni.JObjType<EmojiCompat_InitCallback> $type = type;
 
   EmojiCompat_InitCallback.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $EmojiCompat_InitCallbackType();
@@ -1732,8 +1732,8 @@ class EmojiCompat_DefaultSpanFactory extends jni.JObject {
   late final jni.JObjType<EmojiCompat_DefaultSpanFactory> $type = type;
 
   EmojiCompat_DefaultSpanFactory.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $EmojiCompat_DefaultSpanFactoryType();
@@ -1812,8 +1812,8 @@ class EmojiCompat_SpanFactory extends jni.JObject {
   late final jni.JObjType<EmojiCompat_SpanFactory> $type = type;
 
   EmojiCompat_SpanFactory.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $EmojiCompat_SpanFactoryType();
@@ -1909,8 +1909,8 @@ class DefaultEmojiCompatConfig extends jni.JObject {
   late final jni.JObjType<DefaultEmojiCompatConfig> $type = type;
 
   DefaultEmojiCompatConfig.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $DefaultEmojiCompatConfigType();
@@ -1978,8 +1978,8 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28
       $type = type;
 
   DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API28.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type =
@@ -2065,8 +2065,8 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19
       $type = type;
 
   DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper_API19.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type =
@@ -2174,8 +2174,8 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper
       type;
 
   DefaultEmojiCompatConfig_DefaultEmojiCompatConfigHelper.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type =
@@ -2309,8 +2309,8 @@ class DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory
       $type = type;
 
   DefaultEmojiCompatConfig_DefaultEmojiCompatConfigFactory.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type =
@@ -2392,8 +2392,8 @@ class Build_Partition extends jni.JObject {
   late final jni.JObjType<Build_Partition> $type = type;
 
   Build_Partition.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $Build_PartitionType();
@@ -2494,8 +2494,8 @@ class Build_VERSION extends jni.JObject {
   late final jni.JObjType<Build_VERSION> $type = type;
 
   Build_VERSION.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $Build_VERSIONType();
@@ -2646,8 +2646,8 @@ class Build_VERSION_CODES extends jni.JObject {
   late final jni.JObjType<Build_VERSION_CODES> $type = type;
 
   Build_VERSION_CODES.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $Build_VERSION_CODESType();
@@ -2797,8 +2797,8 @@ class Build extends jni.JObject {
   late final jni.JObjType<Build> $type = type;
 
   Build.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = $BuildType();
@@ -3150,8 +3150,8 @@ class HashMap<$K extends jni.JObject, $V extends jni.JObject>
   HashMap.fromRef(
     this.K,
     this.V,
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
+    super.reference,
+  ) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static $HashMapType<$K, $V>

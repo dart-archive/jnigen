@@ -92,9 +92,7 @@ class JByteBuffer extends JBuffer {
   // ignore: overridden_fields
   late final JObjType<JByteBuffer> $type = type;
 
-  JByteBuffer.fromRef(
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+  JByteBuffer.fromRef(super.reference) : super.fromRef();
 
   static final _class = Jni.findJClass(r"java/nio/ByteBuffer");
 

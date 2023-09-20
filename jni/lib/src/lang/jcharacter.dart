@@ -35,9 +35,7 @@ class JCharacter extends JObject {
   // ignore: overridden_fields
   late final JObjType<JCharacter> $type = type;
 
-  JCharacter.fromRef(
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+  JCharacter.fromRef(super.reference) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = JCharacterType();

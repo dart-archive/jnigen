@@ -37,9 +37,7 @@ class JLong extends JNumber {
   // ignore: overridden_fields
   late final JObjType<JLong> $type = type;
 
-  JLong.fromRef(
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+  JLong.fromRef(super.reference) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = JLongType();

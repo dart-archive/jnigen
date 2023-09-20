@@ -38,9 +38,7 @@ class JBoolean extends JObject {
   // ignore: overridden_fields
   late final JObjType<JBoolean> $type = type;
 
-  JBoolean.fromRef(
-    JObjectPtr ref,
-  ) : super.fromRef(ref);
+  JBoolean.fromRef(super.reference) : super.fromRef();
 
   /// The type which includes information such as the signature of this class.
   static const type = JBooleanType();
