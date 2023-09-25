@@ -93,7 +93,7 @@ abstract class JReference implements Finalizable {
 /// Object mixed in with this must call their super.[fromRef] constructor
 /// with [nullptr].
 ///
-/// For example in [JFinalString].
+/// Also see [JFinalString].
 mixin JLazyReference on JReference {
   JObjectPtr? _lazyReference;
 
