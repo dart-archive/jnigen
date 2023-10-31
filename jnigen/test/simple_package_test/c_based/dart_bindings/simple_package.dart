@@ -113,10 +113,25 @@ class Example extends jni.JObject {
 
   /// from: static public final char SEMICOLON
   static const SEMICOLON = 59;
+  static final _get_SEMICOLON_STRING =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "get_Example__SEMICOLON_STRING")
+          .asFunction<jni.JniResult Function()>();
 
   /// from: static public final java.lang.String SEMICOLON_STRING
-  static const SEMICOLON_STRING = r""";""";
+  /// The returned object must be released after use, by calling the [release] method.
+  static jni.JString get SEMICOLON_STRING =>
+      JFinalString(() => _get_SEMICOLON_STRING().object, ";");
+  static final _get_WEIRD_STRING =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
+              "get_Example__WEIRD_STRING")
+          .asFunction<jni.JniResult Function()>();
 
+  /// from: static public final java.lang.String WEIRD_STRING
+  /// The returned object must be released after use, by calling the [release] method.
+  static jni.JString get WEIRD_STRING => JFinalString(
+      () => _get_WEIRD_STRING().object,
+      "Correct'\u{8}\u{8}\nOmega:\t\u{3a9}\n\u{d83d}\u{de0e}\u{d83d}\u{de06}\n\\no \$accidental \"changes\"!\n\u{7}");
   static final _get_unusedRandom =
       jniLookup<ffi.NativeFunction<jni.JniResult Function()>>(
               "get_Example__unusedRandom")

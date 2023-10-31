@@ -672,11 +672,6 @@ class _TypeGenerator extends TypeVisitor<String> {
 
   @override
   String visitDeclaredType(DeclaredType node) {
-    if (node.classDecl.binaryName == 'java.lang.Object' ||
-        node.classDecl.binaryName == 'java.lang.String') {
-      return '$_jni.${node.classDecl.finalName}';
-    }
-
     // All type parameters of this type
     final allTypeParams = node.classDecl.allTypeParams
         .accept(const _TypeParamGenerator(withExtends: false))
@@ -1070,16 +1065,34 @@ class _FieldGenerator extends Visitor<Field, void> {
     if (node.isFinal && node.isStatic && node.defaultValue != null) {
       final name = node.finalName;
       final value = node.defaultValue!;
-      // TODO(#31): Should we leave String as a normal getter instead?
-      if (value is String || value is num || value is bool) {
+      if (value is num || value is bool) {
         writeDocs(node, writeReleaseInstructions: false);
-        s.write('  static const $name = ');
-        if (value is String) {
-          s.write('r"""$value"""');
-        } else {
-          s.write(value);
-        }
-        s.writeln(';\n');
+        s.writeln('  static const $name = $value;');
+        return;
+      } else if (value is String) {
+        (isCBased ? writeCAccessor : writeDartOnlyAccessor)(node);
+        final type = node.type.accept(_TypeGenerator(resolver));
+        writeDocs(node, writeReleaseInstructions: true);
+        const simpleEscapes = {
+          '\$': r'\$',
+          '\\': r'\\',
+          '"': r'\"',
+          '\n': r'\n',
+          '\r': r'\r',
+          '\t': r'\t',
+        };
+        final sanitized = value.splitMapJoin(
+          // All ASCII printable characters except '"', '$', '\'.
+          RegExp(r'[ !#%-[\]-~]'),
+          onNonMatch: (s) => s.codeUnits.map((codeUnit) {
+            // Use normal espacing for common characters to improve readability.
+            return simpleEscapes[String.fromCharCode(codeUnit)] ??
+                '\\u{${codeUnit.toRadixString(16)}}';
+          }).join(),
+        );
+        s.write('  static $type get $name => JFinalString(() => ');
+        s.write((isCBased ? cGetter : dartOnlyGetter)(node));
+        s.writeln(', "$sanitized");');
         return;
       }
     }

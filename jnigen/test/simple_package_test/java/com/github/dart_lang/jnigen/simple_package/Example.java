@@ -13,6 +13,7 @@ public class Example {
   public static final double PI = 3.14159;
   public static final char SEMICOLON = ';';
   public static final String SEMICOLON_STRING = ";";
+  public static final String WEIRD_STRING = "Correct'\b\b\nOmega:\t\u03A9\n😎😆\n\\no $accidental \"changes\"!\n\u0007";
 
   public static final Random unusedRandom = new Random();
 

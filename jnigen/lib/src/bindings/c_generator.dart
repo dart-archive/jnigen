@@ -249,9 +249,14 @@ class _CFieldGenerator extends Visitor<Field, void> {
     final fieldNameInC = node.accept(const CFieldName());
     final fieldVar = "$_fieldVarPrefix$fieldNameInC";
 
-    // If the field is final and default is assigned, then no need to wrap
-    // this field. It should then be a constant in dart code.
-    if (node.isStatic && node.isFinal && node.defaultValue != null) {
+    // If the field is final and a numeric or boolean default is assigned,
+    // then no need to wrap this field.
+    //
+    // It should then be a constant in Dart code.
+    if (node.isStatic &&
+        node.isFinal &&
+        node.defaultValue != null &&
+        (node.defaultValue is num || node.defaultValue is bool)) {
       return;
     }
 

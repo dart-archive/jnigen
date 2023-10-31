@@ -118,10 +118,34 @@ class Example extends jni.JObject {
 
   /// from: static public final char SEMICOLON
   static const SEMICOLON = 59;
+  static final _id_SEMICOLON_STRING = jni.Jni.accessors.getStaticFieldIDOf(
+    _class.reference,
+    r"SEMICOLON_STRING",
+    r"Ljava/lang/String;",
+  );
 
   /// from: static public final java.lang.String SEMICOLON_STRING
-  static const SEMICOLON_STRING = r""";""";
+  /// The returned object must be released after use, by calling the [release] method.
+  static jni.JString get SEMICOLON_STRING => JFinalString(
+      () => jni.Jni.accessors
+          .getStaticField(_class.reference, _id_SEMICOLON_STRING,
+              jni.JniCallType.objectType)
+          .object,
+      ";");
+  static final _id_WEIRD_STRING = jni.Jni.accessors.getStaticFieldIDOf(
+    _class.reference,
+    r"WEIRD_STRING",
+    r"Ljava/lang/String;",
+  );
 
+  /// from: static public final java.lang.String WEIRD_STRING
+  /// The returned object must be released after use, by calling the [release] method.
+  static jni.JString get WEIRD_STRING => JFinalString(
+      () => jni.Jni.accessors
+          .getStaticField(
+              _class.reference, _id_WEIRD_STRING, jni.JniCallType.objectType)
+          .object,
+      "Correct'\u{8}\u{8}\nOmega:\t\u{3a9}\n\u{d83d}\u{de0e}\u{d83d}\u{de06}\n\\no \$accidental \"changes\"!\n\u{7}");
   static final _id_unusedRandom = jni.Jni.accessors.getStaticFieldIDOf(
     _class.reference,
     r"unusedRandom",
