@@ -1,3 +1,24 @@
+## 0.8.0-wip
+
+- **Breaking Change** ([#394](https://github.com/dart-lang/jnigen/issues/394)):
+  Converted various `Exception`s into `Error`s:
+  - `UseAfterReleaseException` -> `UseAfterReleaseError`
+  - `DoubleReleaseException` -> `DoubleReleaseError`
+  - `SpawnException` -> `JniError` (It's now a `sealed class`)
+  - `JNullException` -> `JNullError`
+  - `InvalidCallTypeException` -> `InvalidCallTypeError`
+  - `HelperNotFoundException` -> `HelperNotFoundError`
+  - `JvmExistsException` -> `JniVmExistsError`
+  - `NoJvmInstanceException` -> `NoJvmInstanceError`
+- **Breaking Change**: Removed `InvalidJStringException`.
+- **Breaking Change**: The default return `callType` of type parameter `int` for
+  methods such as `JObject.callMethodByName<int>` is now Java's `long` instead
+  of `int` to be consistent with the way arguments work.
+- **Breaking Change**: `JType` is now `sealed`.
+- **Breaking Change**: Primitive types and their type classes are now `final`.
+- **Breaking Change**: `JArray.filled` now uses the generated type class of the
+  `fill` object and not its Java runtime type.
+
 ## 0.7.1
 - Removed macOS Flutter plugin until package:jni supports it ([#41](https://github.com/dart-lang/jnigen/issues/41)).
 

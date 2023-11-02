@@ -7,13 +7,13 @@ import 'dart:ffi';
 import 'package:ffi/ffi.dart';
 import 'package:jni/src/third_party/generated_bindings.dart';
 
-import 'jexceptions.dart';
+import 'errors.dart';
 import 'jni.dart';
 
 extension ProtectedJReference on JReference {
   void setAsReleased() {
     if (_released) {
-      throw DoubleReleaseException(_reference);
+      throw DoubleReleaseError();
     }
     _released = true;
     JReference._finalizer.detach(this);
@@ -21,7 +21,7 @@ extension ProtectedJReference on JReference {
 
   void ensureNotNull() {
     if (isNull) {
-      throw const JNullException();
+      throw JNullError();
     }
   }
 
@@ -29,8 +29,9 @@ extension ProtectedJReference on JReference {
   ///
   /// Detaches the finalizer so the underlying pointer will not be deleted.
   JObjectPtr toPointer() {
+    final ref = reference;
     setAsReleased();
-    return _reference;
+    return ref;
   }
 }
 
@@ -42,20 +43,24 @@ abstract class JReference implements Finalizable {
       NativeFinalizer(Jni.env.ptr.ref.DeleteGlobalRef.cast());
 
   JReference.fromRef(this._reference) {
-    _finalizer.attach(this, _reference, detach: this);
+    if (_reference != nullptr) {
+      _finalizer.attach(this, _reference, detach: this);
+    }
   }
 
   bool _released = false;
 
-  /// Check whether the underlying JNI reference is `null`.
+  /// Whether the underlying JNI reference is `null` or not.
   bool get isNull => reference == nullptr;
 
-  /// Returns `true` if the underlying JNI reference is deleted.
+  /// Whether the underlying JNI reference is deleted or not.
   bool get isReleased => _released;
 
-  /// Deletes the underlying JNI reference.
+  /// Deletes the underlying JNI reference and marks this as released.
   ///
-  /// Further uses will throw [UseAfterReleaseException].
+  /// Throws [DoubleReleaseError] if this is already released.
+  ///
+  /// Further uses of this object will throw [UseAfterReleaseError].
   void release() {
     setAsReleased();
     Jni.env.DeleteGlobalRef(_reference);
@@ -63,12 +68,12 @@ abstract class JReference implements Finalizable {
 
   /// The underlying JNI global object reference.
   ///
-  /// Throws [UseAfterReleaseException] if the object is previously released.
+  /// Throws [UseAfterReleaseError] if the object is previously released.
   ///
   /// Be careful when storing this in a variable since it might have gotten
   /// released upon use.
   JObjectPtr get reference {
-    if (_released) throw UseAfterReleaseException(_reference);
+    if (_released) throw UseAfterReleaseError();
     return _reference;
   }
 
@@ -78,17 +83,54 @@ abstract class JReference implements Finalizable {
   void releasedBy(Arena arena) => arena.onReleaseAll(release);
 }
 
+/// Creates a "lazy" [JReference].
+///
+/// The first use of [reference] will call [lazyReference].
+///
+/// This is useful when the Java object is not necessarily used directly, and
+/// there are alternative ways to get a Dart representation of the Object.
+///
+/// Object mixed in with this must call their super.[fromRef] constructor
+/// with [nullptr].
+///
+/// Also see [JFinalString].
+mixin JLazyReference on JReference {
+  JObjectPtr? _lazyReference;
+
+  JObjectPtr Function() get lazyReference;
+
+  @override
+  JObjectPtr get reference {
+    if (_lazyReference == null) {
+      _lazyReference = lazyReference();
+      JReference._finalizer.attach(this, _lazyReference!, detach: this);
+      return _lazyReference!;
+    }
+    if (_released) {
+      throw UseAfterReleaseError();
+    }
+    return _lazyReference!;
+  }
+
+  @override
+  void release() {
+    setAsReleased();
+    if (_lazyReference == null) {
+      return;
+    }
+    Jni.env.DeleteGlobalRef(_lazyReference!);
+  }
+}
+
 extension JReferenceUseExtension<T extends JReference> on T {
   /// Applies [callback] on [this] object and then delete the underlying JNI
   /// reference, returning the result of [callback].
   R use<R>(R Function(T) callback) {
     try {
       final result = callback(this);
-      release();
       return result;
-    } catch (e) {
+    } finally {
       release();
-      rethrow;
     }
   }
 }
