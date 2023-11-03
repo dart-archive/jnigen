@@ -4,7 +4,6 @@
 
 import 'dart:ffi';
 
-import 'package:ffi/ffi.dart';
 import 'package:jni/src/jreference.dart';
 
 import '../jni.dart';
