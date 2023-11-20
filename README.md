@@ -1,3 +1,7 @@
+# This package has moved!
+
+The package can now be found at https://github.com/dart-lang/native/tree/main/pkgs/jnigen.
+
 [![Build Status](https://github.com/dart-lang/jnigen/workflows/Dart%20CI/badge.svg)](https://github.com/dart-lang/jnigen/actions?query=workflow%3A%22Dart+CI%22+branch%3Amain)
 [![Coverage Status](https://coveralls.io/repos/github/dart-lang/jnigen/badge.svg?branch=main)](https://coveralls.io/github/dart-lang/jnigen?branch=main)
 
